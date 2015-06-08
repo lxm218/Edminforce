@@ -1,3 +1,4 @@
-change 1: when customer changes class, the next page will show either he have $ due or credit. if tuition doesn't change between two classes, this won't show.
+change
+1: when customer changes class, the next page will show either he have $ due or credit. if tuition doesn't change between two classes, this won't show.
 for new swimmer class registration, waiver form goes before payment page. if customer click agree, it leads to payment, if he click 'not agree', it leads to page says 'xxxx'
 for new membership enrollment, policy form and waiver form go before make payment. if customer clicks agree on both, it leads to payment. if customer clicks 'not agree', it leads to page says 'xxxx'
