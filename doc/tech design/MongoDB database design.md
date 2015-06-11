@@ -1,93 +1,150 @@
-## User Document
-### Purpose
-We maitain this form to use UserAccount Package to take care of log-in
-### Fileds
-This is specified by the package, two fields are of particular importance
-* email: the email address to log in, it will also be the contact email address for the account holder
-* usedId: the id will also be used to index the UserInfo Doc
-* userName: the name of the user
-> Question:
-> Can we add more fields to
+## Overview
+This document describes the details of each collection. Basically, we need following collections we:
 
-## UserInfo Document
-### Purpose
+* users: mainly for login information, Meteor user and account framework will create this collection by default.
+* accounts: normal account information, embed swimmers information 
+* swimmers: normal swimmer information, embed class information. Easy for querying, ranking and other swimmer related DB operations 
+* classes: swim class information, refers to swimmers collection, refers to coach information., Easy for DB CRUD operations from admin side.
+
+## "users" collection
+Those accounts who needs login to the system with password should create user login information in this collection.
+So far normal account users and coaches need to create user login information in this collection.
+
+NOTE: No separated "coaches" collection since it can be covered in this "users" collection
+
+### "user" document
+```javascript
+{
+  _id: "bbca5d6a-2156-41c4-89da-0329e8c99a4f",  // Meteor.userId()
+  username: "cool_kid_13", // unique name
+  emails: [
+    // each email address can only belong to one user.
+    { address: "cool@example.com", verified: true },
+    { address: "another@different.com", verified: false }
+  ],
+  createdAt: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT),
+  profile: {
+    // The profile is writable by the user by default.
+    name: "Joe Schmoe"
+  },
+  services: {
+    facebook: {
+      id: "709050", // facebook id
+      accessToken: "AAACCgdX7G2...AbV9AZDZD"
+    },
+    resume: {
+      loginTokens: [
+        { token: "97e8c205-c7e4-47c9-9bea-8e2ccc0694cd",
+          when: 1349761684048 }
+      ]
+    }
+  }
+}
+```
+
+Detail descriptions can be found in [Meteor doc](http://docs.meteor.com/#/full/meteor_users)
+
+We are not intent to modify the structure of this document and but put more information in "accounts" collection.
+
+Every account or coach will create a document in "users" collection when they sign up. The rest part of our App will use Meteor.userId() to refer to this login information.
+
+## "accounts" collection
+Every new user (not coach) will create a new document in this collection. Everything related an account will put in this collection. Each account embeds a "swimmers" array, which matches swimmers information in "swimmers" collection.
+
 This is used to record information for an account holder (parents for instance).
-### Fields
-// Contact Information
-* id: used to specify a particular user, the id specified by UserAccount Package
-* name: accound holder name, same to register page
-* email: email address for contact, this is also the email to register an account
-* phone: contact phone nubmer
 
-// Alternative Contact
-* atvName: name of the altative contact
-* atvEmail: email address of alternative contact
-* atvPhone: phone number of of alternative contact
-* atvRelation: relationship to user
-* atvContactFlag: boolean type to show whether we can contact the alternative contact
->Question: is atvRelation the relation to account holder or relation to swimmers?
+### "account" document
+```javascript
+{
+    _id: "bbca5d6a-2156-41c4-89da-0329e8c99a4f",  // Meteor.userId()
+    name: "Bryan Wu",
+    location: "Dublin" or "Fremont",
+    credits: 200.00, // Credit that can be used to buy class
+    paymentInfo: { // Payment information for online payment. TODO
+    },
+    contactInfo: { // Account contact information
+        email: "cooloney@gmail.com", // The email to sign up an account in "users" collection
+        phone: "+1 555 555 5555",
+        address: "Somewhere, San Jose, CA 95134",
+        allowContact: true,
+    },
+    alterContact: { // Alternative contact information 
+        name: "Mike Zhang"
+        email: "mikezhang@gmail.com",
+        phone: "+1 666 666 6666",
+        address: "Somewhere, San Jose, CA 95134",
+        relation: "Friend",
+        allowContact: true,
+    },
+    emergencyContact: { // Emergency contact information
+        name: "Cindy Wu"
+        email: "cindywu@gmail.com",
+        phone: "+1 888 888 8888",
+        address: "Somewhere, San Jose, CA 95134",
+        relation: "Sister",
+    },
+    swimmers: [ // Swimers array contains all the information about swimmers
+        {
+           // please refers to "swimmer" document
+        },
+    ],
+}
+```
 
-// emergency contact
-* emgName: name of the emergency contact
-* emgPhone: phone nubmer of the emergency contact
-* emgEmail: email address of the emergency contact
-* emgRelation: relationship to the account holder
->Question:
- Do we need to keep both alternative contact and emergency contact?
- is the relation relative to account holder?
+* Question 1:
+Do we need to keep both alternative contact and emergency contact? is the relation relative to account holder?
+* Question 2:
+Should locatoin for one account or for every swimmer? All the swimmer in one account is in same location?
 
-* password: password to log in  // this can also be stored
-* location: dublin or fremont
-* credit: credit that can be used to buy class
-* payment: payment information, if we can store
-* contactFlag: whethere we can contact the account holder
-* swimmerId: an array of swimmer IDs affiliated to the account
+## "swimmers" collection
+This collection holds all the information of swimmers. Each "swimmer" document embeds a "class" document.
 
-## Swimmer Document
-### Purpose
-This will be used to record swimmer information for a single swimmer
-### Fields
-* swimmerId: specify a swimmer
-* name: name of the swimmer
-* userId: the user to whom the swimmer affiliate
-* gender: gender of the swimmer
-* birthaday: birthday of the swimmer
-* level: the current level of the swimmer
-* waiveForm: whether the swimmer has agreed to the waiver
-* age: the age of the swimmer
-* coachId: the coach with whom the swimmer learn swimming
-* coachName: the name of the coach
-* status: paid or not
-* allergy: the allergy of the swimmer
-* registerDate: the date when the swimmer register the class
-* meetingDate: the date when the swimmer meets the coach
+### "swimmer" document
+```javascript
+{
+    _id: "bbca5d6a-2156-41c4-89da-0329e2deb9a4", // created when insert a new swimmer into "swimmers" collection
+    name: "Jessica Wang",
+    accountId: "bbca5d6a-2156-41c4-89da-0329e8c99a4f", // match account's user ID
+    birthday: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT), 
+    gender: "Female",
+    age: 2,
+    allergy: "Peanuts, ...",
+    level: 1,
+    waiveFormAgreed: true,
+    paymentStatus: true,
+    meetingDate: Wed Aug 21 2015 13:00:00 GMT-0700 (PDT), // meeting with coach
+    registerAt: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT), 
+    class: {
+        ..., // please refer to "class" document,
+    },
+}
+```
 
-// Below is a duplicate to the class information, when there is a change on class, we will use method call to
+*Question:
+ Each swimmer can only have one class, right?
 
-// change class document
-* classId: the id of the class
-* classDate: date of the class
-* className: name of the class
+## "classes" collection
+This collection is easily managed by admins and easy to generate classes calendar for class registration.
 
-## Class Document
-### Purpose
-This will be used to record swimmer information for a single class
-The class information is updated on backend. When a swimmer changes his class, we will use method call to change
-the class document separetely
-### Fields
-* classId: to specify a class
-* coachId: the coach who teaches the class
-* className: the name of the class
-* date: the date of the class
-* level: the lebel of the class
-* swimmerIds: the registered list of students
+### "class" document
+```javascript
+{
+    _id: "bbca5d6a-2156-41c4-89da-0329e2deb9a4", // created when insert a new "class" document into "classes" collection
+    name: "Level 1 freestyle swim class",
+    startDate: Wed Aug 21 2015 13:00:00 GMT-0700 (PDT),
+    endDate: Wed Aug 21 2015 13:00:00 GMT-0700 (PDT),
+    duration: "2 hours",
+    frequency: "Every Monday",
+    level: 1,
+    type: "Freestyle",
+    coachId: "bbca5d6a-2156-41c4-89da-0329e888efc5", // match coach's user ID
+    coachName: "Steve Guo",
+    students: [ // students array just store "swimmer" ID
+        { _id: ""},
+        ...,
+    ],
+}
+```
 
-## Coach Document
-### Pupose
-Recoord Information for Coach
-### Fields
-* coachId:
-* coachName:
-
-// wait for the design on administration part
-
+*Question:
+ How to handle the class date in a good way? Any calendar package?
