@@ -120,7 +120,7 @@ This collection holds all the information of swimmers. Each "swimmer" document e
 }
 ```
 
-*Question:
+* Question:
  Each swimmer can only have one class, right?
 
 ## "classes" collection
@@ -146,5 +146,5 @@ This collection is easily managed by admins and easy to generate classes calenda
 }
 ```
 
-*Question:
+* Question:
  How to handle the class date in a good way? Any calendar package?
