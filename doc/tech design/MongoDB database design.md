@@ -83,7 +83,7 @@ This is used to record information for an account holder (parents for instance).
         address: "Somewhere, San Jose, CA 95134",
         relation: "Sister",
     },
-    swimmers: [ // Swimers array contains all the information about swimmers
+    swimmers: [ // Swimmers array contains all the information about swimmers
         {
            // please refers to "swimmer" document
         },
@@ -94,7 +94,7 @@ This is used to record information for an account holder (parents for instance).
 * Question 1:
 Do we need to keep both alternative contact and emergency contact? is the relation relative to account holder?
 * Question 2:
-Should locatoin for one account or for every swimmer? All the swimmer in one account is in same location?
+Should location for one account or for every swimmer? All the swimmer in one account is in same location?
 
 ## "swimmers" collection
 This collection holds all the information of swimmers. Each "swimmer" document embeds a "class" document.
