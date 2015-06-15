@@ -29,6 +29,7 @@ NOTE: No separated "coaches" collection since it can be covered in this "users" 
   credits: 200.00, // Credit that can be used to buy class
   paymentInfo: { // Payment information for online payment. TODO}
 
+
   contactInfo: { // Account contact information
         phone: "+1 555 555 5555",
         address: "Somewhere, San Jose, CA 95134",
@@ -67,6 +68,7 @@ Every account or coach will create a document in "users" collection when they si
 
 * Question 1:
 Do we need to keep both alternative contact and emergency contact? is the relation relative to account holder?
+
 * Question 2:
 Should location for one account or for every swimmer? All the swimmer in one account is in same location?
 
@@ -95,9 +97,13 @@ This collection holds all the information of swimmers. Each "swimmer" document e
     paymentStatus: true,
     meetingDate: Wed Aug 21 2015 13:00:00 GMT-0700 (PDT), // meeting with coach
     registerAt: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT), 
-    class: {
+    class: [{ //an array of classes, one swimmer can attend multiple classes
         ..., // please refer to "class" document,
-    },
+    }],
+    future-classes:{[
+        ..., // please refer to "class" document,
+     }],
+    paymentStartTime: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT), // to start 15 minutes payment period
 }
 ```
 
@@ -120,12 +126,22 @@ This collection is easily managed by admins and easy to generate classes calenda
     type: "Freestyle",
     coachId: "bbca5d6a-2156-41c4-89da-0329e888efc5", // match coach's user ID
     coachName: "Steve Guo",
-    students: [ // students array just store "swimmer" ID
-        { _id: ""},
-        ...,
+
+    students-enrolled: [ // students array to store "swimmer" ID
+        {...}
     ],
+    availableSeats: 8
 }
 ```
 
 * Question:
  How to handle the class date in a good way? Any calendar package?
+
+* Question:
+At payment, first we create a page of summary, then the user agrees to make the payment. When he clicks check-out, we
+set the paymentStartTime in swimmers,  and decrease the number of  available seats by one. Then we start a timer on the
+server. If the payment is successful, we move the student to student enrolled. Otherwise, if we receive a time-out
+exeption, we will increase the number of available seats by one.
+
+If we can do this, how can we make sure that the payment procedure is interrupted? Can we intervene the execution of
+ stripe?
