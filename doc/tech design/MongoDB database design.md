@@ -3,14 +3,16 @@ This document describes the details of each collection. Basically, we need follo
 
 * users: mainly for login information, Meteor user and account framework will create this collection by default.
 * role: to record different roles we have, Meteor Role package will create the form automatically
-* swimmers: normal swimmer information, embed class information. Easy for querying, ranking and other swimmer related DB operations 
-* classes: swim class information, refers to swimmers collection, refers to coach information. Easy for DB CRUD operations from admin side.
+* swimmers: normal swimmer information, embed class information. Easy for querying, ranking and other swimmer related DB
+ operations
+* classes: swim class information, refers to swimmers collection, refers to coach information. Easy for DB CRUD
+operations from admin side.
 
 ## "users" collection
 Those accounts who needs login to the system with password should create user login information in this collection.
 So far normal account users, coaches and admins need to create user login information in this collection.
 
-NOTE: No separated "coaches" collection since it can be covered in this "users" collection
+NOTE: No separated "coaches" and "admin" collections since they can be covered in this "users" collection
 
 ### "user" document
 
@@ -19,9 +21,9 @@ NOTE: No separated "coaches" collection since it can be covered in this "users" 
 {
   _id: "bbca5d6a-2156-41c4-89da-0329e8c99a4f",  // Meteor.userId()
   emails: [
-    // each email address can only belong to one user.
-    // email is also used as login credential
-    { address: "cool@example.com", verified: true },
+        // each email address can only belong to one user.
+        // email is also used as login credential
+        { address: "cool@example.com", verified: true },
   ],
   createdAt: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT),
   profile: {
@@ -35,7 +37,14 @@ NOTE: No separated "coaches" collection since it can be covered in this "users" 
   role: 'account',
 
   credits: 200.00, // Credit that can be used to buy class
-  paymentInfo: { // Payment information for online payment. TODO}
+  paymentInfo: {
+        // Payment information for online payment.
+        // TODO: Do we want to store multiple cards, and having one for default card?
+        // TODO: Do we want to store last4 and expiration date instead of retrieving the information from stripe
+        // everytime?
+        stripeID: "cus_6RgD2Qyzbe3YCB"，// to retrieve credit card information and payment history
+        paymentStartTime: Wed Aug 21 2013 15:16:55 GMT-0700 (PDT) // to maintain 15 minutes rule
+  }
 
   alterContact: { // Alternative contact information
         name: "Mike Zhang"
@@ -54,47 +63,31 @@ NOTE: No separated "coaches" collection since it can be covered in this "users" 
   },
 
   swimmers: [ // Swimmers array contains all the information about swimmers
+              // If role is not account, this entry should be left empty
       {
              // please refers to "swimmer" document
       },
   ],
-}
-```
-
-#### "coach" document
-```javascript
-{
-  _id: "bbca5d6a-2156-41c4-89da-0329e8c5656a",  // Meteor.userId()
-  emails: [
-    // each email address can only belong to one user.
-    // email is also used as login credential
-    { address: "cool@example.com", verified: true },
-  ],
-  createdAt: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT),
-  profile: {
-      // The profile is writable by the user by default.
-      name: "Joe Schmoe",
-      phone: "+1 555 555 5555",
-      address: "Somewhere, San Jose, CA 95134",
-      location: "Dublin" or "Fremont",
-  },
-  role: 'coach',
   classes: [ // classes array contains ID of the class not embedded class document here.
-      {
-            _id: "bbca5d6a-2156-41c4-89da-0329e8c5656a",
-      },
-      ...,
-  ],
+             // If role is not coach, then this entry is empty
+        {
+              _id: "bbca5d6a-2156-41c4-89da-0329e8c5656a",
+        },
+        ...,
+    ]
 }
 ```
 
 #### "admin" document
-This document should be similar with normal [Meteor user document](http://docs.meteor.com/#/full/meteor_users) but with admin role.
+This document should be similar with normal user [Meteor user document](http://docs.meteor.com/#/full/meteor_users) but
+with admin role.
 
-Every account/coach/admin will create a document in "users" collection when they sign up. The rest part of our App will use Meteor.userId() to refer to this login information.
+Every account/coach/admin will create a document in "users" collection when they sign up. The rest part of our App will
+use Meteor.userId() to refer to this login information.
 
 ## "role" collection
-Every user has at least one role. Now we have the following roles: account, coach, admin. We push different message to different roles.
+Every user has at least one role. Now we have the following roles: account, coach, admin. We push different message to
+different roles.
 
 This collection is to record all the roles we have. It is automatically generated by 'role' package
 
@@ -118,18 +111,12 @@ This collection holds all the information of swimmers.
     paymentStatus: true,
     location: "Dublin" or "Fremont",
     meetingDate: Wed Aug 21 2015 13:00:00 GMT-0700 (PDT), // meeting with coach
-    registerAt: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT), 
-    paymentStartTime: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT), // to start 15 minutes payment period
-    classes: [ //an array of class IDS, one swimmer can attend multiple classes
+    registerAt: Wed Aug 21 2013 15:16:52 GMT-0700 (PDT),
+    classes: [ //an array of class IDs, including classes taken or will take, one swimmer can attend multiple classes
         {
             _id: "bbca5d6a-2156-41c4-89da-0329e2deb9a4",
         },
-    ],
-    future-classes: [
-        {
-            _id: "bbca5d6a-2156-41c4-89da-0329e2deb9a4",
-        },
-    ],
+    ]
 }
 ```
 
@@ -158,15 +145,3 @@ This collection is easily managed by admins and easy to generate classes calenda
     ],
 }
 ```
-
-* Question:
- How to handle the class date in a good way? Any calendar package?
-
-* Question:
-At payment, first we create a page of summary, then the user agrees to make the payment. When he clicks check-out, we
-set the paymentStartTime in swimmers,  and decrease the number of  available seats by one. Then we start a timer on the
-server. If the payment is successful, we move the student to student enrolled. Otherwise, if we receive a time-out
-exeption, we will increase the number of available seats by one.
-
-If we can do this, how can we make sure that the payment procedure is interrupted? Can we intervene the execution of
- stripe?
