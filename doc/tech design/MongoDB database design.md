@@ -137,6 +137,7 @@ This collection is easily managed by admins and easy to generate classes calenda
     coachId: "bbca5d6a-2156-41c4-89da-0329e888efc5", // match coach's user ID
     coachName: "Steve Guo",
     availableSeats: 8,
+    price: 50.00,
 
     students: [ // students array to store "swimmer" ID
         {
