@@ -7,8 +7,11 @@ Update:
 1.	ML completed admin web app and waiting for discussing with Calphin
 2.	Yifan and Bryan are doing tech doc. ML will follow up with Kevin to review.
 3.	Questions from Yifan:
-1)	Do we need option for opt-in/opt-out ? - confirm with calphin
+1)	Do we need option for opt-in/opt-out ? - confirm with calphin 
+
+Calphin: they don't ask customers for opt-in or opt-out, but in emails, there is unsubscribe link. 
 2)	Stripe payment info – API 
-3)	Location is for account or swimmer? confirm with calphin
+3)	Location is for account or swimmer? confirm with calphin , location assigned to account. 
+Calphin: location can assigned to account instead of swimmer. 
 4) class type, sub-category, i.e. swiming v.s. art, painting v.s. water coloring etc.
 
