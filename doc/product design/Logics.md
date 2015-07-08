@@ -9,6 +9,8 @@ Delete page 0.0. Once customer log in, the sysem will know their location. For n
 
 4.	When new customer creates an account, he needs to fill out new swimmer evaluation form for each new swimmer added (for swim class only), then system will assign a level to this swimmer (page 1.12a)
 
+The new swimmer evaluation form only contains major level (not sub-level). Customer can only choose one level, then the system will assign major level - sublevel 1 by default. 
+
 5.	Swim class registration adapts the following priorities:
 
 1st week – Email sent to all current swimmers. Current swimmers are able to register class with same time slot. (go to page 2.0a)
@@ -24,6 +26,7 @@ Exception:  returning or new swimmer whose sibling is a current swimmer, he has 
 
 6.	On page 2.2, system will apply discount to total amount when multiple swimmers are registered under one account. Class fee will be stored in database and $10 discount applied to each additional swimmer register. Or $10 discount applied to each additional lesson a swimmer register.
 On check out page, add 'field- coupon code', currently, only one coupon code - new swimmer coupon, which is 'free class free'. If member registerd class, 10% discount is appled. discount can be combined but membership 10% discount always applied the last. 
+Come to payment page, add function of choose stored credit card, apply club credit, use discount. (reference: amazon check-out)
 
 7.	When customers click Pay Now on payment page, it gives them 5 minutes to finish transaction. If they click Pay in Store, it allows 24 hours to make payment to secure the spot. 
 Allow 10 min for online payment.
@@ -46,7 +49,15 @@ Members waiver form appears before payment page.
 14.	On page 1.21, one swimmer only has one chance to change class once session starts. Before session starts, customers CANNOT click ‘Change Class’. After ‘Change Class’ succeed, customer CANNOT click ‘Change Class’ for that swimmer for that session. 
 Customers can change class as many time as they want BEFORE session starts. If tuition difference appears, payment page will be shown or credit page. AFTER session start, they are only allowed to change class ONCE, no fee charged. 
 
+Changes to make: Customers can only change class before session starts as many times as they want as long as the class is available. The class change ends 2 days before session starts. Once session starts, all class changes need to be made by front desk (due to they want to track all changes and make notes)
+
 15.	On page 1.21, ‘Cancel Class’ policy is listed on Swimmer Agreement Waiver, refund fee is applied based on when class is cancelled. 
+
+3 days before session starts, customers can cancel with full refund. after session starts, only club credit (after prorated) is back to customers not cash. 
+
+16. On page 1.21C, it only needs to list class time, appointment time (5 min before class or 5 min after class)
+
+
 
 
 
