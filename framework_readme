@@ -13,6 +13,13 @@ Use flow router rather than iron router to avoid UI re-renders
 React Router offers nice nested routes but may require extra work to control template subscriptions
 JSX - syntactic sugar to convert HTML style code like <Card> to a React.createElement("Card", {});
 
+IMPORTANT - Using mgp to manage internal package
+
+sudo npm install -g mgp 
+
+after install mgp, just run mgp from the project folder. You will copy necessary packages into project folder. Then you can run meteor to start project
+
+
 Good Practices
 Folder structure
 Meteor gives us ultimate freedom to structure our folders in almost any way we want. Let's take advantage of this.
