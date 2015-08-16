@@ -1,0 +1,281 @@
+iHealthLabs React Framework
+Overview
+iHealth Labs React Framework aims to minimize time required to develop a full solution for enterprise clients. It achieves this through a Meteor version of React Components.
+GitHub: https://github.com/iHealthLab/framework-iHealth
+
+
+Best places to learn React
+
+Official React Tutorial - first learn about this.state and this.prop. Go through the tutorial.
+React in Meteor - then learn how to Meteor uses this.data to make it reactive. Go through the tutorial.
+
+Use flow router rather than iron router to avoid UI re-renders
+React Router offers nice nested routes but may require extra work to control template subscriptions
+JSX - syntactic sugar to convert HTML style code like <Card> to a React.createElement("Card", {});
+
+Good Practices
+Folder structure
+Meteor gives us ultimate freedom to structure our folders in almost any way we want. Let's take advantage of this.
+
+Let's place our files logically and modularly. When we want to remove a page or a feature from our app, it should be easy.
+
+Example:
+├── client
+│   ├── app
+│   │   ├── ** All App related files
+│   │   ├── chat
+│   │   │   ├── chat.jsx
+│   │   │   └── chat.scss
+│   └── lib
+│   │   └── ** All Client library files
+├── server
+│   ├── ** All Server related files
+│   └── lib
+│   │   └── ** All Server library files
+├── lib
+│   ├── boot
+│   │   └── ** All Startup files
+│   └── collections
+│   │   └── ** All Collection files
+├── settings.json
+└── settings-dev.json
+
+ Namespacing:
+App Components: App._____
+Device Plugin Classes: iHealth._____
+Framework Components: RC._____
+iHealth Helper Library: h._____
+
+
+About the design
+ How does the framework help the developer
+Develop fast with little to no front-end development work.
+Re-use pre-made components with configurations (props)
+Minimize the need to hack
+Minimize the need to tamper with CSS
+
+ Reusable definitions of components:
+Current design: uses reusable components defined through basic building blocks components
+pro: complex components are broken down into simple well-defined/tested components
+con: cannot extend a complete component to simply add a small feature (ie. a patient card with avatar cannot be created by extending a patient card without avatar, although they can share same basic components) 
+ES6 classes
+pro: easiest way to extend a React Component definition to create a new component
+https://facebook.github.io/react/docs/reusable-components.html#es6-classes
+con: does not support mixin, which is currently the best way to make React Components reactive to data changes
+http://react-in-meteor.readthedocs.org/en/latest/meteor-data/#why-we-use-thisdata-instead-of-thisstate
+reacto: https://github.com/jankuca/reacto
+http://stackoverflow.com/questions/25720595/extending-react-js-components
+pro: allows proper inheritance through usage of an intermediate object called reacto.Component
+con: non-standard way of defining React components
+use a JavaScript object to predefine common properties and methods
+http://stackoverflow.com/questions/25720595/extending-react-js-components
+pro: include all common properties and methods in 1 JavaScript object
+con: increases the amount of code if the object is not shared across many React Components
+con: reduces flexibility, and increases interdependencies between related components
+con: render code (<div></div>) and accompanying CSS may not be practical to extend as 2 very similar components (ie) simple patient card without picture vs patient card with avatar and latest vitals) can have small differences that require a entirely different approach to the HTML and CSS
+
+
+
+Framework
+Mobile and Web app frameworks are slightly different. They have many commons components but not everything. This is a list of everything that the framework currently offers.
+
+<RC.Card />
+Available for: Web & Mobile
+Accepts Children?: true
+
+Creates a card component. Similar to Facebook cards in the Facebook feed.
+
+Props
+theme: ["regular", "side", "invisible"]
+id: String
+title: String
+subtitle: String
+avatar: String
+uiClass: String (FontAwesome)
+uiColor: String or HEX
+uiSize: Integer (0 to 5)
+
+<RC.Grids />
+Available for: Web Only
+Accepts Children?: true
+
+Creates a layout based on width %.
+
+Note: <RC.Grids /> only accepts <DIV> as children. Any component passed that isn't a <DIV> will be ignored and filtered out.
+
+Props for root level (<RC.Grids ... />
+id
+
+Props for children (<RC.Grids><div ... /></RC.Grids>
+size: ["three-quarter", "three-fifth", "two-fifth", "half", "third", "quarter"]
+className: String
+id: String
+
+<RC.List />
+Available for: Web & Mobile
+Accepts Children?: false
+
+Props
+theme: ["regular", "nav-list", "nav-list dark"]
+list: [Object]
+enableClick: Boolean
+className: String
+
+Props for list
+className: String
+date: Date
+dateFormat: String
+avatar: String
+uiClass: String (FontAwesome)
+uiColor: String or HEX
+uiSize: Integer (0 to 5)
+onClick: Function
+label: String
+title: String
+subtitle: String
+
+<RC.NavList />
+Available for: Web & Mobile
+Accepts Children?: false
+
+Designed for Nav, this component compares the URL (href) inside the list items against the FlowRouter's current route.
+
+Props
+theme: ["regular", "dark"]
+list: [Object]
+enableClick: Boolean
+className: String
+
+Props for list
+type: String (Currently allows title or "list-item", defaults to "list-item" if nothing is set.)
+text: String
+uiClass: String (FontAwesome)
+uiColor: String or HEX
+uiSize: Integer (0 to 5)
+href: String (URL)
+onClick: Function
+
+<RC.Tabs />
+Available for: Web & Mobile
+Accepts Children?: true
+
+All <RC.Tabs /> children must be a <DIV> and have a "label" or "uiClass" prop.
+
+Props for children (<RC.Tabs><div ... /></RC.Tabs>
+theme: ["regular", "nav-tabs"]
+id: String
+
+Props for children
+label: String
+uiClass: String (FontAwesome)
+uiColor: String or HEX
+uiSize: Integer (0 to 5)
+
+<RC.Timeline />
+Available for: Web & Mobile
+Accepts Children?: false
+
+Props
+theme: ["regular", "dark", "dark small", "double"]
+id: String
+className: String
+dateFormat: String (Defaults to "MMM Do, YYYY", use momentJS formats)
+list: [Object]
+
+Props for children
+brand: Integer (0 to 2, chooses from one of the 3 theme colours)
+type: ["title", "list-item"] Defaults to "list-item"
+label: String
+title: String
+text: String or React Components
+dateFormat: String (If not set, defaults to the root's dateFormat prop)
+
+<RC.ChatBubble />
+Available for: Web & Mobile
+Accepts Children?: false
+
+Props
+theme: ["regular"]
+id: String
+className: String
+isUser: Boolean (If true, assume this chat bubble was typed by the current user)
+firstOfGroup: Boolean
+showDateBreak: Boolean
+avatar: String (URL)
+gender: ["male", "female"]
+message: String or React Component
+date: Date
+
+<RC.ChatList />
+Available for: Web & Mobile
+Accepts Children?: false
+
+Props
+onSubmit: Function
+id: String
+className: String
+name: String (Attribute)
+value: String
+placeholder: String
+uiClass: String (FontAwesome)
+uiColor: String or HEX
+uiSize: Integer (0 to 5)
+
+<RC.FooterNav />
+Available for: Mobile
+Accepts Children?: false
+
+Props
+enableClick: Boolean
+theme: ["regular"] *More themes available soon
+id: String
+className: String
+list: [Object]
+allowLongLabels: Boolean (If true, labels will cause buttons to be different width)
+
+Props for list
+href: String (URL)
+label: String
+onClick: Function
+uiClass: String (FontAwesome)
+uiColor: String or HEX
+uiSize: Integer (0 to 5, higher the number, bigger the size)
+
+
+
+CSS
+core.scss
+core.scss is a list of common & useful CSS classes, usually with only one or two attributes at a time. This file also contains all the basic CSS rules at the most minimum DOM level.
+
+For example:
+.padding { padding: 15px; }
+.boxed { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+.wrapper, .wrapper-mini, .wrapper-popup, .re-wrapper { margin: 0 auto; }
+.wrapper-mini { max-width: 700px; }
+
+It's up to you how you want to use the core.scss file. Personally, I use the core.scss in every project to prototype at very fast speeds and re-create simple front-end structures. I also frequently chain these CSS classes which allows me to move fast.
+
+For example:
+<div className="padding wrapper-mini boxed" />
+
+Using this code, I was able to quickly create a:
+700px width <DIV>;
+that is centered horizontally;
+and also automatically resized when the window becomes smaller;
+with a boxed-sizing rule.
+
+I can also create a similar <DIV> with any width by:
+<div className="re-wrapper" style={width: "400px"}/>
+
+For more information, see the core.scss file
+
+CSS > JQuery
+core.scss also replaces the need for JQuery animations. Try creating a <DIV> with a "fade-in" or "fade-out" class. It will play that animation as soon as that CSS class is added.
+
+React > JQuery
+When using React, we should minimize using JQuery. Simple functions like $.addClass() or $.removeClass() should be done using React props and states.
+
+Helpful commands
+jsx --watch src/ build/
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+
