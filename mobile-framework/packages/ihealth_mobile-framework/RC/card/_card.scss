@@ -1,0 +1,50 @@
+
+.card.regular, .card.side, .card.invisible { padding: 10px 10px 0; }
+.card.regular:last-child, .card.side:last-child, .card.invisible:last-child { padding-bottom: 10px; }
+
+.card.regular .inner, .card.side .inner, .card.invisible .inner {
+  position: relative;
+  padding: 22px 15px 27px; }
+.card.regular .inner:first-child, .card.side .inner:first-child, .card.invisible .inner:first-child {
+  padding-top: 28px;
+  @include border-radius(4px); }
+
+.card .title {
+  color: $brand2;
+  position: relative; padding: 25px 15px 0; }
+.card .title:before {
+  height: 1px; display: block; content: " ";
+  position: absolute; bottom: 0; left: 15px; right: 15px;
+  background: rgba(0,0,0,.14);
+}
+.card.regular .title .first, .card.side .title .first, .card.invisible .title .first {
+  text-indent: -1px;
+  padding: 0; }
+
+.card.regular .title .first:last-child, .card.regular .title .second:last-child,
+.card.side .title .first:last-child, .card.side .title .second:last-child,
+.card.invisible .title .first:last-child, .card.invisible .title .second:last-child {
+  padding-bottom: 10px; }
+
+/* Regular Theme */
+.card.regular .inner, .card.side .inner {
+  background: #fff;
+  @include border-radius(0 0 5px 5px);
+  @include box-shadow(0 2px rgba(0,0,0,.07)); }
+.card.regular .title, .card.side .title {
+  @include border-radius(5px 5px 0 0);
+  background: #fff; color: $brand2; }
+
+/* Side Theme */
+.card.side { font-size: .95em; }
+.card.side .title { padding-top: 20px; }
+.card.side .inner, .card.side .title { padding-left: 20px; padding-right: 20px; }
+
+@media screen and (max-width: $width_phone_small) {
+  .card.regular, .card.side, .card.invisible {
+    padding: 10px 0 0; }
+  .card.regular .title, .card.side .title,
+  .card.regular .inner, .card.side .inner {
+    @include box-shadow(none);
+    @include border-radius(0); }
+}

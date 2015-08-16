@@ -1,0 +1,36 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+underscore
+session
+react
+momentjs:moment
+meteorhacks:fast-render
+meteor
+
+fourseven:scss
+fastclick
+accounts-password
+aldeed:simple-schema
+kadira:react-layout
+
+webapp
+logging
+tracker
+ddp
+mongo
+check
+jquery
+reload
+autoupdate
+
+launch-screen
+mobile-status-bar
+kadira:flow-router
+fortawesome:fontawesome
+ihealth:utils
+ihealth:mobile-framework
+fortawesome:fontawesome

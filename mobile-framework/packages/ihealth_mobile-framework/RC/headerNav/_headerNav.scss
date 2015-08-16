@@ -1,0 +1,72 @@
+
+.nav-height, .nav-height-button { height: $height_nav; }
+.nav-padding { padding-top: $height_nav; }
+.nav-margin { margin-top: $height_nav; }
+.abs-full.nav-margin { margin-top: 0; top: $height_nav; }
+
+/* Logo and Base */
+#mobile-header {
+  @include box-shadow(0 1px rgba(0,0,0,.08));
+  position: fixed; top: 0; left: 0; right: 0; z-index: 4001; }
+#mobile-header.opacity {
+  @include box-shadow(0 1px 3px rgba(0,0,0,.05));
+  @include opacity(.92); }
+#mobile-header.flat {
+  @include box-shadow(none);
+  @include opacity(.92); }
+
+#mobile-header .logo {
+  position: absolute; top: 0; left: auto; right: 50%;
+  text-align: center;
+  width: 150px;
+  padding: 7px 15px; margin: 0 -75px 0 0; }
+#mobile-header.long .logo { width: 250px; margin-right: -125px; }
+#mobile-header .logo img {
+  display: inline-block; margin: 0 auto;
+  width: auto; max-width: 100%; max-height: 100%; }
+
+#mobile-header .logo.right { right: 0; padding-right: 0; margin: 0; }
+#mobile-header .logo.right h1 { text-align: right; }
+#mobile-header .logo h1 {
+  @include sans(thick);
+  font-size: 1.2em; padding: 6px 15px 0; }
+#mobile-header .logo.right img { margin: 0; }
+
+/* Back */
+#mobile-header .back {
+  position: absolute; top: 0; left: 0; bottom: 0; right: auto;
+  padding: 15px 0 0 24px;
+  min-width: 75px; }
+#mobile-header .back:before, #mobile-header .back:after {
+  display: block; content: " ";
+  position: absolute; left: 0; top: 50%;
+  width: 2px; height: 7px; }
+#mobile-header .back:before { @include rotate(-45); margin: 0 0 0 13px; }
+#mobile-header .back:after { @include rotate(45); margin: -4px 0 0 13px; }
+
+/* More */
+#mobile-header .more-button {
+  position: absolute; top: 0; left: auto; bottom: 0; right: 0;
+  width: 50px; }
+#mobile-header .more-button span, #mobile-header .more-button span:before, #mobile-header .more-button span:after {
+  position: absolute; top: 50%; left: auto; bottom: auto;
+  display: block; content: " ";
+  width: 4px; height: 4px;
+  @include border-radius(50%);
+  background: $brand2; }
+#mobile-header .more-button span { margin-top: -3px; right: 16px; }
+#mobile-header .more-button span:before { margin-top: -8px; }
+#mobile-header .more-button span:after { margin-top: 4px; }
+
+#mobile-header .more-nav {
+  position: fixed; top: 8px; right: 8px; z-index: 1000;
+  padding: 5px 10px;
+  @include box-shadow(0 0 5px rgba(0,0,0,.15));
+  background: #fff; }
+#mobile-header .more-nav a {
+  display: block; padding: 5px;
+}
+
+@media screen and (max-width: $width_mobile) {
+  #mobile-header .logo h1 { padding-right: 15px; }
+}

@@ -1,0 +1,6 @@
+{
+  "ihealth:utils": {
+    "git": "https://github.com/iHealthLab/framework-iHealth.git",
+    "path": "mobile-framework/packages/ihealth_utils"
+  }
+}
