@@ -6,6 +6,5 @@ We will be using Github to code and documents tracking, Trello for project proce
 * Lin Yang - Project Manager
 * Lan Ma - Product Manager
 * Joseph He - Project Partner
-* Bryan Wu - Developer
+* Zhongwu Shi - Developer
 * Yifan Wang - Developer
-* Luke Shi - Designer
