@@ -6,5 +6,10 @@ We will be using Github to code and documents tracking, Trello for project proce
 * Lin Yang - Project Manager
 * Lan Ma - Product Manager
 * Joseph He - Project Partner
-* Zhongwu Shi - Developer
+* Shaoke Xu - Developer
 * Yifan Wang - Developer
+* Jinhui Fan - Developer
+* Kevin Zhang - IT Advisor
+
+
+Weekly Moxtra meeting is every Sunday night 9pm. 
