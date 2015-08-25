@@ -3,15 +3,14 @@ App.Main = React.createClass({
   render() {
 
     let footerList = [
-      { label: "Dashboard", href: "/", uiClass: "area-chart" },
+      { label: "Ex1", href: "/Ex1" },
       {
-        label: "Mailbox",
-        uiClass: "coffee",
-        onClick: function(){
-          console.log("Hello! I am an event handler.")
-        },
+        label: "Ex2",
+
+        href:"/Ex2"
       },
-      { label: "Gallery", href: "#", uiClass: "shield" },
+      {label: "Ex3", href: "/Ex3" },
+      {label:"Task", href:"/Task"}
     ]
 
     return <div className={h.getPlatform()} id="app-root">

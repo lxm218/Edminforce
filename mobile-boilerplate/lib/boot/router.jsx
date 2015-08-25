@@ -14,7 +14,7 @@ if (Meteor.isClient) {
       // Route
       layout: App.Main,
       pageTitle: "Unknown",
-      showGlobalNav: false,
+      showGlobalNav: true,
       headerNav: null,
       bodyTmpl: <RC.NotFound/>
     }
@@ -41,9 +41,58 @@ if (Meteor.isClient) {
     action: function(p) {
       routeHandler(p, {
         pageTitle: "Home",
-        showGlobalNav: false,
+        showGlobalNav: true,
         headerNav: null,
-        bodyTmpl: <RC.NotFound/>
+        bodyTmpl: <App.Home/>
+      })
+    }
+  })
+
+  //Example 1
+  DefaultRoutes.route('/ex1', {
+    name: "Example 1",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "Example 1",
+        showGlobalNav: true,
+        headerNav: null,
+        bodyTmpl: <App.Ex1/>
+      })
+    }
+  })
+  //Example 2
+  DefaultRoutes.route('/ex2', {
+    name: "Example 2",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "Example 2",
+        showGlobalNav: true,
+        headerNav: null,
+        bodyTmpl: <App.Ex2/>
+      })
+    }
+  })
+  //Example 3
+  DefaultRoutes.route('/ex3', {
+    name: "Example 3",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "Example 3",
+        showGlobalNav: true,
+        headerNav: null,
+        bodyTmpl: <App.Ex3/>
+      })
+    }
+  })
+  //Result
+  DefaultRoutes.route('/Task', {
+    name: "Your task",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "Task",
+        showGlobalNav: true,
+        headerNav: null,
+        bodyTmpl: <App.Task/>
       })
     }
   })
