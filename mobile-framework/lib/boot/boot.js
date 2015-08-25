@@ -11,15 +11,16 @@ if (Meteor.isClient) {
 if (!Meteor.settings) Meteor.settings = {}
 if (!Meteor.settings.public) Meteor.settings.public = {}
 if (!Meteor.settings.public.appName) Meteor.settings.public.appName = "iHealth BP5"
-if (!Meteor.settings.public.appDesc) Meteor.settings.public.appDesc = "BP5 Device Plugin Javascript Class"
+if (!Meteor.settings.public.appDesc) Meteor.settings.public.appDesc = "iHealth Mobile Framework"
+
 
 Meteor.startup( function() {
-
   if (!Meteor.isCordova) {
-    BpManagerCordova = null
+    BpManagerCordova = fakeBP
   }
 
   if (Meteor.isClient) {
+    Session.set("app", {})
     // Waiting for Meteor to make this work.
     // React.initializeTouchEvents(true)
   }

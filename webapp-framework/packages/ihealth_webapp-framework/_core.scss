@@ -4,7 +4,7 @@
  */
 
 /* Major DOM Elements */
-body, div, main, figure, section, article, figcaption { padding: 0; margin: 0; }
+body, div, main, figure, section, article, figcaption { overflow: auto; padding: 0; margin: 0; }
 p { padding: 0 0 12px; margin: 0; }
 p:last-child { padding-bottom: 0; }
 a, .clickHandler { color: $brand2; text-decoration: none; }
@@ -12,20 +12,21 @@ a:hover { color: inherit; }
 
 body {
   @include sans(regular);
-  background: #fff;
+  background: $body_bg;
   -webkit-font-smoothing: antialiased;
 }
-body, input, textarea { font-size: 16px; color: $text_color; }
-body, input, textarea, label { line-height: 1.55; }
+body, input, textarea, select { font-size: 16px; color: $text_color; }
+body, input, textarea, label, select { line-height: 1.55; }
 
 input, textarea, button, select, div, main, p, section, figcaption, h1, h2, h3, h4, h5, h6, strong, span {
   outline: none; }
 input, textarea, button, select, label { @include sans_alt(regular); }
-input, textarea, button, .button {
+input, textarea, button, select {
   display: block; resize: none;
   width: 100%;
   font-size: 1em;
   -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
   -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 img { max-width: 100%; max-height: 100%; }
 header, main, section, article, figure { position: relative; }
@@ -38,21 +39,29 @@ header, main, section, article, figure { position: relative; }
 .bg-brand3 ::-moz-selection { color: $color_on_brand3; }
 
 /* Important Common Elements */
-.table { height: 100%; width: 100%; display: table; vertical-align: middle; }
+.table { height: 100%; width: 100%; display: table !important; vertical-align: middle; }
 .table .inside { display: table-cell; vertical-align: middle; }
 
-.wrapper, .wrapper-mini, .wrapper-popup, .re-wrapper { margin: 0 auto; }
+.full-height { min-height: calc(100vh - #{$height_nav}); }
+
+.wrapper-wide, .wrapper, .wrapper-mini, .wrapper-popup, .re-wrapper { margin: 0 auto; }
+.wrapper-wide { max-width: 1440px; }
 .wrapper { max-width: 1280px; }
 .wrapper-mini { max-width: 700px; }
 .wrapper-popup { max-width: 400px; }
 
+.transition-slower { transition: all 2s ease; -webkit-transition: all 2s ease; }
 .transition-slow { transition: all 1s ease; -webkit-transition: all 1s ease; }
 .transition-medium { transition: all .4s ease; -webkit-transition: all .4s ease; }
 .transition, a { transition: all .25s ease; -webkit-transition: all .25s ease; }
 .transition-fast { transition: all .15s ease; -webkit-transition: all .15s ease; }
 .transition-bg { transition: background .25s ease; -webkit-transition: background .25s ease; }
 .transition-opacity { transition: opacity .25s ease; -webkit-transition: opacity .25s ease; }
-.round, .larr, .rarr { @include border-radius(50%); }
+.round, .dot, .larr, .rarr { @include border-radius(50%); }
+.dot {
+  display: inline-block;
+  background: rgba(0,0,0,.2);
+  width: 8px; height: 8px; margin: 0 6px; }
 
 .larr {
   position: relative; display: inline-block; vertical-align: middle;
@@ -163,6 +172,7 @@ header, main, section, article, figure { position: relative; }
 .bg-white { background-color: #fff; }
 .bg-dim { background-color: rgba(0,0,0,.25); }
 .bg-bright { background-color: rgba(255,255,255,.25); }
+.bg-overlay { background-color: rgba(255,255,255,.9); }
 
 .brand { color: $brand; }
 .border-brand { border-color: $brand; }
@@ -203,6 +213,7 @@ strong, b { font-weight: 700; }
 .sub {
   @include sans_alt(thick);
   font-size: .75em; text-transform: uppercase; letter-spacing: .15em; }
+.sub.center { text-indent: .15em; }
 
 .right { text-align: right; }
 .center { text-align: center; }

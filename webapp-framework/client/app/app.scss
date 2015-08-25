@@ -31,7 +31,7 @@
 #app-nav .user-login {
   position: absolute; left: 0; right: auto; top: 0; bottom: auto; z-index: 5;
   width: $width_nav;
-  color: $color_on_brand; }
+  background: $brand; color: $color_on_brand; }
 #app-nav .user-login .name {
   font-size: 1em; text-indent: -1px;
   padding: 0; }

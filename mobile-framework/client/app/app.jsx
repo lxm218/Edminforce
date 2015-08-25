@@ -32,7 +32,7 @@ App.Main = React.createClass({
 
     return <div className={h.getPlatform()} id="app-root">
       <RC.LeftNav navList={navList} ref="LeftNav" />
-      <RC.HeaderNav nav={this.props.headerNav} title={this.props.title} theme="flat" />
+      <RC.HeaderNav nav={this.props.headerNav} title={this.props.title} />
       <RC.GlobalNav isVisible={this.props.showGlobalNav} list={footerList} theme="flat" location="bottom"/>
       <App.Body tmpl={this.props.body} props={{openLeftNav: this.openLeftNav}} />
     </div>

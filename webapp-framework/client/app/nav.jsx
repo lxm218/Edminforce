@@ -16,9 +16,8 @@ App.Nav = React.createClass({
       { text: "50% Grid Layout", href: "/examples/Grids50", uiClass: "table" },
       { text: "60%/40% Grid Layout", href: "/examples/Grids6040", uiClass: "table" },
       { text: "Tabs Layout", href: "/examples/TabsLayout", uiClass: "tags" },
-      { text: "Login", href: "/examples/login", uiClass: "male" },
-      { text: "Logout", href: "/examples/logout", uiClass: "male" },
-      { text: "Register", href: "/examples/register", uiClass: "male" },
+      { text: "Form Elements", href: "/examples/FormElements", uiClass: "file-text-o" },
+      { text: "Form Handling", href: "/examples/Form", uiClass: "scissors" },
       {
         text: "Pop Up",
         uiClass: "flag",

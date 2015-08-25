@@ -5,7 +5,8 @@ App.Grids50 = React.createClass({
     let notificationList = [{
         label: "Important",
         type: "title",
-        uiClass: "danger",
+        uiClass: "map-marker",
+        uiSize: "1.2em",
         brand: 1,
       },{
         title: "Watermelons in Summer",

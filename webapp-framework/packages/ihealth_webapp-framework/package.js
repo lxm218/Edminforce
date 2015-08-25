@@ -14,13 +14,10 @@ Package.onUse(function(api) {
   ], "client")
 
   api.imply([
+    "ihealth:utils",
     "mystor:device-detection",
     "fortawesome:fontawesome",
-    "fourseven:scss",
-    "momentjs:moment",
-    "underscore",
-    "kadira:flow-router",
-    "ihealth:utils"
+    "fourseven:scss"
   ], ["client","server"])
 
   api.addFiles([

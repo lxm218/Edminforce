@@ -18,20 +18,14 @@ check
 jquery
 reload
 autoupdate
+coffeescript
 
 react
 
-momentjs:moment
-meteorhacks:fast-render
 kadira:flow-router
 kadira:react-layout
 
 fourseven:scss
-accounts-password
-aldeed:simple-schema
-
-aldeed:collection2
-coffeescript
+fortawesome:fontawesome
 
 ihealth:webapp-framework
-fortawesome:fontawesome

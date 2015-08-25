@@ -16,7 +16,7 @@ ul.rc-list.regular li.type-listTitle, .tabs-root.regular .tabs-nav {
   background: rgba(0,0,0,.1); }
 ul.rc-list.regular li.type-listTitle { padding-top: 6px; padding-bottom: 6px; }
 ul.rc-list.regular.click-enabled li.cursor:hover { background: rgba(255,255,255,.55); }
-ul.rc-list.regular li.cur { background: #fff !important; z-index: 2; }
+ul.rc-list.regular li.cur { background: $brand_light_trans !important; z-index: 2; }
 
 ul.rc-list.regular .avatar { margin-top: 0; }
 ul.rc-list.regular .textTitle {

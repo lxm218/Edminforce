@@ -3,7 +3,7 @@ RC = {}
 
 RC.NotFound = React.createClass({
   render() {
-    return <div className="table">
+    return <div className="table bg-brand-light">
       <div className="inside center">
         <h4>Component Not Found</h4>
       </div>
@@ -29,17 +29,24 @@ RC.uiIcon = React.createClass({
     // let uiOpacity = !this.props.uiOpacity ? 75 : Number(this.props.uiOpacity)*100
     // uiOpacity = 5 * Math.round(uiOpacity/5)
 
-    let sizeList = [" ", "fa-lg", "fa-2x", "fa-3x", "fa-4x", "fa-5x"]
+    var styles = {}
+    if (this.props.uiColor) styles.color = this.props.uiColor
+
+    let sizeList = ["", "fa-lg", "fa-2x", "fa-3x", "fa-4x", "fa-5x"]
     let classList = [
       "fa",
       "fa-"+this.props.uiClass,
-      _.isNumber(this.props.uiSize) && sizeList[this.props.uiSize]
-        ? sizeList[this.props.uiSize]
-        : (_.contains(sizeList, this.props.uiSize) ? this.props.uiSize : sizeList[1])
       // uiOpacity!=100 || !_.isNumber(uiOpacity) ? " invis-"+uiOpacity : ""
     ]
 
-    return <i className={classList.join(" ")} style={this.props.uiColor ? {color: this.props.uiColor} : {}} />
+    if (_.isNumber(this.props.uiSize) && this.props.uiSize%1==0)
+      classList.push( sizeList[this.props.uiSize] || sizeList[1] )
+    else if (_.contains(sizeList, this.props.uiSize))
+      classList.push(this.props.uiSize)
+    else if (this.props.uiSize)
+      styles.fontSize = this.props.uiSize
+
+    return <i className={classList.join(" ")} style={styles} />
   }
 })
 
@@ -53,5 +60,11 @@ RC.VerticalAlign = React.createClass({
         {this.props.children}
       </div>
     </div>
+  }
+})
+
+RC.URL = React.createClass({
+  render: function() {
+    return <a {...this.props}>{this.props.children}</a>
   }
 })

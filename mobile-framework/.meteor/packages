@@ -18,24 +18,18 @@ check
 jquery
 reload
 autoupdate
+coffeescript
+
+react
 
 launch-screen
 mobile-status-bar
 
-react
-
-momentjs:moment
-meteorhacks:fast-render
 kadira:flow-router
 kadira:react-layout
 
 fourseven:scss
-accounts-password
-aldeed:simple-schema
+fortawesome:fontawesome
 
 ihealth:devices-ui
-aldeed:collection2
-coffeescript
-alanning:roles
-ihealth:mobile-framework
-fortawesome:fontawesome
+ihealth:framework-mobile

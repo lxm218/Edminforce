@@ -136,7 +136,12 @@ if (Meteor.isClient){
     else
       return <RC.NotFound key="body-notfound" />
   }
-
+  h.serializeForm = function(form){
+		var formData = _.map(form.serializeArray(), function(data) {
+			return [data.name, data.value]
+		})
+		return _.object(formData)
+	}
   h.getDomPos = function(el, args){
     let defs = {
       reverse: false,

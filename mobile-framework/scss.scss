@@ -2,20 +2,21 @@
 @charset "UTF-8";
 
 @mixin sans($style) {
-  @if $style=="regular" { font-family: "HelveticaNeue", sans-serif; font-weight: normal; }
-  @if $style=="thin" { font-family: "HelveticaNeue-Thin", sans-serif-light, sans-serif; font-weight: normal; }
-	@if $style=="thick" { font-family: "HelveticaNeue", sans-serif; font-weight: 700; }
+  @if $style=="regular" { font-family: "Helvetica Neue", "Roboto", sans-serif; font-weight: normal; }
+  @if $style=="thin" { font-family: "HelveticaNeue-Light", "Roboto-Light", sans-serif-light, sans-serif; font-weight: normal; }
+	@if $style=="thick" { font-family: "Helvetica Neue", "Roboto", sans-serif; font-weight: 500; }
 }
 @mixin sans_alt($style) {
-  @if $style=="regular" { font-family: "HelveticaNeue", sans-serif; font-weight: normal; }
-  @if $style=="thin" { font-family: "HelveticaNeue-Thin", sans-serif-light, sans-serif; font-weight: normal; }
-	@if $style=="thick" { font-family: "HelveticaNeue", sans-serif; font-weight: 700; }
+  @if $style=="regular" { font-family: "Helvetica Neue", "Roboto", sans-serif; font-weight: normal; }
+  @if $style=="thin" { font-family: "HelveticaNeue-Light", "Roboto-Light", sans-serif-light, sans-serif; font-weight: normal; }
+	@if $style=="thick" { font-family: "Helvetica Neue", "Roboto", sans-serif; font-weight: 500; }
 }
 
 $text_color: rgba(0,0,0,.7);
 $text_color_light: rgba(0,0,0,.5);
 $text_color_light_reverse: rgba(255,255,255,.5);
 
+$body_bg: #fff;
 $brand: #0082ec;
 $brand_trans: rgba(0,130,236,.2);
 $brand_light: #eaeff4;
@@ -25,7 +26,7 @@ $color_on_brand: #fff;
 $brand2: #ed1c24;
 $color_on_brand2: #fff;
 
-$brand3: #202020;
+$brand3: #36d317;
 $color_on_brand3: #fff;
 
 $nav_color: #fff;
@@ -48,78 +49,6 @@ $width_phone_small: 375px;
 $width_nav: 230px;
 $height_nav: 50px;
 
-@mixin border-radius($radius) {
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-	-ms-border-radius: $radius;
-	border-radius: $radius;
-}
-
-@mixin transition($transition...) {
-  transition: $transition;
-  -webkit-transition: $transition;
-}
-
-@mixin animation($animate) {
-	-webkit-animation: $animate;
-	-moz-animation: $animate;
-	animation: $animate;
-}
-
-@mixin keyframes($name) {
-  @-webkit-keyframes #{$name} {
-    @content;
-  }
-  @-moz-keyframes #{$name} {
-    @content;
-  }
-  @keyframes #{$name} {
-    @content;
-  }
-}
-
-@mixin transform($transforms) {
-	-moz-transform: $transforms;
-	-o-transform: $transforms;
-	-ms-transform: $transforms;
-	-webkit-transform: $transforms;
-	transform: $transforms;
-}
-
-@mixin rotate($deg) {
-	@include transform(rotate(#{$deg}deg));
-}
-
-@mixin scale($scale...) {
-	@include transform(scale($scale));
-}
-
-@mixin translate ($x, $y) {
-	@include transform(translate($x, $y));
-}
-
-@mixin skew ($x, $y) {
-	@include transform(skew(#{$x}deg, #{$y}deg));
-}
-
-@mixin transform-origin ($origin) {
-	moz-transform-origin: $origin;
-	-o-transform-origin: $origin;
-	-ms-transform-origin: $origin;
-	-webkit-transform-origin: $origin;
-	transform-origin: $origin;
-}
-
-@mixin opacity($value){
-  $IEValue: $value*100;
-  opacity: $value; -khtml-opacity: $value;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$IEValue+")";
-  filter: alpha(opacity=$IEValue);
-}
-
-@mixin box-shadow($value){
-	-webkit-box-shadow: $value; -moz-box-shadow: $value; box-shadow: $value;
-}
-
-@import "packages/ihealth_mobile-framework/import";
+@import "packages/ihealth_framework-engine/import";
+@import "packages/ihealth_framework-mobile/import";
 @import "client/app/app.scss";

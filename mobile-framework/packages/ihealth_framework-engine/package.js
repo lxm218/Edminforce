@@ -1,0 +1,72 @@
+
+Package.describe({
+  name: "ihealth:framework-engine",
+  summary: "Engine for iHealth Framework.",
+  version: "0.3.1",
+  git: "https://github.com/iHealthLab/framework-iHealth"
+})
+
+Package.onUse(function(api) {
+  api.versionsFrom("METEOR@1.1.0.2")
+
+  /**
+   * @ @ @ @ @
+   * API USE & IMPLY
+   * @ @ @ @ @
+   */
+  api.use([
+    "react",
+    "underscore",
+    "momentjs:moment",
+    "ihealth:utils",
+  ], ["client","server"])
+
+  api.imply([
+    "react",
+    "fastclick",
+    "ihealth:utils",
+  ], ["client","server"])
+
+  /**
+   * @ @ @ @
+   * API ADD FILES & EXPORT
+   * @ @ @ @
+   */
+  api.addFiles([
+    "RC/framework.jsx",
+    "RC/framework_helpers.jsx",
+    "RC/card/card.jsx",
+    "RC/chat/chatBubble.jsx",
+    "RC/chat/chatTextarea.jsx",
+    "RC/globalNav/globalNav.jsx",
+    "RC/form/formBasics.jsx",
+    "RC/headerNav/headerNav.jsx",
+    "RC/leftNav/leftNav.jsx",
+    "RC/list/list.jsx",
+    "RC/navList/navList.jsx",
+    "RC/tabs/tabs.jsx",
+    "RC/timeline/timeline.jsx",
+  ], "client")
+
+  api.addFiles([
+    "RC/_mixins.scss",
+    "RC/_variables.scss",
+    "RC/_items.scss",
+    "_core.scss",
+    "RC/_framework.scss",
+    "RC/card/_card.scss",
+    "RC/chat/_chat.scss",
+    "RC/globalNav/_globalNav.scss",
+    "RC/form/_form.scss",
+    "RC/headerNav/_headerNav.scss",
+    "RC/leftNav/_leftNav.scss",
+    "RC/list/_list.scss",
+    "RC/navList/_navList.scss",
+    "RC/tabs/_tabs.scss",
+    "RC/timeline/_timeline.scss",
+  ], "server")
+
+  api.addFiles("_import.scss", "server")
+
+  api.export("RC", "client")
+})

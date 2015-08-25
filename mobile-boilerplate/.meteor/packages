@@ -4,19 +4,11 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
+#meteor-platform
+
+meteor
 underscore
 session
-react
-momentjs:moment
-meteorhacks:fast-render
-meteor
-
-fourseven:scss
-fastclick
-accounts-password
-aldeed:simple-schema
-kadira:react-layout
-
 webapp
 logging
 tracker
@@ -26,11 +18,17 @@ check
 jquery
 reload
 autoupdate
+coffeescript
+
+react
 
 launch-screen
 mobile-status-bar
+
 kadira:flow-router
+kadira:react-layout
+
+fourseven:scss
 fortawesome:fontawesome
-ihealth:utils
-ihealth:mobile-framework
-fortawesome:fontawesome
+
+ihealth:framework-mobile

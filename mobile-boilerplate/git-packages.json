@@ -3,8 +3,12 @@
     "git": "https://github.com/iHealthLab/framework-iHealth.git",
     "path": "mobile-framework/packages/ihealth_utils"
   },
-  "ihealth:mobile-framework": {
+  "ihealth:framework-engine": {
     "git": "https://github.com/iHealthLab/framework-iHealth.git",
-    "path": "mobile-framework/packages/ihealth_mobile-framework"
+    "path": "mobile-framework/packages/ihealth_framework-engine"
+  },
+  "ihealth:framework-mobile": {
+    "git": "https://github.com/iHealthLab/framework-iHealth.git",
+    "path": "mobile-framework/packages/ihealth_framework-mobile"
   }
 }

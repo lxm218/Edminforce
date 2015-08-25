@@ -17,4 +17,4 @@ App.configurePlugin('com.ihealth.plugin.bpmanagercordova', {
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#ffffff');
-App.setPreference('Orientation', 'portrait');
+App.setPreference('orientation', 'portrait');
