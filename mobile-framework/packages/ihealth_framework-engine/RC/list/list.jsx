@@ -1,4 +1,4 @@
-
+/*
 RC.List = React.createClass({
   getInitialState(){
     return {
@@ -65,3 +65,90 @@ RC.List = React.createClass({
     </ul>
   }
 })
+*/
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+// @@@@@@@
+
+let themes = ["inset"]
+
+RC.List = React.createClass({
+  mixins: [RC.Mixins.Theme],
+  themeGroup: "list",
+  themes: themes,
+  propTypes: {
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string,
+    avatar: React.PropTypes.string,
+    uiClass: React.PropTypes.string,
+
+    theme: React.PropTypes.string,
+    id: React.PropTypes.string,
+    className: React.PropTypes.string,
+    style: React.PropTypes.object,
+  },
+  getInitialState(){
+    return {
+      selected: null
+    }
+  },
+  setSelectedState(n){
+    if (_.isUndefined(this.props.enableClick) || this.props.enableClick)
+      this.setState({selected: n})
+  },
+  render() {
+
+    let list = !_.isArray(this.props.list) || !this.props.list.length
+      ? [] : this.props.list
+    let self = this
+    let curState = this.state.selected
+    let enableClick = this.props.enableClick || true
+
+    return <ul className={this.getTheme()}>
+      {
+      list.map(function(item,n){
+        let listProps = _.omit(item, ["value"])
+        return <RC.Item {... listProps} tagName={listProps.tagName || "li"} key={n}>
+          {item.value}
+        </RC.Item>
+      })
+      }
+      {this.props.children}
+    </ul>
+  }
+})
+
+if (h.nk(Meteor.settings, "public.dev"))
+  RC.List.Help = {
+    Type: "Canvas",
+    Themes: themes,
+    PropTypes: {
+
+    },
+    Description: "Similar to RC.Card, this is another canvas component.",
+    Example: "/List/Index"
+  }
+
+
+/*
+        return <li className={cur} key={n} onClick={item.onClick}>
+          {
+            item.href
+            ? <a href={item.href} onClick={self.setSelectedState.bind(null, n)}>{sub}{avatar}{itemTitle}{itemSubtitle}</a>
+            : <span onClick={self.setSelectedState.bind(null, n)}>{sub}{avatar}{itemTitle}{itemSubtitle}</span>
+          }
+        </li>
+*/

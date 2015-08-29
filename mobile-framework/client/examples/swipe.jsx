@@ -11,23 +11,15 @@ App.Swipe = React.createClass({
     var self = this
     var panes = [
       // This is the FIRST window
-      <div>
-        <RC.Card title="Passing a Component" subtitle="Card Component inside the Swipe Component.">
-          <p>
-            You can swipe your finger left/right to view more content. But it only works in mobile.
-          </p>
-        </RC.Card>
-
-        <div className="padding">
-          <h1>Swipe</h1>
-          <p>
-            Swipe component is only available in the mobile framework. It is <strong>not</strong> included in the webapp framework.
-          </p>
-          <p>
-            You can activate a swipe by swiping a finger left or right; <em>or</em> you can also create an event handler <span className="clickHandler" onClick={this.swipeLeft}>like this</span> or <span className="clickHandler" onClick={this.swipeRight}>this</span>.
-          </p>
-        </div>
-      </div>,
+      <RC.Card>
+        <RC.Item theme="divider">Passing a Component</RC.Item>
+        <RC.Item theme="body">
+          <p>Swipe is a &quot;canvas&quot; component. You can pass any components into &lt;Swipe/&gt;.</p>
+          <p>You can swipe your finger left/right to view more content. But it only works in mobile.</p>
+          <p>This component is only available in the mobile framework. It is <strong>not</strong> included in the webapp framework.</p>
+          <p>You can activate a swipe by swiping a finger left or right; <em>or</em> you can also create an event handler <span className="clickHandler" onClick={this.swipeLeft}>like this</span> or <span className="clickHandler" onClick={this.swipeRight}>this</span>.</p>
+        </RC.Item>
+      </RC.Card>,
 
       // This is the SECOND window
       <div className="padding">
@@ -61,15 +53,13 @@ App.Swipe = React.createClass({
     ]
 
     return <RC.Swipe ref="swiper" createNavHeight={true}>
-      {panes.map(function(p,n){
-        // var defs = {}
-        // var props = _.isObject(p.props) ? _.extend(p.props, defs) : defs
-
-        // return <div className={"scroll "+(p.center ? "table center" : "default-view")} key={n}>
+      {
+      panes.map(function(p,n){
         return <div className="scroll" key={n}>
             {p}
         </div>
-      })}
+      })
+      }
     </RC.Swipe>
   }
 })

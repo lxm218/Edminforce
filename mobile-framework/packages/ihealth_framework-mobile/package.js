@@ -15,7 +15,13 @@ Package.onUse(function(api) {
    * @ @ @ @ @
    */
   api.use([
+    "react",
     "ihealth:framework-engine",
+  ], ["client","server"])
+
+  api.imply([
+    "ihealth:utils",
+    "fastclick"
   ], ["client","server"])
 
   /**
@@ -28,28 +34,14 @@ Package.onUse(function(api) {
   ], ["client","server"])
 
   api.addFiles([
-    "Mobile/mobile.css",
-    "Mobile/framework.jsx",
     "Mobile/swipe/swipe.jsx",
+    "Mobile/leftNav/leftNav.jsx",
   ], "client")
 
-  // api.addFiles([
-  //   "RC/_mixins.scss",
-  //   "RC/_variables.scss",
-  //   "RC/_items.scss",
-  //   "_core.scss",
-  //   "RC/_framework.scss",
-  //   "RC/card/_card.scss",
-  //   "RC/chat/_chat.scss",
-  //   "RC/globalNav/_globalNav.scss",
-  //   "RC/form/_form.scss",
-  //   "RC/headerNav/_headerNav.scss",
-  //   "RC/leftNav/_leftNav.scss",
-  //   "RC/list/_list.scss",
-  //   "RC/navList/_navList.scss",
-  //   "RC/tabs/_tabs.scss",
-  //   "RC/timeline/_timeline.scss",
-  // ], "server")
+  api.addFiles([
+    "Mobile/_mobile.scss",
+    "Mobile/leftNav/_leftNav.scss",
+  ], "server")
 
   api.addFiles("_import.scss", "server")
 

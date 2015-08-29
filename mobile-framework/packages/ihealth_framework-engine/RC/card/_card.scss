@@ -9,7 +9,7 @@
   padding-top: $item-border-width;
   padding-bottom: $item-border-width;
   padding-left: 0; // reset padding because ul and ol
-  margin-bottom: 20px;
+  margin-top: -1px; margin-bottom: 20px;
 }
 .list:last-child {
   margin-bottom: 0px;
@@ -61,9 +61,6 @@
   .item {
     border-left: 0;
     border-right: 0;
-  }
-  .item:first-child {
-    border-top: 0;
   }
   .item:last-child {
     border-bottom: 0;

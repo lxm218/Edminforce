@@ -26,6 +26,7 @@ Package.onUse(function(api) {
     "accounts-password@1.1.1",
 
     // Utilities
+    // "standard-minifiers", // Add this after Meteor 1.2
     "check@1.0.5",
     "underscore@1.0.3",
     "momentjs:moment",

@@ -12,7 +12,7 @@ fw = {
 
     return date
   },
-  filterChildren(unfilteredChildren) {
+  uniformChildren(unfilteredChildren, filter) {
     if (!unfilteredChildren) return []
     let children = !unfilteredChildren.map ? [unfilteredChildren] : unfilteredChildren
 
@@ -23,15 +23,24 @@ fw = {
     })
 
     return _.filter(children.map( function(c,n){
-      if (c.type=="div") {
+      // if (_.isString(c.type=="div") {
+      if (_.isString(c.type)) {
         return c
-      } else if (c.type!="div") {
-        console.warn("Child was rejected because it was not a <div>.")
-        return undefined
+      } else if (c.type.displayName) {
+        if (filter && filter!=c.type.displayName) {
+          console.warn("Child was rejected because it did not pass the name filter ("+filter+").")
+          return undefined
+        } else
+          return c
       }
     }), function(c){
       return !_.isUndefined(c)
     })
+  },
+  uiKeys: ["uiClass","uiSize","uiColor"],
+  uiKeysCircle: ["uiClass","uiSize","uiColor","uiBrand"],
+  checkColorClass(css) {
+    return _.isString(css) && _.contains(["brand","brand1","brand2","brand3","white","dark","gray","blue","green","light","stable"], css.trim())
   },
   omitProps(props, filterList) {
     if (!_.isArray(filterList) || !filterList.length)

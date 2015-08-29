@@ -5,18 +5,6 @@ App.Main = React.createClass({
   },
   render() {
 
-    let footerList = [
-      { label: "Chart", href: "/", uiClass: "area-chart" },
-      {
-        label: "Coffee",
-        uiClass: "coffee",
-        onClick: function(){
-          console.log("Hello! I am an event handler.")
-        },
-      },
-      { label: "Shield", href: "#", uiClass: "shield" },
-    ]
-
     let navList = [
       { text: "Pages", type: "title" },
       { text: "Swipe", href: "/examples/Swipe" },
@@ -33,7 +21,7 @@ App.Main = React.createClass({
     return <div className={h.getPlatform()} id="app-root">
       <RC.LeftNav navList={navList} ref="LeftNav" />
       <RC.HeaderNav nav={this.props.headerNav} title={this.props.title} />
-      <RC.GlobalNav isVisible={this.props.showGlobalNav} list={footerList} theme="flat" location="bottom"/>
+      <RC.GlobalNav isVisible={this.props.showGlobalNav} list={this.props.globalNav} location={this.props.globalNavLocation}/>
       <App.Body tmpl={this.props.body} props={{openLeftNav: this.openLeftNav}} />
     </div>
   }

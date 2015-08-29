@@ -114,7 +114,7 @@ App.Chat = React.createClass({
     var lastMsg = {}
     let userId = this.data.userId
 
-    return <div>
+    return <div className="bg-brand-light">
       {
       _.map(this.data.chatSession, function(c,n){
 
