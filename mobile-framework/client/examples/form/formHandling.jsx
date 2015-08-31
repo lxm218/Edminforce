@@ -11,6 +11,11 @@ App.Form_Handling = React.createClass({
     delete Session.keys["form1"]
     delete Session.keys["form2"]
   },
+  formReset(e){
+    e.preventDefault()
+    this.refs.input1.reset()
+    this.refs.input2.reset()
+  },
   formSubmit(e){
     e.preventDefault()
     /**
@@ -42,19 +47,22 @@ App.Form_Handling = React.createClass({
 
 
 
-      <RC.Form ref="myForm" onSubmit={this.formSubmit}>
+      <RC.Form ref="myForm" onSubmit={this.formSubmit} onReset={this.formReset}>
         <RC.Item theme="divider">Form Submit</RC.Item>
         <RC.Input
+          ref="input1"
           name="name" value="Bruno Lee"
           label="Full Name"
         />
         <RC.Select
+          ref="input2"
           options={["Apples","Bananas","Oranges","Watermelons","Pears"]}
           name="favFruit" value="Oranges"
           label="Favourite Fruit"
         />
         <RC.Item>
-        <RC.Button name="button" value="Submit" buttonColor="brand" />
+        <RC.Button name="button" buttonColor="brand" style={{marginRight: "5px"}}>Submit</RC.Button>
+        <RC.Button name="button" type="reset" buttonColor="brand">Reset</RC.Button>
         </RC.Item>
         {
         !this.data.form1 ? null :

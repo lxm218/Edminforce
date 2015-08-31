@@ -113,16 +113,19 @@ RC.Mixins = {
   Theme: {
     getTheme(t){
       var classList = []
-      let theme = t || this.props.theme || this.themeDefault || "regular"
+      var self = this
+      var themeList = h.strToArray( t || this.props.theme || this.themeDefault || "regular" )
 
       if (_.isString(this.themeGroup))
         classList.push(this.themeGroup)
 
-      if (_.isArray(this.themes) && (_.contains(this.themes, theme) || t))
-          classList.push( _.isString(this.themeGroup)
-            ? this.themeGroup+"-"+theme
-            : theme
-          )
+      if (_.isArray(this.themes) || t) {
+        _.map( _.intersection(self.themes, themeList), function(t){
+          classList.push( _.isString(self.themeGroup)
+            ? self.themeGroup+"-"+t
+            : t
+        )})
+      }
 
       if (_.isString(this.props.className))
         classList.push(this.props.className)

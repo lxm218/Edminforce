@@ -176,8 +176,8 @@ App.Mixed_List = React.createClass({
       </RC.Item>
 
       <RC.Item theme="divider">Cool Animals</RC.Item>
-      <RC.Item theme="icon-both" uiClass="book, phone" uiColor="brand2, brand">Bald Eagle</RC.Item>
-      <RC.Item theme="icon-both" uiClass="language, chevron-right" uiColor="brand, gray">Gorilla</RC.Item>
+      <RC.Item theme="icon-left, icon-right" uiClass="book, phone" uiColor="brand2, brand">Bald Eagle</RC.Item>
+      <RC.Item theme="icon-left, icon-right" uiClass="language, chevron-right" uiColor="brand, gray">Gorilla</RC.Item>
       <RC.Item theme="icon-right" uiClass="cubes" uiColor="brand3">Gazelle</RC.Item>
       <RC.Item theme="icon-right" uiClass="diamond" uiColor="brand">Australian Flying Fox</RC.Item>
 

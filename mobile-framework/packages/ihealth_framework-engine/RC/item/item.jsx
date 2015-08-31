@@ -1,5 +1,5 @@
 
-let themes = ["text-wrap","body","divider","avatar","image","tabs","icon-left", "icon-right", "icon-both","thumbnail-left","thumbnail-right"]
+let themes = ["icon-left item-text-wrap","text-wrap","body","divider","avatar","image","tabs","icon-left", "icon-right","thumbnail-left","thumbnail-right"]
 RC.Item = React.createClass({
   mixins: [RC.Mixins.Theme],
   themeGroup: "item",
@@ -26,8 +26,9 @@ RC.Item = React.createClass({
 
     let self = this
     let uiKeys = ["uiClass","uiSize","uiColor"]
+    let themeList = h.strToArray(this.props.theme)
 
-    if (this.props.theme=="tabs") {
+    if (_.contains(themeList, "tabs")) {
       let list = _.isArray(this.props.list) ? this.props.list : []
       let iconAlign = _.contains(["left","right"], this.props.iconAlign) ? this.props.iconAlign : "left"
 
@@ -63,11 +64,11 @@ RC.Item = React.createClass({
     let keys = _.keys(this.props)
     let uiKeysAvatar = ["uiClass","uiSize","uiBrand","uiColor"]
 
-    let aProps = fw.omitProps(this.props, uiKeys.concat(["label","uiBrand"]))
+    let aProps = _.omit(this.props, uiKeys.concat(["label","uiBrand"]))
 
-    if (_.contains(["avatar","icon-left","icon-right","icon-both","thumbnail-left","thumbnail-right"], this.props.theme)) {
+    if (_.intersection(["avatar","icon-left","icon-right","thumbnail-left","thumbnail-right"], themeList).length) {
 
-      if (_.contains(["avatar","thumbnail-left","thumbnail-right"], this.props.theme)) {
+      if (_.intersection(["avatar","thumbnail-left","thumbnail-right"], themeList).length) {
         // @@@@@
         // Avatar & Thumbnail
         // @@@@@
@@ -75,7 +76,7 @@ RC.Item = React.createClass({
           if (this.props.avatar) {
             avatar.push(<img src={this.props.avatar} />)
             if (this.props.uiClass) {
-              custTheme = this.props.theme+" item-icon-right"
+              custTheme = this.props.theme+" icon-right"
               avatar.push(<RC.uiIcon {... fw.pickProps(this.props, uiKeys)} />)
             }
           } else if (this.props.uiClass) {
@@ -101,15 +102,13 @@ RC.Item = React.createClass({
               return []
           }))
 
-          _.every( uiLoop.uiClass, function(thisClass,n){
+          _.map( uiLoop.uiClass, function(thisClass,n){
             avatar.push(<RC.uiIcon {... {
               uiClass: thisClass.trim(),
               uiSize: _.isUndefined(uiLoop.uiSize[n]) ? "1.75em" : uiLoop.uiSize[n],
               uiColor: uiLoop.uiColor[n] || "",
               tagName: uiLoop.tagName[n] || "div",
             }} />)
-
-            return self.props.theme=="icon-both"
           })
         }
 
@@ -124,8 +123,6 @@ RC.Item = React.createClass({
     else
       var trail = null
 
-    if (this.props.theme=="icon-both") custTheme = "icon-left item-icon-right"
-
     return <RC.URL {... aProps} tagName={aProps.tagName || "div"} className={this.getTheme(custTheme)}>
       {avatar[0]}
       {title || subtitle ? <div>{title}{subtitle}</div> : null}
@@ -136,7 +133,7 @@ RC.Item = React.createClass({
   },
 })
 
-if (h.nk(Meteor.settings, "public.dev"))
+if (!h.nk(Meteor.settings, "public.dev"))
   RC.Item.Help = {
     Type: "Item",
     Themes: themes,

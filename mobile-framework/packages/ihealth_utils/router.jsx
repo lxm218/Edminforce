@@ -27,7 +27,7 @@ DefaultRoutes = FlowRouter.group({
     function(r) {
       // This is the After() function for every DefaultRoutes Group
       savedRoute = FlowRouter.current().path
-      // window.scrollTo(0,0)
+      window.scrollTo(0,0)
     }
   ]
 })

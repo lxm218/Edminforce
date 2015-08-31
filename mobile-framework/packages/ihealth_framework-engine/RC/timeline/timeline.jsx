@@ -1,6 +1,6 @@
 
 // @@@@@
-// Timeline
+// Timeline Canvas
 // @@@@@
 
 let timelineThemes = []
@@ -67,7 +67,7 @@ RC.Timeline = React.createClass({
 })
 
 // @@@@@
-// Timeline Item
+// Journal Item
 // @@@@@
 
 let journalThemes = ["title"]
@@ -172,7 +172,7 @@ RC.Journal = React.createClass({
   },
 })
 
-if (h.nk(Meteor.settings, "public.dev")) {
+if (!h.nk(Meteor.settings, "public.dev")) {
   RC.Timeline.Help = {
     Type: "canvas",
     Themes: timelineThemes,

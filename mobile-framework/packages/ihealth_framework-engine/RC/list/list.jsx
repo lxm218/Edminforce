@@ -131,7 +131,7 @@ RC.List = React.createClass({
   }
 })
 
-if (h.nk(Meteor.settings, "public.dev"))
+if (!h.nk(Meteor.settings, "public.dev"))
   RC.List.Help = {
     Type: "Canvas",
     Themes: themes,

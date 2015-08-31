@@ -62,25 +62,25 @@ App.Basic_Form_Items = React.createClass({
       <h2 className="brand">More Coming Soon</h2>
       <p>Currently there is only one button type. Soon in the future, there will be multiple button types (available via theme prop).</p>
       <p>
-        <RC.Button name="button" value="Button (Default)" />
+        <RC.Button name="button">Button (Default)</RC.Button>
       </p>
       <p>
-        <RC.Button name="button" value="Button (Light)" buttonColor="light" />
+        <RC.Button name="button" buttonColor="light">Button (Light)</RC.Button>
       </p>
       <p>
-        <RC.Button name="button" value="Button (Stable)" buttonColor="stable" />
+        <RC.Button name="button" buttonColor="stable">Button (Stable)</RC.Button>
       </p>
       <p>
-        <RC.Button name="button" value="Button (Brand1)" buttonColor="brand1" />
+        <RC.Button name="button" buttonColor="brand1">Button (Brand1)</RC.Button>
       </p>
       <p>
-        <RC.Button name="button" value="Button (Brand2)" buttonColor="brand2" />
+        <RC.Button name="button" buttonColor="brand2">Button (Brand2)</RC.Button>
       </p>
       <p>
-        <RC.Button name="button" value="Button (Brand3)" buttonColor="brand3" />
+        <RC.Button name="button" buttonColor="brand3">Button (Brand3)</RC.Button>
       </p>
       <p>
-        <RC.Button name="button" value="Button (Dark)" buttonColor="dark" />
+        <RC.Button name="button" buttonColor="dark">Button (Dark)</RC.Button>
       </p>
     </RC.Item>
 

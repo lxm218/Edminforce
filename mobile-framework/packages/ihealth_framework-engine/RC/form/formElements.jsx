@@ -1,9 +1,9 @@
 
 let themes_form = []
 RC.Form = React.createClass({
-  getFormData() {
-    var $formEl = $(React.findDOMNode(this.refs.rcForm))
-    var form = h.serializeForm($formEl)
+  getFormData(){
+    var formEl = React.findDOMNode(this.refs.rcForm)
+    var form = h.serializeForm(formEl)
     return form
   },
   render() {
@@ -36,6 +36,9 @@ RC.Input = React.createClass({
     error: React.PropTypes.bool,
     style: React.PropTypes.object,
     disabled: React.PropTypes.bool,
+  },
+  reset(){
+    this.setState({ value: this.props.value || false })
   },
   getInitialState(){
     return {
@@ -85,6 +88,9 @@ RC.Range = React.createClass({
     return {
       value: false
     }
+  },
+  reset(){
+    this.setState({ value: this.props.value || false })
   },
   getValue(){
     return (this.state.value!==false ? this.state.value : this.props.value) || null
@@ -149,6 +155,9 @@ RC.Checkbox = React.createClass({
     return {
       value: this.props.value || false // Must be Boolean
     }
+  },
+  reset(){
+    this.setState({ value: this.props.value || false })
   },
   getValue(){
     return _.isBoolean(this.state.value) ? this.state.value : this.props.value
@@ -256,6 +265,14 @@ RC.RadioGroup = React.createClass({
       })
     }
   },
+  reset(){
+    let list = _.isArray(this.props.list) ? this.props.list : []
+    let self = this
+    let checked = list.map( function(c){
+      return c.value && c.value==self.props.value ? true : false
+    })
+    this.setState({ checked: checked })
+  },
   getValue(n){
     if (_.isUndefined(n)) {
       var realVal = null
@@ -307,8 +324,6 @@ RC.RadioGroup = React.createClass({
   }
 })
 
-
-
 // @@@@@
 // <textarea/> Form Element
 // @@@@@
@@ -338,6 +353,9 @@ RC.Textarea = React.createClass({
     return {
       value: false
     }
+  },
+  reset(){
+    this.setState({ value: false })
   },
   getValue(){
     return (this.state.value!==false ? this.state.value : this.props.children) || ""
@@ -376,8 +394,8 @@ RC.Button = React.createClass({
 
     var classes = this.getTheme() + (this.props.buttonColor ? " button-"+this.props.buttonColor : "")
 
-    return <button {... _.omit(this.props, ["value","type"])} type={this.props.type || "submit"} className={classes}>
-      {this.props.value}
+    return <button {... this.props} className={classes}>
+      {this.props.children}
     </button>
   }
 })
@@ -400,6 +418,9 @@ RC.Select = React.createClass({
     return {
       value: false
     }
+  },
+  reset(){
+    this.setState({ value: false })
   },
   getValue(){
     return (this.state.value!==false ? this.state.value : this.props.value) || ""
@@ -431,7 +452,7 @@ RC.Select = React.createClass({
 })
 
 
-if (h.nk(Meteor.settings, "public.dev")) {
+if (!h.nk(Meteor.settings, "public.dev")) {
   RC.Form.Help = {
     Type: "Canvas",
     Themes: themes_form,

@@ -13,12 +13,12 @@ App.List_From_Array = React.createClass({
       theme: "divider",
       value: "Cool Animals"
     },{
-      theme: "icon-both",
+      theme: "icon-left, icon-right",
       uiClass: "book,phone",
       uiColor: "brand2,brand",
       value: "Bald Eagle"
     },{
-      theme: "icon-both",
+      theme: "icon-left, icon-right",
       uiClass: "language, chevron-right",
       uiColor: "brand, gray",
       value: "Gorilla"

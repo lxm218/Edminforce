@@ -37,7 +37,7 @@ header, main, section, article, figure { position: relative; }
 .table { height: 100%; width: 100%; display: table !important; vertical-align: middle; }
 .table .inside { display: table-cell; vertical-align: middle; }
 
-.full-height { min-height: calc(100vh - #{$height_nav}); }
+.full-height { min-height: calc(100vh - #{$height_nav}); overflow-y: auto; }
 
 .wrapper-wide, .wrapper, .wrapper-mobile, .wrapper-mini, .wrapper-popup, .re-wrapper {
   margin: 0 auto; }
