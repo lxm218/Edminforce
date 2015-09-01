@@ -1,15 +1,13 @@
 
+let themes = ["regular","opacity","flat"]
 RC.GlobalNav = React.createClass({
+  mixins: [RC.Mixins.Theme],
+  themeGroup: "",
+  themes: themes,
   getInitialState(){
     return {
       selected: null,
     }
-  },
-  getTheme(name){
-    let enableClick = _.isUndefined(this.props.enableClick) ? true : this.props.enableClick
-    let theme = _.contains(["regular","opacity","flat"], name)
-      ? name : "regular"
-    return theme
   },
   clickHandler(n, onClick){
     if (_.isUndefined(this.props.enableClick) || this.props.enableClick)
@@ -25,8 +23,15 @@ RC.GlobalNav = React.createClass({
     let curState = this.state.selected
     let curPath = FlowRouter.current().path
 
+    _.every(this.props.list, function(link){
+      let test = link.href==curPath
+      if (test)
+        curState = null
+      return !test
+    })
+
     let location = _.contains(["auto","top","bottom"], this.props.location) ? this.props.location : "auto"
-    let isTop = location=="top" || (location=="auto" && !h.getPlatform("android")) // This will match Web too
+    let isTop = location=="top" || (location=="auto" && h.getPlatform("android")) // This will match Web too
 
     var classList = [
       "global-nav", "center", "list-length-"+Math.min(this.props.list.length, 5),
@@ -34,7 +39,7 @@ RC.GlobalNav = React.createClass({
       this.props.animate ? "animate" : "",
       this.props.isVisible ? "isVisible" : "isHidden",
       this.props.allowLongLabels ? "" : "even",
-      this.getTheme(this.props.theme),
+      this.getTheme(),
       this.props.className || "",
     ]
 
@@ -43,17 +48,17 @@ RC.GlobalNav = React.createClass({
       {
       this.props.list.map(function(item,n){
 
-        var itemClasses = ["transition","inline-block","cursor","item"]
-        if (n==curState || item.href==curPath) itemClasses.push("cur")
+        let isCur = n==curState || item.href==curPath
+        var itemClasses = ["transition","inline-block","cursor","menuItem"]
+
+        if (isCur) itemClasses.push("cur")
         if (item.uiClass) itemClasses.push("with-icon")
         if (item.label) itemClasses.push("with-label")
 
-        return <p className={itemClasses.join(" ")} onClick={self.clickHandler.bind(null, n, item.onClick)} key={n}>
-          <a href={item.href}>
-          {item.uiClass ? <RC.uiIcon uiClass={item.uiClass} uiColor={item.uiColor} uiSize={item.uiSize} /> : null}
+        return <RC.URL {... _.omit(item,["className","onClick"])} className={itemClasses.join(" ")} onClick={self.clickHandler.bind(null, n, item.onClick)} key={n}>
+          {item.uiClass ? <RC.uiIcon uiClass={isCur && item.uiClassCur ? item.uiClassCur : item.uiClass} uiColor={isCur && item.uiColorCur ? item.uiColorCur : item.uiColor} uiSize={item.uiSize} /> : null}
           {item.label ? <span className="fn-label ellipsis">{item.label}</span> : null}
-          </a>
-        </p>
+        </RC.URL>
       })
       }
       </nav>

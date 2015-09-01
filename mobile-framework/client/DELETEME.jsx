@@ -1,11 +1,11 @@
 
-App.Timeline = React.createClass({
+App.TimelineDELETEME = React.createClass({
   render() {
 
     let notificationList = [{
         label: "Important",
         type: "title",
-        uiClass: "bell-o",
+        uiClass: "map",
         brand: 1,
       },{
         title: "Watermelons in Summer",
@@ -22,8 +22,28 @@ App.Timeline = React.createClass({
       },{
         label: "Diary",
         type: "title",
-        uiClass: "bar-chart-o",
-        uiSize: 0,
+        uiClass: "bolt",
+        brand: 1,
+      },{
+        title: new Date("Wed Jul 01 2015 17:54:07 GMT-0700 (PDT)"),
+        text: <p>Today was a sunny day. It's always sunny in Sunnyvale but muggy in Canada.</p>,
+        brand: 1
+      },{
+        title: "Watermelons in Summer",
+        text: <p>
+          Watermelons are made of mostly water. They are also very sugary. It's delcious though.
+        </p>,
+        brand: 1
+      },{
+        title: "Apples and Oranges",
+        text: <p>
+          Two fruits, different colours, different taste. Battle to the death at the crossroads.
+        </p>,
+        brand: 1
+      },{
+        label: "Diary",
+        type: "title",
+        uiClass: "cloud-download",
         brand: 1,
       },{
         title: new Date("Wed Jul 01 2015 17:54:07 GMT-0700 (PDT)"),
@@ -45,7 +65,6 @@ App.Timeline = React.createClass({
         label: "Diary",
         type: "title",
         uiClass: "bar-chart-o",
-        uiSize: 0,
         brand: 1,
       },{
         title: new Date("Wed Jul 01 2015 17:54:07 GMT-0700 (PDT)"),
@@ -67,7 +86,6 @@ App.Timeline = React.createClass({
         label: "Diary",
         type: "title",
         uiClass: "bar-chart-o",
-        uiSize: 0,
         brand: 1,
       },{
         title: new Date("Wed Jul 01 2015 17:54:07 GMT-0700 (PDT)"),
@@ -89,7 +107,6 @@ App.Timeline = React.createClass({
         label: "Diary",
         type: "title",
         uiClass: "bar-chart-o",
-        uiSize: 0,
         brand: 1,
       },{
         title: new Date("Wed Jul 01 2015 17:54:07 GMT-0700 (PDT)"),
@@ -111,29 +128,6 @@ App.Timeline = React.createClass({
         label: "Diary",
         type: "title",
         uiClass: "bar-chart-o",
-        uiSize: 0,
-        brand: 1,
-      },{
-        title: new Date("Wed Jul 01 2015 17:54:07 GMT-0700 (PDT)"),
-        text: <p>Today was a sunny day. It's always sunny in Sunnyvale but muggy in Canada.</p>,
-        brand: 1
-      },{
-        title: "Watermelons in Summer",
-        text: <p>
-          Watermelons are made of mostly water. They are also very sugary. It's delcious though.
-        </p>,
-        brand: 1
-      },{
-        title: "Apples and Oranges",
-        text: <p>
-          Two fruits, different colours, different taste. Battle to the death at the crossroads.
-        </p>,
-        brand: 1
-      },{
-        label: "Diary",
-        type: "title",
-        uiClass: "bar-chart-o",
-        uiSize: 0,
         brand: 1,
       },{
         title: new Date("Wed Jul 01 2015 17:54:07 GMT-0700 (PDT)"),

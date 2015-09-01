@@ -4,9 +4,8 @@
  */
 
 /* Major DOM Elements */
-body, div, main, figure, section, article, figcaption { overflow: auto; padding: 0; margin: 0; }
-p { padding: 0 0 12px; margin: 0; }
-p:last-child { padding-bottom: 0; }
+body, div, main, figure, section, article, figcaption { padding: 0; margin: 0; }
+p { padding: 0; margin: 0 0 12px; }
 a, .clickHandler { color: $brand2; text-decoration: none; }
 a:hover { color: inherit; }
 
@@ -15,25 +14,21 @@ body {
   background: $body_bg;
   -webkit-font-smoothing: antialiased;
 }
-body, input, textarea, select { font-size: 15px; color: $text_color; }
-body, input, textarea, label, select { line-height: 1.55; }
+body { font-size: 15px; line-height: 20px; color: $text_color; }
+body, input, textarea, select, button {
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased; }
 
 input, textarea, button, select, div, main, p, section, figcaption, h1, h2, h3, h4, h5, h6, strong, span {
   outline: none; }
-input, textarea, button, select, label { @include sans_alt(regular); }
-input, textarea, button, select {
-  display: block; resize: none;
-  width: 100%;
-  font-size: 1em;
-  -webkit-appearance: none;
-  -webkit-font-smoothing: antialiased; }
+textarea { resize: none; }
 * { @include box-sizing(border-box); }
 img { max-width: 100%; max-height: 100%; }
 header, main, section, article, figure { position: relative; }
 
 ::selection { background: #fee8a6; color: $brand; }
 ::-moz-selection { background: #fee8a6; color: $brand; }
-.bg-brand ::selection { background: $brand2; color: $color_on_brand2; }
+.bg-brand ::selection, .bg-brand1 ::selection { background: $brand2; color: $color_on_brand2; }
 .bg-brand ::-moz-selection { background: $brand2; color: $color_on_brand2; }
 .bg-brand3 ::selection { color: $color_on_brand3; }
 .bg-brand3 ::-moz-selection { color: $color_on_brand3; }
@@ -42,9 +37,10 @@ header, main, section, article, figure { position: relative; }
 .table { height: 100%; width: 100%; display: table !important; vertical-align: middle; }
 .table .inside { display: table-cell; vertical-align: middle; }
 
-.full-height { min-height: calc(100vh - #{$height_nav}); }
+.full-height { min-height: calc(100vh - #{$height_nav}); overflow-y: auto; }
 
-.wrapper-wide, .wrapper, .wrapper-mobile, .wrapper-mini, .wrapper-popup, .re-wrapper { margin: 0 auto; }
+.wrapper-wide, .wrapper, .wrapper-mobile, .wrapper-mini, .wrapper-popup, .re-wrapper {
+  margin: 0 auto; }
 .wrapper-wide { max-width: 1440px; }
 .wrapper { max-width: 1280px; }
 .wrapper-mobile { max-width: 1024px; }
@@ -95,7 +91,7 @@ header, main, section, article, figure { position: relative; }
 
 .background { background-size: cover; background-position: 50%; }
 .boxed { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-.unselect { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+.unselect, button { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
 .ellipsis { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ellipsis.inline-block { display: inline-block; }
 .overflow { overflow: hidden; }
@@ -148,9 +144,9 @@ header, main, section, article, figure { position: relative; }
 .invis-95 { @include opacity(.95); }
 
 /* Colours */
-.bg-brand { background-color: $brand !important; color: $color_on_brand; }
-.ba-brand:before, .ba-brand:after { background-color: $brand; }
-.bg-brand a { color: $color_on_brand; }
+.bg-brand, .bg-brand1 { background-color: $brand !important; color: $color_on_brand; }
+.ba-brand:before, .ba-brand:after, .ba-brand1:before, .ba-brand1:after { background-color: $brand; }
+.bg-brand a, .bg-brand1 a { color: $color_on_brand; }
 
 .bg-brand2 { background-color: $brand2 !important; color: $color_on_brand2; }
 .ba-brand2:before, .ba-brand2:after { background-color: $brand2; }
@@ -172,13 +168,14 @@ header, main, section, article, figure { position: relative; }
 .bg-blue { background-color: #0078ff; }
 .bg-light { background-color: #ddd; }
 .bg-white { background-color: #fff; }
+.bg-dark { background-color: $dark; }
 .bg-dim { background-color: rgba(0,0,0,.25); }
 .bg-bright { background-color: rgba(255,255,255,.25); }
 .bg-overlay { background-color: rgba(255,255,255,.9); }
 
-.brand { color: $brand; }
-.border-brand { border-color: $brand; }
-.svg-brand { stroke: $brand; }
+.brand, .brand1 { color: $brand; }
+.border-brand, .border-brand1 { border-color: $brand; }
+.svg-brand, .svg-brand1 { stroke: $brand; }
 
 .brand2 { color: $brand2; }
 .border-brand2 { border-color: $brand2; }
@@ -190,17 +187,22 @@ header, main, section, article, figure { position: relative; }
 
 .light { color: $text_color_light; }
 .color-on-brand { color: $color_on_brand !important; }
+.red { color: #e41212; }
 .blue { color: #0078ff; }
+.green { color: #31d012; }
 .white { color: #fff; }
+.dark { color: #333; }
+.gray { color: #bbb; }
 
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 { line-height: 1.2; padding: 0; margin: 0; }
-h1 { font-size: 2.2em; }
-h2 { font-size: 2em; }
-h2 { font-size: 1.8em; }
+h1, h2, h3, h4, h5, h6 { line-height: 1.2; padding: 0; }
+h1 { font-size: 2em; margin: 26px 0 18px; }
+h2 { font-size: 1.8em; margin: 22px 0 14px; }
+h3 { font-size: 1.5em; margin: 18px 0 12px;  }
 h1, h2, h3 { @include sans_alt(regular); }
 h4, h5, h6 {
+  margin: 12px 0;
   font-size: 1.25em;
   @include sans(regular); }
 
@@ -346,8 +348,6 @@ h4, h5, h6 {
   .mobile { display: block; }
 
   body, input, textarea { font-size: 15px; }
-  #app-root.ios, #app-root.ios input, #app-root.ios textarea, #app-root.ios label {
-    line-height: 1.45; }
   #app-root.android { @include sans(thin); }
 }
 

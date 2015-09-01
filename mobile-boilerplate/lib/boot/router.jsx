@@ -15,6 +15,8 @@ if (Meteor.isClient) {
       layout: App.Main,
       pageTitle: "Unknown",
       showGlobalNav: false,
+      globalNav: null,
+      globalNavLocation: "auto",
       headerNav: null,
       bodyTmpl: <RC.NotFound/>
     }
@@ -26,6 +28,8 @@ if (Meteor.isClient) {
     ReactLayout.render( args.layout, {
       title: args.pageTitle,
       showGlobalNav: args.showGlobalNav,
+      globalNav: args.globalNav,
+      globalNavLocation: args.globalNavLocation,
       headerNav: args.headerNav,
       body: args.bodyTmpl
     })
@@ -41,7 +45,6 @@ if (Meteor.isClient) {
     action: function(p) {
       routeHandler(p, {
         pageTitle: "Home",
-        showGlobalNav: false,
         headerNav: null,
         bodyTmpl: <RC.NotFound/>
       })

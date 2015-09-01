@@ -1,7 +1,7 @@
 
 svg.device-control {
   position: absolute; bottom: 80px; left: 50%; z-index: 5;
-  background: #fff;
+  background: #e4e4e4;
   width: 160px; height: 160px; margin: 0 0 0 -80px;
   -webkit-animation: device-up-animate .75s 1;
 	-moz-animation: device-up-animate .75s 1;
@@ -79,7 +79,7 @@ svg.device-control.active { background: #ddd; }
 .device-help {
   background: rgba(0,0,0,.2);
   display: block; margin: 5px auto;
-  width: 80px; height: 50px; padding: 30px 0 0; }
+  width: 80px; height: 80px; padding: 30px 0 0; }
 
 /* Device Errors */
 #device-error { padding: 0 0 10px; z-index: 101; }
@@ -114,6 +114,7 @@ svg.device-control.active { background: #ddd; }
   .device-plate { width: 240px; height: 240px; margin: 0 0 0 -120px; }
 
   .device-text {
+    overflow: visible;
     width: 480px; margin: -140px 0 0 -240px;
     font-size: 1.25em; }
   .device-text .title { font-size: 1.8em; }

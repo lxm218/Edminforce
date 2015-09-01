@@ -14,6 +14,7 @@ DefaultRoutes = FlowRouter.group({
       // Google Analytics
       // MixPanel
       // Disable/Enable Animations
+
       if (!FlowRouter.BackButton && savedRoute)
         FlowRouter.LastRoute.push(savedRoute)
       else if (FlowRouter.BackButton)
@@ -26,6 +27,7 @@ DefaultRoutes = FlowRouter.group({
     function(r) {
       // This is the After() function for every DefaultRoutes Group
       savedRoute = FlowRouter.current().path
+      window.scrollTo(0,0)
     }
   ]
 })

@@ -25,9 +25,8 @@ RC.uiIcon = React.createClass({
   propTypes: {
     uiClass: React.PropTypes.string,
     // uiSize: THIS IS FLEXIBLE
-    uiBrand: React.PropTypes.number,
+    // uiBrand: THIS IS FLEXIBLE
     uiColor: React.PropTypes.string,
-    wrap: React.PropTypes.bool,
   },
   render() {
     if (!this.props.uiClass) return null
@@ -37,16 +36,27 @@ RC.uiIcon = React.createClass({
     // uiOpacity = 5 * Math.round(uiOpacity/5)
 
     var styles = {}
+    var brandNum = _.isNumber(this.props.uiBrand) ? this.props.uiBrand : (this.props.uiBrand || -1)
     let sizeList = ["", "fa-lg", "fa-2x", "fa-3x", "fa-4x", "fa-5x"]
     let brandList = ["bg-brand","bg-brand2","bg-brand3"]
 
+    // Brand
+    if (_.isString(brandNum) && _.contains(["brand","brand1","brand2","brand3"], brandNum))
+      brandNum = {
+        brand: 0,
+        brand1: 0,
+        brand2: 1,
+        brand3: 2,
+      }[brandNum]
+
     let classList = [
       "fa",
-      "fa-"+this.props.uiClass,
+      "fa-"+this.props.uiClass.trim(),
+      (this.props.className || "")
     ]
 
     // Color
-    if (_.contains(["brand","brand1","brand2","brand3"], this.props.uiColor))
+    if (fw.checkColorClass(this.props.uiColor))
       classList.push(this.props.uiColor)
     else if (this.props.uiColor)
       styles.color = this.props.uiColor
@@ -60,8 +70,7 @@ RC.uiIcon = React.createClass({
       styles.fontSize = this.props.uiSize
 
     let ui = <i className={classList.join(" ")} style={styles} />
-
-    return this.props.uiBrand && brandList[this.props.uiBrand] ? <span className={"fa-wrap "+brandList[this.props.uiBrand]}>{ui}</span> : ui
+    return brandNum>=0 ? <span className={"fa-wrap "+(brandList[brandNum] || brandList[0])}>{ui}</span> : ui
   }
 })
 
@@ -80,13 +89,75 @@ RC.VerticalAlign = React.createClass({
 
 RC.URL = React.createClass({
   render: function() {
-    if (this.props.href)
-      return <a {...this.props}>{this.props.children}</a>
+
+    let props = _.omit(this.props, ["tagName"])
+
+    if (props.href)
+      return <a {... props}>{props.children}</a>
     else {
-      let keys = _.keys(this.props)
+      let keys = _.keys(props)
       if (_.intersection(keys, ["onClick","onTouchTap","onTouch"]).length)
-        this.props.className = (this.props.className || "")+" cursor"
-      return <span {...this.props}>{this.props.children}</span>
+        props.className = (props.className || "")+" cursor"
+
+      if (_.isString(props.tagName))
+        return React.createElement(this.props.tagName, props, props.children)
+
+      return <span {... props}>{props.children}</span>
     }
   }
 })
+
+RC.Mixins = {
+  // @@@@@
+  // Theme Mixins
+  Theme: {
+    getTheme(t){
+      var classList = []
+      var self = this
+      var themeList = h.strToArray( t || this.props.theme || this.themeDefault || "regular" )
+
+      if (_.isString(this.themeGroup))
+        classList.push(this.themeGroup)
+
+      if (_.isArray(this.themes) || t) {
+        _.map( _.intersection(self.themes, themeList), function(t){
+          classList.push( _.isString(self.themeGroup)
+            ? self.themeGroup+"-"+t
+            : t
+        )})
+      }
+
+      if (_.isString(this.props.className))
+        classList.push(this.props.className)
+
+      return classList.join(" ")
+    },
+  },
+  // @@@@@
+  // Premade Mixins
+  Premade: {
+    makeAvatarItem(props){
+
+      if (_.isUndefined(props)) props = this.props
+      let keys = _.keys(props)
+
+      if (_.intersection(keys, ["title","subtitle","avatar","uiClass"]).length) {
+        let uiKeys = ["uiClass","uiSize","uiBrand","uiColor"]
+
+        if (props.avatar)
+          var avatar = <img src={props.avatar} />
+        else if (_.intersection(keys, uiKeys).length) {
+          let uiProps = fw.pickProps(props, uiKeys)
+          var avatar = <RC.uiIcon {...uiProps} />
+        }
+
+        return <RC.Item theme={props.avatar || props.uiClass ? "avatar" : null}>
+          {avatar}
+          {props.title ? <h2>{props.title}</h2> : null}
+          {props.subtitle ? <p>{props.subtitle}</p> : null}
+        </RC.Item>
+      }
+      return null
+    },
+  }
+}

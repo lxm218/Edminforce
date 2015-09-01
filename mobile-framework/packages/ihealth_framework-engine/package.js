@@ -21,12 +21,6 @@ Package.onUse(function(api) {
     "ihealth:utils",
   ], ["client","server"])
 
-  api.imply([
-    "react",
-    "fastclick",
-    "ihealth:utils",
-  ], ["client","server"])
-
   /**
    * @ @ @ @
    * API ADD FILES & EXPORT
@@ -36,10 +30,11 @@ Package.onUse(function(api) {
     "RC/framework.jsx",
     "RC/framework_helpers.jsx",
     "RC/card/card.jsx",
+    "RC/item/item.jsx",
     "RC/chat/chatBubble.jsx",
     "RC/chat/chatTextarea.jsx",
     "RC/globalNav/globalNav.jsx",
-    "RC/form/formBasics.jsx",
+    "RC/form/formElements.jsx",
     "RC/headerNav/headerNav.jsx",
     "RC/leftNav/leftNav.jsx",
     "RC/list/list.jsx",
@@ -51,13 +46,19 @@ Package.onUse(function(api) {
   api.addFiles([
     "RC/_mixins.scss",
     "RC/_variables.scss",
-    "RC/_items.scss",
     "_core.scss",
     "RC/_framework.scss",
     "RC/card/_card.scss",
+    "RC/item/_item.scss",
     "RC/chat/_chat.scss",
     "RC/globalNav/_globalNav.scss",
     "RC/form/_form.scss",
+    "RC/form/_button.scss",
+    "RC/form/_select.scss",
+    "RC/form/_checkbox.scss",
+    "RC/form/_radio.scss",
+    "RC/form/_range.scss",
+    "RC/form/_toggle.scss",
     "RC/headerNav/_headerNav.scss",
     "RC/leftNav/_leftNav.scss",
     "RC/list/_list.scss",

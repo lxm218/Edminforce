@@ -137,7 +137,7 @@ if (Meteor.isClient){
       return <RC.NotFound key="body-notfound" />
   }
   h.serializeForm = function(form){
-		var formData = _.map(form.serializeArray(), function(data) {
+		var formData = _.map($(form).serializeArray(), function(data) {
 			return [data.name, data.value]
 		})
 		return _.object(formData)
@@ -161,6 +161,13 @@ if (Meteor.isClient){
     }
 
     return pos
+  }
+  h.strToArray = function(str){
+    if (!_.isString(str))
+      return str
+    return _.filter( str.replace(/,/g, " ").split(" "), function(t){
+      return t.length
+    })
   }
 }
 
