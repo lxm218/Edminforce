@@ -1,7 +1,17 @@
 
+let themes = ["regular","opacity","flat"]
 RC.HeaderNav = React.createClass({
+  propTypes: {
+    id: React.PropTypes.string,
+    className: React.PropTypes.string,
+    theme: React.PropTypes.string,
+
+    title: React.PropTypes.string,
+    nav: React.PropTypes.array,
+  },
+
   getTheme(name){
-    let theme = _.contains(["regular","opacity","flat"], name)
+    let theme = _.contains(themes, name)
       ? name : "regular"
     return theme
   },
@@ -87,3 +97,14 @@ RC.HeaderNav = React.createClass({
     </nav>
   }
 })
+
+if (h.nk(Meteor.settings, "public.env")!="live")
+  RC.HeaderNav.Help = {
+    Type: "Unique/Canvas",
+    Themes: themes,
+    PropTypes: {
+      title: "String (Shows title in the header navigation bar)",
+      nav: "Array (List of links for the menu on right)"
+    },
+    Description: "Created for documenting snippets of information with dates and bullet points. Use this component with the <RC.Timeline /> component."
+  }

@@ -1,9 +1,21 @@
 
-let themes = ["regular","opacity","flat"]
+let themes = ["regular", "opacity", "flat"]
 RC.GlobalNav = React.createClass({
   mixins: [RC.Mixins.Theme],
   themeGroup: "",
   themes: themes,
+
+  propTypes: {
+    id: React.PropTypes.string,
+    className: React.PropTypes.string,
+    theme: React.PropTypes.string,
+
+    animate: React.PropTypes.bool,
+    isVisible: React.PropTypes.bool,
+    allowLongLabels: React.PropTypes.bool,
+    list: React.PropTypes.array,
+  },
+
   getInitialState(){
     return {
       selected: null,
@@ -65,3 +77,16 @@ RC.GlobalNav = React.createClass({
     </div>
   }
 })
+
+if (h.nk(Meteor.settings, "public.env")!="live")
+  RC.GlobalNav.Help = {
+    Type: "Unique/Canvas",
+    Themes: themes,
+    PropTypes: {
+      animate: "Boolean",
+      isVisible: "Boolean",
+      allowLongLabels: "Boolean",
+      list: "Array",
+    },
+    Description: "Automatic navigation based on the device type (IOS or Android). Top for Android and bottom for IOS."
+  }

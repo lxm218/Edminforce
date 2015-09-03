@@ -1,5 +1,5 @@
 
-let themes = ["icon-left item-text-wrap","text-wrap","body","divider","avatar","image","tabs","icon-left", "icon-right","thumbnail-left","thumbnail-right"]
+let themes = ["icon-left item-text-wrap", "text-wrap", "body", "divider", "avatar", "image", "tabs", "icon-left", "icon-right", "thumbnail-left", "thumbnail-right"]
 RC.Item = React.createClass({
   mixins: [RC.Mixins.Theme],
   themeGroup: "item",
@@ -133,15 +133,16 @@ RC.Item = React.createClass({
   },
 })
 
-if (!h.nk(Meteor.settings, "public.dev"))
+if (h.nk(Meteor.settings, "public.env")!="live")
   RC.Item.Help = {
     Type: "Item",
     Themes: themes,
     PropTypes: {
       theme: "String",
       uiClass: "String",
-      uiSize: "Flexible",
       uiColor: "String",
+      uiSize: "Flexible",
+      uiBrand: "Flexible",
 
       avatar: "String (Used to auto-create Avatar Head Design)",
       title: "String (Used to auto-create Avatar Head Design)",
@@ -151,5 +152,4 @@ if (!h.nk(Meteor.settings, "public.dev"))
       note: "String (Small text to the right)",
     },
     Description: "Use this component inside RC.Card or RC.List. This is a very versatile inner component with many themes and options.",
-    Example: "http://localhost:3000/examples/Cards"
   }

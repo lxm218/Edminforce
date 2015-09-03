@@ -39,9 +39,6 @@ fw = {
   },
   uiKeys: ["uiClass","uiSize","uiColor"],
   uiKeysCircle: ["uiClass","uiSize","uiColor","uiBrand"],
-  checkColorClass(css) {
-    return _.isString(css) && _.contains(["brand","brand1","brand2","brand3","white","dark","gray","blue","green","light","stable"], css.trim())
-  },
   omitProps(props, filterList) {
     if (!_.isArray(filterList) || !filterList.length)
       return props

@@ -10,23 +10,25 @@ Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.2")
 
   /**
-   * @ @ @ @ @
-   * API USE & IMPLY
-   * @ @ @ @ @
+   * @ @ @ @
+   * Use & Imply
+   * @ @ @ @
    */
   api.use([
     "react",
+    "ihealth:utils",
     "ihealth:framework-engine",
   ], ["client","server"])
 
   api.imply([
+    "react",
     "ihealth:utils",
     "fastclick"
   ], ["client","server"])
 
   /**
    * @ @ @ @
-   * API ADD FILES & EXPORT
+   * Add Files
    * @ @ @ @
    */
   api.addFiles([
@@ -34,16 +36,21 @@ Package.onUse(function(api) {
   ], ["client","server"])
 
   api.addFiles([
-    "Mobile/swipe/swipe.jsx",
-    "Mobile/leftNav/leftNav.jsx",
+    "RC/swipe/swipe.jsx",
+    "RC/leftNav/leftNav.jsx",
   ], "client")
 
   api.addFiles([
-    "Mobile/_mobile.scss",
-    "Mobile/leftNav/_leftNav.scss",
+    "RC/_mobile.scss",
+    "RC/leftNav/_leftNav.scss",
   ], "server")
 
   api.addFiles("_import.scss", "server")
 
+  /**
+   * @ @ @ @
+   * Export
+   * @ @ @ @
+   */
   api.export("RC", "client")
 })

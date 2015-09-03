@@ -56,7 +56,7 @@ RC.uiIcon = React.createClass({
     ]
 
     // Color
-    if (fw.checkColorClass(this.props.uiColor))
+    if (h.checkColorClass(this.props.uiColor))
       classList.push(this.props.uiColor)
     else if (this.props.uiColor)
       styles.color = this.props.uiColor
@@ -106,6 +106,8 @@ RC.URL = React.createClass({
     }
   }
 })
+
+RC.Animate = React.addons.CSSTransitionGroup
 
 RC.Mixins = {
   // @@@@@

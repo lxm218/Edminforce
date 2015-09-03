@@ -10,9 +10,9 @@ Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.2")
 
   /**
-   * @ @ @ @ @
-   * API USE & IMPLY
-   * @ @ @ @ @
+   * @ @ @ @
+   * Use & Imply
+   * @ @ @ @
    */
   api.use([
     "react",
@@ -23,7 +23,7 @@ Package.onUse(function(api) {
 
   /**
    * @ @ @ @
-   * API ADD FILES & EXPORT
+   * Add Files
    * @ @ @ @
    */
   api.addFiles([
@@ -69,5 +69,10 @@ Package.onUse(function(api) {
 
   api.addFiles("_import.scss", "server")
 
+  /*
+   * @ @ @ @
+   * Export
+   * @ @ @ @
+   */
   api.export("RC", "client")
 })

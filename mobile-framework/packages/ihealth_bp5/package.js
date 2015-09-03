@@ -11,6 +11,8 @@ Cordova.depends({'com.ihealth.plugin.bpmanagercordova': 'https://github.com/iHea
 Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.2")
 
+  api.use(['underscore','ihealth:dev-tools']);
+
   api.addFiles([
     "bp5.js",
   ], "client")

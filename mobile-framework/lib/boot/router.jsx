@@ -63,6 +63,18 @@ if (Meteor.isClient) {
     }
   })
 
+
+  // BG5 Cordova JS Class
+  DefaultRoutes.route('/BG5', {
+    name: "BG5",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "BG5 JS Class",
+        bodyTmpl: <App.BG5 />
+      })
+    }
+  })
+
   // BP Component
   DefaultRoutes.route('/BPComponent', {
     name: "BP5Component",
@@ -76,13 +88,28 @@ if (Meteor.isClient) {
     }
   })
 
+  // BG Component
+  DefaultRoutes.route('/BGComponent', {
+    name: "BG5Component",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "BG Component",
+        metaTitle: "iHealth BG Component",
+        metaDesc: "Glucometer ReactJSX Component",
+        bodyTmpl: <DeviceRC.Prepare device={iHealth.BG5} deviceName="BG" />
+      })
+    }
+  })
+
   // Dirty Route -- All List Examples
   DefaultRoutes.route('/lists/:slug', {
     name: "lists",
     action: function(p) {
 
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
       var dynamicRoute = {
-        pageTitle: h.capitalize(p.slug.replace(/_/g, " ")),
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
         showGlobalNav: false,
       }
 
@@ -113,8 +140,10 @@ if (Meteor.isClient) {
     name: "forms",
     action: function(p) {
 
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
       var dynamicRoute = {
-        pageTitle: h.capitalize(p.slug.replace(/_/g, " ")),
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
         showGlobalNav: false,
       }
 
@@ -151,8 +180,10 @@ if (Meteor.isClient) {
     name: "timelines",
     action: function(p) {
 
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
       var dynamicRoute = {
-        pageTitle: h.capitalize(p.slug.replace(/_/g, " ")),
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
         showGlobalNav: false,
       }
 
@@ -183,8 +214,10 @@ if (Meteor.isClient) {
         Bottom_Global_Nav: "bottom",
       }
 
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
       var dynamicRoute = {
-        pageTitle: h.capitalize(p.slug.replace(/_/g, " ")),
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
         showGlobalNav: _.contains(slugs, p.slug),
         globalNavLocation: location[p.slug],
         globalNav: [
@@ -200,13 +233,83 @@ if (Meteor.isClient) {
     }
   })
 
+  // Dirty Route -- Chat Examples
+  DefaultRoutes.route('/chat/:slug', {
+    name: "chat",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+        showGlobalNav: false,
+        headerNav: [{
+          href: "/chat/Chat_Index",
+          text: "Chat Index",
+        }]
+      }
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
+  // Dirty Route -- User Examples
+  DefaultRoutes.route('/user/:slug', {
+    name: "user",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+        showGlobalNav: false,
+        headerNav: [{
+          href: "/user/User_Index",
+          text: "User Index",
+        },{
+          href: "/user/User_Login_Basic",
+          text: "User Login - Basic",
+        },{
+          href: "/user/User_Login_Coloured",
+          text: "User Login - Coloured",
+        }]
+      }
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
+  DefaultRoutes.route('/chat_channel/:slug', {
+    name: "chat_channel",
+    action: function(p) {
+
+      let pageTitle = p.slug === "all" ? "All Channels" : "Channel ID " + p.slug;
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+        showGlobalNav: false,
+      }
+
+      if (p.slug === "all") {
+        dynamicRoute.bodyTmpl = React.createElement(App.ChatChannelList)
+      } else {
+        dynamicRoute.bodyTmpl = React.createElement(App.ChatView)
+      }
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
   // Dirty Route -- Uncategorized Examples
   DefaultRoutes.route('/examples/:slug', {
     name: "examples",
     action: function(p) {
 
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
       var dynamicRoute = {
-        pageTitle: h.capitalize(p.slug.replace(/_/g, " ")),
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
       }
 
       if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])

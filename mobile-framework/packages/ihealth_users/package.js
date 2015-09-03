@@ -4,42 +4,61 @@ Package.describe({
   summary: "Meteor users extended for iHealth.",
   version: "0.1.0",
   git: "https://github.com/iHealthLab/framework-iHealth"
-});
+})
 
 Package.onUse(function(api) {
-  api.versionsFrom("METEOR@1.1.0.3");
+  api.versionsFrom("METEOR@1.1.0.3")
 
-  var packages = [
-    "accounts-base",
-    "accounts-password",
-    "alanning:roles@1.2.13",
+  /**
+   * @ @ @ @
+   * Server/Client
+   * Use & Imply
+   * @ @ @ @
+   */
+  api.use([
     "aldeed:simple-schema@1.3.3",
     "aldeed:collection2@2.3.3",
     "matb33:collection-hooks@0.7.13",
-    "check@1.0.5",
-    "coffeescript@1.0.6",
-    "underscore@1.0.3",
-    // iHealth
+
+    "accounts-password",
+
+    // Required
     "ihealth:utils",
-  ];
+    "ihealth:framework-engine",
+  ], ["client","server"])
 
-  api.use(packages);
-  api.imply(packages);
+  api.imply([
+    "ihealth:utils"
+  ], ["client","server"])
 
+  /**
+   * @ @ @ @
+   * Client - Use & Imply
+   * @ @ @ @
+   */
+  api.use([
+    "react"
+  ], "client")
+
+  /**
+   * @ @ @ @
+   * Client - Add Files
+   * @ @ @ @
+   */
   api.addFiles([
-    "lib/_namespace/_namespace.js",
-    "lib/base.coffee",
-    "lib/users.coffee",
-    "lib/reviews.coffee",
-    "lib/callbacks.coffee"
-  ], ["client", "server"]);
+    "ph.js",
+    "RC/login.jsx",
+    "RC/login.css"
+  ], "client")
 
-  api.addFiles([
-    "lib/server/createUser.coffee"
-  ], ["server"]);
+  // api.addFiles([
+  //   "lib/base.js",
+  //   "lib/users.js",
+  //   "lib/reviews.js",
+  //   "lib/callbacks.js"
+  // ], ["client", "server"])
 
-  api.export([
-    "iHealth",
-    "Users"
-  ])
-});
+  // api.addFiles([
+  //   "lib/server/createUser.js"
+  // ], "server")
+})

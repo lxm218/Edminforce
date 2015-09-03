@@ -90,10 +90,7 @@ RC.List = React.createClass({
   themeGroup: "list",
   themes: themes,
   propTypes: {
-    title: React.PropTypes.string,
-    subtitle: React.PropTypes.string,
-    avatar: React.PropTypes.string,
-    uiClass: React.PropTypes.string,
+    list: React.PropTypes.array,
 
     theme: React.PropTypes.string,
     id: React.PropTypes.string,
@@ -131,14 +128,14 @@ RC.List = React.createClass({
   }
 })
 
-if (!h.nk(Meteor.settings, "public.dev"))
+if (h.nk(Meteor.settings, "public.env")!="live")
   RC.List.Help = {
     Type: "Canvas",
     Themes: themes,
     PropTypes: {
-
+      list: "Array"
     },
-    Description: "Similar to RC.Card, this is another canvas component.",
+    Description: "Similar to RC.Card, this is another flexible canvas component.",
     Example: "/List/Index"
   }
 

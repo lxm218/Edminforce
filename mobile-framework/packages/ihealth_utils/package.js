@@ -2,7 +2,7 @@
 Package.describe({
   name: "ihealth:utils",
   summary: "A collection of useful utils functions for iHealth engineers.",
-  version: "0.1.3",
+  version: "0.1.5",
   git: "https://github.com/iHealthLab/framework-iHealth"
 })
 
@@ -10,9 +10,17 @@ Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.2")
 
   /**
-   * Important Note!!
-   * Always make sure that the package versions are updated to the latest.
+   * Important Note !!
+   * 1. Always make sure that the package versions are updated to the latest.
+   * 2. Do use() and imply() in proper areas (client, server or both).
    */
+
+  /*
+   * @ @ @ @
+   * Use & imply
+   * @ @ @ @
+   */
+  // api.use("react", "client")
   var packages = [
     // Server Packages
     "alanning:roles@1.2.13",
@@ -22,34 +30,39 @@ Package.onUse(function(api) {
 
     // Higher Level Packages
     "kadira:flow-router@2.3.0",
-    "accounts-base@1.2.0",
-    "accounts-password@1.1.1",
 
     // Utilities
     // "standard-minifiers", // Add this after Meteor 1.2
+    "react",
+    "coffeescript@1.0.6",
     "check@1.0.5",
     "underscore@1.0.3",
     "momentjs:moment",
     "meteorhacks:fast-render@2.8.1",
     "fastclick@1.0.3"
   ]
+  api.use(packages, ["client","server"])
+  api.imply(packages, ["client","server"])
 
-  api.use(packages)
-  api.imply(packages)
-
-  api.use("react", "client")
-
+  /*
+   * @ @ @ @
+   * Add Files
+   * @ @ @ @
+   */
   api.addFiles([
-    "core.jsx",
-    "utils.jsx",
-    "collections.jsx"
+    "declarations.js",
+    "utils.js",
   ], ["client","server"])
+  api.addFiles("router.jsx", "client")
 
+  /*
+   * @ @ @ @
+   * Export
+   * @ @ @ @
+   */
+  api.export("DefaultRoutes", "client")
   api.export([
     "h",
-    "IH"
+    "IH",
   ], ["client","server"])
-
-  api.addFiles("router.jsx", "client")
-  api.export("DefaultRoutes", "client")
 })

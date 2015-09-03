@@ -124,7 +124,8 @@ onRemoved = (c, doc)->
     appName = @appName
 
     RemoteBP = new Mongo.Collection("user_bloodPressure", @connection)
-    LocalBP = new Mongo.Collection("ds_bloodPressure")
+    unless (insertHandler? and updateHandler? and removeHandler?)
+      LocalBP = new Mongo.Collection("ds_bloodPressure")
 
     selector = selector or {}
     options = options or {}
@@ -154,7 +155,8 @@ onRemoved = (c, doc)->
   # TODO: checkSubscriptionParamsAT(selector, options)
 
     RemoteAT = new Mongo.Collection("user_activity", @connection)
-    LocalAT = new Mongo.Collection("ds_activity")
+    unless (insertHandler? and updateHandler? and removeHandler?)
+      LocalAT = new Mongo.Collection("ds_activity")
 
     selector = selector or {}
     options = options or {}

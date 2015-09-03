@@ -109,7 +109,7 @@ textarea {
   @include align-items(center);
   position: relative;
   overflow: hidden;
-  padding: 6px 0 5px 16px;
+  padding: 6px 16px 5px;
 
   input {
     @include border-radius(0);
@@ -241,7 +241,6 @@ textarea {
   }
 }
 
-
 // Form Controls
 // -------------------------------
 
@@ -263,7 +262,7 @@ input[type="tel"],
 input[type="color"] {
   display: block;
   padding-top: 2px;
-  padding-left: 0;
+  padding-left: 0; padding-right: 0;
   height: $line-height-computed + $font-size-base;
   color: $input-color;
   vertical-align: middle;
@@ -287,7 +286,7 @@ textarea {
   width: 100%;
 }
 textarea {
-  padding-left: 0;
+  padding-left: 0; padding-right: 0;
   @include placeholder($input-color-placeholder, -3px);
 }
 
@@ -366,7 +365,8 @@ textarea[disabled],
 input[readonly]:not(.cloned-text-input),
 textarea[readonly]:not(.cloned-text-input),
 select[readonly] {
-  background-color: $input-bg-disabled;
+  // background-color: $input-bg-disabled;
+  opacity: .7;
   cursor: not-allowed;
 }
 // Explicitly reset the colors here
@@ -375,4 +375,26 @@ input[type="checkbox"][disabled],
 input[type="radio"][readonly],
 input[type="checkbox"][readonly] {
   background-color: transparent;
+}
+
+// Overlay Theme
+// -------------------------------
+.item-overlay-light, .item-overlay-dark { border: none; }
+.item-overlay-light input, .item-overlay-dark input {
+  background: none;
+  @include border-radius(0);
+}
+.item-overlay-light input {
+  color: #fff;
+  border-bottom: solid 1px #fff !important;
+}
+.item-overlay-light .input-label {
+  color: rgba(255,255,255,.5);
+}
+.item-overlay-dark input {
+  color: #444;
+  border-bottom: solid 1px #444 !important;
+}
+.item-overlay-dark .input-label {
+  color: rgba(0,0,0,.4);
 }

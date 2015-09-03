@@ -30,19 +30,19 @@ RC.Card = React.createClass({
   },
 })
 
-if (!h.nk(Meteor.settings, "public.dev"))
+if (h.nk(Meteor.settings, "public.env")!="live")
   RC.Card.Help = {
     Type: "Canvas",
     Themes: themes,
     PropTypes: {
       theme: "String",
-      title: "String",
-      subtitle: "String",
-      avatar: "String",
-      uiClass: "String",
-      uiSize: "Flexible",
-      uiBrand: "Number",
-      uiColor: "String",
+      avatar: 'String (Use "Item", "Avatar", "Subtitle" props to auto-create a header.)',
+      title: 'String (Use "Item", "Avatar", "Subtitle" props to auto-create a header.)',
+      subtitle: 'String (Use "Item", "Avatar", "Subtitle" props to auto-create a header.)',
+      uiClass: "String (FontAwesome)",
+      uiColor: "String or HEX",
+      uiBrand: "Flexible",
+      uiSize: "Flexible"
     },
-    Description: "This component is generally used as a canvas. It's great for putting things inside."
+    Description: "Creates a card component. Similar to cards found in many Social Networking apps such as Facebook, Instagram, Twitter, or Pinterest, etc."
   }

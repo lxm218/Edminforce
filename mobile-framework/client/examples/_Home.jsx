@@ -45,6 +45,14 @@ App.Home = React.createClass({
     let Devices = [
       { value: "BP Component", href: "/BPComponent", uiClass: "check-circle-o" },
       { value: "BP5 Cordova JS", href: "/BP5", uiClass: "check-circle-o" },
+      { value: "BG Component", href: "/BGComponent", uiClass: "check-circle-o" },
+      { value: "BG5 Cordova JS", href: "/BG5", uiClass: "check-circle-o" },
+    ]
+
+    let Complex = [
+      { value: "User App", href: "/user/User_Index", uiClass: "check-circle-o" },
+      { value: "Chat App", href: "/chat/Chat_Index", uiClass: "circle-o" },
+      { value: "Chat Demo", href: "/chat_channel/all", uiClass: "circle-o" },
     ]
 
     return <RC.List>
@@ -53,7 +61,6 @@ App.Home = React.createClass({
       <RC.Item theme="text-wrap">
         <p>Examples of common components that you will most likely need when building an app.</p>
       </RC.Item>
-
       {this.loop(Commons, "brand")}
 
       <RC.Item theme="divider">Unique Components</RC.Item>
@@ -62,11 +69,18 @@ App.Home = React.createClass({
       </RC.Item>
       {this.loop(Uniques, "brand2")}
 
-      <RC.Item theme="divider">iHealth Device Components</RC.Item>
+      <RC.Item theme="divider">iHealth Device Packages</RC.Item>
       <RC.Item theme="text-wrap">
         <p>Examples of iHealth device JS classes and UI components.</p>
       </RC.Item>
       {this.loop(Devices, "brand3")}
+
+      <RC.Item theme="divider">Complex Packages</RC.Item>
+      <RC.Item theme="text-wrap">
+        <p>Examples of complex packages that may include UI, server code or both.</p>
+      </RC.Item>
+      {this.loop(Complex, "red")}
+
     </RC.List>
   }
 })

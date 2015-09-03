@@ -10,9 +10,9 @@ Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.2")
 
   /**
-   * @ @ @ @
-   * Use & Imply
-   * @ @ @ @
+   * @ @ @ @ @
+   * API USE & IMPLY
+   * @ @ @ @ @
    */
   api.use([
     "react",
@@ -20,14 +20,13 @@ Package.onUse(function(api) {
   ], ["client","server"])
 
   api.imply([
-    "react",
     "ihealth:utils",
     "fastclick"
   ], ["client","server"])
 
   /**
    * @ @ @ @
-   * Add Files
+   * API ADD FILES & EXPORT
    * @ @ @ @
    */
   api.addFiles([
@@ -46,10 +45,5 @@ Package.onUse(function(api) {
 
   api.addFiles("_import.scss", "server")
 
-  /**
-   * @ @ @ @
-   * Export
-   * @ @ @ @
-   */
   api.export("RC", "client")
 })

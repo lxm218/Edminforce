@@ -36,3 +36,9 @@ RC.LeftNav = React.createClass({
     </nav>
   }
 })
+
+if (h.nk(Meteor.settings, "public.env")!="live")
+  RC.LeftNav.Help = {
+    Type: "Canvas",
+    Description: "This component is currently being re-written, please check back later."
+  }

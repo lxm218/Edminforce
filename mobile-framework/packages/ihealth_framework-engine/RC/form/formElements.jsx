@@ -17,7 +17,7 @@ RC.Form = React.createClass({
 // <Input/> Form Element
 // @@@@@
 
-let themes_input = ["stacked-label","small-label"]
+let themes_input = ["stacked-label","small-label","overlay-light","overlay-dark"]
 RC.Input = React.createClass({
   mixins: [RC.Mixins.Theme],
   themeGroup: "item",
@@ -46,7 +46,8 @@ RC.Input = React.createClass({
     }
   },
   getValue(){
-    return (this.state.value!==false ? this.state.value : this.props.value) || ""
+    let val = (this.state.value!==false ? this.state.value : this.props.value) || ""
+    return h.ltrim(val)
   },
   changeHandler: function(e) {
     this.setState({value: e.target.value})
@@ -59,7 +60,7 @@ RC.Input = React.createClass({
     var classes = this.getTheme() + (this.props.error ? " has-error" : "") + " item-input"
 
     return <label className={classes}>
-      {this.props.label ? <span className={"input-label"+(fw.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")}>{this.props.label}</span> : null}
+      {this.props.label ? <span className={"input-label"+(h.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")}>{this.props.label}</span> : null}
       <input {... inputProps} type={this.props.type || "text"} value={this.getValue()} onChange={this.changeHandler} />
     </label>
   }
@@ -114,7 +115,7 @@ RC.Range = React.createClass({
       }))
     }
 
-    let classes = "item range"+(this.props.error ? " has-error" : "")+(fw.checkColorClass(this.props.rangeColor) ? " range-"+this.props.rangeColor : "")
+    let classes = "item range"+(this.props.error ? " has-error" : "")+(h.checkColorClass(this.props.rangeColor) ? " range-"+this.props.rangeColor : "")
 
     return <div className={classes}>
       {ui.uiClass && ui.uiClass[0] ? <RC.uiIcon uiClass={ui.uiClass[0]} uiSize={ui.uiSize[0]} uiColor={ui.uiColor[0]}/> : null}
@@ -176,7 +177,7 @@ RC.Checkbox = React.createClass({
      */
      switch(this.props.theme){
        case "toggle":
-        var checkbox = <div className={"toggle"+(fw.checkColorClass(this.props.uiColor) ? " toggle-"+this.props.uiColor : "")}>
+        var checkbox = <div className={"toggle"+(h.checkColorClass(this.props.uiColor) ? " toggle-"+this.props.uiColor : "")}>
           {input}
           <div className="track"><div className="handle"/></div>
         </div>
@@ -370,13 +371,13 @@ RC.Textarea = React.createClass({
     var classes = this.getTheme() + (this.props.error ? " has-error" : "") + " item-input"
 
     return <label className={classes}>
-      {this.props.label ? <span className={"input-label"+(fw.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")}>{this.props.label}</span> : null}
+      {this.props.label ? <span className={"input-label"+(h.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")}>{this.props.label}</span> : null}
       <textarea {... _.omit(this.props, ["changeHandler","value","type","children","labelColor"])} type={this.props.type || "text"} value={this.getValue()} onChange={this.changeHandler} />
     </label>
   }
 })
 
-let themes_button = []
+let themes_button = ["full","overlay-light","overlay-dark","circle"]
 RC.Button = React.createClass({
   mixins: [RC.Mixins.Theme],
   themeGroup: "button",
@@ -393,10 +394,15 @@ RC.Button = React.createClass({
   render() {
 
     var classes = this.getTheme() + (this.props.buttonColor ? " button-"+this.props.buttonColor : "")
-
-    return <button {... this.props} className={classes}>
+    let themes = h.strToArray(this.props.theme)
+    let intersection = _.intersection(["overlay-light","overlay-dark"], themes)
+    let button = <button {... this.props} className={classes}>
       {this.props.children}
     </button>
+
+    return intersection.length
+    ? <div className={"wrap-"+intersection[0]+(this.props.active ? " active" : "")}>{button}</div>
+    : button
   }
 })
 
@@ -437,7 +443,7 @@ RC.Select = React.createClass({
     var classes = this.getTheme() + (this.props.error ? " has-error" : "") + " item-input item-select"
 
     return <label className={classes}>
-      {this.props.label ? <span className={"input-label"+(fw.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")}>{this.props.label}</span> : null}
+      {this.props.label ? <span className={"input-label"+(h.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")}>{this.props.label}</span> : null}
       <select {... _.omit(this.props, ["changeHandler","value","type","labelColor"])} onChange={this.changeHandler} value={this.getValue()} ref="select">
         {
         this.props.options.map(function(o,n){
@@ -452,7 +458,7 @@ RC.Select = React.createClass({
 })
 
 
-if (!h.nk(Meteor.settings, "public.dev")) {
+if (h.nk(Meteor.settings, "public.env")!="live") {
   RC.Form.Help = {
     Type: "Canvas",
     Themes: themes_form,
