@@ -1,0 +1,160 @@
+[Log] filtered ["startDiscovery", "stopDiscovery", "startMeasure", "connectDevice", "setUnit", "getBattery", "setBottleId", "getBottleId", "setBottleMessage", "getOfflineData", "deleteOfflineData", "disConnectDevice", "setDisconnectCallback", "holdLink"]
+
+[Log] 10:07:36 AM PDT: startDiscovery...
+[Log] debug2 -  startDiscovery argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:07:36 AM PDT: startDiscovery success: {
+  "msg" : "discovery doing",
+  "address" : "8CDE52425C58",
+  "name" : "BG5"
+}
+
+[Log] 10:07:38 AM PDT: stopDiscovery...
+[Log] debug2 -  stopDiscovery argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:07:38 AM PDT: stopDiscovery success: {
+  "msg" : "discovery done",
+  "address" : "8CDE52425C58"
+}
+
+[Log] 10:07:40 AM PDT: startMeasure...
+[Log] debug2 -  startMeasure argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },8CDE52425C58
+
+[Log] 10:07:42 AM PDT: connectDevice...
+[Log] debug2 -  connectDevice argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },8CDE52425C58
+
+[Log] 10:07:44 AM PDT: setUnit...
+[Log] debug2 -  setUnit argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },1
+[Log] 10:07:44 AM PDT: setUnit success: {
+  "msg" : "setUnit",
+  "address" : "8CDE52425C58"
+}
+
+[Log] 10:07:46 AM PDT: getBattery...
+[Log] debug2 -  getBattery argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:07:46 AM PDT: getBattery success: {
+  "msg" : "No Battery",
+  "address" : "8CDE52425C58"
+}
+
+[Log] 10:07:48 AM PDT: setBottleId...
+[Log] debug2 -  setBottleId argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },123456
+[Log] 10:07:48 AM PDT: setBottleId success: {
+  "msg" : "setBottleId",
+  "address" : "8CDE52425C58"
+}
+[Log] debug3 -  getBottleId...
+[Log] 10:07:50 AM PDT: getBottleId...
+[Log] debug2 -  getBottleId argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:07:50 AM PDT: getBottleId success: {
+  "msg" : "bottleid",
+  "address" : "8CDE52425C58",
+  "bottleid" : 123456
+}
+[Log] debug3 -  setBottleMessage...
+[Log] 10:07:52 AM PDT: setBottleMessage...
+[Log] debug2 -  setBottleMessage argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },02323C50435714322D1200A0404B6AACFE144D7A97E619011E250003158D,25,2015-09-03 00:00:00
+[Log] 10:07:52 AM PDT: setBottleMessage success: {
+  "msg" : "setBottleMessage",
+  "address" : "8CDE52425C58"
+}
+[Log] debug3 -  getOfflineData...
+[Log] 10:07:54 AM PDT: getOfflineData...
+[Log] debug2 -  getOfflineData argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:07:54 AM PDT: deleteOfflineData success: {
+  "msg" : "deleteOfflineData",
+  "address" : "8CDE52425C58"
+}
+[Log] debug3 -  deleteOfflineData...
+[Log] 10:07:56 AM PDT: deleteOfflineData...
+[Log] debug2 -  deleteOfflineData argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:07:56 AM PDT: deleteOfflineData success: {
+  "msg" : "deleteOfflineData",
+  "address" : "8CDE52425C58"
+}
+[Log] debug3 -  disConnectDevice...
+[Log] 10:07:58 AM PDT: disConnectDevice...
+[Log] debug2 -  disConnectDevice argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:07:58 AM PDT: disConnectDevice success: {
+  "msg" : "disconnect",
+  "mac" : "8CDE52425C58",
+  "type" : "BP5"
+}
+[Log] debug3 -  setDisconnectCallback...
+[Log] 10:08:00 AM PDT: setDisconnectCallback...
+[Log] debug2 -  setDisconnectCallback argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] debug3 -  holdLink...
+[Log] 10:08:02 AM PDT: holdLink...
+[Log] debug2 -  holdLink argsArray: 8CDE52425C58,function (message) {
+      sessionAppend(functionName + ': ' + message);
+    },function (message) {
+      sessionAppend(functionName + ': ' + message);
+    }
+[Log] 10:08:02 AM PDT: holdLink success: {
+  "msg" : "holdLink",
+  "address" : "8CDE52425C58"
+}
+[Log] 10:08:11 AM PDT: startMeasure success: {
+  "msg" : "strip in",
+  "address" : "8CDE52425C58"
+}
+[Log] 10:11:13 AM PDT: holdLink success: {
+  "msg" : "disconnect",
+  "address" : "8CDE52425C58",
+  "mac" : "8CDE52425C58"
+}
+[Log] 10:11:13 AM PDT: setDisconnectCallback success: {
+  "msg" : "disconnect",
+  "mac" : "8CDE52425C58",
+  "type" : "BG5"
+}
