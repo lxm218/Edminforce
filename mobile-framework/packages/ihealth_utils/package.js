@@ -50,8 +50,9 @@ Package.onUse(function(api) {
    * @ @ @ @
    */
   api.addFiles([
-    "declarations.js",
-    "utils.js",
+    "lib/declarations.js",
+    "lib/callbacks.js",
+    "lib/utils.js",
   ], ["client","server"])
   api.addFiles("router.jsx", "client")
 

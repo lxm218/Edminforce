@@ -3,11 +3,14 @@ App.User_Index = React.createClass({
   render() {
 
     let menu = [{
-      text: "Log In - Basic",
+      text: "Basic Log In",
       href: "/user/User_Login_Basic",
     },{
-      text: "Log In - Coloured",
-      href: "/user/User_Login_Coloured",
+      text: "Log In with Callback",
+      href: "/user/Login_With_Callback",
+    },{
+      text: "User Registration Only",
+      href: "/user/User_Registration_Only",
     }]
 
     return <RC.List>

@@ -75,6 +75,17 @@ if (Meteor.isClient) {
     }
   })
 
+  // BG5 Cordova JS Class
+  DefaultRoutes.route('/animate', {
+    name: "animate",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "animate",
+        bodyTmpl: <App.Animate />
+      })
+    }
+  })
+
   // BP Component
   DefaultRoutes.route('/BPComponent', {
     name: "BP5Component",
@@ -254,6 +265,39 @@ if (Meteor.isClient) {
     }
   })
 
+  // Dirty Route -- Chart Examples
+  DefaultRoutes.route('/graphs/:slug', {
+    name: "graphs",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+        showGlobalNav: false,
+        headerNav: [{
+          href: "/graphs/Graph_Index",
+          text: "Graph Index",
+        },{
+          href: "/graphs/Bar_Graph",
+          text: "Bar Graph",
+        },{
+          href: "/graphs/Pie_Chart",
+          text: "Pie Chart",
+        },{
+          href: "/graphs/Line_Graph",
+          text: "Line Graph",
+        },{
+          href: "/graphs/Area_Graph",
+          text: "Line Graph & Area",
+        }]
+      }
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
   // Dirty Route -- User Examples
   DefaultRoutes.route('/user/:slug', {
     name: "user",
@@ -271,8 +315,11 @@ if (Meteor.isClient) {
           href: "/user/User_Login_Basic",
           text: "User Login - Basic",
         },{
-          href: "/user/User_Login_Coloured",
-          text: "User Login - Coloured",
+          href: "/user/Login_With_Callback",
+          text: "User Login - Callback",
+        },{
+          href: "/user/User_Registration_Only",
+          text: "User Registration Only",
         }]
       }
 

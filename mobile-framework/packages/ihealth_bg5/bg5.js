@@ -112,7 +112,7 @@ iHealthBG5 = function(args){
 iHealthBG5.prototype = {
   checkPluginLoaded: function() {
     debugL(2)("checkPluginLoaded call: - ")
-    var isPluginLoaded = typeof(BpManagerCordova) !== "undefined"
+    var isPluginLoaded = typeof(BgManagerCordova) !== "undefined"
     console.log('checkPluginLoaded: ' + isPluginLoaded)
     this.isPluginLoaded = isPluginLoaded
     // saveApp({isPluginLoaded: isPluginLoaded})

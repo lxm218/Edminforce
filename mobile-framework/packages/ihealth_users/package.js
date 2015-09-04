@@ -46,19 +46,17 @@ Package.onUse(function(api) {
    * @ @ @ @
    */
   api.addFiles([
-    "ph.js",
+    "lib/ph.js",
     "RC/login.jsx",
     "RC/login.css"
   ], "client")
 
-  // api.addFiles([
-  //   "lib/base.js",
-  //   "lib/users.js",
-  //   "lib/reviews.js",
-  //   "lib/callbacks.js"
-  // ], ["client", "server"])
+  api.addFiles([
+    "lib/schemas.js",
+    // "lib/reviews.js",
+  ], ["client", "server"])
 
-  // api.addFiles([
-  //   "lib/server/createUser.js"
-  // ], "server")
+  api.addFiles([
+    "lib/server/createUser.js"
+  ], "server")
 })

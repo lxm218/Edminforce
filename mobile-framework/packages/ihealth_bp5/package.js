@@ -6,7 +6,7 @@ Package.describe({
   git: "https://github.com/iHealthLab/framework-iHealth"
 })
 
-Cordova.depends({'com.ihealth.plugin.bpmanagercordova': 'https://github.com/iHealthLab/plugin-ihealth-bp/tarball/781551a74d67dc42db284ea58033287808642794'})
+Cordova.depends({'com.ihealth.plugin.bp.bpmanagercordova': 'https://github.com/iHealthLab/plugin-ihealth-bp/tarball/c91564cc9336517744d86fbf35ded89f46b2586b'})
 
 Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.2")

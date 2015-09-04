@@ -4,7 +4,7 @@
 
 .chat-bubble .inner {
   position: relative; display: inline-block;
-  overflow: visible;
+  overflow: visible; min-width: 140px;
   padding: 11px 10px 10px; }
 
 .chat-bubble p:last-child { margin-bottom: 0; }
@@ -21,10 +21,10 @@
   background: $brand; color: $color_on_brand;
   @include border-radius(0 4px 4px 0); }
 
-.chat-bubble .author { padding: 0 0 0 44px; }
+.chat-bubble .author { padding: 0 0 3px 47px; }
 .chat-bubble .avatar {
   background-color: #fff;
-  position: absolute; top: -19px; left: 5px; }
+  position: absolute; top: -16px; left: 5px; }
 
 .chat-bubble.to .inner:before, .chat-bubble.from .inner:before {
   display:block; content: attr(data-time);

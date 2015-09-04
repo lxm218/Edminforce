@@ -5,8 +5,62 @@ App.BG5 = React.createClass({
     return {
       BG: Session.get("BG") || {},
       devices: Session.get("devices") || {},
-      isPluginLoaded: Session.get("isPluginLoaded"),
+      isPluginLoaded: Session.get('isPluginLoaded'),
+      deviceCommands: Session.get('deviceCommands') || []
     }
+  },
+  componentWillMount() {
+    var deviceCommands = [];
+    var delayedAdd = function(arr, functionName) {
+      var n = arr.length;
+      var times = []
+      var totalTime = 2500;
+      var eachTime = totalTime/n;
+      // for(i=0;i++; i<n) {
+      //   times.push(i*eachTime);
+      //   console.log('delayedAdd times', times)
+      // }
+      arr.forEach(function(v, k) { Meteor.setTimeout(function() { functionName(v); }, k * eachTime) });
+    };
+
+    Session.set('deviceCommands', deviceCommands);
+
+
+    var getPluginCommands = function(pluginObj) {
+      var getFunctions = function(objectName) { return Object.getOwnPropertyNames(objectName).filter(function (p) {
+        return typeof objectName[p] === 'function';
+      })};
+      var deviceCommands1 = getFunctions(pluginObj);
+      var deviceCommands2 = getFunctions(pluginObj.__proto__ || {});
+      deviceCommands = deviceCommands1.concat(deviceCommands2);
+      delayedAdd(deviceCommands, function(v) {
+        console.log('delayedAdd', v);
+        var curr = Session.get('deviceCommands');
+        if (typeof(curr.push)==='function') {
+          curr.push(v)
+          Session.set('deviceCommands', curr);
+        };
+      });
+      console.log('deviceCommands', deviceCommands);
+    }
+    if (!Meteor.isCordova) {
+      BgManagerCordova = DevicesStub.BG5;
+      getPluginCommands(iHealth.BG5);
+      Session.set('isPluginLoaded', true);
+    } else {
+      if (!(typeof(BgManagerCordova) === "undefined")) {
+        getPluginCommands(iHealth.BG5);
+        Session.set('isPluginLoaded', true);
+      } else {
+        var timerCheckPlugin = Meteor.setInterval(function(){
+          if (!(typeof(BgManagerCordova) === "undefined")) {
+            Meteor.clearInterval(timerCheckPlugin)
+            console.log('stop timerCheckPlugin')
+            getPluginCommands(iHealth.BG5);
+            Session.set('isPluginLoaded', true);
+          }}, 200)
+      };
+    };
   },
   componentWillUnmount() {
     delete Session.keys["BG"]
@@ -18,61 +72,108 @@ App.BG5 = React.createClass({
     return <div className="center"><h2>Loading plugin...</h2></div>
   },
   render() {
-    return (
-      <div>
+    return <div>
         {
           this.data.isPluginLoaded
           ? this.renderControls()
           : this.renderLoading()
         }
     </div>
-    )
   },
-  bpConnect() { iHealth.BG5.connect() },
-  bpDisconnect() { iHealth.BG5.disconnect() },
-  bpStart() { iHealth.BG5.start() },
-  bpStop() { iHealth.BG5.stop() },
-  bpCheckOfflineMode() { iHealth.BG5.checkOfflineMode() },
-  bpEnableOffline() { iHealth.BG5.enableOffline() },
-  bpDisableOffline() { iHealth.BG5.disableOffline() },
-  bpGetOfflineData() { iHealth.BG5.getOfflineData() },
-  renderControls() {
+  commandItem(commandName, n) {
+    item = {};
+    item.theme = "icon-left";
+
     let deviceName = "BG"
     let device = this.data.devices[deviceName] || ""
     let deviceState = _.isString(device) ? device : "ready"
-    let style = {height:"40vh"}
-    let jsonStyle = {wordWrap: "break-word"}
+    if (deviceState === "connected" || deviceState === "ready" || commandName === "connect") {
+      item.uiClass = "check-circle-o";
+      item.onClick = function() { iHealth.BG5[commandName]() };
+      item.uiColor = 'brand3';
+    } else {
+      item.uiClass = "circle-o";
+      item.onClick = function() { alert(deviceName + ' not connected. Pair the device and press connect.')};
+    }
 
-    return <div className="padding">
-      <p>Device is {deviceState}</p>
-      <p className="bigger-medium"><strong>Functions</strong></p>
-      {
-      deviceState === "connected" || deviceState === "ready"
-      ? <div style={style}>
-          <p>Device connected</p>
-          <a onClick={this.bpDisconnect} className="master-small">Disconnect Device</a><br />
-          <a onClick={this.bpStart} className="master-small">Start Measuring</a><br />
-          <a onClick={this.bpStop} className="master-small">Stop Measuring</a><br />
-          <a onClick={this.bpCheckOfflineMode} className="master-small">Check Offline Mode</a><br />
-          <a onClick={this.bpEnableOffline} className="master-small">Enable Offline</a><br />
-          <a onClick={this.bpDisableOffline} className="master-small">Disable Offline</a><br />
-          <a onClick={this.bpGetOfflineData} className="master-small">Get Offline Data</a><br />
-        </div>
-      : <div style={style}>
-          <p>No device connected</p>
-          <a onClick={this.bpConnect} className="master-small">Connect Device</a><br />
-        </div>
-      }
-      <div className="padding-t">
+    return <RC.Item {... item } key={n}>
+      { commandName }
+    </RC.Item>
+  },
+  renderControls() {
+    var self = this;
+    let jsonStyle = {wordWrap: "break-word"}
+    return <RC.List>
+      <RC.Animate transitionName="slide-up" transitionAppear={true}>
+      <RC.Item theme="divider">BG5 Cordova Plugin</RC.Item>
+      <RC.Item theme="text-wrap">
+        <p>Commands available on BG5 plugin.</p>
+      </RC.Item>
+      <RC.Item theme="divider">Plugin Output</RC.Item>
+      <RC.Item theme="text-wrap">
         <p className="bigger-medium"><strong>Session.get("Devices")</strong> Raw JSON</p>
         <p className="tiny" style={jsonStyle}>{JSON.stringify(this.data.devices)}</p>
-      </div>
-
-      <div className="padding-t">
+      </RC.Item>
+      <RC.Item theme="text-wrap">
         <p className="bigger-medium"><strong>Session.get("BG")</strong> Raw JSON</p>
         <p className="tiny" style={jsonStyle}>{JSON.stringify(this.data.BG)}</p>
-      </div>
-
-    </div>
+      </RC.Item>
+      {this.data.deviceCommands.map(function(commandName){
+        return self.commandItem(commandName);
+      })}
+      </RC.Animate>
+    </RC.List>
   }
-})
+});
+
+
+App.Animate = React.createClass({
+  mixins: [ReactMeteorData],
+  getMeteorData() {
+    return {
+      msgs: Session.get("msgs") || []
+    }
+  },
+  renderMsg(){
+    return <div>
+
+      <RC.Animate transitionName="scale">
+        <h2>scale</h2>
+        {
+        this.data.msgs.map( function(m,n){
+          return <h1>{m}</h1>
+        })
+        }
+      </RC.Animate>
+      <RC.Animate transitionName="pop">
+        <h2>pop</h2>
+        {
+        this.data.msgs.map( function(m,n){
+          return <h1>{m}</h1>
+        })
+        }
+      </RC.Animate>
+      <RC.Animate transitionName="corner">
+        <h2>corner</h2>
+        {
+        this.data.msgs.map( function(m,n){
+          return <h1>{m}</h1>
+        })
+        }
+      </RC.Animate>
+      <RC.Animate transitionName="slide-up">
+        <h2>slide-up</h2>
+        {
+        this.data.msgs.map( function(m,n){
+          return <h1>{m}</h1>
+        })
+        }
+      </RC.Animate>
+    </div>
+  },
+  render(){
+    return <RC.Form>
+      {this.renderMsg()}
+    </RC.Form>
+  }
+});

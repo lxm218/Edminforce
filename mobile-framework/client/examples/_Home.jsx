@@ -35,6 +35,7 @@ App.Home = React.createClass({
     ]
 
     let Uniques = [
+      { value: "Graphs", href: "/graphs/Graph_Index", uiClass: "check-circle-o" },
       { value: "Swipe", href: "/examples/Swipe", uiClass: "check-circle-o" },
       { value: "Timeline", href: "/timelines/Timeline_Index", uiClass: "check-circle-o" },
       { value: "Left Nav", onClick: this.openNav, uiClass: "check-circle-o" },
@@ -59,25 +60,25 @@ App.Home = React.createClass({
 
       <RC.Item theme="divider">Common Components</RC.Item>
       <RC.Item theme="text-wrap">
-        <p>Examples of common components that you will most likely need when building an app.</p>
+        <p>Common components that you will most likely need when building an app.</p>
       </RC.Item>
       {this.loop(Commons, "brand")}
 
       <RC.Item theme="divider">Unique Components</RC.Item>
       <RC.Item theme="text-wrap">
-        <p>Examples of common components that you will most likely need when building an app.</p>
+        <p>Important, unique components that aren't needed in every app.</p>
       </RC.Item>
       {this.loop(Uniques, "brand2")}
 
       <RC.Item theme="divider">iHealth Device Packages</RC.Item>
       <RC.Item theme="text-wrap">
-        <p>Examples of iHealth device JS classes and UI components.</p>
+        <p>iHealth device JS classes and UI components.</p>
       </RC.Item>
       {this.loop(Devices, "brand3")}
 
       <RC.Item theme="divider">Complex Packages</RC.Item>
       <RC.Item theme="text-wrap">
-        <p>Examples of complex packages that may include UI, server code or both.</p>
+        <p>Complex packages and apps that may include UI, server code or both.</p>
       </RC.Item>
       {this.loop(Complex, "red")}
 
