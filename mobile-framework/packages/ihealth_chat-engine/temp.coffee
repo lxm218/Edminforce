@@ -30,8 +30,13 @@ Meteor.startup ->
 
       chid = IH.Coll.ChatChannels.insert(initObj)
 
-      status =
+      patientStatus =
         UID: patientId
         CHID: chid
 
-      IH.Coll.ChatStatus.insert(status)
+      doctorStatus =
+        UID: doctorId
+        CHID: chid
+
+      IH.Coll.ChatStatus.insert(patientStatus)
+      IH.Coll.ChatStatus.insert(doctorStatus)

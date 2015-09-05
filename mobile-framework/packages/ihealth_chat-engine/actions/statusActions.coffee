@@ -1,16 +1,14 @@
 
 IH.Action.ChatStatus =
 
-  activateChannel: (statusID, channelID)->
+  activateChannel: (channelID)->
     ChatDispatcher.dispatch(
       type: "USER_ACTIVATE_CHANNEL"
-      statusID: statusID
       channelID: channelID
     )
 
-  deActivateChannel: (statusID, channelID)->
+  deActivateChannel: (channelID)->
     ChatDispatcher.dispatch(
       type: "USER_LEFT_CHANNEL"
-      statusID: statusID
       channelID: channelID
     )

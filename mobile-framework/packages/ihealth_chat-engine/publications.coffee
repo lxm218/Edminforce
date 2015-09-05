@@ -3,6 +3,8 @@ Meteor.publish "ChatMessageList", (channelID, limit)->
   unless @userId
     @error("Not logged in")
   else
+
+    console.log limit
     check(channelID, String)
     check(limit, Number)
 
@@ -33,7 +35,7 @@ Meteor.publishComposite "ChatMessageUser", (channelID)->
         IH.Coll.ChatChannels.find(channelID)
     ]
 
-Meteor.publishComposite "PatientChatChannelList", ->
+Meteor.publishComposite "ChatChannelList", ->
   unless @userId
     @error("Not logged in")
   else
@@ -44,8 +46,9 @@ Meteor.publishComposite "PatientChatChannelList", ->
         IH.Coll.ChatChannels.find(status.CHID)
       children: [
         find: (channel, status)->
+          uid = if channel.DID is @userId then channel.PID else channel.DID   # temp solutions
           Meteor.users.find(
-            _id: channel.DID
+            _id: uid
           ,
             fields: {"profile.name":1,"profile.avatar":1}
           )

@@ -38,6 +38,7 @@ header, main, section, article, figure { position: relative; }
 .table .inside { display: table-cell; vertical-align: middle; }
 
 .full-height { min-height: calc(100vh - #{$height_nav}); overflow-y: auto; }
+.full-height.no-header { min-height: 100vh; }
 
 .wrapper-wide, .wrapper, .wrapper-mobile, .wrapper-mini, .wrapper-popup, .re-wrapper {
   margin: 0 auto; }
@@ -161,7 +162,8 @@ header, main, section, article, figure { position: relative; }
 
 .bg-nav { background-color: $nav_color; color: $color_on_nav; }
 .ba-nav:before, .ba-nav:after, .bg-nav .back:before, .bg-nav .back:after { background-color: $color_on_nav; }
-.bg-nav a { color: $color_on_nav; }
+.bg-nav * { color: $color_on_nav; }
+.bg-nav .more-nav * { color: $text_color; } /* This is a temporary solution */
 
 .bg-none { background-color: none !important; }
 

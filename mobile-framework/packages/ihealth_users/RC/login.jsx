@@ -8,6 +8,7 @@ IH.RC.User = React.createClass({
 
   propTypes: {
     fullHeight: React.PropTypes.bool,
+    noHeader: React.PropTypes.bool,
     alignTop: React.PropTypes.bool,
     bgColor: React.PropTypes.string,
     registerCallback: React.PropTypes.func,
@@ -186,6 +187,7 @@ IH.RC.User = React.createClass({
 
     var classes = this.getTheme()
       +(this.props.fullHeight ? " full-height" : "")
+      +(this.props.noHeader ? " no-header" : "")
       +(h.checkColorClass(this.props.bgColor) ? " bg-"+this.props.bgColor : "")
       +(this.props.alignTop ? "" : " table")
 
@@ -215,6 +217,7 @@ if (h.nk(Meteor.settings, "public.env")!="live")
     Themes: themes,
     PropTypes: {
       fullHeight: "Boolean (Makes the login area equal to screen size)",
+      noHeader: "Boolean (If fullHeight and noHeader are both true, close the gap where the header would normally be)",
       alignTop: "Boolean (Makes the login area center vertically)",
       bgColor: "String (Must be a valid CSS color class)",
       action: "String [\"login\", \"register\"]",

@@ -1,6 +1,8 @@
 // possible states: disconnected, connecting, connected, measuring, measurement error
+// working functions: startDiscovery, startMeasure, setUnit, setBottleId,
+// getBottleId , setBottleMessage, getOfflineData, deleteOfflineData, setDisconnectCallback
 
-var debugLevel = 2
+var debugLevel = 4;
 var debugL = _.partial(DevTools.consoleWithLevels, debugLevel);
 
 var processSignal = function(signal) {
@@ -10,8 +12,8 @@ var processSignal = function(signal) {
    return json_signal;
   } catch(err) {
    console.warn('processSignal' + err);
-}
-}
+  }
+};
 
 var cbLog = function(functionName) {
   return function(signal) {
@@ -27,6 +29,7 @@ var getDevices = function(type){
   var devices = Session.get("devices") || { bluetooth: false }
   return type ? devices[type] : devices
 }
+
 var saveDevices = function(session, connected){
   debugL(3)("saveDevices call: " + session + ", " + connected)
   var devices = Session.get("devices") || { bluetooth: false }
@@ -43,15 +46,6 @@ var saveDevices = function(session, connected){
   }
 }
 
-//
-// var saveApp = function(newinfo) {
-//   var sessionLabel = "app"
-//   var appSession = Session.get(sessionLabel) || {}
-//   var deepExtend = true
-//   jQuery.extend(deepExtend, appSession , newinfo)
-//   Session.set(sessionLabel,  appSession)
-// }
-
 /**
  * Javascript Class for Blood Pressure
  * BG5 Device
@@ -66,7 +60,6 @@ var saveDevices = function(session, connected){
 iHealthBG5 = function(args){
   var defaults = {
 		hasStarted: false,
-		isTestMode: false,
     connectionAttemptDuration: 13000,
     connectAndReadyDelay: 1800,
     finishedMeasurementDelay: 1200,
@@ -76,15 +69,9 @@ iHealthBG5 = function(args){
 	var args = _.isObject(args) ? _.defaults(args, defaults) : defaults
 	_.extend(this, args)
 
-  if (this.isTestMode) {
-    this.mode = "test"
-    this.macId = "8CDE52143F1E"
-    this.name = "BG5 143F1E"
-  } else {
-    this.mode = ""
-    this.macId = null
-    this.name = null
-  }
+  this.mode = ""
+  this.macId = null
+  this.name = null
 
   // Fixed Args
   this.timeout = null
@@ -103,7 +90,7 @@ iHealthBG5 = function(args){
         self.checkPluginLoaded()
       } else {
         Meteor.clearInterval(timerCheckPlugin)
-        console.log('stop timerCheckPlugin')
+        debugL(3)('stop timerCheckPlugin')
       }
     }, 200)
   }
@@ -111,9 +98,9 @@ iHealthBG5 = function(args){
 
 iHealthBG5.prototype = {
   checkPluginLoaded: function() {
-    debugL(2)("checkPluginLoaded call: - ")
+    debugL(4)("checkPluginLoaded BG call: - ")
     var isPluginLoaded = typeof(BgManagerCordova) !== "undefined"
-    console.log('checkPluginLoaded: ' + isPluginLoaded)
+    debugL(4)('checkPluginLoaded BG: ' + isPluginLoaded)
     this.isPluginLoaded = isPluginLoaded
     // saveApp({isPluginLoaded: isPluginLoaded})
     Session.set("isPluginLoaded", isPluginLoaded)
@@ -195,7 +182,7 @@ iHealthBG5.prototype = {
 
             Meteor.clearTimeout(self.timeout)
             self.timeout = Meteor.setTimeout( function(){
-              // Set bp to true after 2 seconds so the "Connected" status message can be read by humans.
+              // Set bg to true after 2 seconds so the "Connected" status message can be read by humans.
               // @Jason, I'd prefer to keep UI related code outside BG5
               if (self.macId!=null){
                 saveDevices({
@@ -205,21 +192,20 @@ iHealthBG5.prototype = {
                     state: self.state
                   }
                 })
-                self.getOfflineData()
-                self.checkOfflineMode()
-                self.updateBattery()
+                self.getOfflineData();
+                self.updateInfo('getBattery', 'battery');
+                self.updateInfo('getBottleId', 'bottleid', 'botteID');
 
                 var batteryCheckInterval = 30 * 1000;
                 Meteor.clearInterval(self.batteryTimer);
                 self.batteryTimer = Meteor.setInterval(function() {
-                  self.updateBattery()
+                  self.updateInfo('getBattery', 'battery');
                 }, batteryCheckInterval);
 
                 var cancelBatteryTimer = function() {
                   Meteor.clearInterval(self.batteryTimer);
                 }
                 self.detectDisconnect(cancelBatteryTimer)
-
 
                 if (_.isFunction(cbSuccess)) {
                   cbSuccess()
@@ -241,7 +227,7 @@ iHealthBG5.prototype = {
           //     saveDevices({ BG: "connected" })
           //
           //     Meteor.setTimeout( function(){
-          //       // Set bp to true after 2 seconds so the "Connected" status message can be read by humans.
+          //       // Set bg to true after 2 seconds so the "Connected" status message can be read by humans.
           //       if (self.macId!=null){
           //         self.pingDevice(true)
           //         if (cbSuccess) cbSuccess()
@@ -259,14 +245,8 @@ iHealthBG5.prototype = {
       };
 
     var startDiscoveryFailCB = function(res){
-        // ##
-        // Failure Function
-        console.log("Fail: "+res) // DEVELOPMENT MODE
-
-        // Commenting these two lines because I want the instance to remember the originally connected macId & name
-        // self.macId = null
-        // self.name = null
-      }
+        debugL(2)("Fail: "+res);
+    }
 
     console.log("Start discovery")
     BgManagerCordova.startDiscovery( this.macId, startDiscoverySuccessCB, startDiscoveryFailCB)
@@ -310,44 +290,37 @@ iHealthBG5.prototype = {
     this.state = "measuring"
 
     // Start from 0
-    var bp = {pressure: 0, status: 'processing'}
-    Session.set("BG", bp) // Start from 0
+    var bg = {status: 'processing'}
+    Session.set("BG", bg) // Start from 0
 
     console.log("Starting device: "+this.macId)
 
-    BgManagerCordova.startMeasure( this.macId, function(res){
-      /**
-       * Success Function()
-       * Do the JSON.parse inside the try-catch block
-       * "res" var is not always a JSON String.
-       */
-      debugL(2)("startMeasure", res);
+    BgManagerCordova.startMeasure( this.macId, function(signal) {
+      debugL(2)("startMeasure", signal);
 
-      try {
-        var json = JSON.parse(res)
-        // console.log ('json: ', json)
+      var jsonSignal = processSignal(signal)
+      if(jsonSignal) {
+        _.extend(bg, jsonSignal) // sometimes bg doesn't update fast enough
 
-        _.extend(bp, json) // sometimes bp doesn't update fast enough
+        // console.log("keys:", _.keys(bg))
+        // console.log("values:", _.values(bg))
+        debugL(3)("extended BG: ", bg)
 
-        // console.log("keys:", _.keys(bp))
-        // console.log("values:", _.values(bp))
-        debugL(3)("extended BG: ", bp)
-
-        if (json.highpressure && json.lowpressure) {
-          // bp.status = 'paused'
+        if (jsonSignal.value) {
+          // bg.status = 'paused'
           self.stop(null, true)
 
           // Meteor.setTimeout( function(){
-            bp.status = 'finished'
-            bp.date = new Date()
-            Session.set("BG", bp)
+          bg.status = 'finished'
+          bg.date = new Date()
+          Session.set("BG", bg)
           // },self.finishedMeasurementDelay)
 
         } else {
-          bp.status = 'processing'
-          bp.perCent = json.pressure / self.maxBG
+          bg.status = 'processing'
+          bg.perCent = 0.5 //jsonSignal.pressure / self.maxBG
 
-          if (!_.isNumber(bp.perCent)) {
+          if (!_.isNumber(bg.perCent)) {
             console.log("########")
             console.log("########")
             console.log("########")
@@ -357,8 +330,8 @@ iHealthBG5.prototype = {
             console.log("########")
             console.log("########")
             console.log("NaN Error Happened")
-            console.log(json)
-            bp.errorID = 98
+            console.log(jsonSignal)
+            bg.errorID = 98
           }
         }
 
@@ -369,23 +342,11 @@ iHealthBG5.prototype = {
         //   })
         // }
 
-        if (_.isNumber(bp.errorID) && bp.errorID>=0) {
-          self.handleError(bp)
+        if (_.isNumber(bg.errorID) && bg.errorID>=0) {
+          self.handleError(bg)
           self.stop(null,true)
         } else
-          Session.set("BG", bp)
-
-      } catch(err) {
-        // DEVELOPMENT MODE
-        console.log("JSON Try/Catch Error")
-        console.warn(err)
-        console.log(res)
-
-        // if (res.errorID) {
-        //   // Session.set("BG", bp)
-        //   self.handleError(res.errorID)
-        //   self.stop()
-        // }
+          Session.set("BG", bg)
       }
     }, function(res){
       console.log('start measure fail' + res)
@@ -401,46 +362,46 @@ iHealthBG5.prototype = {
       // }
     })
   },
-  handleError: function(bp) {
+  handleError: function(bg) {
 
     // Exit because if BG session is *NOT* an object, measurement was not happening.
     // And if measurement was not happening, then there's not need to handle any errors.
-    if (!_.isObject(bp))
+    if (!_.isObject(bg))
       return
 
-    debugL(2)("Error Handler Code: " + bp.errorID)
+    debugL(2)("Error Handler Code: " + bg.errorID)
 
-    switch (bp.errorID) {
+    switch (bg.errorID) {
       case 0:
-        bp.msg = "Please keep your arm stable. Stay still and try again."
+        bg.msg = "Please keep your arm stable. Stay still and try again."
       break
       case 4:
         // Low Pressure Error -- Cannot inflate.
-        bp.msg = "Your blood pressure was too low. Please wear the blood pressure cuff properly and try again."
+        bg.msg = "Your blood pressure was too low. Please wear the blood pressure cuff properly and try again."
       break
       case 35:
-        bp.msg = "Stop button was pressed. Please close and try again."
+        bg.msg = "Stop button was pressed. Please close and try again."
       case 13:
-        bp.msg = "Battery is too low. Please re-charge and try again."
+        bg.msg = "Battery is too low. Please re-charge and try again."
       break
 
       // Following error codes are software generated -- they are not from the plugin
       case 98:
         // No error code received but measurement couldn't continue -- i.e. NaN pressure
-        bp.msg = "Unknown error occured."
+        bg.msg = "Unknown error occured."
       break
       case 99:
         // Code created for disconnect callback
-        bp.msg = "Your device was disconnected from the blood pressure monitor."
+        bg.msg = "Your device was disconnected from the blood pressure monitor."
       break
     }
 
-    // if (_.isNumber(bp.errorID) && !bp.msg)
-    if (bp.msg)
-      Session.set("BG", bp)
+    // if (_.isNumber(bg.errorID) && !bg.msg)
+    if (bg.msg)
+      Session.set("BG", bg)
 
-    BgManagerCordova.getErrorDetailWithID( bp.errorID, function(errObjStr){
-      if (!bp.msg) {
+    BgManagerCordova.getErrorDetailWithID( bg.errorID, function(errObjStr){
+      if (!bg.msg) {
         console.log("##########")
         console.log("##########")
         console.log("##########")
@@ -450,16 +411,16 @@ iHealthBG5.prototype = {
       }
       var errObj = processSignal(errObjStr)
       if (errObj.ErrorMessage) {
-        var bpErrorMsg = ""
+        var bgErrorMsg = ""
         if (errObj.ErrorMessage.match(/\.$/)) {
-          debugL(5)("yes for " + bp.errorID + ": " + errObj.ErrorMessage)
-          bpErrorMsg = errObj.ErrorMessage
+          debugL(5)("yes for " + bg.errorID + ": " + errObj.ErrorMessage)
+          bgErrorMsg = errObj.ErrorMessage
         } else {
-          debugL(5)("no for " + bp.errorID + ": " + errObj.ErrorMessage)
-          bpErrorMsg = errObj.ErrorMessage + "."
+          debugL(5)("no for " + bg.errorID + ": " + errObj.ErrorMessage)
+          bgErrorMsg = errObj.ErrorMessage + "."
         }
-        debugL(4)("bpErrorMsg for " + bp.errorID + ": " + bpErrorMsg)
-        debugL(4)("bp.msg for " + bp.errorID + ": " + bp.msg)
+        debugL(4)("bgErrorMsg for " + bg.errorID + ": " + bgErrorMsg)
+        debugL(4)("bg.msg for " + bg.errorID + ": " + bg.msg)
       }
 
     }, cbLog("getErrorDetailWithID fail"))
@@ -489,42 +450,24 @@ iHealthBG5.prototype = {
     if (!notStopMeasure)
       BgManagerCordova.stopMeasure(this.macId, cb, cb)
   },
-  /**
-   * Return uniformized BG
-   */
-  uniformizeBG: function(setZero){
-    debugL(1)("uniformizeBG call: " + setZero )
-    console.log("stopMeasure call")
-    var bp = Session.get("BG") || {}
-    if (setZero && !bp.pressure) {
-      bp.pressure = 0
-      bp.perCent = 0
-    }
-    bp.statusClass = bp.status || 'start'
-    return bp
-  },
-  updateBattery: function() {
-    debugL(4)("updateBattery  call: - ")
+  updateInfo: function(pluginFunction, jsonKey, sessionKey) {
+    if (!sessionKey) sessionKey = jsonKey;
+    debugL(4)("updateInfo " + sessionKey + "  call: - ")
     var self = this
     var cb = function(signal) {
       var jsonSignal = processSignal(signal)
-      if(jsonSignal && jsonSignal.battery) {
-        self.battery = Math.abs(jsonSignal.battery - self.battery)===1
-          ? Math.min(self.battery, jsonSignal.battery)
-          : jsonSignal.battery
-
+      if(jsonSignal && jsonSignal[jsonKey]) {
+        self[sessionKey] = jsonSignal[jsonKey];
         var curBG = getDevices("BG")
-        curBG.battery = self.battery
+        curBG[sessionKey] = self[sessionKey];
         saveDevices({ BG: curBG })
       }
     }
     if (this.state !== "measuring") {
-      BgManagerCordova.getBattery(this.macId, cb, cbLog('getBattery fail'))
+      BgManagerCordova[pluginFunction](this.macId, cb, cbLog('get ' + sessionKey + ' fail'))
     } else {
-      console.log("cannot updateBattery while measuring")
-    }
-    // currently fails silently, since updateBattery is usually on setInterval
-    // should we return an error so that getBattery can be rescheduled? else { setTimeout getBattery}
+      console.log("cannot upate " + sessionKey + " while measuring")
+    };
   },
   detectDisconnect: function(cb) {
     debugL(2)("detectDisconnect  call: " + cb)
@@ -555,12 +498,50 @@ iHealthBG5.prototype = {
     debugL(1)("getOfflineData call: - ")
     var self = this
     var cb = function(signal) {
-      var jsonSignal = processSignal(signal)
-      if (jsonSignal && jsonSignal.msg && jsonSignal.msg === "offlineData") {
-        var curBG = getDevices("BGOfflineData")
-        curBG.offlineData = curBG.offlineData ? curBG.offlineData : []
-        curBG.offlineData.concat(jsonSignal.value)
-        saveDevices({ BGOfflineData: curBG })
+      var jsonSignal = processSignal(signal);
+      if (jsonSignal && jsonSignal.msg && jsonSignal.msg === "getOfflineData" && jsonSignal.history && jsonSignal.history.ResultList) {
+        var address = jsonSignal.address;
+        var curBG = getDevices("BGOfflineData") || {}
+        curBG[address] = curBG[address] ? curBG[address] : [];
+        var resultsOnDevice = jsonSignal.history.ResultList;
+
+        var filterWith = function(arr, predicate, modifyFunction) {
+          var filteredArr = []
+          arr.forEach(function(val) {
+            if (predicate(val)) {
+              if (modifyFunction) { val = modifyFunction(val) };
+              filteredArr.push(val)
+            };
+          });
+          return filteredArr;
+        };
+
+        debugL(4)('resultsOnDevice', resultsOnDevice)
+        var newResults = filterWith(
+          resultsOnDevice,
+          function (result) {
+            // return true if result is not in curBG
+            var isNew = true;
+            var i = 0;
+            while (isNew && (i < curBG[address].length)) {
+              if (_.isEqual(_.omit(curBG[address][i], 'DownloadDate'), result)) isNew  = false;
+              i++;
+            };
+            return isNew ;
+          },
+          function(result) {
+            result.DownloadDate = (new Date()).toISOString();
+          return result;
+          }
+        );
+
+        if (_.isEmpty(newResults)) {
+          debugL(4)('no new results. currBG', curBG[address]);
+        } else {
+          debugL(3)('newResults', newResults);
+          curBG[address] = (curBG[address]).concat(newResults);
+          saveDevices({ BGOfflineData: curBG })
+        }
       } else {
         debugL(2)('Could not process signal: ', signal);
       }

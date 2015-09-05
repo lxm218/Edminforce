@@ -7,12 +7,12 @@
 #pressure-display.fin { padding: 0 0 40px; }
 
 #pressure-display .fa-cog {
-  top: auto; left: auto; bottom: 0; right: 0;
+  position: absolute; top: auto; left: auto; bottom: 0; right: 0;
   font-size: 35px; color: rgba(0,0,0,.1);
   width: 35px; height: 35px; }
 
 /* BP5 Help Guide */
-#bp5-instructions { font-size: 1.9em; color: rgba(0,0,0,.55); }
+#bp5-instructions { font-size: 1.45em; color: rgba(0,0,0,.55); }
 .bp5-help {
   width: 90%; max-width: 480px; padding: 68% 0 4%; margin: 0 auto;
   background-size: 100% auto; background-repeat: no-repeat; background-position: 50% 0; }
@@ -34,10 +34,10 @@
 }
 
 #bp-chart .zone { position: absolute; bottom: 0; left: 0; top: auto; right: auto; }
-#bp-chart .zone0 { background-color: #69d356; width: 36%; height: 36%; z-index: 5; }
-#bp-chart .zone1 { background-color: #f5d141; width: 55%; height: 55%; z-index: 4; }
-#bp-chart .zone2 { background-color: #e89544; width: 74%; height: 74%; z-index: 3; }
-#bp-chart .zone3 { background-color: #dc4535; width: 93%; height: 93%; z-index: 2; }
+#bp-chart .zone0 { background-color: #69d356; width: 40%; height: 40%; z-index: 5; }
+#bp-chart .zone1 { background-color: #f5d141; width: 60%; height: 60%; z-index: 4; }
+#bp-chart .zone2 { background-color: #e89544; width: 80%; height: 80%; z-index: 3; }
+#bp-chart .zone3 { background-color: #dc4535; width: 100%; height: 100%; z-index: 2; }
 
 #bp-chart .zone .labelX, #bp-chart .zone .labelY {
   position: absolute; bottom: auto; right: auto;
@@ -45,21 +45,22 @@
   width: 40px; }
 
 #bp-chart .zone .labelX {
-left: 100%; top: 100%;
-margin: 5px 0 0 -10px; }
+  left: 100%; top: 100%;
+  margin: 4px 0 0 -4px; }
 #bp-chart .zone .labelY {
-  left: -50px; top: -10px;
+  left: -48px; top: -10px;
   text-align: right; }
 
 #bp-chart .zone3 .labelX, #bp-chart .zone3 .labelY { width: 78px; }
-#bp-chart .zone3 .labelX { text-align: left; }
-#bp-chart .zone3 .labelY { left: -86px; }
+#bp-chart .zone3 .labelX { text-align: left; margin-left: -20px; }
+#bp-chart .zone3 .labelY { left: -84px; }
 
 #bp-chart .bubble {
+  box-shadow: 0 0 10px rgba(0,0,0,.2);
   position: absolute; top: auto; right: auto; z-index: 10;
-  font-size: 11px; text-align: center;
-  width: 84px; height: 56px;
-  padding: 28px 0 0; margin: 0 0 2px -45px;
+  font-size: 11px; line-height: 1; text-align: center;
+  width: 80px; height: 80px;
+  padding: 28px 0 0; margin: 0 0 10px -41px;
   background: #fff; }
 #bp-chart .bubble:before {
   display: block; content: " ";
@@ -70,34 +71,26 @@ margin: 5px 0 0 -10px; }
 	border-top: 13px solid #fff;
 }
 
-#bp-chart .bubble.pos0 {
-  font-size: 12px;
-  padding: 34px 0 0; height: 50px;
-  left: 35%; bottom: 35%; }
-#bp-chart .bubble.pos1 { left: 53%; bottom: 53%; }
-#bp-chart .bubble.pos2 { left: 71%; bottom: 71%; }
-#bp-chart .bubble.pos3 { left: 89%; bottom: 89%; }
-
 /* BP Result */
 .bp-fin {
+  font-size: 13px;
   position: relative; vertical-align: bottom;
   max-width: 480px; padding: 0 5%; margin: 0 auto; }
 .bp-fin:first-child { padding-top: 25px; padding-bottom: 35px; }
 
 .bp-fin .clear {
-  padding: 20px 0;
+  padding: 0;
   border-bottom: solid 1px rgba(0,0,0,.35); }
 
 .bp-fin small {
-  font-size: 17px; line-height: 20px; color: rgba(0,0,0,.25);
+  font-size: 14px; line-height: 14px; color: rgba(0,0,0,.25);
   padding: 12px 2px 0; }
 .bp-fin .type {
   display: inline-block; float: left; padding: 0;
-  font-size: 39px; }
+  font-size: 28px; }
 .bp-fin .val {
-  display: inline-block; float: right; padding: 0 3px 0 0;
-  font-size: 85px; line-height: 85px;
-}
+  display: inline-block; float: right; padding: 3px 3px 0 0;
+  font-size: 57px; line-height: 67px; }
 
 #measuring-bp .processing-number { font-size: 4.4em; }
 
@@ -113,4 +106,24 @@ svg.svg-circle circle.full { z-index: 1; stroke: rgba(0,0,0,.05); }
     margin: -180px 0 0 -180px; }
   svg.svg-circle circle { stroke-dasharray: 1500; stroke-width: 15px; }
   svg.svg-circle .line:not([stroke-dashoffset]) { stroke-dashoffset: 1500; }
+}
+@media screen and (min-width: 480px) {
+  #bp5-instructions { font-size: 1.7em; }
+
+  .bp-fin .clear { padding: 5px 0; }
+  .bp-fin small { font-size: 15px; line-height: 20px; }
+  .bp-fin .type { font-size: 33px; }
+  .bp-fin .val { font-size: 67px; line-height: 70px; padding-top: 8px; }
+}
+@media screen and (min-width: 550px) {
+  #bp5-instructions { font-size: 1.9em; }
+}
+@media screen and (min-width: 580px) {
+  .bp-fin .val { font-size: 73px; line-height: 81px; }
+}
+@media screen and (min-width: 700px) {
+  .bp-fin .clear { padding: 14px 0; }
+  .bp-fin small { font-size: 17px; }
+  .bp-fin .type { font-size: 39px; }
+  .bp-fin .val { font-size: 83px; line-height: 90px; padding-top: 0; }
 }

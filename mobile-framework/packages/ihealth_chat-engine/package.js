@@ -6,6 +6,10 @@ Package.describe({
   git: "https://github.com/iHealthLab/framework-iHealth"
 })
 
+Cordova.depends({
+  "org.apache.cordova.camera":"0.3.2"
+});
+
 Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.3")
 
@@ -41,18 +45,19 @@ Package.onUse(function(api) {
     "actions/messageActions.coffee",
     "actions/statusActions.coffee",
 
-    "temp.coffee"
   ], ["client","server"])
 
   api.addFiles([
+    "camera.coffee",
     "components/ChatChannelList.jsx",
     "components/ChatMessageList.jsx",
-    "components/ChatView.jsx"
+    "components/ChatView.jsx",
   ], ["client"])
 
   api.addFiles([
     "publications.coffee",
     "methods.coffee",
+    "temp.coffee"
   ], ["server"])
 
   api.export(["Dispatcher"])

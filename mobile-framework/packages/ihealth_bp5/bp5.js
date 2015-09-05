@@ -10,7 +10,7 @@ var processSignal = function(signal) {
    return json_signal;
   } catch(err) {
    console.warn('processSignal' + err);
-}
+  }
 }
 
 var cbLog = function(functionName) {
@@ -110,9 +110,9 @@ iHealthBP5 = function(args){
 
 iHealthBP5.prototype = {
   checkPluginLoaded: function() {
-    debugL(2)("checkPluginLoaded call: - ")
+    debugL(2)("checkPluginLoaded BP call: - ")
     var isPluginLoaded = typeof(BpManagerCordova) !== "undefined"
-    console.log('checkPluginLoaded: ' + isPluginLoaded)
+    console.log('checkPluginLoaded BP: ' + isPluginLoaded)
     this.isPluginLoaded = isPluginLoaded
     // saveApp({isPluginLoaded: isPluginLoaded})
     Session.set("isPluginLoaded", isPluginLoaded)
@@ -282,7 +282,7 @@ iHealthBP5.prototype = {
   /**
    * Start monitoring the blood pressure and store it into Session "BP"
    */
-  start: function(){
+  start: function(finishCallback){
     debugL(1)("start call: - ")
     var self = this
     // var reconnectAttempted = false
@@ -339,6 +339,10 @@ iHealthBP5.prototype = {
           // Meteor.setTimeout( function(){
             bp.status = 'finished'
             bp.date = new Date()
+
+            if (_.isFunction(finishCallback))
+              finishCallback(res)
+
             Session.set("BP", bp)
           // },self.finishedMeasurementDelay)
 

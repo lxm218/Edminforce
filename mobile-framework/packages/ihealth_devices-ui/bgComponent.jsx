@@ -4,8 +4,9 @@ DeviceRC.MeasureBG = React.createClass({
   getMeteorData() {
     var self = this
     var bgSession = Session.get("BG") || {}
+    console.log('checking bgSession: ', bgSession);
 
-    if (bgSession.highpressure && bgSession.lowpressure) {
+    if (bg.status === 'finished') {
 
       if (this.timeout===null) {
         // Measure Finished
@@ -146,27 +147,27 @@ DeviceRC.MeasureBG = React.createClass({
             <div className="bp-fin center thick brand2">
               {moment(BG.date).format("MMM Do YYYY - h:mm a")}
             </div>
-            <div className="bp-fin thin">
+            <div className="bp-fin">
               <div className="clear">
-                <p className="type">
+                <p className="type thin">
                   <small className="block thick">mmHg</small>
                   Systolic
                 </p>
                 <p className="val">{Math.round(BG.highpressure)}</p>
               </div>
             </div>
-            <div className="bp-fin thin">
+            <div className="bp-fin">
               <div className="clear">
-                <p className="type">
+                <p className="type thin">
                   <small className="block thick">mmHg</small>
                   Diastolic
                 </p>
                 <p className="val">{Math.round(BG.lowpressure)}</p>
               </div>
             </div>
-            <div className="bp-fin thin">
+            <div className="bp-fin">
               <div className="clear">
-                <p className="type">
+                <p className="type thin">
                   <small className="block thick">Beats Per Minute</small>
                   Heart Rate
                 </p>

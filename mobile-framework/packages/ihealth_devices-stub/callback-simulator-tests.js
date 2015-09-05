@@ -37,7 +37,7 @@ Tinytest.add('Test Discovery messege', function (test) {
 });
 
 Tinytest.add('Test Measuring messege', function (test) {
-  var messages = [
+  var messageZero = [
     { messageDelay: 500,
       message: {
         "msg" : "zero doing",
@@ -58,29 +58,30 @@ Tinytest.add('Test Measuring messege', function (test) {
         "pressure" : 0
       },
       messageRepeat: 5
-    },
-    { messageDelay: 500,
+    }
+  ];
+
+  var messageMeasuring = _.range(150).map(function(i) {
+    return { messageDelay: 50*i,
       message: {
-        "pressure" : 50,
+        "pressure" : i,
         "msg" : "measure doing",
         "address" : "8CDE521448F0",
         "wave" : [
-          93,
-          95,
-          96,
-          97,
-          98,
-          99,
-          100,
-          100
+          (100*Math.sin((i+0)/150)),
+          (100*Math.sin((i+20)/150)),
+          (100*Math.sin((i+40)/150)),
+          (100*Math.sin((i+60)/150)),
+          (100*Math.sin((i+80)/150)),
+          (100*Math.sin((i+100)/150)),
+          (100*Math.sin((i+120)/150)),
+          (100*Math.sin((i+150)/150))
         ]
-      },
-      messageRepeat: 5
-    },
-    // {
-    //   "msg" : "error",
-    //   "errorID" : 4
-    // },
+      }
+    }
+  });
+
+  var messageResult = [
     { messageDelay: 3000,
       message: {
         "lowpressure" : 85,
@@ -103,6 +104,9 @@ Tinytest.add('Test Measuring messege', function (test) {
       }
     }
   ]
+
+  var messages = _.reduce([messageZero, messageMeasuring, messageResult], function(memo, nextVal) { return memo.concat(nextVal)}, []);
+
   try {
     sendMessages(cbSuccess, messages)
     test.equal(true, true, 'no error');

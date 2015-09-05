@@ -45,8 +45,7 @@ DevicesStub.BP = {
   },
   startMeasure: function(address, cbSuccess, cbFail) {
     debugL(3)('fake ' + 'startMeasure')
-
-    var messages = [
+    var messageZero = [
       { messageDelay: 500,
         message: {
           "msg" : "zero doing",
@@ -67,30 +66,31 @@ DevicesStub.BP = {
           "pressure" : 0
         },
         messageRepeat: 5
-      },
-      { messageDelay: 500,
+      }
+    ];
+
+    var messageMeasuring = _.range(150).map(function(i) {
+      return { messageDelay: 50*i,
         message: {
-          "pressure" : 50,
+          "pressure" : i,
           "msg" : "measure doing",
           "address" : "8CDE521448F0",
           "wave" : [
-            93,
-            95,
-            96,
-            97,
-            98,
-            99,
-            100,
-            100
+            (100*Math.sin((i+0)/150)),
+            (100*Math.sin((i+20)/150)),
+            (100*Math.sin((i+40)/150)),
+            (100*Math.sin((i+60)/150)),
+            (100*Math.sin((i+80)/150)),
+            (100*Math.sin((i+100)/150)),
+            (100*Math.sin((i+120)/150)),
+            (100*Math.sin((i+150)/150))
           ]
-        },
-        messageRepeat: 5
-      },
-      // {
-      //   "msg" : "error",
-      //   "errorID" : 4
-      // },
-      { messageDelay: 3000,
+        }
+      }
+    });
+
+    var messageResult = [
+      { messageDelay: 8000,
         message: {
           "lowpressure" : 85,
           "address" : "8CDE521448F0",
@@ -112,6 +112,9 @@ DevicesStub.BP = {
         }
       }
     ]
+
+    var messages = _.reduce([messageZero, messageMeasuring, messageResult], function(memo, nextVal) { return memo.concat(nextVal)}, []);
+
     sendMessages(cbSuccess, messages)
   },
   stopMeasure: function(address, cbSuccess, cbFail) {

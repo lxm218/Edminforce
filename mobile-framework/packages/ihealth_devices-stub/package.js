@@ -29,5 +29,6 @@ Package.onTest(function (api) {
     "bp-stub.js"
   ],'client');
 
-  api.addFiles(['bp-stub-tests.js','bg-stub-tests.js'], 'client');
+  // api.addFiles(['bp-stub-tests.js','bg-stub-tests.js'], 'client');
+  api.addFiles(['callback-simulator-tests.js'], 'client');
 });

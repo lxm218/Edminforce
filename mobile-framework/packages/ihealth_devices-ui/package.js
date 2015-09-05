@@ -12,15 +12,12 @@ Package.onUse(function(api) {
   api.use([
     "fortawesome:fontawesome",
     "ihealth:utils@0.1.3",
-    // "ihealth:bp5@0.2.1",
-    "ihealth:bg5",
     "react",
   ], "client")
 
   api.imply("ihealth:utils", ["client","server"])
 
   api.imply([
-    "ihealth:bg5",
     "mystor:device-detection"
   ], "client")
 

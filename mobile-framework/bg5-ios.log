@@ -1,4 +1,12 @@
-[Log] filtered ["startDiscovery", "stopDiscovery", "startMeasure", "connectDevice", "setUnit", "getBattery", "setBottleId", "getBottleId", "setBottleMessage", "getOfflineData", "deleteOfflineData", "disConnectDevice", "setDisconnectCallback", "holdLink"]
+// iOS plugin log
+[Log] filtered
+["startDiscovery", "stopDiscovery", "startMeasure", "connectDevice", "setUnit",
+ "getBattery", "setBottleId", "getBottleId", "setBottleMessage", "getOfflineData",
+ "deleteOfflineData", "disConnectDevice", "setDisconnectCallback", "holdLink"]
+
+// done getBottleId, getOfflineData, startDiscovery,
+// working functions: startMeasure, setUnit, setBottleId,
+// , setBottleMessage, , deleteOfflineData, setDisconnectCallback
 
 [Log] 10:07:36 AM PDT: startDiscovery...
 [Log] debug2 -  startDiscovery argsArray: 8CDE52425C58,function (message) {
@@ -79,7 +87,7 @@
 [Log] 10:07:50 AM PDT: getBottleId success: {
   "msg" : "bottleid",
   "address" : "8CDE52425C58",
-  "bottleid" : 123456
+  "bottleid" : 925733
 }
 [Log] debug3 -  setBottleMessage...
 [Log] 10:07:52 AM PDT: setBottleMessage...
@@ -99,6 +107,19 @@
     },function (message) {
       sessionAppend(functionName + ': ' + message);
     }
+{
+  "msg" : "value",
+  "address" : "8CDE52425C58",
+  "history" : {
+    "ResultList" : [
+      {
+        "Result" : 190,
+        "Date" : "2015-08-03 15:06:11"
+      }
+    ]
+  }
+}
+
 [Log] 10:07:54 AM PDT: deleteOfflineData success: {
   "msg" : "deleteOfflineData",
   "address" : "8CDE52425C58"

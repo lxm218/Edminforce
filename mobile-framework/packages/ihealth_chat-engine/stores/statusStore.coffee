@@ -73,20 +73,27 @@ _fetchAllOtherChannelUsers = (cid, uid) ->
 #    return user isnt cid
   return allChannelUsers
 
+_getStatusID = (action) ->
+  channelID = if action.message? then action.message.CHID else action.channelID
+  status = IH.Coll.ChatStatus.findOne({UID: Meteor.userId(), CHID: channelID})
+  if status?
+    statusID = status._id
+  return statusID
+
+
+# TODO: sid should be a list of all user_status in this channel
 
 IH.Store.ChatStatus =
 
-  incUnreadCount: (m, cid) ->
-    uid = m.UID
-    cid = m.CHID
+  incUnreadCount: (sid) ->
     # _fetchAllOtherChannelUsers (except uid)
-    # do a _.each
-    IH.Coll.ChatStatus.update({UID: uid, CHID: cid, active: false}, {$inc: {numUnread: 1}})
+    status = IH.Coll.ChatStatus.findOne(sid)
+    unless status.active
+      IH.Coll.ChatStatus.update(sid, {$inc: {numUnread: 1}})
 
   clearUnreadCount: (sid) ->
     IH.Coll.ChatStatus.update(sid, {$set: {active: true, numUnread: 0}})
 
-  # TODO: problem, not atomic
   deActivate: (sid) ->
     IH.Coll.ChatStatus.update(sid, {$set: {active: false}})
 
@@ -94,17 +101,21 @@ IH.Store.ChatStatus =
 # dispatcher token
 IH.Store.ChatStatus.dispatchToken = ChatDispatcher.register (action)->
 
+  statusID = _getStatusID(action)
+  unless statusID?
+    console.error "channel status not found"
+
   switch action.type
 
     when "CREATE_NEW_MESSAGE"
       ChatDispatcher.waitFor([IH.Store.ChatMessages.dispatchToken])
-      IH.Store.ChatStatus.incUnreadCount(action.message)
+      IH.Store.ChatStatus.incUnreadCount(statusID)
 
     when "USER_ACTIVATE_CHANNEL"
-      IH.Store.ChatStatus.clearUnreadCount(action.statusID)
+      IH.Store.ChatStatus.clearUnreadCount(statusID)
 
     when "USER_LEFT_CHANNEL"
-      IH.Store.ChatStatus.deActivate(action.statusID)
+      IH.Store.ChatStatus.deActivate(statusID)
 
 
 

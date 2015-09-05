@@ -1,4 +1,7 @@
 
+var debugLevel = 2
+var debugL = _.partial(DevTools.consoleWithLevels, debugLevel);
+
 App.BG5 = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
@@ -25,7 +28,6 @@ App.BG5 = React.createClass({
 
     Session.set('deviceCommands', deviceCommands);
 
-
     var getPluginCommands = function(pluginObj) {
       var getFunctions = function(objectName) { return Object.getOwnPropertyNames(objectName).filter(function (p) {
         return typeof objectName[p] === 'function';
@@ -34,7 +36,7 @@ App.BG5 = React.createClass({
       var deviceCommands2 = getFunctions(pluginObj.__proto__ || {});
       deviceCommands = deviceCommands1.concat(deviceCommands2);
       delayedAdd(deviceCommands, function(v) {
-        console.log('delayedAdd', v);
+        debugL(4)('delayedAdd', v);
         var curr = Session.get('deviceCommands');
         if (typeof(curr.push)==='function') {
           curr.push(v)
@@ -105,16 +107,16 @@ App.BG5 = React.createClass({
     let jsonStyle = {wordWrap: "break-word"}
     return <RC.List>
       <RC.Animate transitionName="slide-up" transitionAppear={true}>
-      <RC.Item theme="divider">BG5 Cordova Plugin</RC.Item>
-      <RC.Item theme="text-wrap">
+      <RC.Item theme="divider" key='20'>BG5 Cordova Plugin</RC.Item>
+      <RC.Item theme="text-wrap" key='21'>
         <p>Commands available on BG5 plugin.</p>
       </RC.Item>
-      <RC.Item theme="divider">Plugin Output</RC.Item>
-      <RC.Item theme="text-wrap">
+      <RC.Item theme="divider" key='22'>Plugin Output</RC.Item>
+      <RC.Item theme="text-wrap" key='23'>
         <p className="bigger-medium"><strong>Session.get("Devices")</strong> Raw JSON</p>
         <p className="tiny" style={jsonStyle}>{JSON.stringify(this.data.devices)}</p>
       </RC.Item>
-      <RC.Item theme="text-wrap">
+      <RC.Item theme="text-wrap" key='24'>
         <p className="bigger-medium"><strong>Session.get("BG")</strong> Raw JSON</p>
         <p className="tiny" style={jsonStyle}>{JSON.stringify(this.data.BG)}</p>
       </RC.Item>

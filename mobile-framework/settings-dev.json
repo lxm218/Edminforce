@@ -1,6 +1,6 @@
 {
   "public": {
     "env": "dev",
-    "appName" : "iHealth"
+    "appName" : "iHealth",
   }
 }

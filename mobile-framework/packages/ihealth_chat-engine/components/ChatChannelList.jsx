@@ -5,13 +5,15 @@ IH.RC.ChatChannelList = React.createClass({
     //var contacts = Meteor.user().profile.contacts;
 
     let channelList = [];
-    this.handle = Meteor.subscribe("PatientChatChannelList");
+    this.handle = Meteor.subscribe("ChatChannelList");
     if (this.handle.ready()){
       var userId = Meteor.userId();
       channelList = IH.Coll.ChatStatus.find({UID: userId}).map(function(s){
         var ch = IH.Coll.ChatChannels.findOne({_id: s.CHID});
-        var user = Meteor.users.findOne(ch.DID).profile;
-        var latestMsg = IH.Coll.ChatMessages.findOne({CHID: ch._id},{sort:{createdAt:-1}},{limit:1}) || null; //
+
+        var contactID = ch.DID === userId? ch.PID : ch.DID;
+        var user = Meteor.users.findOne(contactID).profile;
+        var latestMsg = ch.lastMsg; //
 
         return {
           _id: ch._id,

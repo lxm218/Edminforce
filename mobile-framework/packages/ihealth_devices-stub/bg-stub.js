@@ -11,14 +11,10 @@ DevicesStub.BG5 = {
     var messages = [
       { messageDelay: 1000,
         message: {
-          "HardwareVersion" : "1.3.0",
-          "ProtocolString" : "com.jiuan.BGV31",
-          "name" : "BG5",
-          "ModelNumber" : "BG5 11070",
-          "address" : "8CDE52425C58",
           "msg" : "discovery doing",
-          "FirmwareVersion" : "3.0.0"
-      }},
+          "address" : "8CDE52425C58",
+          "name" : "BG5"
+        }},
       { messageDelay: 1500,
         message: {
           "HardwareVersion" : "1.0.0",
@@ -138,7 +134,7 @@ DevicesStub.BG5 = {
       JSON.stringify (
         {
           msg: 'getBattery',
-          batterLevel: fakeBatteryLevel
+          battery: fakeBatteryLevel
         }
       )
     );
@@ -218,18 +214,14 @@ DevicesStub.BG5 = {
       message: {
       "msg" : "getOfflineData",
       "address" : "8CDE52425C58",
-      "value" : [
-        {
-          "time" : "2015,8,15,23,13",
-          "dataID" : "8CDE5208B9ED14397068181900000000",
-          "value" : 97
-        },
-        {
-          "time" : "2015,8,15,46,11",
-          "dataID" : "8CDE5208B9ED14397068182300000000",
-          "value" : 105
-        }
-      ]
+      "history" : {
+        "ResultList" : [
+          {
+            "Result" : 190,
+            "Date" : "2015-08-03 15:06:11"
+          }
+        ]
+      }
     }
     }]
     sendMessages(successCallback, messages)
@@ -241,7 +233,7 @@ DevicesStub.BG5 = {
     var messages = [{
       messageDelay: 1000,
       message: {
-        "msg" : "deleted OfflineData",
+        "msg" : "deleteOfflineData",
         "address" : "8CDE52425C58"
       }
     }]

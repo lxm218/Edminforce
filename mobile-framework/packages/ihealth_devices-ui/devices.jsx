@@ -21,7 +21,7 @@ DeviceRC.PrepareMsg = React.createClass({
   },
   start() {
     if (this.props.device && _.isFunction(this.props.device.start))
-      this.props.device.start()
+      this.props.device.start(this.props.finCallback)
   },
   touchStart() {
     this.setState({ buttonHeld: true })
@@ -112,7 +112,7 @@ DeviceRC.PrepareMsg = React.createClass({
   }
 })
 
-var allowedDevices = ["BP"]
+var allowedDevices = ["BP","BG"]
 
 DeviceRC.Prepare = React.createClass({
   // Meteor Data
@@ -138,23 +138,20 @@ DeviceRC.Prepare = React.createClass({
 
     let device = this.props.device
     let deviceName = _.contains(allowedDevices, this.props.deviceName) ? this.props.deviceName : null
-    let deviceKnown = deviceName && device
+    // let deviceKnown = deviceName && device
 
     let deviceClasses = {
-      BP: DeviceRC.MeasureBP
+      BP: DeviceRC.MeasureBP,
+      BG: DeviceRC.MeasureBG
     }
 
     let DeviceMeasure = deviceClasses[deviceName] || DeviceRC.NotFound
     let isHidden = !_.isObject(this.data.deviceJson)
     let isCancelled = _.isObject(this.data.deviceJson) && this.data.deviceJson.isCancelled
 
-    return <div className={"abs-full background device-back nav-margin "+deviceName}>
+    return <div className={"abs-full background device-back overflow "+deviceName+(isHidden || isCancelled ? " nav-margin" : "")}>
       <DeviceMeasure device={device} isHidden={isHidden} isCancelled={isCancelled} inactiveDuration={this.props.inactiveDuration} />
-      {
-      deviceKnown
-      ? <DeviceRC.PrepareMsg device={device} deviceName={deviceName} holdToConnect={this.props.holdToConnect} />
-      : <h2 className="center inside">Unknown Device or<br />No Device Passed</h2>
-      }
+      <DeviceRC.PrepareMsg device={device} deviceName={deviceName} holdToConnect={this.props.holdToConnect} finCallback={this.props.finishCallback} />
     </div>
   }
 })

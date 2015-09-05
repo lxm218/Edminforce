@@ -53,7 +53,7 @@
   display: block; content: " ";
   width: 4px; height: 4px;
   @include border-radius(50%);
-  background: $brand2; }
+  background: $color_on_nav; }
 #mobile-header .more-button span { margin-top: -3px; right: 16px; }
 #mobile-header .more-button span:before { margin-top: -8px; }
 #mobile-header .more-button span:after { margin-top: 4px; }

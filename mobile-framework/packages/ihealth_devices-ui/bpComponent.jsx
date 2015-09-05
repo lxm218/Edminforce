@@ -119,73 +119,75 @@ DeviceRC.MeasureBP = React.createClass({
     this.props.device.stop(cb)
   },
   render() {
-    if (this.props.isHidden) return null
     let BP = this.data.BP
 
     // Render BP Error
-
     // Render BP Measuring
-
 
     let cRadius = Meteor.Device.isPhone() ? 120 : 180
 
-    return <div className={"fixed-full bg-white scroll "+(this.props.isCancelled ? "exit" : "route")+"-from-bottom"} onClick={this.restartInactiveTimer} id="measuring-bp">
-      <span className="x black" onClick={this.cancelMeasure} />
-      {BP.errorID ? <DeviceRC.Error msg={BP.msg} closeHandler={this.cancelMeasure} /> : null}
+    return <RC.Animate transitionName="slide-up">
       {
-        this.state.status=="finished" ? null
-        : <svg className="svg-circle" width={cRadius*2} height={cRadius*2} viewPort={"0 0 "+cRadius+" "+cRadius} version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <circle ref="cFull" className={"full "+this.state.spdClass} r={cRadius-10} cx={cRadius} cy={cRadius} fill="transparent" transform={"rotate(-90 "+cRadius+" "+cRadius+")"}/>
-          <circle ref="cLine" className={"line svg-brand2 "+this.state.spdClass} r={cRadius-10} cx={cRadius} cy={cRadius} fill="transparent" transform={"rotate(-90 "+cRadius+" "+cRadius+")"}/>
-        </svg>
-      }
-      <div className={this.state.status=="finished" ? "fin pop-in" : "table"} id="pressure-display">
-        <div className={(this.state.status=="displaying" ? " invis" : "")+(this.state.status=="finished" ? " fade-in" : " inside center")}>
-				{
-          this.state.status=="finished" ?
-          <div className="line-average">
-            <div className="bp-fin center thick brand2">
-              {moment(BP.date).format("MMM Do YYYY - h:mm a")}
-            </div>
-            <div className="bp-fin thin">
-              <div className="clear">
-                <p className="type">
-                  <small className="block thick">mmHg</small>
-                  Systolic
-                </p>
-                <p className="val">{Math.round(BP.highpressure)}</p>
-              </div>
-            </div>
-            <div className="bp-fin thin">
-              <div className="clear">
-                <p className="type">
-                  <small className="block thick">mmHg</small>
-                  Diastolic
-                </p>
-                <p className="val">{Math.round(BP.lowpressure)}</p>
-              </div>
-            </div>
-            <div className="bp-fin thin">
-              <div className="clear">
-                <p className="type">
-                  <small className="block thick">Beats Per Minute</small>
-                  Heart Rate
-                </p>
-                <p className="val">{BP.heartrate}</p>
-              </div>
-            </div>
-
-            <DeviceRC.BPZone hiPressure={BP.highpressure} loPressure={BP.lowpressure} />
-          </div> :
-          <p className="thin processing-number padding-none brand2">
-            {BP.pressure || 0}
-            {!BP.pressure ? <span className="fa fa-cog spin-medium" /> : null}
-          </p>
+      this.props.isCancelled || this.props.isHidden ? null :
+      <div className="abs-full bg-white scroll on-top-higher" onClick={this.restartInactiveTimer} id="measuring-bp">
+        <span className="x black on-top" onClick={this.cancelMeasure} />
+        {BP.errorID ? <DeviceRC.Error msg={BP.msg} closeHandler={this.cancelMeasure} /> : null}
+        {
+          this.state.status=="finished" ? null :
+          <svg className="svg-circle" width={cRadius*2} height={cRadius*2} viewPort={"0 0 "+cRadius+" "+cRadius} version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <circle ref="cFull" className={"full "+this.state.spdClass} r={cRadius-10} cx={cRadius} cy={cRadius} fill="transparent" transform={"rotate(-90 "+cRadius+" "+cRadius+")"}/>
+            <circle ref="cLine" className={"line svg-brand2 "+this.state.spdClass} r={cRadius-10} cx={cRadius} cy={cRadius} fill="transparent" transform={"rotate(-90 "+cRadius+" "+cRadius+")"}/>
+          </svg>
         }
-				</div>
-      </div>
+        <div className={this.state.status=="finished" ? "fin pop-in" : "table"} id="pressure-display">
+          <div className={(this.state.status=="displaying" ? " invis" : "")+(this.state.status=="finished" ? " fade-in" : " inside center")}>
+  				{
+            this.state.status=="finished" ?
+            <div className="line-average">
+              <div className="bp-fin center thick brand2">
+                {moment(BP.date).format("MMM Do YYYY - h:mm a")}
+              </div>
+              <div className="bp-fin">
+                <div className="clear">
+                  <p className="type thin">
+                    <small className="block thick">mmHg</small>
+                    Systolic
+                  </p>
+                  <p className="val thin">{Math.round(BP.highpressure)}</p>
+                </div>
+              </div>
+              <div className="bp-fin">
+                <div className="clear">
+                  <p className="type thin">
+                    <small className="block thick">mmHg</small>
+                    Diastolic
+                  </p>
+                  <p className="val thin">{Math.round(BP.lowpressure)}</p>
+                </div>
+              </div>
+              <div className="bp-fin">
+                <div className="clear">
+                  <p className="type thin">
+                    <small className="block thick">Beats Per Minute</small>
+                    Heart Rate
+                  </p>
+                  <p className="val thin">{BP.heartrate}</p>
+                </div>
+              </div>
 
-    </div>
+              <DeviceRC.BPZone hiPressure={BP.highpressure} loPressure={BP.lowpressure} />
+            </div> :
+            <p className="thin processing-number padding-none brand2">
+              {BP.pressure || 0}
+              {!BP.pressure ? <span className="fa fa-cog spin-medium" /> : null}
+            </p>
+          }
+  				</div>
+        </div>
+
+      </div>
+      }
+    </RC.Animate>
   }
 })
 
@@ -231,10 +233,32 @@ DeviceRC.BPZone = React.createClass({
       labelX: "Diastolic (mmHg)",
     }]
 
+    var bubblePos = {}
+    if (zones[zoneRes]) {
+      // Systolic
+      var yPos = this.props.hiPressure/200*100
+      if (this.props.hiPressure<=120)
+        yPos -= 20
+      else if (this.props.hiPressure<=140)
+        yPos -= 10
+
+      // Diastolic
+      var xPos = this.props.loPressure/140*100
+      if (this.props.loPressure<=80)
+        xPos -= 17
+      else if (this.props.loPressure<=90)
+        xPos -= 4
+      else if (this.props.loPressure<=100)
+        xPos += 9
+
+      bubblePos.bottom = yPos+"%"
+      bubblePos.left = xPos+"%"
+    }
+
     return <div className="bp-fin">
       <div id="bp-chart">
         <div className="inner">
-          <span className={"bubble round pos"+zoneRes}>{ zones[zoneRes] ? zones[zoneRes].text : "Unknown" }</span>
+          <span className="bubble round" style={bubblePos}>{ zones[zoneRes] ? zones[zoneRes].text : "Unknown" }</span>
           {
           zones.map( function(z,n){
             return <div className={z.code+" zone zone"+n} key={n}>
@@ -260,7 +284,7 @@ DeviceRC.Error = React.createClass({
     this.setState({ buttonHeld: false })
   },
   render() {
-    return <div className="abs-full center bg-overlay" id="device-error">
+    return <div className="fixed-full center bg-overlay" id="device-error">
       <div className="table">
         <div className="inside">
 
@@ -280,17 +304,16 @@ DeviceRC.Error = React.createClass({
 DeviceRC.BP5Instructions = React.createClass({
   getInitialState() {
     return {
-      css: false,
+      isOn: false,
       swipe: false,
       cur: 0,
     }
   },
   timeout: null,
   open() {
-    this.setState({ css: "in" })
+    this.setState({ isOn: true })
     if (!this.state.swipe) {
       let self = this
-
       Meteor.clearTimeout(this.timeout)
       this.timeout = Meteor.setTimeout( function(){
         self.setState({ swipe: true })
@@ -310,8 +333,8 @@ DeviceRC.BP5Instructions = React.createClass({
     // },500)
 
     this.setState({
+      isOn: false,
       swipe: false,
-      css: false,
       cur: 0
     })
   },
@@ -323,22 +346,21 @@ DeviceRC.BP5Instructions = React.createClass({
     this.setState({ cur: this.refs.swiper.getPos() })
   },
   render() {
-    if (!this.state.css) return <div />
 
     let self = this
     let panes = [
       <span>Place the cuff at the same<br />level as your heart.</span>,
       <span>Leave one finger space<br />between the cuff and your arm.</span>,
       <span>Position the cuff 1/2&rdquo; (2cm)<br />above your elbow joint.</span>,
-      <span className="smaller">Position the monitor in the middle of your<br /> arm aligned with your middle finger.</span>,
+      <span className="smaller">Position the monitor in the<br />middle of your arm aligned<br />with your middle finger.</span>,
       <span onClick={this.close}>That's it! Click here to close.</span>
     ]
 
-    return <div className={"abs-full bg-white pop-"+this.state.css} id="bp5-instructions">
-      <span className="on-top x black disable-swipe" onClick={this.close} />
+    var helpGuide = <div className="abs-full bg-white on-top-higher" id="bp5-instructions">
       {
       !this.state.swipe ? null :
       <div>
+        <span className="on-top x black disable-swipe" onClick={this.close} />
         <RC.Swipe ref="swiper" continuous={false} className="fade-in" callback={this.updateCur}>
           {panes.map(function(p,n){
             return <div className="table" key={n}>
@@ -350,7 +372,6 @@ DeviceRC.BP5Instructions = React.createClass({
             </div>
           })}
         </RC.Swipe>
-
         <div className="dots-root center">
           {panes.map(function(p,n){
             return <span className={"dot transition"+(self.state.cur==n ? " bg-brand2" : "")} key={n} onClick={self.slideTo.bind(null, n)} />
@@ -360,5 +381,8 @@ DeviceRC.BP5Instructions = React.createClass({
       }
     </div>
 
+    return <RC.Animate transitionName="scale">
+      {this.state.isOn ? helpGuide : null}
+    </RC.Animate>
   }
 })

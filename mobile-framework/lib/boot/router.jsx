@@ -90,11 +90,15 @@ if (Meteor.isClient) {
   DefaultRoutes.route('/BPComponent', {
     name: "BP5Component",
     action: function(p) {
+      let callback = function(res){
+        console.log("@@ Finish Callback @@")
+        console.log(res)
+      }
       routeHandler(p, {
         pageTitle: "BP Component",
         metaTitle: "iHealth BP Component",
         metaDesc: "Blood Pressure ReactJSX Component",
-        bodyTmpl: <DeviceRC.Prepare device={iHealth.BP5} deviceName="BP" />
+        bodyTmpl: <DeviceRC.Prepare device={iHealth.BP5} finishCallback={callback} deviceName="BP" />
       })
     }
   })
@@ -103,11 +107,15 @@ if (Meteor.isClient) {
   DefaultRoutes.route('/BGComponent', {
     name: "BG5Component",
     action: function(p) {
+      let callback = function(res){
+        console.log("@@ Finish Callback @@")
+        console.log(res)
+      }
       routeHandler(p, {
         pageTitle: "BG Component",
         metaTitle: "iHealth BG Component",
         metaDesc: "Glucometer ReactJSX Component",
-        bodyTmpl: <DeviceRC.Prepare device={iHealth.BG5} deviceName="BG" />
+        bodyTmpl: <DeviceRC.Prepare device={iHealth.BG5} finishCallback={callback} deviceName="BG" />
       })
     }
   })

@@ -58,6 +58,18 @@ IH.Schema.ChatChannels = new SimpleSchema
 IH.Coll.ChatChannels.attachSchema IH.Schema.ChatChannels
 
 
+IH.Coll.ChatChannels.allow
+
+  insert: ->
+    true
+
+  update: ->
+    true
+
+  remove: ->
+    false
+
+
 IH.Store.ChatChannels =
 
   create: (patient, doctor) ->
@@ -75,10 +87,11 @@ IH.Store.ChatChannels =
 
   updateLastMsg: (m) ->
     updateMsg =
-      createdAt: m.createdAt
-      from: m.UID
+      createdAt: new Date()
+      from: m.SID
       content: m.content
-    IH.Store.ChatChannels.update(m.CHID, {$set: {lastMsg: updateMsg}})
+
+    IH.Coll.ChatChannels.update(m.CHID, {$set: {lastMsg: updateMsg}})
 
 
 # dispatcher token
