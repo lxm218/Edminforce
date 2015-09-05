@@ -23,14 +23,16 @@ fw = {
     })
 
     return _.filter(children.map( function(c,n){
-      // if (_.isString(c.type=="div") {
+
       if (_.isString(c.type)) {
         return c
       } else if (c.type.displayName) {
         if (filter && filter!=c.type.displayName) {
           console.warn("Child was rejected because it did not pass the name filter ("+filter+").")
           return undefined
-        } else
+        }
+      }
+      else{
           return c
       }
     }), function(c){
