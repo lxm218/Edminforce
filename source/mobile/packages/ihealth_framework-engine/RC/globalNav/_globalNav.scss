@@ -1,0 +1,75 @@
+
+.global-nav {
+  height: 50px;
+  position: fixed; left: 0; right: 0; z-index: 4001; }
+.global-nav.gnav-bottom {
+  @include box-shadow(0 -1px rgba(0,0,0,.135));
+  background: $gnav_color_bottom;
+  top: auto; bottom: 0; }
+.global-nav.gnav-top {
+  @include box-shadow(0 1px rgba(0,0,0,.135));
+  background: $gnav_color_top;
+  top: $height_nav; bottom: auto; }
+
+.gnav-spacer { height: 0; padding: 0; margin: 0; overflow: hidden; }
+.gnav-spacer.on { height: 50px; }
+
+.global-nav.opacity {
+  @include box-shadow(0 -2px 3px rgba(0,0,0,.03));
+  @include opacity(.92); }
+.global-nav.flat {
+  @include box-shadow(none);
+  @include opacity(.92); }
+
+.global-nav a { color: inherit; }
+
+.global-nav .menuItem {
+  position: relative; vertical-align: top;
+  min-width: 40px; max-width: 110px; padding: 17px 0 0; }
+.global-nav .with-icon { margin: 5px 9%; padding: 9px 0 0; }
+.global-nav .with-icon.with-label { padding: 2px 0 0; }
+.global-nav .with-icon:first-child { margin-left: 0 !important; }
+.global-nav .with-icon:last-child { margin-right: 0 !important; }
+
+.global-nav.list-length-4 .menuItem { margin-left: 7%; margin-right: 7%; }
+.global-nav.list-length-5 .menuItem { margin-left: 4%; margin-right: 4%; }
+
+.global-nav.even .with-label { width: 55px; margin-left: 7%; margin-right: 7%; }
+.global-nav.even.list-length-4 .menuItem { margin-left: 5%; margin-right: 5%; }
+.global-nav.even.list-length-5 .menuItem { margin-left: 2.5%; margin-right: 2.5%; }
+
+.global-nav .fa { top: 24px; margin-top: 0; font-size: 16px; }
+
+.global-nav .fn-label { font-size: 12px; line-height: 18px; }
+
+.global-nav.gnav-bottom.isVisible { @include translate(0,0); }
+.global-nav.gnav-bottom.isVisible.animate { @include animation(gnav-bottom-in .25s 1); }
+
+@include keyframes(gnav-bottom-in) {
+	0% { @include translate(0,55px); }
+  100% { @include translate(0,0); }
+}
+
+.global-nav.gnav-bottom.isHidden { @include translate(0,55px); }
+.global-nav.gnav-bottom.isHidden.animate { @include animation(gnav-bottom-out .25s 1); }
+
+@include keyframes(gnav-bottom-out) {
+	0% { @include translate(0,0); }
+  100% { @include translate(0,55px); }
+}
+
+.global-nav.gnav-top.isVisible { @include translate(0,0); }
+.global-nav.gnav-top.isVisible.animate { @include animation(gnav-top-in .35s 1); }
+
+@include keyframes(gnav-top-in) {
+	0% { @include translate(0,-100px); }
+  100% { @include translate(0,0); }
+}
+
+.global-nav.gnav-top.isHidden { @include translate(0,-100px); }
+.global-nav.gnav-top.isHidden.animate { @include animation(gnav-top-out .35s 1); }
+
+@include keyframes(gnav-top-out) {
+	0% { @include translate(0,0); }
+  100% { @include translate(0,-100px); }
+}

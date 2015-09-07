@@ -1,0 +1,281 @@
+/**
+* Buttons
+* --------------------------------------------------
+*/
+
+.button {
+  // set the color defaults
+  @include button-style($button-default-bg, $button-default-border, $button-default-active-bg, $button-default-active-border, $button-default-text);
+
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  padding: 0 $button-padding;
+
+  min-width: ($button-padding * 3) + $button-font-size;
+  min-height: $button-height + 5px;
+
+  border-width: $button-border-width;
+  border-style: solid;
+  border-radius: $button-border-radius;
+
+  vertical-align: top;
+  text-align: center;
+
+  text-overflow: ellipsis;
+  font-size: $button-font-size;
+  line-height: $button-height - $button-border-width + 1px;
+
+  cursor: pointer;
+
+  &:after {
+    // used to create a larger button "hit" area
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    bottom: -6px;
+    left: -6px;
+    content: ' ';
+  }
+
+  .fa {
+    vertical-align: top;
+    pointer-events: none;
+  }
+
+  .fa:before,
+  &.fa:before,
+  &.fa-left:before,
+  &.fa-right:before {
+    display: inline-block;
+    padding: 0 0 $button-border-width 0;
+    vertical-align: inherit;
+    font-size: $button-icon-size;
+    line-height: $button-height - $button-border-width;
+    pointer-events: none;
+  }
+  &.fa-left:before {
+    float: left;
+    padding-right: .2em;
+    padding-left: 0;
+  }
+  &.fa-right:before {
+    float: right;
+    padding-right: 0;
+    padding-left: .2em;
+  }
+
+  &.button-block, &.button-full {
+    margin-top: $button-block-margin;
+    margin-bottom: $button-block-margin;
+  }
+
+  &.button-light {
+    @include button-style($button-light-bg, $button-light-border, $button-light-active-bg, $button-light-active-border, $button-light-text);
+    @include button-clear($button-light-border);
+    @include button-outline($button-light-border);
+  }
+
+  &.button-stable {
+    @include button-style($button-stable-bg, $button-stable-border, $button-stable-active-bg, $button-stable-active-border, $button-stable-text);
+    @include button-clear($button-stable-border);
+    @include button-outline($button-stable-border);
+  }
+
+  &.button-brand1, &.button-brand {
+    @include button-style($button-brand1-bg, $button-brand1-border, $button-brand1-active-bg, $button-brand1-active-border, $button-brand1-text);
+    @include button-clear($button-brand1-bg);
+    @include button-outline($button-brand1-bg);
+  }
+
+  &.button-brand2 {
+    @include button-style($button-brand2-bg, $button-brand2-border, $button-brand2-active-bg, $button-brand2-active-border, $button-brand2-text);
+    @include button-clear($button-brand2-bg);
+    @include button-outline($button-brand2-bg);
+  }
+
+  &.button-brand3 {
+    @include button-style($button-brand3-bg, $button-brand3-border, $button-brand3-active-bg, $button-brand3-active-border, $button-brand3-text);
+    @include button-clear($button-brand3-bg);
+    @include button-outline($button-brand3-bg);
+  }
+
+  &.button-dark {
+    @include button-style($button-dark-bg, $button-dark-border, $button-dark-active-bg, $button-dark-active-border, $button-dark-text);
+    @include button-clear($button-dark-bg);
+    @include button-outline($button-dark-bg);
+  }
+}
+
+.button-small {
+  padding: 2px $button-small-padding 1px;
+  min-width: $button-small-height;
+  min-height: $button-small-height + 2;
+  font-size: $button-small-font-size;
+  line-height: $button-small-height - $button-border-width - 1;
+
+  .fa:before,
+  &.fa:before,
+  &.fa-left:before,
+  &.fa-right:before {
+    font-size: $button-small-icon-size;
+    line-height: $button-small-icon-size + 3;
+    margin-top: 3px;
+  }
+}
+
+.button-large {
+  padding: 0 $button-large-padding;
+  min-width: ($button-large-padding * 3) + $button-large-font-size;
+  min-height: $button-large-height + 5;
+  font-size: $button-large-font-size;
+  line-height: $button-large-height - $button-border-width;
+
+  .fa:before,
+  &.fa:before,
+  &.fa-left:before,
+  &.fa-right:before {
+    padding-bottom: ($button-border-width * 2);
+    font-size: $button-large-icon-size;
+    line-height: $button-large-height - ($button-border-width * 2) - 1;
+  }
+}
+
+.button-icon {
+  @include transition(opacity .1s);
+  padding: 0 6px;
+  min-width: initial;
+  border-color: transparent;
+  background: none;
+
+  &.button.active,
+  &.button.activated {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    opacity: 0.3;
+  }
+
+  .fa:before,
+  &.fa:before {
+    font-size: $button-large-icon-size;
+  }
+}
+
+.button-clear {
+  @include button-clear($button-default-border);
+  @include transition(opacity .1s);
+  padding: 0 $button-clear-padding;
+  max-height: $button-height;
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+
+  &.active,
+  &.activated {
+    opacity: 0.3;
+  }
+}
+
+.button-outline {
+  @include button-outline($button-default-border);
+  @include transition(opacity .1s);
+  background: none;
+  box-shadow: none;
+}
+
+.padding > .button.button-block:first-child {
+  margin-top: 0;
+}
+
+.button-block {
+  display: block;
+  clear: both;
+
+  &:after {
+    clear: both;
+  }
+}
+
+.button-full,
+.button-full > .button {
+  display: block;
+  margin-right: 0;
+  margin-left: 0;
+  border-right-width: 0;
+  border-left-width: 0;
+  border-radius: 0;
+}
+
+button.button-block,
+button.button-full,
+.button-full > button.button,
+input.button.button-block  {
+  width: 100%;
+}
+
+a.button {
+  text-decoration: none;
+
+  .fa:before,
+  &.fa:before,
+  &.fa-left:before,
+  &.fa-right:before {
+    margin-top: 2px;
+  }
+}
+
+.button.disabled,
+.button[disabled] {
+  opacity: .4;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+// Overlay Theme
+// -------------------------------
+.wrap-overlay-light, .wrap-overlay-dark {
+  margin: 16px;
+}
+.wrap-overlay-light button, .wrap-overlay-dark button {
+  @include transition(all .2s);
+  border: none; }
+.wrap-overlay-light button { background-color: rgba(0,0,0,.15); }
+.wrap-overlay-light button, .wrap-overlay-light button:hover { color: #fff; }
+.web .wrap-overlay-light button:hover { background-color: rgba(0,0,0,.25); }
+.wrap-overlay-light.active button { background-color: rgba(255,255,255,.95); color: #444; }
+.web .wrap-overlay-light.active button:hover { background-color: #fff; }
+.wrap-overlay-light.active .fa { color: rgba(0,0,0,.5); }
+
+.wrap-overlay-dark button { background-color: rgba(40,40,40,.13); }
+.wrap-overlay-dark button, .wrap-overlay-dark button:hover { color: #333; }
+.web .wrap-overlay-dark button:hover { background-color: rgba(40,40,40,.23); }
+.wrap-overlay-dark.active button { background-color: rgba(40,40,40,.95); color: #fff; }
+.web .wrap-overlay-dark.active button:hover { background-color: #101010; }
+.wrap-overlay-dark.active .fa { color: rgba(255,255,255,.5); }
+
+form.bg-brand .fa, form.bg-brand1 .fa { color: $brand !important; }
+form.bg-brand2 button .fa { color: $brand2 !important; }
+form.bg-brand3 button .fa { color: $brand3 !important; }
+form.bg-brand-light button .fa { color: $brand_light !important; }
+form.bg-white button .fa { color: #fff !important; }
+
+// Circle Theme
+// -------------------------------
+.button-circle {
+  border-radius: 50%;
+  background: #fff; border: solid 1px #444;
+  width: 68px; height: 68px; margin: 5px 0;
+}
+.button-stable.button-circle { border-color: #444; }
+.button-light.button-circle { border-color: #444; }
+.web .button-circle:hover { background: #444; color: #fff; }
+
+.button-brand.button-circle, .button-brand1.button-circle { border-color: $color_on_brand; }
+.web .button-brand.button-circle:hover, .web .button-brand1.button-circle:hover { background: $color_on_brand; color: $brand; }
+.button-brand2.button-circle { border-color: $color_on_brand2; }
+.web .button-brand2.button-circle:hover { background: $color_on_brand2; color: $brand2; }
+.button-brand3.button-circle { border-color: $color_on_brand3; }
+.web .button-brand3.button-circle:hover { background: $color_on_brand3; color: $brand3; }
+.button-dark.button-circle { border-color: #fff; }
+.web .button-dark.button-circle:hover { background: #fff; color: $button-dark-bg; }
