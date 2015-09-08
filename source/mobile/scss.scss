@@ -51,4 +51,6 @@ $height_nav: 50px;
 
 @import "packages/ihealth_framework-engine/import";
 @import "packages/ihealth_framework-mobile/import";
-@import "client/app/bk/app";
+
+@import "client/app/common/app.scss";
+@import "client/scss.scss";
