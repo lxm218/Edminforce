@@ -19,6 +19,7 @@ Package.onUse(function(api) {
 
     api.export([
         "App",
-        "Cal"
+        "Cal",
+        "DB"
     ], ["client","server"])
 })

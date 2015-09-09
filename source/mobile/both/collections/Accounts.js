@@ -15,7 +15,7 @@
  location: "Dublin" or "Fremont",
  */
 
-App.Schema.AccountProfile = new SimpleSchema({
+DB.Schema.AccountProfile = new SimpleSchema({
     name: {
         type: String,
         optional: true
@@ -34,15 +34,14 @@ App.Schema.AccountProfile = new SimpleSchema({
     }
 });
 
-App.Schema.Account = new SimpleSchema({
+DB.Schema.Account = new SimpleSchema({
 
     username: {
         type: String,
         optional: true
     },
     emails: {
-        type: Array,
-        optional: false
+        type: Array
     },
 
     "emails.$": {
@@ -56,8 +55,13 @@ App.Schema.Account = new SimpleSchema({
         type: Boolean
     },
 
+    name: {
+        type: String
+    },
+
     createdAt: {
-        type: Date
+        type: Date,
+        optional: true
     },
 
     // !!!Make sure this services field is in your schema if you're using any of the accounts packages
@@ -79,25 +83,30 @@ App.Schema.Account = new SimpleSchema({
 
 
     credits: {
-        type: Number
+        type: Number,
+        optional: true
     },
 
     alterContact: {
-        type: Object
+        type: Object,
+        optional: true
     },
     emergencyContact: {
-        type: Object
+        type: Object,
+        optional: true
     },
     swimmers: {
-        type: [String]
+        type: [String],
+        optional: true
 
     },
     classes: {
-        type: [String]
+        type: [String],
+        optional: true
     }
 });
 
 
 //Accounts.attachSchema(App.Schema.Account)
 
-Meteor.users.attachSchema(App.Schema.Account);
+Meteor.users.attachSchema(DB.Schema.Account);

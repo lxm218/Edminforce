@@ -1,10 +1,10 @@
 
 
 
-Sessions = new Mongo.Collection('Sessions');
+DB.Sessions = new Mongo.Collection('Sessions');
 
 
-App.Schema.Sessions = new SimpleSchema(
+DB.Schema.Sessions = new SimpleSchema(
     {
     name: {
         type: String,
@@ -16,4 +16,4 @@ App.Schema.Sessions = new SimpleSchema(
 });
 
 
-Classes.attachSchema(App.Schema.Sessions)
+DB.Sessions.attachSchema(DB.Schema.Sessions)

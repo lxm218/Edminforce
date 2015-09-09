@@ -13,9 +13,6 @@ $ git checkout develop
   
   
   
-$ git rebase origin/develop    //right place? To be verified
-  
-  
 $ git merge --no-ff myfeature
   Updating ea1b82a..05e9557
   (Summary of changes)

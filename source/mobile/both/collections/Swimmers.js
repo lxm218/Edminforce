@@ -1,9 +1,9 @@
 
 
-Swimmers = new Mongo.Collection('Swimmers');
+DB.Swimmers = new Mongo.Collection('Swimmers');
 
 
-App.Schema.Swimmers = new SimpleSchema({
+DB.Schema.Swimmers = new SimpleSchema({
     name: {
         type: String
 
@@ -61,4 +61,4 @@ App.Schema.Swimmers = new SimpleSchema({
 });
 
 
-Swimmers.attachSchema(App.Schema.Swimmers)
+DB.Swimmers.attachSchema(DB.Schema.Swimmers)
