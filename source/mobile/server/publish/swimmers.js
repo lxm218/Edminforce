@@ -1,3 +1,6 @@
-/**
- * Created by jinhuifan on 9/9/15.
- */
+
+
+Meteor.publish("swimmers", function () {
+    return DB.Swimmers.find();
+});
+

@@ -1,3 +1,3 @@
-/**
- * Created by jinhuifan on 9/9/15.
- */
+Meteor.publish("accounts", function () {
+    return Meteor.users.find();
+});
