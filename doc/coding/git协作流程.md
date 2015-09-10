@@ -1,8 +1,13 @@
 
 Steps to contribute a new feature
 =================================
+### This is a merge workflow so no need to use 'git rebase'
+
+
 
 ```
+
+
 $ git checkout -b myfeature develop
   Switched to a new branch "myfeature"
 

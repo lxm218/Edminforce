@@ -77,7 +77,7 @@ DB.Schema.Account = new SimpleSchema({
     },
 
     profile: {
-        type: App.Schema.AccountProfile,
+        type: DB.Schema.AccountProfile,
         optional: true
     },
 
