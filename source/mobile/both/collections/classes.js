@@ -5,7 +5,6 @@ DB.Classes = new Mongo.Collection('classes');
 DB.Schema.Classes = new SimpleSchema({
     name: {
         type: String
-
     },
     startDate: {
         type: Date

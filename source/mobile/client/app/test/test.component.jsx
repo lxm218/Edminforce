@@ -12,8 +12,14 @@ Cal.Test = React.createClass({
         var handle3 = Meteor.subscribe("classes");
 
 
+        Meteor.subscribe("account1");
+
+
+
         return {
-            currentUser: Meteor.user(),
+            //currentUser: Meteor.user(),
+
+            currentUser: Meteor.users.find({_id:'account1'}).fetch()[0],
 
             accounts:Meteor.users.find().fetch(),
             swimmers:DB.Swimmers.find().fetch(),
@@ -25,7 +31,11 @@ Cal.Test = React.createClass({
         return <div className="transition" id="app-body">
             <div className="wrapper">
                 <span>
-                    Hello {this.data.currentUser && this.data.currentUser.username}!
+                    Hello
+                    <b>
+                    {this.data.currentUser && this.data.currentUser.profile.name}
+                    </b>!
+
                 </span>
 
                 <hr/>

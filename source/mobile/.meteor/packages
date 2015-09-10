@@ -42,3 +42,5 @@ insecure
 
 anti:fake
 msavin:mongol
+reactive-var
+reywood:publish-composite

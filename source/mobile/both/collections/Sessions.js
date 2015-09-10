@@ -1,7 +1,7 @@
 
 
 
-DB.Sessions = new Mongo.Collection('Sessions');
+DB.Sessions = new Mongo.Collection('sessions');
 
 
 DB.Schema.Sessions = new SimpleSchema(
