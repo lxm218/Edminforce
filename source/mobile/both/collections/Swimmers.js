@@ -1,6 +1,6 @@
 
 
-DB.Swimmers = new Mongo.Collection('Swimmers');
+DB.Swimmers = new Mongo.Collection('swimmers');
 
 
 DB.Schema.Swimmers = new SimpleSchema({

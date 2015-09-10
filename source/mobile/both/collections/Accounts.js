@@ -55,9 +55,9 @@ DB.Schema.Account = new SimpleSchema({
         type: Boolean
     },
 
-    name: {
-        type: String
-    },
+    //name: {
+    //    type: String
+    //},
 
     createdAt: {
         type: Date,
@@ -99,10 +99,6 @@ DB.Schema.Account = new SimpleSchema({
         type: [String],
         optional: true
 
-    },
-    classes: {
-        type: [String],
-        optional: true
     }
 });
 
