@@ -12,10 +12,9 @@ Meteor.startup(function () {
     * */
     if (DB.Swimmers.find({}).count() === 0) {
 
-
         DB.Swimmers.insert({  //account1 第1个孩子
             _id:'swimmer1',//swimmer1
-            name: Fake.word(),
+            name: 'swimmer1',
             accountId: 'account1',
             location:'Fremont',
             level:'level-1'
@@ -24,7 +23,7 @@ Meteor.startup(function () {
 
         DB.Swimmers.insert({  //account1 第2个孩子
             _id:'swimmer2',// swimmer2
-            name: Fake.word(),
+            name: 'swimmer2',
             accountId: 'account1',
             location:'Fremont',
             level:'level-1'
@@ -35,7 +34,7 @@ Meteor.startup(function () {
         _(2).times(function(n){
             DB.Swimmers.insert({
                 _id:'swimmer'+(2+n+1), //swimmer3 swimmer4
-                name: Fake.word(),
+                name: 'swimmer'+(2+n+1),
                 accountId: 'account2',
                 location:'Fremont',
                 level:'level-1'
