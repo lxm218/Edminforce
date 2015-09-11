@@ -13,10 +13,11 @@ DB.Schema.Classes = new SimpleSchema({
         type: Date
     },
 
-    birthday: {
-        type: Date,
-        optional: true
+    //所属的session
+    sessionId:{
+        type: String
     },
+    
     duration: {
         type: Number,
         optional: true

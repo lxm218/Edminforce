@@ -1,29 +1,35 @@
-
-
 Cal.ClassEditSwimmerListPage = React.createClass({
 
     mixins: [ReactMeteorData],
     getMeteorData() {
 
-        Meteor.subscribe("account1"); //for test
-        Meteor.subscribe("swimmers");
-        Meteor.subscribe("classes");
+        //Meteor.subscribe("accountWithSwimmersAndClasses", 'account1');
+
+        Meteor.subscribe("swimmersByAccountId", 'account1');
 
         return {
-            currentUser: Meteor.users.find({_id:'account1'}).fetch()[0],
-            swimmers:DB.Swimmers.find().fetch(),
-            classes:DB.Classes.find().fetch()
+            swimmers: DB.Swimmers.find({accountId: 'account1'}).fetch()
         };
     },
 
     render() {
-        return <div className="transition" id="app-body">
-            <div className="wrapper">
 
-                <RC.Card>
-                    hello
-                </RC.Card>
-            </div>
+        //debugger
+
+        return <div>
+
+            <RC.Card title="2015 Summer Session">
+
+            </RC.Card>
+
+            <RC.List>
+                {this.data.swimmers.map(function (swimmer, n) {
+
+                    return <Cal.ClassEditSwimmerItem swimmer={swimmer} key={n}>
+                    </Cal.ClassEditSwimmerItem>
+                })}
+            </RC.List>
         </div>
+
     }
 })

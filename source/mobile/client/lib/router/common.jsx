@@ -9,7 +9,7 @@ DefaultRoutes.route('/', {
         App.routeHandler(p, {
             pageTitle: "Home",
             headerNav: null,
-            bodyTmpl: <RC.NotFound/>
+            bodyTmpl: <Cal.Home/>
         })
     }
 })
