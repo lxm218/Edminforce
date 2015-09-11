@@ -14,7 +14,7 @@ account1下有2个swimmer：
 
     ID：swimmer1, swimmer2
     
-    swimmer1 已选了课程 ‘class1’
+    swimmer1 已选了课程 ‘testSession1class1’
  
 account2下有2个swimmer
 
@@ -24,9 +24,21 @@ account2下有2个swimmer
     
 ###课程： 
 ```
- ID: class1   class2  class3  class4
+ ID: 
+ testSession1class1
+ testSession1class2  
+ testSession1class3  
+ 
+ testSession2class1
+ 
+ 
     
 ```
 
 ###session
+testSession1
+testSession2
+testSession3
+testSession4
+
 

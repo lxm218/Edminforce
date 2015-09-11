@@ -8,6 +8,7 @@ DB.Schema.Swimmers = new SimpleSchema({
         type: String
 
     },
+    //所属account
     accountId: {
         type: String
     },
@@ -51,11 +52,11 @@ DB.Schema.Swimmers = new SimpleSchema({
     registerAt:{
         type: Date,
         optional: true
-    },
-    classes:{
-        type: [String],  //class ids
-        optional: true
-    }
+    }//,
+    //classes:{
+    //    type: [Object],  //｛class ids  ，register date｝
+    //    optional: true
+    //}
 
 
 });

@@ -18,8 +18,7 @@ Meteor.startup(function () {
             name: Fake.word(),
             accountId: 'account1',
             location:'Fremont',
-            level:'level-1',
-            classes:['class1']  //已选class1
+            level:'level-1'
 
         });
 
@@ -28,8 +27,8 @@ Meteor.startup(function () {
             name: Fake.word(),
             accountId: 'account1',
             location:'Fremont',
-            level:'level-1',
-            classes:[]  // 未选课
+            level:'level-1'
+
         });
 
         //account2 有两个孩子
@@ -39,8 +38,8 @@ Meteor.startup(function () {
                 name: Fake.word(),
                 accountId: 'account2',
                 location:'Fremont',
-                level:'level-1',
-                classes:[]
+                level:'level-1'
+
             });
         });
 
