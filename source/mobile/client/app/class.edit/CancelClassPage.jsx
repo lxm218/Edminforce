@@ -10,6 +10,6 @@ Cal.CancelClassPage = React.createClass({
     },
 
     render() {
-        return <div></div>
+        return <div>CancelClassPage</div>
     }
 })

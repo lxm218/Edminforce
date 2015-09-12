@@ -2,7 +2,7 @@
  * Created on 9/11/15.
  */
 
-Cal.ChangeClassPage = React.createClass({
+Cal.SheduleMeetingPage = React.createClass({
 
     mixins: [ReactMeteorData],
     getMeteorData() {
@@ -10,6 +10,6 @@ Cal.ChangeClassPage = React.createClass({
     },
 
     render() {
-        return <div>ChangeClassPage</div>
+        return <div>SheduleMeetingPage</div>
     }
 })

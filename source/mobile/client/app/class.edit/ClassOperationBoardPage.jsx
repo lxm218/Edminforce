@@ -11,19 +11,25 @@ Cal.ClassOperationBoardPage = React.createClass({
 
     render() {
 
+        let classId = this.props.classId;
+
         let colours = [{
             uiColor: "brand",
-            value: "Change Class"
+            value: "Change Class",
+            href:'/classEdit/'+classId+'/change'
 
         },{
             uiColor: "brand1",
-            value: "Cancel Class"
+            value: "Cancel Class",
+            href:'/classEdit/'+classId+'/cancel'
         },{
             uiColor: "brand2",
-            value: "Shedule Meeting"
+            value: "Shedule Meeting",
+            href:'/classEdit/'+classId+'/sheduleMeeting'
         },{
             uiColor: "brand3",
-            value: "Write Comment"
+            value: "Write Comment",
+            href:'/classEdit/'+classId+'/writeComment'
         }]
 
         return <RC.List >

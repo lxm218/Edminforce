@@ -51,10 +51,15 @@ Refer to account-password package
 
 ###classEdit  module
 ```
+
+@@@ 是否有必要合并？
 /classEdit/{calssId}/operationBoard
 /classEdit/{calssId}/change
 /classEdit/{calssId}/changeBilling
 /classEdit/{calssId}/cancel
+/classEdit/{calssId}/sheduleMeeting
+/classEdit/{calssId}/writeComment
+
 
 
 @@@ 扩展模块名classEdit为classEditSwimmer 可避免/classEdit/{calssId}的路由判断 也会防止出错
