@@ -11,7 +11,7 @@ Cal.Home = React.createClass({
 
             <RC.Item theme="divider">课程编辑模块</RC.Item>
 
-            <RC.Item  href="/classedit/yourswimmers"  key={0}>
+            <RC.Item  href="/classEditSwimmerList"  key={0}>
                 Account swimmers test
             </RC.Item>
 

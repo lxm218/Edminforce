@@ -10,19 +10,25 @@ Cal.ClassEditSwimmerItem = React.createClass({
         Meteor.subscribe("registerInfoBySwimmerId", swimmerId);
 
         return {
-            classesRegisterInfo: DB.classesRegister.find({swimmerId: swimmerId}).fetch()
+            classesRegisterInfo: DB.ClassesRegister.find({swimmerId: swimmerId}).fetch()
         };
     },
 
     render() {
-        return <RC.Item theme="icon-left, icon-right"
-                        uiClass="user, chevron-right">
+
+        let href = '/classEditSwimmer/'+this.props.swimmer._id+'/registeredClass'
+
+        return <RC.Item className="item-text-wrap"
+                        href={href}
+                        theme="icon-left, icon-right "
+                        uiClass="user, angle-right">
             {this.props.swimmer.name}
 
             {
                 this.data.classesRegisterInfo.map(function (register, n) {
 
-                    return <Cal.ClassEditSwimmerItemClassItem registerInfo={register} >
+
+                    return <Cal.ClassEditSwimmerItemClassItem registerInfo={register} key={n}>
                     </Cal.ClassEditSwimmerItemClassItem>
 
                 })
