@@ -44,3 +44,7 @@ anti:fake
 msavin:mongol
 reactive-var
 reywood:publish-composite
+
+
+meteorflux:dispatcher
+meteorflux:reactive-dependency

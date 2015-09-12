@@ -38,6 +38,7 @@ Package.onUse(function(api) {
   api.addFiles([
     "RC/swipe/swipe.jsx",
     "RC/leftNav/leftNav.jsx",
+    "RC/leftNav/leftNav2.jsx",
   ], "client")
 
   api.addFiles([
