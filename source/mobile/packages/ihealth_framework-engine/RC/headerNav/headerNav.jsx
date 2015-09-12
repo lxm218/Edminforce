@@ -56,10 +56,19 @@ RC.HeaderNav = React.createClass({
   openMore() {
     this.setState({moreNav: true, init: false})
   },
+  //////actions///////
+
+  //d打开leftNav
+  action_openLeftNav(){
+
+    Dispatcher.dispatch({actionType:'LEFT_NAV_OPEN'})
+  },
+
   timeout: null,
   render() {
 
     let logoRight = !(_.isArray(this.props.nav) && !_.isEmpty(this.props.nav))
+
 
     if (FlowRouter.LastRoute.length)
       var backButton = <span className="normal back" onClick={this.clickHandler.bind(null,false)}>Back</span>
@@ -67,6 +76,13 @@ RC.HeaderNav = React.createClass({
       var backButton = FlowRouter.current().path!="/" && !this.props.hideHome
       ? <span className="normal back" onClick={this.clickHandler.bind(null,true)}>Home</span>
       : null
+
+    if(!backButton){
+      var leftNavToggle = this.props.leftNavToggle
+
+      if(leftNavToggle) backButton= <span className="normal navToggle" onClick={this.action_openLeftNav}><RC.uiIcon uiClass="bars"></RC.uiIcon></span>
+    }
+
 
     let classList = [
       "bg-nav",
@@ -77,7 +93,7 @@ RC.HeaderNav = React.createClass({
 
     return <nav className={classList.join(" ")} id="mobile-header">
       {backButton}
-      <figure className={(logoRight && backButton ? "right" : "")+" logo nav-height boxed transition-medium"}>
+      <figure className={(logoRight && backButton ? "" : "")+" logo nav-height boxed transition-medium"}>
         {this.props.title ? <h1 className="ellipsis">{this.props.title}</h1> : <img src="/assets/logo.png" className="transition-medium" data-x="auto" ref="logo" />}
       </figure>
       {
