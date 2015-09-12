@@ -28,6 +28,7 @@ App.routeHandler = function (p, args) {
         globalNav: args.globalNav,
         globalNavLocation: args.globalNavLocation,
         headerNav: args.headerNav,
+        leftNavToggle:args.leftNavToggle,
         body: args.bodyTmpl
     })
 }
