@@ -37,4 +37,34 @@ SwimmerRegisteredClassPage|   0.5d
 
 ###classRegister module
 
+component| etc
+---------|----
+classRegisterViewControl | 1d-2d
+bookTheSameTimePage, bookTheSameTimePreferencePage| 0.5-1d
+AddWaitingListPage| 0.5d
+registraionInfoPage| 1h
+RegBillingPage, SelectClassReadyPage| 0.5d
+
+```
+AddWaitingListPage
+1. 是否允许选择可用课程 
+   a.若允许则 选中后 ［add waitinglist］按钮应即时变为 ［select］
+     不再走waitinglist流程
+     
+2. 可以加多少个AddWaitingList item？
+
+3. 是否可以即选择preference 又添加waiting list
+
+
+bookTheSameTimePreferencePage
+1. preference Class的处理逻辑 后端手动处理？
+
+classRegisterViewControl
+1. session已开始后是否还允许报名，是不是四周之后session start之后不允许再注册
+2. 下一个session的class信息是否和当前session一样，如果不一样是否可以
+
+
+```
+
+
 

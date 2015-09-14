@@ -16,6 +16,15 @@ DB.Schema.App = new SimpleSchema(
         setting: { //注册开始时间
             type: Object,
             optional: true
+        },
+
+        sessionOngoing:{//正在进行的session
+            type: String,
+            optional: true
+        },
+        sessionComing:{//将要注册的session 空代表关闭注册
+            type: String,
+            optional: true
         }
     });
 
