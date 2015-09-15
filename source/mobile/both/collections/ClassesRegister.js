@@ -16,6 +16,23 @@ DB.Schema.ClassesRegister = new SimpleSchema({
     swimmerId: {
         type: String
     },
+
+    /*
+    *
+    *  后台管理 人工选课时值为空？ todo remove optional
+    *
+    *  购物车失效清除前 确保注册课程也清除
+    * */
+    shoppingCardId:{
+        type: String,
+        optional: true
+    },
+    //状态 init checking  paid todo remove optional
+    status:{
+        type: String,
+        optional: true
+    },
+
     registerDate: {//暂不考虑时区
         type: Date
     }
