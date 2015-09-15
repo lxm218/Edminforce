@@ -1,6 +1,7 @@
 
 .global-nav {
-  height: 50px;
+  height: 50px; padding: 0 2.5%;
+  overflow-y: hidden; overflow-x: auto; white-space: nowrap;
   position: fixed; left: 0; right: 0; z-index: 4001; }
 .global-nav.gnav-bottom {
   @include box-shadow(0 -1px rgba(0,0,0,.135));
@@ -28,8 +29,6 @@
   min-width: 40px; max-width: 110px; padding: 17px 0 0; }
 .global-nav .with-icon { margin: 5px 9%; padding: 9px 0 0; }
 .global-nav .with-icon.with-label { padding: 2px 0 0; }
-.global-nav .with-icon:first-child { margin-left: 0 !important; }
-.global-nav .with-icon:last-child { margin-right: 0 !important; }
 
 .global-nav.list-length-4 .menuItem { margin-left: 7%; margin-right: 7%; }
 .global-nav.list-length-5 .menuItem { margin-left: 4%; margin-right: 4%; }

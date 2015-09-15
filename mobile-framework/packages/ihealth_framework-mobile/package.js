@@ -2,7 +2,7 @@
 Package.describe({
   name: "ihealth:framework-mobile",
   summary: "Mobile Framework for iHealth.",
-  version: "0.3.1",
+  version: "0.3.2",
   git: "https://github.com/iHealthLab/framework-iHealth"
 })
 
@@ -38,6 +38,9 @@ Package.onUse(function(api) {
   api.addFiles([
     "RC/swipe/swipe.jsx",
     "RC/leftNav/leftNav.jsx",
+    "RC/globalLayout/globalLayout.jsx",
+    "RC/routes/routes.jsx",
+    "RC/routes/routes.css",
   ], "client")
 
   api.addFiles([

@@ -7,6 +7,8 @@
  *
 */
 let SwipeJS = function(container, options) {
+  "use strict";
+
   // utilities
   var noop = function() {}; // simple no operation function
   var offloadFn = function(fn) { setTimeout(fn || noop, 0) }; // offload a functions execution
@@ -618,6 +620,8 @@ RC.Swipe = React.createClass({
       },
       child: {
         float: "left",
+        overflowX: "hidden",
+        overflowY: "auto",
         width: "100%",
         height: "100%",
         position: "relative"
@@ -626,17 +630,29 @@ RC.Swipe = React.createClass({
 
     let rootClasses = "overflow abs-full "+(this.props.className || "")+ (this.props.createNavHeight ? " nav-padding" : "")
 
-    return React.createElement('div', React.__spread({}, this.props, {className: rootClasses}),
-      React.createElement('div', {style: styles.wrapper},
-        React.Children.map(this.props.children, function (child,index) {
-          return React.cloneElement(child, {
-            ref: child.props.ref,
-            key: child.props.key,
-            style: child.props.style ? objectAssign(child.props.style,styles.child) : styles.child
-          });
+    return <div {... this.props} className={rootClasses}>
+      <div style={styles.wrapper}>
+        {
+        this.props.children.map(function(c,n){
+          return <div style={styles.child} key={n}>
+            {c}
+          </div>
         })
-      )
-    );
+        }
+      </div>
+    </div>
+
+    // return React.createElement('div', React.__spread({}, this.props, {className: rootClasses}),
+    //   React.createElement('div', {style: styles.wrapper},
+    //     React.Children.map(this.props.children, function (child,index) {
+    //       return React.cloneElement(child, {
+    //         ref: child.props.ref,
+    //         key: child.props.key,
+    //         style: child.props.style ? objectAssign(child.props.style,styles.child) : styles.child
+    //       });
+    //     })
+    //   )
+    // );
   }
 })
 

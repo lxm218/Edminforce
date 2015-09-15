@@ -28,7 +28,8 @@ Package.onUse(function(api) {
   ], ["client","server"])
 
   api.imply([
-    "ihealth:utils"
+    "ihealth:utils",
+    "accounts-password"
   ], ["client","server"])
 
   /**

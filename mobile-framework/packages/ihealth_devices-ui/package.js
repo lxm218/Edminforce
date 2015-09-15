@@ -9,10 +9,12 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom("METEOR@1.1.0.2")
 
+  api.use(["jhartma:cjsx","underscore", "ihealth:dev-tools", "ihealth:devices-stub","react"])
+
   api.use([
     "fortawesome:fontawesome",
     "ihealth:utils@0.1.3",
-    "react",
+    "react"
   ], "client")
 
   api.imply("ihealth:utils", ["client","server"])
@@ -21,11 +23,23 @@ Package.onUse(function(api) {
     "mystor:device-detection"
   ], "client")
 
+  api.addFiles( "globals.js", 'client');
+
   api.addFiles([
-    "devices.jsx",
-    "bpComponent.jsx",
-    "devices.css",
-    "bp.css",
+    "lib/deviceUtils.js",
+    "RC/devices.css",
+
+    "RC/bp/bpMeasure.jsx",
+    "RC/bp/bpMeasure.css",
+
+    "RC/bg/bgMeasure.cjsx",
+
+    "RC/devices.cjsx",
+
+    "RC/bp/bpGraph.jsx",
+    "RC/bp/bpList.jsx",
+    "RC/bp/bp.css",
+
   ], "client")
 
   api.addFiles([

@@ -1,11 +1,15 @@
 
-.chat-bubble { padding: 4px 0; }
-.chat-bubble.first { padding-top: 24px; }
+.chat-view {
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 50px; }
+
+.chat-bubble { padding: 4px 0 0; position: relative; }
+.chat-bubble.first { padding-top: 20px; }
 
 .chat-bubble .inner {
-  position: relative; display: inline-block;
+  display: inline-block; position: relative; z-index: 2;
   overflow: visible; min-width: 140px;
-  padding: 11px 10px 10px; }
+  padding: 10px 9px 9px; }
 
 .chat-bubble p:last-child { margin-bottom: 0; }
 
@@ -13,24 +17,26 @@
 .chat-bubble.to .inner {
   background: #fff;
   margin: 0 0 0 58px;
-  @include border-radius(4px 0 0 4px);
-  @include box-shadow(4px 4px rgba(0,0,0,.07)); }
+  @include border-radius(4px 0 0 4px); }
 
 .chat-bubble.from .inner {
   margin: 0 58px 0 0;
   background: $brand; color: $color_on_brand;
   @include border-radius(0 4px 4px 0); }
 
-.chat-bubble .author { padding: 0 0 3px 47px; }
+.chat-bubble .author {
+  font-size: .8em; color: rgba(0,0,0,.4);
+  padding: 0 0 1px 43px; }
 .chat-bubble .avatar {
   background-color: #fff;
-  position: absolute; top: -16px; left: 5px; }
+  margin: -7px 0 0;
+  position: absolute; top: auto; left: 4px; }
 
 .chat-bubble.to .inner:before, .chat-bubble.from .inner:before {
   display:block; content: attr(data-time);
   width: 50px;
   font-size: 10px; color: rgba(0,0,0,.3);
-  position: absolute; bottom: 1px; }
+  position: absolute; bottom: 1px; z-index: 1; }
 
 .chat-bubble.to .inner:before {
   left: auto; right: 100%;
@@ -42,11 +48,11 @@
 .chat-bubble .date-break {
   text-align: center;
   font-size: 12px;
-  position: relative; padding: 0 0 24px; }
+  position: relative; padding: 11px 0 16px; }
 .chat-bubble .date-break:before {
   display: block; content: " ";
   height: 1px; background: rgba(0,0,0,.15);
-  position: absolute; top: 7px; left: 10px; right: 10px; z-index: 1; }
+  position: absolute; top: 20px; left: 10px; right: 10px; z-index: 1; }
 .chat-bubble .date-break .inline-block {
   position: relative; z-index: 2;
   padding: 0 5px; background: $brand_light; }
@@ -65,12 +71,31 @@
   @include box-shadow(none);
   background: rgba(255,255,255,.91); }
 .chat-textarea textarea { background: none; }
-.chat-textarea-spacer { height: 58px; }
 
-.chat-textarea textarea { height: 35px; min-height: 0; padding: 8px 10px; }
-.chat-textarea button {
-   width: 55px; height: 35px;
+.chat-textarea textarea { height: 35px; min-height: 0; padding: 8px 10px 8px 48px; }
+.chat-textarea button.submit-msg {
+   width: 43px; height: 37px;
   background-color: $brand2;
   border: none; @include border-radius(2px);
-  position: absolute; left: auto; right: 5px; top: auto; bottom: 5px;
+  position: absolute; left: auto; right: 4px; top: auto; bottom: 4px;
 }
+.chat-textarea button.submit-plus {
+  width: 37px; height: 37px;
+  background-color: #fff;
+  border: solid 1px #c7c7c7;
+  @include border-radius(50%);
+  position: absolute; left: 4px; right: auto; top: auto; bottom: 4px;
+}
+.chat-textarea button.submit-plus:before, .chat-textarea button.submit-plus:after {
+  content: " ";
+  position: absolute; left: 50%; top: 50%; right: auto; bottom: auto;
+  background: #c7c7c7;
+}
+.chat-textarea button.submit-plus:before { width: 12px; height: 2px; margin: -1px 0 0 -6px; }
+.chat-textarea button.submit-plus:after { height: 12px; width: 2px; margin: -6px 0 0 -1px; }
+
+
+/* Message Tyeps */
+.chat-bubble.img { overflow: hidden; }
+.chat-bubble.img .inner { height: 120px; min-width: 0; padding: 0; overflow: hidden; }
+.chat-bubble.img img { display: block; }

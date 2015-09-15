@@ -341,7 +341,12 @@ iHealthBP5.prototype = {
             bp.date = new Date()
 
             if (_.isFunction(finishCallback))
-              finishCallback(res)
+              var dataToDB = _.omit(json, 'msg');
+              dataToDB.MDate = bp.date;
+              dataToDB.connectionId = Meteor.connection._lastSessionId
+              if (Meteor.user()) dataToDB.userId = Meteor.user()._id;
+
+              finishCallback(dataToDB);
 
             Session.set("BP", bp)
           // },self.finishedMeasurementDelay)

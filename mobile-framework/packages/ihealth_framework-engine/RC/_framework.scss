@@ -1,9 +1,9 @@
 
 /* Avatar */
 .avatar {
-  width: 48px; height: 48px; float: left;
+  width: 34px; height: 34px; float: left;
   text-align: center;
-  padding: 11px 0 0; margin: -1px 8px 0 0;
+  padding: 7px 0 0; margin: -1px 8px 0 0;
   background-color: rgba(125,125,125,.5); }
 .avatar.none { background-color: $brand2; }
 
@@ -13,10 +13,154 @@
   width: 30px; height: 14px; margin: -9px 0 0 -15px;
 }
 
-/**
-* Typography
-* --------------------------------------------------
-*/
+/* Loading */
+.loading {
+  min-height: 100px;
+  position: relative;
+}
+.loading-circle .wheel, .loading-tiny .wheel {
+  width: 50px; height: 50px; margin: -25px 0 0 -25px;
+  @include border-radius(50%);
+  border: solid 2px rgba(0,0,0,.1); border-left-color: $brand;
+  @include animation(spin-inifinite-animate .52s linear infinite);
+}
+.loading.loading-short { min-height: 25px; }
+.loading-tiny .wheel {
+  width: 24px; height: 24px; margin: 0 0 0 -12px;
+}
+
+/* Connection */
+.connectionLost{
+  display: block;
+  position: absolute;
+  top: auto;  right: 0;  bottom: 0;  left: 0;
+  width: 100%;  height: auto;
+  z-index: 6000;
+  background: rgba(51, 51, 51, 0.95);
+
+  span {
+    position: absolute;
+    top: 30%;  right: auto;  bottom: auto;  left: 12px;
+    width: auto;  height: auto;
+    animation: spin 2s infinite linear;
+    color: #ffffff;
+    font-size: 1.5em;
+  }
+}
+.title-connectionLost{
+  font-size: 14px;  font-weight: 700;
+  display: block;
+  color: #ffffff;
+  padding: 1rem .75rem 1rem 40px;
+}
+
+/* Animations */
+.fade-in { @include animation(fade-in-animate .25s 1); }
+@include keyframes(fade-in-animate) {
+  0% { @include opacity(0); }
+	100% { @include opacity(1); }
+}
+.fade-out {
+	@include opacity(0);
+	@include animation(fade-out-animate .3s 1); }
+@include keyframes(fade-out-animate) {
+  0% { @include opacity(1); }
+	100% { @include opacity(0); }
+}
+.fade-down { @include animation(fade-down-animate .25s 1); }
+@include keyframes(fade-down-animate) {
+  0% { @include translate(0,-100px); @include opacity(0); }
+	100% { @include translate(0,0); @include opacity(1); }
+}
+.fade-up { @include animation(fade-up-animate .25s 1); }
+@include keyframes(fade-up-animate) {
+	0% { @include translate(0,0); @include opacity(1); }
+  100% { @include translate(0,-100px); @include opacity(0); }
+}
+.spin, .spin-medium, .spin-slow { @include transform-origin(50%, 50%); }
+.spin { @include animation(spin-inifinite-animate .52s linear infinite); }
+.spin-medium { @include animation(spin-inifinite-animate .8s linear infinite); }
+.spin-slow { @include animation(spin-inifinite-animate 1s linear infinite); }
+
+@include keyframes(spin-inifinite-animate) {
+  0% { @include rotate(0deg); }
+	100% { @include rotate(360deg); }
+}
+
+/* Pop */
+.scale-in-appear, .scale-out-appear.scale-out-appear-active,
+.scale-enter, .scale-leave.scale-leave-active {
+  @include scale(.55); @include opacity(0); }
+.scale-in-appear.scale-in-appear-active, .scale-out-appear,
+.scale-enter.scale-enter-active {
+  @include scale(1); @include opacity(1); }
+.scale-in-appear-active, .scale-out-appear-active,
+.scale-enter-active, .scale-leave-active { @include transition(all .3s ease); }
+
+/* Pop In & Pop Out are deprecated and will be removed soon. */
+.pop-in {
+	z-index: 50; display: block;
+	@include opacity(1);
+	@include animation(pop-in-animate .3s 1); }
+@include keyframes(pop-in-animate) {
+  0% { @include scale(.55); @include opacity(0); }
+	100% { @include scale(1); @include opacity(1); }
+}
+.pop-out {
+  z-index: 50; display: block;
+	@include opacity(0);
+	@include animation(pop-out-animate .3s 1); }
+@include keyframes(pop-out-animate) {
+  0% { @include scale(1); @include opacity(1); }
+	100% { @include scale(.55); @include opacity(0); }
+}
+
+/* Corner */
+.corner-right-enter, .corner-right-leave.corner-right-leave-active {
+  @include scale(.55); @include opacity(0); }
+.corner-right-enter.corner-right-enter-active {
+  @include scale(1); @include opacity(1); }
+.corner-right-enter-active, .corner-right-leave-active {
+  @include transform-origin(100%, 0);
+  z-index: 50; display: block;
+  @include transition(all .3s linear); }
+
+/* Slide Left */
+.slide-left-appear,
+.slide-left-enter, .slide-left-leave.slide-left-leave-active {
+  @include translate(100%,0); }
+.slide-left-appear.slide-left-appear-active,
+.slide-left-enter.slide-left-enter-active {
+  @include translate(0,0); }
+.slide-left-leave-active, .slide-left-appear-active, .slide-left-enter-active { @include transition(all .25s ease); }
+
+/* Slide Up */
+.slide-up-appear, .slide-down-appear.slide-down-appear-active,
+.slide-up-enter, .slide-up-leave.slide-up-leave-active {
+  @include opacity(0); @include box-shadow(none); @include transform(#{scale(.95,.95) translate(0,1024px)}); }
+.slide-up-appear.slide-up-appear-active, .slide-down-appear,
+.slide-up-enter.slide-up-enter-active {
+  @include opacity(1); @include box-shadow(none); @include transform(#{scale(1,1) translate(0,0)}); }
+.slide-up-appear, .slide-down-appear,
+.slide-up-enter, .slide-up-leave { @include transform-origin(50%, 50%); }
+.slide-up-appear-active, .slide-up-enter-active { @include animation(rfb-animate 1s 1); }
+.slide-down-appear-active, .slide-up-leave-active { @include animation(efb-animate .75s 1); }
+
+@include keyframes(rfb-animate) {
+  0% { @include opacity(0); @include box-shadow(0 0 15px rgba(0,0,0,.05)); @include transform(#{scale(.94,.94) translate(0,1024px)}); }
+  5% { @include opacity(1); }
+  50% { @include transform(#{scale(.94,.94) translate(0,0)}); }
+  70% { @include transform(#{scale(.94,.94) translate(0,0)}); }
+	99% { @include box-shadow(0 0 15px rgba(0,0,0,.05)); @include transform(#{scale(1,1) translate(0,0)}); }
+  100% { @include box-shadow(none); @include transform(#{scale(1,1) translate(0,0)}); }
+}
+@include keyframes(efb-animate) {
+  0% { @include opacity(1); @include box-shadow(0 0 15px rgba(0,0,0,.05)); @include transform(#{scale(1,1) translate(0,0)}); }
+  10% { @include transform(#{scale(.94,.94) translate(0,0)}); }
+  30% { @include opacity(1); @include box-shadow(0 0 15px rgba(0,0,0,.05)); @include transform(#{scale(.94,.94) translate(0,0)}); }
+  90% { @include opacity(1); @include box-shadow(0 0 15px rgba(0,0,0,.05)); @include transform(#{scale(.94,.94) translate(0,1180px)}); }
+  100% { @include opacity(0); @include box-shadow(none); @include transform(#{scale(.94,.94) translate(0,1180px)}); }
+}
 
 
 // Body text

@@ -50,7 +50,11 @@ Meteor.publishComposite "ChatChannelList", ->
           Meteor.users.find(
             _id: uid
           ,
-            fields: {"profile.name":1,"profile.avatar":1}
+            fields: {
+              "profile.firstName":1,
+              "profile.lastName":1,
+              "profile.avatar":1
+            }
           )
       ]
     ]

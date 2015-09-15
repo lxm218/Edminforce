@@ -47,8 +47,8 @@ Package.onUse(function(api) {
 
   ], ["client","server"])
 
+  api.addFiles("camera.coffee", ['web.cordova'])
   api.addFiles([
-    "camera.coffee",
     "components/ChatChannelList.jsx",
     "components/ChatMessageList.jsx",
     "components/ChatView.jsx",

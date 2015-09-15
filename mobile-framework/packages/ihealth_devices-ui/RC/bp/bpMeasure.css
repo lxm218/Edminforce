@@ -34,10 +34,10 @@
 }
 
 #bp-chart .zone { position: absolute; bottom: 0; left: 0; top: auto; right: auto; }
-#bp-chart .zone0 { background-color: #69d356; width: 40%; height: 40%; z-index: 5; }
-#bp-chart .zone1 { background-color: #f5d141; width: 60%; height: 60%; z-index: 4; }
-#bp-chart .zone2 { background-color: #e89544; width: 80%; height: 80%; z-index: 3; }
-#bp-chart .zone3 { background-color: #dc4535; width: 100%; height: 100%; z-index: 2; }
+#bp-chart .zone0 { width: 40%; height: 40%; z-index: 5; }
+#bp-chart .zone1 { width: 60%; height: 60%; z-index: 4; }
+#bp-chart .zone2 { width: 80%; height: 80%; z-index: 3; }
+#bp-chart .zone3 { width: 100%; height: 100%; z-index: 2; }
 
 #bp-chart .zone .labelX, #bp-chart .zone .labelY {
   position: absolute; bottom: auto; right: auto;
@@ -100,13 +100,12 @@ svg.svg-circle .full:not([stroke-dashoffset]) { stroke-dashoffset: 0; }
 svg.svg-circle circle.line { z-index: 2; }
 svg.svg-circle circle.full { z-index: 1; stroke: rgba(0,0,0,.05); }
 
-@media screen and (min-height: 620px) {
-  #measuring-bp svg, #pressure-display:not(.fin) {
-    width: 360px; height: 360px;
-    margin: -180px 0 0 -180px; }
-  svg.svg-circle circle { stroke-dasharray: 1500; stroke-width: 15px; }
-  svg.svg-circle .line:not([stroke-dashoffset]) { stroke-dashoffset: 1500; }
-}
+#measuring-bp.tablet svg, #pressure-display.tablet:not(.fin) {
+  width: 360px; height: 360px;
+  margin: -180px 0 0 -180px; }
+#measuring-bp.tablet svg.svg-circle circle { stroke-dasharray: 1500; stroke-width: 15px; }
+#measuring-bp.tablet svg.svg-circle .line:not([stroke-dashoffset]) { stroke-dashoffset: 1500; }
+
 @media screen and (min-width: 480px) {
   #bp5-instructions { font-size: 1.7em; }
 

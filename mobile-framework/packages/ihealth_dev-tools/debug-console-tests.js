@@ -1,4 +1,11 @@
-Tinytest.add('test1', function (test) {
+Tinytest.add('getObjSize', function (test) {
+  var obj0 = {"a":1, "b":2, "c": {"d": 4, "e":5}}
+  var size = DevTools.getObjSize(obj0)
+  console.log('obj size', size, ' for ', obj0);
+  test.equal(size, 5);
+});
+
+Tinytest.add('consoleWithLevels', function (test) {
   var levelFilter = 4
   var debugL = _.partial(DevTools.consoleWithLevels, levelFilter);
   var log = debugL(2);

@@ -34,7 +34,7 @@ RC.List = React.createClass({
         let avatar = null
         let sub = null
 
-        let date = fw.getDateFromProps(item.date, item.dateFormat)
+        let date = h.getDateFromProps(item.date, item.dateFormat)
 
         switch(item.type){
           case "title":
@@ -83,7 +83,7 @@ RC.List = React.createClass({
 // @@@@@@@
 // @@@@@@@
 
-let themes = ["inset"]
+let themes = ["inset","small"]
 
 RC.List = React.createClass({
   mixins: [RC.Mixins.Theme],
@@ -114,7 +114,7 @@ RC.List = React.createClass({
     let curState = this.state.selected
     let enableClick = this.props.enableClick || true
 
-    return <ul className={this.getTheme()}>
+    return <ul {... this.props} className={this.getTheme()}>
       {
       list.map(function(item,n){
         let listProps = _.omit(item, ["value"])
@@ -136,16 +136,4 @@ if (h.nk(Meteor.settings, "public.env")!="live")
       list: "Array"
     },
     Description: "Similar to RC.Card, this is another flexible canvas component.",
-    Example: "/List/Index"
   }
-
-
-/*
-        return <li className={cur} key={n} onClick={item.onClick}>
-          {
-            item.href
-            ? <a href={item.href} onClick={self.setSelectedState.bind(null, n)}>{sub}{avatar}{itemTitle}{itemSubtitle}</a>
-            : <span onClick={self.setSelectedState.bind(null, n)}>{sub}{avatar}{itemTitle}{itemSubtitle}</span>
-          }
-        </li>
-*/

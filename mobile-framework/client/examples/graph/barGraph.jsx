@@ -67,7 +67,7 @@ App.Bar_Graph = React.createClass({
         }
       }
     }
-    let ex3listener = h.Chart.BarGraphStroke("28px")
+    let ex3listener = h.ChartMixins.BarGraphStroke("28px")
     /**
      * NOTE
      * Notice how both <RC.Item /> and <RC.Chart /> are used together.

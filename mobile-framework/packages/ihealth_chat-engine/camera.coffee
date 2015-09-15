@@ -1,9 +1,9 @@
 
-Camera = {}
+IH.Camera = {}
 
 if Meteor.isCordova
 
-  Camera.getPicture = (options, callback) ->
+  IH.Camera.getPicture = (options, callback) ->
     unless callback
       callback = options
       options = {}
@@ -13,6 +13,7 @@ if Meteor.isCordova
 
     failure = (error) ->
       callback new Meteor.Error("cordovaError", error)
+
 
     navigator.camera.getPicture success, failure, _.extend(options,
       quality: options.quality or 49

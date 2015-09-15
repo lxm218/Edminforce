@@ -65,6 +65,11 @@ h = {
   capitalize: function(str) {
     return str.charAt(0).toUpperCase() + str.slice(1)
   },
+  filterUndefined: function(arr){
+    return _.filter(arr, function(a){
+      return !_.isUndefined(a)
+    })
+  },
 }
 
 if (Meteor.isClient){
@@ -179,7 +184,7 @@ if (Meteor.isClient){
     })
   }
   h.checkColorClass = function(css){
-    return _.isString(css) && _.contains(["brand-light","brand","brand1","brand2","brand3","white","dark","gray","blue","green","light","stable"], css.trim())
+    return _.isString(css) && _.contains(["brand-light","brand","brand1","brand2","brand3","brand-darker","brand1-darker","brand2-darker","brand3-darker","white","dark","gray","blue","green","orange","red","yellow","light","stable"], css.trim())
   }
 }
 

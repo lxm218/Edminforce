@@ -20,6 +20,8 @@ if (Meteor.isCordova) {
     metaTag.content = "user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1"
     document.getElementsByTagName('head')[0].appendChild(metaTag)
 
+    // React.initializeTouchEvents(true)
+
   })
 
 }

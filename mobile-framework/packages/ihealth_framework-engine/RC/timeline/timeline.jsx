@@ -8,6 +8,7 @@ RC.Timeline = React.createClass({
   mixins: [RC.Mixins.Theme],
   themeGroup: "timeline",
   themes: timelineThemes,
+  displayName: "Timeline",
 
   propTypes: {
     id: React.PropTypes.string,
@@ -53,14 +54,14 @@ RC.Timeline = React.createClass({
         switch(item.type){
           case "title":
             itemRender = <h4 className="title sub">
-              {fw.getDateFromProps(item.label, item.dateFormat, defaultFormat)}
+              {h.getDateFromProps(item.label, item.dateFormat, defaultFormat)}
             </h4>
           break
           case "list-item":
           default:
             odd_or_even = count++%2 ? " even" : " odd"
             itemLabel = <strong className="block label">
-              {_.isDate(item.title) ? fw.getDateFromProps(item.title, item.dateFormat, defaultFormat) : item.title}
+              {_.isDate(item.title) ? h.getDateFromProps(item.title, item.dateFormat, defaultFormat) : item.title}
             </strong>
             item.type = "listItem"
             itemRender = item.href ? <a className="block" href={item.href}>{item.text}</a> : item.text
@@ -83,7 +84,7 @@ RC.Timeline = React.createClass({
 // Journal Item
 // @@@@@
 
-let journalThemes = ["title"]
+let journalThemes = ["title","card"]
 RC.Journal = React.createClass({
   mixins: [RC.Mixins.Theme],
   themeGroup: "journal",
@@ -106,7 +107,7 @@ RC.Journal = React.createClass({
     let classes = this.getTheme()+" journal-"+brand
 
     // Declarations
-    var title = _.isDate(this.props.title) ? fw.getDateFromProps(this.props.title, dateFormat) : this.props.title
+    var title = _.isDate(this.props.title) ? h.getDateFromProps(this.props.title, dateFormat) : this.props.title
     var content = null
     var ui = null
 
@@ -116,17 +117,17 @@ RC.Journal = React.createClass({
         // Title
         // @@@@
         if (this.props.uiClass) {
-          var uiObject = _.pick(this.props, fw.uiKeysCircle)
+          var uiObject = _.pick(this.props, h.uiKeysCircle)
           ui = <RC.uiIcon {... _.defaults(uiObject,{ uiBrand: brand })} />
         }
-        content = <strong>{title}</strong>
+        content = title ? <strong>{title}</strong> : null
       break
       default:
         // @@@@
         // Default
         // @@@@
         content = <div>
-          <strong className={"block "+brand}>{title}</strong>
+          {title ? <strong className={"block "+brand}>{title}</strong> : null}
           {this.props.children}
         </div>
     }

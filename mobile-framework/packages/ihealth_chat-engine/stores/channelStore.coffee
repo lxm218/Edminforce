@@ -86,10 +86,16 @@ IH.Store.ChatChannels =
     IH.Coll.ChatChannels.update(channelID, {$pull: {others: doctor}})
 
   updateLastMsg: (m) ->
+    switch m.type
+      when "txt"
+        content = m.content
+      when "img"
+        content = "[Picture Content]"
+
     updateMsg =
       createdAt: new Date()
       from: m.SID
-      content: m.content
+      content: content
 
     IH.Coll.ChatChannels.update(m.CHID, {$set: {lastMsg: updateMsg}})
 

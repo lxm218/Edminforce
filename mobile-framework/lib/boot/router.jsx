@@ -63,7 +63,6 @@ if (Meteor.isClient) {
     }
   })
 
-
   // BG5 Cordova JS Class
   DefaultRoutes.route('/BG5', {
     name: "BG5",
@@ -103,13 +102,16 @@ if (Meteor.isClient) {
     }
   })
 
-  // BG Component
+  // BG Component using cjsx
   DefaultRoutes.route('/BGComponent', {
     name: "BG5Component",
     action: function(p) {
       let callback = function(res){
         console.log("@@ Finish Callback @@")
         console.log(res)
+      }
+      if (typeof iHealth.BG5 === 'undefined' && typeof iHealthBG5 !== 'undefined') {
+        iHealth.BG5 = new iHealthBG5;
       }
       routeHandler(p, {
         pageTitle: "BG Component",
@@ -240,12 +242,37 @@ if (Meteor.isClient) {
         showGlobalNav: _.contains(slugs, p.slug),
         globalNavLocation: location[p.slug],
         globalNav: [
-          { label: "Home", href: "/", uiClass: "hand-rock-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
+          { label: "Home", href: "/globalNav/Global_Nav_Index", uiClass: "hand-rock-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
           { label: "Top", href: "/globalNav/"+slugs[0], uiClass: "hand-paper-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
           { label: "Auto", href: "/globalNav/"+slugs[1], uiClass: "hand-peace-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
           { label: "Bot", href: "/globalNav/"+slugs[2], uiClass: "hand-scissors-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
         ]
       }
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
+  // Dirty Route -- Global Nav Examples
+  DefaultRoutes.route('/tabs/:slug', {
+    name: "tabs",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+        showGlobalNav: false,
+      }
+
+      dynamicRoute.headerNav = [{
+          href: "/tabs/Tabs_Index",
+          text: "Tabs Index",
+        },{
+          href: "/tabs/Normal_Tabs",
+          text: "Normal Tabs",
+        }]
 
       if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
       routeHandler(p, dynamicRoute)

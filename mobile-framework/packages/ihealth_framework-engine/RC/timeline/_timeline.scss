@@ -12,6 +12,7 @@
 .timeline-brand3 { border-color: $brand3; }
 .timeline-dark { border-color: $dark; }
 
+
 /* Journal :: Group */
 .journal { position: relative; padding: 10px 20px 5px 0; }
 .journal:before {
@@ -33,6 +34,7 @@
 .journal img { margin: 3px 0 0; }
 .journal p { font-size: 13px; line-height: 17px; }
 
+
 /* Journal :: Title */
 .journal-title { font-size: 17px; padding-top: 20px; }
 
@@ -42,11 +44,6 @@
   font-size: 14px;
   @include border-radius(50%); }
 .journal-title .fa-wrap .fa { margin: -7px 0 0 -14px; }
-
-
-
-
-
 
 ul.timeline li.type-listItem {
   color: rgba(0,0,0,.64); }

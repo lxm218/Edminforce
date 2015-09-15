@@ -3,6 +3,7 @@ var debugL = _.partial(DevTools.consoleWithLevels, debugLevel);
 var sendMessages = DevicesStub.sendMessages;
 
 var fakeBatteryLevel = 77;
+self = this;
 
 DevicesStub.BG5 = {
   startDiscovery : function(mac, successCallback, errorCallback) {
@@ -278,4 +279,9 @@ DevicesStub.BG5 = {
   // holdLink : function(mac, successCallback, errorCallback) {
   //     cordova.exec(successCallback, errorCallback, "BgManagerCordovaFake", "holdLink", [mac]);
   // }
+}
+
+if(typeof(BgManagerCordova) === 'undefined') {
+  debugL(2)('Loading DevicesStub for BG');
+  self.BgManagerCordova = DevicesStub.BG5;
 }

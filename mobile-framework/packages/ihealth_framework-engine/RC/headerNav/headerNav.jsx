@@ -25,7 +25,7 @@ RC.HeaderNav = React.createClass({
     }
   },
   getInitialState() {
-    return {moreNav: false, init: _.isUndefined(this.props.init) ? true : this.props.init}
+    return {openNav: false}
   },
   componentWillMount() {
     var self = this
@@ -33,7 +33,6 @@ RC.HeaderNav = React.createClass({
 
     document.addEventListener("click",function(e){
 
-      Meteor.clearTimeout(self.timeout)
       // Strange IOS JS error. keep the .length ?/: check in here
       let pStop = e.target.className.length ? e.target.className.indexOf("stopPropagate") : -1
       let pExit = e.target.className.length ? e.target.className.indexOf("exitPropagate") : -1
@@ -41,20 +40,12 @@ RC.HeaderNav = React.createClass({
 
       if (e.target.tagName=="HTML") return // This is an old-device fix, leave it alone. :: By Jason
 
-      if (pStop < 0 && pExit < 0 && self.state.moreNav) {
-        // Do Animation
-        self.setState({moreNav: false, init: false})
-        self.timeout = Meteor.setTimeout(function(){
-          self.setState({moreNav: false, init: true})
-        }, 300)
-      } else if (pExit>=0)
-        self.setState({moreNav: false, init: true})
-      else
-        self.setState({init: true})
+      if ((pStop < 0 && self.state.openNav) || pExit>=0)
+        self.setState({openNav: false})
     })
   },
   openMore() {
-    this.setState({moreNav: true, init: false})
+    this.setState({openNav: true})
   },
   timeout: null,
   render() {
@@ -81,18 +72,22 @@ RC.HeaderNav = React.createClass({
         {this.props.title ? <h1 className="ellipsis">{this.props.title}</h1> : <img src="/assets/logo.png" className="transition-medium" data-x="auto" ref="logo" />}
       </figure>
       {
-      logoRight ? null
-      : <p className="more-button stopPropagate" onClick={this.openMore}><span className="stopPropagate"/></p>
-      }
-      {
-      logoRight ? null
-      : <div className={"stopPropagate more-nav "+(this.state.moreNav ? "corner-in" : "corner-out")} style={this.state.init ? {display: "none"} : {}} ref="moreNav">
+      logoRight ? null :
+      <div>
+        <p className="more-button stopPropagate" onClick={this.openMore}><span className="stopPropagate"/></p>
+        <RC.Animate transitionName="corner-right">
         {
-        this.props.nav.map(function(item,n){
-          return <a href={item.href} key={n} className="exitPropagate">{item.text}</a>
-        })
-        }
+        !this.state.openNav ? null :
+        <div className="stopPropagate more-nav" ref="moreNav">
+          {
+          this.props.nav.map(function(item,n){
+            return <RC.URL {... _.omit(item, ["text"])} key={n} className="exitPropagate">{item.text}</RC.URL>
+          })
+          }
         </div>
+        }
+        </RC.Animate>
+      </div>
       }
     </nav>
   }

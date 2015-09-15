@@ -28,7 +28,7 @@ Package.onUse(function(api) {
    */
   api.addFiles([
     "RC/framework.jsx",
-    "RC/framework_helpers.jsx",
+    "RC/framework_utils.jsx",
     "RC/card/card.jsx",
     "RC/item/item.jsx",
     "RC/chat/chatBubble.jsx",
@@ -64,6 +64,7 @@ Package.onUse(function(api) {
     "RC/list/_list.scss",
     "RC/navList/_navList.scss",
     "RC/tabs/_tabs.scss",
+    "RC/tabs/_button-bar.scss",
     "RC/timeline/_timeline.scss",
   ], "server")
 

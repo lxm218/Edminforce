@@ -1,5 +1,5 @@
 
-h.Chart = {
+h.ChartMixins = {
   /**
    * Pre-made Bar Graph width calculator
    */
@@ -15,6 +15,32 @@ h.Chart = {
       }
     }
     return _.isObject(extendObj) ? _.extend(def,extendObj) : def
+  },
+  /**
+   * Pre-made Line Graph color calculation for Blood pressures
+   */
+  ColorBloodPressure: function(systolic,diastolic) {
+
+    if (!systolic || !diastolic)
+      return {}
+
+    const bpColors = ["green","yellow","orange","red"]
+    var bpRes = _.map(systolic, function(sys, n){
+      return _.isNumber(sys) && _.isNumber(diastolic[n])
+      ? [sys,diastolic[n]]
+      : false
+    })
+    var bpResLength = bpRes.length-1
+
+    return {
+      draw: function(data) {
+        if (data.type=="point") {
+          var zone = h.getBPZone(bpRes[data.index])
+          if (bpRes[data.index])
+            data.element.addClass(bpColors[zone])
+        }
+      }
+    }
   },
   /**
    * Pre-made Pie Chart animater

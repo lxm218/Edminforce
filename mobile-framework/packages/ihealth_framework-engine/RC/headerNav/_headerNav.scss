@@ -2,18 +2,19 @@
 .nav-height, .nav-height-button { height: $height_nav; }
 .nav-padding { padding-top: $height_nav; }
 .nav-margin { margin-top: $height_nav; }
+.nav-bottom { padding-bottom: 48px; }
+
 .abs-full.nav-margin { margin-top: 0; top: $height_nav; }
+.fixed-full.nav-margin { margin-top: 0; top: $height_nav; }
 
 /* Logo and Base */
 #mobile-header {
   @include box-shadow(0 1px rgba(0,0,0,.135));
-  position: fixed; top: 0; left: 0; right: 0; z-index: 4000; }
+  position: fixed; top: 0; left: 0; right: 0; z-index: 4005; }
 #mobile-header.opacity {
   @include box-shadow(0 1px 3px rgba(0,0,0,.05));
   @include opacity(.92); }
-#mobile-header.flat {
-  @include box-shadow(none);
-  @include opacity(.92); }
+#mobile-header.flat { @include box-shadow(none); }
 
 #mobile-header .logo {
   position: absolute; top: 0; left: auto; right: 50%;

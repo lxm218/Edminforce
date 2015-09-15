@@ -25,22 +25,33 @@ App.Home = React.createClass({
       </RC.Item>
     })
   },
+  openCam() {
+    IH.Camera.getPicture({}, function(e,r){
+      if (e)
+        console.log(e)
+      else{
+        console.log('saving pics',typeof r)
+        Meteor.call("saveImage", r)
+      }
+    })
+  },
   render() {
 
     let Commons = [
       { value: "Cards", href: "/examples/Cards", uiClass: "check-circle-o" },
       { value: "Lists", href: "/lists/List_Index", uiClass: "check-circle-o" },
-      { value: "Tabs", href: "/examples/Tabs", uiClass: "circle-o" },
+      { value: "Tabs", href: "/tabs/Tabs_Index", uiClass: "check-circle-o" },
       { value: "Form", href: "/forms/Form_Index", uiClass: "check-circle-o" },
     ]
 
     let Uniques = [
       { value: "Graphs", href: "/graphs/Graph_Index", uiClass: "check-circle-o" },
+      { value: "Global Layout", href: "/examples/Global_Layout", uiClass: "circle-o" },
+      { value: "Global Nav", href: "/globalNav/Global_Nav_Index", uiClass: "check-circle-o" },
       { value: "Swipe", href: "/examples/Swipe", uiClass: "check-circle-o" },
       { value: "Timeline", href: "/timelines/Timeline_Index", uiClass: "check-circle-o" },
       { value: "Left Nav", onClick: this.openNav, uiClass: "check-circle-o" },
       { value: "Chat", href: "/examples/Chat", uiClass: "check-circle-o" },
-      { value: "Global Nav", href: "/globalNav/Global_Nav_Index", uiClass: "check-circle-o" },
     ]
 
     let Devices = [
@@ -54,6 +65,7 @@ App.Home = React.createClass({
       { value: "User App", href: "/user/User_Index", uiClass: "check-circle-o" },
       { value: "Chat App", href: "/chat/Chat_Index", uiClass: "circle-o" },
       { value: "Chat Demo", href: "/chat_channel/all", uiClass: "circle-o" },
+      //{ value: "camera", onClick: this.openCam, uiClass: "circle-o" },
     ]
 
     return <RC.List>

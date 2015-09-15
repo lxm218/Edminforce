@@ -1,6 +1,75 @@
 
 RC = {}
 
+RC.Mixins = {
+  // @@@@@
+  // Theme Mixins
+  Theme: {
+    splitThemes(){
+      return h.strToArray(this.props.theme) || []
+    },
+    getTheme(t,addClass){
+      var classList = []
+      var self = this
+      var themeList = h.strToArray( t || this.props.theme || this.themeDefault || "regular" )
+
+      if (_.isString(this.themeGroup))
+        classList.push(this.themeGroup)
+
+      if (_.isArray(this.themes) || t) {
+        _.map( _.intersection(self.themes, themeList), function(t){
+          classList.push( self.themeGroup
+            ? self.themeGroup+"-"+t
+            : t
+        )})
+      }
+
+      if (_.isString(this.props.className) && (addClass || _.isUndefined(addClass)))
+        classList.push(this.props.className)
+
+      return classList.join(" ")
+    },
+  },
+  // @@@@@
+  // Convert Ionic Names
+  IonicConvert: {
+    getColor(){
+      let color = this.props.bgColor
+      if (!color) return ""
+
+      let ionicCSS = ["light","stable","dark","brand","brand1","brand2","brand3"]
+      return " "+(_.contains(ionicCSS,color) ? "bar-"+color : "bg-"+color)
+    },
+  },
+  // @@@@@
+  // Premade Mixins
+  Premade: {
+    makeAvatarItem(props){
+
+      if (_.isUndefined(props)) props = this.props
+      let keys = _.keys(props)
+
+      if (_.intersection(keys, ["title","subtitle","avatar","uiClass"]).length) {
+        let uiKeys = ["uiClass","uiSize","uiBrand","uiColor"]
+
+        if (props.avatar)
+          var avatar = <img src={props.avatar} />
+        else if (_.intersection(keys, uiKeys).length) {
+          let uiProps = h.pickProps(props, uiKeys)
+          var avatar = <RC.uiIcon {...uiProps} />
+        }
+
+        return <RC.Item theme={props.avatar || props.uiClass ? "avatar" : null}>
+          {avatar}
+          {props.title ? <h2>{props.title}</h2> : null}
+          {props.subtitle ? <p>{props.subtitle}</p> : null}
+        </RC.Item>
+      }
+      return null
+    },
+  }
+}
+
 RC.NotFound = React.createClass({
   render() {
     return <div className="table bg-brand-light">
@@ -11,6 +80,10 @@ RC.NotFound = React.createClass({
   }
 })
 
+/**
+ * Avatar is Deprecated
+ * Remove this component after the ChatBubble Avatars are replaced.
+ */
 RC.Avatar = React.createClass({
   render() {
     if (!this.props.src && !this.props.uiClass) return null
@@ -69,7 +142,7 @@ RC.uiIcon = React.createClass({
     else if (this.props.uiSize)
       styles.fontSize = this.props.uiSize
 
-    let ui = <i className={classList.join(" ")} style={styles} />
+    let ui = <i {... this.props} className={classList.join(" ")} style={styles} />
     return brandNum>=0 ? <span className={"fa-wrap "+(brandList[brandNum] || brandList[0])}>{ui}</span> : ui
   }
 })
@@ -87,8 +160,50 @@ RC.VerticalAlign = React.createClass({
   }
 })
 
+let loadingThemes = ["circle","tiny","short"]
+RC.Loading = React.createClass({
+  mixins: [RC.Mixins.Theme],
+  themeGroup: "loading",
+  themeDefault: "circle",
+  themes: loadingThemes,
+
+  propTypes: {
+    loadingStyles: React.PropTypes.object,
+    loadingClasses: React.PropTypes.string,
+  },
+  doLoading() {
+    return <div className={this.getTheme(null, false)+" "+this.props.loadingClasses} style={this.props.loadingStyles}>
+      <span className="abs-center wheel" />
+    </div>
+  },
+  render() {
+    let props = {... _.omit(this.props,["loadingStyles","loadingClasses","isReady","children"])}
+    let children = _.isArray(this.props.children) || props.length
+      ? <div {... props}>{this.props.children}</div>
+      : this.props.children
+
+    return this.props.isReady || (_.isUndefined(this.props.isReady) && this.props.children)
+      ? children : this.doLoading()
+  }
+})
+
+if (h.nk(Meteor.settings, "public.env")!="live")
+  RC.Loading.Help = {
+    Type: "Utility",
+    Themes: loadingThemes,
+    PropTypes: {
+      theme: "String",
+      isReady: "Boolean (Pass subs.ready() to this prop)",
+      loadingStyles: "Object (Set of CSS styles for the loading wheel only.)",
+      loadingClasses: "String (CSS class for the loading wheel only.)"
+    },
+    Note: "If isReady prop is undefined, it simply waits until there is content.",
+    Description: "Displays a loading wheel until the subscription or content is ready."
+  }
+
 RC.URL = React.createClass({
-  render: function() {
+  displayName: "URL",
+  render() {
 
     let props = _.omit(this.props, ["tagName"])
 
@@ -99,7 +214,7 @@ RC.URL = React.createClass({
       if (_.intersection(keys, ["onClick","onTouchTap","onTouch"]).length)
         props.className = (props.className || "")+" cursor"
 
-      if (_.isString(props.tagName))
+      if (_.isString(this.props.tagName))
         return React.createElement(this.props.tagName, props, props.children)
 
       return <span {... props}>{props.children}</span>
@@ -109,57 +224,19 @@ RC.URL = React.createClass({
 
 RC.Animate = React.addons.CSSTransitionGroup
 
-RC.Mixins = {
-  // @@@@@
-  // Theme Mixins
-  Theme: {
-    getTheme(t){
-      var classList = []
-      var self = this
-      var themeList = h.strToArray( t || this.props.theme || this.themeDefault || "regular" )
-
-      if (_.isString(this.themeGroup))
-        classList.push(this.themeGroup)
-
-      if (_.isArray(this.themes) || t) {
-        _.map( _.intersection(self.themes, themeList), function(t){
-          classList.push( _.isString(self.themeGroup)
-            ? self.themeGroup+"-"+t
-            : t
-        )})
-      }
-
-      if (_.isString(this.props.className))
-        classList.push(this.props.className)
-
-      return classList.join(" ")
-    },
+RC.Disconnected = React.createClass({
+  mixins: [RC.Mixins.Theme, ReactMeteorData],
+  getMeteorData() {
+    let connected = Meteor.status().connected ? true : false
+    return {
+      connected: connected
+    }
   },
-  // @@@@@
-  // Premade Mixins
-  Premade: {
-    makeAvatarItem(props){
-
-      if (_.isUndefined(props)) props = this.props
-      let keys = _.keys(props)
-
-      if (_.intersection(keys, ["title","subtitle","avatar","uiClass"]).length) {
-        let uiKeys = ["uiClass","uiSize","uiBrand","uiColor"]
-
-        if (props.avatar)
-          var avatar = <img src={props.avatar} />
-        else if (_.intersection(keys, uiKeys).length) {
-          let uiProps = fw.pickProps(props, uiKeys)
-          var avatar = <RC.uiIcon {...uiProps} />
-        }
-
-        return <RC.Item theme={props.avatar || props.uiClass ? "avatar" : null}>
-          {avatar}
-          {props.title ? <h2>{props.title}</h2> : null}
-          {props.subtitle ? <p>{props.subtitle}</p> : null}
-        </RC.Item>
-      }
-      return null
-    },
+  render() {
+    let displayStyle = this.data.connected ? {display: "none"} : {};
+    return <div className="connectionLost" style={displayStyle}>
+      <span className="icon ion-load-a"></span>
+      <div className="title-connectionLost">Connection to server lost, reconnecting...</div>
+    </div>
   }
-}
+})

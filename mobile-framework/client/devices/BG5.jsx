@@ -13,6 +13,12 @@ App.BG5 = React.createClass({
     }
   },
   componentWillMount() {
+
+    if(typeof(iHealth) === 'undefined') iHealth = {}
+    if(typeof(iHealth.BG5)==='undefined') {
+      iHealth.BG5 = new iHealthBG5()
+    }
+
     var deviceCommands = [];
     var delayedAdd = function(arr, functionName) {
       var n = arr.length;

@@ -10,6 +10,7 @@ RC.GlobalNav = React.createClass({
     className: React.PropTypes.string,
     theme: React.PropTypes.string,
 
+    startTab: React.PropTypes.number,
     animate: React.PropTypes.bool,
     isVisible: React.PropTypes.bool,
     allowLongLabels: React.PropTypes.bool,
@@ -18,7 +19,7 @@ RC.GlobalNav = React.createClass({
 
   getInitialState(){
     return {
-      selected: null,
+      selected: _.isNumber(this.props.startTab) ? this.props.startTab : null,
     }
   },
   clickHandler(n, onClick){
@@ -87,6 +88,7 @@ if (h.nk(Meteor.settings, "public.env")!="live")
       isVisible: "Boolean",
       allowLongLabels: "Boolean",
       list: "Array",
+      startTab: "Integer (Tab number to start at)",
     },
     Description: "Automatic navigation based on the device type (IOS or Android). Top for Android and bottom for IOS."
   }

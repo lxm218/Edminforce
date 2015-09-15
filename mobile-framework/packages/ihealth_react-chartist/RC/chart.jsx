@@ -29,29 +29,32 @@ RC.Chart = React.createClass({
   },
 
   updateChart(config) {
-    let { type, data } = config;
-    let options = config.options || {};
-    let responsiveOptions = config.responsiveOptions || [];
-    let event;
+    let self = this
+    Meteor.clearTimeout(this.timer)
+    this.timer = Meteor.setTimeout(function(){
+      let { type, data } = config;
+      let options = config.options || {};
+      let responsiveOptions = config.responsiveOptions || [];
+      let event;
 
-    if (this.chartist) {
-      this.chartist.update(data, options, responsiveOptions);
-    } else {
-      this.chartist = new Chartist[type](React.findDOMNode(this), data, options, responsiveOptions);
+      if (self.chartist) {
+        self.chartist.update(data, options, responsiveOptions);
+      } else {
+        self.chartist = new Chartist[type](React.findDOMNode(self), data, options, responsiveOptions)
 
-      if (config.listener) {
-        for (event in config.listener) {
-          if (config.listener.hasOwnProperty(event))
-            this.chartist.on(event, config.listener[event])
+        if (config.listener) {
+          for (event in config.listener) {
+            if (config.listener.hasOwnProperty(event))
+              self.chartist.on(event, config.listener[event])
+          }
         }
+
       }
-
-    }
-
-    return this.chartist;
+    },150)
+    // return this.chartist;
   },
 
   render() {
-    return React.DOM.div({className: 'ct-chart'})
+    return React.DOM.div({className: "ct-chart "+(this.props.className || "") })
   }
 })

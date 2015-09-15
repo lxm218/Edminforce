@@ -1,11 +1,13 @@
 
 // let themes = ["regular","no-edges"]
-let themes = []
+let themes = ["double-right"]
 
 RC.Card = React.createClass({
   mixins: [RC.Mixins.Theme, RC.Mixins.Premade],
   themeGroup: "card",
   themes: themes,
+  displayName: "Card",
+
   propTypes: {
     title: React.PropTypes.string,
     subtitle: React.PropTypes.string,
@@ -18,10 +20,40 @@ RC.Card = React.createClass({
     style: React.PropTypes.object,
   },
 
+  getInitialState(){
+    return { isActive: false }
+  },
+  toggleActive(){
+    let active = !this.state.isActive
+    this.setState({ isActive: active })
+  },
+  setInactive(){
+    this.setState({ isActive: false })
+  },
+  setActive(){
+    this.setState({ isActive: true })
+  },
+
   render(){
+    var children
     let header = this.makeAvatarItem()
-    let children = fw.uniformChildren(this.props.children, "Item")
-    if (!children.length && !header) return null
+    let origChildren = this.props.children.map ? this.props.children : [this.props.children]
+
+    if (!this.props.children && !header) return null
+    if (this.props.theme=="double-right") {
+      let color = "bg-"+(h.checkColorClass(this.props.uiBrand) ? this.props.uiBrand : "white")
+
+      children = [origChildren[0].props.onClick ? origChildren[0] : React.cloneElement(origChildren[0], { onClick: this.toggleActive, key: "0" })]
+      children.push(<RC.Animate transitionName="slide-left" key="1">
+        {this.state.isActive && origChildren[1] ? origChildren[1] : null}
+      </RC.Animate>)
+
+      children.unshift(<figure
+        key="2"
+        className={"card-dot "+color}
+      />)
+    } else
+      children = origChildren
 
     return <div className={this.getTheme()}>
       {header}

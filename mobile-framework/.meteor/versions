@@ -1,6 +1,5 @@
 accounts-base@1.2.0
 accounts-password@1.1.1
-alanning:roles@1.2.13
 aldeed:collection2@2.3.3
 aldeed:simple-schema@1.3.3
 autoupdate@1.2.1
@@ -35,10 +34,11 @@ ihealth:dev-tools@0.0.1
 ihealth:devices-stub@0.0.1
 ihealth:devices-ui@0.3.1
 ihealth:framework-engine@0.3.1
-ihealth:framework-mobile@0.3.1
+ihealth:framework-mobile@0.3.2
 ihealth:react-chartist@0.1.0
 ihealth:users@0.1.0
 ihealth:utils@0.1.5
+jhartma:cjsx@2.4.1
 jquery@1.11.3_2
 json@1.0.3
 jsx@0.1.5
@@ -54,6 +54,7 @@ meteorflux:dispatcher@1.0.4
 meteorhacks:fast-render@2.8.1
 meteorhacks:inject-data@1.4.0
 meteorhacks:picker@1.0.3
+meteorhacks:subs-manager@1.6.2
 minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3

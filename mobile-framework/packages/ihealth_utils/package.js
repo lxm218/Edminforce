@@ -23,7 +23,7 @@ Package.onUse(function(api) {
   // api.use("react", "client")
   var packages = [
     // Server Packages
-    "alanning:roles@1.2.13",
+    "meteorhacks:subs-manager@1.6.2",
     "aldeed:simple-schema@1.3.3",
     "aldeed:collection2@2.3.3",
     "matb33:collection-hooks@0.7.13",

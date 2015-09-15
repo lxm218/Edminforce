@@ -2947,12 +2947,12 @@ var Chartist = {
     // Options for Y-Axis
     axisY: {
       // The offset of the labels to the chart area
-      offset: 40,
+      offset: 30,
       // Position where labels are placed. Can be set to `start` or `end` where `start` is equivalent to left or top on vertical axis and `end` is equivalent to right or bottom on horizontal axis.
       position: 'start',
       // Allows you to correct label positioning on this axis by positive or negative x and y offset.
       labelOffset: {
-        x: 0,
+        x: 5,
         y: 0
       },
       // If labels should be shown or not
@@ -2991,7 +2991,7 @@ var Chartist = {
       top: 15,
       right: 15,
       bottom: 5,
-      left: 0
+      left: 5
     },
     // When set to true, the last grid line on the x-axis is not drawn and the chart elements will expand to the full available width of the chart. For the last label to be drawn correctly you might need to add chart padding or offset the last label with a draw event handler.
     fullWidth: false,

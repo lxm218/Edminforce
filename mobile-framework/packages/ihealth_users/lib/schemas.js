@@ -169,7 +169,7 @@ IH.Schema.Users = new SimpleSchema({
     optional: true
   },
   roles: {
-    type: [String],
+    type: String,
     allowedValues: ["admin", "doctor", "patient"],
     optional: true
   },
@@ -186,6 +186,11 @@ IH.Schema.Users = new SimpleSchema({
     type: Object,
     optional: true,
     blackbox: true
+  },
+  status : {
+    optional: true,
+    blackbox: true,
+    type: Object
   }
 })
 

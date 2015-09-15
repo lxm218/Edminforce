@@ -53,13 +53,7 @@ App.Swipe = React.createClass({
     ]
 
     return <RC.Swipe ref="swiper" createNavHeight={true}>
-      {
-      panes.map(function(p,n){
-        return <div className="scroll" key={n}>
-            {p}
-        </div>
-      })
-      }
+      {panes}
     </RC.Swipe>
   }
 })

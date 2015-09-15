@@ -1,114 +1,148 @@
 
-var _defaultMessagesLimit = 30;
-var _incrementalMessageLimit = 20;
-var _initLoading = true;
-var _currentScrollPosition = 0;
-
-var incrementalScroll = function (e) {
-
-  var scrollY = (this.y || window.pageYOffset) - window.pageYOffset;
-  this.y = window.pageYOffset;
-  _triggerLoadMore(scrollY, window.pageYOffset);
-};
-
-var _triggerLoadMore = function(scrollY, offsetY) {
-  var directionY = !scrollY ? "NONE" : scrollY > 0 ? "UP" : "DOWN"
-  if (directionY === "UP" && offsetY === 0 ) {
-    console.log("window.scroll passed this line", offsetY)
-    _resetMessageSubLimit()
-  }
-};
-
-var _resetMessageSubLimit = function (){
-
-  var before = Session.get("Message_Sub_Limit");
-  var after = before + _incrementalMessageLimit;
-  Session.set("Message_Sub_Limit", after)
-};
+var _defaultLimit = 20
+var _msgIncrement = 10
 
 IH.RC.ChatView = React.createClass({
   mixins: [ReactMeteorData],
-
-  getInitialState(){
-    return {messageSubLimit: _defaultMessagesLimit}
-  },
   getMeteorData() {
-    var channelId = this.props.channelID || FlowRouter.getParam("slug");
-    var messageLimit = Session.get("Message_Sub_Limit") || _defaultMessagesLimit;
 
-    this.handle1 = Meteor.subscribe("ChatMessageList", channelId, messageLimit);
-    this.handle2 =  Meteor.subscribe("ChatMessageUser", channelId)
+    var channel = messages = users = []
+    var channelId = this.props.channelID || FlowRouter.getParam("channelID")
 
-    this.subscriptionsReady = this.handle1.ready() && this.handle2.ready();
+    // Subscribe
+    this.sub1 = Meteor.subscribe("ChatMessageList", channelId, this.state.msgLimit)
+    this.sub2 = Meteor.subscribe("ChatMessageUser", channelId)
 
-    var query = {
-      CHID: channelId
-    };
-    var options = {
-      sort: {createdAt: 1}
-    };
+    // Subs Ready
+    if (this.isReady || (this.sub1.ready() && this.sub2.ready())) {
 
-    var channel, messages;
-
-    if (this.subscriptionsReady) {
-
-      if (this.initialLoading) {
-        IH.Action.ChatStatus.activateChannel(this.props.channelID);
-        this.initialLoading = false;
+      if (!!this.state.isLoading) {
+        let self = this
+        Meteor.clearTimeout(this.loadingTimeout)
+        this.loadingTimeout = Meteor.setTimeout(function(){
+          self.setState({ isLoading: false })
+        }, 2000)
       }
 
-      channel = IH.Coll.ChatChannels.findOne(channelId);
-      messages = IH.Coll.ChatMessages.find(query, options).map(function(m){
-        user = Meteor.users.findOne(m.SID).profile;
+      var query = {
+        CHID: channelId,
+        createdAt: { $exists: true }
+      }
+      var options = { sort: { createdAt: 1 } }
 
-        return {
-          from: m.SID,
-          msg: m.content,
-          date: m.createdAt,
-          type: m.type,
-          avatar: user.avatar,
-          name: user.name,
-          gender: user.gender
+      channel = IH.Coll.ChatChannels.findOne(channelId)
+      var messages = IH.Coll.ChatMessages.find(query, options).fetch()
+
+      this.isReady = true
+
+      console.log("Querying with "+this.state.msgLimit+ " was " + messages.length)
+
+      // Users List
+      var users = Meteor.users.find({
+        _id: { $in: _.uniq(_.map(messages, function(m){
+          return m.SID
+        })) }
+      },{
+        fields: {
+          profile: 1
         }
-      });
+      }).fetch()
+      users = _.object( users.map(function(u){
+        return [u._id, u.profile]
+      }))
     }
 
     return {
+      isReady: this.state.delayFinished && this.isReady,
+      users: users,
+      userId: Meteor.userId(),
       channel: channel,
       messages: messages
     }
   },
+  getInitialState(){
+    return {
+      initLoading: true,
+      isLoading: false,
+      isInitialized: false,
+      delayFinished: !(_.isNumber(this.props.delay) && this.props.delay>0),
+      msgLimit: _defaultLimit,
+      initAmount: 0,
+      previousTop: null
+    }
+  },
+  isReady: false,
+  scrollTimeout: null,
+  updateTimeout: null,
+  loadingTimeout: null,
+  incrementalScroll(e) {
+    let self = this
+    Meteor.clearTimeout(this.scrollTimeout)
+    this.scrollTimeout = Meteor.setTimeout(function(){
+      let node = React.findDOMNode(self.refs.container)
+      if (node.scrollTop<=0 && self.state.isInitialized && !self.state.isLoading) {
+        console.log("Loading")
+        self.setState({
+          isLoading: true,
+          msgLimit: Math.max(_defaultLimit, self.data.messages.length+_msgIncrement),
+          previousTop: self.data.messages.length ? self.data.messages[0]._id : null
+        })
+      }
+    },250)
+  },
   componentWillMount() {
-    Session.set("Message_Sub_Limit", _defaultMessagesLimit);
-    this.props.channelID = this.props.channelID || FlowRouter.getParam("slug");
-    this.initialLoading = true;
+    this.props.channelID = this.props.channelID || FlowRouter.getParam("channelID");
   },
   componentDidMount() {
-    window.addEventListener("scroll", incrementalScroll);
+    let self = this
+    let node = React.findDOMNode(this.refs.container)
+    node.addEventListener("scroll", this.incrementalScroll)
+
+    if (this.props.delay)
+      Meteor.setTimeout(function(){
+        self.setState({
+          delayFinished: true
+        })
+      }, this.props.delay)
   },
   componentWillUpdate() {
-    var node = this.refs.messageContainer.getDOMNode();
-    this.shouldScrollBottom = node.scrollTop + node.offsetHeight === node.scrollHeight;
-    //_currentScrollPosition = node.scrollHeight;
+    let node = React.findDOMNode(this.refs.container)
+    this.shouldScrollBottom = node && (node.scrollTop+node.offsetHeight)===node.scrollHeight
+    this.scrollPos = node.scrollTop
   },
   componentDidUpdate() {
-    var node = this.refs.messageContainer.getDOMNode();
+    let msgsLength = this.data.messages.length
+    if (this.data.isReady && msgsLength!=this.state.initAmount) {
+      let node = React.findDOMNode(this.refs.container)
 
-    if (this.handle1.ready() && this.handle2.ready() ) {
-      if (this.shouldScrollBottom) {
-        console.log("node.scrollHeight in update ", node.scrollHeight);
-        if (_initLoading && this.data.messages) {
-          window.scrollTo(0, 10000);
-          _initLoading = false;
-        } else {
-          node.scrollTop = node.scrollHeight;
-        }
-      } else {
-        //console.log("_currentScrollPosition", _currentScrollPosition, node.scrollHeight)
-
-        node.scrollTop = _currentScrollPosition;   // why this doesn't work??
+      if (this.state.initLoading) {
+        IH.Action.ChatStatus.activateChannel(this.props.channelID)
+        this.setState({initLoading: false})
       }
-      _currentScrollPosition = node.scrollHeight;
+
+      if (this.shouldScrollBottom || !this.state.isInitialized) {
+        console.log(this.data.messages.length)
+        this.setState({
+          isInitialized: true,
+          initAmount: this.data.messages.length
+        })
+        node.scrollTop = node.scrollHeight
+
+      } else if (this.sub1.ready() && this.sub2.ready() && this.state.isLoading) {
+        let self = this
+        Meteor.clearTimeout(this.loadingTimeout)
+        Meteor.clearTimeout(this.updateTimeout)
+        this.updateTimeout = Meteor.setTimeout(function(){
+          let more = React.findDOMNode(self.refs.moreMsgs)
+          let moreHeight = more.offsetHeight
+
+          self.setState({
+            isLoading: false,
+            initAmount: self.data.messages.length
+          })
+          node.scrollTop = self.scrollPos+moreHeight
+        }, 1000)
+      }
     }
   },
   componentWillUnmount() {
@@ -116,89 +150,104 @@ IH.RC.ChatView = React.createClass({
     // web should use a different approach,
     // e.g. remove from active channel list
 
-    this.handle1.stop();
-    this.handle2.stop();
-    window.removeEventListener("scroll");
+    // Vivian, don't remove all scroll event handlers, Meteor sometimes may have its own scroll handlers that you do not want removed.
+    let node = React.findDOMNode(this.refs.container)
+    node.removeEventListener("scroll", this.incrementalScroll)
 
-    IH.Action.ChatStatus.deActivateChannel(this.props.channelID);
-    Session.set("ACTIVE_CHAT_CHANNEL", null);
+    IH.Action.ChatStatus.deActivateChannel(this.props.channelID)
+
+    this.sub1.stop()
+    this.sub2.stop()
   },
   sendNewMessage(msg) {
-    let message = {
-      type: "txt",
-      content: msg,
-      SID: Meteor.userId(),
-      CHID: this.props.channelID
-    };
-    IH.Action.ChatMessages.createMessage(message, this.props.channelID)
-  },
-  takeNSendPhoto() {
-
-    // TODO: added "camera" button
-
-    if (Meteor.isCordova) {
-      var msg;
-      Camera.getPicture({}, function(e, pic){
-        if (e) {
-          Meteor.setTimeout(function() {
-            alert("e.message)")
-          }, 0);
-        } else {
-          msg = pic;
-        }
-      })
-
+    if (_.isString(msg) && msg.length) {
       let message = {
-        type: "img",
+        type: "txt",
         content: msg,
         SID: Meteor.userId(),
         CHID: this.props.channelID
-      };
+      }
       IH.Action.ChatMessages.createMessage(message, this.props.channelID)
-
+    }
+  },
+  takeNSendPhoto() {
+    var self = this
+    if (Meteor.isCordova) {
+      IH.Camera.getPicture({}, function(e, pic){
+        if (e) {
+          Meteor.setTimeout(function() {
+            //alert(e.message)
+            console.log("camera error: ", e.error, e.message)
+          }, 0);
+        } else {
+          let message = {
+            type: "img",
+            content: pic,
+            SID: Meteor.userId(),
+            CHID: self.props.channelID
+          };
+          IH.Action.ChatMessages.createMessage(message, self.props.channelID)
+        }
+      })
     } else {
       alert("Web camera is not supported yet.")
     }
   },
-  getDataContent(){
-    //return <IH.RC.ChatMessageList messages={this.data.messages} {...this.props}/>; // user props...
+  renderMsgs(msgs){
+    let userId = this.data.userId
+    let users = this.data.users
+    let lastMsg = {}
+    let self = this
 
-    var lastMsg = {}
-    let userId = Meteor.userId();
+    return _.map( msgs, function(data, n){
+      let user = users[data.SID] || {}
+      let m = {
+        from: data.SID,
+        msg: data.content,
+        date: data.createdAt,
+        type: data.type,
+        avatar: user.avatar,
+        name: user.firstName+" "+user.lastName,
+        gender: user.gender,
+        wasTop: self.state.previousTop === data._id
+      }
+
+      let first = n===0 ? true : lastMsg.name!=m.name
+      let dateBreak = moment(m.date).format("MM/DD/YY")
+      let lastBreak = n===0 || !lastMsg.date ? null : moment(lastMsg.date).format("MM/DD/YY")
+      lastMsg = m
+
+      return <RC.ChatBubble
+        key={n}
+        isUser={userId==m.from}
+        showDateBreak={dateBreak!=lastBreak || m.wasTop}
+        firstOfGroup={first || m.wasTop}
+        type={m.type}
+        message={m.msg}
+        date={m.date}
+        avatar={m.avatar}
+        name={m.name}
+        gender={m.gender}
+      />
+    })
+  },
+  render() {
+
+    let initMsgsLength = this.data.messages.length - this.state.initAmount
 
     return <div>
+      <RC.Loading className="scroll abs-full overflow chat-view" loadingClasses="abs-full" isReady={this.data.isReady} ref="container">
+        {this.state.isLoading ? <RC.Loading theme="short, tiny" /> : null}
+        <div ref="moreMsgs" style={this.state.isLoading ? {opacity: 0, position: "absolute"} : {}}>
+          {this.renderMsgs( this.data.messages.slice(0, initMsgsLength) )}
+        </div>
+        {this.renderMsgs( this.data.messages.slice(initMsgsLength) )}
+      </RC.Loading>
       {
-        _.map(this.data.messages, function(m, n){
-          let first = n===0 ? true : !(h.nk(lastMsg, "m.name")==h.nk(m, "m.name"));
-          let dateBreak = moment(m.date).format("MM/DD/YY");
-          let lastBreak = n===0 || !lastMsg.date ? null : moment(lastMsg.date).format("MM/DD/YY");
-          lastMsg = m;
-
-          // TODO: use <img> for type=="img"
-
-          return <RC.ChatBubble
-            key={n}
-            isUser={userId==m.from}
-            showDateBreak={dateBreak!=lastBreak}
-            firstOfGroup={first}
-            message={m.msg}
-            date={m.date}
-            avatar={m.avatar}
-            name={m.name}
-            gender={m.gender}
-            />
-        })
+      this.data.isReady
+      ? <RC.ChatTextArea name="message" onSubmit={this.sendNewMessage} onPlus={this.takeNSendPhoto}/>
+      : null
       }
-      <RC.ChatTextArea name="message" onSubmit={this.sendNewMessage} />
-    </div>
-  },
-
-
-  render() {
-    var subscriptionsReady = this.subscriptionsReady;
-
-    return <div ref="messageContainer">
-      { subscriptionsReady? this.getDataContent() : <p>Loading...</p> }
     </div>
   }
 })

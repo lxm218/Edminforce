@@ -62,6 +62,10 @@ onRemoved = (c, doc)->
 
     console.log "app registered at DataServer"
 
+  ## Check if iHealthID exists
+  userExists: (username)->
+    @hasRegistered()
+    @connection.call("UserExists", username)
 
   ## Check if app has been registered
   hasRegistered: ->

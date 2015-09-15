@@ -5,6 +5,8 @@ RC.Item = React.createClass({
   themeGroup: "item",
   themes: themes,
 
+  displayName: "Item",
+
   propTypes: {
     uiClass: React.PropTypes.string,
     uiColor: React.PropTypes.string,
@@ -36,7 +38,7 @@ RC.Item = React.createClass({
       // Tabs @@
       return <div className={"item tabs tabs-icon-"+iconAlign}>
         {list.map( function(t,n){
-          let aProps = fw.omitProps(t, uiKeys)
+          let aProps = h.omitProps(t, uiKeys)
           var ui = null
 
           if (_.intersection(_.keys(t), uiKeys).length) {
@@ -77,10 +79,10 @@ RC.Item = React.createClass({
             avatar.push(<img src={this.props.avatar} />)
             if (this.props.uiClass) {
               custTheme = this.props.theme+" icon-right"
-              avatar.push(<RC.uiIcon {... fw.pickProps(this.props, uiKeys)} />)
+              avatar.push(<RC.uiIcon {... h.pickProps(this.props, uiKeys)} />)
             }
           } else if (this.props.uiClass) {
-            var uiProps = fw.pickProps(this.props, uiKeys.concat("uiBrand"))
+            var uiProps = h.pickProps(this.props, uiKeys.concat("uiBrand"))
             if (_.isUndefined(uiProps.uiBrand))
               uiProps.uiBrand = 0
             avatar.push(<RC.uiIcon {... uiProps} />)

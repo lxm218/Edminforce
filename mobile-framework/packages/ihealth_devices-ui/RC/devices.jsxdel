@@ -1,6 +1,4 @@
 
-DeviceRC = {}
-
 DeviceRC.PrepareMsg = React.createClass({
   mixins: [ReactMeteorData],
   getMeteorData() {
@@ -70,6 +68,7 @@ DeviceRC.PrepareMsg = React.createClass({
       break
       case "ready":
         blurBack = false
+        showHelp = true
         var title = this.props.readyTitle ? this.props.readyTitle : "Device is Ready"
         var desc = this.props.readyMsg ? <p>{this.props.readyMsg}</p> : <p>Click the circle to start measuring.</p>
         var handler = this.start
@@ -148,8 +147,9 @@ DeviceRC.Prepare = React.createClass({
     let DeviceMeasure = deviceClasses[deviceName] || DeviceRC.NotFound
     let isHidden = !_.isObject(this.data.deviceJson)
     let isCancelled = _.isObject(this.data.deviceJson) && this.data.deviceJson.isCancelled
+    let headerSpace = (_.isUndefined(this.props.addHeaderSpace) || this.props.addHeaderSpace) && (isHidden || isCancelled) ? " nav-margin" : ""
 
-    return <div className={"abs-full background device-back overflow "+deviceName+(isHidden || isCancelled ? " nav-margin" : "")}>
+    return <div className={"abs-full background device-back overflow "+deviceName+headerSpace}>
       <DeviceMeasure device={device} isHidden={isHidden} isCancelled={isCancelled} inactiveDuration={this.props.inactiveDuration} />
       <DeviceRC.PrepareMsg device={device} deviceName={deviceName} holdToConnect={this.props.holdToConnect} finCallback={this.props.finishCallback} />
     </div>
