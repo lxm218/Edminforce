@@ -16,14 +16,39 @@ DefaultRoutes.route('/registraionInfoPage', {
 
 
 
-DefaultRoutes.route('/SelectClass', {
-    name: "home",
+DefaultRoutes.route('/classRegister/SelectClass', {
+    name: "SelectClass",
     action: function (p) {
         App.routeHandler(p, {
             pageTitle: "Select Class",
             showGlobalNav: false,
             headerNav: null,
             bodyTmpl: <Cal.CRSelectClassPage/>
+        })
+    }
+})
+
+DefaultRoutes.route('/classRegister/SelectClassReady', {
+    name: "SelectClassReady",
+    action: function (p) {
+        App.routeHandler(p, {
+            pageTitle: "SelectClassReady",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CRSelectClassReadyPage/>
+        })
+    }
+})
+
+
+DefaultRoutes.route('/classRegister/AddWaitingList', {
+    name: "AddWaitingList",
+    action: function (p) {
+        App.routeHandler(p, {
+            pageTitle: "AddWaitingList",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CRAddWaitingListPage/>
         })
     }
 })

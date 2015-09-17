@@ -34,7 +34,10 @@ Package.onUse(function(api) {
     "RC/chat/chatBubble.jsx",
     "RC/chat/chatTextarea.jsx",
     "RC/globalNav/globalNav.jsx",
+
     "RC/form/formElements.jsx",
+    "RC/form/formElements2.jsx", //calphin
+
     "RC/headerNav/headerNav.jsx",
     "RC/leftNav/leftNav.jsx",
     "RC/list/list.jsx",

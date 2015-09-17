@@ -20,7 +20,7 @@ Cal.CRRegistraionInfoPage = React.createClass({
                 </p>
             </RC.Card>
 
-            <RC.URL href="/SelectClass">
+            <RC.URL href="/classRegister/SelectClass">
                 <RC.Button name="button" theme="full"  buttonColor="brand">
                     Continue
                 </RC.Button>

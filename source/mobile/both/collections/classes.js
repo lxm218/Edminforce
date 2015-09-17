@@ -22,10 +22,10 @@ DB.Schema.Classes = new SimpleSchema({
     },
 
     startTime: {
-        type: Date
+        type: Number
     },
     endTime: {
-        type: Date
+        type: Number
     },
 
     //课程 开始结束日期 一般同session的开始结束日期？
@@ -72,7 +72,6 @@ DB.Schema.Classes = new SimpleSchema({
         type: [String],  //students ids
         optional: true
     }
-
 
 });
 
