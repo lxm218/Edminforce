@@ -18,12 +18,17 @@ DB.Schema.App = new SimpleSchema(
             optional: true
         },
 
-        sessionOngoing:{//正在进行的session
+
+        sessionNow:{//正在进行的session
             type: String,
             optional: true
         },
-        sessionComing:{//将要注册的session 空代表关闭注册
+        sessionRegister:{//注册的session
             type: String,
+            optional: true
+        },
+        openRegister:{
+            type: Boolean,
             optional: true
         }
     });

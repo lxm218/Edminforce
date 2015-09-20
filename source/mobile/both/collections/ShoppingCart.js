@@ -12,6 +12,10 @@ DB.ShoppingCart = new Mongo.Collection('shoppingCart');
 
 DB.ShoppingCart.attachSchema(new SimpleSchema({
 
+    accountId: {
+        type: String
+    },
+
     /*
      *
      * init      购物车创建的初始状态  创建后到checking之间有时间限制？
@@ -31,6 +35,12 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
             if (this.isUpdate) {
                 return new Date();
             }
+            if (this.isUpsert) {
+                return new Date();
+            }
+            if (this.isInsert) {
+                return new Date();
+            }
         }
     },
     /*
@@ -48,9 +58,9 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
 
     //sessionId classID swimmerID
     items: {
-        type: Object,
-        optional: true
-
+        type: [Object],
+        optional: true,
+        blackbox: true
     }
 
 }))

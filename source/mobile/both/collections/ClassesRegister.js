@@ -2,6 +2,31 @@
 DB.ClassesRegister = new Mongo.Collection('classesRegister');
 
 
+//购物车信息
+DB.Schema.ClassesRegisterShoppingCard= new SimpleSchema({
+
+    shoppingCardId: {
+        type: String
+    },
+    timestamp: {
+        type: Date,
+        autoValue: function () {
+            if (this.isUpdate || this.isInsert || this.isUpsert) {
+                return new Date();
+            }
+        }
+    },
+    //两段式提交需要此字段
+    //也可仅根据shoppingTime去判断
+    //http://docs.mongodb.org/ecosystem/use-cases/inventory-management/
+
+    status:{
+        type: String,
+        optional: true
+    }
+
+});
+
 DB.Schema.ClassesRegister = new SimpleSchema({
     /*
     *  classId确定后sessionId就确定了。
@@ -19,22 +44,22 @@ DB.Schema.ClassesRegister = new SimpleSchema({
 
     /*
     *
-    *  后台管理 人工选课时值为空？ todo remove optional
+    * 注册课程的状态,要与购物车状态一致
     *
-    *  购物车失效清除前 确保注册课程也清除
+    *
+    * {
+    *   shoppingCardId: String
+    *   shoppingTime : int
+    *   status:String ////状态 init checking  paid?
+    * }
+    *
+    * Todo add schema
+    * 人工选课时此值为空？ 带考虑
+    * 一致性检查  根据需要严格按照两段式提交
     * */
-    shoppingCardId:{
-        type: String,
+    carted:{
+        type: DB.Schema.ClassesRegisterShoppingCard,
         optional: true
-    },
-    //状态 init checking  paid todo remove optional
-    status:{
-        type: String,
-        optional: true
-    },
-
-    registerDate: {//暂不考虑时区
-        type: Date
     }
 
 });

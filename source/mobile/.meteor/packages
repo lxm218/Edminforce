@@ -48,4 +48,4 @@ reywood:publish-composite
 
 meteorflux:dispatcher
 meteorflux:reactive-dependency
-dataflows:immutable
+cal:immutable
