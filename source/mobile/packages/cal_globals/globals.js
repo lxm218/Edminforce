@@ -1,30 +1,21 @@
 
 /*
-*  General namespace for any var you want to access globally
-*
+ *  General namespace for any var you want to access globally
+ *
  * */
-App={
-    Utils: {
 
-    },
-    Config:{
+App={}
+App.Utils={}
+App.Config={}
 
-    }
-    //module_name:{ ... }
-
-}
-
-//collections
-DB={
-    Schema:{
-        //mogodb documents define
-    }
-}
+DB={}   //collections
+DB.Schema={}  //mogodb documents define
 
 
 /*
- * namespace for react components only
-* */
+ * namespace for react components only.
+ * client only
+ * */
+Cal= {}
 
-Cal={}
 

@@ -41,6 +41,19 @@ DefaultRoutes.route('/classRegister/SelectClassReady', {
 })
 
 
+DefaultRoutes.route('/classRegister/RegBillingPage', {
+    name: "CRRegBillingPage",
+    action: function (p) {
+        App.routeHandler(p, {
+            pageTitle: "CRRegBillingPage",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CRRegBillingPage/>
+        })
+    }
+})
+
+
 DefaultRoutes.route('/classRegister/AddWaitingList', {
     name: "AddWaitingList",
     action: function (p) {

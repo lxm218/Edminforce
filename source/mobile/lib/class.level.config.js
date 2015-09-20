@@ -1,7 +1,7 @@
 /**
  * Created on 9/16/15.
  */
-
+App.Config = App.Config || {};
 
 App.Config.classLevels = [ //从高到底 名字
     "ELT III",

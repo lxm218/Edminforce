@@ -4,8 +4,12 @@
 
 if (!Meteor.settings) Meteor.settings = {}
 if (!Meteor.settings.public) Meteor.settings.public = {}
-if (!Meteor.settings.public.appName) Meteor.settings.public.appName = "iHealth Framework"
-if (!Meteor.settings.public.appDesc) Meteor.settings.public.appDesc = "React & Meteor Framework for iHealth Labs"
+if (!Meteor.settings.public.appName) Meteor.settings.public.appName = "Calphin"
+if (!Meteor.settings.public.appDesc) Meteor.settings.public.appDesc = "Calphin App"
+
+
+
+
 
 Meteor.startup( function() {
   /**

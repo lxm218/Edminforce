@@ -11,16 +11,21 @@
 
 
     Cal.CRSelectClassPage = React.createClass({
-
         mixins: [ReactMeteorData],
         getMeteorData() {
-            debugger
 
+            //todo
             Meteor.subscribe("swimmersByAccountId", 'account1');
+            //Meteor.subscribe("appInfo");
+            Meteor.subscribe("classes");
+            Meteor.subscribe("activeShopingCart");
 
-            return {
+
+            var data = {
                 account: Meteor.users.find().fetch(),
-                swimmers: DB.Swimmers.find({accountId: 'account1'}).fetch(),
+
+                swimmers: CRSelectClassPageStore.getSwimmers().fetch(),
+
                 currentSwimmer: CRSelectClassPageStore.currentSwimmer.get(),
 
                 //should wait for currentSwimmer
@@ -29,23 +34,22 @@
                 currentDay: CRSelectClassPageStore.currentDay.get(),
                 currentTime: CRSelectClassPageStore.currentTime.get(),
 
-
                 currentStep: CRSelectClassPageStore.currentStep.get(),
-                firstPreference: CRSelectClassPageStore.firstPreference.get(),
-                secendPreference: CRSelectClassPageStore.secendPreference.get(),
-                thirdPreference: CRSelectClassPageStore.thirdPreference.get()
+
+                //一次选课流程的所有信息
+                selectedClasses: CRSelectClassPageStore.selectedClasses.get()
 
             }
+
+            //debugger
+            return data;
+
         },
 
-
+        /////////////////////////////////////////////////////////////////
         ///////////actions///////////
         swimmerChange(e){
             var value = this.refs.swimmer.getValue()
-
-            //var swimmer = this.data.swimmers.filter(function(v,n){
-            //    return v.value == value;
-            //})
 
             var swimmer = _.find(this.data.swimmers, function (v, n) {
                 return v._id == value;
@@ -53,25 +57,28 @@
 
             Dispatcher.dispatch({
                 actionType: "CRSelectClassPage_SWIMMER_CHANGE",
-                swimmer: swimmer});
+                swimmer: swimmer
+            });
 
         },
         dayChange(e){
             var value = this.refs.day.getValue()
-            value= parseInt(value,10)
+            value = parseInt(value, 10)
 
             Dispatcher.dispatch({
                 actionType: "CRSelectClassPage_DAY_CHANGE",
-                day: value});
+                day: value
+            });
 
 
         },
         timeChange(e){
             var value = this.refs.time.getValue()
-            value= parseInt(value,10)
+            value = parseInt(value, 10)
             Dispatcher.dispatch({
                 actionType: "CRSelectClassPage_TIME_CHANGE",
-                time: value});
+                time: value
+            });
 
         },
 
@@ -80,10 +87,13 @@
 
             var formData = this.refs.myForm.getFormData()
 
-            //todo validation info
-            if(!formData.swimmer || !formData.day || !formData.time){
+            debugger
+
+            //todo validation info in ui
+            if (!this.data.currentSwimmer || !this.data.currentDay || !this.data.currentTime) {
+
                 alert('please select a class')
-                return ;
+                return;
             }
 
             Dispatcher.dispatch({
@@ -92,30 +102,46 @@
                 selectedClass: formData
             });
 
-            debugger
-
         },
         render() {
 
             let swimmers = this.data.swimmers.map(function (v, i) {
                 return {text: v['name'], value: v._id}
             })
-            swimmers.unshift({text: 'please select a swimmer'})
+
+            let swimmer = this.data.selectedClasses.get('swimmer')
+            let class1 = this.data.selectedClasses.get('class1')
+            let class2 = this.data.selectedClasses.get('class2')
+            let class3 = this.data.selectedClasses.get('class3')
 
 
-            debugger
+            let currentSwimmerValue = this.data.currentSwimmer
+                && {value:this.data.currentSwimmer._id,
+                    text:this.data.currentSwimmer.name}
 
+            //debugger
 
             return <div>
-                <RC.Card>
+                <RC.Card key={Math.random()}>
+
 
                     <h2 className="brand">Register for spring 2015</h2>
 
-                    <p>{this.data.firstPreference}</p>
+                    <p>
+                        {swimmer && swimmer.name}
+                    </p>
 
-                    <p>{this.data.secendPreference}</p>
+                    <p>
+                        {class1 && class1.name}
+                    </p>
 
-                    <p>{this.data.thirdPreference}</p>
+                    <p>
+                        {class2 && class2.name}
+                    </p>
+
+                    <p>
+                        {class3 && class3.name}
+                    </p>
 
 
                 </RC.Card>
@@ -123,38 +149,49 @@
                 <RC.Form ref="myForm" onSubmit={this.formSubmit}>
                     <RC.List theme="inset">
 
-                        <RC.Select
-                            ref="swimmer"
-                            options={swimmers}
-                            name="swimmer"
-                            changeHandler={this.swimmerChange}
-                            label="swimmer"
-                            />
+                        {
+                            this.data.currentStep == 1 ?
+                                <RC.Select2
+                                    ref="swimmer"
+                                    options={swimmers}
+                                    value= {currentSwimmerValue}
+                                    name="swimmer"
+                                    changeHandler={this.swimmerChange}
+                                    label="Swimmer"
+                                    />
+
+                                : <RC.Item uiColor="brand1">
+                                Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
+                            </RC.Item>
+                        }
+
+
                         <RC.Item uiColor="brand1">
-                            level: {this.data.currentSwimmer && this.data.currentSwimmer.level}
+                            Level: {this.data.currentSwimmer && this.data.currentSwimmer.level}
                         </RC.Item>
-                        <RC.Select
+
+                        <RC.Select2
                             ref="day"
                             options={this.data.avaiableDays}
                             value={this.data.currentDay}
                             name="day"
                             changeHandler={this.dayChange}
-                            label="day"
+                            label="Day"
                             />
+
                         <RC.Select2
                             ref="time"
                             options={this.data.avaiableTimes}
                             value={this.data.currentTime}
                             name="time"
                             changeHandler={this.timeChange}
-                            label="time"
+                            label="Time"
                             />
-
-                            <RC.Button name="button" type="submit"
-                                       onClick={this.formSubmit}
-                                       theme="full" buttonColor="brand">
-                                Select
-                            </RC.Button>
+                        <RC.Button name="button" type="submit"
+                                   onClick={this.formSubmit}
+                                   theme="full" buttonColor="brand">
+                            Select
+                        </RC.Button>
 
 
                         {
@@ -162,7 +199,7 @@
                                 <RC.URL href="/classRegister/AddWaitingList">
                                     <RC.Button name="button" type="submit"
                                                theme="full" buttonColor="brand">
-                                        waiting list
+                                        Waiting List
                                     </RC.Button>
                                 </RC.URL>
                                 : ''
@@ -173,5 +210,7 @@
                 </RC.Form>
             </div>
         }
+
     })
+
 }
