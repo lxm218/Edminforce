@@ -33,19 +33,26 @@ fortawesome:fontawesome
 
 ihealth:framework-mobile
 
-
-cal:globals
-
+cal:globals  #defind global vars
 
 accounts-password
-insecure
+insecure    #todo remove
 
-anti:fake
-msavin:mongol
 reactive-var
 reywood:publish-composite
 
 
+# flux
 meteorflux:dispatcher
 meteorflux:reactive-dependency
 cal:immutable
+
+# cron task
+percolate:synced-cron
+
+
+# for test
+spacebars   # mongol depend on this
+msavin:mongol
+anti:fake
+

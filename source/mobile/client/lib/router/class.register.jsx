@@ -1,6 +1,7 @@
 /**
  * Created on 9/14/15.
  */
+//为简化期间 layout逻辑不单独分出一个store ，根据需要添加dispatch 消息
 
 DefaultRoutes.route('/registraionInfoPage', {
     name: "home",
@@ -25,6 +26,9 @@ DefaultRoutes.route('/classRegister/SelectClass', {
             headerNav: null,
             bodyTmpl: <Cal.CRSelectClassPage/>
         })
+
+        Dispatcher.dispatch({ actionType: "GOTO_CRSelectClassPage"});
+
     }
 })
 
@@ -63,5 +67,20 @@ DefaultRoutes.route('/classRegister/AddWaitingList', {
             headerNav: null,
             bodyTmpl: <Cal.CRAddWaitingListPage/>
         })
+    }
+})
+
+
+DefaultRoutes.route('/classRegister/BookTheSameTimePage', {
+    name: "CRBookTheSameTimePage",
+    action: function (p) {
+        App.routeHandler(p, {
+            pageTitle: "CRBookTheSameTimePage",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CRBookTheSameTimePage/>
+        })
+        Dispatcher.dispatch({ actionType: "GOTO_CRBookTheSameTimePage"});
+
     }
 })

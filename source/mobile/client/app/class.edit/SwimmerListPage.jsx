@@ -14,6 +14,54 @@ Cal.ClassEditSwimmerListPage = React.createClass({
 
     render() {
 
+
+
+        //return <div>
+        //
+        //    <RC.Card title="2015 Summer Session">
+        //
+        //    </RC.Card>
+        //
+        //    <RC.List>
+        //        {this.data.swimmers.map(function (swimmer, n) {
+        //
+        //            return <RC.Item className="item-text-wrap">
+        //
+        //                <div className="row">
+        //
+        //                    <div className="col">
+        //                        {swimmer.name}
+        //                    </div>
+        //
+        //                    <div className="col-50 cal-text-wrap" >
+        //                        <p className=" item-text-wrap">
+        //                            {swimmer.name}sdfassdfassdfassdfassdfassdfas
+        //                            sdfassdfassdfassdfassdfassdfassdfas
+        //                            sdfassdfassdfassdfassdfas
+        //                        </p>
+        //                        <p className=" cal-text-wrap">
+        //                            {swimmer.name}sdfassdfassdfassdfassdfas
+        //                            sdfassdfassdfassdfassdfassdfassdfas
+        //                            sdfassdfassdfassdfassdfassdfas
+        //                        </p>
+        //
+        //                    </div>
+        //
+        //
+        //                    <div className="col cal-text-wrap">
+        //                        {swimmer.name}
+        //                    </div>
+        //
+        //                </div>
+        //
+        //            </RC.Item>
+        //        })}
+        //    </RC.List>
+        //</div>
+
+
+
+
         //debugger
 
         return <div>

@@ -10,13 +10,13 @@ Cal.CRRegistraionInfoPage = React.createClass({
     },
 
     render() {
+
         return <div >
-            <RC.Card title="registraRoninfo">
-                <p class="padding">
+            <RC.Card title="registraRoninfo" className="padding">
+                <p >
                     sfas
                     sfasf
                     fasf
-
                 </p>
             </RC.Card>
 
