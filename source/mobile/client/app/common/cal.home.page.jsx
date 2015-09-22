@@ -1,6 +1,6 @@
 Cal.Home = React.createClass({
     render() {
-        return <RC.List>
+        return <RC.List className="padding">
             <RC.Item theme="text-wrap">
                 <p>Test home page</p>
             </RC.Item>
@@ -24,7 +24,7 @@ Cal.Home = React.createClass({
                     Register Classe
                 </RC.Button>
             </RC.URL>
-            <RC.URL href="/registraionInfoPage">
+            <RC.URL href="/classRegister/BookTheSameTimePage">
                 <RC.Button name="button" theme="full" buttonColor="brand">
                     Book The Same Time
                 </RC.Button>

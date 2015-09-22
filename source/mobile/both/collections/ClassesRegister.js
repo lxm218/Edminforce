@@ -6,7 +6,8 @@ DB.ClassesRegister = new Mongo.Collection('classesRegister');
 DB.Schema.ClassesRegisterShoppingCard= new SimpleSchema({
 
     shoppingCardId: {
-        type: String
+        type: String,
+        optional: true
     },
     timestamp: {
         type: Date,
