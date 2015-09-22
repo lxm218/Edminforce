@@ -13,19 +13,20 @@ Cal.ClassEditSwimmerItemClassItem = React.createClass({
 
 
         return {
-            classInfo:DB.Classes.find({_id:classId}).fetch()[0]
+            classInfo:DB.Classes.find({_id:classId}).fetch()
         };
     },
 
     render() {
-        let href= '/classEdit/'+this.props.registerInfo.classId+'/operationBoard';
+        let href='/classEdit/'+this.props.registerInfo.classId+'/operationBoard'
 
         return <p>
-            <RC.URL href={href}>
-                {this.data.classInfo && this.data.classInfo.name}
-                { this.data.classInfo && this.data.classInfo.level}
-                {this.props.registerInfo.registerDate.toTimeString()}
-            </RC.URL>
+            {
+                this.data.classInfo.length?<a  href={href}>
+                    {this.data.classInfo[0].name}
+                    { this.data.classInfo[0].level}
+                </a>:''
+            }
         </p>
     }
 });
