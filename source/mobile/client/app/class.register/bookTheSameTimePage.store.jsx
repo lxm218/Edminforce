@@ -1,5 +1,5 @@
 /**
- * Created on 9/15/15.
+ * Created on 9/20/15.
  */
 
 
@@ -10,7 +10,7 @@
     });
 
 
-    Dependency.add('classRegister.SelectClassPage.store', new function () {
+    Dependency.add('classRegister.bookTheSameTimePage.store', new function () {
 
         var self = this;
 
@@ -66,7 +66,7 @@
         self.tokenId = Dispatcher.register(function (payload) {
             switch (payload.actionType) {
 
-                case "CRSelectClassPage_SWIMMER_CHANGE": //选择swimmer  level可能会变
+                case "BookTheSameTime_SWIMMER_CHANGE": //选择swimmer  level可能会变
                 {
                     let swimmer = payload.swimmer
 
@@ -77,7 +77,7 @@
 
                     break;
                 }
-                case "CRSelectClassPage_DAY_CHANGE"://选择day
+                case "BookTheSameTime_DAY_CHANGE"://选择day
                 {
                     debugger
 
@@ -85,7 +85,7 @@
                     break;
                 }
 
-                case "CRSelectClassPage_TIME_CHANGE"://选择time  确定一个class
+                case "BookTheSameTime_TIME_CHANGE"://选择time  确定一个class
                 {
                     debugger
                     self.currentTime.set(payload.time)
@@ -93,7 +93,7 @@
                 }
 
 
-                case "CRSelectClassPage_CLASS_SELECT"://select确定
+                case "BookTheSameTime_CLASS_SELECT"://select确定
                 {
                     debugger
 
@@ -143,7 +143,7 @@
                             if(err) return;
 
                             self.currentStep.set(3),
-                            resetDateAndTime()
+                                resetDateAndTime()
                         })
 
 
@@ -180,29 +180,16 @@
                     break;
                 }
 
-                case "GOTO_CRSelectClassPage":
-                {
-                    //清空上一轮的选择
-
-                    self.currentDay.set(undefinedSelectValue)
-                    self.currentTime.set(undefinedSelectValue)
-                    self.currentClass.set(null)
-                    self.currentStep.set(1)
-                    //self.avaiableDays //依赖于 当前的currentLevel
-                    //self.avaiableTimes //依赖于 当前选中的currentDay
-
-                }
-
             }
         });
 
 
         /*
-        *
-        * ********************* wait for ******************
-        * wrap in Meteor.startup for Tracker.autorun can run before cellections loaded
-        *
-        * */
+         *
+         * ********************* wait for ******************
+         * wrap in Meteor.startup for Tracker.autorun can run before cellections loaded
+         *
+         * */
 
         Meteor.startup(function () {
             //初始化swimmer and level
@@ -312,4 +299,3 @@
 
     });
 }
-

@@ -4,13 +4,13 @@
 
 
 {
-    let CRSelectClassPageStore;
+    let PageStore;
     Dependency.autorun(function () {
-        CRSelectClassPageStore = Dependency.get('classRegister.SelectClassPage.store');
+        PageStore = Dependency.get('classRegister.bookTheSameTimePage.store');
     });
 
 
-    Cal.CRSelectClassPage = React.createClass({
+    Cal.CRBookTheSameTimePage = React.createClass({
         mixins: [ReactMeteorData],
         getMeteorData() {
 
@@ -24,20 +24,20 @@
             var data = {
                 account: Meteor.users.find().fetch(),
 
-                swimmers: CRSelectClassPageStore.getSwimmers().fetch(),
+                swimmers: PageStore.getSwimmers().fetch(),
 
-                currentSwimmer: CRSelectClassPageStore.currentSwimmer.get(),
+                currentSwimmer: PageStore.currentSwimmer.get(),
 
                 //should wait for currentSwimmer
-                avaiableDays: CRSelectClassPageStore.avaiableDays.get(),
-                avaiableTimes: CRSelectClassPageStore.avaiableTimes.get(),
-                currentDay: CRSelectClassPageStore.currentDay.get(),
-                currentTime: CRSelectClassPageStore.currentTime.get(),
+                avaiableDays: PageStore.avaiableDays.get(),
+                avaiableTimes: PageStore.avaiableTimes.get(),
+                currentDay: PageStore.currentDay.get(),
+                currentTime: PageStore.currentTime.get(),
 
-                currentStep: CRSelectClassPageStore.currentStep.get(),
+                currentStep: PageStore.currentStep.get(),
 
                 //一次选课流程的所有信息
-                selectedClasses: CRSelectClassPageStore.selectedClasses.get()
+                selectedClasses: PageStore.selectedClasses.get()
 
             }
 
@@ -56,7 +56,7 @@
             })
 
             Dispatcher.dispatch({
-                actionType: "CRSelectClassPage_SWIMMER_CHANGE",
+                actionType: "BookTheSameTime_SWIMMER_CHANGE",
                 swimmer: swimmer
             });
 
@@ -66,7 +66,7 @@
             value = parseInt(value, 10)
 
             Dispatcher.dispatch({
-                actionType: "CRSelectClassPage_DAY_CHANGE",
+                actionType: "BookTheSameTime_DAY_CHANGE",
                 day: value
             });
 
@@ -76,7 +76,7 @@
             var value = this.refs.time.getValue()
             value = parseInt(value, 10)
             Dispatcher.dispatch({
-                actionType: "CRSelectClassPage_TIME_CHANGE",
+                actionType: "BookTheSameTime_TIME_CHANGE",
                 time: value
             });
 
@@ -97,7 +97,7 @@
             }
 
             Dispatcher.dispatch({
-                actionType: "CRSelectClassPage_CLASS_SELECT",
+                actionType: "BookTheSameTime_CLASS_SELECT",
                 currentStep: this.data.currentStep,
                 selectedClass: formData
             });
@@ -122,25 +122,26 @@
             //debugger
 
             return <div>
-                <RC.Card key={Math.random()} className="padding">
+                <RC.Card key={Math.random()}>
 
 
-                    <h4 className="brand">Register for spring 2015</h4>
-                    <div className="row">
-                        <div className="col">
-                            {swimmer && swimmer.name}
-                        </div>
-                        <div className="col">
+                    <h2 className="brand">Register for spring 2015</h2>
 
-                            {class1 && class1.name}
-                            <br/>
-                            {class2 && class2.name}
-                            <br/>
-                            {class3 && class3.name}
+                    <p>
+                        {swimmer && swimmer.name}
+                    </p>
 
-                        </div>
-                    </div>
+                    <p>
+                        {class1 && class1.name}
+                    </p>
 
+                    <p>
+                        {class2 && class2.name}
+                    </p>
+
+                    <p>
+                        {class3 && class3.name}
+                    </p>
 
 
                 </RC.Card>
@@ -189,20 +190,8 @@
                         <RC.Button name="button" type="submit"
                                    onClick={this.formSubmit}
                                    theme="full" buttonColor="brand">
-                            {this.data.currentStep == 1 ? 'Book':'Select'}
+                            Book The Same Time
                         </RC.Button>
-
-
-                        {
-                            this.data.currentStep == 1 ?
-                                <RC.URL href="/classRegister/AddWaitingList">
-                                    <RC.Button name="button" type="submit"
-                                               theme="full" buttonColor="brand">
-                                        Waiting List
-                                    </RC.Button>
-                                </RC.URL>
-                                : ''
-                        }
 
 
                     </RC.List>
