@@ -1,13 +1,13 @@
 
 
-DefaultRoutes.route('/classEditSwimmerList', {
-    name: "home",
+DefaultRoutes.route('/classEdit/swimmerList', {
+    name: "swimmerList",
     action: function (p) {
         App.routeHandler(p, {
             pageTitle: "Your Swimmers",
             showGlobalNav: false,
             headerNav: null,
-            bodyTmpl: <Cal.ClassEditSwimmerListPage/>
+            bodyTmpl: <Cal.CESwimmerListPage/>
         })
     }
 })
@@ -20,6 +20,19 @@ FlowRouter.route('/classEditSwimmer/:swimmerId/registeredClass', {
             showGlobalNav: false,
             headerNav: null,
             bodyTmpl: <Cal.SwimmerRegisteredClassPage {...p} />
+        })
+    }
+})
+
+
+DefaultRoutes.route('/classEdit/billingAndPayment', {
+    name: "CEBillingAndPayment",
+    action: function (p) {
+        App.routeHandler(p, {
+            pageTitle: "CEBillingAndPayment",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CEBillingAndPayment/>
         })
     }
 })

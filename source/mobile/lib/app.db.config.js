@@ -21,6 +21,5 @@ Meteor.startup(function () {
     }
 
 
-debugger
 })
 

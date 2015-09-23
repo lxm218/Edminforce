@@ -15,13 +15,13 @@
             href: "/",
             text: "Your Account"
         }, {
-            href: "/classEditSwimmerList",
+            href: "/classEdit/swimmerList",
             text: "Your Swimmers"
         }, {
-            href: "/",
+            href: "/classEdit/billingAndPayment",
             text: "Your BIlling & Payment"
         }, {
-            href: "/",
+            href: "/ContactInfoPage",
             text: "Contact Us"
         }, {
             href: "/",

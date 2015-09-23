@@ -1,4 +1,4 @@
-Cal.ClassEditSwimmerListPage = React.createClass({
+Cal.CESwimmerListPage = React.createClass({
 
     mixins: [ReactMeteorData],
     getMeteorData() {
