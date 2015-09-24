@@ -52,11 +52,11 @@ DB.Schema.Swimmers = new SimpleSchema({
     registerAt:{
         type: Date,
         optional: true
-    }//,
-    //classes:{
-    //    type: [Object],  //｛class ids  ，register date｝
-    //    optional: true
-    //}
+    },
+    classes:{
+        type: [String],  //｛class ids  ，register date｝?
+        optional: true
+    }
 
 
 });

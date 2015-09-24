@@ -2,6 +2,9 @@
  * Created on 9/19/15.
  */
 
+//@@@@@@@@@ TODO this file is not used now and will be deleted later.
+//All the logic have been moved to server side as meteor.methods
+
 //ShoppingCart  购物车操作函数
 //不是一个store 所以不接受消息，可暴露set函数。 在需要的地方直接引用和调用
 //todo 购物车的所有操作全部通过 Meteor.call 完成？ 检查哪些数据避免暴露到前端
@@ -87,7 +90,7 @@
                         err && console.error(err)
 
                         //添加选课纪录
-                        addClassRegister(cartId, item)
+                        if(!err) addClassRegister(cartId, item)
                     })
 
             } else {
@@ -106,7 +109,7 @@
                         return
                     }
                     //添加选课纪录
-                    addClassRegister(cartId, item)
+                    if(!err) addClassRegister(cartId, item)
                 })
             }
 

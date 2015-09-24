@@ -110,15 +110,30 @@
                         self.selectedClasses.set(map)
 
 
-                        ShoppingCart.addShoppingItem(
-                            {
-                                swimmer: currentSwimmer,
-                                class1: currentClass
-                            }
-                        );
+                        //ShoppingCart.addShoppingItem(
+                        //    {
+                        //        swimmer: currentSwimmer,
+                        //        class1: currentClass
+                        //    }
+                        //);
 
-                        self.currentStep.set(2)
-                        resetDateAndTime();
+
+                        Meteor.call('add_class_to_cart',{
+                            swimmerId:currentSwimmer._id,
+                            classId:currentClass._id,
+                            quantity:1 ,
+                            swimmer:currentSwimmer,
+                            class1:currentClass
+                        },function(err,result){
+                            if(err) return; //todo  prompt
+
+                            self.currentStep.set(2)
+                            resetDateAndTime();
+                        })
+
+
+
+
 
                     }
 
@@ -135,16 +150,33 @@
                         let class1 =map.get('class1')
 
 
-                        ShoppingCart.addClassPreference(2,{
-                            'swimmer': swimmer,
-                            'class1':  class1,
-                            data: currentClass
-                        },function(err,result){
-                            if(err) return;
 
-                            self.currentStep.set(3),
+
+                        //ShoppingCart.addClassPreference(2,{
+                        //    'swimmer': swimmer,
+                        //    'class1':  class1,
+                        //    data: currentClass
+                        //},function(err,result){
+                        //    if(err) return;
+                        //
+                        //    self.currentStep.set(3),
+                        //    resetDateAndTime()
+                        //})
+
+                        Meteor.call('add_preference_to_cart',{
+                            preferenceNum:2,
+
+                            classId:class1._id,
+                            swimmerId:swimmer._id,
+                            data:currentClass
+                        },function(err){
+                            if(err) return; //todo  prompt
+
+                            self.currentStep.set(3)
                             resetDateAndTime()
                         })
+
+
 
 
 
@@ -164,15 +196,27 @@
                         let swimmer = map.get('swimmer')
                         let class1 =map.get('class1')
 
-                        ShoppingCart.addClassPreference(3,{
-                            'swimmer': swimmer,
-                            'class1':   class1,
+                        //ShoppingCart.addClassPreference(3,{
+                        //    'swimmer': swimmer,
+                        //    'class1':   class1,
+                        //    data:currentClass
+                        //},function(err,result){
+                        //    if(err) return;
+                        //
+                        //    FlowRouter.go('/classRegister/SelectClassReady');
+                        //
+                        //})
+
+                        Meteor.call('add_preference_to_cart',{
+                            preferenceNum:3,
+
+                            classId:class1._id,
+                            swimmerId:swimmer._id,
                             data:currentClass
-                        },function(err,result){
-                            if(err) return;
+                        },function(err){
+                            if(err) return; //todo  prompt
 
                             FlowRouter.go('/classRegister/SelectClassReady');
-
                         })
 
                     }
@@ -190,6 +234,9 @@
                     self.currentStep.set(1)
                     //self.avaiableDays //依赖于 当前的currentLevel
                     //self.avaiableTimes //依赖于 当前选中的currentDay
+
+                    self.selectedClasses.set(Immutable.Map())
+
 
                 }
 

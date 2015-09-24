@@ -2,6 +2,27 @@
 DB.Classes = new Mongo.Collection('classes');
 
 
+
+DB.Schema.ClassesShoppingCart= new SimpleSchema({
+
+    cartId: {
+        type: String,
+        optional: true
+    },
+    swimmerId:{
+        type: String,
+        optional: true
+    },
+    quantity:{
+        type: Number
+    },
+    timestamp: {
+        type: Date
+    }
+});
+
+
+
 DB.Schema.Classes = new SimpleSchema({
     name: {
         type: String
@@ -27,8 +48,27 @@ DB.Schema.Classes = new SimpleSchema({
     endTime: {
         type: Number
     },
+    price:  {
+        type: Number
+    },
 
-    //课程 开始结束日期 一般同session的开始结束日期？
+    carted:{
+        type: [DB.Schema.ClassesShoppingCart],
+        optional: true
+    },
+
+    seatsTotal:{
+        type: Number
+    },
+    seatsRemain:{
+        type: Number
+    },
+    students:{
+        type: [String],  //students ids
+        optional: true
+    },
+
+    ///////////////////////////////////////////////
     startDate: {
         type: Date,
         optional: true
@@ -46,10 +86,9 @@ DB.Schema.Classes = new SimpleSchema({
         type: String,
         optional: true
     },
-
-
     type: {
-        type: String
+        type: String,
+        optional: true
     },
     coachId: {
         type: String,
@@ -59,20 +98,8 @@ DB.Schema.Classes = new SimpleSchema({
         type: String,
         optional: true
 
-    },
-    availableSeats:  { //课程的人数上限  剩余空位另行计算
-        type: Number
-
-    },
-    price:  {
-        type: Number
-    },
-
-    students:{
-        type: [String],  //students ids
-        optional: true
     }
-
 });
+
 
 DB.Classes.attachSchema(DB.Schema.Classes)

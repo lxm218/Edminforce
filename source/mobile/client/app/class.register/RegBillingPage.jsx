@@ -41,7 +41,7 @@ Cal.CRRegBillingPage = React.createClass({
             }
 
             <br/><br/>
-            <RC.URL href="#">
+            <RC.URL href="/classRegister/paymentOptionsPage">
                 <RC.Button name="button" type="submit"
                            theme="full" buttonColor="brand">
                     Process To Checkout

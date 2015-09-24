@@ -15,15 +15,25 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
     accountId: {
         type: String
     },
+    //sessionId:{
+    //    type: String,
+    //    optional: true
+    //},
 
     /*
      *
-     * init      购物车创建的初始状态  创建后到checking之间有时间限制？
-     * checking  用户点击了checkout 规定时间操作未完成 应当置为canceled 并恢复可选课程
-     *
-     * canceled
-     * complete
-     *
+         active
+         pending
+         checking
+         applied
+         done
+
+         expiring
+         expired
+
+         canceling
+         canceled
+
      *
      * */
     status: {
@@ -56,7 +66,23 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
     },
 
 
-    //sessionId classID swimmerID
+    /*
+        添加class或取消class
+        {
+        type=='add'
+        sessionId swimmerId classId, quantity
+        swimmer class1 class2 class3
+        }
+
+        change class
+        {
+            type=='change'
+            sessionId, swimmerId,
+            fromClass, toClass
+        }
+
+    * */
+    //
     items: {
         type: [Object],
         optional: true,
