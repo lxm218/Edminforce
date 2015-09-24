@@ -17,7 +17,7 @@ Meteor.startup(function () {
             name: 'swimmer1',
             accountId: 'account1',
             location:'Fremont',
-            level:'RCR III'
+            level:'BUB I'
 
         });
 
@@ -26,7 +26,7 @@ Meteor.startup(function () {
             name: 'swimmer2',
             accountId: 'account1',
             location:'Fremont',
-            level:'RCR I'
+            level:'BUB I'
 
         });
 

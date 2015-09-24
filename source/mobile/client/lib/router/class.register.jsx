@@ -56,6 +56,30 @@ DefaultRoutes.route('/classRegister/RegBillingPage', {
         })
     }
 })
+DefaultRoutes.route('/classRegister/paymentOptionsPage', {
+    name: "CRPaymentOptionsPage",
+    action: function (p) {
+        App.routeHandler(p, {
+            pageTitle: "CRPaymentOptionsPage",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CRPaymentOptionsPage/>
+        })
+    }
+})
+DefaultRoutes.route('/classRegister/paymentInstoreConfirm', {
+    name: "CRPaymentInstoreConfirm",
+    action: function (p) {
+        App.routeHandler(p, {
+            pageTitle: "CRPaymentInstoreConfirm",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CRPaymentInstoreConfirm/>
+        })
+    }
+})
+
+
 
 
 DefaultRoutes.route('/classRegister/AddWaitingList', {
