@@ -128,6 +128,14 @@ IH.RC.User = React.createClass({
       msg: null,
     })
   },
+  jumpToNextPage(e){
+    e.preventDefault()
+    this.setState({
+      waiting: false,
+      msg: null,
+    })
+    FlowRouter.go("/auth")
+  },
   /**
    * @ @ @ @
    * Render
@@ -144,7 +152,7 @@ IH.RC.User = React.createClass({
         return <div className={"abs-full table on-top"+(bg ? " bg-"+bg : "")} key={n}>
           <div className="inside center">
             {_.isString(m) ? <p>{m}</p> : m}
-            <RC.Button onClick={self.removeMsg} theme="circle" buttonColor={bg}>OK</RC.Button>
+            <RC.Button onClick={self.jumpToNextPage} theme="circle" buttonColor={bg}>OK!!!</RC.Button>
           </div>
         </div>
       })
@@ -190,6 +198,8 @@ IH.RC.User = React.createClass({
       +(this.props.noHeader ? " no-header" : "")
       +(h.checkColorClass(this.props.bgColor) ? " bg-"+this.props.bgColor : "")
       +(this.props.alignTop ? "" : " table")
+
+    debugger
 
     return <div {... _.omit(this.props, ["className","theme"])} className={classes}>
       {this.renderMsg()}

@@ -37,8 +37,16 @@ html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
 id-map@1.0.3
+ihealth:bg5@0.0.1
+ihealth:bp5@0.2.1
+ihealth:chat-engine@0.1.2
+ihealth:dev-tools@0.0.1
+ihealth:devices-stub@0.0.1
+ihealth:devices-ui@0.3.1
 ihealth:framework-engine@0.3.1
 ihealth:framework-mobile@0.3.1
+ihealth:react-chartist@0.1.0
+ihealth:users@0.1.0
 ihealth:utils@0.1.5
 insecure@1.0.3
 jquery@1.11.3_2
@@ -66,6 +74,7 @@ mobile-status-bar@1.0.3
 momentjs:moment@2.10.6
 mongo@1.1.0
 msavin:mongol@1.1.5
+mystor:device-detection@0.1.6
 npm-bcrypt@0.7.8_2
 observe-sequence@1.0.6
 ordered-dict@1.0.3

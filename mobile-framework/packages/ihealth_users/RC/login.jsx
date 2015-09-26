@@ -144,7 +144,7 @@ IH.RC.User = React.createClass({
         return <div className={"abs-full table on-top"+(bg ? " bg-"+bg : "")} key={n}>
           <div className="inside center">
             {_.isString(m) ? <p>{m}</p> : m}
-            <RC.Button onClick={self.removeMsg} theme="circle" buttonColor={bg}>OK</RC.Button>
+            <RC.Button onClick={self.removeMsg} theme="circle" buttonColor={bg}>OK!!!</RC.Button>
           </div>
         </div>
       })
