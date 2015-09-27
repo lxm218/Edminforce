@@ -4,7 +4,11 @@ Cal.Home = React.createClass({
             <RC.Item theme="text-wrap">
                 <p>Test home page</p>
             </RC.Item>
-            <RC.Item theme="divider">Auth模块</RC.Item>
+            <RC.URL href="/auth">
+                <RC.Button name="button" theme="full" buttonColor="brand">
+                    Authentication Module
+                </RC.Button>
+            </RC.URL>
 
             <RC.Item theme="divider">用户信息编辑模块</RC.Item>
 
