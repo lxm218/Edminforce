@@ -21,14 +21,35 @@ DB.Schema.ClassesRegister = new SimpleSchema({
         type: String  //即使后台直接注册也会产生 cart
     },
 
-    timestamp: {
+    timestamp: {//todo change to lastModified
         type: Date,
         autoValue: function () {
             if (this.isUpdate || this.isInsert || this.isUpsert) {
                 return new Date();
             }
-        }
+        },
+        optional: true
+    },
+    registerTime:{ //从购物车获取
+        type: Date,
+        optional: true
+    },
+
+    //可能是normal canceling 或changing
+    status: {
+        type: String,
+        optional: true,
+        allowedValues:['normal','canceling','changing'],
+        defaultValue:'normal'
+    },
+    //在 cancel和change class时标记
+    carted:{
+        //type: [DB.Schema.ClassesShoppingCart],
+        type: [String], //存储cancel和change类型的购物车id
+        optional: true,
+        blackbox: true
     }
+
 
 });
 

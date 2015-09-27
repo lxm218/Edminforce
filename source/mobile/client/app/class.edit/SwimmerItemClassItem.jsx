@@ -7,18 +7,27 @@ Cal.ClassEditSwimmerItemClassItem = React.createClass({
         //account swimmers classes
         //Meteor.subscribe("accountWithSwimmersAndClasses",'account1');
 
-        let classId = this.props.registerInfo.classId;
+        let registerInfo = this.props.registerInfo
+        let classId = registerInfo.classId;
+        let swimmerId= registerInfo.swimmerId
 
         Meteor.subscribe("class",classId);
+        Meteor.subscribe("swimmer",swimmerId);
 
 
         return {
+            swimmer:DB.Swimmers.find({_id:swimmerId}).fetch(),
             classInfo:DB.Classes.find({_id:classId}).fetch()
         };
     },
 
     render() {
-        let href='/classEdit/'+this.props.registerInfo.classId+'/operationBoard'
+        let registerInfo = this.props.registerInfo
+
+        let href='/classEdit/operationBoard?'
+                +'classId='+encodeURIComponent(registerInfo.classId)
+                +'&swimmerId='+registerInfo.swimmerId
+                +'&registerInfoId='+registerInfo._id
 
         return <p>
             {

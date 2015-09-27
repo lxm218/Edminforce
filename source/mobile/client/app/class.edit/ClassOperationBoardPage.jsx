@@ -7,36 +7,59 @@ Cal.ClassOperationBoardPage = React.createClass({
     mixins: [ReactMeteorData],
     getMeteorData() {
         return {}
+        //let classId = this.props.classId;
+        //let swimmerId= this.props.swimmerId
+        //
+        //Meteor.subscribe("class",classId);
+        //Meteor.subscribe("swimmer",swimmerId);
+        //
+        //return {
+        //    swimmer:DB.Swimmers.findOne({_id:swimmerId}),
+        //    class:DB.Classes.findOne({_id:classId})
+        //
+        //}
     },
 
     render() {
 
         let classId = this.props.classId;
+        let swimmerId= this.props.swimmerId
+
+        debugger
 
         let colours = [{
             uiColor: "brand",
             value: "Change Class",
-            href:'/classEdit/'+classId+'/change'
+            href:'/classEdit/change'
+                    +'?classId='+classId
+                    +'&swimmerId='+swimmerId
 
         },{
             uiColor: "brand1",
             value: "Cancel Class",
-            href:'/classEdit/'+classId+'/cancel'
-        },{
-            uiColor: "brand2",
-            value: "Shedule Meeting",
-            href:'/classEdit/'+classId+'/sheduleMeeting'
-        },{
+            href:'/classEdit/cancel'
+                +'?classId='+classId
+                +'&swimmerId='+swimmerId
+        },
+        //    {
+        //    uiColor: "brand2",
+        //    value: "Shedule Meeting",
+        //    href:'/classEdit/'+classId+'/sheduleMeeting'
+        //},
+            {
             uiColor: "brand3",
             value: "Write Comment",
-            href:'/classEdit/'+classId+'/writeComment'
+            href:'/classEdit/writeComment'
+                    +'?classId='+classId
+                    +'&swimmerId='+swimmerId
         }]
 
         return <RC.List >
-            <RC.Item theme="body">
-                <h2 className="brand">Class Info</h2>
-                <p>There are several collections of CSS colour classes in the framework. Some can be controlled from the scss.scss file, others must be overriden.</p>
-            </RC.Item>
+
+            <Cal.ClassRegisterDetail
+                classId={this.props.classId}
+                swimmerId={this.props.swimmerId}
+                />
 
             {
                 colours.map(function(c,n){

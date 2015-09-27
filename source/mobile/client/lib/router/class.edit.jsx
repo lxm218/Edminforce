@@ -38,40 +38,59 @@ DefaultRoutes.route('/classEdit/billingAndPayment', {
 })
 
 ////////////////////////////////////////
-DefaultRoutes.route('/classEdit/:classId/operationBoard', {
+DefaultRoutes.route('/classEdit/operationBoard', {
     name: "home",
-    action: function (p) {
+    action: function (p,query) {
         App.routeHandler(p, {
             pageTitle: "Class Operation",
             showGlobalNav: false,
             headerNav: null,
-            bodyTmpl: <Cal.ClassOperationBoardPage {...p}  />
+            bodyTmpl: <Cal.ClassOperationBoardPage {...p} {...query} />
         })
     }
 })
-DefaultRoutes.route('/classEdit/:classId/change', {
+DefaultRoutes.route('/classEdit/change', {
     name: "home",
-    action: function (p) {
+    action: function (p , query) {
         App.routeHandler(p, {
             pageTitle: "Class Operation",
             showGlobalNav: false,
             headerNav: null,
-            bodyTmpl: <Cal.ChangeClassPage {...p}  />
+            bodyTmpl: <Cal.ChangeClassPage {...p} {...query} />
         })
     }
 })
-DefaultRoutes.route('/classEdit/:classId/cancel', {
+
+
+DefaultRoutes.route('/classEdit/cancel', {
     name: "home",
-    action: function (p) {
+    action: function (p, query) {
         App.routeHandler(p, {
             pageTitle: "Class Operation",
             showGlobalNav: false,
             headerNav: null,
-            bodyTmpl: <Cal.CancelClassPage {...p}  />
+            bodyTmpl: <Cal.CECancelClassPage {...p} {...query} />
         })
     }
 })
-DefaultRoutes.route('/classEdit/:classId/changeBilling', {
+DefaultRoutes.route('/classEdit/CancelClassConfirmPage', {
+    name: "home",
+    action: function (p, query) {
+        App.routeHandler(p, {
+            pageTitle: "CancelClassConfirmPage",
+            showGlobalNav: false,
+            headerNav: null,
+            bodyTmpl: <Cal.CECancelClassConfirmPage {...p}  {...query}/>
+        })
+    }
+})
+
+
+
+
+
+
+DefaultRoutes.route('/classEdit/ChangeClassBillingPage', {
     name: "home",
     action: function (p) {
         App.routeHandler(p, {
@@ -83,7 +102,7 @@ DefaultRoutes.route('/classEdit/:classId/changeBilling', {
     }
 })
 
-DefaultRoutes.route('/classEdit/:classId/sheduleMeeting', {
+DefaultRoutes.route('/classEdit/sheduleMeeting', {
     name: "home",
     action: function (p) {
         App.routeHandler(p, {
@@ -94,7 +113,7 @@ DefaultRoutes.route('/classEdit/:classId/sheduleMeeting', {
         })
     }
 })
-DefaultRoutes.route('/classEdit/:classId/writeComment', {
+DefaultRoutes.route('/classEdit/writeComment', {
     name: "home",
     action: function (p) {
         App.routeHandler(p, {

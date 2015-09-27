@@ -9,7 +9,26 @@ Cal.CRPaymentInstoreConfirm = React.createClass({
         return {}
     },
 
+    paied:function(){
+
+        Meteor.call('move_to_applied',Session.get('CART_ID'),function(err,result){
+            if(err) console.error(err)
+
+            alert('payment success')
+
+        })
+
+    },
     render() {
-        return <div>CRPaymentInstoreConfirm</div>
+        return <div>
+            CRPaymentInstoreConfirm
+
+
+            <RC.Button name="button" type="submit"
+                       onClick={this.paied}
+                       theme="full" buttonColor="brand">
+                [test]Complete payment
+            </RC.Button>
+        </div>
     }
 })

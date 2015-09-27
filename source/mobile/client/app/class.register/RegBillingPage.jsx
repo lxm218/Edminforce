@@ -6,11 +6,13 @@ Cal.CRRegBillingPage = React.createClass({
 
     mixins: [ReactMeteorData],
     getMeteorData() {
-        Meteor.subscribe("activeShopingCart");
+        Meteor.subscribe("activeShoppingCart");
 
         return {
             //当前的 ShoppingCart
-            ShoppingCart: DB.ShoppingCart.findOne()
+            ShoppingCart: DB.ShoppingCart.findOne({
+                status:'active'
+            })
         }
     },
 

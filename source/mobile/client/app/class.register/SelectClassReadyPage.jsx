@@ -57,18 +57,11 @@
                             <RC.Button name="button" type="submit"
                                        onClick={this.formSubmit}
                                        theme="full" buttonColor="brand">
-                                Register more swimmer
+                                Select More
                             </RC.Button>
 
                         </RC.URL>
-                        <RC.URL href="/classRegister/SelectClass">
-                            <RC.Button name="button" type="submit"
-                                       onClick={this.formSubmit}
-                                       theme="full" buttonColor="brand">
-                                Register more classes
-                            </RC.Button>
 
-                        </RC.URL>
 
                         <RC.URL href="#">
                             <RC.Button name="button" type="submit"

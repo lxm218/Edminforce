@@ -15,10 +15,10 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
     accountId: {
         type: String
     },
-    //sessionId:{
-    //    type: String,
-    //    optional: true
-    //},
+    sessionId:{
+        type: String,
+        optional: true //todo remove
+    },
 
     /*
      *
@@ -39,6 +39,17 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
     status: {
         type: String
     },
+
+    /*
+    * 购物车添加类型，cancel ，change独立于register另建购物车 方便事务中恢复逻辑的实现
+    * 否则一个中断于pending时购物车中若同时存在三种项目 会增加恢复执行或回滚的复杂性
+    * */
+    type:{
+        type: String,
+        allowedValues:['register','cancel','change'],
+        defaultValue:'register'
+    },
+
     lastModified: {   //用于计算超时 清空购物车
         type: Date,
         autoValue: function () {
@@ -53,12 +64,16 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
             }
         }
     },
+    appliedTime:{//完成交易 设置applied的时间
+        type: Date,
+        optional: true
+    },
     /*
      *
-     * inStore 和 now  两种的超时时间不一样
+     * 两种类型的超时时间不一样
      *
-     * inStore  24h
-     * now  15 minutes
+     * pay-in-store  24h
+     * pay-now   15 minutes
      * */
     checkoutType: {
         type: String,
@@ -70,7 +85,8 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
         添加class或取消class
         {
         type=='add'
-        sessionId swimmerId classId, quantity
+        sessionId   //todo remove
+        swimmerId classId, quantity
         swimmer class1 class2 class3
         }
 

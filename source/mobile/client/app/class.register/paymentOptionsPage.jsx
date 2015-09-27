@@ -2,6 +2,8 @@
  * Created on 9/23/15.
  */
 
+
+
 Cal.CRPaymentOptionsPage = React.createClass({
 
     mixins: [ReactMeteorData],
@@ -19,7 +21,7 @@ Cal.CRPaymentOptionsPage = React.createClass({
     payInStore(){
         alert('payInStore')
 
-        Meteor.call('beginChecking','pay-in-store',function(err,result){
+        Meteor.call('move_to_checking',Session.get('CART_ID'),'pay-in-store',function(err,result){
             if(err) return;
 
             FlowRouter.go('/classRegister/paymentInstoreConfirm');

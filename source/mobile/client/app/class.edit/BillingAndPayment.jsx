@@ -24,18 +24,18 @@
 
             //尚未支付的订单 status  [active , checking]
             //active还未选择支付方式  checking已选择pay－now or pay－in－store
-            let nowBillings = DB.ShoppingCart.find({
+            let unfinishedBillings = DB.ShoppingCart.find({
                 accountId: 'account1',
                 status: {
-                    $in: ['status', 'checking']
+                    $in: ['active', 'checking','applied']
                 }
             }).fetch()
 
-
+            debugger
 
             return {
                 historyBillings: historyBillings,
-                activeBillings: nowBillings
+                unfinishedBillings: unfinishedBillings
             }
         },
 
@@ -43,15 +43,46 @@
 
         render() {
             return <RC.Tabs className="bg-white">
-                <div label="current billing" className="padding">
-                    <h1>
-                        current
-                    </h1>
+                <div label="Unfinished Billing" className="padding">
+
+
+                    {
+                        this.data.unfinishedBillings.map(function (cart) {
+
+                            return <div className="row" key={cart._id}>
+                                <div className="col">
+                                    {cart.accountId}
+                                </div>
+                                <div className="col">
+                                    {
+                                        cart.items.map(function (item) {
+
+                                            return <div>
+                                                {item.swimmerId}|
+                                                {item.classId}
+                                            </div>
+                                        })
+                                    }
+
+                                </div>
+                            </div>
+                        })
+                    }
+
+
+                    <RC.URL href="/classRegister/RegBillingPage">
+                        <RC.Button name="button" type="submit"
+                                   onClick={this.formSubmit}
+                                   theme="full" buttonColor="brand">
+                            Checkout
+                        </RC.Button>
+
+                    </RC.URL>
+
+
                 </div>
-                <div label="history pament" className="padding">
-                    <h1>
-                        history
-                    </h1>
+                <div label="History Payment" className="padding">
+
                     {
                         this.data.historyBillings.map(function (cart) {
 
