@@ -5,10 +5,10 @@ Cal.CESwimmerListPage = React.createClass({
 
         //Meteor.subscribe("accountWithSwimmersAndClasses", 'account1');
 
-        Meteor.subscribe("swimmersByAccountId", 'account1');
+        Meteor.subscribe("swimmersByAccountId", Meteor.userId());
 
         return {
-            swimmers: DB.Swimmers.find({accountId: 'account1'}).fetch()
+            swimmers: DB.Swimmers.find({accountId: Meteor.userId()}).fetch()
         };
     },
 
