@@ -12,7 +12,7 @@
         {
             href: "/", text: "Home"
         }, {
-            href: "/",
+            href: "/account",
             text: "Your Account"
         }, {
             href: "/classEdit/swimmerList",
@@ -24,8 +24,15 @@
             href: "/ContactInfoPage",
             text: "Contact Us"
         }, {
-            href: "/",
-            text: "Sign Out"
+            //href: "/",
+            text: "Sign Out",
+            onClick:function(){
+
+                Dispatcher.dispatch({actionType:'LEFT_NAV_CLOSE'})
+                Dispatcher.dispatch({actionType:'AUTH_LOGOUT'})
+
+
+            }
         }]
 
 
