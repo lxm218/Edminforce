@@ -11,21 +11,21 @@
         getMeteorData() {
 
 
-            Meteor.subscribe("historyShoppingCart", 'account1');
-            Meteor.subscribe("nowShoppingCart", 'account1');
+            Meteor.subscribe("historyShoppingCart", Meteor.userId());
+            Meteor.subscribe("nowShoppingCart", Meteor.userId());
 
 
 
             //status==done
             let historyBillings = DB.ShoppingCart.find({
-                accountId: 'account1',
+                accountId: Meteor.userId(),
                 status: 'done'
             }).fetch()
 
             //尚未支付的订单 status  [active , checking]
             //active还未选择支付方式  checking已选择pay－now or pay－in－store
             let unfinishedBillings = DB.ShoppingCart.find({
-                accountId: 'account1',
+                accountId: Meteor.userId(),
                 status: {
                     $in: ['active', 'checking','applied']
                 }

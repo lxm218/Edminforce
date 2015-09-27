@@ -19,7 +19,7 @@
                     Session.set('redirectAfterLogin', context.path)
 
                     //var redirectAfterLogin =Session.get('redirectAfterLogin')
-                    //if(redirectAfterLogin){
+                    //if(redirectAfterLogin && 'redirectAfterLogin不是login page时'){
                     //    FlowRouter.go(redirectAfterLogin)
                     //}else{
                     //    //to verify

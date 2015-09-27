@@ -13,7 +13,7 @@
 //canceling
 cancel_create_cart = function (item) {
     var shoppingCart = {
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         type: 'cancel',
         status: 'canceling',
         sessionId: App.info.sessionRegister,

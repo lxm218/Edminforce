@@ -259,6 +259,7 @@ function _move_to_done(cart) {
             DB.ClassesRegister.update({
                 swimmerId: item.swimmerId,
                 classId: item.classId,
+                status:'normal',
 
                 sessionId: cart.sessionId,
                 cartId: cart._id
@@ -269,6 +270,8 @@ function _move_to_done(cart) {
             }, {
                 upsert: true //insert if not found
             })
+
+
 
         } else if (item.quantity == -1) {//取消注册 todo using type
             DB.ClassesRegister.remove({

@@ -7,39 +7,39 @@ Meteor.publish("activeShoppingCart", function () {
         status: 'active',
         type:'register',
         lastModified: {$gt: new Date(+new Date() - 15 * 60 * 1000)}, // 15分以内的 todo save time as config
-        accountId: 'account1'  //todo
+        accountId: this.userId
     });
 });
 
 
-Meteor.publish("historyShoppingCart", function (accountId) {
+Meteor.publish("historyShoppingCart", function () {
     return DB.ShoppingCart.find({
         status: 'done',
         type:'register',
-        accountId: accountId  //todo
+        accountId: this.userId
     });
 });
 
 //todo delete
-Meteor.publish("nowShoppingCart", function (accountId) {
+Meteor.publish("nowShoppingCart", function () {
     return DB.ShoppingCart.find({
         type:'register',
         status: {
             $in: ['active', 'checking','applied']
         },
-        accountId: accountId  //todo
+        accountId: this.userId
     });
 });
 
 
-Meteor.publish("checkingShoppingCart", function (accountId) {
+Meteor.publish("checkingShoppingCart", function () {
     return DB.ShoppingCart.find({
 
         $and: [
             {
                 type:'register',
                 status: 'checking',
-                accountId: accountId
+                accountId: this.userId
             },
             {
 

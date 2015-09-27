@@ -16,6 +16,10 @@ Cal.CRPaymentInstoreConfirm = React.createClass({
 
             alert('payment success')
 
+
+
+            FlowRouter.go('/classEdit/swimmerList')
+
         })
 
     },

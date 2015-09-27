@@ -15,7 +15,7 @@
         getMeteorData() {
 
             //todo
-            Meteor.subscribe("swimmersByAccountId", 'account1');
+            Meteor.subscribe("swimmersByAccountId", Meteor.userId());
             //Meteor.subscribe("appInfo");
             Meteor.subscribe("classes");
             Meteor.subscribe("activeShopingCart");

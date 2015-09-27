@@ -5,12 +5,12 @@
 
 
 //define global triggers for test
-FlowRouter.triggers.enter([function(context){
-    console.log('Router enter: path='+context.path,' name= '+FlowRouter.getRouteName())
-}]);
-FlowRouter.triggers.exit([function(context){
-    console.log('Router exit: path='+context.path,' name= '+FlowRouter.getRouteName())
-}]);
+//FlowRouter.triggers.enter([function(context){
+//    console.log('Router enter: path='+context.path,' name= '+FlowRouter.getRouteName())
+//}]);
+//FlowRouter.triggers.exit([function(context){
+//    console.log('Router exit: path='+context.path,' name= '+FlowRouter.getRouteName())
+//}]);
 
 
 

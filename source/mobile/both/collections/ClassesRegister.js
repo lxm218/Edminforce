@@ -38,7 +38,7 @@ DB.Schema.ClassesRegister = new SimpleSchema({
     //可能是normal canceling 或changing
     status: {
         type: String,
-        optional: true,
+        //optional: true,
         allowedValues:['normal','canceling','changing'],
         defaultValue:'normal'
     },

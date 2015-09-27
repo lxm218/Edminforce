@@ -12,7 +12,7 @@ DefaultRoutes.route('/classEdit/swimmerList', {
     }
 })
 
-FlowRouter.route('/classEditSwimmer/:swimmerId/registeredClass', {
+FlowRouter.route('/classEditSwimmer/registeredClass', {
     name: "home",
     action: function (p) {
         App.routeHandler(p, {

@@ -18,7 +18,7 @@
         //this function may be called in Tracker.autorun and before  DB.Swimmers loaded
         //so should take care
         self.getSwimmers = function () {
-            return DB.Swimmers.find({accountId: 'account1'})
+            return DB.Swimmers.find({accountId: Meteor.userId()})
         }
 
         //////////////////////////////////////////////////////

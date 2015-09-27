@@ -97,7 +97,7 @@
 
                 let shoppingCart = {
                     status: 'active',
-                    accountId: 'account1',
+                    accountId: Meteor.userId(),
                     sessionId: App.info.sessionRegister,
                     items: [item]
                 }

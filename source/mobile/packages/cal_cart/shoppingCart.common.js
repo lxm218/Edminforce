@@ -28,7 +28,7 @@ common_create_cart = function (params) {
 
     var shoppingCart = {
         status: 'active',
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         type: params.type,
         sessionId: App.info.sessionRegister,
         items: params.item ? [params.item] : []
@@ -45,7 +45,7 @@ common_create_cart = function (params) {
 common_get_or_create_active_cart = function (params) {
 
     var cart = DB.ShoppingCart.findOne({
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         status: 'active',
         type: params.type,
         lastModified: {$gt: new Date(+new Date() - 15 * 60 * 1000)}
@@ -62,7 +62,7 @@ common_check_cart_status =function (cartId, status) {
     //todo 加入时间计算
     var cart = DB.ShoppingCart.findOne({
         _id: cartId,
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         status: status
     })
 
@@ -80,7 +80,7 @@ create_cart = function (item) {
 
     var shoppingCart = {
         status: 'active',
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         sessionId: App.info.sessionRegister,
         items: item ? [item] : []
     }
@@ -95,7 +95,7 @@ create_cart = function (item) {
 get_active_cart_id =function (createIfNotExist) {
 
     var cart = DB.ShoppingCart.findOne({ //todo 加入时间计算
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         status: 'active'
     })
 
@@ -106,7 +106,7 @@ get_active_cart_id =function (createIfNotExist) {
 
 get_carts = function (status) {
     var options = {
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         sessionId: App.info.sessionRegister,
     }
     status = status | {}
@@ -124,7 +124,7 @@ checkCartStatus =function (cartId, status) {
     //todo 加入时间计算
     var cart = DB.ShoppingCart.findOne({
         _id: cartId,
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         status: status
     })
 

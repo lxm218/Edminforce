@@ -22,7 +22,10 @@ Cal.CRPaymentOptionsPage = React.createClass({
         alert('payInStore')
 
         Meteor.call('move_to_checking',Session.get('CART_ID'),'pay-in-store',function(err,result){
-            if(err) return;
+            if(err) {
+                console.error(err)
+                return;
+            };
 
             FlowRouter.go('/classRegister/paymentInstoreConfirm');
 

@@ -15,7 +15,7 @@ change_caculate_fee = function (swimmerId, fromClassId, toClassId) {
 
 change_create_cart = function(item){
     var shoppingCart = {
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         type: 'change',
         status: 'active',
         sessionId: App.info.sessionRegister,
@@ -31,7 +31,7 @@ change_get_or_create_active_cart =function(){
 
     var cart = DB.ShoppingCart.findOne({
         _id: cartId,
-        accountId: 'account1',
+        accountId: Meteor.userId(),
         type:'change',
         //15分以内的
         lastModified: {$gt: new Date(+new Date() - 15 * 60 * 1000)}
