@@ -7,9 +7,16 @@ Cal.Auth = React.createClass({
 	  	};
 	 },
 
+	 logOut(){
+	 	debugger
+	 	Meteor.logout()
+	 	FlowRouter.go("/auth")
+	 },
+					
+// <RC.Button onClick={self.logOut} theme="circle" buttonColor="brand">Log Out</RC.Button>
 	render() {
 	    return (
-
+	    	
 	    	<RC.List className="padding">
 
 	            { this.data.currentUser ?
@@ -18,9 +25,20 @@ Cal.Auth = React.createClass({
 	            		<RC.Item theme="text-wrap"> User Email: {this.data.currentUser.emails[0].address}</RC.Item>
 	            	</div> : <RC.Item theme="text-wrap"> User Not Logged In</RC.Item>
 	            }
-	            <RC.URL href="/user/User_Login_Basic">
+	            { this.data.currentUser ?
+	            	<RC.Button onClick={this.logOut} name="button" theme="full" buttonColor="brand">
+		                Log Out
+		            </RC.Button> :
+		            <RC.URL href="/user/User_Login_Basic">
+		                <RC.Button name="button" theme="full" buttonColor="brand">
+		                    Log In
+		                </RC.Button>
+		            </RC.URL>
+		            
+		        }
+	            <RC.URL href="/">
 	                <RC.Button name="button" theme="full" buttonColor="brand">
-	                    Log In
+	                    Home
 	                </RC.Button>
 	            </RC.URL>
 
