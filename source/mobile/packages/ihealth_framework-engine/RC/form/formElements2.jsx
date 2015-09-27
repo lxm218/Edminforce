@@ -63,4 +63,90 @@
 
 
 
+    //////
+    RC.RadioGroup2 = React.createClass({
+        propTypes: {
+            id: React.PropTypes.string,
+            theme: React.PropTypes.string,
+
+            list: React.PropTypes.array,
+            label: React.PropTypes.string,
+            name: React.PropTypes.string,
+            className: React.PropTypes.string,
+
+            error: React.PropTypes.bool,
+            style: React.PropTypes.object,
+            disabled: React.PropTypes.bool,
+        },
+        getInitialState(){
+            let list = _.isArray(this.props.list) ? this.props.list : []
+            let self = this
+
+            return {
+                checked: list.map( function(c){
+                    return c.value && c.value==self.props.value ? true : false
+                })
+            }
+        },
+        reset(){
+            let list = _.isArray(this.props.list) ? this.props.list : []
+            let self = this
+            let checked = list.map( function(c){
+                return c.value && c.value==self.props.value ? true : false
+            })
+            this.setState({ checked: checked })
+        },
+        getValue(n){
+            if (_.isUndefined(n)) {
+                var realVal = null
+                let self = this
+                _.every(this.state.checked, function(c,nn){debugger
+                    if (c)
+                        realVal = self.props.list[nn].value
+                    return !c
+                })
+            }
+            return this.state.checked[n]
+        },
+        changeHandler: function(n) {
+            let checked = this.state.checked
+            this.setState({checked: checked.map(function(c,nn){
+                return nn==n
+            })})
+            if (_.isFunction(this.props.changeHandler))
+                this.props.changeHandler(this.props.list[n])
+        },
+        makeRadio(radio,n){
+            let checked = this.getValue(n)
+            let classes = "item item-radio "+(radio.className || "")
+            /**
+             * NOTE
+             * <div> is used instead of <label> to overcome Web/Mobile issues
+             */
+            return <div className={classes} key={n} onClick={this.changeHandler.bind(null,n)}>
+                <input {... _.omit(radio, ["checked","type","label"])} type="radio" onChange={function(){}} checked={checked} />
+                <div className="item-content">{radio.label}</div>
+                <RC.uiIcon uiClass={this.props.uiClass || "check"} uiColor={this.props.uiColor} uiSize={this.props.uiSize} className="radio-fa" />
+            </div>
+        },
+        render() {
+
+            if (!this.props.list.length) return null
+
+            let self = this
+            let radioGroup = this.props.name || h.random_string()
+
+            return <div>
+                {
+                    this.props.list.map(function(g,n){
+                        g.name = radioGroup
+                        return self.makeRadio(g,n)
+                    })
+                }
+            </div>
+        }
+    })
+
+
+
 }

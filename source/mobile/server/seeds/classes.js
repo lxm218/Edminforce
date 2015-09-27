@@ -150,12 +150,11 @@ Meteor.startup(function () {
         var times=["10:00","11:00","13:00","15:00","17:00"]
         var days=[1,2,3,4,5,6,7]
 
-
         App.Config.classLevels.forEach(function(level,i,o){
             days.forEach(function(day,i,o){
                 times.forEach(function(time,i,o){
                     DB.Classes.insert({
-                        _id: day+"_"+level+"_"+time+'_testSession2',
+                        _id: day+"_"+level+"_"+time.replace(':',"_")+'_testSession2',
                         sessionId: 'testSession2',
                         name: day+"_"+level+"_"+time,
 

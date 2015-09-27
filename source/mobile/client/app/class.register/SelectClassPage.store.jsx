@@ -42,6 +42,9 @@
         self.avaiableTimes = new ReactiveVar([])
 
 
+        //Session.set('CART_ID')
+
+
         /*
          * 一次流程选择的class信息  3步
          * 使用Immutable库进行对象修改
@@ -56,6 +59,9 @@
 
 
         var undefinedSelectValue = {value: undefined};
+
+        //暂存购物车ID 后端会验证其有效性
+
 
         function resetDateAndTime() {
             self.currentDay.set(undefinedSelectValue)
@@ -72,6 +78,9 @@
 
                     self.currentSwimmer.set(swimmer)
                     self.currentLevel.set(swimmer.level)
+
+                    self.currentDay.set()
+                    self.currentTime.set()
 
                     debugger
 
@@ -127,6 +136,14 @@
                         },function(err,result){
                             if(err) return; //todo  prompt
 
+
+                            Session.set('CART_ID',result.cartId)
+
+
+                            debugger
+
+                            console.log('step1',currentSwimmer,currentClass)
+
                             self.currentStep.set(2)
                             resetDateAndTime();
                         })
@@ -164,6 +181,8 @@
                         //})
 
                         Meteor.call('add_preference_to_cart',{
+                            cartId:Session.get('CART_ID'),
+
                             preferenceNum:2,
 
                             classId:class1._id,
@@ -171,6 +190,9 @@
                             data:currentClass
                         },function(err){
                             if(err) return; //todo  prompt
+
+                            console.log('step2',currentClass)
+
 
                             self.currentStep.set(3)
                             resetDateAndTime()
@@ -208,6 +230,8 @@
                         //})
 
                         Meteor.call('add_preference_to_cart',{
+                            cartId:Session.get('CART_ID'),
+
                             preferenceNum:3,
 
                             classId:class1._id,
@@ -215,6 +239,9 @@
                             data:currentClass
                         },function(err){
                             if(err) return; //todo  prompt
+
+                            console.log('step3',currentClass)
+
 
                             FlowRouter.go('/classRegister/SelectClassReady');
                         })

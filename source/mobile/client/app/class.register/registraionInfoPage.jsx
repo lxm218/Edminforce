@@ -11,20 +11,58 @@ Cal.CRRegistraionInfoPage = React.createClass({
 
     render() {
 
-        return <div >
-            <RC.Card title="registraRoninfo" className="padding">
-                <p >
-                    sfas
-                    sfasf
-                    fasf
-                </p>
+        return <div key={Math.random()}>
+
+
+
+            <RC.Card title="register info">
+                <div className="row">
+                    <div className="col">
+
+                        <p>
+
+                            sfas
+                            sfasf
+                            fasf
+                            sfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                        </p>
+
+                        <p>
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasf
+                        </p>
+
+                    </div>
+
+                </div>
+
             </RC.Card>
 
-            <RC.URL href="/classRegister/SelectClass">
-                <RC.Button name="button" theme="full"  buttonColor="brand">
+
+            <p className="padding-left padding-right">
+
+                <a href="/classRegister/SelectClass"
+                   className="button button-full button-brand ">
+
                     Continue
-                </RC.Button>
-            </RC.URL>
+                </a>
+            </p>
+
+
 
 
         </div>

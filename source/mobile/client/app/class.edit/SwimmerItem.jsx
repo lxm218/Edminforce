@@ -10,13 +10,18 @@ Cal.ClassEditSwimmerItem = React.createClass({
         Meteor.subscribe("registerInfoBySwimmerId", swimmerId);
 
         return {
-            classesRegisterInfo: DB.ClassesRegister.find({swimmerId: swimmerId}).fetch()
+            classesRegisterInfo: DB.ClassesRegister.find({
+                swimmerId: swimmerId,
+                status:'normal'  //不显示cancel中的和 change中的
+            }).fetch()
         };
     },
 
     render() {
 
-        let href = '/classEditSwimmer/'+this.props.swimmer._id+'/registeredClass'
+        //let href = '/classEditSwimmer/'+this.props.swimmer._id+'/registeredClass'
+        let href = '/classEditSwimmer/registeredClass'
+
 
         return <RC.Item className="item-text-wrap"
                         href={href}
