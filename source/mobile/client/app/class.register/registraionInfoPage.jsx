@@ -15,7 +15,7 @@ Cal.CRRegistraionInfoPage = React.createClass({
 
 
 
-            <RC.Card title="register info">
+            <RC.Card key={Math.random()} title="register info">
                 <div className="row">
                     <div className="col">
 

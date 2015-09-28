@@ -20,7 +20,7 @@ Cal.ClassEditSwimmerItem = React.createClass({
     render() {
 
         //let href = '/classEditSwimmer/'+this.props.swimmer._id+'/registeredClass'
-        let href = '/classEditSwimmer/registeredClass'
+        let href = '/classEdit/SwimmerRegisteredClass'
 
 
         return <RC.Item className="item-text-wrap"

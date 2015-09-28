@@ -58,7 +58,8 @@
         self.selectedClasses = new ReactiveVar(Immutable.Map())
 
 
-        var undefinedSelectValue = {value: undefined};
+       // var undefinedSelectValue = {value: undefined};
+        var undefinedSelectValue =undefined;
 
         //暂存购物车ID 后端会验证其有效性
 

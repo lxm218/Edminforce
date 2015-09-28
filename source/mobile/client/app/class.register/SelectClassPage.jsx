@@ -145,7 +145,7 @@
 
                 </RC.Card>
 
-                <RC.Form ref="myForm" onSubmit={this.formSubmit}>
+                <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
                     <RC.List theme="inset">
 
                         {

@@ -74,7 +74,7 @@ Cal.AccountManagement = React.createClass({
                                 {
                                     this.data.swimmers.map(function(swimmer){
 
-                                        return <div>
+                                        return <div key={swimmer._id}>
                                             {swimmer.name}
                                         </div>
 

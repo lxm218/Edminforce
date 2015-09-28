@@ -23,7 +23,7 @@ Cal.Home = React.createClass({
 
 
             <RC.Item theme="divider">课程注册模块</RC.Item>
-            <RC.URL href="/registraionInfoPage">
+            <RC.URL href="/classRegister/registraionInfoPage">
                 <RC.Button name="button" theme="full" buttonColor="brand">
                     Register Class
                 </RC.Button>
