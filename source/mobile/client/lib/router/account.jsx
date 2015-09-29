@@ -62,6 +62,17 @@
         }
     })
 
+    AccountRoute.route('/SwimmerProfile/:swimmerId', {
+        //name: "home",
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "SwimmerProfile",
+                headerNav: null,
+                bodyTmpl: <Cal.AccountSwimmerProfile swimmerId = {p.swimmerId}/>
+            })
+        }
+    })
+
 }
 
 

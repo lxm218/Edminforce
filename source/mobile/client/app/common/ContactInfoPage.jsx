@@ -10,10 +10,45 @@ Cal.ContactInfoPage = React.createClass({
     },
 
     render() {
-        return <div>
+        return <div key={Math.random()}>
 
-            ContacInfoPage
-            ￼
+            <RC.Card key={Math.random()} title="Contact Info">
+                <div className="row">
+                    <div className="col">
+
+                        <p>
+
+                            sfas
+                            sfasf
+                            fasf
+                            sfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                        </p>
+
+                        <p>
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasfsfas
+                            sfasf
+                            fasf
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </RC.Card>
+
         </div>
     }
 })
