@@ -18,8 +18,6 @@ Cal.AccountManagement = React.createClass({
     },
 
     render() {
-        this.data
-        debugger
 
         return <div>
             <RC.Card title="Manage My Account">
@@ -74,16 +72,21 @@ Cal.AccountManagement = React.createClass({
                                 {
                                     this.data.swimmers.map(function(swimmer){
 
-                                        return <div key={swimmer._id}>
+                                        let href='/account/SwimmerProfile/'+swimmer._id;
+
+                                        return <a key={swimmer._id}
+                                                  className="button button-block button-small"
+                                                href={href}>
                                             {swimmer.name}
-                                        </div>
+                                        </a>
 
                                     })
 
                                 }
                             </p>
                             <p>
-                                <a href="/account/AddSwimmer">Add</a>
+                                <a className="button button-block"
+                                   href="/account/AddSwimmer">Add</a>
                             </p>
 
                         </div>

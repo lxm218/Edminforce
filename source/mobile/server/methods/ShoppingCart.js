@@ -49,10 +49,21 @@ Meteor.startup(function () {
             }
 
             shoppingCart.cancel_add_class_to_cart(swimmerId,classId)
-        }
+        },
 
 
         ///change class
+
+        change_class:function(swimmerId, fromClassId, toClassId){
+
+            //todo check 逻辑提出来
+            shoppingCart.change_class(
+                swimmerId,
+                fromClassId,
+                toClassId
+            )
+        }
+
 
     })
 

@@ -66,7 +66,7 @@
                         <RC.URL href="#">
                             <RC.Button name="button" type="submit"
                                        onClick={this.formSubmit}
-                                       theme="full" buttonColor="brand">
+                                       theme="full" buttonColor="dark">
                                 Change selection
                             </RC.Button>
 

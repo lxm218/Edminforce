@@ -43,7 +43,7 @@
   DefaultRoutes.route('/auth', {
     name: "auth",
     action: function(p) {
-      
+
       var dynamicRoute = {
         pageTitle: "Login Demonstration", // This is for header title
         showGlobalNav: false,
@@ -51,7 +51,7 @@
         // bodyTmpl: <Cal.Auth/>
       }
       // debugger
-      if (Cal["Auth"]) 
+      if (Cal["Auth"])
         dynamicRoute.bodyTmpl = React.createElement(Cal["Auth"])
       App.routeHandler(p, dynamicRoute)
       // routeHandler(p, {

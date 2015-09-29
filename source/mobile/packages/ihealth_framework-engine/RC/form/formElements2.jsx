@@ -11,7 +11,7 @@
 
         propTypes: {
             theme: React.PropTypes.string,
-            value: React.PropTypes.string,
+            //value: React.PropTypes.string,
             name: React.PropTypes.string,
             error: React.PropTypes.bool,
             label: React.PropTypes.string,

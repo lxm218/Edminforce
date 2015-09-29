@@ -32,7 +32,7 @@ Cal.CRRegBillingPage = React.createClass({
             {
                 items.map(function (item, index, all) {
 
-                    return <div className="row">
+                    return <div className="row" key={index}>
                         <div className="col">{item.swimmer.name}</div>
                         <div className="col">{item.class1.name}</div>
                         <div className="col">{item.class1.price}</div>

@@ -84,6 +84,8 @@
                 headerNav: null,
                 bodyTmpl: <Cal.ChangeClassPage {...p} {...query} />
             })
+            Dispatcher.dispatch({actionType: "GOTO_ChangeClassPage"});
+
         }
     })
 
