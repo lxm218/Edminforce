@@ -35,7 +35,7 @@ Cal.CRPaymentOptionsPage = React.createClass({
     },
 
     render() {
-        return <div>
+        return <div className="padding">
 
 
             <RC.Button name="button" type="submit"

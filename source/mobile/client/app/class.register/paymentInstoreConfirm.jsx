@@ -25,14 +25,27 @@ Cal.CRPaymentInstoreConfirm = React.createClass({
     },
     render() {
         return <div>
-            CRPaymentInstoreConfirm
 
 
-            <RC.Button name="button" type="submit"
-                       onClick={this.paied}
-                       theme="full" buttonColor="brand">
-                [test]Complete payment
-            </RC.Button>
+            <RC.Card key={Math.random()} title="Complete payment [假设支付成功]">
+
+            </RC.Card>
+
+            <RC.List theme="inset">
+                <RC.Item theme="body">
+
+                    <RC.Button name="button"
+                               onClick={this.paied}
+                               theme="full" buttonColor="brand">
+                        Complete payment
+                    </RC.Button>
+                </RC.Item>
+
+            </RC.List>
+
+
+
+
         </div>
     }
 })
