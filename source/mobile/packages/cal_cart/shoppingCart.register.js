@@ -31,6 +31,16 @@ function add_class_to_cart(item) {
 
     var cart_id = get_active_cart_id(true)
 
+
+    if (!cart_id) {
+        throw new Meteor.Error(500,
+            'add_class_to_cart  error',
+            'get_active_cart_id: '+cart_id);
+    }
+    console.log('get_active_cart_id cart_id '+cart_id);
+
+
+
     var result;
 
     result = DB.ShoppingCart.update({//todo 1门课仅可注册一个； 最多注册3门
@@ -44,9 +54,10 @@ function add_class_to_cart(item) {
 
 
     if (!result) {
-        throw new Meteor.Error(500, 'add_class_to_cart error after');
-    }
-    ;
+        throw new Meteor.Error(500,
+            'add_class_to_cart error',
+            'DB.ShoppingCart.update $push');
+    };
 
     //此时处于pending状态 若此处中断 若超时由定时程序清理，继续往下进行 todo恢复逻辑
 
@@ -82,7 +93,9 @@ function add_class_to_cart(item) {
                 }
             })
 
-        throw new Meteor.Error(500, 'add_class_to_cart error');
+        throw new Meteor.Error(500,
+            'add_class_to_cart error',
+            'DB.Classes.update $push');
 
     } else {
         DB.ShoppingCart.update(

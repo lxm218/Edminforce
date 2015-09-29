@@ -33,6 +33,8 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
         switch (payload.actionType) {
 
+
+
             case "ChangeClassPage_INIT":
             {
 
@@ -69,6 +71,40 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
                 FlowRouter.go(href);
 
                 break;
+            }
+            case "ChangeClassPage_BILLING_CONFIRM":
+            {
+
+                var swimmer =self.swimmer.get()
+                var oldClass = self.class.get()
+                var newClass = self.currentClass.get()
+
+
+                debugger
+                Meteor.call('change_class',
+                    swimmer._id,
+                    oldClass._id,
+                    newClass._id,
+
+                    function (err) {
+                    if (err) {//todo  prompt
+                        console.error(err)
+                        alert(err.message)
+                        return;
+                    }
+
+                    FlowRouter.go('/classEdit/swimmerList');
+                })
+
+                break;
+            }
+            //每次 router到这个页面 清空用户选择
+            case "GOTO_ChangeClassPage":
+            {
+                self.currentDay.set()
+                self.currentTime.set()
+                self.currentClass.set()
+
             }
 
 

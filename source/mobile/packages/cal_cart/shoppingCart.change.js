@@ -57,7 +57,6 @@ change_class=function(swimmerId, fromClassId, toClassId){
 
 change_class_due =function(swimmerId, fromClassId, toClassId){
 
-
 }
 
 change_class_refund=function(swimmerId, fromClassId, toClassId){
@@ -66,22 +65,28 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
     //确保swimmerId已注册fromClassId 并且未进行 cancel或change操作
     var registerItem =DB.ClassesRegister.findOne({
         swimmerId:swimmerId,
-        fromClassId:fromClassId
+        classId:fromClassId
     })
     if(!registerItem){
-        throw new Meteor.Error(500, swimmerId+'did not register class '+fromClassId);
+        throw new Meteor.Error(500, swimmerId+' did not register class '+fromClassId);
     }else if(registerItem.status!='normal'){
 
-        throw new Meteor.Error(500, +'class is under status '+registerItem.status);
+        throw new Meteor.Error(500, 'class is under status '+registerItem.status);
     }
 
     //check 数目
 
+
     //////////////////////
 
 
-    var cart = change_get_or_create_active_cart()
-    var cart_id = cart._id
+    //var cart = change_get_or_create_active_cart()
+    //var cart_id = cart._id
+
+    var cart_id = change_create_cart()
+
+    console.log('1-----'+cart_id)
+
 
     //构造改变课程时的item
     var item = {
@@ -92,17 +97,17 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
 
         //extra info todo only pick special fields
         swimmer: DB.Swimmers.findOne({_id: swimmerId}),
-        fromClass: DB.Classes.findOne({_id: fromClass}),
-        toClass: DB.Classes.findOne({_id: toClass})
+        fromClass: DB.Classes.findOne({_id: fromClassId}),
+        toClass: DB.Classes.findOne({_id: toClassId})
 
     }
 
 
 
     ///////////////////////////////////////////////
-    //需先占用 toClass
+    //完成change class购物车创建
     var result = DB.ShoppingCart.update({
-        '_id': cart._id
+        '_id': cart_id
     }, {
         '$set': {status: 'pending'},//已开始事务处里 置为pending  todo touch时间
         '$push': {
@@ -111,11 +116,16 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
     })
 
 
+    console.log('2-----'+result)
 
 
     ////////////////////change_move_pending_to_applied/////////////////
 
     //占用一个class  todo 确保$push 唯一
+    //需先查询 todo 确保不存在以前的change历史 否则清理以前的操作
+
+
+    //后面基于 以前未做过相同的change并且因为特殊原因而中断
     result = DB.Classes.update(
         {
             '_id': toClassId,
@@ -138,7 +148,10 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
             }
         })
 
-    if (!result) {//占用失败
+    console.log('3-----'+result)
+
+
+    if (!result) {//占用失败 数目不够时
         DB.ShoppingCart.update(
             {'_id': cart_id},
             {
@@ -151,10 +164,12 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
                     }
                 }
             })
+        //todo 直接删除购物车？
 
-        throw new Meteor.Error(500, 'add_class_to_cart error');
+        throw new Meteor.Error(500, 'add_class_to_cart error 课程占用失败');
 
     }
+
     //else {
     //    DB.ShoppingCart.update(
     //        {'_id': cart_id},
@@ -171,28 +186,108 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
         swimmerId:swimmerId,
         classId:fromClassId
     },{
-        '$set': {status: 'change'},
+        '$set': {status: 'changing'},
         '$push': {
-            'carted':[cart_id]  //item.quantity==1 or -1
+            'carted':cart_id
         }
     })
 
+
+    console.log('4-----'+oldRegister)
+
     // 插入并标记newclass
     var newRegister =DB.ClassesRegister.insert({
+        sessionId: App.info.sessionRegister,
         swimmerId:swimmerId,
         classId:toClassId,
-        status: 'change',
+        cartId:cart_id,
+        status: 'changing',
         'carted':[cart_id]
     })
 
+    console.log('5-----'+newRegister)
 
 
-    //////
-    DB.ShoppingCart.update(
+    ////// 到达applied 状态
+    result=DB.ShoppingCart.update(
         {'_id': cart_id},
         {
             '$set': {status: 'applied'} //重置为active
         })
+
+    console.log('6-----'+result)
+
+
+    //已成功退课 清除事务纪录
+    //change_move__applied_to_donejia
+    //todo 增加 changed canceled 态保持历史操作？
+
+
+    console.log('change_move__applied_to_done');
+
+    result =DB.ClassesRegister.remove({
+        swimmerId:swimmerId,
+        classId:fromClassId,
+        status:'changing'
+    });
+    console.log('7-----'+result)
+
+    result = DB.ClassesRegister.update({
+        swimmerId:swimmerId,
+        classId:toClassId,
+        status:'changing'
+    },{
+        $set:{status: 'normal'},
+        $pull:{'carted':cart_id}
+    })
+    console.log('8-----'+result)
+
+
+    //旧课程数目＋1
+    result =DB.Classes.update(
+        {
+            '_id': fromClassId
+        },
+        {
+            '$inc': {'seatsRemain': 1}
+        })
+
+    console.log('9-----'+result)
+
+
+    //新课程 清除事务纪录
+    result =DB.Classes.update(
+        {
+            '_id': toClassId
+        },
+        {
+            '$pull': {
+                'carted': {
+                    'cartId': cart_id,
+
+                    'type': 'change',
+                    'fromClassId': fromClassId,
+                    'toClassId': toClassId,
+
+                    'swimmerId': swimmerId,
+                    'quantity': 1  //change时购物车无数量 class里需要数量 用于恢复时区分是from还是to
+                }
+            }
+        })
+    console.log('10-----'+result)
+
+
+    result =DB.ShoppingCart.update(
+        {'_id': cart_id},
+        {
+            '$set': {status: 'done'} //重置为active
+        })
+
+
+    console.log('11-----'+result)
+
+
+
 
 }
 
