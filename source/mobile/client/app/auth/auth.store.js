@@ -28,6 +28,24 @@ Dependency.add('auth.store', new function () {
 
                 break;
             }
+            case "AUTH_REGISTER_SUCCESS":{
+
+                FlowRouter.LastRoute
+
+                debugger
+                FlowRouter.LastRoute=[];
+                FlowRouter.go('/account')
+
+
+                break;
+            }
+
+            case "AUTH_LOGIN_SUCCESS":{
+
+                FlowRouter.go('/')
+
+                break;
+            }
 
 
 

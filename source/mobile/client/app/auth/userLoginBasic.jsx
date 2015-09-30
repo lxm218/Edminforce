@@ -8,7 +8,8 @@ Cal.User_Login_Basic = React.createClass({
      */
     debugger
     return <IH.RC.User fullHeight={true} theme="overlay-dark" bgColor="brand-light">
-     <img src="/assets/logo.png" />
+        <RC.Card key={Math.random()} title="Welcom Our Fremont Facility">
+        </RC.Card>
    </IH.RC.User>
   }
 })

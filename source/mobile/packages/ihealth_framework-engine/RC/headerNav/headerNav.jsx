@@ -77,6 +77,11 @@ RC.HeaderNav = React.createClass({
       ? <span className="normal back" onClick={this.clickHandler.bind(null,true)}>Home</span>
       : null
 
+    //不产生backbutton
+    if(this.props.hideBackButton){
+      backButton=null;
+    }
+
     if(!backButton){
       var leftNavToggle = this.props.leftNavToggle
 

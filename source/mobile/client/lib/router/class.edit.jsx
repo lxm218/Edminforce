@@ -5,19 +5,6 @@
         prefix: '/classEdit',
         triggersEnter: [function(context){
 
-            if(!(Meteor.loggingIn()|| Meteor.userId())){
-
-                //Todo hard code; should使用name ;等待 name path最终确定
-                if(context.path != '/user/User_Login_Basic'){
-
-                    //用于登陆后回调  登陆应该以dispatch message方式
-                    Session.set('redirectAfterLogin', context.path)
-
-                    FlowRouter.go('/user/User_Login_Basic')
-                }
-            }
-
-
         }],
         triggersExit: [function(){
 

@@ -49,6 +49,11 @@
         showGlobalNav: false,
         headerNav: null,
         // bodyTmpl: <Cal.Auth/>
+
+        //nav 定制
+        hideBackButton:true,
+        leftNavToggle:true
+
       }
       // debugger
       if (Cal["Auth"])
@@ -84,7 +89,10 @@
         },{
           href: "/user/User_Registration_Only",
           text: "User Registration Only",
-        }]
+        }],
+
+        //nav 定制
+        hideBackButton:true
       }
 
       if (Cal[p.slug]) dynamicRoute.bodyTmpl = React.createElement(Cal[p.slug])

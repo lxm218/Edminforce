@@ -51,7 +51,10 @@
             return <div className={h.getPlatform()} id="app-root">
                 <RC.LeftNav2 navList={leftNavList} ref="LeftNav" openOnInit={this.data.leftNavIsOpen}/>
 
-                <RC.HeaderNav nav={this.props.headerNav} leftNavToggle={this.props.leftNavToggle}   title={this.props.title} theme="flat"/>
+                <RC.HeaderNav nav={this.props.headerNav}
+                              leftNavToggle={this.props.leftNavToggle}
+                              hideBackButton= {this.props.hideBackButton}
+                              title={this.props.title} theme="flat"/>
                 <RC.GlobalNav isVisible={this.props.showGlobalNav} list={this.props.globalNav}
                               location={this.props.globalNavLocation} theme="flat"/>
                 <Cal.Body tmpl={this.props.body}/>

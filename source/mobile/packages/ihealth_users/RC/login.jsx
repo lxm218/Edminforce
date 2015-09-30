@@ -82,6 +82,14 @@ IH.RC.User = React.createClass({
         if (_.isFunction(self.props.loginCallback))
           self.props.loginCallback()
 
+        // message hook;for calphin listener
+        if(!err){
+          Dispatcher.dispatch({
+            actionType: "AUTH_LOGIN_SUCCESS"
+          });
+          return;
+        }
+
         self.setState({
           msg: passedMsg
         })
@@ -112,6 +120,16 @@ IH.RC.User = React.createClass({
         if (_.isFunction(self.props.registerCallback))
           self.props.registerCallback()
 
+
+        // message hook;for calphin listener
+        if(!err){
+          Dispatcher.dispatch({
+            actionType: "AUTH_REGISTER_SUCCESS"
+          });
+          return;
+        }
+
+
         self.setState({
           msg: passedMsg
         })
@@ -134,7 +152,8 @@ IH.RC.User = React.createClass({
       waiting: false,
       msg: null,
     })
-    FlowRouter.go("/auth")
+    //FlowRouter.go("/auth")  @yifan 已移到auth.store里 这区分不出登录或注册的成功或失败
+
   },
   /**
    * @ @ @ @

@@ -1,6 +1,6 @@
 
-FlowRouter.LastRoute = []
-var savedRoute = null
+//FlowRouter.LastRoute = []
+//var savedRoute = null
 
 // ##
 // Router Group
@@ -15,19 +15,20 @@ DefaultRoutes = FlowRouter.group({
       // MixPanel
       // Disable/Enable Animations
 
-      if (!FlowRouter.BackButton && savedRoute)
-        FlowRouter.LastRoute.push(savedRoute)
-      else if (FlowRouter.BackButton)
-        FlowRouter.LastRoute.pop()
-
-      FlowRouter.BackButton = false
+      //move router control out of package
+      //if (!FlowRouter.BackButton && savedRoute)
+      //  FlowRouter.LastRoute.push(savedRoute)
+      //else if (FlowRouter.BackButton)
+      //  FlowRouter.LastRoute.pop()
+      //
+      //FlowRouter.BackButton = false
     }
   ],
   triggersExit: [
     function(r) {
       // This is the After() function for every DefaultRoutes Group
-      savedRoute = FlowRouter.current().path
-      window.scrollTo(0,0)
+      //savedRoute = FlowRouter.current().path
+      //window.scrollTo(0,0)
     }
   ]
 })

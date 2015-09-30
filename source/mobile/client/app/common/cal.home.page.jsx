@@ -22,19 +22,7 @@ Cal.Home = React.createClass({
 
             </RC.List>
 
-            <RC.List theme="inset">
-                <RC.Item theme="body">
-                    <p>
-                        Already a member or want to become a member?
-                    </p>
-                        <RC.Button name="button"
-                                   className="button button-dark"
-                                   theme="full" buttonColor="dark">
-                            Membership
-                        </RC.Button>
-                </RC.Item>
 
-            </RC.List>
 
 
         </div>
