@@ -18,6 +18,9 @@ Dependency.add('Account.AddSwimmer.store', new function () {
             case "ACCOUNT_EVAL_LEVEL_SUBMIT":{
 
 
+                self.evalLevel.set(payload.level)
+
+                FlowRouter.go('/account/AddSwimmer');
                 break;
             }
 
@@ -32,7 +35,6 @@ Dependency.add('Account.AddSwimmer.store', new function () {
 
                     FlowRouter.go('/account');
                 })
-
 
 
 

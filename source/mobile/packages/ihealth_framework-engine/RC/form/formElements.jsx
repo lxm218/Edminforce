@@ -283,6 +283,7 @@ RC.RadioGroup = React.createClass({
           realVal = self.props.list[nn].value
         return !c
       })
+      return realVal  //calphin
     }
     return this.state.checked[n]
   },

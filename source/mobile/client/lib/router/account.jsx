@@ -38,6 +38,17 @@
         }
     })
 
+    AccountRoute.route('/EvalLevel', {
+        //name: "home",
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "EvalLevel",
+                headerNav: null,
+                bodyTmpl: <Cal.AccountEvalSwimmerLevel/>
+            })
+        }
+    })
+
     AccountRoute.route('/SwimmerProfile/:swimmerId', {
         //name: "home",
         action: function (p) {
