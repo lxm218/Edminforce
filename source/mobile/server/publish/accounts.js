@@ -2,12 +2,12 @@
 
 
     var extraFileds = {
-        'profile': 1,
-        'role': 1,
-        'credits': 1,
-        'alterContact': 1,
-        'emergencyContact': 1,
-        'swimmers': 1
+        //'profile': 1,
+        //'role': 1,
+        //'credits': 1,
+        //'alterContact': 1,
+        //'emergencyContact': 1,
+        //'swimmers': 1
     };
 
     //todo remove
@@ -71,7 +71,10 @@
     //});
     //
 
-    Meteor.publishComposite('accountWithSwimmersAndClasses', function (accountId) {
+    Meteor.publishComposite('accountWithSwimmersAndClasses', function () {
+
+        var accountId = this.userId
+
         return {
             find: function () {
                 return Meteor.users.find({_id: accountId}, {fields: extraFileds});
@@ -90,7 +93,7 @@
                             find: function (swimmer, account) {//swimmers对应的class id
 
                                 console.log(swimmer)
-                                return DB.classesRegister.find(
+                                return DB.ClassesRegister.find(
                                     {
                                         swimmerId: swimmer._id
 

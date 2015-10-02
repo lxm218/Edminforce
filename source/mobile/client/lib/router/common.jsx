@@ -18,7 +18,7 @@
             savedRoute ='/'
         }
 
-        debugger
+
         if (!FlowRouter.BackButton && savedRoute)
             FlowRouter.LastRoute.push(savedRoute)
         else if (FlowRouter.BackButton)

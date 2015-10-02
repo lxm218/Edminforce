@@ -11,6 +11,11 @@ DB.Schema.ClassesRegister = new SimpleSchema({
     sessionId: {
         type: String
     },
+    //方便查询
+    accountId: {
+        type: String,
+        optional: true
+    },
     classId: {
         type: String
     },

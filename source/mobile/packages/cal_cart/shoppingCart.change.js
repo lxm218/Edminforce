@@ -198,6 +198,7 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
     // 插入并标记newclass
     var newRegister =DB.ClassesRegister.insert({
         sessionId: App.info.sessionRegister,
+        account:Meteor.userId(),
         swimmerId:swimmerId,
         classId:toClassId,
         cartId:cart_id,

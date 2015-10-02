@@ -55,7 +55,7 @@ Cal.CRRegistraionInfoPage = React.createClass({
 
             <p className="padding-left padding-right">
 
-                <a href="/classRegister/SelectClass"
+                <a href="/classRegister/register"
                    className="button button-full button-brand ">
 
                     Continue

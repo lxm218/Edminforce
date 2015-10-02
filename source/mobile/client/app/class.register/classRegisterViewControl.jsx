@@ -2,15 +2,40 @@
  * Created on 9/14/15.
  */
 
-Cal.CRClassRegisterViewControl = React.createClass({
+{
+    let classRegisterStore;
+    Dependency.autorun(function () {
+        classRegisterStore = Dependency.get('ClassRegister.ViewControl.store');
+    });
 
-    mixins: [ReactMeteorData],
-    getMeteorData() {
-        return {}
-    },
+    Cal.CRClassRegisterViewControl = React.createClass({
 
-    render() {
-        return <div></div>
-    }
+        mixins: [ReactMeteorData],
+        getMeteorData() {
+            return {
+                registerStatus:classRegisterStore.registerStatus.get()
+            }
+        },
+        getRegisterView(){
 
-})
+
+            if(this.data.registerStatus ==1){
+
+                return <Cal.CRBookTheSameTimePage />
+
+            }else{//2 3 4
+
+                return <Cal.CRSelectClassPage />
+
+            }
+            //0
+
+        },
+
+        render() {
+
+            return this.getRegisterView()
+        }
+
+    })
+}

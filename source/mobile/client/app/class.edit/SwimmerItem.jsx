@@ -24,7 +24,7 @@ Cal.ClassEditSwimmerItem = React.createClass({
 
 
         return <RC.Item className="item-text-wrap"
-                        href={href}
+
                         theme="icon-left, icon-right "
                         uiClass="user, angle-right">
             {this.props.swimmer.name}

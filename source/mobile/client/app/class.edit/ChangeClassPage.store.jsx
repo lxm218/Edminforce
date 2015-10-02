@@ -152,7 +152,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
             days.unshift({value: undefined})
 
-            debugger
+            //debugger
 
             self.avaiableDays.set(days)
 

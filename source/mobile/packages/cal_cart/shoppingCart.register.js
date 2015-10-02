@@ -274,6 +274,7 @@ function _move_to_done(cart) {
                 classId: item.classId,
                 status:'normal',
 
+                accountId:cart.accountId,
                 sessionId: cart.sessionId,
                 cartId: cart._id
             }, {
@@ -310,7 +311,6 @@ function _move_to_done(cart) {
     })
 
 }
-
 
 shopping_cart_export({
 
