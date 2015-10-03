@@ -55,7 +55,6 @@
 
                         <RC.URL href="/classRegister/SelectClass">
                             <RC.Button name="button" type="submit"
-                                       onClick={this.formSubmit}
                                        theme="full" buttonColor="brand">
                                 Select More
                             </RC.Button>
@@ -63,17 +62,9 @@
                         </RC.URL>
 
 
-                        <RC.URL href="#">
-                            <RC.Button name="button" type="submit"
-                                       onClick={this.formSubmit}
-                                       theme="full" buttonColor="dark">
-                                Change selection
-                            </RC.Button>
 
-                        </RC.URL>
                         <RC.URL href="/classRegister/RegBillingPage">
                             <RC.Button name="button" type="submit"
-                                       onClick={this.formSubmit}
                                        theme="full" buttonColor="brand">
                                 Checkout
                             </RC.Button>

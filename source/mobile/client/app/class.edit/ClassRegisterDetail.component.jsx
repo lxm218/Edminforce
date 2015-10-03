@@ -20,7 +20,9 @@ Cal.ClassRegisterDetail = React.createClass({
     },
 
     render() {
-        return <RC.Card title="Class Register Info">
+        var title= this.props.title || 'Class Register Info'
+
+        return <RC.Card title={title}>
             <div className="row">
                 <div className="col"> Swimmer</div>
                 <div className="col">

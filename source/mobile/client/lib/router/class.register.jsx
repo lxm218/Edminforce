@@ -116,6 +116,17 @@
             })
         }
     })
+    ClassRegisterRoute.route('/AddWaitingListConfirm', {
+        //name: "AddWaitingList",
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "AddWaitingListConfirm",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.AddWaitingListConfirmPage/>
+            })
+        }
+    })
 
 
     ClassRegisterRoute.route('/BookTheSameTimePage', {
