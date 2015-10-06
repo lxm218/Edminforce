@@ -170,7 +170,8 @@
                             classId: currentClass._id,
                             quantity: 1,
                             swimmer: currentSwimmer,
-                            class1: currentClass
+                            class1: currentClass,
+                            type:'register'
                         }, function (err, result) {
                             debugger
                             if (err) {
@@ -297,6 +298,7 @@
                         var currentClass =  payload.selectedClass  // special; book the same time
 
 
+                        //todo获取一个classId
 
                         //selectedClasses
                         let map = self.selectedClasses.get()
@@ -312,13 +314,15 @@
                         //    }
                         //);
 
+                        debugger
 
                         Meteor.call('add_class_to_cart', {
                             swimmerId: currentSwimmer._id,
                             classId: currentClass._id,
                             quantity: 1,
                             swimmer: currentSwimmer,
-                            class1: currentClass
+                            class1: currentClass,
+                            type:'register'
                         }, function (err, result) {
                             debugger
                             if (err) {
@@ -343,7 +347,8 @@
                     if (payload.currentStep == '1-1'){ //confirm
 
 
-
+                        self.currentStep.set(2)
+                        debugger
                     }
 
                     if (payload.currentStep == 2) {
@@ -358,6 +363,7 @@
                         let swimmer = map.get('swimmer')
                         let class1 = map.get('class1')
 
+                        debugger
 
                         //ShoppingCart.addClassPreference(2,{
                         //    'swimmer': swimmer,
@@ -405,6 +411,8 @@
                         let swimmer = map.get('swimmer')
                         let class1 = map.get('class1')
 
+                        debugger
+
                         //ShoppingCart.addClassPreference(3,{
                         //    'swimmer': swimmer,
                         //    'class1':   class1,
@@ -437,11 +445,12 @@
 
 
 
-
+                    break;
                 }
 
-                case "GOTO_BookTheSameTime":
+                case "GOTO_CRBookTheSameTimePage":
                 {
+                    debugger
                     //清空上一轮的选择
 
                     self.currentDay.set(undefinedSelectValue)
@@ -453,7 +462,7 @@
 
                     self.selectedClasses.set(Immutable.Map())
 
-
+                    break;
                 }
 
             }
@@ -473,12 +482,13 @@
                 //if (!DB.Classes) return;
 
                 var level = self.currentLevel.get();
+                var appInfo = DB.App.findOne()
 
                 //Tracker.nonreactive(function () {
 
                 //todo  计算可用数目报名数
                 let classes = DB.Classes.find({
-                    sessionId: 'testSession2', //level session
+                    sessionId: appInfo && appInfo.sessionRegister, //level session
                     level: level
                 }).fetch()
 
@@ -522,7 +532,7 @@
                 });
 
                 let classes = DB.Classes.find({
-                    sessionId: 'testSession2', // session level day
+                    sessionId: App.info && App.info.sessionRegister, // session level day
                     level: level,
                     day: currentDay
                 }).fetch()
@@ -563,7 +573,7 @@
                 });
 
                 let theClass = DB.Classes.find({
-                    sessionId: 'testSession2', // session level day
+                    sessionId: App.info && App.info.sessionRegister, // session level day
                     level: level,
                     day: day,
                     startTime: time
@@ -578,11 +588,12 @@
 
             Tracker.autorun(function () {
                 var currentSwimmer = self.currentSwimmer.get()
+                var appInfo = DB.App.findOne()
 
                 if (currentSwimmer) {
                     var currentSwimmerClasses = DB.ClassesRegister.find({
                         swimmerId: currentSwimmer._id,
-                        sessionId: 'testSession2',
+                        sessionId: appInfo && appInfo.sessionNow,
                         status: 'normal'
                     }).fetch()
 

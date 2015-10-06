@@ -15,6 +15,7 @@ Meteor.startup(function () {
 
         });
 
+
         //////////session coming
         //昨天开始注册 目前处于第1阶段 bookTheSameTime
         //session 开始时间定义为 4周即28天之后
@@ -35,7 +36,6 @@ Meteor.startup(function () {
             // 模拟4个不同的注册时间
             registerStartDate: new Date(+new Date() - (1000 * 60 * 60 * 24 * (1 * 7 + 1))),
             startDate: new Date(+new Date() - (1000 * 60 * 60 * 24 * (1 * 7 + 1-28)))
-
 
         });
 

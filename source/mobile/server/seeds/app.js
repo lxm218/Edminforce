@@ -8,9 +8,12 @@ Meteor.startup(function () {
     if (DB.App.find({}).count() === 0) {
 
         DB.App.insert({
-            sessionNow: 'testSession1',
-            sessionRegister:'testSession2',
-            openRegister:true
+            sessionNow: 'testSession2',
+            sessionRegister:'testSession3',
+            openRegister:true,
+
+
+            registerStage:1
         })
     }
 });

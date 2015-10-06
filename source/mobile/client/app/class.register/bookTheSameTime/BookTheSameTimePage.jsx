@@ -91,13 +91,6 @@
                     </div>
                 </div>
 
-                <div>
-                    {this.data.currentSwimmerClasses && this.data.currentSwimmerClasses.length}
-                </div>
-                <div>
-                    {this.data.currentSwimmer && this.data.currentSwimmer.name}
-                </div>
-
             </RC.Card>
 
         },
@@ -112,14 +105,28 @@
 
                     return <Cal.CRBookTheSameTimeCurrentConfirm />
 
-                }else{
+                }else if(this.data.currentStep== 1){
                     return <Cal.CRBookTheSameTimeCurrent
 
                         swimmers={this.data.swimmers}
                         currentSwimmer={this.data.currentSwimmer}
 
-                        currentSwimmer={this.data.currentSwimmer}
                         currentSwimmerClasses={this.data.currentSwimmerClasses}
+
+                        currentStep={this.data.currentStep}
+                        />
+
+                }else{ //2 3
+
+                    return <Cal.CRBookTheSameTimeCurrentPreference
+                        swimmers={this.data.swimmers}
+                        currentSwimmer={this.data.currentSwimmer}
+
+                        avaiableDays={this.data.avaiableDays}
+                        avaiableTimes={this.data.avaiableTimes}
+
+                        currentDay={this.data.currentDay}
+                        currentTime={this.data.currentTime}
 
                         currentStep={this.data.currentStep}
                         />

@@ -11,10 +11,20 @@ Cal.CRClassBookItem = React.createClass({
 
         var classId = this.props.classId
 
-        //todo same class判断逻辑 根据开始时间
-        var similarClass = DB.Classes.findOne({
+        //上个session的class
+        var oldClass = DB.Classes.findOne({
             _id: classId
         })
+
+        //相同class不存在时的判断逻辑
+        var similarClass = DB.Classes.findOne({
+            sessionId:App.info && App.info.sessionRegister,
+            day:oldClass && oldClass.day,
+            startTime:oldClass && oldClass.startTime
+
+        })
+
+        console.log('similarClass',similarClass)
 
         return {
             similarClass: similarClass
@@ -23,7 +33,7 @@ Cal.CRClassBookItem = React.createClass({
     //actions
     book(){
 
-        alert('onBook')
+        //alert('onBook')
 
         Dispatcher.dispatch({
             actionType: "BookTheSameTime_CLASS_SELECT_FOR_CURRENT",

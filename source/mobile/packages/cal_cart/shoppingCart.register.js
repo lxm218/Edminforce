@@ -94,7 +94,7 @@ function add_class_to_cart(item) {
             })
 
         throw new Meteor.Error(500,
-            'add_class_to_cart error',
+            'add_class_to_cart '+cart_id +' error. There is not enough class to register?',
             'DB.Classes.update $push');
 
     } else {

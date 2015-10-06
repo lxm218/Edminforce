@@ -21,7 +21,7 @@
         //name: "home",
         action: function (p) {
             App.routeHandler(p, {
-                pageTitle: "registraionInfoPage",
+                pageTitle: "Registration",
                 showGlobalNav: false,
                 headerNav: null,
                 bodyTmpl: <Cal.CRRegistraionInfoPage/>
@@ -52,7 +52,7 @@
                 bodyTmpl: <Cal.CRSelectClassPage/>
             })
 
-            Dispatcher.dispatch({actionType: "GOTO_CRSelectClassPage"});
+            //Dispatcher.dispatch({actionType: "GOTO_CRSelectClassPage"});
 
         }
     })
@@ -138,7 +138,20 @@
                 headerNav: null,
                 bodyTmpl: <Cal.CRBookTheSameTimePage/>
             })
-            Dispatcher.dispatch({actionType: "GOTO_CRBookTheSameTimePage"});
+            //用于初始化
+            //Dispatcher.dispatch({actionType: "GOTO_CRBookTheSameTimePage"});
+
+        }
+    })
+    ClassRegisterRoute.route('/BookTheSameTimeSelectClassReady', {
+        //name: "CRBookTheSameTimePage",
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "BookTheSameTimeSelectClassReady",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRBookTheSameTimeSelectClassReadyPage/>
+            })
 
         }
     })

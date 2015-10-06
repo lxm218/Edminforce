@@ -12,8 +12,8 @@ App.Config.classLevels = [ //从高到底 名字
     "MST II",
     "MST I",
 
-    "CHLIII",
-    "CHLII",
+    "CHL III",
+    "CHL II",
     "CHL I",
 
     "RCR III",
