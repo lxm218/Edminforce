@@ -20,6 +20,8 @@ reload
 autoupdate
 coffeescript
 
+standard-minifiers
+
 react
 
 launch-screen
@@ -28,7 +30,8 @@ mobile-status-bar
 kadira:flow-router
 kadira:react-layout
 
-fourseven:scss
+###fourseven:scss v3.3.3 miss some features, wait for updating
+fourseven:scss@=3.2.0
 fortawesome:fontawesome
 
 ####
