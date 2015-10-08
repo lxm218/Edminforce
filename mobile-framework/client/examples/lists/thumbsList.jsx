@@ -34,7 +34,7 @@ App.Thumbnail_List = React.createClass({
 
     return <RC.List>
       <RC.Item theme="body">
-        <h2 className="brand">Description</h2>
+        <h3>Description</h3>
         <p>Thumbnails are essentially the same thing as avatar (but with a differnet image size).</p>
         <p>This example also maps an entire array to display the list items. However it is done slightly different.</p>
       </RC.Item>
@@ -42,7 +42,7 @@ App.Thumbnail_List = React.createClass({
       <RC.Item theme="divider">Some of my Favourite Albums</RC.Item>
       {
       albums.map(function(a,n){
-        a.theme = "thumbnail-left"
+        a.theme = "thumbnail"
         a.uiClass = "chevron-right"
         a.uiColor = "gray"
         return <RC.Item {... a} key={n} />

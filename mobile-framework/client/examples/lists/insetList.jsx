@@ -44,22 +44,22 @@ App.Inset_List = React.createClass({
       note: "Must override"
     }]
 
-    return <div className="bg-brand-light full-height">
+    return <RC.Div bgColor="brand1Light" theme="full">
       <RC.List theme="inset">
         <RC.Item theme="body">
-          <h2 className="brand">Description</h2>
+          <h3>Description</h3>
           <p>There are several collections of CSS colour classes in the framework. Some can be controlled from the scss.scss file, others must be overriden.</p>
         </RC.Item>
 
         <RC.Item theme="divider">Common Colours</RC.Item>
         {
         colours.map(function(c,n){
-          c.theme = "icon-left"
+          c.theme = "icons"
           c.uiClass = "thumbs-up"
           return <RC.Item {... _.omit(c,"value")} key={n}>{c.value}</RC.Item>
         })
         }
       </RC.List>
-    </div>
+    </RC.Div>
   }
 })

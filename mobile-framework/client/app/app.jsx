@@ -18,11 +18,12 @@ App.Main = React.createClass({
       { text: "Global Nav", href: "/examples/Global_Nav" },
     ]
 
-    return <div className={h.getPlatform()} id="app-root">
+    return <RC.Body>
       <RC.LeftNav navList={navList} ref="LeftNav" />
       <RC.HeaderNav nav={this.props.headerNav} title={this.props.title} />
-      <RC.GlobalNav isVisible={this.props.showGlobalNav} list={this.props.globalNav} location={this.props.globalNavLocation}/>
-      <App.Body tmpl={this.props.body} props={{openLeftNav: this.openLeftNav}} />
-    </div>
+      <RC.MobileContentArea>
+        {this.props.body}
+      </RC.MobileContentArea>
+    </RC.Body>
   }
 })

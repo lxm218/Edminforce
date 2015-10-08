@@ -33,7 +33,7 @@ App.Mapped_List = React.createClass({
 
     return <RC.List>
       <RC.Item theme="body">
-        <h2 className="brand">Description</h2>
+        <h3>Description</h3>
         <p>When you write code, try not to write repeated code. Utilize map() functions to write better code.</p>
       </RC.Item>
       {

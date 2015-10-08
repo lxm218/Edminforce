@@ -3,11 +3,13 @@ App.Tabs_Index = React.createClass({
   render() {
     return <RC.List>
       <RC.Item theme="body">
-        <h2 className="brand">Tabs Examples</h2>
+        <h3>Tabs Examples</h3>
         <p>Tabs are a convenient way to create a set of navigation items They only accept &lt;RC.URL/&gt; component.</p>
       </RC.Item>
 
-      <RC.Item theme="icon-left" uiClass="tags" uiColor="brand1" href="/tabs/Normal_Tabs">Normal Tabs</RC.Item>
+      <RC.Item theme="icons" uiClass="tags" uiColor="brand1" href="/tabs/Normal_Tabs">Normal Tabs</RC.Item>
+      <RC.Item theme="icons" uiClass="tags" uiColor="brand2" href="/tabs/Tabs_with_Icons">Tabs with Icons</RC.Item >
+      <RC.Item theme="icons" uiClass="tags" uiColor="brand3" href="/tabs/Tab_Sliders">Tab Sliders</RC.Item >
 
     </RC.List>
   }

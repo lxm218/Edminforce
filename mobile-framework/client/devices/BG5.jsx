@@ -90,7 +90,7 @@ App.BG5 = React.createClass({
   },
   commandItem(commandName, n) {
     item = {};
-    item.theme = "icon-left";
+    item.theme = "icons";
 
     let deviceName = "BG"
     let device = this.data.devices[deviceName] || ""

@@ -5,7 +5,7 @@ App.List_From_Array = React.createClass({
     let list = [{
       theme: "body",
       value: <div>
-        <h2 className="brand">Description</h2>
+        <h3>Description</h3>
         <p>You can build a list using components or by passing an array. They can both achieve the same thing.</p>
         <p><em>See &quot;Mixed List&quot; for an example.</em></p>
       </div>
@@ -13,22 +13,22 @@ App.List_From_Array = React.createClass({
       theme: "divider",
       value: "Cool Animals"
     },{
-      theme: "icon-left, icon-right",
-      uiClass: "book,phone",
-      uiColor: "brand2,brand",
+      theme: "icons",
+      uiClass: ["book","phone"],
+      uiColor: ["brand2","brand"],
       value: "Bald Eagle"
     },{
-      theme: "icon-left, icon-right",
-      uiClass: "language, chevron-right",
-      uiColor: "brand, gray",
+      theme: "icons",
+      uiClass: ["language", "chevron-right"],
+      uiColor: ["brand", "gray"],
       value: "Gorilla"
     },{
-      theme: "icon-right",
+      theme: "icons",
       uiClass: "cubes",
       uiColor: "brand3",
       value: "Gazelle"
     },{
-      theme: "icon-right",
+      theme: "icons",
       uiClass: "diamond",
       uiColor: "brand",
       value: "Australian Flying Fox"
@@ -48,13 +48,13 @@ App.List_From_Array = React.createClass({
       title: "Flying Squirrel",
       subtitle: "He glides..."
     },{
-      theme: "icon-left",
+      theme: "icons",
       uiClass: "university",
       uiColor: "brand3",
       note: "He Sleeps",
       value: "Hippopotamus"
     },{
-      theme: "icon-left",
+      theme: "icons",
       uiClass: "paw",
       uiColor: "brand2",
       note: "She runs",

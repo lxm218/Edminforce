@@ -18,13 +18,13 @@ App.Graph_Index = React.createClass({
 
     return <RC.List>
       <RC.Item theme="body">
-        <h2 className="brand">Graph Examples</h2>
+        <h3>Graph Examples</h3>
         <p>For full documentation of the Chart graph component, see <a href="http://react-components.com/component/react-chartist" target="_blank">http://react-components.com/component/react-chartist</a>. and <a href="https://gionkunz.github.io/chartist-js/index.html" target="_blank">https://gionkunz.github.io/chartist-js/index.html</a>.</p>
         <p>To use Chart, type <em className="brand">"add ihealth:react-chart".</em></p>
       </RC.Item>
       {
       charts.map(function(c,n){
-        return <RC.Item theme="icon-left" uiClass="line-chart" uiColor={"brand"+(n%3+1)} href={c.href} key={n}>{c.text}</RC.Item>
+        return <RC.Item theme="icons" uiClass="line-chart" uiColor={"brand"+(n%3+1)} href={c.href} key={n}>{c.text}</RC.Item>
       })
       }
     </RC.List>

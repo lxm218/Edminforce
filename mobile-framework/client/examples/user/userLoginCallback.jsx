@@ -11,7 +11,7 @@ App.Login_With_Callback = React.createClass({
        alert("Hello! This is a custom callback!")
      }
 
-    return <IH.RC.User fullHeight={true} theme="overlay-light" bgColor="brand" loginCallback={callback} registerCallback={callback}>
+    return <IH.RC.User fullHeight={true} bgColor="brand1" loginCallback={callback} registerCallback={callback}>
       <img src="/assets/logo-white.png" />
     </IH.RC.User>
   }

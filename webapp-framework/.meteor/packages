@@ -6,19 +6,18 @@
 
 #meteor-platform
 
-meteor
-underscore
-session
-webapp
-logging
-tracker
-ddp
-mongo
-check
+ecmascript
+es5-shim
 jquery
-reload
-autoupdate
+meteor-base
+mobile-experience
+mongo
+session
+standard-minifiers
+tracker
+
 coffeescript
+underscore
 
 react
 
@@ -26,6 +25,5 @@ kadira:flow-router
 kadira:react-layout
 
 fourseven:scss
-fortawesome:fontawesome
 
-ihealth:webapp-framework
+ihealth:framework-webapp

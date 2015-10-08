@@ -2,7 +2,8 @@
 App.Main = React.createClass({
   getInitialState() {
     return {
-      nav: Meteor.Device.isDesktop() ? true : false,
+      // nav: Meteor.Device.isDesktop() ? true : false,
+      nav: true,
       animating: false
     }
   },
@@ -27,11 +28,4 @@ App.Main = React.createClass({
 
     </div>
   }
-})
-
-Meteor.startup(function(){
-
-  // Not available for Meteor-React -- "yet"
-  // React.initializeTouchEvents(true)
-
 })

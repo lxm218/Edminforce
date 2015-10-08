@@ -1,7 +1,7 @@
 
 App.Nav = React.createClass({
   linkClickHandler(e) {
-    if (e.target.href && (Meteor.Device.isPhone() || Meteor.Device.isTablet()))
+    // if (e.target.href && (Meteor.Device.isPhone() || Meteor.Device.isTablet()))
       this.props.toggleNavFunc()
   },
   render() {

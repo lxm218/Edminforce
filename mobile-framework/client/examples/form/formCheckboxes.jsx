@@ -3,43 +3,48 @@ App.Checkboxes = React.createClass({
   render() {
 
     let groceries = [{
-      value: true,
+      checked: true,
       label: "7 Cabbages"
     },{
-      value: true,
+      checked: true,
       label: "Bag of Carrots"
     },{
-      value: false,
-      label: "Box of Diet Coke"
+      checked: false,
+      label: "Box of Diet Coke",
+      uiBgColor: "red"
     },{
-      value: true,
-      label: "Box of Oranges"
+      checked: true,
+      label: "Box of Oranges",
+      uiBgColor: "red"
     },{
-      value: true,
-      label: "2 Bottles of Soy Sauce"
+      checked: true,
+      label: "2 Bottles of Soy Sauce",
+      uiBgColor: "brand2"
     },{
-      value: false,
-      label: "4 Cartons of Milk"
+      checked: false,
+      label: "4 Cartons of Milk",
+      uiBgColor: "brand2"
     },{
-      value: false,
-      label: "2 Boxes of Apples"
+      checked: false,
+      label: "2 Boxes of Apples",
+      uiBgColor: "brand3"
     },{
-      value: true,
-      label: "1 Rainbow Trout"
+      checked: true,
+      label: "1 Rainbow Trout",
+      uiBgColor: "brand3"
     },{
-      value: true,
-      label: "2 Loaf of Bread"
+      checked: true,
+      label: "2 Loaf of Bread",
+      uiBgColor: "gray"
     },{
-      value: true,
-      label: "Carton of Mango Juice"
-    },{
-      value: true,
-      label: "Bottle of General Tsao Sauce"
+      checked: true,
+      label: "Bottle of General Tsao Sauce",
+      uiBgColor: "gray"
     }]
 
     return <RC.List>
       <RC.Item theme="body">
-        <h2 className="brand">Description</h2>
+        <h3>Description</h3>
         <p>Checkboxes are great for lists as well as forms.</p>
       </RC.Item>
       <RC.Item theme="divider">Grocery List</RC.Item>

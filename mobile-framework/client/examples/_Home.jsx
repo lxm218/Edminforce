@@ -14,11 +14,11 @@ App.Home = React.createClass({
 
 App.Home = React.createClass({
   openNav() {
-    this.props.openLeftNav()
+    alert("This component will be re-developer at a later time.")
   },
   loop(arr,brand) {
     return arr.map(function(item,n){
-      item.theme = "icon-left"
+      item.theme = "icons"
       if (item.uiClass=="check-circle-o") item.uiColor = brand
       return <RC.Item {... _.omit(item, ["value"])} key={n}>
         {item.value}
@@ -38,20 +38,22 @@ App.Home = React.createClass({
   render() {
 
     let Commons = [
-      { value: "Cards", href: "/examples/Cards", uiClass: "check-circle-o" },
+      { value: "Hero", href: "/cards/Hero_Index", uiClass: "check-circle-o" },
+      { value: "Cards", href: "/cards/Cards_Index", uiClass: "check-circle-o" },
       { value: "Lists", href: "/lists/List_Index", uiClass: "check-circle-o" },
       { value: "Tabs", href: "/tabs/Tabs_Index", uiClass: "check-circle-o" },
       { value: "Form", href: "/forms/Form_Index", uiClass: "check-circle-o" },
+      { value: "Backdrops", href: "/backdrop/Backdrop_Index", uiClass: "check-circle-o" },
     ]
 
     let Uniques = [
       { value: "Graphs", href: "/graphs/Graph_Index", uiClass: "check-circle-o" },
-      { value: "Global Layout", href: "/examples/Global_Layout", uiClass: "circle-o" },
+      { value: "Global Layout", href: "/examples/Global_Layout", uiClass: "check-circle-o" },
       { value: "Global Nav", href: "/globalNav/Global_Nav_Index", uiClass: "check-circle-o" },
       { value: "Swipe", href: "/examples/Swipe", uiClass: "check-circle-o" },
       { value: "Timeline", href: "/timelines/Timeline_Index", uiClass: "check-circle-o" },
-      { value: "Left Nav", onClick: this.openNav, uiClass: "check-circle-o" },
-      { value: "Chat", href: "/examples/Chat", uiClass: "check-circle-o" },
+      { value: "Left Nav (Incomplete)", onClick: this.openNav, uiClass: "circle-o" },
+      { value: "Routes", href: "/examples/Routes_Index", uiClass: "check-circle-o" },
     ]
 
     let Devices = [
@@ -64,7 +66,8 @@ App.Home = React.createClass({
     let Complex = [
       { value: "User App", href: "/user/User_Index", uiClass: "check-circle-o" },
       { value: "Chat App", href: "/chat/Chat_Index", uiClass: "circle-o" },
-      { value: "Chat Demo", href: "/chat_channel/all", uiClass: "circle-o" },
+      //{ value: "Chat Demo", href: "/chat_channel/all", uiClass: "circle-o" },   // Temporarily disabled
+      { value: "Stress Test", href: "/stress/Stress_Test_Index", uiClass: "check-circle-o" },
       //{ value: "camera", onClick: this.openCam, uiClass: "circle-o" },
     ]
 
@@ -74,7 +77,7 @@ App.Home = React.createClass({
       <RC.Item theme="text-wrap">
         <p>Common components that you will most likely need when building an app.</p>
       </RC.Item>
-      {this.loop(Commons, "brand")}
+      {this.loop(Commons, "brand1")}
 
       <RC.Item theme="divider">Unique Components</RC.Item>
       <RC.Item theme="text-wrap">
