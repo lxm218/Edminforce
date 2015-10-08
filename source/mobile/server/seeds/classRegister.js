@@ -10,7 +10,6 @@ Meteor.startup(function () {
     *
     * */
 
-
     var classRegisterData=[
 
 
@@ -28,12 +27,16 @@ Meteor.startup(function () {
         },
 
 
-
-
         /////////////////session2//////////////////////////////////////
         //jliu@gmail.com
         {
             classId:'1_SPR I_15_00_testSession2',
+            swimmerId:'jliu@gmail.com_Allen-Liu',
+            sessionId: 'testSession2',
+            accountId:'jliu@gmail.com'
+        },
+        {
+            classId:'3_SPR I_15_00_testSession2',
             swimmerId:'jliu@gmail.com_Allen-Liu',
             sessionId: 'testSession2',
             accountId:'jliu@gmail.com'
