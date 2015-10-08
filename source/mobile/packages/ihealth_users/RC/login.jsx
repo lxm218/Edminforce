@@ -24,7 +24,7 @@ IH.RC.User = React.createClass({
     return {
       buttonActive: false,
       waiting: false,
-      action: _.contains(["login","register"], this.props.action) ? this.props.action : "login",
+      action: _.contains(["login","register","reset"], this.props.action) ? this.props.action : "login",
       msg: null,
     }
   },
@@ -40,12 +40,14 @@ IH.RC.User = React.createClass({
       break
       case "register":
         var form = this.refs.registerForm.getFormData()
+      case "register":
+        var form = this.refs.resetForm.getFormData()
       break
     }
     let test = _.every( _.values(form), function(t){
       return t.length && t.length>0
     })
-    if (test!==this.state.buttonActive)
+    if (test !== this.state.buttonActive)
       this.setState({ buttonActive: test })
   },
   resetForm(){
@@ -57,12 +59,28 @@ IH.RC.User = React.createClass({
       this.refs.regEmail.reset()
       this.refs.regPw.reset()
       this.refs.regPwRepeat.reset()
+    } else if (this.state.action == "reset") {
+      this.refs.email.reset()
     }
   },
   switchAction(){
     this.resetForm()
     this.setState({ buttonActive: false })
-    this.setState({ action: this.state.action=="register" ? "login" : "register" })
+
+    if (this.state.action == "reset") {
+      this.setState({action: "login"})
+      return
+    }
+    else {
+      this.setState({ action: this.state.action=="register" ? "login" : "register" })
+    }
+  },
+  startReset(){
+    this.resetForm()
+    this.setState({ buttonActive: false })
+    this.setState({ emailFound : true })
+    this.setState({action: "reset"})
+    return   
   },
   login(e){
     e.preventDefault()
@@ -139,6 +157,41 @@ IH.RC.User = React.createClass({
         msg: ph.errorMsgs[1001]
       })
   },
+
+  reset(e){
+    e.preventDefault()
+    if (this.state.msg) return null
+
+    let form = this.refs.resetForm.getFormData()
+
+    if (form.email.length) {
+      // Attempt Log In
+      let self = this
+      this.setState({ waiting: true })
+      Meteor.call('CheckEmail', form.email, function(err, result){
+        debugger
+        if (!!err) {
+          console.log(err)
+          result = false
+        }
+
+        if (result){
+          Accounts.forgotPassword({ email: form.email },function(err){
+            console.log(err)
+            let passedMsg = err && err.error
+              ? (ph.errorMsgs[err.error] || err.reason)
+              : <p>Password Reset Email Has Been Sent!</p>
+            self.setState({ msg: passedMsg })
+          })
+        } else {
+        // the email address is not found
+          this.setState({ emailFound: false })
+          this.setState({ waiting: false })
+        }
+      })
+    }
+  },
+
   removeMsg(e){
     e.preventDefault()
     this.setState({
@@ -171,7 +224,7 @@ IH.RC.User = React.createClass({
         return <div className={"abs-full table on-top"+(bg ? " bg-"+bg : "")} key={n}>
           <div className="inside center">
             {_.isString(m) ? <p>{m}</p> : m}
-            <RC.Button onClick={self.jumpToNextPage} theme="circle" buttonColor={bg}>OK!!!</RC.Button>
+            <RC.Button onClick={self.jumpToNextPage} theme="circle" buttonColor={bg}>OK</RC.Button>
           </div>
         </div>
       })
@@ -207,6 +260,23 @@ IH.RC.User = React.createClass({
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
         </RC.Form>
+      case "reset":
+        return (
+          <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
+          <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" />
+          {
+            this.state.emailFound ? null :
+            <p className="center">
+              <span className="smallest inline-block cursor open-registration invis-70" >
+                Entered E-mail is not in record.
+              </span>
+            </p>
+          }
+          <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
+            {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Send Password Reset E-mail"}
+          </RC.Button>
+        </RC.Form>
+        )
       break
     }
   },
@@ -218,8 +288,6 @@ IH.RC.User = React.createClass({
       +(h.checkColorClass(this.props.bgColor) ? " bg-"+this.props.bgColor : "")
       +(this.props.alignTop ? "" : " table")
 
-    debugger
-
     return <div {... _.omit(this.props, ["className","theme"])} className={classes}>
       {this.renderMsg()}
       <div className="inside">
@@ -227,12 +295,20 @@ IH.RC.User = React.createClass({
           {this.props.children}
           {this.renderForm()}
           {
-          this.props.disableSwitch ? null :
-          <p className="center">
-            <span className="smallest inline-block cursor open-registration invis-70" onClick={this.switchAction}>
-              {this.state.action=="register" ? "Log-in with an existing account" : "Create a new account"}
-            </span>
-          </p>
+            this.state.action == "reset" ? null :
+            <p className="center">
+              <span className="smallest inline-block cursor open-registration invis-70" onClick={this.startReset}>
+                I Forgot My Password
+              </span>
+            </p>
+          }
+          {
+            this.props.disableSwitch ? null :
+            <p className="center">
+              <span className="smallest inline-block cursor open-registration invis-70" onClick={this.switchAction}>
+                {this.state.action=="login" ? "Create a new account" : "Log-in with an existing account"}
+              </span>
+            </p>
           }
         </div>
       </div>

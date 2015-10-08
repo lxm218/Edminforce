@@ -14,7 +14,7 @@
         //console.log('Router enter: path='+context.path,' name= '+FlowRouter.getRouteName())
 
         //hack 从注册页跳过来 todo 系统处理url history
-        if(savedRoute=='/user/User_Login_Basic'){
+        if(savedRoute == '/user/User_Login_Basic'){
             savedRoute ='/'
         }
 
@@ -25,17 +25,22 @@
             FlowRouter.LastRoute.pop()
 
         FlowRouter.BackButton = false
-
-
         //calphin logic
         if (!(Meteor.loggingIn() || Meteor.userId())) {
-
             //Todo hard code; should使用name ;等待 name path最终确定
-            if (context.path != '/user/User_Login_Basic') {
-
+            if (context.path.indexOf("reset-password") > -1){
+                /* 
+                 * This is for resetting password via email.
+                 * User will click on an URL contianing 'reset-password'.
+                 * At that time, user is not logged in, but he has the token to reset password
+                 * So, we send him to reset password page, instead of the login page.
+                 * Todo: make sure that the token is provided in the link, if not, we should still
+                 * direct user to login page.
+                 */
+                FlowRouter.go(context.path)
+            } else if (context.path != '/user/User_Login_Basic') {
                 //用于登陆后回调  登陆应该以dispatch message方式
                 Session.set('redirectAfterLogin', context.path)
-
                 //var redirectAfterLogin =Session.get('redirectAfterLogin')
                 //if(redirectAfterLogin && 'redirectAfterLogin不是login page时'){
                 //    FlowRouter.go(redirectAfterLogin)
@@ -43,8 +48,6 @@
                 //    //to verify
                 //    FlowRouter.go('/')
                 //}
-
-
                 FlowRouter.go('/user/User_Login_Basic')
             }
         }

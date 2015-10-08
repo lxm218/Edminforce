@@ -18,6 +18,7 @@ Package.onUse(function(api) {
     "react",
     "ihealth:utils",
     "ihealth:framework-engine",
+    // "fourseven:scss",
   ], ["client","server"])
 
   api.imply([
@@ -41,12 +42,20 @@ Package.onUse(function(api) {
     "RC/leftNav/leftNav2.jsx",
   ], "client")
 
-  api.addFiles([
+  // api.addFiles([
+  //   "RC/_mobile.scss",
+  //   "RC/leftNav/_leftNav.scss",
+  // ], "server", {isImport: true})
+
+  // api.addFiles("_import.scss", "server", {isImport: true})
+
+  api.addAssets([
     "RC/_mobile.scss",
     "RC/leftNav/_leftNav.scss",
   ], "server")
 
-  api.addFiles("_import.scss", "server")
+  api.addAssets("_import.scss", "server")
+
 
   /**
    * @ @ @ @

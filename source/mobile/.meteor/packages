@@ -28,7 +28,7 @@ mobile-status-bar
 kadira:flow-router
 kadira:react-layout
 
-fourseven:scss
+#fourseven:scss
 fortawesome:fontawesome
 
 ####
@@ -51,7 +51,7 @@ ihealth:devices-stub
 ####
 ## iHealth Device
 ####
-ihealth:devices-ui
+#ihealth:devices-ui
 ihealth:bg5
 ihealth:bp5
 
@@ -83,3 +83,4 @@ sanjo:jasmine
 velocity:html-reporter
 velocity:console-reporter
 cal:cart
+standard-minifiers

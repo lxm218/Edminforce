@@ -13,7 +13,6 @@ Cal.Auth = React.createClass({
 	 	FlowRouter.go("/auth")
 	 },
 					
-// <RC.Button onClick={self.logOut} theme="circle" buttonColor="brand">Log Out</RC.Button>
 	render() {
 	    return (
 	    	

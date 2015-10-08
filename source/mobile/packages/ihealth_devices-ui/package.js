@@ -28,7 +28,7 @@ Package.onUse(function(api) {
     "bp.css",
   ], "client")
 
-  api.addFiles([
+  api.addAssets([
     "assets/bp5/help1.jpg",
     "assets/bp5/help2.jpg",
     "assets/bp5/help3.jpg",

@@ -19,6 +19,7 @@ Package.onUse(function(api) {
     "underscore",
     "momentjs:moment",
     "ihealth:utils",
+    // "fourseven:scss",
   ], ["client","server"])
 
   /**
@@ -46,7 +47,33 @@ Package.onUse(function(api) {
     "RC/timeline/timeline.jsx",
   ], "client")
 
-  api.addFiles([
+  // api.addFiles([
+  //   "RC/_mixins.scss",
+  //   "RC/_variables.scss",
+  //   "_core.scss",
+  //   "RC/_framework.scss",
+  //   "RC/card/_card.scss",
+  //   "RC/item/_item.scss",
+  //   "RC/chat/_chat.scss",
+  //   "RC/globalNav/_globalNav.scss",
+  //   "RC/form/_form.scss",
+  //   "RC/form/_button.scss",
+  //   "RC/form/_select.scss",
+  //   "RC/form/_checkbox.scss",
+  //   "RC/form/_radio.scss",
+  //   "RC/form/_range.scss",
+  //   "RC/form/_toggle.scss",
+  //   "RC/headerNav/_headerNav.scss",
+  //   "RC/leftNav/_leftNav.scss",
+  //   "RC/list/_list.scss",
+  //   "RC/navList/_navList.scss",
+  //   "RC/tabs/_tabs.scss",
+  //   "RC/timeline/_timeline.scss",
+  // ], "server", {isImport: true})
+
+  // api.addFiles("_import.scss", "server", {isImport: true})
+
+  api.addAssets([
     "RC/_mixins.scss",
     "RC/_variables.scss",
     "_core.scss",
@@ -70,7 +97,7 @@ Package.onUse(function(api) {
     "RC/timeline/_timeline.scss",
   ], "server")
 
-  api.addFiles("_import.scss", "server")
+  api.addAssets("_import.scss", "server")
 
   /*
    * @ @ @ @
