@@ -25,62 +25,39 @@
         },
 
         //actions
-        confirm(){
+        confirm(e){
+            e.preventDefault()
+            FlowRouter.go('/classRegister/BookTheSameTimeSelectClassReady');
 
-            FlowRouter.go('/classRegister/SelectClassReady');
+        },
+        choosePreference(){
 
+            Dispatcher.dispatch({
+                actionType: "BookTheSameTime_CLASS_SELECT_FOR_CURRENT",
+                currentStep: '1-1',
+                //selectedClass: formData
+            });
         },
 
         render() {
 
-            var swimmer= this.data.swimmer
-            var selectedClasses= this.data.selectedClasses
+            //var swimmer= this.data.swimmer
+
+            let swimmer = this.data.selectedClasses.get('swimmer')
+            let class1 = this.data.selectedClasses.get('class1')
+            let class2 = this.data.selectedClasses.get('class2')
+            let class3 = this.data.selectedClasses.get('class3')
+
 
 
             return <div>
 
-                <RC.Card key={Math.random()} className="padding">
 
-                    <h4 className="brand">Your Booking Details</h4>
-
-                    <div className="row">
-                        <div className="col">
-                            Swimmer
-                        </div>
-                        <div className="col">
-
-                            {swimmer && swimmer.name}
-
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col">
-                            Level
-                        </div>
-                        <div className="col">
-
-
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col">
-                            Time
-                        </div>
-                        <div className="col">
-
-
-                        </div>
-                    </div>
-
-
-
-
-                </RC.Card>
 
                 <p>
-
-                    <a href="#"> click here to choose more preference</a>
+                    <a  onClick={this.choosePreference}>
+                        click here to choose more preference
+                    </a>
                 </p>
 
 

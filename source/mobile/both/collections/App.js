@@ -11,11 +11,13 @@ DB.Schema.App = new SimpleSchema(
     {
         status: {
             type: Object,
-            optional: true
+            optional: true,
+            blackbox: true
         },
-        setting: { //注册开始时间
+        setting: {
             type: Object,
-            optional: true
+            optional: true,
+            blackbox: true
         },
 
 
@@ -30,7 +32,13 @@ DB.Schema.App = new SimpleSchema(
         openRegister:{
             type: Boolean,
             optional: true
+        },
+        //for test  当前注册阶段  1 2 3 4
+        registerStage:{
+            type: Number,
+            optional: true
         }
+
     });
 
 

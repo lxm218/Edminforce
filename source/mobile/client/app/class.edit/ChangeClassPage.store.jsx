@@ -137,7 +137,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
             var level = self.currentLevel.get()
 
             let classes = DB.Classes.find({
-                sessionId: 'testSession2', //level session
+                sessionId: App.info && App.info.sessionRegister, //level session
                 level: level,
                 _id:{$ne: self.classId.get()} //除去当前class
             }).fetch()
@@ -167,7 +167,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
             var level = self.currentLevel.get()
 
             let classes = DB.Classes.find({
-                sessionId: 'testSession2', // session level day
+                sessionId: App.info && App.info.sessionRegister, // session level day
                 level: level,
                 day: currentDay,
                 _id:{$ne: self.classId.get()}
@@ -202,7 +202,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
 
             let theClass = DB.Classes.findOne({
-                sessionId: 'testSession2', // session level day
+                sessionId: App.info && App.info.sessionRegister, // session level day
                 level: level,
                 day: day,
                 startTime: time

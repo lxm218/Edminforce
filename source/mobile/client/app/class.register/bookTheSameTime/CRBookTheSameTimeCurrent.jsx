@@ -14,6 +14,7 @@
             return {}
         },
 
+        //actions
         formSubmit (e) {
             e.preventDefault()
 
@@ -36,28 +37,35 @@
 
         },
 
+        ///
+
+        getView(){
+
+
+            return <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
+
+
+                <Cal.CRSelectSwimmer
+                    swimmers={this.props.swimmers}
+                    currentSwimmer={this.props.currentSwimmer}
+                    ></Cal.CRSelectSwimmer>
+
+                {
+                    this.props.currentSwimmerClasses.map(function (register) {
+
+                        return <Cal.CRClassBookItem key={register.classId}
+                                                    classId={register.classId}
+                            />
+                    })
+                }
+
+            </RC.Form>
+        },
+
         render() {
             return <div>
 
-
-                <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
-
-
-                    <Cal.CRSelectSwimmer
-                        swimmers={this.props.swimmers}
-                        currentSwimmer={this.props.currentSwimmer}
-                        ></Cal.CRSelectSwimmer>
-
-                    {
-                        this.props.currentSwimmerClasses.map(function (register) {
-
-                            return <Cal.CRClassBookItem
-                                classId={register.classId}
-                                />
-                        })
-                    }
-
-                </RC.Form>
+                {this.getView()}
 
             </div>
         }

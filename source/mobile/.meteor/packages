@@ -28,7 +28,8 @@ mobile-status-bar
 kadira:flow-router
 kadira:react-layout
 
-#fourseven:scss
+###fourseven:scss v3.3.3 miss some features, wait for updating
+fourseven:scss@=3.2.0
 fortawesome:fontawesome
 
 ####
@@ -80,7 +81,6 @@ msavin:mongol
 anti:fake
 
 sanjo:jasmine
-velocity:html-reporter
 velocity:console-reporter
 cal:cart
 standard-minifiers

@@ -115,9 +115,12 @@
             let class3 = this.data.selectedClasses.get('class3')
 
 
+            //let currentSwimmerValue = this.data.currentSwimmer
+            //    && {value:this.data.currentSwimmer._id,
+            //        text:this.data.currentSwimmer.name}
+
             let currentSwimmerValue = this.data.currentSwimmer
-                && {value:this.data.currentSwimmer._id,
-                    text:this.data.currentSwimmer.name}
+                    && this.data.currentSwimmer._id
 
             //debugger
 

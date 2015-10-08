@@ -1,6 +1,8 @@
 
 Cal.ClassEditSwimmerItemClassItem = React.createClass({
-
+    propTypes:{
+        registerInfo:React.PropTypes.bool
+    },
     mixins: [ReactMeteorData],
     getMeteorData() {
 
@@ -31,10 +33,10 @@ Cal.ClassEditSwimmerItemClassItem = React.createClass({
 
         return <p>
             {
-                this.data.classInfo.length?<a  href={href}>
+                this.data.classInfo.length?<span  href={href}>
                     {this.data.classInfo[0].name}
                     { this.data.classInfo[0].level}
-                </a>:''
+                </span>:''
             }
         </p>
     }

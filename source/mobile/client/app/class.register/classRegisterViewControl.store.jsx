@@ -18,7 +18,36 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
         目前不是server side render 真正处于那个阶段 后端仍需check
 
     * */
-    self.registerStatus = new ReactiveVar(1)
+    self.registerStage = new ReactiveVar(1)
+
+    self.appInfo = new ReactiveVar(1)
+
+
+
+    self.getCurrentClassCount= function(){
+        var appInfo= self.appInfo.get()
+
+        //if(!App.info) return;
+        return DB.ClassesRegister.find({
+            accountId:Meteor.userId(),
+            sessionId:appInfo && appInfo.sessionNow
+        })
+
+    }
+
+
+
+
+    self.getHistoryClassCount= function(){
+        //if(!App.info) return;
+        var appInfo= self.appInfo.get()
+
+        return DB.ClassesRegister.find({
+            accountId:Meteor.userId(),
+            sessionId:{$nin:[appInfo && appInfo.sessionNow , appInfo && appInfo.sessionRegister]}
+        })
+
+    }
 
 
      //当前时间
@@ -27,25 +56,109 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
 
     }
 
-
     //acount 是否有swimmer正在参与课程
-
-
-
-
-
 
 
     self.tokenId = Dispatcher.register(function(payload){
         switch(payload.actionType){
 
-            //case "LEFT_NAV_OPEN":
-            //    self.leftNavStatus.set(true)
-            //    break;
-            //case "LEFT_NAV_CLOSE":
-            //    self.leftNavStatus.set(false)
-            //    break;
+
+            case "CRRegistraionInfoPage_CONTINUE":{
+
+                var registerStage = self.registerStage.get()
+                var isActive = self.getCurrentClassCount().count()
+                var hasHistory = self.getHistoryClassCount().count()
+
+
+                debugger
+                //var registerHref="/classRegister/register"
+
+                var commonRegisterPage = "/classRegister/SelectClass"
+                var BookTheSameTimePage ="/classRegister/BookTheSameTimePage"
+
+                if(registerStage ==1){//
+
+                    if(isActive){
+
+                        FlowRouter.go(BookTheSameTimePage);
+
+                    }else{
+                        if(hasHistory){
+
+                            alert('第三阶段再来')
+
+                        }else{
+
+                            alert('第四阶段再来')
+                        }
+                    }
+
+                }else if(registerStage ==2){//current可自由选择
+
+                    if(isActive){
+
+                        FlowRouter.go(commonRegisterPage);
+
+                    }else{
+                        if(hasHistory){
+
+                            alert('第三阶段再来')
+
+                        }else{
+
+                            alert('第四阶段再来')
+                        }
+                    }
+
+                }else if(registerStage ==3){//return user可选择
+                    if(isActive){
+
+                        FlowRouter.go(commonRegisterPage);
+
+                    }else{
+                        if(hasHistory){
+
+                            FlowRouter.go(commonRegisterPage);
+                           // alert('第三阶段再来')
+
+                        }else{
+
+                            alert('第四阶段再来')
+
+                        }
+                    }
+
+
+                }else if(registerStage ==4){//所有用户可选择
+
+                    FlowRouter.go(commonRegisterPage);
+
+                }
+
+                break;
+            }
+
         }
     });
+
+
+
+    Meteor.startup(function () {
+        Meteor.subscribe('registerInfoByAccountId',Meteor.userId())
+
+
+        Tracker.autorun(function () {
+            //if(!DB.Swimmers) return;
+
+            var appInfo = DB.App.findOne()
+
+            if(appInfo){
+                self.appInfo.set(appInfo)
+                self.registerStage.set(appInfo.registerStage)
+            }
+
+        })
+    })
+
 
 });

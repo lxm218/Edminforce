@@ -26,12 +26,12 @@
 
     ClassEditRoute.route('/SwimmerRegisteredClass', {
         //name: "home",
-        action: function (p) {
+        action: function (p,query) {
             App.routeHandler(p, {
                 pageTitle: "Registered Class",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.SwimmerRegisteredClassPage {...p} />
+                bodyTmpl: <Cal.SwimmerRegisteredClassPage {...p} {...query} />
             })
         }
     })

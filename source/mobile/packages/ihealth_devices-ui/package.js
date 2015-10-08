@@ -28,13 +28,13 @@ Package.onUse(function(api) {
     "bp.css",
   ], "client")
 
-  api.addAssets([
+  api.addAssets ([
     "assets/bp5/help1.jpg",
     "assets/bp5/help2.jpg",
     "assets/bp5/help3.jpg",
     "assets/bp5/help4.jpg",
     "assets/bp5/help5.png",
-  ], 'client', { isAsset: true })
+  ], 'client')
 
   api.export("DeviceRC", "client")
 })

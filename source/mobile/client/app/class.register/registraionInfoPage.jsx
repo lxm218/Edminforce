@@ -2,69 +2,74 @@
  * Created on 9/14/15.
  */
 
-Cal.CRRegistraionInfoPage = React.createClass({
+{
+    let classRegisterStore;
+    Dependency.autorun(function () {
+        classRegisterStore = Dependency.get('ClassRegister.ViewControl.store');
+    });
 
-    mixins: [ReactMeteorData],
-    getMeteorData() {
-        return {}
-    },
+    Cal.CRRegistraionInfoPage = React.createClass({
 
-    render() {
+        mixins: [ReactMeteorData],
+        getMeteorData() {
 
-        return <div key={Math.random()}>
+            //Meteor.subscribe('registerInfoByAccountId',Meteor.userId())
+
+            return {}
+        },
+        continue(){
+
+            Dispatcher.dispatch({
+                actionType: "CRRegistraionInfoPage_CONTINUE"
+            });
+
+        },
+
+        render() {
+
+            return <div key={Math.random()}>
 
 
+                <RC.Card key={Math.random()} title="Registration Information">
+                    <div className="row">
+                        <div className="col">
 
-            <RC.Card key={Math.random()} title="Register Info">
-                <div className="row">
-                    <div className="col">
+                            <p>
+                                1st week: Current students who want the same day and time
+                                <br/>
+                                2nd week: Current students who want to change their schedule
+                                <br/>
+                                3rd week:Returning students
+                                <br/>
+                                4th week: Open enrollment
 
-                        <p>
+                            </p>
 
-                            sfas
-                            sfasf
-                            fasf
-                            sfas
-                            sfasf
-                            fasfsfas
-                            sfasf
-                            fasfsfas
-                            sfasf
-                        </p>
+                            <p>
 
-                        <p>
-                            fasfsfas
-                            sfasf
-                            fasfsfas
-                            sfasf
-                            fasfsfas
-                            sfasf
-                            fasfsfas
-                            sfasf
-                            fasfsfas
-                            sfasf
-                            fasf
-                        </p>
+                                Calphin will still have the right to make changes. Schedules are not confirmed until
+                                confirmation emails are sent out.
+
+                            </p>
+
+                        </div>
 
                     </div>
 
-                </div>
-
-            </RC.Card>
+                </RC.Card>
 
 
-            <p className="padding-left padding-right">
+                <p className="padding-left padding-right">
 
-                <a href="/classRegister/register"
-                   className="button button-full button-brand ">
+                    <button onClick={this.continue}
+                            className="button button-full button-brand ">
 
-                    Continue
-                </a>
-            </p>
-
-
+                        Continue
+                    </button>
+                </p>
 
 
-        </div>
-    }
-})
+            </div>
+        }
+    })
+}
