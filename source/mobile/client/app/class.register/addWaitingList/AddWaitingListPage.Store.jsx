@@ -152,7 +152,7 @@
                 //todo  计算可用数目报名数
                 let classes = DB.Classes.find({
                     sessionId: App.info && App.info.sessionRegister, //level session
-                    level: level
+                    levels: level
                 }).fetch()
 
                 //debugger
@@ -193,7 +193,7 @@
 
                 let classes = DB.Classes.find({
                     sessionId: App.info && App.info.sessionRegister, // session level day
-                    level: level,
+                    levels: level,
                     day: currentDay
                 }).fetch()
 
@@ -237,7 +237,7 @@
 
                 let theClass = DB.Classes.find({
                     sessionId: App.info && App.info.sessionRegister, // session level day
-                    level: level,
+                    levels: level,
                     day: day,
                     startTime: time
                 }).fetch()

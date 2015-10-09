@@ -37,6 +37,40 @@ App.Config.classLevels = [ //从高到底 名字
     "BUB I"
 ]
 
+App.Config.classLevelsNUM = [ //从高到底 名字
+    "ELT3",
+    "ELT2",
+    "ELT1",
+
+    "MST3",
+    "MST2",
+    "MST1",
+
+    "CHL3",
+    "CHL2",
+    "CHL1",
+
+    "RCR3",
+    "RCR2",
+    "RCR1",
+
+    "SPR3",
+    "SPR2",
+    "SPR1",
+
+    "GLD3",
+    "GLD2",
+    "GLD2",
+
+    "CRL3",
+    "CRL3",
+    "CRL1",
+
+    "BUB3",
+    "BUB2",
+    "BUB1"
+]
+
 
 App.Config.week = {
     1: 'Monday',

@@ -13,15 +13,10 @@ Meteor.startup(function () {
     var classRegisterData=[
 
 
+        ////history
         {
-            classId:'1_BUB III_15_00_testSession1',
+            classId:'testSession1-MON3',
             swimmerId:'jandmfear@gmail.com_Mia-Fear',
-            sessionId: 'testSession1',
-            accountId:'jandmfear@gmail.com'
-        },
-        {
-            classId:'1_SPR III_15_00_testSession1',
-            swimmerId:'jandmfear@gmail.com_David-Fear',
             sessionId: 'testSession1',
             accountId:'jandmfear@gmail.com'
         },
@@ -30,19 +25,19 @@ Meteor.startup(function () {
         /////////////////session2//////////////////////////////////////
         //jliu@gmail.com
         {
-            classId:'1_SPR I_15_00_testSession2',
+            classId:'testSession2-MON14',
             swimmerId:'jliu@gmail.com_Allen-Liu',
             sessionId: 'testSession2',
             accountId:'jliu@gmail.com'
         },
         {
-            classId:'3_SPR I_15_00_testSession2',
+            classId:'testSession2-WED14',
             swimmerId:'jliu@gmail.com_Allen-Liu',
             sessionId: 'testSession2',
             accountId:'jliu@gmail.com'
         },
         {
-            classId:'1_CHL II_15_00_testSession2',
+            classId:'testSession2-MON17',
             swimmerId:'jliu@gmail.com_Lily-Liu',
             sessionId: 'testSession2',
             accountId:'jliu@gmail.com'
@@ -50,13 +45,13 @@ Meteor.startup(function () {
 
         //jbhe@gmail.com
         {
-            classId:'1_MST I_15_00_testSession2',
+            classId:'testSession2-MON17',
             swimmerId:'jbhe@gmail.com_Angle-He',
             sessionId: 'testSession2',
             accountId:'jbhe@gmail.com'
         },
         {
-            classId:'1_RCR III_15_00_testSession2',
+            classId:'testSession2-MON15',
             swimmerId:'jbhe@gmail.com_Mattew-He',
             sessionId: 'testSession2',
             accountId:'jbhe@gmail.com'
@@ -65,7 +60,7 @@ Meteor.startup(function () {
 
         //dave_IrisRojan@gmail.com
         {
-            classId:'1_CRL I_15_00_testSession2',
+            classId:'testSession2-MON19',
             swimmerId:'dave_IrisRojan@gmail.com_Arush-Rojan',
             sessionId: 'testSession2',
             accountId:'dave_IrisRojan@gmail.com'
