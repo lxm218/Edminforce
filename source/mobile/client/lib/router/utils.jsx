@@ -29,7 +29,11 @@ App.routeHandler = function (p, args) {
         globalNavLocation: args.globalNavLocation,
         headerNav: args.headerNav,
         leftNavToggle:args.leftNavToggle,
-        hideBackButton:args.hideBackButton, //login 页禁止显示 BackButton 和leftNavToggle
+
+        hideBackButton:args.hideBackButton,
+        hideLeftNavToggle:args.hideLeftNavToggle,
+        hideShoppingCartButton:args.hideShoppingCartButton,
+
         body: args.bodyTmpl
     })
 }

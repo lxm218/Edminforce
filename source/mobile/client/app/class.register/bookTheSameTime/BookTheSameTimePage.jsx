@@ -153,6 +153,13 @@
 
         },
 
+        componentWillMount(){
+
+            Dispatcher.dispatch({
+                actionType: "componentWillMount_CRBookTheSameTimePage"
+            });
+
+        },
 
         render() {
 

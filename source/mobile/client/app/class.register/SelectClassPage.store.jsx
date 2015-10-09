@@ -245,7 +245,7 @@
                     break;
                 }
 
-                case "GOTO_CRSelectClassPage":
+                case "componentWillMount_CRSelectClassPage":
                 {
                     //清空上一轮的选择
 
@@ -278,8 +278,10 @@
             //days depend on level of swimmer
             Tracker.autorun(function () {
                 //if (!DB.Classes) return;
+              App.info = App.info || DB.App.findOne()
 
                 var level = self.currentLevel.get();
+
 
                 //Tracker.nonreactive(function () {
 
@@ -288,6 +290,9 @@
                         sessionId: App.info && App.info.sessionRegister, //level session
                         level: level
                     }).fetch()
+
+
+              console.log(level,App.info && App.info.sessionRegister,classes)
 
                     //debugger
                     classes = _.uniq(classes, function (item, key, a) {
@@ -317,8 +322,10 @@
             /// time depend on day
             Tracker.autorun(function () {
                 //if (!DB.Classes) return;
+                App.info = App.info || DB.App.findOne()
 
                 var currentDay = self.currentDay.get();
+
 
                 var level
                 Tracker.nonreactive(function(){
@@ -358,6 +365,7 @@
             //level + day+ time  确定一个class
             Tracker.autorun(function () {
                 //if (!DB.Classes) return;
+              App.info = App.info || DB.App.findOne()
 
                 let time = self.currentTime.get()
 
@@ -382,8 +390,6 @@
 
 
 
-
-
             });
 
 
@@ -396,6 +402,7 @@
                     self.currentSwimmer.set(swimmers[0])
                     self.currentLevel.set(swimmers[0].level) //todo real logic
                 }
+              console.log(swimmers)
 
             })
         })

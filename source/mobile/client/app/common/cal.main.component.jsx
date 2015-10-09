@@ -52,8 +52,11 @@
                 <RC.LeftNav2 navList={leftNavList} ref="LeftNav" openOnInit={this.data.leftNavIsOpen}/>
 
                 <RC.HeaderNav nav={this.props.headerNav}
-                              leftNavToggle={this.props.leftNavToggle}
+
                               hideBackButton= {this.props.hideBackButton}
+                              hideLeftNavToggle={this.props.hideLeftNavToggle}
+                              hideShoppingCartButton={this.props.hideShoppingCartButton}
+
                               title={this.props.title} theme="flat"/>
                 <RC.GlobalNav isVisible={this.props.showGlobalNav} list={this.props.globalNav}
                               location={this.props.globalNavLocation} theme="flat"/>

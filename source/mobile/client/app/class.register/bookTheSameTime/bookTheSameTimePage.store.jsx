@@ -277,7 +277,7 @@
                             console.log('step3', currentClass)
 
 
-                            FlowRouter.go('/classRegister/SelectClassReady');
+                            FlowRouter.go('/classRegister/BookTheSameTimeSelectClassReady');
                         })
 
                     }
@@ -438,7 +438,7 @@
                             console.log('step3', currentClass)
 
 
-                            FlowRouter.go('/classRegister/SelectClassReady');
+                            FlowRouter.go('/classRegister/BookTheSameTimeSelectClassReady');
                         })
 
                     }
@@ -448,9 +448,10 @@
                     break;
                 }
 
-                case "GOTO_CRBookTheSameTimePage":
+                case "componentWillMount_CRBookTheSameTimePage":
                 {
-                    debugger
+                    //debugger
+                    console.log('componentWillMount_CRBookTheSameTimePage')
                     //清空上一轮的选择
 
                     self.currentDay.set(undefinedSelectValue)
@@ -525,6 +526,7 @@
                 //if (!DB.Classes) return;
 
                 var currentDay = self.currentDay.get();
+                var appInfo = DB.App.findOne()
 
                 var level
                 Tracker.nonreactive(function () {
@@ -532,7 +534,7 @@
                 });
 
                 let classes = DB.Classes.find({
-                    sessionId: App.info && App.info.sessionRegister, // session level day
+                    sessionId: appInfo && appInfo.sessionRegister, // session level day
                     level: level,
                     day: currentDay
                 }).fetch()
@@ -563,6 +565,7 @@
                 //if (!DB.Classes) return;
 
                 let time = self.currentTime.get()
+                let appInfo = DB.App.findOne()
 
 
                 let level
@@ -573,7 +576,7 @@
                 });
 
                 let theClass = DB.Classes.find({
-                    sessionId: App.info && App.info.sessionRegister, // session level day
+                    sessionId: appInfo && appInfo.sessionRegister, // session level day
                     level: level,
                     day: day,
                     startTime: time
