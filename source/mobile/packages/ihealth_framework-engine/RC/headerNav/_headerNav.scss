@@ -34,21 +34,25 @@
 
 /* Back */
 #mobile-header .back {
-  position: absolute; top: 0; left: 0; bottom: 0; right: auto;
-  padding: 15px 0 0 24px;
+  //position: absolute; top: 0; left: 0; bottom: 0; right: auto;
+  display:inline-block;
+  padding: 15px 0 0 10px;
   min-width: 75px; }
-#mobile-header .back:before, #mobile-header .back:after {
-  display: block; content: " ";
-  position: absolute; left: 0; top: 50%;
-  width: 2px; height: 7px; }
-#mobile-header .back:before { @include rotate(-45deg); margin: 0 0 0 13px; }
-#mobile-header .back:after { @include rotate(45deg); margin: -4px 0 0 13px; }
+
+//#mobile-header .back:before, #mobile-header .back:after {
+//  display: block; content: " ";
+//  position: absolute; left: 0; top: 50%;
+//  width: 2px; height: 7px; }
+//#mobile-header .back:before { @include rotate(-45deg); margin: 0 0 0 13px; }
+//#mobile-header .back:after { @include rotate(45deg); margin: -4px 0 0 13px; }
 
 //navToggle
 #mobile-header .navToggle {
-  position: absolute; top: 0; left: 0; bottom: 0; right: auto;
-  padding: 15px 0 0 24px;
-  min-width: 75px; }
+  display:inline-block;
+  //position: absolute; top: 0; left: 0; bottom: 0; right: auto;
+  padding: 15px 0 0 10px;
+  //min-width: 75px;
+}
 
 
 
@@ -79,4 +83,13 @@
 
 @media screen and (max-width: $width_mobile) {
   #mobile-header .logo h1 { padding-right: 15px; }
+}
+
+/*shopping cart*/
+#mobile-header .shopping-cart-button{
+  display:inline-block;
+  float:right;
+  padding: 15px 15px 0 0px;
+  margin: 0;
+
 }

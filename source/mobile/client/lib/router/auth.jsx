@@ -38,7 +38,9 @@ DefaultRoutes.route('/user/:slug', {
           href: "/user/User_Registration_Only",
           text: "User Registration Only",
         }],
-        hideBackButton:true
+        hideBackButton:true,
+        hideLeftNavToggle:true,
+
       }
 
       if (Cal[p.slug]) dynamicRoute.bodyTmpl = React.createElement(Cal[p.slug])
