@@ -28,7 +28,7 @@ Cal.Auth = React.createClass({
 	            	<RC.Button onClick={this.logOut} name="button" theme="full" buttonColor="brand">
 		                Log Out
 		            </RC.Button> :
-		            <RC.URL href="/user/User_Login_Basic">
+		            <RC.URL href="/login">
 		                <RC.Button name="button" theme="full" buttonColor="brand">
 		                    Log In
 		                </RC.Button>

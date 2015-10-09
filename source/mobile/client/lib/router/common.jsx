@@ -14,7 +14,7 @@
         //console.log('Router enter: path='+context.path,' name= '+FlowRouter.getRouteName())
 
         //hack 从注册页跳过来 todo 系统处理url history
-        if(savedRoute == '/user/User_Login_Basic'){
+        if(savedRoute == '/login'){
             savedRoute ='/'
         }
 
@@ -38,7 +38,7 @@
                  * direct user to login page.
                  */
                 FlowRouter.go(context.path)
-            } else if (context.path != '/user/User_Login_Basic') {
+            } else if (context.path != '/login') {
                 //用于登陆后回调  登陆应该以dispatch message方式
                 Session.set('redirectAfterLogin', context.path)
                 //var redirectAfterLogin =Session.get('redirectAfterLogin')
@@ -48,7 +48,7 @@
                 //    //to verify
                 //    FlowRouter.go('/')
                 //}
-                FlowRouter.go('/user/User_Login_Basic')
+                FlowRouter.go('/login')
             }
         }
 

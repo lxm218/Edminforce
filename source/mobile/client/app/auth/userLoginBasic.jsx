@@ -1,5 +1,5 @@
 
-Cal.User_Login_Basic = React.createClass({
+Cal.Login = React.createClass({
   render() {
     /**
      * Notice how I used the .bg-brand class to style the login form.

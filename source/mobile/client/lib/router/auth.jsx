@@ -16,11 +16,11 @@ DefaultRoutes.route('/auth', {
     }
   })
 
-DefaultRoutes.route('/user/:slug', {
-  name: "user",
+DefaultRoutes.route('/login', {
+  name: "Log In",
   action: function(p) {
-
-    let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+    debugger
+    let pageTitle = "Log In"
     var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
@@ -43,7 +43,7 @@ DefaultRoutes.route('/user/:slug', {
 
       }
 
-      if (Cal[p.slug]) dynamicRoute.bodyTmpl = React.createElement(Cal[p.slug])
+        dynamicRoute.bodyTmpl = React.createElement(Cal["Login"])
         App.routeHandler(p, dynamicRoute)
     }
   })

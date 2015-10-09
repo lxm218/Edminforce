@@ -15,7 +15,7 @@
                         return;
                     }
                     //跳到登陆页面 to be verified todo url 待定
-                    FlowRouter.go('/user/User_Login_Basic')
+                    FlowRouter.go('/login')
                 })
                 break;
             }
