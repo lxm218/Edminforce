@@ -30,13 +30,8 @@
         selectMore(e){
             e.preventDefault();
 
-
-            //Dispatcher.dispatch({
-            //    actionType: "GOTO_CRBookTheSameTimePage"
-            //});
-            //
-            //var href = "/classRegister/register"
-            //FlowRouter.go(href);
+            var href = "/classRegister/BookTheSameTimePage"
+            FlowRouter.go(href);
         },
 
         render() {
@@ -75,13 +70,12 @@
 
                     </RC.Item>
 
-                    <RC.URL href="/classRegister/BookTheSameTimePage">
                         <RC.Button name="button" type="submit"
+                                    onClick={this.selectMore}
                                    theme="full" buttonColor="brand">
                             Select More
                         </RC.Button>
 
-                    </RC.URL>
 
 
                     <RC.URL href="/classRegister/RegBillingPage">

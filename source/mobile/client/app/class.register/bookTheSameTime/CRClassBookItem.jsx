@@ -53,15 +53,15 @@ Cal.CRClassBookItem = React.createClass({
                             {this.data.similarClass && this.data.similarClass.level}
 
                             <br/>
-                            {this.data.similarClass && this.data.similarClass.day}
+                            {this.data.similarClass && App.Config.week[this.data.similarClass.day]}
 
                             <br/>
-                            {this.data.similarClass && this.data.similarClass.startTime}
+                            {this.data.similarClass && App.num2time(this.data.similarClass.startTime)}
 
                         </div>
 
                         <div className="col">
-                            <span onClick={this.book} className="button button-clear button-small">
+                            <span onClick={this.book} className="button button-small">
                             BOOK
                             </span>
                         </div>

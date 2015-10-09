@@ -103,6 +103,14 @@
             });
 
         },
+
+        componentWillMount(){
+
+            Dispatcher.dispatch({
+                actionType: "componentWillMount_CRSelectClassPage"
+            });
+
+        },
         render() {
 
             let swimmers = this.data.swimmers.map(function (v, i) {
