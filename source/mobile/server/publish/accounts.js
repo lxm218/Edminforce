@@ -83,7 +83,7 @@
                 {
                     find: function (account) {  //所有swimmers
 
-                        console.log(account)
+                        //console.log(account)
 
                         return DB.Swimmers.find(
                             {accountId: account._id});
@@ -92,7 +92,7 @@
                         {
                             find: function (swimmer, account) {//swimmers对应的class id
 
-                                console.log(swimmer)
+                                //console.log(swimmer)
                                 return DB.ClassesRegister.find(
                                     {
                                         swimmerId: swimmer._id
@@ -103,7 +103,7 @@
                                 {
                                     find: function (classesRegister, swimmer, account) {//class对应的详细信息
 
-                                        console.log(classesRegister)
+                                        //console.log(classesRegister)
 
                                         return DB.Classes.find(
                                             {
@@ -115,7 +115,7 @@
                                         {
                                             find: function (classDetail, classesRegister, swimmer, account) {//just for test
 
-                                                console.log(classDetail)
+                                                //console.log(classDetail)
 
                                             }
                                         }

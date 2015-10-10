@@ -9,6 +9,18 @@
         CRSelectClassPageStore = Dependency.get('classRegister.SelectClassPage.store');
     });
 
+    //一轮选择中 class重复检测
+    function currentClass_in_selectedClasses(currentClass,selectedClasses){
+        var classItem;
+        for(var i=1;i<=3; i++){
+            classItem = selectedClasses.get('class'+i)
+            if(classItem && classItem._id == currentClass._id){
+                return true
+            }
+        }
+        return false;
+    }
+
 
     Cal.CRSelectClassPage = React.createClass({
         mixins: [ReactMeteorData],
@@ -27,6 +39,7 @@
                 swimmers: CRSelectClassPageStore.getSwimmers().fetch(),
 
                 currentSwimmer: CRSelectClassPageStore.currentSwimmer.get(),
+                currentClass:CRSelectClassPageStore.currentClass.get(),
 
                 //should wait for currentSwimmer
                 avaiableDays: CRSelectClassPageStore.avaiableDays.get(),
@@ -96,6 +109,15 @@
                 return;
             }
 
+            //check duplicate
+            var selectedClasses =this.data.selectedClasses
+            var currentClass =this.data.currentClass
+            if(currentClass_in_selectedClasses(currentClass,selectedClasses)){
+                alert('class duplicated')
+                return;
+            }
+
+
             Dispatcher.dispatch({
                 actionType: "CRSelectClassPage_CLASS_SELECT",
                 currentStep: this.data.currentStep,
@@ -104,6 +126,15 @@
 
         },
 
+        goToEdit(num){
+
+            Dispatcher.dispatch({
+                actionType: "CRSelectClassPage_CLASS_EDIT",
+                currentStep: this.data.currentStep,
+                eidtStep: num
+            });
+
+        },
         componentWillMount(){
 
             Dispatcher.dispatch({
@@ -134,25 +165,57 @@
 
             return <div>
                 <RC.Card key={Math.random()} className="padding">
-
-
                     <h4 className="brand">Register for spring 2015</h4>
-                    <div className="row">
-                        <div className="col">
-                            {swimmer && swimmer.name}
-                        </div>
-                        <div className="col">
 
-                            {class1 && class1.name}
-                            <br/>
-                            {class2 && class2.name}
-                            <br/>
-                            {class3 && class3.name}
+                    {/*swimmer && swimmer.name*/}
 
-                        </div>
-                    </div>
+                    {
+                        class1?<div className="row">
+                            <div className="col">
+                                Preference 1
+                            </div>
+                            <div className="col">
+                                {class1.name}
+                            </div>
+                            <div className="col col-20">
+                                <button className="button button-clear"
+                                        onClick={this.goToEdit.bind(this,1)}
+                                    >Edit</button>
+                            </div>
+                        </div>:''
 
+                    }
 
+                    {
+                        class2?<div className="row">
+                            <div className="col">
+                                Preference 2
+                            </div>
+                            <div className="col">
+                                {class2 && class2.name}
+                            </div>
+                            <div className="col col-20">
+                                <button className="button button-clear"
+                                        onClick={this.goToEdit.bind(this,2)}
+                                    >Edit</button>
+                            </div>
+                        </div>:''
+                    }
+                    {
+                        class3?<div className="row">
+                            <div className="col">
+                                Preference 3
+                            </div>
+                            <div className="col ">
+                                {class3 && class3.name}
+                            </div>
+                            <div className="col col-20">
+                                <button className="button button-clear"
+                                        onClick={this.goToEdit.bind(this,3)}
+                                    >Edit</button>
+                            </div>
+                        </div>:''
+                    }
 
                 </RC.Card>
 

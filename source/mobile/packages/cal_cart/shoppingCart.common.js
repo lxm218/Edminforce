@@ -99,7 +99,7 @@ get_active_cart_id =function (createIfNotExist) {
         status: 'active'
     })
 
-    console.log(cart)
+    //console.log(cart)
 
     return (cart && cart._id) || (createIfNotExist && create_cart());
 }
