@@ -32,8 +32,16 @@ DB.Schema.Classes = new SimpleSchema({
         type: String
     },
 
+    //todo delete
     level:  {
-        type: String
+      type: String,
+      optional: true
+    },
+
+    // 一个class包含多个level
+    levels:  {
+      type: [String],
+      optional: true
     },
 
     //class的时间定义 每周仅一次？

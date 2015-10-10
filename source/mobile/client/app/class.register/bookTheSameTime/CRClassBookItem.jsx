@@ -15,14 +15,19 @@ Cal.CRClassBookItem = React.createClass({
         var oldClass = DB.Classes.findOne({
             _id: classId
         })
+        console.log(oldClass,App.info)
+
+
 
         //相同class不存在时的判断逻辑
-        var similarClass = DB.Classes.findOne({
+        var queryObj={
             sessionId:App.info && App.info.sessionRegister,
             day:oldClass && oldClass.day,
             startTime:oldClass && oldClass.startTime
 
-        })
+        }
+        console.log(queryObj)
+        var similarClass = DB.Classes.findOne(queryObj)
 
         console.log('similarClass',similarClass)
 
