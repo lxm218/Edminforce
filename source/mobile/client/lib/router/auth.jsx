@@ -28,7 +28,7 @@ DefaultRoutes.route('/login', {
         headerNav: null,
         hideBackButton: true,
         hideLeftNavToggle: true,
-        hideShoppingCartButton: false,
+        hideShoppingCartButton: true,
       }
 
         dynamicRoute.bodyTmpl = React.createElement(Cal["Login"])

@@ -122,6 +122,12 @@ IH.RC.User = React.createClass({
     let form = this.refs.registerForm.getFormData()
 
     if (form.pw==form.pwRepeat) {
+      if (!App.checkPassword(form.pw)) {
+        this.setState({
+          msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers."
+        })
+        return
+      }
       // Create User
       Accounts.createUser({
         username: form.username,

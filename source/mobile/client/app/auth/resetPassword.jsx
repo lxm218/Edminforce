@@ -21,8 +21,9 @@ Cal.ResetPassword = React.createClass({
 	clearForm(){
 		this.refs.newPw.reset()
 		this.refs.newPwRepeat.reset()
-		this.setState({ msg: null })
-		this.setState({ waiting: false })
+		this.setState({ 
+			msg: null,
+			waiting: false })
 	},
 
 	reset(e){
@@ -33,9 +34,16 @@ Cal.ResetPassword = React.createClass({
 		let form = this.refs.resetForm.getFormData()
 
 		if (form.pw == form.pwRepeat) {
-	      // Reset Account Password using token
-	      this.setState({ waiting: true })
-	      Accounts.resetPassword(
+			if (!App.checkPassword(form.pw)) {
+				this.setState({
+          			msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers.",
+          			waiting: false
+        		})
+        		return
+			};
+	      	// Reset Account Password using token
+	      	this.setState({ waiting: true })
+	      	Accounts.resetPassword(
 	      	this.props.userToken,
 	      	form.pw,
 	      	function(err) {
