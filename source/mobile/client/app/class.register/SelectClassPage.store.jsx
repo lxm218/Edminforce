@@ -92,6 +92,7 @@
                     debugger
 
                     self.currentDay.set(payload.day)
+                    self.currentTime.set()
                     break;
                 }
 
@@ -120,14 +121,6 @@
                         self.selectedClasses.set(map)
 
 
-                        //ShoppingCart.addShoppingItem(
-                        //    {
-                        //        swimmer: currentSwimmer,
-                        //        class1: currentClass
-                        //    }
-                        //);
-
-
                         Meteor.call('add_class_to_cart', {
                             swimmerId: currentSwimmer._id,
                             classId: currentClass._id,
@@ -138,6 +131,7 @@
                             debugger
                             if (err) {
                                 console.error(err)
+                                alert(err.error)
                                 return; //todo  prompt
                             }
 
@@ -165,17 +159,6 @@
                         let swimmer = map.get('swimmer')
                         let class1 = map.get('class1')
 
-
-                        //ShoppingCart.addClassPreference(2,{
-                        //    'swimmer': swimmer,
-                        //    'class1':  class1,
-                        //    data: currentClass
-                        //},function(err,result){
-                        //    if(err) return;
-                        //
-                        //    self.currentStep.set(3),
-                        //    resetDateAndTime()
-                        //})
 
                         Meteor.call('add_preference_to_cart', {
                             cartId: Session.get('CART_ID'),
@@ -212,16 +195,6 @@
                         let swimmer = map.get('swimmer')
                         let class1 = map.get('class1')
 
-                        //ShoppingCart.addClassPreference(3,{
-                        //    'swimmer': swimmer,
-                        //    'class1':   class1,
-                        //    data:currentClass
-                        //},function(err,result){
-                        //    if(err) return;
-                        //
-                        //    FlowRouter.go('/classRegister/SelectClassReady');
-                        //
-                        //})
 
                         Meteor.call('add_preference_to_cart', {
                             cartId: Session.get('CART_ID'),
@@ -258,7 +231,15 @@
 
                     self.selectedClasses.set(Immutable.Map())
 
+                    break;
+                }
+                case "CRSelectClassPage_CLASS_EDIT":
+                {
+                    var editStep = payload.eidtStep
 
+                    alert(editStep)
+
+                    break;
                 }
 
             }
@@ -274,89 +255,102 @@
 
         Meteor.startup(function () {
 
+            //初始化swimmer and level
+            Tracker.autorun(function () {
+
+                var swimmers = self.getSwimmers().fetch()
+
+                if (swimmers.length) {
+                    self.currentSwimmer.set(swimmers[0])
+                    self.currentLevel.set(swimmers[0].level) //todo 获取比当前level更高一级的level
+                }
+                console.log(swimmers)
+
+            })
 
             //days depend on level of swimmer
             Tracker.autorun(function () {
-                //if (!DB.Classes) return;
-              App.info = App.info || DB.App.findOne()
+
+                //wait for App.info ready
+                App.info = App.info || DB.App.findOne()
+                if(!App.info) return;
+
 
                 var level = self.currentLevel.get();
+                console.log('autorun level',level, App.info.sessionRegister)
 
 
-                //Tracker.nonreactive(function () {
+                //todo  计算可用数目报名数
+                let classes = DB.Classes.find({
+                    sessionId: App.info.sessionRegister, //level session
+                    levels: level
+                }).fetch()
 
-                    //todo  计算可用数目报名数
-                    let classes = DB.Classes.find({
-                        sessionId: App.info && App.info.sessionRegister, //level session
-                        levels: level
-                    }).fetch()
+                console.log(level, App.info.sessionRegister, classes)
 
+                //debugger
+                classes = _.uniq(classes, function (item, key, a) {
+                    return item.day;
+                });
 
-              console.log(level,App.info && App.info.sessionRegister,classes)
+                let days = classes.map(function (v, n) {
+                    return {text: App.Config.week[v.day], value: v.day}
+                })
+                days.sort(function (a, b) {
+                    return (a.value - b.value);
+                })
 
-                    //debugger
-                    classes = _.uniq(classes, function (item, key, a) {
-                        return item.day;
-                    });
+                //add an empty value to prevent browser init select value  use the first item
+                days.unshift(undefinedSelectValue)
 
-                    let days = classes.map(function (v, n) {
-                        return {text: App.Config.week[v.day], value: v.day}
-                    })
-
-                    //add an empty value to prevent browser init select value  use the first item
-                    days.unshift(undefinedSelectValue)
-
-                    self.avaiableDays.set(days)
-
-                    //设置默认值
-                    //if (days.length) {
-                    //    self.currentDay.set(days[0].value)
-                    //}
+                self.avaiableDays.set(days)
 
 
-                //});
+                //重置day
+                //self.currentDay.set(days[0].value)
 
 
             });
 
             /// time depend on day
             Tracker.autorun(function () {
-                //if (!DB.Classes) return;
+
+                //wait for App.info ready
                 App.info = App.info || DB.App.findOne()
+                if(!App.info) return;
+
 
                 var currentDay = self.currentDay.get();
 
-
                 var level
-                Tracker.nonreactive(function(){
+                Tracker.nonreactive(function () {
                     level = self.currentLevel.get()
                 });
 
-                    let classes = DB.Classes.find({
-                        sessionId: App.info && App.info.sessionRegister, // session level day
-                        levels: level,
-                        day: currentDay
-                    }).fetch()
+                let classes = DB.Classes.find({
+                    sessionId: App.info.sessionRegister, // session level day
+                    levels: level,
+                    day: currentDay
+                }).fetch()
 
-                    let times = classes.map(function (v, n) {
-                        return {
-                            text: App.num2time(v.startTime) + "-" + App.num2time(v.endTime),
-                            value: v.startTime
-                        }
-                    })
-
-                    //add an empty value to prevent browser init select value  use the first item
-                    times.unshift(undefinedSelectValue)
-
-                    self.avaiableTimes.set(times)
-
-                    //初始化time
-                    //if (times.length) {
-                    //    self.currentTime.set(times[0].value)
-                    //}
+                let times = classes.map(function (v, n) {
+                    return {
+                        text: App.num2time(v.startTime) + "-" + App.num2time(v.endTime),
+                        value: v.startTime
+                    }
+                })
+                times.sort(function (a, b) {
+                    return (a.value - b.value);
+                })
 
 
+                //add an empty value to prevent browser init select value  use the first item
+                times.unshift(undefinedSelectValue)
 
+                self.avaiableTimes.set(times)
+
+                //重置time
+                //self.currentTime.set(times[0].value)
 
 
             });
@@ -364,48 +358,44 @@
             //time确定后class就确定了
             //level + day+ time  确定一个class
             Tracker.autorun(function () {
-                //if (!DB.Classes) return;
-              App.info = App.info || DB.App.findOne()
+
+                //wait for App.info ready
+                App.info = App.info || DB.App.findOne()
+                if(!App.info) return;
 
                 let time = self.currentTime.get()
 
 
-                let level
-                let day
-                Tracker.nonreactive(function(){
+                let level,day;
+                Tracker.nonreactive(function () {
                     level = self.currentLevel.get()
                     day = self.currentDay.get()
                 });
 
-                    let theClass = DB.Classes.find({
-                        sessionId: App.info && App.info.sessionRegister, // session level day
-                        levels: level,
-                        day: day,
-                        startTime: time
-                    }).fetch()
 
-                    if (theClass[0]) {
-                        self.currentClass.set(theClass[0])
-                    }
-                console.log('selected class',theClass[0])
+                let theClass = DB.Classes.find({
+                    sessionId: App.info.sessionRegister, // session level day
+                    levels: level,
+                    day: day,
+                    startTime: time
+                }).fetch()
+
+                if(theClass.length>1) {
+                    console.error('Multi class match when select class ')
+                }
+
+                if(theClass[0]){
+                    self.currentClass.set(theClass[0])
+
+                    console.log('selected class', theClass[0])
+                }
 
 
 
             });
 
 
-            //初始化swimmer and level
-            Tracker.autorun(function () {
-                //if(!DB.Swimmers) return;
 
-                var swimmers = self.getSwimmers().fetch()
-                if (swimmers.length) {
-                    self.currentSwimmer.set(swimmers[0])
-                    self.currentLevel.set(swimmers[0].level) //todo real logic
-                }
-              console.log(swimmers)
-
-            })
         })
 
 

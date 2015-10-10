@@ -10,10 +10,6 @@ Meteor.startup(function () {
 
         Tracker.autorun(function () {
 
-            //this file is loaded before collections
-            //todo check why crash even in Meteor.startup
-            if(!DB.App) return;
-
             App.info = DB.App.findOne()
         })
     }else{
