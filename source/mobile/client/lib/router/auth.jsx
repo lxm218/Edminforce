@@ -19,7 +19,6 @@ DefaultRoutes.route('/auth', {
 DefaultRoutes.route('/login', {
   name: "Log In",
   action: function(p) {
-    debugger
     let pageTitle = "Log In"
     var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
@@ -30,9 +29,8 @@ DefaultRoutes.route('/login', {
         hideLeftNavToggle: true,
         hideShoppingCartButton: true,
       }
-
-        dynamicRoute.bodyTmpl = React.createElement(Cal["Login"])
-        App.routeHandler(p, dynamicRoute)
+      dynamicRoute.bodyTmpl = React.createElement(Cal["Login"])
+      App.routeHandler(p, dynamicRoute)
     }
   })
 
@@ -44,7 +42,7 @@ DefaultRoutes.route('/reset-password/:userToken', {
       headerNav: null,
       hideBackButton:true,
       showGlobalNav: false,
-      bodyTmpl: React.createElement(Cal.ResetPassword, {userToken: p.userToken, themes: "overlay-dark", bgColor: "brand-light"},null)
+      bodyTmpl: React.createElement(Cal.ResetPasswordEmail, {userToken: p.userToken, themes: "overlay-dark", bgColor: "brand-light"},null)
     }
     App.routeHandler(p, dynamicRoute)
   }

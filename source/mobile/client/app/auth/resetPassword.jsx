@@ -1,5 +1,5 @@
 let themes = ["overlay-light","overlay-dark"]
-Cal.ResetPassword = React.createClass({
+Cal.ResetPasswordEmail = React.createClass({
 
 	mixins: [RC.Mixins.Theme],
 	themeGroup: "ih-login",
@@ -72,7 +72,6 @@ Cal.ResetPassword = React.createClass({
 	},
 
 	printMsg(){
-		debugger
 		console.log("printMsg is called")
 		let currentMessages = this.state.msg ? [this.state.msg] : []
 		return <div>
@@ -116,7 +115,6 @@ Cal.ResetPassword = React.createClass({
     	}
 		return (
 			<div>
-				The token is: {this.props.userToken}
 				<RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
 				<RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="newPw" />
 				<RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="newPwRepeat" />

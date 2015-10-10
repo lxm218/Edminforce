@@ -60,6 +60,23 @@
         }
     })
 
+    AccountRoute.route('/ResetPassword', {
+        action: function(p){
+            debugger
+            let pageTitle = "Reset Password"
+            var dynamicRoute = {
+                pageTitle: pageTitle, // This is for header title
+                metaTitle: pageTitle, // This is for meta title
+                showGlobalNav: true,
+                headerNav: null,
+                hideBackButton: true,
+                hideLeftNavToggle: true,
+                hideShoppingCartButton: true,
+                bodyTmpl: <Cal.ResetPasswordUser/>
+            }
+            App.routeHandler(p, dynamicRoute)
+        }
+    })
 }
 
 

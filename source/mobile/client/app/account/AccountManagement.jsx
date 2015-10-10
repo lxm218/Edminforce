@@ -54,9 +54,9 @@ Cal.AccountManagement = React.createClass({
                         <div className="col">
                             Password
                         </div>
-                        <div className="col">
-                            change
-                        </div>
+                        <a className="button button-block" href="/account/resetPassword">
+                            Change Password
+                        </a>
                     </div>
 
                 </RC.Item>
