@@ -4,11 +4,11 @@
 
 
 
-register_add_class_to_cart = function(classId) {
+register_add_class_to_cart = function (classId) {
 
 
 }
-register_add_preference_to_cart =function(){
+register_add_preference_to_cart = function () {
 
 
 }
@@ -16,6 +16,35 @@ register_add_preference_to_cart =function(){
 function add_item_to_cart(item) {
 
 
+}
+
+//cart中 单个swimmer添加的课程的数量
+function get_class_count_in_cart(cartId, swimmerId) {
+    var cart = DB.ShoppingCart.findOne({
+        _id: cartId
+    })
+    if (!cart)throw new Meteor.Error(500, 'in get_class_count_in_cart', 'cart not exist ' + cartId)
+
+    var items = cart.items
+    var count = 0
+
+    items.forEach(function (item) {
+        if (item.swimmerId == swimmerId) count++
+    })
+
+    return count;
+}
+//用于检查是否已经注册过该课程
+function get_class_count_in_register(swimmerId, classId, sessionId) {
+    sessionId = sessionId || App.info.sessionRegister
+
+    var count = DB.ClassesRegister.find({
+        swimmerId:swimmerId,
+        classId:classId,
+        sessionId: sessionId
+    }).count()
+
+    return count;
 }
 
 //==============================================================
@@ -27,22 +56,70 @@ function add_item_to_cart(item) {
 //{swimmerId,classId, quantity , swimmer,  class1, ...}
 function add_class_to_cart(item) {
 
-    //console.log(item)
 
+    //////////////////////////////////
+    //check 参数
+    if (!item || !item.classId) {
+        throw new Meteor.Error(500, 'in add_class_to_cart', 'param invalid');
+    }
+
+    ////////////////////////////////////
+    //check class可注册数目
+    var classItem = DB.Classes.findOne({
+        _id: item.classId
+    })
+    if (classItem.seatsRemain < 1) {
+        throw new Meteor.Error('ERROR_CLASS_NOT_ENOUGH', 'in add_class_to_cart');
+    }
+
+
+    ///////////////////////////////////
+    //获取或创建购物车
     var cart_id = get_active_cart_id(true)
-
-
     if (!cart_id) {
         throw new Meteor.Error(500,
             'add_class_to_cart  error',
-            'get_active_cart_id: '+cart_id);
+            'get_active_cart_id: ' + cart_id);
     }
-    console.log('get_active_cart_id cart_id '+cart_id);
+    console.log('get_active_cart_id ' + cart_id);
 
 
+    //////////////////////////////////////////
+    //check 检测购物车是否已有该class
+    var cart = DB.ShoppingCart.findOne(
+        {
+            _id: cart_id,
+            status: 'active',
+            items: {
+                $elemMatch: {
+                    'swimmerId': item.swimmerId,
+                    'classId': item.classId
 
+                }
+            }
+        })
+
+    if (cart) {
+        throw new Meteor.Error('ERROR_CLASS_ALREADY_IN_CART', 'in add_class_to_cart');
+    }
+    console.log('check cart', cart,item.swimmerId,item.classId)
+
+
+    //////////////////////////////////////////////////
+    /////////check 单次 一个swimmer最多注册3节
+    var classCount = get_class_count_in_cart(cart_id, item.swimmerId);
+    if (classCount == 3) {
+        throw new Meteor.Error('ERROR_CLASS_ALREADY_3_IN_CART', 'in add_class_to_cart');
+    }
+
+    if(get_class_count_in_register(item.swimmerId, item.classId)){
+        throw new Meteor.Error('ERROR_CLASS_ALREADY_REGISTERED', 'in add_class_to_cart');
+
+    }
+
+
+    /////////////加入购物车///////////
     var result;
-
     result = DB.ShoppingCart.update({//todo 1门课仅可注册一个； 最多注册3门
         '_id': cart_id
     }, {
@@ -52,12 +129,10 @@ function add_class_to_cart(item) {
         }
     })
 
-
     if (!result) {
-        throw new Meteor.Error(500,
-            'add_class_to_cart error',
-            'DB.ShoppingCart.update $push');
-    };
+        throw new Meteor.Error(500, 'add_class_to_cart error', 'DB.ShoppingCart.update $push');
+    }
+    ;
 
     //此时处于pending状态 若此处中断 若超时由定时程序清理，继续往下进行 todo恢复逻辑
 
@@ -77,7 +152,6 @@ function add_class_to_cart(item) {
             }
         })
 
-
     //todo result判断仅适用第一次加入 恢复操作不再适用
     if (!result) {
         DB.ShoppingCart.update(
@@ -94,7 +168,7 @@ function add_class_to_cart(item) {
             })
 
         throw new Meteor.Error(500,
-            'add_class_to_cart '+cart_id +' error. There is not enough class to register?',
+            'add_class_to_cart ' + cart_id + ' error. There is not enough class to register?',
             'DB.Classes.update $push');
 
     } else {
@@ -131,7 +205,7 @@ function add_preference_to_cart(p) {
     }
 
 
-    console.log(p)
+    //console.log(p)
 
     if (!cartId) return 'cartId not exist';
 
@@ -240,7 +314,7 @@ function move_to_done(cartId) {
         _id: cartId
     })
 
-    console.log(cart)
+    //console.log(cart)
 
     _move_to_done(cart)
 }
@@ -272,9 +346,9 @@ function _move_to_done(cart) {
             DB.ClassesRegister.update({
                 swimmerId: item.swimmerId,
                 classId: item.classId,
-                status:'normal',
+                status: 'normal',
 
-                accountId:cart.accountId,
+                accountId: cart.accountId,
                 sessionId: cart.sessionId,
                 cartId: cart._id
             }, {
@@ -284,7 +358,6 @@ function _move_to_done(cart) {
             }, {
                 upsert: true //insert if not found
             })
-
 
 
         } else if (item.quantity == -1) {//取消注册 todo using type
