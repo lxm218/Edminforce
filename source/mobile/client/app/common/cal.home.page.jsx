@@ -4,7 +4,7 @@ Cal.Home = React.createClass({
         return <div className="padding">
 
 
-            <RC.Card key={Math.random()} title="Welcom Our Fremont Facility">
+            <RC.Card key={Math.random()} title="Welcome To Our Fremont Facility">
 
             </RC.Card>
 

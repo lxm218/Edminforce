@@ -14,7 +14,6 @@
                         console.error(err) //todo UI side
                         return;
                     }
-                    //跳到登陆页面 to be verified todo url 待定
                     FlowRouter.go('/login')
                 })
                 break;

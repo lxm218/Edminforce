@@ -25,22 +25,10 @@ DefaultRoutes.route('/login', {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
         showGlobalNav: false,
-        headerNav: [{
-          href: "/user/User_Index",
-          text: "User Index",
-        },{
-          href: "/user/User_Login_Basic",
-          text: "User Login - Basic",
-        },{
-          href: "/user/Login_With_Callback",
-          text: "User Login - Callback",
-        },{
-          href: "/user/User_Registration_Only",
-          text: "User Registration Only",
-        }],
-        hideBackButton:true,
-        hideLeftNavToggle:true,
-
+        headerNav: null,
+        hideBackButton: true,
+        hideLeftNavToggle: true,
+        hideShoppingCartButton: false,
       }
 
         dynamicRoute.bodyTmpl = React.createElement(Cal["Login"])
