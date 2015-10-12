@@ -2,6 +2,13 @@
  * Created on 9/18/15.
  */
 
+//just for test
+Meteor.publish("accountShoppingCart", function () {
+    return DB.ShoppingCart.find({
+        accountId: this.userId
+    });
+});
+
 Meteor.publish("activeShoppingCart", function () {
     return DB.ShoppingCart.find({
         status: 'active',

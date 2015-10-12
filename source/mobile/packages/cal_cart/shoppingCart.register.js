@@ -160,7 +160,7 @@ function add_class_to_cart(item) {
                 '$set': {status: 'active'}, //重置为active
                 '$pull': {
                     'items': {
-                        'type': 'register',
+                        //'type': 'register',
                         'swimmerId': item.swimmerId,
                         classId: item.classId
                     }
@@ -385,6 +385,192 @@ function _move_to_done(cart) {
 
 }
 
+
+//{cartId, swimmerId,classId}
+function delete_class_from_cart(params){
+
+    console.log('====delete_class_from_cart params=====:',params)
+
+    //从购物车删除
+    var result = DB.ShoppingCart.update(
+        {'_id': params.cartId},
+        {
+            '$set': {status: 'active'}, //重置为active
+            '$pull': {
+                'items': {
+                    //'type': 'register',
+                    'swimmerId': params.swimmerId,
+                    classId: params.classId
+                }
+            }
+        })
+    console.log('====delete_class_from_cart step1=====:'+result)
+    //恢复class数目
+    result = DB.Classes.update(
+        {'_id': params.classId},
+        {
+            '$inc': {'seatsRemain': 1},
+            '$pull': {
+                'carted': {
+                    'type': 'register',
+                    'cartId': params.cartId,
+                    'swimmerId': params.swimmerId,
+                    'quantity': 1,
+                    //'timestamp': new Date()
+                }
+            }
+        })
+    console.log('====delete_class_from_cart [restore class] step2=====:'+result)
+
+
+
+
+}
+
+/*
+* cartId  确定购物车
+* swimmerId classId   确定一个item
+* preferenceNum   确定preference  1，2，3
+* classData     新的class数据  classId？
+*
+* */
+function change_preference_in_cart(params){
+
+    console.log('change_preference_in_cart',params)
+
+    //check 处于active状态
+
+    if(params.preferenceNum==1) {
+
+
+        //更新购物车课程 以及状态
+        var result =DB.ShoppingCart.update({
+            '_id': params.cartId,
+            'items': {
+                $elemMatch: {
+                    'swimmerId': params.swimmerId,
+                    'classId': params.classId
+                }
+            }
+        }, {
+            $set: {
+                status: 'pending',
+                //'items.$.swimmerId': classData.swimmerId,
+                'items.$.classId': params.classData.classId,
+                'items.$.class1': params.classData //class3
+            }
+        })
+        console.log('--step1---result-----',result)
+
+        //恢复已选课程数目
+        result = DB.Classes.update(
+            {'_id': params.classId},
+            {
+                '$inc': {'seatsRemain': 1},
+                '$pull': {
+                    'carted': {
+                        'type': 'register',
+                        'cartId': params.cartId,
+                        'swimmerId': params.swimmerId,
+                        'quantity': 1,
+                        //'timestamp': new Date()
+                    }
+                }
+            })
+        console.log('--step2---result-----',result)
+
+
+        //占用新class的数目
+        result = DB.Classes.update(
+            {'_id': params.classId, 'seatsRemain': {'$gte': 1}},
+            {
+                '$inc': {'seatsRemain': -1},
+                '$push': {
+                    'carted': {
+                        'type': 'register',
+                        'cartId': params.cartId,
+                        'swimmerId': params.swimmerId,
+                        'quantity': 1,
+                        'timestamp': new Date()
+                    }
+                }
+            })
+
+
+        if (result)
+        {
+            DB.ShoppingCart.update(
+                {'_id': params.cartId},
+                {
+                    '$set': {status: 'active'} //重置为active
+                })
+            return {cartId: params.cartId}
+
+        }else {
+
+            //DB.ShoppingCart.update(
+            //    {'_id': cart_id},
+            //    {
+            //        '$set': {status: 'active'}, //重置为active
+            //        '$pull': {
+            //            'items': {
+            //                'type': 'register',
+            //                'swimmerId': item.swimmerId,
+            //                classId: item.classId
+            //            }
+            //        }
+            //    })
+            //todo 回退逻辑 但这种情况极少发生 一般前端可选 就有相应课程
+
+            throw new Meteor.Error(500,
+                'change_preference 1' + params.cartId + ' error. There is not enough class you are changing to',
+                'DB.Classes.update $push');
+
+        }
+
+
+
+
+
+    } else if(params.preferenceNum==2){
+
+        DB.ShoppingCart.update({
+            '_id': params.cartId,
+            'items': {
+                $elemMatch: {
+                    'swimmerId': params.swimmerId,
+                    'classId': params.classId
+                }
+            }
+        }, {
+            $set: {
+                'items.$.class2': params.classData //class3
+            }
+        })
+
+
+    }else if(params.preferenceNum==3){
+
+        DB.ShoppingCart.update({
+            '_id': params.cartId,
+            'items': {
+                $elemMatch: {
+                    'swimmerId': params.swimmerId,
+                    'classId': params.classId
+                }
+            }
+        }, {
+            $set: {
+                'items.$.class3': params.classData //class3
+            }
+        })
+
+
+    }
+
+
+}
+
 shopping_cart_export({
 
     //add_class_register_to_cart: add_class_register_to_cart,
@@ -393,7 +579,10 @@ shopping_cart_export({
     add_preference_to_cart: add_preference_to_cart,
     move_to_checking: move_to_checking,
     move_to_applied: move_to_applied,
-    move_to_done: move_to_done
+    move_to_done: move_to_done,
+
+    delete_class_from_cart:delete_class_from_cart,
+    change_preference_in_cart:change_preference_in_cart
 
 })
 

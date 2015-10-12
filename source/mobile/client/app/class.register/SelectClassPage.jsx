@@ -4,6 +4,11 @@
 
 
 {
+    //let CRSelectClassPageStoreClass;
+    //Dependency.autorun(function () {
+    //    CRSelectClassPageStoreClass = Dependency.get('classRegister.SelectClassPage.storeClass');
+    //});
+
     let CRSelectClassPageStore;
     Dependency.autorun(function () {
         CRSelectClassPageStore = Dependency.get('classRegister.SelectClassPage.store');
@@ -32,11 +37,17 @@
             Meteor.subscribe("classes");
             Meteor.subscribe("activeShopingCart");
 
+            //仅在页面加载时才初始化
+            //var CRSelectClassPageStore = new CRSelectClassPageStoreClass;
+
 
             var data = {
                 account: Meteor.users.find().fetch(),
 
                 swimmers: CRSelectClassPageStore.getSwimmers().fetch(),
+
+                currentLevel:CRSelectClassPageStore.currentLevel.get(), //next level
+
 
                 currentSwimmer: CRSelectClassPageStore.currentSwimmer.get(),
                 currentClass:CRSelectClassPageStore.currentClass.get(),
@@ -104,9 +115,13 @@
 
             //todo validation info in ui
             if (!this.data.currentSwimmer || !this.data.currentDay || !this.data.currentTime) {
-
                 alert('please select a class')
                 return;
+            }
+            //no class match
+            if(!this.data.currentClass){
+                alert('please select a class')
+                return
             }
 
             //check duplicate
@@ -128,6 +143,14 @@
 
         goToEdit(num){
 
+            /*
+             <div className="col col-20">
+             <button className="button button-clear"
+             onClick={this.goToEdit.bind(this,1)}
+             >Edit</button>
+             </div>
+
+            */
             Dispatcher.dispatch({
                 actionType: "CRSelectClassPage_CLASS_EDIT",
                 currentStep: this.data.currentStep,
@@ -177,11 +200,7 @@
                             <div className="col">
                                 {class1.name}
                             </div>
-                            <div className="col col-20">
-                                <button className="button button-clear"
-                                        onClick={this.goToEdit.bind(this,1)}
-                                    >Edit</button>
-                            </div>
+
                         </div>:''
 
                     }
@@ -194,11 +213,7 @@
                             <div className="col">
                                 {class2 && class2.name}
                             </div>
-                            <div className="col col-20">
-                                <button className="button button-clear"
-                                        onClick={this.goToEdit.bind(this,2)}
-                                    >Edit</button>
-                            </div>
+
                         </div>:''
                     }
                     {
@@ -209,11 +224,7 @@
                             <div className="col ">
                                 {class3 && class3.name}
                             </div>
-                            <div className="col col-20">
-                                <button className="button button-clear"
-                                        onClick={this.goToEdit.bind(this,3)}
-                                    >Edit</button>
-                            </div>
+
                         </div>:''
                     }
 
@@ -234,13 +245,13 @@
                                     />
 
                                 : <RC.Item uiColor="brand1">
-                                Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
-                            </RC.Item>
+                                    Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
+                                </RC.Item>
                         }
 
 
                         <RC.Item uiColor="brand1">
-                            Level: {this.data.currentSwimmer && this.data.currentSwimmer.level}
+                            Level: {this.data.currentLevel}
                         </RC.Item>
 
                         <RC.Select2

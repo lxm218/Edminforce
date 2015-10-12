@@ -41,44 +41,16 @@
 
         ///actions
 
+
         render() {
+
+            //<Cal.BillingUnfinished unfinishedBillings={this.data.unfinishedBillings}/>
+
+
             return <RC.Tabs className="bg-white">
                 <div label="Unfinished Billing" className="padding">
 
-
-                    {
-                        this.data.unfinishedBillings.map(function (cart) {
-
-                            return <div className="row" key={cart._id}>
-                                <div className="col">
-                                    {cart.accountId}
-                                </div>
-                                <div className="col">
-                                    {
-                                        cart.items.map(function (item) {
-
-                                            return <div>
-                                                {item.swimmerId}|
-                                                {item.classId}
-                                            </div>
-                                        })
-                                    }
-
-                                </div>
-                            </div>
-                        })
-                    }
-
-
-                    <RC.URL href="/classRegister/RegBillingPage">
-                        <RC.Button name="button" type="submit"
-                                   onClick={this.formSubmit}
-                                   theme="full" buttonColor="brand">
-                            Checkout
-                        </RC.Button>
-
-                    </RC.URL>
-
+                    <Cal.CRRegBillingPage />
 
                 </div>
                 <div label="History Payment" className="padding">

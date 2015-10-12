@@ -18,6 +18,11 @@ DB.Schema.ClassesShoppingCart= new SimpleSchema({
     },
     timestamp: {
         type: Date
+    },
+    type:{
+        type: String,
+        allowedValues:['register','cancel','change'],
+        defaultValue:'register'
     }
 });
 
