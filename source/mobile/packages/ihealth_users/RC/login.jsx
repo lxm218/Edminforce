@@ -34,13 +34,14 @@ IH.RC.User = React.createClass({
    * @ @ @ @
    */
   checkButtonState(e){
+    debugger
     switch (this.state.action){
       case "login":
         var form = this.refs.loginForm.getFormData()
       break
       case "register":
         var form = this.refs.registerForm.getFormData()
-      case "register":
+      case "reset":
         var form = this.refs.resetForm.getFormData()
       break
     }
@@ -49,8 +50,15 @@ IH.RC.User = React.createClass({
     })
     if (test !== this.state.buttonActive)
       this.setState({ buttonActive: test })
+    if (this.state.msg)
+      this.setState({ msg: null })
   },
   resetForm(){
+    this.setState({
+      waiting: false,
+      msg: null,
+      buttonActive: false
+    })
     if (this.state.action == "login") {
       this.refs.username.reset()
       this.refs.password.reset()
@@ -76,8 +84,9 @@ IH.RC.User = React.createClass({
   },
   startReset(){
     this.resetForm()
-    this.setState({ buttonActive: false })
-    this.setState({ emailFound : true })
+    this.setState({
+      emailFound: true
+    })
     this.setState({action: "reset"})
     return   
   },
@@ -92,6 +101,7 @@ IH.RC.User = React.createClass({
       let self = this
       this.setState({ waiting: true })
       Meteor.loginWithPassword( form.username, form.password, function(err){
+        debugger
         let passedMsg = err && err.error
           ? (ph.errorMsgs[err.error] || err.reason)
           : <p>You are now logged in!</p>
@@ -108,7 +118,9 @@ IH.RC.User = React.createClass({
         }
 
         self.setState({
-          msg: passedMsg
+          msg: passedMsg,
+          buttonActive: false,
+          waiting: false
         })
       })
     }
@@ -142,23 +154,23 @@ IH.RC.User = React.createClass({
         if (_.isFunction(self.props.registerCallback))
           self.props.registerCallback()
 
-
-        // message hook;for calphin listener
         if(!err){
           Dispatcher.dispatch({
             actionType: "AUTH_REGISTER_SUCCESS"
           });
           return;
         }
-
-
         self.setState({
-          msg: passedMsg
+          msg: passedMsg,
+          buttonActive: false,
+          waiting: false
         })
       })
     } else
       this.setState({
-        msg: ph.errorMsgs[1001]
+        msg: ph.errorMsgs[1001],
+        buttonActive: false,
+        waiting: false
       })
   },
 
@@ -189,8 +201,12 @@ IH.RC.User = React.createClass({
           })
         } else {
         // the email address is not found
-          this.setState({ emailFound: false })
-          this.setState({ waiting: false })
+          this.setState({
+            emailFound: false,
+            waiting: false,
+            buttonActive:false,
+            msg: "Entered E-mail is not in record."
+          })
         }
       })
     }
@@ -203,15 +219,34 @@ IH.RC.User = React.createClass({
       msg: null,
     })
   },
+
   jumpToNextPage(e){
     e.preventDefault()
     this.setState({
       waiting: false,
       msg: null,
     })
-    //FlowRouter.go("/auth")  @yifan 已移到auth.store里 这区分不出登录或注册的成功或失败
+  },
+
+  printMsg(){
+    console.log("printMsg is called", this.state.msg)
+    debugger
+    let currentMessages = this.state.msg ? [this.state.msg] : []
+
+    return <div>
+      {
+        currentMessages.map(function(m,n){
+          return <div className="center" key={n}>
+                      <div className="smallest inline-block cursor open-registration invis-70">
+                        {_.isString(m) ? <div>{m}</div> : m}
+                      </div>
+                    </div>
+        })
+      }
+    </div>
 
   },
+
   /**
    * @ @ @ @
    * Render
@@ -249,6 +284,7 @@ IH.RC.User = React.createClass({
         return <RC.Form onSubmit={this.login} onKeyUp={this.checkButtonState} ref="loginForm">
           <RC.Input name="username" label="E-Mail" theme={inputTheme} ref="username" />
           <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" />
+          {this.printMsg()}
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Log In"}
           </RC.Button>
@@ -259,22 +295,25 @@ IH.RC.User = React.createClass({
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />
+          {this.printMsg()}
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
         </RC.Form>
+        // {
+        //     this.state.emailFound ? null :
+        //     <p className="center">
+        //       <span className="smallest inline-block cursor open-registration invis-70" >
+        //         Entered E-mail is not in record.
+        //       </span>
+        //     </p>
+        //   }
       case "reset":
+      debugger
         return (
           <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
           <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" />
-          {
-            this.state.emailFound ? null :
-            <p className="center">
-              <span className="smallest inline-block cursor open-registration invis-70" >
-                Entered E-mail is not in record.
-              </span>
-            </p>
-          }
+          {this.printMsg()}
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Send Password Reset E-mail"}
           </RC.Button>
@@ -292,7 +331,6 @@ IH.RC.User = React.createClass({
       +(this.props.alignTop ? "" : " table")
 
     return <div {... _.omit(this.props, ["className","theme"])} className={classes}>
-      {this.renderMsg()}
       <div className="inside">
         <div className="re-wrapper">
           {this.props.children}
