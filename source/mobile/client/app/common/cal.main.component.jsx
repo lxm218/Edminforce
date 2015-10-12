@@ -25,7 +25,7 @@
             text: "Contact Us"
         }, {
             href: "/classRegister/registraionInfoPage",
-            text: "Register"
+            text: "Class Registration"
         }, {
             //href: "/",
             text: "Sign Out",
