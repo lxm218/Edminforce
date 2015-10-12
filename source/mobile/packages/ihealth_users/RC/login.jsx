@@ -55,7 +55,6 @@ IH.RC.User = React.createClass({
       this.refs.username.reset()
       this.refs.password.reset()
     } else if (this.state.action == "register") {
-      this.refs.regUsername.reset()
       this.refs.regEmail.reset()
       this.refs.regPw.reset()
       this.refs.regPwRepeat.reset()
@@ -130,7 +129,6 @@ IH.RC.User = React.createClass({
       }
       // Create User
       Accounts.createUser({
-        username: form.username,
         email: form.email,
         password: form.pw,
       }, function(err) {
@@ -249,7 +247,7 @@ IH.RC.User = React.createClass({
     switch (this.state.action) {
       case "login":
         return <RC.Form onSubmit={this.login} onKeyUp={this.checkButtonState} ref="loginForm">
-          <RC.Input name="username" label="Username or E-Mail" theme={inputTheme} ref="username" />
+          <RC.Input name="username" label="E-Mail" theme={inputTheme} ref="username" />
           <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" />
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Log In"}
@@ -258,7 +256,6 @@ IH.RC.User = React.createClass({
       break
       case "register":
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
-          <RC.Input name="username" label="Username" theme={inputTheme} ref="regUsername" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />

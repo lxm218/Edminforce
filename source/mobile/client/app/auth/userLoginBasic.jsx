@@ -7,9 +7,10 @@ Cal.Login = React.createClass({
      * They are useful and can be re-used many times.
      */
     debugger
-    return <IH.RC.User fullHeight={true} theme="overlay-dark" bgColor="brand-light">
-        <RC.Card key={Math.random()} title="Welcome to Calphin Online Registration">
-        </RC.Card>
-   </IH.RC.User>
+    return (
+      <IH.RC.User fullHeight={true} theme="overlay-dark" bgColor="brand-light">
+        <div>Welcome to Calphin Online Resgitration</div>
+      </IH.RC.User>
+      )
   }
 })
