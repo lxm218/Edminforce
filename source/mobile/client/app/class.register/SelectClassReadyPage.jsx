@@ -23,7 +23,7 @@
                 + '?swimmerId=' + swimmerId
                 + '&classId=' + classId
                 + '&preferenceNum=' + preferenceNum
-                + '&cartId=' + Session.set('CART_ID')
+                + '&cartId=' + Session.get('CART_ID')
 
             FlowRouter.go(url);
 
