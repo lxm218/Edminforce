@@ -22,3 +22,14 @@ App.num2time=function(num, second){
     //todo format  5:3=> 05:03
     return h+':'+m+(second?(':'+s):'')
 }
+App.getNextClassLevel=function(level){
+
+    var levels=App.Config.classLevelsNUM
+    var cIndex =levels.indexOf(level)
+    //var nIndex = Math.min(cIndex+1, (levels.length-1))
+    var nIndex = Math.max(cIndex-1, 0)
+
+
+    return levels[nIndex]
+
+}

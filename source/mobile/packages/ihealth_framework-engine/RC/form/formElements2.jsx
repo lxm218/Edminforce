@@ -11,7 +11,10 @@
 
         propTypes: {
             theme: React.PropTypes.string,
-            value: React.PropTypes.string,
+            value: React.PropTypes.oneOfType([
+                React.PropTypes.string,
+                React.PropTypes.number
+            ]),
             name: React.PropTypes.string,
             error: React.PropTypes.bool,
             label: React.PropTypes.string,

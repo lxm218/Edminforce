@@ -1,18 +1,23 @@
 /**
- * Created on 9/15/15.
+ * Created on 10/11/15.
  */
-
 
 {
     //单体 在多个地方使用或在meteordata中被触发  仅初始化一次
     //let _storeInstance=null;
 
-    Dependency.add('classRegister.SelectClassPage.store', new function () {
+    Dependency.add('classRegister.CRSelectClassEditPage.store', new function () {
 
         //if(_storeInstance) return _storeInstance;
+        //console.log('run Dependency CRSelectClassEditPage')
         //_storeInstance = this;
 
         var self = this;
+
+        ////props///
+
+        self.props = new ReactiveVar();
+        self.cart = new ReactiveVar();
 
 
         //this function may be called in Tracker.autorun and before  DB.Swimmers loaded
@@ -73,153 +78,75 @@
         self.tokenId = Dispatcher.register(function (payload) {
             switch (payload.actionType) {
 
-                case "CRSelectClassPage_SWIMMER_CHANGE": //选择swimmer  level可能会变
+                case "CRSelectClassEditPage_PROPS_UPDATE"://get props
                 {
-                    let swimmer = payload.swimmer
-                    let level= App.getNextClassLevel(swimmers.level) //next
+                    console.log('CRSelectClassEditPage_PROPS_UPDATE',payload.props)
 
-
-                    self.currentSwimmer.set(swimmer)
-                    self.currentLevel.set(level)
-
-                    self.currentDay.set()
-                    self.currentTime.set()
-
-                    debugger
+                    self.props.set(payload.props)
 
                     break;
                 }
-                case "CRSelectClassPage_DAY_CHANGE"://选择day
-                {
-                    debugger
 
+                case "CRSelectClassEditPage_DAY_CHANGE"://选择day
+                {
+                    console.log('day change ', payload.day)
                     self.currentDay.set(payload.day)
                     self.currentTime.set()
                     break;
                 }
 
-                case "CRSelectClassPage_TIME_CHANGE"://选择time  确定一个class
+                case "CRSelectClassEditPage_TIME_CHANGE"://选择time  确定一个class
                 {
                     debugger
                     self.currentTime.set(payload.time)
                     break;
                 }
 
-
-                case "CRSelectClassPage_CLASS_SELECT"://select确定
+                case "CRSelectClassEditPage_CLASS_SELECT"://select确定
                 {
                     debugger
 
-                    if (payload.currentStep == 1) {
+                    var props = self.props.get();
+                    var currentClass = self.currentClass.get()
+                    /*
+                     * cartId  确定购物车
+                     * swimmerId classId   确定一个item
+                     * preferenceNum   确定preference  1，2，3
+                     * toClassData     新的class数据  classId？
+                     *
+                     * */
+                    Meteor.call('change_preference_in_cart', {
+                        cartId:props.cartId,
+                        swimmerId: props.swimmerId,
+                        classId: props.classId,
+                        preferenceNum:props.preferenceNum,
 
-                        let currentSwimmer = self.currentSwimmer.get()
-                        let currentClass = self.currentClass.get()
+                        classData:currentClass
+                    }, function (err, result) {
+                        debugger
+                        if (err) {
+                            console.error(err)
+                            alert(err.error)
+                            return; //todo  prompt
+                        }
 
-
-                        Meteor.call('add_class_to_cart', {
-                            swimmerId: currentSwimmer._id,
-                            classId: currentClass._id,
-                            quantity: 1,
-                            swimmer: currentSwimmer,
-                            class1: currentClass
-                        }, function (err, result) {
-                            debugger
-                            if (err) {
-                                console.error(err)
-                                return; //todo  prompt
-                            }
-
-                            //selectedClasses
-                            let map = self.selectedClasses.get()
-                            map = map.set('swimmer', currentSwimmer)
-                            map = map.set('class1', currentClass)
-                            self.selectedClasses.set(map)
-
-
-                            Session.set('CART_ID', result.cartId)
-
-
-                            console.log('step1', currentSwimmer, currentClass)
-
-                            self.currentStep.set(2)
-                            resetDateAndTime();
-                        })
+                        //通知SelectClassPage.store 更新数据
+                        Dispatcher.dispatch({
+                            actionType: 'CRSelectClassPage_SelectedClasses_CHANGE',
+                            preferenceNum:props.preferenceNum,
+                            classData:currentClass
+                        });
 
 
-                    }
+                        //回到上一页
+                        window.history.back();
 
-                    if (payload.currentStep == 2) {
-
-                        let currentClass = self.currentClass.get()
-
-                        let map = self.selectedClasses.get()
-                        map = map.set('class2', currentClass)
-                        self.selectedClasses.set(map)
-
-
-                        let swimmer = map.get('swimmer')
-                        let class1 = map.get('class1')
-
-
-                        Meteor.call('add_preference_to_cart', {
-                            cartId: Session.get('CART_ID'),
-
-                            preferenceNum: 2,
-
-                            classId: class1._id,
-                            swimmerId: swimmer._id,
-                            data: currentClass
-                        }, function (err) {
-                            if (err) return; //todo  prompt
-
-                            console.log('step2', currentClass)
-
-
-                            self.currentStep.set(3)
-                            resetDateAndTime()
-                        })
-
-
-                    }
-
-                    if (payload.currentStep == 3) {
-
-                        //todo unify with currentStep == 2
-
-                        let currentClass = self.currentClass.get()
-
-                        let map = self.selectedClasses.get()
-                        map = map.set('class3', currentClass)
-                        self.selectedClasses.set(map)
-
-
-                        let swimmer = map.get('swimmer')
-                        let class1 = map.get('class1')
-
-
-                        Meteor.call('add_preference_to_cart', {
-                            cartId: Session.get('CART_ID'),
-
-                            preferenceNum: 3,
-
-                            classId: class1._id,
-                            swimmerId: swimmer._id,
-                            data: currentClass
-                        }, function (err) {
-                            if (err) return; //todo  prompt
-
-                            console.log('step3', currentClass)
-
-
-                            FlowRouter.go('/classRegister/SelectClassReady');
-                        })
-
-                    }
+                    })
 
                     break;
                 }
 
-                case "componentWillMount_CRSelectClassPage":
+                case "CRSelectClassEditPage_ComponentWillMount":
                 {
                     //清空上一轮的选择
 
@@ -234,30 +161,6 @@
 
                     break;
                 }
-                case "CRSelectClassPage_CLASS_EDIT":
-                {
-                    var editStep = payload.eidtStep
-
-                    alert(editStep)
-
-                    break;
-                }
-                case "CRSelectClassPage_SelectedClasses_CHANGE":{
-                    let preferenceNum = payload.preferenceNum
-                    let classData = payload.classData
-
-
-                    let map = self.selectedClasses.get()
-                    map = map.set('class'+preferenceNum, classData)
-                    self.selectedClasses.set(map)
-
-
-                    break
-                }
-
-
-
-
 
             }
         });
@@ -272,29 +175,74 @@
 
         Meteor.startup(function () {
 
-            //初始化swimmer and level
-            Tracker.autorun(function () {
+            //根据组件的props 初始化数据
+            Tracker.autorun(function (compution) {
 
-                var swimmers = self.getSwimmers().fetch()
+                debugger
 
-                if (swimmers.length) {
-                    self.currentSwimmer.set(swimmers[0])
-                    var level= App.getNextClassLevel(swimmers[0].level)
-                    self.currentLevel.set(level) //获取比当前level更高一级的level
+                var props = self.props.get();
+                console.log(self.props.dep._dependentsById)
+
+                if(!props) return; //wait for props
+
+                console.log('autorun props', props)
+
+                //var cartId= props.cartId;
+
+                //todo classId swimmerId 条件
+                var cart
+                if(props.cartId){
+                    cart= DB.ShoppingCart.findOne({
+                        _id:props.cartId
+                    })
+                }else{
+                    cart= DB.ShoppingCart.findOne({
+                        status:'active'
+                    })
                 }
-                console.log(swimmers)
+
+
+                var currentSwimmer= DB.Swimmers.findOne({
+                    _id:props.swimmerId
+                })
+
+                if(cart){
+                    self.cart.set(cart)
+                    console.log(cart)
+
+                }
+
+
+                if(currentSwimmer){
+                    self.currentSwimmer.set(currentSwimmer)
+                    self.currentLevel.set(currentSwimmer.level)
+
+                    console.log('set currentLevel',currentSwimmer.level)
+
+                }
+
 
             })
 
+
             //days depend on level of swimmer
-            Tracker.autorun(function () {
+            Tracker.autorun(function (compution) {
+
+                console.log(self.currentLevel.dep._dependentsById)
+
+
+                console.log('autorun get currentLevel')
 
                 //wait for App.info ready
                 App.info = App.info || DB.App.findOne()
                 if (!App.info) return;
 
+
+
                 var level = self.currentLevel.get();
-                console.log('autorun level', level, App.info.sessionRegister)
+                console.log('autorun get currentLevel', level, App.info.sessionRegister)
+
+                if(!level) return;  // wait for level
 
 
                 //todo  计算可用数目报名数

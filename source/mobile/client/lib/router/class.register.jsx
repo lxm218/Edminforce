@@ -69,6 +69,17 @@
         }
     })
 
+    ClassRegisterRoute.route('/SelectClassEdit', {
+        action: function (p, query) {
+            App.routeHandler(p, {
+                pageTitle: "SelectClassEdit",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRSelectClassEditPage {...p} {...query} />
+            })
+        }
+    })
+
 
     ClassRegisterRoute.route('/RegBillingPage', {
         //name: "CRRegBillingPage",

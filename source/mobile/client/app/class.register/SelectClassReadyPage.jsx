@@ -17,61 +17,116 @@
             }
         },
 
+        goToEdit(swimmerId, classId, preferenceNum){
+
+            var url = '/classRegister/SelectClassEdit'
+                + '?swimmerId=' + swimmerId
+                + '&classId=' + classId
+                + '&preferenceNum=' + preferenceNum
+                + '&cartId=' + Session.set('CART_ID')
+
+            FlowRouter.go(url);
+
+        },
+
         render() {
+            let self = this
 
             let swimmer = this.data.selectedClassesMap.get('swimmer')
+
             let class1 = this.data.selectedClassesMap.get('class1')
             let class2 = this.data.selectedClassesMap.get('class2')
             let class3 = this.data.selectedClassesMap.get('class3')
 
 
             return <div>
-                    <RC.List theme="inset">
-                        <RC.Item theme="body">
-                            <h2 className="brand">Register for spring 2015</h2>
-                            {swimmer?<p>
+                <RC.List theme="inset">
+                    <RC.Item theme="body">
+                        <h2 className="brand">Register for spring 2015</h2>
+                        {
+                            swimmer ? <div className="row">
+                                <div className="col">
+                                    Swimmer:
+                                </div>
+                                <div className="col">
                                     {swimmer.name}
-                                </p>:''
+                                </div>
+                            </div> : ''
+                        }
 
-                            }
-                            {
-                                class1?<p>
+
+                        {
+                            class1 ? <div className="row">
+                                <div className="col">
+                                    Preference 1
+                                </div>
+                                <div className="col">
                                     {class1.name}
-                                </p>:''
-                            }
-                            {
-                                class2?<p>
+                                </div>
+                                <div className="col col-20">
+                                    <button className="button button-clear"
+                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,1)}>Edit
+                                    </button>
+                                </div>
+
+                            </div> : ''
+
+                        }
+                        {
+                            class2 ? <div className="row">
+                                <div className="col">
+                                    Preference 2
+                                </div>
+                                <div className="col">
                                     {class2.name}
-                                </p>:''
-                            }
-                            {
-                                class3?<p>
+                                </div>
+                                <div className="col col-20">
+                                    <button className="button button-clear"
+                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,2)}>Edit
+                                    </button>
+                                </div>
+
+                            </div> : ''
+
+                        }
+                        {
+                            class3 ? <div className="row">
+                                <div className="col">
+                                    Preference 3
+                                </div>
+                                <div className="col">
                                     {class3.name}
-                                </p>:''
-                            }
+                                </div>
+                                <div className="col col-20">
+                                    <button className="button button-clear"
+                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,3)}>Edit
+                                    </button>
+                                </div>
+
+                            </div> : ''
+
+                        }
+
+                    </RC.Item>
+
+                    <RC.URL href="/classRegister/SelectClass">
+                        <RC.Button name="button" type="submit"
+                                   theme="full" buttonColor="brand">
+                            Select More
+                        </RC.Button>
+
+                    </RC.URL>
 
 
-                        </RC.Item>
+                    <RC.URL href="/classRegister/RegBillingPage">
+                        <RC.Button name="button" type="submit"
+                                   theme="full" buttonColor="brand">
+                            Checkout
+                        </RC.Button>
 
-                        <RC.URL href="/classRegister/SelectClass">
-                            <RC.Button name="button" type="submit"
-                                       theme="full" buttonColor="brand">
-                                Select More
-                            </RC.Button>
+                    </RC.URL>
 
-                        </RC.URL>
-
-
-
-                        <RC.URL href="/classRegister/RegBillingPage">
-                            <RC.Button name="button" type="submit"
-                                       theme="full" buttonColor="brand">
-                                Checkout
-                            </RC.Button>
-
-                        </RC.URL>
-
-                    </RC.List>
+                </RC.List>
             </div>
         }
     })
