@@ -76,7 +76,7 @@
                 case "CRSelectClassPage_SWIMMER_CHANGE": //选择swimmer  level可能会变
                 {
                     let swimmer = payload.swimmer
-                    let level= App.getNextClassLevel(swimmers.level) //next
+                    let level= App.getNextClassLevel(swimmer.level) //next
 
 
                     self.currentSwimmer.set(swimmer)
@@ -125,6 +125,7 @@
                         }, function (err, result) {
                             debugger
                             if (err) {
+                                alert(err.error)
                                 console.error(err)
                                 return; //todo  prompt
                             }
@@ -138,8 +139,10 @@
 
                             Session.set('CART_ID', result.cartId)
 
-
                             console.log('step1', currentSwimmer, currentClass)
+
+                            console.log('CART_ID: ',Session.get('CART_ID'))
+
 
                             self.currentStep.set(2)
                             resetDateAndTime();
@@ -170,7 +173,11 @@
                             swimmerId: swimmer._id,
                             data: currentClass
                         }, function (err) {
-                            if (err) return; //todo  prompt
+                            if (err) {
+                                alert(err.error)
+                                console.error(err)
+                                return; //todo  prompt
+                            }
 
                             console.log('step2', currentClass)
 

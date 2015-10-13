@@ -215,7 +215,7 @@
 
                 if(currentSwimmer){
                     self.currentSwimmer.set(currentSwimmer)
-                    self.currentLevel.set(currentSwimmer.level)
+                    self.currentLevel.set(App.getNextClassLevel(currentSwimmer.level))
 
                     console.log('set currentLevel',currentSwimmer.level)
 

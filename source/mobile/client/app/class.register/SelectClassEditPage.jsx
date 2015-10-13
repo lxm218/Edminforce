@@ -60,6 +60,9 @@
                 currentSwimmer: PageStore.currentSwimmer.get(),
                 currentClass:PageStore.currentClass.get(),
 
+                currentLevel:PageStore.currentLevel.get(), //next level
+
+
                 //should wait for currentSwimmer
                 avaiableDays: PageStore.avaiableDays.get(),
                 avaiableTimes: PageStore.avaiableTimes.get(),
@@ -114,10 +117,10 @@
             return <div>
 
                 <RC.Card className="padding">
-                    <h4 className="brand">Register Class Edit Preference{this.props.pNum}</h4>
+                    <h4 className="brand">Register Class Edit Preference{this.props.preferenceNum}</h4>
 
                     <div>
-                        now :{item && item['class'+this.props.pNum] && item['class'+this.props.pNum].name}
+                        now :{item && item['class'+this.props.preferenceNum] && item['class'+this.props.preferenceNum].name}
                     </div>
                     <div>
                         changed :{this.data.currentClass && this.data.currentClass.name}

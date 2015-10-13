@@ -49,23 +49,18 @@ Cal.CRClassBookItem = React.createClass({
 
     render() {
 
-        return <RC.Item uiColor="brand1">
+        return <RC.Item uiColor="brand1" className='item-text-wrap'>
             {
                 this.data.similarClass ?
 
                     <div className="row">
                         <div className="col">
-                            {this.data.similarClass && this.data.similarClass.level}
 
-                            <br/>
-                            {this.data.similarClass && App.Config.week[this.data.similarClass.day]}
-
-                            <br/>
-                            {this.data.similarClass && App.num2time(this.data.similarClass.startTime)}
+                            {this.data.similarClass && this.data.similarClass.name}
 
                         </div>
 
-                        <div className="col">
+                        <div className="col col-20">
                             <span onClick={this.book} className="button button-small">
                             BOOK
                             </span>
