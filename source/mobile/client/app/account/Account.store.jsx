@@ -8,6 +8,15 @@ Dependency.add('Account.AddSwimmer.store', new function () {
     //swimmer eval level
     self.evalLevel = new ReactiveVar()
 
+    self.addSwimmerFormData = new ReactiveVar({
+        name:'',
+        dob:'1999/01/01',
+        gender:'male',
+        location:''
+    })
+
+    self.locationOptions= new ReactiveVar(['Fremont','Dublin'])
+
     self.tokenId = Dispatcher.register(function (payload) {
         switch (payload.actionType) {
             case "ACCOUNT_EVAL_LEVEL_SUBMIT":{
@@ -25,6 +34,14 @@ Dependency.add('Account.AddSwimmer.store', new function () {
                 })
                 break;
             }
+
+            case "ACCOUNT_ADD_SWIMMER_GO_TO_EVAL":{
+
+                self.addSwimmerFormData.set(payload.fromData)
+
+                break
+            }
+
             case "PASSWORD_CHANGE_SUCCESS":{
                 FlowRouter.go('/account')
                 break;
