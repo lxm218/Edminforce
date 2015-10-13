@@ -25,7 +25,7 @@ Cal.AccountEvalSwimmerLevel = React.createClass({
     render() {
 
 
-        var levels = App.Config.classLevels.map(function(v){
+        var levels = App.Config.classLevelsNUM.map(function(v){
 
             return {
                 value:v,

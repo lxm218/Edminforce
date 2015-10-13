@@ -60,6 +60,9 @@
                 currentSwimmer: PageStore.currentSwimmer.get(),
                 currentClass:PageStore.currentClass.get(),
 
+                currentLevel:PageStore.currentLevel.get(), //next level
+
+
                 //should wait for currentSwimmer
                 avaiableDays: PageStore.avaiableDays.get(),
                 avaiableTimes: PageStore.avaiableTimes.get(),

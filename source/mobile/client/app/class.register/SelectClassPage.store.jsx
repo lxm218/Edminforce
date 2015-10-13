@@ -76,7 +76,7 @@
                 case "CRSelectClassPage_SWIMMER_CHANGE": //选择swimmer  level可能会变
                 {
                     let swimmer = payload.swimmer
-                    let level= App.getNextClassLevel(swimmers.level) //next
+                    let level= App.getNextClassLevel(swimmer.level) //next
 
 
                     self.currentSwimmer.set(swimmer)

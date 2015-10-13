@@ -52,7 +52,7 @@
                                 />
 
                             <RC.Select
-                                options={App.Config.classLevels}
+                                options={App.Config.classLevelsNUM}
                                 name="level"
                                 readOnly
                                 label="Level"
