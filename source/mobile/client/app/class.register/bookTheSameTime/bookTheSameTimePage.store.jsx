@@ -336,8 +336,8 @@
 
                             console.log('step1', currentSwimmer, currentClass)
 
-                            self.currentStep.set('1-1')
-
+                            //self.currentStep.set('1-1') //
+                            self.currentStep.set(2)
 
                             resetDateAndTime();
                         })
@@ -345,7 +345,7 @@
 
                     }
 
-                    if (payload.currentStep == '1-1'){ //confirm
+                    if (payload.currentStep == '1-1'){ //confirm  此步骤后来取消  todo delete
 
 
                         self.currentStep.set(2)
