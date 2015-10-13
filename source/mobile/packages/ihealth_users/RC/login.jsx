@@ -336,7 +336,7 @@ IH.RC.User = React.createClass({
           {this.props.children}
           {this.renderForm()}
           {
-            this.state.action == "reset" ? null :
+            this.state.action != "login" ? null :
             <p className="center">
               <span className="smallest inline-block cursor open-registration invis-70" onClick={this.startReset}>
                 Forgot Your Password?
