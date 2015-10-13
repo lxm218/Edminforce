@@ -26,6 +26,10 @@ App.getNextClassLevel=function(level){
 
     var levels=App.Config.classLevelsNUM
     var cIndex =levels.indexOf(level)
+
+    if(cIndex == -1)
+        console.error('getNextClassLevel for '+level +' not exist')
+
     //var nIndex = Math.min(cIndex+1, (levels.length-1))
     var nIndex = Math.max(cIndex-1, 0)
 

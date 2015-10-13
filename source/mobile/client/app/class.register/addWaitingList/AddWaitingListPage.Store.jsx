@@ -66,7 +66,7 @@
                     let swimmer = payload.swimmer
 
                     self.currentSwimmer.set(swimmer)
-                    self.currentLevel.set(swimmer.level)
+                    self.currentLevel.set(App.getNextClassLevel(swimmer.level))
 
                     self.currentDay.set()
                     self.currentTime.set()
@@ -260,7 +260,7 @@
                 var swimmers = self.getSwimmers().fetch()
                 if (swimmers.length) {
                     self.currentSwimmer.set(swimmers[0])
-                    self.currentLevel.set(swimmers[0].level) //todo real logic
+                    self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
                 }
 
             })
