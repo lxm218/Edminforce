@@ -15,10 +15,11 @@
 
         getMeteorData() {
             return {
-                evalLevel:accountStore.evalLevel.get()
+                formData:accountStore.addSwimmerFormData.get(),
+                evalLevel:accountStore.evalLevel.get(),  //单独页面设置
+                locationOptions:accountStore.locationOptions.get()
             }
         },
-
 
         ////actions
         formSubmit(e){
@@ -42,35 +43,61 @@
             });
 
         },
+        goToEvaluation(){
 
+            var fromData = this.refs.AddSwimmerForm.getFormData()
+
+            //保存当前页面表单数据
+            Dispatcher.dispatch({
+                actionType: "ACCOUNT_ADD_SWIMMER_GO_TO_EVAL",
+                fromData: fromData
+            });
+
+            var href="/account/EvalLevel"
+            FlowRouter.go(href)
+
+
+        },
         render() {
             return <div>
                 <RC.Form ref="AddSwimmerForm" onSubmit={this.formSubmit}>
 
-                    <RC.Input name="name" label="Name" value="" />
+                    <RC.Input name="name" label="Name"
+                              ref="name"
+                              value={this.data.formData && this.data.formData.name}/>
 
                     <RC.Select
-                        options={['male','female']}
+                        options={['Male','Female']}
                         name="gender"
                         label="Gender"
+                        value="{this.data.formData && this.data.formData.gender}"
                         />
 
-                    <RC.Input name="dob" label="DOB" value="" />
+                    <RC.Input name="dob" label="DOB"
+                              value={this.data.formData && this.data.formData.dob}/>
 
 
                     <RC.Select
-                        options={['place1','place2']}
+                        options={this.data.locationOptions}
                         name="location"
                         label="Location"
+                        value={this.data.formData && this.data.formData.location}
+
                         />
 
-
                     <RC.Item>
-                        <span class="input-label" >Level</span>
+                        <span  >Level</span>
 
-                        <b style={{'margin-left':'5px',color:'blue'}}>{this.data.evalLevel}</b>
+                        <b style={{'marginLeft':'5px',color:'blue'}}>
+                            {this.data.evalLevel}
+                        </b>
 
-                        <a href="/account/EvalLevel" style={{float:'right'}}> Evaluation Level</a>
+
+                         <a className="button-clear"
+                            onClick={this.goToEvaluation}
+                            style={{float:'right'}}> Evaluation Level</a>
+
+
                     </RC.Item>
 
 

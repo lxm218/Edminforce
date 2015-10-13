@@ -71,6 +71,17 @@ App.Config.classLevelsNUM = [ //从高到底 名字
     "BUB1"
 ]
 
+App.Config.classEVALLevels = [ //从高到底 名字
+    {label:"ELT",value:'ELT1'},
+    {label:"MST",value:'MST1'},
+    {label:"CHL",value:'CHL1'},
+    {label:"RCR",value:'RCR1'},
+    {label:"SPR",value:'SPR1'},
+    {label:"GLD",value:'GLD2'},
+    {label:"CRL",value:'CRL1'},
+    {label:"BUB",value:'BUB1'}
+]
+
 
 App.Config.week = {
     1: 'Monday',

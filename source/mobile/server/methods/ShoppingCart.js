@@ -16,6 +16,9 @@ Meteor.startup(function () {
         add_class_to_cart: shoppingCart.add_class_to_cart,
         add_preference_to_cart: shoppingCart.add_preference_to_cart,
 
+        delete_class_from_cart:shoppingCart.delete_class_from_cart,
+        change_preference_in_cart:shoppingCart.change_preference_in_cart,
+
         //active => checking
         move_to_checking: shoppingCart.move_to_checking,
 

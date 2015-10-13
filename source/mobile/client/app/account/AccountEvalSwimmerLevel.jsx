@@ -24,17 +24,6 @@ Cal.AccountEvalSwimmerLevel = React.createClass({
 
     render() {
 
-
-        var levels = App.Config.classLevels.map(function(v){
-
-            return {
-                value:v,
-                label:v
-            }
-
-        })
-
-
         return <div>
 
             <RC.Item theme="body">
@@ -42,7 +31,7 @@ Cal.AccountEvalSwimmerLevel = React.createClass({
                 <p>If you do not assign a &quot;name&quot; prop, a random string will be generated for you.</p>
             </RC.Item>
 
-            <RC.RadioGroup list={levels}
+            <RC.RadioGroup list={App.Config.classEVALLevels}
                            ref = 'levelInput'
                            name="my-park"
                            value="elora-gorge" uiColor="brand2" />

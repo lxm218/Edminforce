@@ -25,6 +25,9 @@
 
                 swimmers: PageStore.getSwimmers().fetch(),
 
+                currentLevel:PageStore.currentLevel.get(), //next level
+
+
                 currentSwimmer: PageStore.currentSwimmer.get(),
 
                 //should wait for currentSwimmer
@@ -128,7 +131,7 @@
                             />
 
                         <RC.Item uiColor="brand1">
-                            Level: {this.data.currentSwimmer && this.data.currentSwimmer.level}
+                            Level: {this.data.currentLevel}
                         </RC.Item>
 
                         <RC.Select2

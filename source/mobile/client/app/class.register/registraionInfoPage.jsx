@@ -31,30 +31,63 @@
 
 
                 <RC.Card key={Math.random()} title="Registration Information">
+
                     <div className="row">
-                        <div className="col">
-
-                            <p>
-                                1st week: Current students who want the same day and time
-                                <br/>
-                                2nd week: Current students who want to change their schedule
-                                <br/>
-                                3rd week:Returning students
-                                <br/>
-                                4th week: Open enrollment
-
-                            </p>
-
-                            <p>
-
-                                Calphin will still have the right to make changes. Schedules are not confirmed until
-                                confirmation emails are sent out.
-
-                            </p>
-
+                        <div className="col col-33">
+                            <b>1st week</b>:
                         </div>
-
+                        <div className="col">
+                             Current students who want the same day and time
+                        </div>
                     </div>
+                    <div className="row">
+                        <div className="col col-33">
+                            <b>2nd week</b>:
+                        </div>
+                        <div className="col">
+                             Current students who want to change their schedule
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col col-33">
+                            <b>3rd week</b>:
+                        </div>
+                        <div className="col">
+                            Returning students
+                        </div>
+                    </div>
+                    <div className="row">
+
+                        <div className="col col-33">
+                            <b>4th week</b>:
+                        </div>
+                        <div className="col">
+                             Open enrollment
+                        </div>
+                    </div>
+
+                    <p className="padding-left padding-right">
+                        Calphin will still have the right to make changes. Schedules are not confirmed until
+                        confirmation emails are sent out.
+                    </p>
+
+
+                    <p className="padding-left padding-right">
+                        Paced Program Level Abbreviation<br/>
+
+                        Crawler -------------CLR <br/>
+                        Bubbler -------------BUB<br/>
+                        Glider -------------GLD<br/>
+                        Sprinter-------------SPR<br/>
+                        Racer-------------RCR<br/>
+                        Challenger-------------CHL<br/>
+                        Master-------------MST<br/>
+
+                    </p>
+
+
+
+
 
                 </RC.Card>
 

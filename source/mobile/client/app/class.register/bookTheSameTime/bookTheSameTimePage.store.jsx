@@ -100,7 +100,7 @@
                     let swimmer = payload.swimmer
 
                     self.currentSwimmer.set(swimmer)
-                    self.currentLevel.set(swimmer.level)
+                    self.currentLevel.set(App.getNextClassLevel(swimmer.level))
 
                     self.currentDay.set(undefinedSelectValue)
                     self.currentTime.set(undefinedSelectValue)
@@ -125,6 +125,7 @@
                     debugger
 
                     self.currentDay.set(payload.day)
+                    self.currentTime.set()
                     break;
                 }
 
@@ -335,8 +336,8 @@
 
                             console.log('step1', currentSwimmer, currentClass)
 
-                            self.currentStep.set('1-1')
-
+                            //self.currentStep.set('1-1') //
+                            self.currentStep.set(2)
 
                             resetDateAndTime();
                         })
@@ -344,7 +345,7 @@
 
                     }
 
-                    if (payload.currentStep == '1-1'){ //confirm
+                    if (payload.currentStep == '1-1'){ //confirm  此步骤后来取消  todo delete
 
 
                         self.currentStep.set(2)
@@ -626,7 +627,7 @@
                 if (swimmers.length) {
                     console.log('set currentSwimmer')
                     self.currentSwimmer.set(swimmers[0])
-                    self.currentLevel.set(swimmers[0].level) //todo real logic
+                    self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
 
                 }
 

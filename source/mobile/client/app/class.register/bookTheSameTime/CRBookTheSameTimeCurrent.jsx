@@ -20,7 +20,6 @@
 
             var formData = this.refs.myForm.getFormData()
 
-            debugger
 
             //todo validation info in ui
             //if (!this.data.currentSwimmer || !this.data.currentDay || !this.data.currentTime) {
