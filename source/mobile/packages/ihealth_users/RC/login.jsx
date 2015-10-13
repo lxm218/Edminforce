@@ -38,12 +38,13 @@ IH.RC.User = React.createClass({
     switch (this.state.action){
       case "login":
         var form = this.refs.loginForm.getFormData()
-      break
+        break
       case "register":
         var form = this.refs.registerForm.getFormData()
+        break
       case "reset":
         var form = this.refs.resetForm.getFormData()
-      break
+        break
     }
     let test = _.every( _.values(form), function(t){
       return t.length && t.length>0
