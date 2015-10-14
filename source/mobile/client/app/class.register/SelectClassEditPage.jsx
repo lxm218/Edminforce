@@ -45,7 +45,7 @@
             //Meteor.subscribe("appInfo");
             Meteor.subscribe("classes");
             Meteor.subscribe("activeShopingCart");
-            Meteor.subscribe("accountShoppingCart");
+            //Meteor.subscribe("accountShoppingCart");
 
 
             //var PageStore = new CRSelectClassEditPageStoreClass;

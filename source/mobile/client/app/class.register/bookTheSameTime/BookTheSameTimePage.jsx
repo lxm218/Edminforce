@@ -65,37 +65,19 @@
         getCardView(){
 
 
-            let swimmers = this.data.swimmers.map(function (v, i) {
-                return {text: v['name'], value: v._id}
-            })
+            //let swimmers = this.data.swimmers.map(function (v, i) {
+            //    return {text: v['name'], value: v._id}
+            //})
 
             let swimmer = this.data.selectedClasses.get('swimmer')
             let class1 = this.data.selectedClasses.get('class1')
             let class2 = this.data.selectedClasses.get('class2')
             let class3 = this.data.selectedClasses.get('class3')
 
-
-            return <RC.Card key={Math.random()} className="padding">
-
-
-                <h4 className="brand">Register for spring 2015</h4>
-
-                <div className="row">
-                    <div className="col">
-                        {swimmer && swimmer.name}
-                    </div>
-                    <div className="col">
-
-                        {class1 && class1.name}
-                        <br/>
-                        {class2 && class2.name}
-                        <br/>
-                        {class3 && class3.name}
-
-                    </div>
-                </div>
-
-            </RC.Card>
+            return <Cal.SelectedClassInfoCard
+                swimmer={swimmer}
+                selectedClasses={{'class1':class1,'class2':class2,'class3':class3}}
+                />
 
         },
 

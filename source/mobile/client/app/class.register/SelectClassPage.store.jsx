@@ -217,8 +217,12 @@
 
                             console.log('step3', currentClass)
 
+                            var href="/classRegister/SelectClassReady"
+                                    +"?cartId="+Session.get('CART_ID')
+                                    +"&swimmerId="+swimmer._id
+                                    +"&classId="+class1._id
 
-                            FlowRouter.go('/classRegister/SelectClassReady');
+                            FlowRouter.go(href);
                         })
 
                     }

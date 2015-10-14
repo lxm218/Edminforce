@@ -59,12 +59,12 @@
 
     ClassRegisterRoute.route('/SelectClassReady', {
         //name: "SelectClassReady",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "SelectClassReady",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.CRSelectClassReadyPage/>
+                bodyTmpl: <Cal.CRSelectClassReadyPage {...p} {...query} />
             })
         }
     })
@@ -156,12 +156,12 @@
     })
     ClassRegisterRoute.route('/BookTheSameTimeSelectClassReady', {
         //name: "CRBookTheSameTimePage",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "BookTheSameTimeSelectClassReady",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.CRBookTheSameTimeSelectClassReadyPage/>
+                bodyTmpl: <Cal.CRBookTheSameTimeSelectClassReadyPage {...p} {...query}/>
             })
 
         }
