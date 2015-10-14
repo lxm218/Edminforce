@@ -76,7 +76,7 @@ Cal.ResetPasswordUser = React.createClass({
 			{
 				currentMessages.map(function(m,n){
 					return <div className="center" key={n}>
-				             	<div className="smallest inline-block cursor open-registration invis-70">
+				             	<div className="bigger inline-block invis-70 red">
 				             		{_.isString(m) ? <div>{m}</div> : m}
 				             	</div>
 			            	</div>
@@ -113,10 +113,10 @@ Cal.ResetPasswordUser = React.createClass({
 		return (
 			<div>
 				<RC.Form onSubmit={this.changePassword} onKeyUp={this.checkButtonState} ref="changePasswordForm">
+					{this.printMsg()}
 					<RC.Input name="oldPw" label="Current Password" type="password" theme={inputTheme} ref="oldPw" />
 					<RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="newPw" />
 					<RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="newPwRepeat" />
-					{this.printMsg()}
 					<RC.Button name="button" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
 						{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Change Password"}
 					</RC.Button>

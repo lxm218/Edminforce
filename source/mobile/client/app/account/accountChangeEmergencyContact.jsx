@@ -79,7 +79,7 @@ Cal.ChangeEmergencyContact = React.createClass({
 			{
 				currentMessages.map(function(m,n){
 					return <div className="center" key={n}>
-				             	<div className="smallest inline-block cursor open-registration invis-70">
+				             	<div className="bigger inline-block invis-70 red">
 				             		{_.isString(m) ? <div>{m}</div> : m}
 				             	</div>
 			            	</div>
@@ -114,14 +114,14 @@ Cal.ChangeEmergencyContact = React.createClass({
 		return (
 			<div>
 				<RC.Form onSubmit={this.updateEmergencyContact} onKeyUp={this.checkButtonState} ref="EmergencyContactForm">
+					{this.printMsg()}
 					<RC.Input name="name" label="Contact Name"  theme={inputTheme} ref="name"  />
 					<RC.Input name="phone" label="Contact Phone Number"  theme={inputTheme} ref="phone"  />
 					<RC.Input name="address" label="Contact Address"  theme={inputTheme} ref="address"  />
-					{this.printMsg()}
 					{
 			            <p className="center">
 			              <span className="smallest inline-block cursor open-registration invis-70" onClick={this.backToAccount}>
-			                My Account
+			                Go Back To My Account
 			              </span>
 			            </p>
 			        }

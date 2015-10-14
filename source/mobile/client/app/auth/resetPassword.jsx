@@ -78,7 +78,7 @@ Cal.ResetPasswordEmail = React.createClass({
 			{
 				currentMessages.map(function(m,n){
 					return <div className="center" key={n}>
-				             	<div className="smallest inline-block cursor open-registration invis-70">
+				             	<div className="bigger inline-block invis-70 red">
 				             		{_.isString(m) ? <div>{m}</div> : m}
 				             	</div>
 			            	</div>

@@ -71,7 +71,7 @@ Cal.ResetUserName = React.createClass({
 			{
 				currentMessages.map(function(m,n){
 					return <div className="center" key={n}>
-				             	<div className="smallest inline-block cursor open-registration invis-70">
+				             	<div className="bigger inline-block invis-70 red">
 				             		{_.isString(m) ? <div>{m}</div> : m}
 				             	</div>
 			            	</div>
@@ -100,8 +100,8 @@ Cal.ResetUserName = React.createClass({
 		return (
 			<div>
 				<RC.Form onSubmit={this.changeUserName} onKeyUp={this.checkButtonState} ref="changeUserNameForm">
-					<RC.Input name="userName" label="New User name"  theme={inputTheme} ref="userName"  />
 					{this.printMsg()}
+					<RC.Input name="userName" label="New User name"  theme={inputTheme} ref="userName"  />
 					<RC.Button name="button" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
 						{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Change userName"}
 					</RC.Button>
