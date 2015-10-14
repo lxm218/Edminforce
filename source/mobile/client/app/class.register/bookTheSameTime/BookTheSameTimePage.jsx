@@ -18,7 +18,7 @@
             Meteor.subscribe("swimmersByAccountId", Meteor.userId());
             //Meteor.subscribe("appInfo");
             Meteor.subscribe("classes");
-            Meteor.subscribe("activeShopingCart");
+            Meteor.subscribe("activeShoppingCart");
 
 
             var data = {
@@ -28,12 +28,16 @@
 
                 currentSwimmer: PageStore.currentSwimmer.get(),
 
+                //当前swimmer下一个session的 same time class
+                currentSwimmerSameClasses:PageStore.currentSwimmerSameClasses.get(),
+                currentSwimmerAvaibleSameClasses:PageStore.currentSwimmerAvaibleSameClasses.get(),
+
                 ////////////test
-                currentSwimmerClasses: PageStore.currentSwimmerClasses.get(),
+                //currentSwimmerClasses: PageStore.currentSwimmerClasses.get(),
                 currentSwimmerType: PageStore.currentSwimmerType.get(),
 
-                swimmerClasses: PageStore.swimmerClasses.get(),
-                selectClassView: PageStore.selectClassView,
+                //swimmerClasses: PageStore.swimmerClasses.get(),
+                //selectClassView: PageStore.selectClassView,
 
                 //should wait for currentSwimmer
                 avaiableDays: PageStore.avaiableDays.get(),
@@ -111,7 +115,8 @@
                         swimmers={this.data.swimmers}
                         currentSwimmer={this.data.currentSwimmer}
 
-                        currentSwimmerClasses={this.data.currentSwimmerClasses}
+                        currentSwimmerSameClasses={this.data.currentSwimmerSameClasses}
+                        currentSwimmerAvaibleSameClasses={this.data.currentSwimmerAvaibleSameClasses}
 
                         currentStep={this.data.currentStep}
                         />

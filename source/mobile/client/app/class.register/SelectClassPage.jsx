@@ -14,18 +14,6 @@
         CRSelectClassPageStore = Dependency.get('classRegister.SelectClassPage.store');
     });
 
-    //一轮选择中 class重复检测
-    function currentClass_in_selectedClasses(currentClass,selectedClasses){
-        var classItem;
-        for(var i=1;i<=3; i++){
-            classItem = selectedClasses.get('class'+i)
-            if(classItem && classItem._id == currentClass._id){
-                return true
-            }
-        }
-        return false;
-    }
-
 
     Cal.CRSelectClassPage = React.createClass({
         mixins: [ReactMeteorData],
@@ -127,7 +115,7 @@
             //check duplicate
             var selectedClasses =this.data.selectedClasses
             var currentClass =this.data.currentClass
-            if(currentClass_in_selectedClasses(currentClass,selectedClasses)){
+            if(App.currentClass_in_selectedClasses(currentClass,selectedClasses)){
                 alert('class duplicated')
                 return;
             }

@@ -33,8 +33,21 @@
             var href = "/classRegister/BookTheSameTimePage"
             FlowRouter.go(href);
         },
+        goToEdit(swimmerId, classId, preferenceNum){
+
+            var url = '/classRegister/SelectClassEdit'
+                + '?swimmerId=' + swimmerId
+                + '&classId=' + classId
+                + '&preferenceNum=' + preferenceNum
+                + '&cartId=' + Session.get('CART_ID')
+
+            FlowRouter.go(url);
+
+        },
 
         render() {
+            let self = this
+
 
             let swimmer = this.data.selectedClassesMap.get('swimmer')
             let class1 = this.data.selectedClassesMap.get('class1')
@@ -46,30 +59,71 @@
                 <RC.List theme="inset">
                     <RC.Item theme="body">
                         <h2 className="brand">Register for spring 2015</h2>
-                        {swimmer ? <p>
-                            {swimmer.name}
-                        </p> : ''
+                        {
+                            swimmer ? <div className="row">
+                                <div className="col">
+                                    Swimmer:
+                                </div>
+                                <div className="col">
+                                    {swimmer.name}
+                                </div>
+                            </div> : ''
+                        }
+
+
+                        {
+                            class1 ? <div className="row">
+                                <div className="col">
+                                    Preference 1
+                                </div>
+                                <div className="col">
+                                    {class1.name}
+                                </div>
+                                <div className="col col-20">
+                                    <button className="button button-clear"
+                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,1)}>Edit
+                                    </button>
+                                </div>
+
+                            </div> : ''
 
                         }
                         {
-                            class1 ? <p>
-                                {class1.name}
-                            </p> : ''
-                        }
-                        {
-                            class2 ? <p>
-                                {class2.name}
-                            </p> : ''
-                        }
-                        {
-                            class3 ? <p>
-                                {class3.name}
-                            </p> : ''
-                        }
+                            class2 ? <div className="row">
+                                <div className="col">
+                                    Preference 2
+                                </div>
+                                <div className="col">
+                                    {class2.name}
+                                </div>
+                                <div className="col col-20">
+                                    <button className="button button-clear"
+                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,2)}>Edit
+                                    </button>
+                                </div>
 
+                            </div> : ''
+
+                        }
+                        {
+                            class3 ? <div className="row">
+                                <div className="col">
+                                    Preference 3
+                                </div>
+                                <div className="col">
+                                    {class3.name}
+                                </div>
+                                <div className="col col-20">
+                                    <button className="button button-clear"
+                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,3)}>Edit
+                                    </button>
+                                </div>
+
+                            </div> : ''
+
+                        }
 
                     </RC.Item>
-
                         <RC.Button name="button" type="submit"
                                     onClick={this.selectMore}
                                    theme="full" buttonColor="brand">
