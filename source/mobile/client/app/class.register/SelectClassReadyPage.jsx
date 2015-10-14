@@ -3,17 +3,52 @@
  */
 
 {
-    let CRSelectClassPageStore;
-    Dependency.autorun(function () {
-        CRSelectClassPageStore = Dependency.get('classRegister.SelectClassPage.store');
-    });
+    //let CRSelectClassPageStore;
+    //Dependency.autorun(function () {
+    //    CRSelectClassPageStore = Dependency.get('classRegister.SelectClassPage.store');
+    //});
 
     Cal.CRSelectClassReadyPage = React.createClass({
+        propTypes:{
+            cartId:React.PropTypes.string,
+            swimmerId:React.PropTypes.string,
+            classId:React.PropTypes.string
+
+        },
 
         mixins: [ReactMeteorData],
         getMeteorData() {
+
+            Meteor.subscribe("activeShopingCart");
+
+
+            var shoppingCart= DB.ShoppingCart.findOne({
+                _id:this.props.cartId,
+                type:'register',
+                status:'active'
+            })
+
+
+            console.log(shoppingCart)
+
+            debugger
+
+            var cartItem={}
+            if(shoppingCart && shoppingCart.items){
+
+                cartItem= _.findWhere(shoppingCart.items,{
+                    swimmerId:this.props.swimmerId,
+                    classId:this.props.classId
+                })
+
+            }
+
+
+
             return {
-                selectedClassesMap: CRSelectClassPageStore.selectedClasses.get()
+                //selectedClassesMap: CRSelectClassPageStore.selectedClasses.get()
+
+                cartItem:cartItem
             }
         },
 
@@ -23,7 +58,7 @@
                 + '?swimmerId=' + swimmerId
                 + '&classId=' + classId
                 + '&preferenceNum=' + preferenceNum
-                + '&cartId=' + Session.get('CART_ID')
+                + '&cartId=' + this.props.cartId
 
             FlowRouter.go(url);
 
@@ -32,11 +67,23 @@
         render() {
             let self = this
 
-            let swimmer = this.data.selectedClassesMap.get('swimmer')
 
-            let class1 = this.data.selectedClassesMap.get('class1')
-            let class2 = this.data.selectedClassesMap.get('class2')
-            let class3 = this.data.selectedClassesMap.get('class3')
+            console.log('CRSelectClassReadyPage cart',this.data.cartItem)
+
+            //let swimmer = this.data.selectedClassesMap.get('swimmer')
+            //
+            //let class1 = this.data.selectedClassesMap.get('class1')
+            //let class2 = this.data.selectedClassesMap.get('class2')
+            //let class3 = this.data.selectedClassesMap.get('class3')
+
+            if(this.data.cartItem){
+                var swimmer = this.data.cartItem['swimmer']
+
+                var class1 = this.data.cartItem['class1']
+                var class2 = this.data.cartItem['class2']
+                var class3 = this.data.cartItem['class3']
+            }
+
 
 
             return <div>

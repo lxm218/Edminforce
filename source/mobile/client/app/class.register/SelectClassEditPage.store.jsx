@@ -84,6 +84,11 @@
 
                     self.props.set(payload.props)
 
+                    self.currentDay.set()
+                    self.currentTime.set()
+                    self.currentClass.set()
+
+
                     break;
                 }
 
@@ -131,11 +136,11 @@
                         }
 
                         //通知SelectClassPage.store 更新数据
-                        Dispatcher.dispatch({
-                            actionType: 'CRSelectClassPage_SelectedClasses_CHANGE',
-                            preferenceNum:props.preferenceNum,
-                            classData:currentClass
-                        });
+                        //Dispatcher.dispatch({
+                        //    actionType: 'CRSelectClassPage_SelectedClasses_CHANGE',
+                        //    preferenceNum:props.preferenceNum,
+                        //    classData:currentClass
+                        //});
 
 
                         //回到上一页
