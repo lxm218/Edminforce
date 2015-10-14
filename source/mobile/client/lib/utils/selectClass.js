@@ -3,7 +3,7 @@
  */
 
 
-//
+//一轮选择中 class重复检测
 App.currentClass_in_selectedClasses=function(currentClass,selectedClasses){
     var classItem;
     for(var i=1;i<=3; i++){
@@ -13,4 +13,15 @@ App.currentClass_in_selectedClasses=function(currentClass,selectedClasses){
         }
     }
     return false;
+}
+
+App.class_in_shoppingCart=function(classItem, shoppingCart){
+    var shoppingCartItems = (shoppingCart && shoppingCart.items)||[]
+
+    var exist= _.some(shoppingCartItems,function(cartItem){
+        return cartItem.classId == classItem._id
+    })
+
+    return exist;
+
 }

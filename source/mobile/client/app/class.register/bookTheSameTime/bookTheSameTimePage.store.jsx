@@ -42,16 +42,23 @@
 
 
         //当前用户正在进行的课程
-        self.currentSwimmerClasses=new ReactiveVar([])
+        self.currentSwimmerClassesRegisterInfo=new ReactiveVar([]) //当前正在上的课程的注册信息
+
+        self.currentSwimmerClasses = new ReactiveVar([]) //当前正在上的课程的详细信息
+        self.currentSwimmerSameClasses = new ReactiveVar([])  //classes for book the same time
+
+        self.currentSwimmerAvaibleSameClasses = new ReactiveVar([]) //除去了购物车已有的项
+
+
         self.currentSwimmerType=new ReactiveVar()  //标记当前的类型
 
 
+
+
         //self.classes= new ReactiveVar({})  //by swimmerId
-        self.classesRegister = new ReactiveVar([])
-
-        self.swimmerClasses = new ReactiveVar({})
-
-        self.selectClassView = new ReactiveVar({})  //'bookTheSameTime','common'
+        //self.classesRegister = new ReactiveVar([])
+       //self.swimmerClasses = new ReactiveVar({})
+       //self.selectClassView = new ReactiveVar({})  //'bookTheSameTime','common'
 
 
 
@@ -100,21 +107,23 @@
                     let swimmer = payload.swimmer
 
                     self.currentSwimmer.set(swimmer)
+
+                    //当前swimmer returnback new swimmer区别处理
                     self.currentLevel.set(App.getNextClassLevel(swimmer.level))
 
                     self.currentDay.set(undefinedSelectValue)
                     self.currentTime.set(undefinedSelectValue)
 
-                    var swimmerClasses = self.swimmerClasses.get()
-                    var swimmerId = swimmer._id
-                    if (swimmerClasses && swimmerId) {
-                        if (swimmerClasses[swimmerId] && swimmerClasses[swimmerId] > 0) {
-                            self.selectClassView.set('bookTheSameTime')
-                        } else {
-                            self.selectClassView.set('common')
-                        }
-
-                    }
+                    //var swimmerClasses = self.swimmerClasses.get()
+                    //var swimmerId = swimmer._id
+                    //if (swimmerClasses && swimmerId) {
+                    //    if (swimmerClasses[swimmerId] && swimmerClasses[swimmerId] > 0) {
+                    //        self.selectClassView.set('bookTheSameTime')
+                    //    } else {
+                    //        self.selectClassView.set('common')
+                    //    }
+                    //
+                    //}
 
                     debugger
 
@@ -479,18 +488,33 @@
 
         Meteor.startup(function () {
 
+            //初始化swimmer and level
+            Tracker.autorun(function () {
+                //if(!DB.Swimmers) return;
+
+                var swimmers = self.getSwimmers().fetch()
+
+                if (swimmers.length) {
+                    console.log('set currentSwimmer')
+                    self.currentSwimmer.set(swimmers[0])
+                    self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
+
+                }
+
+            })
+
             //days depend on level of swimmer
             Tracker.autorun(function () {
                 //if (!DB.Classes) return;
-
                 var level = self.currentLevel.get();
                 var appInfo = DB.App.findOne()
 
-                //Tracker.nonreactive(function () {
+                if(!appInfo || !level) return;
+
 
                 //todo  计算可用数目报名数
                 let classes = DB.Classes.find({
-                    sessionId: appInfo && appInfo.sessionRegister, //level session
+                    sessionId: appInfo.sessionRegister, //level session
                     levels: level
                 }).fetch()
 
@@ -513,13 +537,6 @@
                 //    self.currentDay.set(days[0].value)
                 //}
 
-
-                //});
-
-
-                /////
-
-
             });
 
             /// time depend on day
@@ -529,13 +546,16 @@
                 var currentDay = self.currentDay.get();
                 var appInfo = DB.App.findOne()
 
+                if(!appInfo) return;
+
+
                 var level
                 Tracker.nonreactive(function () {
                     level = self.currentLevel.get()
                 });
 
                 let classes = DB.Classes.find({
-                    sessionId: appInfo && appInfo.sessionRegister, // session level day
+                    sessionId: appInfo.sessionRegister, // session level day
                     levels: level,
                     day: currentDay
                 }).fetch()
@@ -568,6 +588,9 @@
                 let time = self.currentTime.get()
                 let appInfo = DB.App.findOne()
 
+                if(!appInfo) return;
+
+
 
                 let level
                 let day
@@ -577,7 +600,7 @@
                 });
 
                 let theClass = DB.Classes.find({
-                    sessionId: appInfo && appInfo.sessionRegister, // session level day
+                    sessionId: appInfo.sessionRegister, // session level day
                     levels: level,
                     day: day,
                     startTime: time
@@ -590,49 +613,159 @@
 
             });
 
+            //获取当前swimmer的课数
             Tracker.autorun(function () {
                 var currentSwimmer = self.currentSwimmer.get()
                 var appInfo = DB.App.findOne()
 
+                if(!appInfo) return;
+
                 if (currentSwimmer) {
-                    var currentSwimmerClasses = DB.ClassesRegister.find({
+                    var currentSwimmerClassesRegisterInfo = DB.ClassesRegister.find({
                         swimmerId: currentSwimmer._id,
-                        sessionId: appInfo && appInfo.sessionNow,
+                        sessionId: appInfo.sessionNow,
                         status: 'normal'
                     }).fetch()
 
-                    self.currentSwimmerClasses.set(currentSwimmerClasses)
-
-                    if(currentSwimmerClasses.length>0){
-                        self.currentSwimmerType.set('swimmer-ongoing')
-                    }else{
-                        self.currentSwimmerType.set('swimmer-sibling')
-                    }
+                    self.currentSwimmerClassesRegisterInfo.set(currentSwimmerClassesRegisterInfo)
 
 
+                    ///////////
 
-                    console.log('autorun currentSwimmerClasses',currentSwimmerClasses)
+                    //if(currentSwimmerClassesRegisterInfo.length>0){
+                    //    self.currentSwimmerType.set('swimmer-ongoing')
+                    //}else{
+                    //    self.currentSwimmerType.set('swimmer-sibling')
+                    //}
 
                 }
 
             })
 
-            //初始化swimmer and level
+
+            /*
+             若无sameclass 显示正常选择页
+
+            * */
             Tracker.autorun(function () {
-                //if(!DB.Swimmers) return;
+                App.info = App.info || DB.App.findOne()
+                var currentSwimmerClassesRegisterInfo= self.currentSwimmerClassesRegisterInfo.get()
 
-                var swimmers = self.getSwimmers().fetch()
+                if(!App.info) return;
 
 
-                if (swimmers.length) {
-                    console.log('set currentSwimmer')
-                    self.currentSwimmer.set(swimmers[0])
-                    self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
+
+                Tracker.autorun(function () {//获取当前class详细信息
+
+                    var ids=[]
+                    _.each(currentSwimmerClassesRegisterInfo,function(item){
+                        ids.push(item.classId)
+                    })
+                    var currentClasses =  DB.Classes.find({
+                        _id:{$in:ids}
+                    }).fetch()
+
+                    self.currentSwimmerClasses.set(currentClasses)
+
+
+                     //console.log(currentClasses)
+
+                    Tracker.autorun(function () {//获取类似class
+                        var sameClasses =[]
+
+                        _.each(currentClasses,function(currentClass){
+
+                            var sameClass = DB.Classes.findOne({
+                                sessionId: App.info.sessionRegister,
+                                day:currentClass.day,
+                                startTime:currentClass.startTime
+                            })
+
+                            if(sameClass){
+                                sameClasses.push(sameClass)
+                            }
+
+                        })
+
+                        self.currentSwimmerSameClasses.set(sameClasses)
+
+                        console.log('currentSwimmerSameClasses',sameClasses)
+
+                    })
+
+
+                })
+
+
+
+            })
+
+
+            //sameclass 已在购物车中则不显示该项
+            //sameclass 除去购物车已有的后数目为0 则显示正常选择页面
+            //若已经注册过该class 也要除去
+            //由于bookthesametime 在一个流程的第一步 所以不需考虑重复 后面的步骤需要考虑
+            Tracker.autorun(function (){
+
+                var currentSwimmer = self.currentSwimmer.get()
+                var currentSwimmerSameClasses = self.currentSwimmerSameClasses.get() //can be []
+
+                if(!currentSwimmer) return;
+
+
+                Meteor.subscribe("activeShoppingCart");
+
+                var shoppingCart= DB.ShoppingCart.findOne({
+                    status:'active',
+                    type:'register'
+                })
+
+                console.log(shoppingCart)
+
+                var avaibleSameClasses=[]
+                var sameClass;
+
+                if(shoppingCart){
+
+                    for(var i=0;i<currentSwimmerSameClasses.length;i++){
+                        sameClass = currentSwimmerSameClasses[i]
+                        if(!App.class_in_shoppingCart(sameClass,shoppingCart)){
+
+                            avaibleSameClasses.push(sameClass)
+                        }
+                    }
+                    self.currentSwimmerAvaibleSameClasses.set(avaibleSameClasses)
+
+                    console.log('AvaibleSameClasses',avaibleSameClasses)
+
+                }else{
+                    self.currentSwimmerAvaibleSameClasses.set(currentSwimmerSameClasses)
 
                 }
 
 
+                //avaibleSameClasses
+
+
             })
+
+
+            //view  bookthesame time or common
+            Tracker.autorun(function () {
+                var avaibleSameClasses = self.currentSwimmerAvaibleSameClasses.get()
+
+                if(avaibleSameClasses.length>0){
+                    self.currentSwimmerType.set('swimmer-ongoing')
+                }else{
+                    self.currentSwimmerType.set('swimmer-sibling')
+                }
+            })
+
+
+
+
+
+
 
         })
 
