@@ -8,5 +8,9 @@ Meteor.methods({
       console.log("Email Not Found");
       return false;
     } 
+  },
+  SetUserName:function(userId, userName){
+    console.log(userId, userName);
+    return(Accounts.setUsername(userId, userName));
   }
 });

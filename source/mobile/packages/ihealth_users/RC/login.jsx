@@ -38,12 +38,13 @@ IH.RC.User = React.createClass({
     switch (this.state.action){
       case "login":
         var form = this.refs.loginForm.getFormData()
-      break
+        break
       case "register":
         var form = this.refs.registerForm.getFormData()
+        break
       case "reset":
         var form = this.refs.resetForm.getFormData()
-      break
+        break
     }
     let test = _.every( _.values(form), function(t){
       return t.length && t.length>0
@@ -135,7 +136,7 @@ IH.RC.User = React.createClass({
     if (form.pw==form.pwRepeat) {
       if (!App.checkPassword(form.pw)) {
         this.setState({
-          msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers."
+          msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers."
         })
         return
       }
@@ -336,7 +337,7 @@ IH.RC.User = React.createClass({
           {this.props.children}
           {this.renderForm()}
           {
-            this.state.action == "reset" ? null :
+            this.state.action != "login" ? null :
             <p className="center">
               <span className="smallest inline-block cursor open-registration invis-70" onClick={this.startReset}>
                 Forgot Your Password?

@@ -31,9 +31,12 @@ Cal.AccountManagement = React.createClass({
                             User Name
                         </div>
                         <div className="col">
-                            {this.data.currentUser
-                                ? this.data.currentUser.username :''}
+                            {this.data.currentUser.username
+                                ? this.data.currentUser.username :'User Name Not Set'}
                         </div>
+                        <a className="button button-block" href="/account/resetUserName">
+                            Change User Name
+                        </a>
                     </div>
                 </RC.Item>
 

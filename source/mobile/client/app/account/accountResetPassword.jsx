@@ -34,7 +34,7 @@ Cal.ResetPasswordUser = React.createClass({
 		if (form.pw == form.pwRepeat) {
 			if (!App.checkPassword(form.pw)) {
 				this.setState({
-          			msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers.",
+          			msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
           			waiting: false
         		})
         		return
