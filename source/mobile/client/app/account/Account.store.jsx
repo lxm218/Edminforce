@@ -50,6 +50,18 @@ Dependency.add('Account.AddSwimmer.store', new function () {
                 FlowRouter.go('/account')
                 break;
             }
+            case "EMERGENCY_CONTACT_CHANGE_SUCCESS":{
+                FlowRouter.go('/account')
+                break;
+            }
+            case "ALTERNATE_CONTACT_CHANGE_SUCCESS":{
+                FlowRouter.go('/account')
+                break;
+            }
+            case "GO_BACK":{
+                FlowRouter.go('/account')
+                break;
+            }
         }
     })
 })

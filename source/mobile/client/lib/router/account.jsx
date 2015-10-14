@@ -95,6 +95,42 @@
             App.routeHandler(p, dynamicRoute)
         }
     })
+
+    AccountRoute.route('/alternateContact', {
+        action: function(p){
+            debugger
+            let pageTitle = "Reset Password"
+            var dynamicRoute = {
+                pageTitle: pageTitle, // This is for header title
+                metaTitle: pageTitle, // This is for meta title
+                showGlobalNav: true,
+                headerNav: null,
+                hideBackButton: true,
+                hideLeftNavToggle: true,
+                hideShoppingCartButton: true,
+                bodyTmpl: <Cal.ChangeAlternateContact/>
+            }
+            App.routeHandler(p, dynamicRoute)
+        }
+    })
+
+    AccountRoute.route('/emergencyContact', {
+        action: function(p){
+            debugger
+            let pageTitle = "Reset Password"
+            var dynamicRoute = {
+                pageTitle: pageTitle, // This is for header title
+                metaTitle: pageTitle, // This is for meta title
+                showGlobalNav: true,
+                headerNav: null,
+                hideBackButton: true,
+                hideLeftNavToggle: true,
+                hideShoppingCartButton: true,
+                bodyTmpl: <Cal.ChangeEmergencyContact/>
+            }
+            App.routeHandler(p, dynamicRoute)
+        }
+    })
 }
 
 

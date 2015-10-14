@@ -88,11 +88,11 @@ DB.Schema.Account = new SimpleSchema({
     },
 
     alterContact: {
-        type: Object,
+        type: DB.Schema.AccountProfile,
         optional: true
     },
     emergencyContact: {
-        type: Object,
+        type: DB.Schema.AccountProfile,
         optional: true
     },
     swimmers: {
