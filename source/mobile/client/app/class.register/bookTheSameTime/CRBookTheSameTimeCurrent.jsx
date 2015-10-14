@@ -6,7 +6,11 @@
     Cal.CRBookTheSameTimeCurrent = React.createClass({
 
         propTypes: {
-            //swimmer: React.PropTypes.object //.isRequired
+            swimmers: React.PropTypes.array, //.isRequired
+            currentSwimmer:React.PropTypes.object,
+            currentSwimmerSameClasses:React.PropTypes.array,
+            currentSwimmerAvaibleSameClasses:React.PropTypes.array, //过滤后的
+            currentStep:React.PropTypes.number
         },
 
         mixins: [ReactMeteorData],
@@ -22,7 +26,7 @@
 
 
             //todo validation info in ui
-            //if (!this.data.currentSwimmer || !this.data.currentDay || !this.data.currentTime) {
+            //if (!this.data. || !this.data.currentDay || !this.data.currentTime) {
             //
             //    alert('please select a class')
             //    return;
@@ -36,35 +40,34 @@
 
         },
 
-        ///
-
-        getView(){
-
-
-            return <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
-
-
-                <Cal.CRSelectSwimmer
-                    swimmers={this.props.swimmers}
-                    currentSwimmer={this.props.currentSwimmer}
-                    ></Cal.CRSelectSwimmer>
-
-                {
-                    this.props.currentSwimmerClasses.map(function (register) {
-
-                        return <Cal.CRClassBookItem key={register.classId}
-                                                    classId={register.classId}
-                            />
-                    })
-                }
-
-            </RC.Form>
-        },
-
         render() {
+
+            //let sameTimeClasses =  this.props.currentSwimmerSameClasses;
+            let sameTimeClasses =  this.props.currentSwimmerAvaibleSameClasses;
+
+
+            console.log(sameTimeClasses)
+
             return <div>
 
-                {this.getView()}
+                <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
+
+
+                    <Cal.CRSelectSwimmer
+                        swimmers={this.props.swimmers}
+                        currentSwimmer={this.props.currentSwimmer}
+                        ></Cal.CRSelectSwimmer>
+
+                    {
+                        sameTimeClasses? sameTimeClasses.map(function (sameTimeClass) {
+
+                            return <Cal.CRBookTheSameTimeClassItem
+                                key={sameTimeClass._id}
+                                classInfo={sameTimeClass}/>
+                        }):''
+                    }
+
+                </RC.Form>
 
             </div>
         }
