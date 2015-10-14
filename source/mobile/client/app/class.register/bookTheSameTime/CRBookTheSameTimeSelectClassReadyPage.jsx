@@ -4,25 +4,54 @@
 
 
 {
+   //todo 与CRSelectClassReadyPage 合并
 
-
-    let bookTheSameTimePageStore;
-    Dependency.autorun(function () {
-        bookTheSameTimePageStore = Dependency.get('classRegister.bookTheSameTimePage.store');
-    });
+    //let bookTheSameTimePageStore;
+    //Dependency.autorun(function () {
+    //    bookTheSameTimePageStore = Dependency.get('classRegister.bookTheSameTimePage.store');
+    //});
 
 
     Cal.CRBookTheSameTimeSelectClassReadyPage = React.createClass({
+        propTypes:{
+            cartId:React.PropTypes.string,
+            swimmerId:React.PropTypes.string,
+            classId:React.PropTypes.string
 
+        },
         mixins: [ReactMeteorData],
         getMeteorData() {
 
-            selectedClasses = bookTheSameTimePageStore.selectedClasses.get()
+            Meteor.subscribe("activeShopingCart");
+
+
+            var shoppingCart= DB.ShoppingCart.findOne({
+                _id:this.props.cartId,
+                type:'register',
+                status:'active'
+            })
+
+
+            console.log(shoppingCart)
+
+            debugger
+
+            var cartItem={}
+            if(shoppingCart && shoppingCart.items){
+
+                cartItem= _.findWhere(shoppingCart.items,{
+                    swimmerId:this.props.swimmerId,
+                    classId:this.props.classId
+                })
+
+            }
 
 
 
             return {
-                selectedClassesMap: selectedClasses
+                //selectedClassesMap: CRSelectClassPageStore.selectedClasses.get()
+
+                cartItem:cartItem
             }
         },
 
@@ -39,7 +68,7 @@
                 + '?swimmerId=' + swimmerId
                 + '&classId=' + classId
                 + '&preferenceNum=' + preferenceNum
-                + '&cartId=' + Session.get('CART_ID')
+                + '&cartId=' + this.props.cartId
 
             FlowRouter.go(url);
 
@@ -49,10 +78,19 @@
             let self = this
 
 
-            let swimmer = this.data.selectedClassesMap.get('swimmer')
-            let class1 = this.data.selectedClassesMap.get('class1')
-            let class2 = this.data.selectedClassesMap.get('class2')
-            let class3 = this.data.selectedClassesMap.get('class3')
+            //let swimmer = this.data.selectedClassesMap.get('swimmer')
+            //let class1 = this.data.selectedClassesMap.get('class1')
+            //let class2 = this.data.selectedClassesMap.get('class2')
+            //let class3 = this.data.selectedClassesMap.get('class3')
+
+
+            if(this.data.cartItem){
+                var swimmer = this.data.cartItem['swimmer']
+
+                var class1 = this.data.cartItem['class1']
+                var class2 = this.data.cartItem['class2']
+                var class3 = this.data.cartItem['class3']
+            }
 
 
             return <div>

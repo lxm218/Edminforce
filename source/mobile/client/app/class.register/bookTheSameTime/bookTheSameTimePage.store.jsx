@@ -286,8 +286,12 @@
 
                             console.log('step3', currentClass)
 
+                            var href="/classRegister/BookTheSameTimeSelectClassReady"
+                                +"?cartId="+Session.get('CART_ID')
+                                +"&swimmerId="+swimmer._id
+                                +"&classId="+class1._id
+                            FlowRouter.go(href);
 
-                            FlowRouter.go('/classRegister/BookTheSameTimeSelectClassReady');
                         })
 
                     }
@@ -448,7 +452,12 @@
                             console.log('step3', currentClass)
 
 
-                            FlowRouter.go('/classRegister/BookTheSameTimeSelectClassReady');
+                            //FlowRouter.go('/classRegister/BookTheSameTimeSelectClassReady');
+                            var href="/classRegister/BookTheSameTimeSelectClassReady"
+                                +"?cartId="+Session.get('CART_ID')
+                                +"&swimmerId="+swimmer._id
+                                +"&classId="+class1._id
+                            FlowRouter.go(href);
                         })
 
                     }
