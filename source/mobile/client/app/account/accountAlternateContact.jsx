@@ -1,6 +1,6 @@
 let themes = ["overlay-light","overlay-dark"]
 
-Cal.ResetUserName = React.createClass({
+Cal.ChangeAlternateContact = React.createClass({
 
 	mixins: [RC.Mixins.Theme],
 	themeGroup: "ih-login",
@@ -16,25 +16,33 @@ Cal.ResetUserName = React.createClass({
 	},
 
 	clearForm(){
-		this.refs.userName.reset()
+		this.refs.name.reset()
+		this.refs.phone.reset()
+		this.refs.address.reset()
 		this.setState({ 
 			msg: null,
 			waiting: false,
 			buttonActive: false })
 	},
 
-	changeUserName(e){
+	updateAlternateContact(e){
 		debugger
 		e.preventDefault()
 		let self = this
-		let form = this.refs.changeUserNameForm.getFormData()
+		let form = this.refs.AlternateContactForm.getFormData()
 
-		if (form.userName) {
+		if (form.name) {
 
 	      	// Reset Account Password using token
 	      	this.setState({ waiting: true })
+	      	let alternateContact = {
+	      		name: form.name,
+	      		phone: form.phone,
+	      		address: form.address,
+	      		location: null
+	      	}
 
-	      	Meteor.call('SetUserName', Meteor.userId(), form.userName, function(err, result){
+	      	Meteor.call('SetAlternateContact', Meteor.userId(), alternateContact, function(err, result){
 	      		debugger
 	      		let passedMsg = err && err.error
 	      				? (ph.errorMsgs[err.error] || err.reason)
@@ -49,13 +57,13 @@ Cal.ResetUserName = React.createClass({
 	      		} else {
 	      			self.clearForm()
 		      		Dispatcher.dispatch({
-		        		actionType: "USERNAME_CHANGE_SUCCESS"
+		        		actionType: "ALTERNATE_CONTACT_CHANGE_SUCCESS"
 		        	});
 		        	return;
 	      		}
 	      	})
 	  	} else { 
-	  		this.setState({ msg: "UserName Cannot Be Empty." })
+	  		this.setState({ msg: "Name Cannot Be Empty." })
 	  		this.setState({ waiting: false, buttonActive: false })
 	  	}
 	},
@@ -81,13 +89,19 @@ Cal.ResetUserName = React.createClass({
 	},
 
 	checkButtonState(e){
-		var form = this.refs.changeUserNameForm.getFormData()
+		var form = this.refs.AlternateContactForm.getFormData()
 		let test = _.every( _.values(form), function(t){
 			return t.length && t.length>0
 		})
 		if(test	!= this.state.buttonActive) {
 			this.setState({ buttonActive: test, msg: null})
 		}
+	},
+
+	backToAccount(e){
+		Dispatcher.dispatch({
+		    actionType: "GO_BACK"
+		});
 	},
 
 	render: function() {
@@ -99,15 +113,23 @@ Cal.ResetUserName = React.createClass({
     	}
 		return (
 			<div>
-				<RC.Form onSubmit={this.changeUserName} onKeyUp={this.checkButtonState} ref="changeUserNameForm">
+				<RC.Form onSubmit={this.updateAlternateContact} onKeyUp={this.checkButtonState} ref="AlternateContactForm">
 					{this.printMsg()}
-					<RC.Input name="userName" label="New User name"  theme={inputTheme} ref="userName"  />
+					<RC.Input name="name" label="Contact Name"  theme={inputTheme} ref="name"  />
+					<RC.Input name="phone" label="Contact Phone Number"  theme={inputTheme} ref="phone"  />
+					<RC.Input name="address" label="Contact Address"  theme={inputTheme} ref="address"  />
+					{
+			            <p className="center">
+			              <span className="smallest inline-block cursor open-registration invis-70" onClick={this.backToAccount}>
+			                Go Back To My Account
+			              </span>
+			            </p>
+			        }
 					<RC.Button name="button" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
-						{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Change userName"}
+						{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Update Alternate Contact"}
 					</RC.Button>
 				</RC.Form>
 			</div>
 		);
 	}
 }); 
-

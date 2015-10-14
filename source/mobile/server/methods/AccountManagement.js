@@ -12,5 +12,14 @@ Meteor.methods({
   SetUserName:function(userId, userName){
     console.log(userId, userName);
     return(Accounts.setUsername(userId, userName));
-  }
+  },
+  SetAlternateContact: function(userId, aContact){
+    console.log(userId, aContact);
+    Meteor.users.update(userId, { $set: { alterContact: aContact} });
+  },
+  SetEmergencyContact: function(userId, eContact){
+    console.log(userId, eContact);
+    Meteor.users.update(userId, { $set: { emergencyContact: eContact} });
+  },
+
 });

@@ -61,7 +61,36 @@ Cal.AccountManagement = React.createClass({
                             Change Password
                         </a>
                     </div>
+                </RC.Item>
 
+                <RC.Item className="item-text-wrap">
+                    <div className="row">
+                        <div className="col">
+                            Emergency Contact
+                        </div>
+                        <div className="col">
+                            {this.data.currentUser.emergencyContact
+                                ? this.data.currentUser.emergencyContact.name :'Emergency Contact Not Set'}
+                        </div>
+                        <a className="button button-block" href="/account/emergencyContact">
+                            Update Emergency Contact
+                        </a>
+                    </div>
+                </RC.Item>
+
+                <RC.Item className="item-text-wrap">
+                    <div className="row">
+                        <div className="col">
+                            Alternate Contact
+                        </div>
+                        <div className="col">
+                            {this.data.currentUser.alterContact
+                                ? this.data.currentUser.alterContact.name :'Alternate Contact Not Set'}
+                        </div>
+                        <a className="button button-block" href="/account/alternateContact">
+                            Update Alternate Contact
+                        </a>
+                    </div>
                 </RC.Item>
 
                 <RC.Item className="item-text-wrap">

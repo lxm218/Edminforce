@@ -233,12 +233,12 @@ IH.RC.User = React.createClass({
     console.log("printMsg is called", this.state.msg)
     debugger
     let currentMessages = this.state.msg ? [this.state.msg] : []
-
+// <div className="smallest inline-block open-registration invis-70 red">
     return <div>
       {
         currentMessages.map(function(m,n){
           return <div className="center" key={n}>
-                      <div className="smallest inline-block cursor open-registration invis-70">
+                      <div className="bigger inline-block invis-70 red">
                         {_.isString(m) ? <div>{m}</div> : m}
                       </div>
                     </div>
@@ -283,9 +283,9 @@ IH.RC.User = React.createClass({
     switch (this.state.action) {
       case "login":
         return <RC.Form onSubmit={this.login} onKeyUp={this.checkButtonState} ref="loginForm">
+          {this.printMsg()}
           <RC.Input name="username" label="E-Mail" theme={inputTheme} ref="username" />
           <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" />
-          {this.printMsg()}
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Log In"}
           </RC.Button>
@@ -293,10 +293,10 @@ IH.RC.User = React.createClass({
       break
       case "register":
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
+          {this.printMsg()}
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />
-          {this.printMsg()}
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
@@ -313,8 +313,8 @@ IH.RC.User = React.createClass({
       debugger
         return (
           <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
-          <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" />
           {this.printMsg()}
+          <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" />
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Send Password Reset E-mail"}
           </RC.Button>
