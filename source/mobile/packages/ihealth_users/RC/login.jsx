@@ -25,7 +25,7 @@ IH.RC.User = React.createClass({
       buttonActive: false,
       waiting: false,
       action: _.contains(["login","register","reset"], this.props.action) ? this.props.action : "login",
-      msg: null,
+      msg: null
     }
   },
   /**
@@ -49,16 +49,25 @@ IH.RC.User = React.createClass({
     let test = _.every( _.values(form), function(t){
       return t.length && t.length>0
     })
+    if (this.state.action == 'register' && form.pwRepeat){
+      if (!App.checkPassword(form.pw)) {
+        this.setState({
+          msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
+          buttonActive: false
+        })
+        return
+      } else if (this.state.msg) {
+        this.setState({ msg: null })
+      }
+    }
     if (test !== this.state.buttonActive)
       this.setState({ buttonActive: test })
-    if (this.state.msg)
-      this.setState({ msg: null })
   },
   resetForm(){
     this.setState({
       waiting: false,
       msg: null,
-      buttonActive: false
+      buttonActive: false,
     })
     if (this.state.action == "login") {
       this.refs.username.reset()
@@ -121,7 +130,7 @@ IH.RC.User = React.createClass({
         self.setState({
           msg: passedMsg,
           buttonActive: false,
-          waiting: false
+          waiting: false,
         })
       })
     }
@@ -164,14 +173,14 @@ IH.RC.User = React.createClass({
         self.setState({
           msg: passedMsg,
           buttonActive: false,
-          waiting: false
+          waiting: false,
         })
       })
     } else
       this.setState({
         msg: ph.errorMsgs[1001],
         buttonActive: false,
-        waiting: false
+        waiting: false,
       })
   },
 
@@ -206,7 +215,7 @@ IH.RC.User = React.createClass({
             emailFound: false,
             waiting: false,
             buttonActive:false,
-            msg: "Entered E-mail is not in record."
+            msg: "Entered E-mail is not in record.",
           })
         }
       })
@@ -271,16 +280,17 @@ IH.RC.User = React.createClass({
       }
     </RC.Animate>
   },
+
   renderForm(){
     var inputTheme = "small-label"
     var buttonTheme = "full"
-
     if (_.contains(["overlay-light","overlay-dark"], this.props.theme)) {
       inputTheme += ","+this.props.theme
       buttonTheme += ","+this.props.theme
     }
 
     switch (this.state.action) {
+
       case "login":
         return <RC.Form onSubmit={this.login} onKeyUp={this.checkButtonState} ref="loginForm">
           {this.printMsg()}
@@ -291,24 +301,20 @@ IH.RC.User = React.createClass({
           </RC.Button>
         </RC.Form>
       break
+
       case "register":
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" />
-          <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
+          <div class="inline-block">
+            <div><RC.PasswordInput name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" /></div>
+          </div>
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
         </RC.Form>
-        // {
-        //     this.state.emailFound ? null :
-        //     <p className="center">
-        //       <span className="smallest inline-block cursor open-registration invis-70" >
-        //         Entered E-mail is not in record.
-        //       </span>
-        //     </p>
-        //   }
+
       case "reset":
       debugger
         return (
@@ -323,6 +329,8 @@ IH.RC.User = React.createClass({
       break
     }
   },
+
+
   render(){
 
     var classes = this.getTheme()

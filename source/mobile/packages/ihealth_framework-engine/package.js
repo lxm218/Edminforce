@@ -39,6 +39,7 @@ Package.onUse(function(api) {
 
     "RC/form/formElements.jsx",
     "RC/form/formElements2.jsx", //calphin
+    "RC/form/passwordInput.jsx", //calphin
 
     "RC/headerNav/headerNav.jsx",
     "RC/leftNav/leftNav.jsx",
