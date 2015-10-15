@@ -53,10 +53,11 @@
                 <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
 
 
-                    <Cal.CRSelectSwimmer
+                    <Cal.SelectSwimmer
                         swimmers={this.props.swimmers}
                         currentSwimmer={this.props.currentSwimmer}
-                        ></Cal.CRSelectSwimmer>
+                        changeMessage="BookTheSameTime_SWIMMER_CHANGE"
+                        />
 
                     {
                         sameTimeClasses? sameTimeClasses.map(function (sameTimeClass) {

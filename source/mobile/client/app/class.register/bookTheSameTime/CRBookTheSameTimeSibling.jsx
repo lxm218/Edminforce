@@ -9,9 +9,7 @@
 
         mixins: [ReactMeteorData],
         getMeteorData() {
-            return {
-
-            }
+            return {}
         },
 
         formSubmit (e) {
@@ -34,39 +32,47 @@
                 selectedClass: formData
             });
 
+            //<Cal.CRSelectSwimmer
+            //    swimmers={this.props.swimmers}
+            //    currentSwimmer={this.props.currentSwimmer}
+            //    ></Cal.CRSelectSwimmer>
+
         },
         render() {
 
             return <div>
                 <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
 
-                <Cal.CRSelectSwimmer
-                    swimmers={this.props.swimmers}
-                    currentSwimmer={this.props.currentSwimmer}
-                    ></Cal.CRSelectSwimmer>
+
+                    <Cal.SelectSwimmer
+                        swimmers={this.props.swimmers}
+                        currentSwimmer={this.props.currentSwimmer}
+                        changeMessage="BookTheSameTime_SWIMMER_CHANGE"
+                        />
 
 
-                <Cal.CRSwimmerLevel
-                    currentSwimmer={this.props.currentSwimmer}
-                    ></Cal.CRSwimmerLevel>
+                    <Cal.SwimmerLevel
+                        currentSwimmer={this.props.currentSwimmer}
+                        ></Cal.SwimmerLevel>
 
-                <Cal.CRAvailableDays
-                    avaiableDays={this.props.avaiableDays}
-                    currentDay={this.props.currentDay}>
-                </Cal.CRAvailableDays>
+                    <Cal.SelectDay
+                        avaiableDays={this.props.avaiableDays}
+                        currentDay={this.props.currentDay}
+                        changeMessage="BookTheSameTime_DAY_CHANGE"
 
+                        />
+                    <Cal.SelectTime
+                        avaiableTimes={this.props.avaiableTimes}
+                        currentTime={this.props.currentTime}
+                        changeMessage="BookTheSameTime_TIME_CHANGE"
 
-                <Cal.CRAvailableTimes
-                    avaiableTimes={this.props.avaiableTimes}
-                    currentTime={this.props.currentTime}
-                    ></Cal.CRAvailableTimes>
+                        />
 
-
-                <RC.Button name="button" type="submit"
-                           onClick={this.formSubmit}
-                           theme="full" buttonColor="brand">
-                    {this.props.currentStep == 1 ? 'Book':'Select'}
-                </RC.Button>
+                    <RC.Button name="button" type="submit"
+                               onClick={this.formSubmit}
+                               theme="full" buttonColor="brand">
+                        {this.props.currentStep == 1 ? 'Book' : 'Select'}
+                    </RC.Button>
 
 
                 </RC.Form>

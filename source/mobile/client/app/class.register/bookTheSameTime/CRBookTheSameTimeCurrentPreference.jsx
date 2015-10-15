@@ -38,21 +38,22 @@ Cal.CRBookTheSameTimeCurrentPreference = React.createClass({
                 </RC.Item>
 
 
-                <Cal.CRSwimmerLevel
+                <Cal.SwimmerLevel
                     currentSwimmer={this.props.currentSwimmer}
-                    ></Cal.CRSwimmerLevel>
+                    ></Cal.SwimmerLevel>
 
-                <Cal.CRAvailableDays
+                <Cal.SelectDay
                     avaiableDays={this.props.avaiableDays}
-                    currentDay={this.props.currentDay}>
-                </Cal.CRAvailableDays>
+                    currentDay={this.props.currentDay}
+                    changeMessage="BookTheSameTime_DAY_CHANGE"
 
-
-                <Cal.CRAvailableTimes
+                    />
+                <Cal.SelectTime
                     avaiableTimes={this.props.avaiableTimes}
                     currentTime={this.props.currentTime}
-                    ></Cal.CRAvailableTimes>
+                    changeMessage="BookTheSameTime_TIME_CHANGE"
 
+                    />
 
                 <RC.Button name="button" type="submit"
                            onClick={this.formSubmit}
