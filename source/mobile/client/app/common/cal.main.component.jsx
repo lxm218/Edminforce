@@ -18,14 +18,15 @@
             href: "/classEdit/swimmerList",
             text: "Your Swimmers"
         }, {
+            href: "/classRegister/registraionInfoPage",
+            text: "Class Registration"
+        },
+        {
             href: "/classEdit/billingAndPayment",
             text: "Your BIlling & Payment"
         }, {
             href: "/ContactInfoPage",
             text: "Contact Us"
-        }, {
-            href: "/classRegister/registraionInfoPage",
-            text: "Class Registration"
         }, {
             //href: "/",
             text: "Sign Out",
