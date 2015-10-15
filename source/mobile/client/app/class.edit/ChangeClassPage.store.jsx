@@ -122,26 +122,38 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
             var swimmerId = self.swimmerId.get()
             var classId = self.classId.get()
 
+            if(!swimmerId || !classId) return;
+
             var swimmer = DB.Swimmers.findOne({_id: swimmerId})
             var classDetail = DB.Classes.findOne({_id: classId})
 
+            if(!swimmer || !classDetail) return;
+
             self.swimmer.set(swimmer)
             self.class.set(classDetail)
-            self.currentLevel.set(swimmer && swimmer.level)
+
+
+            var curentLevel= App.getNextClassLevel(swimmer.level)
+            console.log(curentLevel)
+
+            self.currentLevel.set(curentLevel)
 
         })
 
         //选择 avaiableDays
         Tracker.autorun(function () {
+            App.info = App.info || DB.App.findOne()
+            if (!App.info) return;
 
             var level = self.currentLevel.get()
 
             let classes = DB.Classes.find({
-                sessionId: App.info && App.info.sessionRegister, //level session
-                level: level,
+                sessionId: App.info.sessionRegister, //level session
+                levels: level,
                 _id:{$ne: self.classId.get()} //除去当前class
             }).fetch()
 
+            console.log(level,classes)
             classes = _.uniq(classes, function (item, key, a) {
                 return item.day;
             });
@@ -161,14 +173,16 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
 
         Tracker.autorun(function () {
+            App.info = App.info || DB.App.findOne()
+            if (!App.info) return;
 
             var currentDay = self.currentDay.get();
 
             var level = self.currentLevel.get()
 
             let classes = DB.Classes.find({
-                sessionId: App.info && App.info.sessionRegister, // session level day
-                level: level,
+                sessionId: App.info.sessionRegister, // session level day
+                levels: level,
                 day: currentDay,
                 _id:{$ne: self.classId.get()}
             }).fetch()
@@ -194,6 +208,8 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
 
         Tracker.autorun(function () {
+            App.info = App.info || DB.App.findOne()
+            if (!App.info) return;
 
             let time = self.currentTime.get()
 
@@ -202,8 +218,8 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
 
             let theClass = DB.Classes.findOne({
-                sessionId: App.info && App.info.sessionRegister, // session level day
-                level: level,
+                sessionId: App.info.sessionRegister, // session level day
+                levels: level,
                 day: day,
                 startTime: time
             })
