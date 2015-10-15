@@ -9,7 +9,7 @@ Cal.Login = React.createClass({
     debugger
     return (
       <IH.RC.User fullHeight={true} theme="overlay-dark" bgColor="brand-light">
-        <div>Create an Account</div>
+        
       </IH.RC.User>
       )
   }
