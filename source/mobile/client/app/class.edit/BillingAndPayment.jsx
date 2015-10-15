@@ -48,7 +48,7 @@
 
 
             return <RC.Tabs className="bg-white">
-                <div label="Unfinished Billing" className="padding">
+                <div label="Pending Billing" className="padding">
 
                     <Cal.CRRegBillingPage />
 

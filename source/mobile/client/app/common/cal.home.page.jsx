@@ -1,10 +1,24 @@
 Cal.Home = React.createClass({
+
+
+    mixins: [ReactMeteorData],
+    getMeteorData(){
+
+        Meteor.subscribe("accountCurrent");
+
+        return{
+            account: Meteor.users.findOne()
+        }
+    },
     render() {
 
+        let title = 'Welcome To Our '+ (this.data.account && this.data.account.profile.location)+' Facility'
+
+        console.log(title)
         return <div className="padding">
 
 
-            <RC.Card key={Math.random()} title="Welcome To Our Fremont Facility">
+            <RC.Card title={title}>
 
             </RC.Card>
 
