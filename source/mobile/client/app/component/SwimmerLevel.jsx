@@ -1,8 +1,8 @@
 /**
- * Created on 10/1/15.
+ * Created on 10/14/15.
  */
 
-Cal.CRSwimmerLevel = React.createClass({
+Cal.SwimmerLevel = React.createClass({
 
     mixins: [ReactMeteorData],
     getMeteorData() {

@@ -3,31 +3,30 @@
  */
 
 Cal.SelectSwimmer = React.createClass({
-    propTypes:{
-        swimmers:React.PropTypes.array,
-        currentSwimmer:React.PropTypes.object,
-        changeMessage:React.PropTypes.string,
-        readyOnly:React.PropTypes.bool,
+    propTypes: {
+        swimmers: React.PropTypes.array,
+        currentSwimmer: React.PropTypes.object,
+        changeMessage: React.PropTypes.string,
+        readyOnly: React.PropTypes.bool,
     },
     mixins: [ReactMeteorData],
     getMeteorData() {
         let swimmers = this.props.swimmers && this.props.swimmers.map(function (v, i) {
-            return {text: v['name'], value: v._id}
-        })
+                return {text: v['name'], value: v._id}
+            })
 
 
         let currentSwimmerValue = this.props.currentSwimmer && this.props.currentSwimmer._id
-            //&& {value:this.props.currentSwimmer._id,
-            //    text:this.props.currentSwimmer.name}
-
+        //&& {value:this.props.currentSwimmer._id,
+        //    text:this.props.currentSwimmer.name}
 
 
         return {
-            swimmers:swimmers,
-            currentSwimmerValue:currentSwimmerValue,
+            swimmers: swimmers,
+            currentSwimmerValue: currentSwimmerValue,
 
-            currentSwimmer:this.props.currentSwimmer,
-            readyOnly:this.props.readyOnly
+            currentSwimmer: this.props.currentSwimmer,
+            readyOnly: this.props.readyOnly
         }
     },
 
@@ -48,9 +47,12 @@ Cal.SelectSwimmer = React.createClass({
 
     render() {
 
-        return  this.props.readyOnly?
+        return this.props.readyOnly ?
+            <RC.Item uiColor="brand1">
+                Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
+            </RC.Item>
 
-        <RC.Select2
+            : <RC.Select2
                 ref="swimmer"
                 options={this.data.swimmers}
                 value={this.data.currentSwimmerValue}
@@ -59,8 +61,6 @@ Cal.SelectSwimmer = React.createClass({
                 label="Swimmer"
             />
 
-        :<RC.Item uiColor="brand1">
-            Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
-        </RC.Item>
+
     }
 })
