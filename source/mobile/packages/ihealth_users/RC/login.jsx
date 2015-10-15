@@ -25,7 +25,8 @@ IH.RC.User = React.createClass({
       buttonActive: false,
       waiting: false,
       action: _.contains(["login","register","reset"], this.props.action) ? this.props.action : "login",
-      msg: null
+      msg: null,
+      isOptIn: true
     }
   },
   /**
@@ -68,6 +69,7 @@ IH.RC.User = React.createClass({
       waiting: false,
       msg: null,
       buttonActive: false,
+      isOptIn: true
     })
     if (this.state.action == "login") {
       this.refs.username.reset()
@@ -136,6 +138,7 @@ IH.RC.User = React.createClass({
     }
   },
   register(e){
+    debugger
     e.preventDefault()
     if (this.state.msg) return null
 
@@ -153,6 +156,7 @@ IH.RC.User = React.createClass({
       Accounts.createUser({
         email: form.email,
         password: form.pw,
+        optInCheck: this.state.isOptIn
       }, function(err) {
         let passedMsg = err && err.error
           ? (ph.errorMsgs[err.error] || err.reason)
@@ -281,6 +285,14 @@ IH.RC.User = React.createClass({
     </RC.Animate>
   },
 
+  toggleOptIn(e){
+    debugger
+    e.preventDefault()
+    this.setState({
+      isOptIn: !this.state.isOptIn
+    })
+  },
+
   renderForm(){
     var inputTheme = "small-label"
     var buttonTheme = "full"
@@ -303,13 +315,17 @@ IH.RC.User = React.createClass({
       break
 
       case "register":
+        let optIn = {
+          value: true,
+          label: "Yes，I’d like to receive email communications from Calphin Aquatic Club"
+        }
+
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" />
-          <div class="inline-block">
-            <div><RC.PasswordInput name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" /></div>
-          </div>
+          <RC.PasswordInput name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />
+          <RC.Checkbox name="optIn" ref="optIn" value={this.state.isOptIn} label="Yes，I’d like to receive email communications from Calphin Aquatic Club" onClick={this.toggleOptIn}/>
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>

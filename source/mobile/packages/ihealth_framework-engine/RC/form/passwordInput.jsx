@@ -41,10 +41,12 @@ RC.PasswordInput = React.createClass({
     if (_.isFunction(this.props.changeHandler))
       this.props.changeHandler(e)
   },
-  showPasswordGuide(){
+  showPasswordGuide(e){
+    e.preventDefault()
     this.setState({showPWGuide: true});
   },
-  showQuestionMark(){
+  showQuestionMark(e){
+    e.preventDefault()
     this.setState({showPWGuide: false});
   },
 
