@@ -95,6 +95,10 @@ DB.Schema.Account = new SimpleSchema({
         type: DB.Schema.AccountProfile,
         optional: true
     },
+    optInCheck: {
+        type: Boolean,
+        optional: true
+    },
     swimmers: {
         type: [String],
         optional: true
