@@ -44,6 +44,7 @@ Cal.SwimmerRegisteredClassPage = React.createClass({
                     this.data.registeredClasses && this.data.registeredClasses.map(function (item) {
 
                         return <Cal.ClassEditSwimmerItemClassItem
+                            isLink={true}
                                 registerInfo={item}
                             />
                     })

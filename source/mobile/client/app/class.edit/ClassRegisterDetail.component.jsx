@@ -32,7 +32,7 @@ Cal.ClassRegisterDetail = React.createClass({
             <div className="row">
                 <div className="col"> Class Level</div>
                 <div className="col">
-                    {this.data.class && this.data.class.level}
+                    {this.data.swimmer && App.getNextClassLevel(this.data.swimmer.level)}
 
                 </div>
             </div>

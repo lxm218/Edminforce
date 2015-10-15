@@ -2,7 +2,7 @@
 
 
     var extraFileds = {
-        //'profile': 1,
+        'profile': 1,
         //'role': 1,
         //'credits': 1,
         //'alterContact': 1,
@@ -17,7 +17,8 @@
 
 
     //publish account detail
-    Meteor.publish("account", function (accountId) {
+    Meteor.publish("accountCurrent", function () {
+        var accountId = this.userId
         return Meteor.users.find({_id: accountId}, {fields: extraFileds});
     });
 
