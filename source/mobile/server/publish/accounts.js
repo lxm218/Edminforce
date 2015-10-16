@@ -5,8 +5,9 @@
         'profile': 1,
         //'role': 1,
         //'credits': 1,
-        //'alterContact': 1,
-        //'emergencyContact': 1,
+        'alterContact': 1,
+        'emergencyContact': 1,
+        // 'optInCheck': 1，
         //'swimmers': 1
     };
 

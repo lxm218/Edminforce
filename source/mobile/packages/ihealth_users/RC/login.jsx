@@ -26,7 +26,6 @@ IH.RC.User = React.createClass({
       waiting: false,
       action: _.contains(["login","register","reset"], this.props.action) ? this.props.action : "login",
       msg: null,
-      isOptIn: true
     }
   },
   /**
@@ -69,7 +68,6 @@ IH.RC.User = React.createClass({
       waiting: false,
       msg: null,
       buttonActive: false,
-      isOptIn: true
     })
     if (this.state.action == "login") {
       this.refs.username.reset()
@@ -156,14 +154,21 @@ IH.RC.User = React.createClass({
       Accounts.createUser({
         email: form.email,
         password: form.pw,
-        optInCheck: this.state.isOptIn
+        // optInCheck: form.OptIn == "on" ? true : false
+        // optInCheck: false
       }, function(err) {
+
+        if (!err){
+          self.resetForm()
+          Meteor.call('SetOptIn', Meteor.userId(), form.OptIn == "on" ? true : false, function(error, res){
+            console.log(error)
+            err = error;
+          })
+        }
+
         let passedMsg = err && err.error
           ? (ph.errorMsgs[err.error] || err.reason)
           : <p>Thank you for registering!</p>
-
-        if (!err)
-          self.resetForm()
 
         if (_.isFunction(self.props.registerCallback))
           self.props.registerCallback()
@@ -246,7 +251,6 @@ IH.RC.User = React.createClass({
     console.log("printMsg is called", this.state.msg)
     debugger
     let currentMessages = this.state.msg ? [this.state.msg] : []
-// <div className="smallest inline-block open-registration invis-70 red">
     return <div>
       {
         currentMessages.map(function(m,n){
@@ -285,13 +289,6 @@ IH.RC.User = React.createClass({
     </RC.Animate>
   },
 
-  toggleOptIn(e){
-    debugger
-    e.preventDefault()
-    this.setState({
-      isOptIn: !this.state.isOptIn
-    })
-  },
 
   renderForm(){
     var inputTheme = "small-label"
@@ -314,7 +311,6 @@ IH.RC.User = React.createClass({
           </RC.Button>
         </RC.Form>
       break
-          // <RC.Checkbox name="optIn" ref="optIn" value={this.state.isOptIn} label="Yes，I’d like to receive email communications from Calphin Aquatic Club" onClick={this.toggleOptIn}/>
 
       case "register":
         let optIn = {
@@ -331,7 +327,7 @@ IH.RC.User = React.createClass({
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
-          <RC.Checkbox name="optIn" ref="optIn" value={false} label="Yes，I’d like to receive email communications from Calphin Aquatic Club"/>
+          <RC.Checkbox name="optIn" ref="optIn" value={true} label="Yes，I’d like to receive email communications from Calphin Aquatic Club"/>
         </RC.Form>
 
       case "reset":
