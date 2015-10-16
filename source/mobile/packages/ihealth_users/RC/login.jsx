@@ -112,6 +112,15 @@ IH.RC.User = React.createClass({
       this.setState({ waiting: true })
       Meteor.loginWithPassword( form.username, form.password, function(err){
         debugger
+        if (!err){
+          if (form.keepName == 'on') {
+            Cookie.set('username', form.username)
+          } else  {
+            Cookie.clear('username')
+          }
+          self.resetForm()
+        }
+
         let passedMsg = err && err.error
           ? (ph.errorMsgs[err.error] || err.reason)
           : <p>You are now logged in!</p>
@@ -153,17 +162,14 @@ IH.RC.User = React.createClass({
       // Create User
       Accounts.createUser({
         email: form.email,
-        password: form.pw,
-        // optInCheck: form.OptIn == "on" ? true : false
-        // optInCheck: false
+        password: form.pw
       }, function(err) {
-
         if (!err){
-          self.resetForm()
           Meteor.call('SetOptIn', Meteor.userId(), form.OptIn == "on" ? true : false, function(error, res){
             console.log(error)
             err = error;
           })
+          self.resetForm()
         }
 
         let passedMsg = err && err.error
@@ -289,7 +295,6 @@ IH.RC.User = React.createClass({
     </RC.Animate>
   },
 
-
   renderForm(){
     var inputTheme = "small-label"
     var buttonTheme = "full"
@@ -304,20 +309,16 @@ IH.RC.User = React.createClass({
         return <RC.Form onSubmit={this.login} onKeyUp={this.checkButtonState} ref="loginForm">
           <div>Log In To Your Calphin Account</div>
           {this.printMsg()}
-          <RC.Input name="username" label="E-Mail" theme={inputTheme} ref="username" />
+          <RC.Input name="username" label="E-Mail" theme={inputTheme} ref="username" value={Cookie.get('username')}/>
           <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" />
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Log In"}
           </RC.Button>
+          <RC.Checkbox name="keepName" ref="keepName" value={true} label="Remember My User Name"/>
         </RC.Form>
       break
 
       case "register":
-        let optIn = {
-          value: true,
-          label: "Yes，I’d like to receive email communications from Calphin Aquatic Club"
-        }
-
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           <div>Create an Account</div>
           {this.printMsg()}

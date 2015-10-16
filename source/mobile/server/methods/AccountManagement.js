@@ -22,7 +22,7 @@ Meteor.methods({
     Meteor.users.update(userId, { $set: { emergencyContact: eContact} });
   },
   SetOptIn: function(userId, isOptIn){
-    console.log(userId, "Toggle Opt In");
+    console.log(userId, isOptIn, "Toggle Opt In");
     Meteor.users.update(userId, { $set: { optInCheck: isOptIn} });
   },
 
