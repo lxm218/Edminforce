@@ -305,6 +305,7 @@ IH.RC.User = React.createClass({
 
       case "login":
         return <RC.Form onSubmit={this.login} onKeyUp={this.checkButtonState} ref="loginForm">
+          <div>Log In To Your Calphin Account</div>
           {this.printMsg()}
           <RC.Input name="username" label="E-Mail" theme={inputTheme} ref="username" />
           <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" />
@@ -321,6 +322,7 @@ IH.RC.User = React.createClass({
         }
 
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
+          <div>Create an Account</div>
           {this.printMsg()}
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" />
           <RC.PasswordInput name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
@@ -335,6 +337,7 @@ IH.RC.User = React.createClass({
       debugger
         return (
           <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
+          <div>Reset Password via Email</div>
           {this.printMsg()}
           <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" />
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
