@@ -19,6 +19,10 @@ Meteor.startup(function () {
         delete_class_from_cart:shoppingCart.delete_class_from_cart,
         change_preference_in_cart:shoppingCart.change_preference_in_cart,
 
+
+        //清除不完整购物项
+        clear_uncompleted_item_in_cart:shoppingCart.clear_uncompleted_item_in_cart,
+
         //active => checking
         move_to_checking: shoppingCart.move_to_checking,
 

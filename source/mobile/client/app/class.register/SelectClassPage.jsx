@@ -23,7 +23,7 @@
             Meteor.subscribe("swimmersByAccountId", Meteor.userId());
             //Meteor.subscribe("appInfo");
             Meteor.subscribe("classes");
-            Meteor.subscribe("activeShopingCart");
+            Meteor.subscribe("activeShoppingCart");
 
             //仅在页面加载时才初始化
             //var CRSelectClassPageStore = new CRSelectClassPageStoreClass;

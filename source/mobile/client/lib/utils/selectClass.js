@@ -20,6 +20,9 @@ App.class_in_shoppingCart=function(classItem, shoppingCart){
 
     var exist= _.some(shoppingCartItems,function(cartItem){
         return cartItem.classId == classItem._id
+               && cartItem.class1
+               && cartItem.class2  //三个preference填写完整才算
+               && cartItem.class3
     })
 
     return exist;

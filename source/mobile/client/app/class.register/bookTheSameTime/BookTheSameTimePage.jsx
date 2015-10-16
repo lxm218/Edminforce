@@ -28,6 +28,13 @@
 
                 currentSwimmer: PageStore.currentSwimmer.get(),
 
+                //当前注册课程信息 来自classesRegiser表
+                nowClasses:PageStore.nowClasses.get(),
+                registeredClasses:PageStore.registeredClasses.get(),
+                historyClasses:PageStore.historyClasses.get(),
+                shoppingCartClasses:PageStore.shoppingCartClasses.get(),
+
+
                 //当前swimmer下一个session的 same time class
                 currentSwimmerSameClasses:PageStore.currentSwimmerSameClasses.get(),
                 currentSwimmerAvaibleSameClasses:PageStore.currentSwimmerAvaibleSameClasses.get(),
@@ -83,9 +90,12 @@
 
         getselectionView(){
 
-
-            if (this.data.currentSwimmerType == 'swimmer-ongoing') {
-
+            // 正在游
+            // 且有sameclass
+            // 且购物车为空
+            // 且步骤为1时 显示bookthesametime
+            if(this.data.currentSwimmerAvaibleSameClasses.length>0
+                && !this.data.shoppingCartClasses.length){
 
                 if(this.data.currentStep== '1-1'){  //可以直接去结账
 
@@ -120,21 +130,24 @@
 
                 }
 
-            } else if (this.data.currentSwimmerType == 'swimmer-sibling') {
 
-                    return <Cal.CRBookTheSameTimeSibling
+            }else{
 
-                        swimmers={this.data.swimmers}
-                        currentSwimmer={this.data.currentSwimmer}
 
-                        avaiableDays={this.data.avaiableDays}
-                        avaiableTimes={this.data.avaiableTimes}
+                //brother sister 或者 return back
+                return <Cal.CRBookTheSameTimeSibling
 
-                        currentDay={this.data.currentDay}
-                        currentTime={this.data.currentTime}
+                    swimmers={this.data.swimmers}
+                    currentSwimmer={this.data.currentSwimmer}
 
-                        currentStep={this.data.currentStep}
-                        />
+                    avaiableDays={this.data.avaiableDays}
+                    avaiableTimes={this.data.avaiableTimes}
+
+                    currentDay={this.data.currentDay}
+                    currentTime={this.data.currentTime}
+
+                    currentStep={this.data.currentStep}
+                    />
 
             }
 
@@ -145,6 +158,9 @@
             Dispatcher.dispatch({
                 actionType: "componentWillMount_CRBookTheSameTimePage"
             });
+
+            //尝试清除不完整的购物项
+            Meteor.call('clear_uncompleted_item_in_cart')
 
         },
 

@@ -38,11 +38,16 @@
         //当前的步骤
         self.currentStep = new ReactiveVar(1)
 
+        //注册信息
+        self.nowClasses =new ReactiveVar([])
+        self.registeredClasses =new ReactiveVar([])
+        self.historyClasses =new ReactiveVar([])
 
+        self.shoppingCartClasses= new ReactiveVar([])
 
 
         //当前用户正在进行的课程
-        self.currentSwimmerClassesRegisterInfo=new ReactiveVar([]) //当前正在上的课程的注册信息
+        //self.currentSwimmerClassesRegisterInfo=new ReactiveVar([]) //当前正在上的课程的注册信息
 
         self.currentSwimmerClasses = new ReactiveVar([]) //当前正在上的课程的详细信息
         self.currentSwimmerSameClasses = new ReactiveVar([])  //classes for book the same time
@@ -160,21 +165,6 @@
                         currentClass = self.currentClass.get() //sibling first step
 
 
-                        //selectedClasses
-                        let map = self.selectedClasses.get()
-                        map = map.set('swimmer', currentSwimmer)
-                        map = map.set('class1', currentClass)
-                        self.selectedClasses.set(map)
-
-
-                        //ShoppingCart.addShoppingItem(
-                        //    {
-                        //        swimmer: currentSwimmer,
-                        //        class1: currentClass
-                        //    }
-                        //);
-
-
                         Meteor.call('add_class_to_cart', {
                             swimmerId: currentSwimmer._id,
                             classId: currentClass._id,
@@ -185,9 +175,18 @@
                         }, function (err, result) {
                             debugger
                             if (err) {
-                                console.error(err)
+                                alert(err.error)
                                 return; //todo  prompt
                             }
+
+
+                            //selectedClasses
+                            let map = self.selectedClasses.get()
+                            map = map.set('swimmer', currentSwimmer)
+                            map = map.set('class1', currentClass)
+                            self.selectedClasses.set(map)
+
+
 
                             Session.set('CART_ID', result.cartId)
 
@@ -314,11 +313,7 @@
 
                         //todo获取一个classId
 
-                        //selectedClasses
-                        let map = self.selectedClasses.get()
-                        map = map.set('swimmer', currentSwimmer)
-                        map = map.set('class1', currentClass)
-                        self.selectedClasses.set(map)
+
 
 
                         //ShoppingCart.addShoppingItem(
@@ -340,9 +335,17 @@
                         }, function (err, result) {
                             debugger
                             if (err) {
-                                console.error(err)
+                                alert(err.error)
                                 return; //todo  prompt
                             }
+
+                            //selectedClasses
+                            let map = self.selectedClasses.get()
+                            map = map.set('swimmer', currentSwimmer)
+                            map = map.set('class1', currentClass)
+                            self.selectedClasses.set(map)
+
+
 
                             Session.set('CART_ID', result.cartId)
 
@@ -504,7 +507,8 @@
                 var swimmers = self.getSwimmers().fetch()
 
                 if (swimmers.length) {
-                    console.log('set currentSwimmer')
+                    console.log('set currentSwimmer',swimmers[0]._id)
+
                     self.currentSwimmer.set(swimmers[0])
                     self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
 
@@ -628,26 +632,66 @@
                 var appInfo = DB.App.findOne()
 
                 if(!appInfo) return;
+                if(!currentSwimmer) return;
 
-                if (currentSwimmer) {
-                    var currentSwimmerClassesRegisterInfo = DB.ClassesRegister.find({
+                Tracker.autorun(function () {
+
+                    var nowClasses = DB.ClassesRegister.find({
                         swimmerId: currentSwimmer._id,
-                        sessionId: appInfo.sessionNow,
-                        status: 'normal'
-                    }).fetch()
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId: App.info.sessionNow
+                    }).fetch();
 
-                    self.currentSwimmerClassesRegisterInfo.set(currentSwimmerClassesRegisterInfo)
+                    self.nowClasses.set(nowClasses)
+
+                    //self.currentSwimmerClassesRegisterInfo.set(currentSwimmerClassesRegisterInfo)
 
 
-                    ///////////
+                })
+                Tracker.autorun(function () {
 
-                    //if(currentSwimmerClassesRegisterInfo.length>0){
-                    //    self.currentSwimmerType.set('swimmer-ongoing')
-                    //}else{
-                    //    self.currentSwimmerType.set('swimmer-sibling')
-                    //}
+                    var registeredClasses = DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId: App.info.sessionRegister
+                    }).fetch();
+                    self.registeredClasses.set(registeredClasses)
 
-                }
+
+                })
+                Tracker.autorun(function () {
+
+                    var historyClasses=DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
+
+                    }).fetch();
+                    self.historyClasses.set(historyClasses)
+
+                })
+
+                //shoppingCartClasses
+                Tracker.autorun(function () {
+
+                    var shoppingCart= DB.ShoppingCart.findOne({
+                        status:'active',
+                        type:'register'
+                    })
+
+                    var classItems=[];
+                    if(shoppingCart && shoppingCart.items.length){
+                        classItems = _.filter(shoppingCart.items,function(item){
+                            return item.class1 && item.class2 && item.class3   //完整的注册
+                                   &&  item.swimmerId == currentSwimmer._id
+
+                        })
+                    }
+
+                    self.shoppingCartClasses.set(classItems)
+                    console.log(classItems)
+
+                })
 
             })
 
@@ -658,7 +702,7 @@
             * */
             Tracker.autorun(function () {
                 App.info = App.info || DB.App.findOne()
-                var currentSwimmerClassesRegisterInfo= self.currentSwimmerClassesRegisterInfo.get()
+                var nowClasses= self.nowClasses.get()
 
                 if(!App.info) return;
 
@@ -667,7 +711,7 @@
                 Tracker.autorun(function () {//获取当前class详细信息
 
                     var ids=[]
-                    _.each(currentSwimmerClassesRegisterInfo,function(item){
+                    _.each(nowClasses,function(item){
                         ids.push(item.classId)
                     })
                     var currentClasses =  DB.Classes.find({
@@ -719,38 +763,36 @@
                 var currentSwimmer = self.currentSwimmer.get()
                 var currentSwimmerSameClasses = self.currentSwimmerSameClasses.get() //can be []
 
+                var registeredClasses = self.registeredClasses.get()
+                var shoppingCartClasses= self.shoppingCartClasses.get()
+
+
                 if(!currentSwimmer) return;
 
 
-                Meteor.subscribe("activeShoppingCart");
-
-                var shoppingCart= DB.ShoppingCart.findOne({
-                    status:'active',
-                    type:'register'
+                var registeredClassesIds = registeredClasses.map(function(item){
+                    return item.classId
+                });
+                var shoppingCartClassesIds = shoppingCartClasses.map(function(item){
+                    return item.classId
                 })
 
-                console.log(shoppingCart)
+                var exceptionIds=_.union(registeredClassesIds,shoppingCartClassesIds)
 
-                var avaibleSameClasses=[]
-                var sameClass;
+                console.log('registeredClasses',registeredClassesIds)
+                console.log('shoppingCartClasses',shoppingCartClassesIds)
+                console.log('exceptionIds',exceptionIds)
 
-                if(shoppingCart){
 
-                    for(var i=0;i<currentSwimmerSameClasses.length;i++){
-                        sameClass = currentSwimmerSameClasses[i]
-                        if(!App.class_in_shoppingCart(sameClass,shoppingCart)){
 
-                            avaibleSameClasses.push(sameClass)
-                        }
-                    }
-                    self.currentSwimmerAvaibleSameClasses.set(avaibleSameClasses)
 
-                    console.log('AvaibleSameClasses',avaibleSameClasses)
+                var avaibleSameClasses = _.filter(currentSwimmerSameClasses,function(item){
+                    return exceptionIds.indexOf(item._id)==-1
+                })
+                self.currentSwimmerAvaibleSameClasses.set(avaibleSameClasses)
 
-                }else{
-                    self.currentSwimmerAvaibleSameClasses.set(currentSwimmerSameClasses)
 
-                }
+                console.log('currentSwimmerAvaibleSameClasses',avaibleSameClasses)
 
 
                 //avaibleSameClasses

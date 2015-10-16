@@ -22,7 +22,7 @@
         mixins: [ReactMeteorData],
         getMeteorData() {
 
-            Meteor.subscribe("activeShopingCart");
+            Meteor.subscribe("activeShoppingCart");
 
 
             var shoppingCart= DB.ShoppingCart.findOne({
