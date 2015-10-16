@@ -26,6 +26,7 @@ IH.RC.User = React.createClass({
       waiting: false,
       action: _.contains(["login","register","reset"], this.props.action) ? this.props.action : "login",
       msg: null,
+      notification: null
     }
   },
   /**
@@ -152,6 +153,13 @@ IH.RC.User = React.createClass({
     let self = this
     let form = this.refs.registerForm.getFormData()
 
+    if (form.term != 'on') {
+      this.setState({
+        notification: "Please accept the following terms of use."
+      })
+      return null
+    }
+
     if (form.pw==form.pwRepeat) {
       if (!App.checkPassword(form.pw)) {
         this.setState({
@@ -249,7 +257,8 @@ IH.RC.User = React.createClass({
     e.preventDefault()
     this.setState({
       waiting: false,
-      msg: null,
+      notification: null,
+      msg:null
     })
   },
 
@@ -279,7 +288,7 @@ IH.RC.User = React.createClass({
   renderMsg(){
     let self = this
     let bg = h.checkColorClass(this.props.bgColor) ? this.props.bgColor : null
-    let msgs = this.state.msg ? [this.state.msg] : [] // This will always be either 1 or 0
+    let msgs = this.state.notification ? [this.state.notification] : [] // This will always be either 1 or 0
 
     return <RC.Animate transitionName="scale">
       {
@@ -328,6 +337,7 @@ IH.RC.User = React.createClass({
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
+          <RC.Checkbox name="term" ref="term" value={true} label="Yes，I accpet Privacy Policy and Terms of Use."/>
           <RC.Checkbox name="optIn" ref="optIn" value={true} label="Yes，I’d like to receive email communications from Calphin Aquatic Club"/>
         </RC.Form>
 
@@ -360,6 +370,7 @@ IH.RC.User = React.createClass({
       <div className="inside">
         <div className="re-wrapper">
           {this.props.children}
+          {this.renderMsg()}
           {this.renderForm()}
           {
             this.state.action != "login" ? null :
