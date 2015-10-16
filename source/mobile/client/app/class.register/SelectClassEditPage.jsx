@@ -44,7 +44,7 @@
             Meteor.subscribe("swimmersByAccountId", Meteor.userId());
             //Meteor.subscribe("appInfo");
             Meteor.subscribe("classes");
-            Meteor.subscribe("activeShopingCart");
+            Meteor.subscribe("activeShoppingCart");
             //Meteor.subscribe("accountShoppingCart");
 
 

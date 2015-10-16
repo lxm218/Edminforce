@@ -391,20 +391,7 @@ function delete_class_from_cart(params){
 
     console.log('====delete_class_from_cart params=====:',params)
 
-    //从购物车删除
-    var result = DB.ShoppingCart.update(
-        {'_id': params.cartId},
-        {
-            '$set': {status: 'active'}, //重置为active
-            '$pull': {
-                'items': {
-                    //'type': 'register',
-                    'swimmerId': params.swimmerId,
-                    classId: params.classId
-                }
-            }
-        })
-    console.log('====delete_class_from_cart step1=====:'+result)
+
     //恢复class数目
     result = DB.Classes.update(
         {'_id': params.classId},
@@ -420,7 +407,22 @@ function delete_class_from_cart(params){
                 }
             }
         })
-    console.log('====delete_class_from_cart [restore class] step2=====:'+result)
+    console.log('====delete_class_from_cart [restore class] step1=====:'+result)
+
+    //从购物车删除
+    var result = DB.ShoppingCart.update(
+        {'_id': params.cartId},
+        {
+            '$set': {status: 'active'}, //重置为active
+            '$pull': {
+                'items': {
+                    //'type': 'register',
+                    'swimmerId': params.swimmerId,
+                    classId: params.classId
+                }
+            }
+        })
+    console.log('====delete_class_from_cart step2=====:'+result)
 
 
 
@@ -571,6 +573,41 @@ function change_preference_in_cart(params){
 
 }
 
+
+//clear uncompletedShoppingCartItem
+//流程中断时 清除课程占用及选课记录
+function clear_uncompleted_item_in_cart(){
+
+    console.log('====clear_uncompleted_item_in_cart===')
+
+    var cart = DB.ShoppingCart.findOne(
+        {
+            status: 'active',
+            type:'register'
+        })
+
+    var items=[]
+
+    //找出未完成的item
+    if(cart && cart.items){
+        items=_.filter(cart.items,function(item){
+            return  !(item.class1 && item.class2 && item.class3)
+        })
+    }
+
+
+
+    items.forEach(function(item){
+
+        delete_class_from_cart({
+            cartId:cart._id,
+            swimmerId: item.swimmerId,
+            classId:item.classId
+
+        })
+    })
+}
+
 shopping_cart_export({
 
     //add_class_register_to_cart: add_class_register_to_cart,
@@ -582,7 +619,8 @@ shopping_cart_export({
     move_to_done: move_to_done,
 
     delete_class_from_cart:delete_class_from_cart,
-    change_preference_in_cart:change_preference_in_cart
+    change_preference_in_cart:change_preference_in_cart,
+    clear_uncompleted_item_in_cart:clear_uncompleted_item_in_cart
 
 })
 
