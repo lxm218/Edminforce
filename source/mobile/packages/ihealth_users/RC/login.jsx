@@ -314,6 +314,7 @@ IH.RC.User = React.createClass({
           </RC.Button>
         </RC.Form>
       break
+          // <RC.Checkbox name="optIn" ref="optIn" value={this.state.isOptIn} label="Yes，I’d like to receive email communications from Calphin Aquatic Club" onClick={this.toggleOptIn}/>
 
       case "register":
         let optIn = {
@@ -327,10 +328,10 @@ IH.RC.User = React.createClass({
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" />
           <RC.PasswordInput name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />
-          <RC.Checkbox name="optIn" ref="optIn" value={this.state.isOptIn} label="Yes，I’d like to receive email communications from Calphin Aquatic Club" onClick={this.toggleOptIn}/>
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
+          <RC.Checkbox name="optIn" ref="optIn" value={false} label="Yes，I’d like to receive email communications from Calphin Aquatic Club"/>
         </RC.Form>
 
       case "reset":
