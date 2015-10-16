@@ -33,6 +33,7 @@ App.getNextClassLevel=function(level){
     //var nIndex = Math.min(cIndex+1, (levels.length-1))
     var nIndex = Math.max(cIndex-1, 0)
 
+    console.log('getNextClassLevel', level, levels[nIndex])
 
     return levels[nIndex]
 

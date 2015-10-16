@@ -48,6 +48,8 @@
 
                 currentStep: CRSelectClassPageStore.currentStep.get(),
 
+                classesNoSeatByLevel:CRSelectClassPageStore.classesNoSeatByLevel.get(),
+
                 //一次选课流程的所有信息
                 selectedClasses: CRSelectClassPageStore.selectedClasses.get()
 
@@ -144,6 +146,22 @@
                 currentStep: this.data.currentStep,
                 eidtStep: num
             });
+
+        },
+        goToWaitingList(e){
+            e.preventDefault()
+
+            var href="/classRegister/AddWaitingList"
+            var classesNoSeat = this.data.classesNoSeatByLevel.length
+
+            if(classesNoSeat==0){
+
+                alert('All classes are available, you can register now')
+
+            }else{
+                FlowRouter.go(href);
+            }
+
 
         },
         componentWillMount(){
@@ -268,12 +286,11 @@
 
                         {
                             this.data.currentStep == 1 ?
-                                <RC.URL href="/classRegister/AddWaitingList">
-                                    <RC.Button name="button" type="submit"
+                                    <RC.Button name="button"
+                                               onClick={this.goToWaitingList}
                                                theme="full" buttonColor="brand">
                                         Waiting List
                                     </RC.Button>
-                                </RC.URL>
                                 : ''
                         }
 

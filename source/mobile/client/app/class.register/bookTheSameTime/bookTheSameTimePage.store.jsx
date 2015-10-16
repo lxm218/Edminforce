@@ -114,7 +114,7 @@
                     self.currentSwimmer.set(swimmer)
 
                     //当前swimmer returnback new swimmer区别处理
-                    self.currentLevel.set(App.getNextClassLevel(swimmer.level))
+                    //self.currentLevel.set(App.getNextClassLevel(swimmer.level))
 
                     self.currentDay.set(undefinedSelectValue)
                     self.currentTime.set(undefinedSelectValue)
@@ -500,9 +500,8 @@
 
         Meteor.startup(function () {
 
-            //初始化swimmer and level
+            //初始化swimmer
             Tracker.autorun(function () {
-                //if(!DB.Swimmers) return;
 
                 var swimmers = self.getSwimmers().fetch()
 
@@ -510,8 +509,97 @@
                     console.log('set currentSwimmer',swimmers[0]._id)
 
                     self.currentSwimmer.set(swimmers[0])
-                    self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
+                    //self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
 
+                }
+
+            })
+
+            //获取当前swimmer的课数 用于判断swimmer的类型
+            Tracker.autorun(function () {
+                var currentSwimmer = self.currentSwimmer.get()
+                var appInfo = DB.App.findOne()
+
+                if(!appInfo) return;
+                if(!currentSwimmer) return;
+
+                Tracker.autorun(function () {
+
+                    var nowClasses = DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId: App.info.sessionNow
+                    }).fetch();
+
+                    self.nowClasses.set(nowClasses)
+
+                    //self.currentSwimmerClassesRegisterInfo.set(currentSwimmerClassesRegisterInfo)
+
+
+                })
+                Tracker.autorun(function () {
+
+                    var registeredClasses = DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId: App.info.sessionRegister
+                    }).fetch();
+                    self.registeredClasses.set(registeredClasses)
+
+
+                })
+                Tracker.autorun(function () {
+
+                    var historyClasses=DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
+
+                    }).fetch();
+                    self.historyClasses.set(historyClasses)
+
+                })
+
+                //shoppingCartClasses
+                Tracker.autorun(function () {
+
+                    var shoppingCart= DB.ShoppingCart.findOne({
+                        status:'active',
+                        type:'register'
+                    })
+
+                    var classItems=[];
+                    if(shoppingCart && shoppingCart.items.length){
+                        classItems = _.filter(shoppingCart.items,function(item){
+                            return item.class1 && item.class2 && item.class3   //完整的注册
+                                &&  item.swimmerId == currentSwimmer._id
+
+                        })
+                    }
+
+                    self.shoppingCartClasses.set(classItems)
+                    console.log(classItems)
+
+                })
+
+            })
+
+
+            //确定课程注册level
+            //对于return back 和 new swimmer  Level即当前level
+            //对于正在游的level＋1
+            Tracker.autorun(function(){
+                var nowClasses =self.nowClasses.get()
+                var currentSwimmer = self.currentSwimmer.get()
+
+                if(!currentSwimmer) return;
+
+                //当前session正在游
+                if(nowClasses.length>0){
+                    self.currentLevel.set(App.getNextClassLevel(currentSwimmer.level))
+
+                }else{
+                    self.currentLevel.set(currentSwimmer.level)
                 }
 
             })
@@ -626,74 +714,7 @@
 
             });
 
-            //获取当前swimmer的课数
-            Tracker.autorun(function () {
-                var currentSwimmer = self.currentSwimmer.get()
-                var appInfo = DB.App.findOne()
 
-                if(!appInfo) return;
-                if(!currentSwimmer) return;
-
-                Tracker.autorun(function () {
-
-                    var nowClasses = DB.ClassesRegister.find({
-                        swimmerId: currentSwimmer._id,
-                        status:'normal',  //不显示cancel中的和 change中的
-                        sessionId: App.info.sessionNow
-                    }).fetch();
-
-                    self.nowClasses.set(nowClasses)
-
-                    //self.currentSwimmerClassesRegisterInfo.set(currentSwimmerClassesRegisterInfo)
-
-
-                })
-                Tracker.autorun(function () {
-
-                    var registeredClasses = DB.ClassesRegister.find({
-                        swimmerId: currentSwimmer._id,
-                        status:'normal',  //不显示cancel中的和 change中的
-                        sessionId: App.info.sessionRegister
-                    }).fetch();
-                    self.registeredClasses.set(registeredClasses)
-
-
-                })
-                Tracker.autorun(function () {
-
-                    var historyClasses=DB.ClassesRegister.find({
-                        swimmerId: currentSwimmer._id,
-                        status:'normal',  //不显示cancel中的和 change中的
-                        sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
-
-                    }).fetch();
-                    self.historyClasses.set(historyClasses)
-
-                })
-
-                //shoppingCartClasses
-                Tracker.autorun(function () {
-
-                    var shoppingCart= DB.ShoppingCart.findOne({
-                        status:'active',
-                        type:'register'
-                    })
-
-                    var classItems=[];
-                    if(shoppingCart && shoppingCart.items.length){
-                        classItems = _.filter(shoppingCart.items,function(item){
-                            return item.class1 && item.class2 && item.class3   //完整的注册
-                                   &&  item.swimmerId == currentSwimmer._id
-
-                        })
-                    }
-
-                    self.shoppingCartClasses.set(classItems)
-                    console.log(classItems)
-
-                })
-
-            })
 
 
             /*
@@ -704,7 +725,10 @@
                 App.info = App.info || DB.App.findOne()
                 var nowClasses= self.nowClasses.get()
 
+                var currentLevel = self.currentLevel.get()
+
                 if(!App.info) return;
+                if(!currentLevel) return;
 
 
 
@@ -730,6 +754,8 @@
 
                             var sameClass = DB.Classes.findOne({
                                 sessionId: App.info.sessionRegister,
+                                levels:currentLevel,
+
                                 day:currentClass.day,
                                 startTime:currentClass.startTime
                             })

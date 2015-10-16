@@ -11,7 +11,7 @@ Meteor.startup(function () {
             _id:'jliu@gmail.com_Allen-Liu'
         },
         {Student_Name:'Daniel Liu',Primary_Guardia:'John Liu',Secondary_Guardia:'Alice Wu',Primary_Phon:'510-234-5678',
-            Email:'jliu@gmail.com',Class_Level:"CRL3",Gender:'M',DOB:'4/13/09','Status':'',
+            Email:'jliu@gmail.com',Class_Level:"CRL1",Gender:'M',DOB:'4/13/09','Status':'',
             accountId:'jliu@gmail.com',location:'Fremont',
             _id:'jliu@gmail.com_Daniel-Liu'
         },
@@ -40,7 +40,7 @@ Meteor.startup(function () {
             _id:'jandmfear@gmail.com_Mia-Fear'
         },
         {Student_Name:'David Fear',Primary_Guardia:'',Secondary_Guardia:'',Primary_Phon:'',
-            Email:'jandmfear@gmail.com',Class_Level:"SPP3",Gender:'',DOB:'','Status':'',
+            Email:'jandmfear@gmail.com',Class_Level:"SPR3",Gender:'',DOB:'','Status':'',
             accountId:'jandmfear@gmail.com',location:'Fremont',
             _id:'jandmfear@gmail.com_David-Fear'
         },

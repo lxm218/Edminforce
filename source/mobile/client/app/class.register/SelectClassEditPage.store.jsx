@@ -220,12 +220,42 @@
 
                 if(currentSwimmer){
                     self.currentSwimmer.set(currentSwimmer)
-                    self.currentLevel.set(App.getNextClassLevel(currentSwimmer.level))
-
-                    console.log('set currentLevel',currentSwimmer.level)
+                    //self.currentLevel.set(App.getNextClassLevel(currentSwimmer.level))
+                    //console.log('set currentLevel',currentSwimmer.level)
 
                 }
 
+
+            })
+
+
+
+            //计算level
+            Tracker.autorun(function () {
+                var currentSwimmer = self.currentSwimmer.get()
+                var appInfo = DB.App.findOne()
+
+                if(!appInfo) return;
+                if(!currentSwimmer) return;
+
+                Tracker.autorun(function () {
+
+                    var nowClasses = DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId: App.info.sessionNow
+                    }).fetch();
+
+                    //self.nowClasses.set(nowClasses)
+
+                    if(nowClasses.length>0){
+                        self.currentLevel.set(App.getNextClassLevel(currentSwimmer.level))
+
+                    }else{
+                        self.currentLevel.set(currentSwimmer.level)
+                    }
+
+                })
 
             })
 

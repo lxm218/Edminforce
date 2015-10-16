@@ -19,6 +19,7 @@
 
                 swimmer:PageStore.swimmer,
                 class:PageStore.class,
+                currentLevel:PageStore.currentLevel,
 
                 avaiableDays: PageStore.avaiableDays.get(),
                 avaiableTimes: PageStore.avaiableTimes.get(),
@@ -77,6 +78,7 @@
                 <Cal.ClassRegisterDetail
                     classId={this.props.classId}
                     swimmerId={this.props.swimmerId}
+                    currentLevel={this.data.currentLevel}
                     />
 
                 <RC.Form ref="changeClassForm" onSubmit={this.formSubmit}>

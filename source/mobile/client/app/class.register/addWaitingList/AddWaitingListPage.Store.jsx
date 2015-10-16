@@ -66,7 +66,7 @@
                     let swimmer = payload.swimmer
 
                     self.currentSwimmer.set(swimmer)
-                    self.currentLevel.set(App.getNextClassLevel(swimmer.level))
+                    //self.currentLevel.set(App.getNextClassLevel(swimmer.level))//todo
 
                     self.currentDay.set()
                     self.currentTime.set()

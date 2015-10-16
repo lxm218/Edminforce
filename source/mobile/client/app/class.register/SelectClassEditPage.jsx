@@ -135,7 +135,7 @@
                         Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
                     </RC.Item>
                     <RC.Item uiColor="brand1">
-                        Level: {this.data.currentSwimmer && this.data.currentSwimmer.level}
+                        Level: {this.data.currentLevel}
                     </RC.Item>
 
                     <Cal.SelectDay

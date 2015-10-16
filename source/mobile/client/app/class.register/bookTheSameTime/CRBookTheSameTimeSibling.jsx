@@ -51,9 +51,9 @@
                         />
 
 
-                    <Cal.SwimmerLevel
-                        currentSwimmer={this.props.currentSwimmer}
-                        ></Cal.SwimmerLevel>
+                    <RC.Item uiColor="brand1">
+                        Level: {this.props.currentLevel}
+                    </RC.Item>
 
                     <Cal.SelectDay
                         avaiableDays={this.props.avaiableDays}

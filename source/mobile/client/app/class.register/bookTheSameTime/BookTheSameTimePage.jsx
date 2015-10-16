@@ -27,6 +27,7 @@
                 swimmers: PageStore.getSwimmers().fetch(),
 
                 currentSwimmer: PageStore.currentSwimmer.get(),
+                currentLevel:PageStore.currentLevel.get(), //计算过后的值
 
                 //当前注册课程信息 来自classesRegiser表
                 nowClasses:PageStore.nowClasses.get(),
@@ -95,7 +96,8 @@
             // 且购物车为空
             // 且步骤为1时 显示bookthesametime
             if(this.data.currentSwimmerAvaibleSameClasses.length>0
-                && !this.data.shoppingCartClasses.length){
+                && !this.data.shoppingCartClasses.length
+                && !this.data.registeredClasses.length){
 
                 if(this.data.currentStep== '1-1'){  //可以直接去结账
 
@@ -106,6 +108,7 @@
 
                         swimmers={this.data.swimmers}
                         currentSwimmer={this.data.currentSwimmer}
+                        currentLevel={this.data.currentLevel}
 
                         currentSwimmerSameClasses={this.data.currentSwimmerSameClasses}
                         currentSwimmerAvaibleSameClasses={this.data.currentSwimmerAvaibleSameClasses}
@@ -118,6 +121,8 @@
                     return <Cal.CRBookTheSameTimeCurrentPreference
                         swimmers={this.data.swimmers}
                         currentSwimmer={this.data.currentSwimmer}
+                        currentLevel={this.data.currentLevel}
+
 
                         avaiableDays={this.data.avaiableDays}
                         avaiableTimes={this.data.avaiableTimes}
@@ -139,6 +144,8 @@
 
                     swimmers={this.data.swimmers}
                     currentSwimmer={this.data.currentSwimmer}
+                    currentLevel={this.data.currentLevel}
+
 
                     avaiableDays={this.data.avaiableDays}
                     avaiableTimes={this.data.avaiableTimes}

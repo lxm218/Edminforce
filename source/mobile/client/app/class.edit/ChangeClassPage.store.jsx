@@ -133,10 +133,38 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
             self.class.set(classDetail)
 
 
-            var curentLevel= App.getNextClassLevel(swimmer.level)
-            console.log(curentLevel)
+            //var curentLevel= App.getNextClassLevel(swimmer.level)
+            //console.log(curentLevel)
+            //
+            //self.currentLevel.set(curentLevel)
 
-            self.currentLevel.set(curentLevel)
+        })
+
+        Tracker.autorun(function () {
+            var currentSwimmer = self.swimmer.get()
+            var appInfo = DB.App.findOne()
+
+            if(!appInfo) return;
+            if(!currentSwimmer) return;
+
+            Tracker.autorun(function () {
+
+                var nowClasses = DB.ClassesRegister.find({
+                    swimmerId: currentSwimmer._id,
+                    status:'normal',  //不显示cancel中的和 change中的
+                    sessionId: App.info.sessionNow
+                }).fetch();
+
+                //self.nowClasses.set(nowClasses)
+
+                if(nowClasses.length>0){
+                    self.currentLevel.set(App.getNextClassLevel(currentSwimmer.level))
+
+                }else{
+                    self.currentLevel.set(currentSwimmer.level)
+                }
+
+            })
 
         })
 

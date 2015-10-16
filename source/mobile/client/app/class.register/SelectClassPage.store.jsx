@@ -35,6 +35,12 @@
         //当前的步骤
         self.currentStep = new ReactiveVar(1)
 
+        //swimmer的class注册信息
+        self.nowClasses =new ReactiveVar([])
+        self.registeredClasses =new ReactiveVar([])
+        self.historyClasses =new ReactiveVar([])
+        self.shoppingCartClasses= new ReactiveVar([])
+
 
         //可选days 依赖于 当前的currentLevel
         self.avaiableDays = new ReactiveVar([])
@@ -44,6 +50,8 @@
 
         //Session.set('CART_ID')
 
+        //当前level 名额已报满的课程  waitinglist需要用到
+        self.classesNoSeatByLevel = new ReactiveVar([])
 
         /*
          * 一次流程选择的class信息  3步
@@ -76,11 +84,11 @@
                 case "CRSelectClassPage_SWIMMER_CHANGE": //选择swimmer  level可能会变
                 {
                     let swimmer = payload.swimmer
-                    let level= App.getNextClassLevel(swimmer.level) //next
+                    //let level= App.getNextClassLevel(swimmer.level) //next
 
 
                     self.currentSwimmer.set(swimmer)
-                    self.currentLevel.set(level)
+                    //self.currentLevel.set(level)
 
                     self.currentDay.set()
                     self.currentTime.set()
@@ -290,12 +298,104 @@
 
                 if (swimmers.length) {
                     self.currentSwimmer.set(swimmers[0])
-                    var level= App.getNextClassLevel(swimmers[0].level)
-                    self.currentLevel.set(level) //获取比当前level更高一级的level
+                    //var level= App.getNextClassLevel(swimmers[0].level)
+                    //self.currentLevel.set(level) //获取比当前level更高一级的level
                 }
                 console.log(swimmers)
 
             })
+
+            //获取当前swimmer的课数 用于判断swimmer的类型
+            Tracker.autorun(function () {
+                var currentSwimmer = self.currentSwimmer.get()
+                var appInfo = DB.App.findOne()
+
+                if(!appInfo) return;
+                if(!currentSwimmer) return;
+
+                Tracker.autorun(function () {
+
+                    var nowClasses = DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId: App.info.sessionNow
+                    }).fetch();
+
+                    self.nowClasses.set(nowClasses)
+
+                    //self.currentSwimmerClassesRegisterInfo.set(currentSwimmerClassesRegisterInfo)
+
+
+                })
+                Tracker.autorun(function () {
+
+                    var registeredClasses = DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId: App.info.sessionRegister
+                    }).fetch();
+                    self.registeredClasses.set(registeredClasses)
+
+
+                })
+                Tracker.autorun(function () {
+
+                    var historyClasses=DB.ClassesRegister.find({
+                        swimmerId: currentSwimmer._id,
+                        status:'normal',  //不显示cancel中的和 change中的
+                        sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
+
+                    }).fetch();
+                    self.historyClasses.set(historyClasses)
+
+                })
+
+                //shoppingCartClasses
+                Tracker.autorun(function () {
+
+                    var shoppingCart= DB.ShoppingCart.findOne({
+                        status:'active',
+                        type:'register'
+                    })
+
+                    var classItems=[];
+                    if(shoppingCart && shoppingCart.items.length){
+                        classItems = _.filter(shoppingCart.items,function(item){
+                            return item.class1 && item.class2 && item.class3   //完整的注册
+                                &&  item.swimmerId == currentSwimmer._id
+
+                        })
+                    }
+
+                    self.shoppingCartClasses.set(classItems)
+                    console.log(classItems)
+
+                })
+
+            })
+
+            //level 计算逻辑
+            //对于return back 和 new swimmer  Level不变
+            //对于正在游的level＋1
+            //确定课程注册level
+            //对于return back 和 new swimmer  Level即当前level
+            //对于正在游的level＋1
+            Tracker.autorun(function(){
+                var nowClasses =self.nowClasses.get()
+                var currentSwimmer = self.currentSwimmer.get()
+
+                if(!currentSwimmer) return;
+
+                //当前session正在游
+                if(nowClasses.length>0){
+                    self.currentLevel.set(App.getNextClassLevel(currentSwimmer.level))
+
+                }else{
+                    self.currentLevel.set(currentSwimmer.level)
+                }
+
+            })
+
 
             //days depend on level of swimmer
             Tracker.autorun(function () {
@@ -308,13 +408,23 @@
                 console.log('autorun level', level, App.info.sessionRegister)
 
 
-                //todo  计算可用数目报名数
+                //未满的课程
                 let classes = DB.Classes.find({
                     sessionId: App.info.sessionRegister, //level session
-                    levels: level
+                    levels: level,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
-                console.log(level, App.info.sessionRegister, classes)
+                //已报满的课程
+                let classesNoSeatByLevel = DB.Classes.find({
+                    sessionId: App.info.sessionRegister, //level session
+                    levels: level,
+                    seatsRemain:{$lte:0}
+                }).fetch()
+                self.classesNoSeatByLevel.set(classesNoSeatByLevel)
+
+
+                console.log(level, App.info.sessionRegister, classes,classesNoSeatByLevel)
 
                 //debugger
                 classes = _.uniq(classes, function (item, key, a) {
