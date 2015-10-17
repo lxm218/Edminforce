@@ -331,6 +331,9 @@
                             quantity: 1,
                             swimmer: currentSwimmer,
                             class1: currentClass,
+
+                            isBookTheSameTime:true,
+
                             type:'register'
                         }, function (err, result) {
                             debugger

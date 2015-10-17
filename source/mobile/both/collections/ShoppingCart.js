@@ -97,6 +97,8 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
             fromClass, toClass
         }
 
+        isBookTheSameTime //标记购物项是否是通过bookthesametime添加
+
     * */
     //
     items: {

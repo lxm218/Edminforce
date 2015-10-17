@@ -35,7 +35,6 @@ Cal.ClassEditSwimmerItemClassItem = React.createClass({
             {
                 this.data.classInfo.length ? <span >
                     {this.data.classInfo[0].name}
-                    { this.data.classInfo[0].level}
                 </span> : ''
             }
         </p> :

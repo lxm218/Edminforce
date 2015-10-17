@@ -85,6 +85,7 @@
 
 
             if(this.data.cartItem){
+                var isBookTheSameTime = this.data.cartItem.isBookTheSameTime
                 var swimmer = this.data.cartItem['swimmer']
 
                 var class1 = this.data.cartItem['class1']
@@ -118,9 +119,17 @@
                                     {class1.name}
                                 </div>
                                 <div className="col col-20">
-                                    <button className="button button-clear"
-                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,1)}>Edit
-                                    </button>
+
+                                    {
+                                        !isBookTheSameTime?
+                                            <button className="button button-clear"
+                                                    onClick={this.goToEdit.bind(self,swimmer._id,class1._id,1)}>Edit
+                                            </button>
+
+                                            :''
+
+                                    }
+
                                 </div>
 
                             </div> : ''

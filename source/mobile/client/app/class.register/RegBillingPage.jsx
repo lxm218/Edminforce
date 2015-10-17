@@ -59,7 +59,13 @@ Cal.CRRegBillingPage = React.createClass({
                         <div className="col">{item.swimmer.name}</div>
                         <div className="col">{item.class1.name}</div>
                         <div className="col">{item.class1.price}</div>
-                        <div className="col" onClick={self.delete.bind(self,item)}>Delete</div>
+                        {
+                            !item.isBookTheSameTime?
+                                <div className="col" onClick={self.delete.bind(self,item)}>Delete</div>
+                                :<div className="col"></div>
+
+                        }
+
                     </div>
                 })
 
