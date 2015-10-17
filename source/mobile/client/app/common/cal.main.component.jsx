@@ -45,8 +45,17 @@
         mixins: [ReactMeteorData],
         getMeteorData() {
 
+            Meteor.subscribe('activeShoppingCart')
+            var shoppingCart= DB.ShoppingCart.findOne({
+                status:'active'
+            })
+
+            console.log(shoppingCart)
+
+
             return {
-                leftNavIsOpen: CalMainStore.leftNavStatus.get()
+                leftNavIsOpen: CalMainStore.leftNavStatus.get(),
+                shoppingCart:shoppingCart
             }
         },
 
@@ -60,6 +69,7 @@
                               hideBackButton= {this.props.hideBackButton}
                               hideLeftNavToggle={this.props.hideLeftNavToggle}
                               hideShoppingCartButton={this.props.hideShoppingCartButton}
+                              shoppingCart={this.data.shoppingCart}
 
                               title={this.props.title} theme="flat"/>
                 <RC.GlobalNav isVisible={this.props.showGlobalNav} list={this.props.globalNav}

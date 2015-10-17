@@ -105,6 +105,10 @@ RC.HeaderNav = React.createClass({
     var shoppingCartButton= null;
     if(!this.props.hideShoppingCartButton){
       shoppingCartButton =<a className="normal shopping-cart-button" href="/classEdit/billingAndPayment" >
+        {this.props.shoppingCart
+          && this.props.shoppingCart.items
+          && this.props.shoppingCart.items.length
+        }
         <RC.uiIcon uiClass="shopping-cart"></RC.uiIcon></a>
     }
 
