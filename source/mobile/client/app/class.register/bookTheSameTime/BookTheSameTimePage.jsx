@@ -55,6 +55,8 @@
 
                 currentStep: PageStore.currentStep.get(),
 
+                currentClass:PageStore.currentClass.get(),
+
                 //一次选课流程的所有信息
                 selectedClasses: PageStore.selectedClasses.get()
 
@@ -131,6 +133,9 @@
                         currentTime={this.data.currentTime}
 
                         currentStep={this.data.currentStep}
+
+                        currentClass={this.data.currentClass}
+                        selectedClasses={this.data.selectedClasses}
                         />
 
                 }
@@ -154,6 +159,9 @@
                     currentTime={this.data.currentTime}
 
                     currentStep={this.data.currentStep}
+
+                    currentClass={this.data.currentClass}
+                    selectedClasses={this.data.selectedClasses}
                     />
 
             }

@@ -17,7 +17,6 @@
 
             var formData = this.refs.myForm.getFormData()
 
-            debugger
 
             //todo validation info in ui
             //if (!this.data.currentSwimmer || !this.data.currentDay || !this.data.currentTime) {
@@ -25,6 +24,14 @@
             //    alert('please select a class')
             //    return;
             //}
+
+            var selectedClasses =this.props.selectedClasses
+            var currentClass =this.props.currentClass
+            if(App.currentClass_in_selectedClasses(currentClass,selectedClasses)){
+                alert('class duplicated')
+                return;
+            }
+
 
             Dispatcher.dispatch({
                 actionType: "BookTheSameTime_CLASS_SELECT_FOR_SIBLING",

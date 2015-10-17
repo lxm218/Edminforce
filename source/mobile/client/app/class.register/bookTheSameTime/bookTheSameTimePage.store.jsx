@@ -631,6 +631,10 @@
                     return {text: App.Config.week[v.day], value: v.day}
                 })
 
+                days.sort(function (a, b) {
+                    return (a.value - b.value);
+                })
+
                 //add an empty value to prevent browser init select value  use the first item
                 days.unshift(undefinedSelectValueOption)
 
@@ -669,6 +673,9 @@
                         text: App.num2time(v.startTime) + "-" + App.num2time(v.endTime),
                         value: v.startTime
                     }
+                })
+                times.sort(function (a, b) {
+                    return (a.value - b.value);
                 })
 
                 //add an empty value to prevent browser init select value  use the first item

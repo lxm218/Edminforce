@@ -170,6 +170,9 @@
                 actionType: "componentWillMount_CRSelectClassPage"
             });
 
+            //尝试清除不完整的购物项
+            Meteor.call('clear_uncompleted_item_in_cart')
+
         },
         onBeforeUnload(e){
             var message = "You may lost data, are you sure leving?";

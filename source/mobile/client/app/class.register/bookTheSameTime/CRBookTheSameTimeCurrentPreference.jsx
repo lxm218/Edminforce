@@ -21,6 +21,14 @@ Cal.CRBookTheSameTimeCurrentPreference = React.createClass({
         //    return;
         //}
 
+        //check duplicate
+        var selectedClasses =this.props.selectedClasses
+        var currentClass =this.props.currentClass
+        if(App.currentClass_in_selectedClasses(currentClass,selectedClasses)){
+            alert('class duplicated')
+            return;
+        }
+
         Dispatcher.dispatch({
             actionType: "BookTheSameTime_CLASS_SELECT_FOR_CURRENT",
             currentStep: this.props.currentStep,
