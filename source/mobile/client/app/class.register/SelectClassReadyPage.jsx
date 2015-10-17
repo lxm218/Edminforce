@@ -159,7 +159,7 @@
                     <RC.URL href="/classRegister/SelectClass">
                         <RC.Button name="button" type="submit"
                                    theme="full" buttonColor="brand">
-                            Select More
+                            Register More
                         </RC.Button>
 
                     </RC.URL>

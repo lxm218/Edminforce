@@ -165,7 +165,7 @@
                         <RC.Button name="button" type="submit"
                                     onClick={this.selectMore}
                                    theme="full" buttonColor="brand">
-                            Select More
+                            Register More
                         </RC.Button>
 
 
