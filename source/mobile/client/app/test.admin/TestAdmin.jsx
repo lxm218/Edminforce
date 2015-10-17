@@ -43,7 +43,7 @@ Cal.TestAdmin = React.createClass({
                 <RC.Item theme="icon-left" uiClass="list-ul" uiColor="brand2"
                          href="#">classes</RC.Item>
                 <RC.Item theme="icon-left" uiClass="list-ul" uiColor="brand3"
-                         href="#">billings</RC.Item>
+                         href="/testAdmin/billing">billings</RC.Item>
 
             </RC.List>
 

@@ -37,5 +37,16 @@
         }
     });
 
+    TestAdminRoute.route("/billing", {
+        action: function(p) {
+            App.routeHandler(p, {
+                pageTitle: "Billing",
+                headerNav: null,
+                layout:Cal.TestAdminLayout,
+                bodyTmpl: <Cal.TestAdminBilling />
+            })
+        }
+    });
+
 
 }

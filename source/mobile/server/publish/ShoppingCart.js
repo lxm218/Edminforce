@@ -67,3 +67,12 @@ Meteor.publish("checkingShoppingCart", function () {
 });
 
 
+Meteor.publish("allRegisterShoppingCart", function () {
+    return DB.ShoppingCart.find({
+        type:'register',
+        //status: {
+        //    $in: ['checking']
+        //}
+    });
+});
+
