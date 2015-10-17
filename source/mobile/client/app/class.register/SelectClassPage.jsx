@@ -16,7 +16,7 @@
 
 
     Cal.CRSelectClassPage = React.createClass({
-        mixins: [ReactMeteorData],
+        mixins: [ReactMeteorData,Cal.Mixins.windowUnload],
         getMeteorData() {
 
             //todo
@@ -170,6 +170,11 @@
                 actionType: "componentWillMount_CRSelectClassPage"
             });
 
+        },
+        onBeforeUnload(e){
+            var message = "You may lost data, are you sure leving?";
+            e.returnValue = message;
+            return message;
         },
         render() {
 

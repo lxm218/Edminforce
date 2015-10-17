@@ -18,4 +18,7 @@ DB.Schema={}  //mogodb documents define
  * */
 Cal= {}
 
+//自定义mixin
+Cal.Mixins={}
+
 

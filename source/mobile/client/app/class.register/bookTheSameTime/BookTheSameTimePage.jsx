@@ -11,7 +11,7 @@
 
 
     Cal.CRBookTheSameTimePage = React.createClass({
-        mixins: [ReactMeteorData],
+        mixins: [ReactMeteorData, Cal.Mixins.windowUnload],
         getMeteorData() {
 
             //todo
@@ -158,6 +158,11 @@
 
             }
 
+        },
+        onBeforeUnload(e){
+            var message = "You may lost data, are you sure leving?";
+            e.returnValue = message;
+            return message;
         },
 
         componentWillMount(){
