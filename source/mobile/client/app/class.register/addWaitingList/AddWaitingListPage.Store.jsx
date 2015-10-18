@@ -25,6 +25,8 @@
             return DB.Swimmers.find({accountId: Meteor.userId()})
         }
 
+        self.props = new ReactiveVar();
+
         //////////////////////////////////////////////////////
         ///////////////////selection info
         // should reset after add to
@@ -60,6 +62,19 @@
 
         self.tokenId = Dispatcher.register(function (payload) {
             switch (payload.actionType) {
+
+                case "CRAddWaitingListPage_PROPS_INIT"://get props
+                {
+
+                    self.props.set(payload.props)
+
+                    self.currentDay.set()
+                    self.currentTime.set()
+                    self.currentClass.set()
+
+
+                    break;
+                }
 
                 case "CRAddWaitingListPage_SWIMMER_CHANGE": //选择swimmer  level可能会变
                 {
@@ -141,9 +156,32 @@
         Meteor.startup(function () {
 
 
-            //days depend on level of swimmer
+            Tracker.autorun(function (compution) {
+                var props = self.props.get();
+
+                if(!props) return;
+                console.log('autorun props', props)
+
+
+                var currentSwimmer= DB.Swimmers.findOne({
+                    _id:props.swimmerId
+                })
+
+                var currentLevel =props.classLevel
+
+                self.currentSwimmer.set(currentSwimmer)
+                self.currentLevel.set(currentLevel)
+
+
+            })
+
+
+                //days depend on level of swimmer
             Tracker.autorun(function () {
-                //if (!DB.Classes) return;
+                //wait for App.info ready
+                App.info = App.info || DB.App.findOne()
+                if (!App.info) return;
+
 
                 var level = self.currentLevel.get();
 
@@ -152,7 +190,8 @@
                 //todo  计算可用数目报名数
                 let classes = DB.Classes.find({
                     sessionId: App.info && App.info.sessionRegister, //level session
-                    levels: level
+                    levels: level,
+                    seatsRemain:{$lte:0}
                 }).fetch()
 
                 //debugger
@@ -182,7 +221,9 @@
 
             /// time depend on day
             Tracker.autorun(function () {
-                //if (!DB.Classes) return;
+                //wait for App.info ready
+                App.info = App.info || DB.App.findOne()
+                if (!App.info) return;
 
                 var currentDay = self.currentDay.get();
 
@@ -192,9 +233,11 @@
                 });
 
                 let classes = DB.Classes.find({
-                    sessionId: App.info && App.info.sessionRegister, // session level day
+                    sessionId: App.info.sessionRegister, // session level day
                     levels: level,
-                    day: currentDay
+                    day: currentDay,
+                    seatsRemain:{$lte:0}
+
                 }).fetch()
 
                 let times = classes.map(function (v, n) {
@@ -223,7 +266,9 @@
             //time确定后class就确定了
             //level + day+ time  确定一个class
             Tracker.autorun(function () {
-                //if (!DB.Classes) return;
+                //wait for App.info ready
+                App.info = App.info || DB.App.findOne()
+                if (!App.info) return;
 
                 let time = self.currentTime.get()
 
@@ -236,10 +281,12 @@
                 });
 
                 let theClass = DB.Classes.find({
-                    sessionId: App.info && App.info.sessionRegister, // session level day
+                    sessionId:  App.info.sessionRegister, // session level day
                     levels: level,
                     day: day,
-                    startTime: time
+                    startTime: time,
+                    seatsRemain:{$lte:0}
+
                 }).fetch()
 
                 if (theClass[0]) {
@@ -247,23 +294,20 @@
                 }
 
 
-
-
-
             });
 
 
             //初始化swimmer and level
-            Tracker.autorun(function () {
-                //if(!DB.Swimmers) return;
-
-                var swimmers = self.getSwimmers().fetch()
-                if (swimmers.length) {
-                    self.currentSwimmer.set(swimmers[0])
-                    self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
-                }
-
-            })
+            //Tracker.autorun(function () {
+            //    //if(!DB.Swimmers) return;
+            //
+            //    var swimmers = self.getSwimmers().fetch()
+            //    if (swimmers.length) {
+            //        self.currentSwimmer.set(swimmers[0])
+            //        self.currentLevel.set(App.getNextClassLevel(swimmers[0].level))
+            //    }
+            //
+            //})
         })
 
 

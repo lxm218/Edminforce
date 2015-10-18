@@ -616,10 +616,10 @@
                 if(!appInfo || !level) return;
 
 
-                //todo  计算可用数目报名数
                 let classes = DB.Classes.find({
                     sessionId: appInfo.sessionRegister, //level session
-                    levels: level
+                    levels: level,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 //debugger
@@ -665,7 +665,8 @@
                 let classes = DB.Classes.find({
                     sessionId: appInfo.sessionRegister, // session level day
                     levels: level,
-                    day: currentDay
+                    day: currentDay,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 let times = classes.map(function (v, n) {
@@ -714,7 +715,8 @@
                     sessionId: appInfo.sessionRegister, // session level day
                     levels: level,
                     day: day,
-                    startTime: time
+                    startTime: time,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 if (theClass[0]) {
@@ -767,7 +769,8 @@
                                 levels:currentLevel,
 
                                 day:currentClass.day,
-                                startTime:currentClass.startTime
+                                startTime:currentClass.startTime,
+                                seatsRemain:{$gt:0}
                             })
 
                             if(sameClass){

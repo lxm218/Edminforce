@@ -118,12 +118,12 @@
 
     ClassRegisterRoute.route('/AddWaitingList', {
         //name: "AddWaitingList",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "AddWaitingList",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.CRAddWaitingListPage/>
+                bodyTmpl: <Cal.CRAddWaitingListPage {...p} {...query} />
             })
         }
     })

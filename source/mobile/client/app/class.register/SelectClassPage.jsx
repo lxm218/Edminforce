@@ -152,6 +152,9 @@
             e.preventDefault()
 
             var href="/classRegister/AddWaitingList"
+                    +"?swimmerId="+this.data.currentSwimmer._id
+                    +"&classLevel="+ this.data.currentLevel
+
             var classesNoSeat = this.data.classesNoSeatByLevel.length
 
             if(classesNoSeat==0){

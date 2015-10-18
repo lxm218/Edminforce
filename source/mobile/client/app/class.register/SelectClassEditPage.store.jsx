@@ -280,10 +280,10 @@
                 if(!level) return;  // wait for level
 
 
-                //todo  计算可用数目报名数
                 let classes = DB.Classes.find({
                     sessionId: App.info.sessionRegister, //level session
-                    levels: level
+                    levels: level,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 console.log(level, App.info.sessionRegister, classes)
@@ -330,7 +330,8 @@
                 let classes = DB.Classes.find({
                     sessionId: App.info.sessionRegister, // session level day
                     levels: level,
-                    day: currentDay
+                    day: currentDay,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 let times = classes.map(function (v, n) {
@@ -377,7 +378,8 @@
                     sessionId: App.info.sessionRegister, // session level day
                     levels: level,
                     day: day,
-                    startTime: time
+                    startTime: time,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 if (theClass.length > 1) {

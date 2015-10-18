@@ -23,7 +23,7 @@
             var data = {
                 account: Meteor.users.find().fetch(),
 
-                swimmers: PageStore.getSwimmers().fetch(),
+                //swimmers: PageStore.getSwimmers().fetch(),
 
                 currentLevel:PageStore.currentLevel.get(), //next level
 
@@ -94,12 +94,20 @@
             });
 
         },
+        componentWillMount(){
+             ///PASS  props value to store
+            Dispatcher.dispatch({
+                actionType: 'CRAddWaitingListPage_PROPS_INIT',
+                props: this.props
+            });
+
+        },
 
         render() {
 
-            let swimmers = this.data.swimmers.map(function (v, i) {
-                return {text: v['name'], value: v._id}
-            })
+            //let swimmers = this.data.swimmers.map(function (v, i) {
+            //    return {text: v['name'], value: v._id}
+            //})
 
 
             let currentSwimmerValue = this.data.currentSwimmer
@@ -121,14 +129,10 @@
                     <RC.List theme="inset">
 
 
-                        <RC.Select2
-                            ref="swimmer"
-                            options={swimmers}
-                            value={currentSwimmerValue}
-                            name="swimmer"
-                            changeHandler={this.swimmerChange}
-                            label="Swimmer"
-                            />
+                        <RC.Item uiColor="brand1">
+                            Swimmer: {this.data.currentSwimmer
+                                        && this.data.currentSwimmer.name}
+                        </RC.Item>
 
                         <RC.Item uiColor="brand1">
                             Level: {this.data.currentLevel}

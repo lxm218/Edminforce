@@ -67,7 +67,7 @@
                               value={this.data.formData && this.data.formData.name}/>
 
                     <RC.Select
-                        options={['Male','Female']}
+                        options={[{text:"Male",value:'male'},{text:'Female',value:'female'}]}
                         name="gender"
                         label="Gender"
                         value="{this.data.formData && this.data.formData.gender}"

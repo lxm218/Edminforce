@@ -468,7 +468,8 @@
                 let classes = DB.Classes.find({
                     sessionId: App.info.sessionRegister, // session level day
                     levels: level,
-                    day: currentDay
+                    day: currentDay,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 let times = classes.map(function (v, n) {
@@ -515,7 +516,8 @@
                     sessionId: App.info.sessionRegister, // session level day
                     levels: level,
                     day: day,
-                    startTime: time
+                    startTime: time,
+                    seatsRemain:{$gt:0}
                 }).fetch()
 
                 if (theClass.length > 1) {
