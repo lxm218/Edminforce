@@ -73,7 +73,8 @@
                         value="{this.data.formData && this.data.formData.gender}"
                         />
 
-                    <RC.Input name="dob" label="DOB"
+                    <RC.Input name="dob" label="Birthday"
+                              placeholder="2005/01/01"
                               value={this.data.formData && this.data.formData.dob}/>
 
 

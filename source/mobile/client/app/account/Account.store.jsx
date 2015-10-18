@@ -10,7 +10,7 @@ Dependency.add('Account.AddSwimmer.store', new function () {
 
     self.addSwimmerFormData = new ReactiveVar({
         name:'',
-        dob:'1999/01/01',
+        dob:'',
         gender:'male',
         location:''
     })
