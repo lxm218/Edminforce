@@ -144,7 +144,7 @@ RC.HeaderNav = React.createClass({
 
       {/* 中间  */}
       <figure className={(logoRight && backButton ? "" : "")+" logo nav-height boxed transition-medium"}>
-        {this.props.title ? <h1 className="ellipsis">Calphin</h1> :
+        {this.props.title && !this.props.showLogo ? <h1 className="ellipsis">Calphin</h1> :
           <img src="/assets/logo.png" className="transition-medium" data-x="auto" ref="logo"/>}
       </figure>
 

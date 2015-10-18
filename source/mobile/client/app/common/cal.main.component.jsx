@@ -70,7 +70,7 @@
                               hideLeftNavToggle={this.props.hideLeftNavToggle}
                               hideShoppingCartButton={this.props.hideShoppingCartButton}
                               shoppingCart={this.data.shoppingCart}
-
+                              showLogo={true}
                               title={this.props.title} theme="flat"/>
                 <RC.GlobalNav isVisible={this.props.showGlobalNav} list={this.props.globalNav}
                               location={this.props.globalNavLocation} theme="flat"/>
