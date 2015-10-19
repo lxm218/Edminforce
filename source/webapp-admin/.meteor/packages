@@ -33,3 +33,6 @@ ihealth:webapp-framework
 
 standard-minifiers
 aldeed:simple-schema
+cal:globals
+cal:cart
+cal:immutable
