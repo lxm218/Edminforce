@@ -1,0 +1,44 @@
+
+ul { list-style-type: none; padding: 0; margin: 0; }
+
+ul.rc-list.regular { margin: 10px; padding: 0; }
+ul.rc-list.regular .date {
+  position: absolute; top: 8px; right: 8px;
+  color: rgba(0,0,0,.25); }
+ul.rc-list li a { color: $text_color; }
+
+ul.rc-list.regular li {
+  position: relative; z-index: 1;
+  padding: 15px 10px 16px; }
+ul.rc-list.regular li:not(:first-child) { @include box-shadow(0 1px rgba(0,0,0,.08)); }
+ul.rc-list.regular li.type-listTitle, .tabs-root.regular .tabs-nav {
+  @include border-radius(5px 5px 0 0);
+  background: rgba(0,0,0,.1); }
+ul.rc-list.regular li.type-listTitle { padding-top: 6px; padding-bottom: 6px; }
+ul.rc-list.regular.click-enabled li.cursor:hover { background: rgba(255,255,255,.55); }
+ul.rc-list.regular li.cur { background: $brand_light_trans !important; z-index: 2; }
+
+ul.rc-list.regular .avatar { margin-top: 0; }
+ul.rc-list.regular .textTitle {
+  font-size: 1.15em; text-indent: -1px;
+  margin: 0 70px 0 0; padding: 0 3px 2px; }
+ul.rc-list.regular .subtitle { padding: 0 3px; }
+
+ul.rc-list.regular li .label {
+  padding: 0 6px; margin: 0 7px 0 -3px;
+  background: $brand2; color: $color_on_brand2;
+  @include border-radius(10px); }
+
+#app-root.ios ul.rc-list.regular li .label { padding: 0 6px 1px }
+
+
+@media screen and (max-width: $width_mobile) {
+  ul.rc-list.regular { margin: 0; }
+  ul.rc-list.regular li.type-listTitle, .tabs-root.regular .tabs-nav { @include border-radius(0); }
+  ul.rc-list.regular li.type-listTitle { padding: 10px 18px; }
+  ul.rc-list.regular li .label { padding: 2px 5px 0; @include border-radius(12px); }
+  ul.rc-list.regular .textTitle { font-size: 1.1em; }
+  ul.rc-list.regular li { padding: 16px 15px 15px; }
+  ul.rc-list.regular .avatar { margin-top: -1px; }
+  ul.rc-list.regular .date { right: 15px; }
+}
