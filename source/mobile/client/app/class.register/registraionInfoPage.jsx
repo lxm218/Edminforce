@@ -75,8 +75,8 @@
                     <p className="padding-left padding-right">
                         Paced Program Level Abbreviation<br/>
 
-                        Crawler -------------CLR <br/>
                         Bubbler -------------BUB<br/>
+                        Crawler -------------CLR <br/>
                         Glider -------------GLD<br/>
                         Sprinter-------------SPR<br/>
                         Racer-------------RCR<br/>
