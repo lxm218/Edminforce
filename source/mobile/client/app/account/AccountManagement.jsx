@@ -32,11 +32,14 @@ Cal.AccountManagement = React.createClass({
                         </div>
                         <div className="col">
                             {this.data.currentUser.username
-                                ? this.data.currentUser.username :'User Name Not Set'}
+                                ? this.data.currentUser.username : 'User Name Not Set'}
                         </div>
-                        <a className="button button-block" href="/account/resetUserName">
-                            Change User Name
-                        </a>
+                        <div className="col">
+
+                            <a className="button button-block" href="/account/resetUserName">
+                                Change
+                            </a>
+                        </div>
                     </div>
                 </RC.Item>
 
@@ -45,9 +48,10 @@ Cal.AccountManagement = React.createClass({
                         <div className="col">
                             Email
                         </div>
+
                         <div className="col">
-                            {this.data.currentUser?
-                                this.data.currentUser.emails[0].address:''}
+                            {this.data.currentUser ?
+                                this.data.currentUser.emails[0].address : ''}
                         </div>
                     </div>
                 </RC.Item>
@@ -57,9 +61,13 @@ Cal.AccountManagement = React.createClass({
                         <div className="col">
                             Password
                         </div>
-                        <a className="button button-block" href="/account/resetPassword">
-                            Change Password
-                        </a>
+                        <div className="col">
+                        </div>
+                        <div className="col">
+                            <a className="button button-block" href="/account/resetPassword">
+                                Change
+                            </a>
+                        </div>
                     </div>
                 </RC.Item>
 
@@ -70,11 +78,15 @@ Cal.AccountManagement = React.createClass({
                         </div>
                         <div className="col">
                             {this.data.currentUser.emergencyContact
-                                ? this.data.currentUser.emergencyContact.name :'Emergency Contact Not Set'}
+                                ? this.data.currentUser.emergencyContact.name : 'Emergency Contact Not Set'}
                         </div>
-                        <a className="button button-block" href="/account/emergencyContact">
-                            Update Emergency Contact
-                        </a>
+
+                        <div className="col">
+                            <a className="button button-block" href="/account/emergencyContact">
+                                Update
+                            </a>
+                        </div>
+
                     </div>
                 </RC.Item>
 
@@ -85,11 +97,14 @@ Cal.AccountManagement = React.createClass({
                         </div>
                         <div className="col">
                             {this.data.currentUser.alterContact
-                                ? this.data.currentUser.alterContact.name :'Alternate Contact Not Set'}
+                                ? this.data.currentUser.alterContact.name : 'Alternate Contact Not Set'}
                         </div>
-                        <a className="button button-block" href="/account/alternateContact">
-                            Update Alternate Contact
-                        </a>
+
+                        <div className="col">
+                            <a className="button button-block" href="/account/alternateContact">
+                                Update
+                            </a>
+                        </div>
                     </div>
                 </RC.Item>
 
@@ -102,13 +117,13 @@ Cal.AccountManagement = React.createClass({
                         <div className="col">
                             <p>
                                 {
-                                    this.data.swimmers.map(function(swimmer){
+                                    this.data.swimmers.map(function (swimmer) {
 
-                                        let href='/account/SwimmerProfile/'+swimmer._id;
+                                        let href = '/account/SwimmerProfile/' + swimmer._id;
 
                                         return <a key={swimmer._id}
                                                   className="button button-block button-small"
-                                                href={href}>
+                                                  href={href}>
                                             {swimmer.name}
                                         </a>
 
@@ -128,7 +143,6 @@ Cal.AccountManagement = React.createClass({
 
 
             </RC.List>
-
 
 
         </div>
