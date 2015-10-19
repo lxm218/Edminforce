@@ -36,3 +36,14 @@ aldeed:simple-schema
 cal:globals
 cal:cart
 cal:immutable
+reywood:publish-composite
+accounts-password
+reactive-var
+meteorflux:dispatcher
+meteorflux:reactive-dependency
+percolate:synced-cron
+spacebars
+msavin:mongol
+anti:fake
+email
+mrt:cookies

@@ -42,8 +42,6 @@ html-tools@1.0.5
 htmljs@1.0.5
 http@1.1.1
 id-map@1.0.4
-ihealth:bg5@0.0.1
-ihealth:bp5@0.2.1
 ihealth:chat-engine@0.1.2
 ihealth:dev-tools@0.0.1
 ihealth:devices-stub@0.0.1

@@ -53,8 +53,8 @@ ihealth:devices-stub
 ## iHealth Device
 ####
 #ihealth:devices-ui
-ihealth:bg5
-ihealth:bp5
+#ihealth:bg5
+#ihealth:bp5
 
 
 cal:globals  #defind global vars
