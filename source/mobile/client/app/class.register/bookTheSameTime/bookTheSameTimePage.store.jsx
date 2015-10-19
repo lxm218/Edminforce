@@ -45,6 +45,9 @@
 
         self.shoppingCartClasses= new ReactiveVar([])
 
+        self.isFirstTime =new ReactiveVar(false)
+
+
 
         //当前用户正在进行的课程
         //self.currentSwimmerClassesRegisterInfo=new ReactiveVar([]) //当前正在上的课程的注册信息
@@ -151,7 +154,7 @@
                 }
 
 
-                //sibling 三步
+                //sibling 三步  可能是current swimmer BookTheSame time后的选择 也可能是return back用户 也可能是新用户
                 case "BookTheSameTime_CLASS_SELECT_FOR_SIBLING"://select确定
                 {
                     debugger
@@ -165,13 +168,20 @@
                         currentClass = self.currentClass.get() //sibling first step
 
 
+                        let isFistTime = self.isFirstTime.get()
+
+
+
                         Meteor.call('add_class_to_cart', {
                             swimmerId: currentSwimmer._id,
                             classId: currentClass._id,
                             quantity: 1,
                             swimmer: currentSwimmer,
                             class1: currentClass,
-                            type:'register'
+                            type:'register',
+
+                            isFistTime:isFistTime
+
                         }, function (err, result) {
                             debugger
                             if (err) {
@@ -584,6 +594,30 @@
                     console.log(classItems)
 
                 })
+
+            })
+
+            //判断swimmer是不是第一次注册
+            Tracker.autorun(function () {
+                let nowClasses =self.nowClasses.get()
+                let registeredClasses =self.registeredClasses.get()
+
+                let historyClasses =self.historyClasses.get()
+
+                let shoppingCartClasses =self.shoppingCartClasses.get()
+
+
+                if(nowClasses.length==0
+                    && registeredClasses.length ==0
+                    && historyClasses.length ==0
+                //&& shoppingCartClasses.length>0
+                ){
+
+                    self.isFirstTime.set(true)
+                }else{
+                    self.isFirstTime.set(false)
+                }
+
 
             })
 

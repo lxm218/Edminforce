@@ -41,6 +41,8 @@
         self.historyClasses =new ReactiveVar([])
         self.shoppingCartClasses= new ReactiveVar([])
 
+        self.isFirstTime =new ReactiveVar(false)
+
 
         //可选days 依赖于 当前的currentLevel
         self.avaiableDays = new ReactiveVar([])
@@ -123,13 +125,19 @@
                         let currentSwimmer = self.currentSwimmer.get()
                         let currentClass = self.currentClass.get()
 
+                        let isFistTime = self.isFirstTime.get()
+
 
                         Meteor.call('add_class_to_cart', {
                             swimmerId: currentSwimmer._id,
                             classId: currentClass._id,
                             quantity: 1,
                             swimmer: currentSwimmer,
-                            class1: currentClass
+                            class1: currentClass,
+                            type:'register',  //目前不是必须
+
+                            //标记购物项是否是第一次注册 用于判断 waiver form
+                            isFistTime:isFistTime
                         }, function (err, result) {
                             debugger
                             if (err) {
@@ -374,7 +382,31 @@
 
             })
 
-            //level 计算逻辑
+            //判断swimmer是不是第一次注册
+            Tracker.autorun(function () {
+                let nowClasses =self.nowClasses.get()
+                let registeredClasses =self.registeredClasses.get()
+
+                let historyClasses =self.historyClasses.get()
+
+                let shoppingCartClasses =self.shoppingCartClasses.get()
+
+
+                if(nowClasses.length==0
+                    && registeredClasses.length ==0
+                    && historyClasses.length ==0
+                    //&& shoppingCartClasses.length>0
+                ){
+
+                    self.isFirstTime.set(true)
+                }else{
+                    self.isFirstTime.set(false)
+                }
+
+
+            })
+
+                //level 计算逻辑
             //对于return back 和 new swimmer  Level不变
             //对于正在游的level＋1
             //确定课程注册level

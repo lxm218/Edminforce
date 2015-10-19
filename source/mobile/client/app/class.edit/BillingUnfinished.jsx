@@ -7,23 +7,18 @@ Cal.BillingUnfinished = React.createClass({
             {
                 this.props.unfinishedBillings.map(function (cart) {
 
-                    return <div className="row" key={cart._id}>
-                        <div className="col">
-                            {cart.accountId}
-                        </div>
-                        <div className="col">
-                            {
-                                cart.items.map(function (item) {
+                    return cart.items.map(function(item){
 
-                                    return <div>
-                                        {item.swimmerId}|
-                                        {item.classId}
-                                    </div>
-                                })
-                            }
+                        return <div className="row">
+                            <div className="col">
+                                {item.swimmer &&item.swimmer.name }
+                            </div>
+                            <div className="col">
+                                {item.class1 &&item.class1.name }
 
+                            </div>
                         </div>
-                    </div>
+                    })
                 })
             }
 

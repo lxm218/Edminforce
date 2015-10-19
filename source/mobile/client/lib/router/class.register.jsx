@@ -166,4 +166,19 @@
 
         }
     })
+
+    ClassRegisterRoute.route('/waiver', {
+        //name: "CRBookTheSameTimePage",
+        action: function (p, query) {
+            App.routeHandler(p, {
+                pageTitle: "CRAgreementWaiverPage",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRAgreementWaiverPage {...p} {...query}/>
+            })
+
+        }
+    })
+
+
 }

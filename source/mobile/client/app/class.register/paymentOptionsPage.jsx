@@ -8,20 +8,26 @@ Cal.CRPaymentOptionsPage = React.createClass({
 
     mixins: [ReactMeteorData],
     getMeteorData() {
-        return {
+        Meteor.subscribe("activeShoppingCart");
 
+        return {
+            //当前的 ShoppingCart
+            shoppingCart: DB.ShoppingCart.findOne({
+                status:'active',
+                type:'register'
+            })
         }
     },
 
     //////actions
     payNow(e){
 
-        alert('payNow')
+        alert('Pay now module need third-party gateway and is still not implemented')
     },
     payInStore(){
-        alert('payInStore')
+        var cartId =  this.data.shoppingCart && this.data.shoppingCart._id
 
-        Meteor.call('move_to_checking',Session.get('CART_ID'),'pay-in-store',function(err,result){
+        Meteor.call('move_to_checking', cartId, 'pay-in-store',function(err,result){
             if(err) {
                 console.error(err)
                 return;

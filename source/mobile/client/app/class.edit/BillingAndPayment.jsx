@@ -45,12 +45,13 @@
         render() {
 
             //<Cal.BillingUnfinished unfinishedBillings={this.data.unfinishedBillings}/>
+            //<Cal.CRRegBillingPage />
 
 
             return <RC.Tabs className="bg-white">
                 <div label="Pending Billing" className="padding">
 
-                    <Cal.CRRegBillingPage />
+                    <Cal.BillingUnfinished unfinishedBillings={this.data.unfinishedBillings}/>
 
                 </div>
                 <div label="History Payment" className="padding">
@@ -58,23 +59,20 @@
                     {
                         this.data.historyBillings.map(function (cart) {
 
-                            return <div className="row">
-                                <div className="col">
-                                    {cart.accountId}
-                                </div>
-                                <div className="col">
-                                    {
-                                        cart.items.map(function(item){
+                            return cart.items.map(function(item){
 
-                                            return <div>
-                                                {item.swimmerId}|
-                                                {item.classId}
+                                    return <div className="row">
+                                            <div className="col">
+                                                {item.swimmer &&item.swimmer.name }
                                             </div>
-                                        })
-                                    }
+                                            <div className="col">
+                                                {item.class1 &&item.class1.name }
 
-                                </div>
-                            </div>
+                                            </div>
+                                        </div>
+                                })
+
+
                         })
 
                     }
