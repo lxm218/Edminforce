@@ -16,8 +16,8 @@ Cal.Header = React.createClass({
                         Programs
                     </a>
 
-                    <a href="#" className="nav-height-button float-r transition">
-                        Account
+                    <a href="/admin/CustomerPage" className="nav-height-button float-r transition">
+                        Customers
                     </a>
                     <a href="#" className="nav-height-button float-r transition">
                         Home
