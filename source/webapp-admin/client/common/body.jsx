@@ -1,5 +1,5 @@
 
-App.Body = React.createClass({
+Cal.Body = React.createClass({
   render() {
     return <div className="transition" id="app-body">
       <div className="wrapper-wide">

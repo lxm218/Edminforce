@@ -1,5 +1,5 @@
 
-App.Main = React.createClass({
+Cal.Main = React.createClass({
   getInitialState() {
     return {
       nav: Meteor.Device.isDesktop() ? true : false,
@@ -21,9 +21,9 @@ App.Main = React.createClass({
     return <div className={(this.state.nav ? "nav-open" : "nav-closed")+(this.state.animating ? "" : " fin")} id="app-root">
 
       <div className="transition-opacity" id="app-nav-back" />
-      <App.Nav toggleNavFunc={this.toggleNav} />
-      <App.Header toggleNavFunc={this.toggleNav} />
-      <App.Body tmpl={this.props.body} />
+      <Cal.Nav toggleNavFunc={this.toggleNav} />
+      <Cal.Header toggleNavFunc={this.toggleNav} />
+      <Cal.Body tmpl={this.props.body} />
 
     </div>
   }

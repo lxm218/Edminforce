@@ -24,7 +24,12 @@
 .nav-height-button {
   color: #fff;
   display: block; position: relative;
-  width: $height_nav; }
+  width: $height_nav;
+
+
+  padding-top: 15px;
+  margin-left:20px;
+}
 .nav-height-button .fa { font-size: 1.22em; }
 .nav-height-button:hover { color: rgba(255,255,255,.55); }
 
@@ -47,6 +52,12 @@
   position: fixed; top: 0; bottom: auto; left: 0; right: 0; z-index: 100;
   background-color: $brand; }
 #app-header-inner { padding: 8px 15px; }
+
+.app-header-nav-wrap{
+  float:right;
+  margin-right:100px;
+}
+
 
 #app-header .logo { width: auto; max-height: 100%; }
 
@@ -101,7 +112,10 @@
   #app-header .menu:hover { background-color: rgba(0,0,0,.15); }
   #app-header .menu span, #app-header .menu span:before, #app-header .menu span:after { background: #fff; }
 
-  #app-root.nav-open #app-header-outer { @include opacity(0); @include translate(100px, 0); }
+  #app-root.nav-open #app-header-outer {
+    @include opacity(0); @include translate(100px, 0);
+
+  }
 }
 
 @media screen and (max-width: $width_phone) {
