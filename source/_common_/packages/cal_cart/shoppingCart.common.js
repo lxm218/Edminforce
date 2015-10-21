@@ -26,6 +26,8 @@ shopping_cart_export=function(obj){
 //{type:'register'}
 common_create_cart = function (params) {
 
+    App.info = App.info || DB.App.findOne()
+
     var shoppingCart = {
         status: 'active',
         accountId: Meteor.userId(),
@@ -77,6 +79,7 @@ common_check_cart_status =function (cartId, status) {
 
 ///////////////////old to delete///////////////////
 create_cart = function (item) {
+    App.info = App.info || DB.App.findOne()
 
     var shoppingCart = {
         status: 'active',
@@ -105,6 +108,8 @@ get_active_cart_id =function (createIfNotExist) {
 }
 
 get_carts = function (status) {
+    App.info = App.info || DB.App.findOne()
+
     var options = {
         accountId: Meteor.userId(),
         sessionId: App.info.sessionRegister,

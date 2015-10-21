@@ -31,6 +31,8 @@ cancel_create_cart = function (item) {
 cancel_add_class_to_cart = function (swimmerId, classId) {
     //check swimmer belong to current account todo
     //check 用户已注册该课程
+    App.info = App.info || DB.App.findOne()
+
     var classReg = DB.ClassesRegister.findOne({
         swimmerId: swimmerId,
         classId: classId,

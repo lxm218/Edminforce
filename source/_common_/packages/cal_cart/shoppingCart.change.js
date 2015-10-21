@@ -14,6 +14,8 @@ change_caculate_fee = function (swimmerId, fromClassId, toClassId) {
 }
 
 change_create_cart = function(item){
+    App.info = App.info || DB.App.findOne()
+
     var shoppingCart = {
         accountId: Meteor.userId(),
         type: 'change',
@@ -194,6 +196,7 @@ change_class_refund=function(swimmerId, fromClassId, toClassId){
 
 
     console.log('4-----'+oldRegister)
+    App.info = App.info || DB.App.findOne()
 
     // 插入并标记newclass
     var newRegister =DB.ClassesRegister.insert({

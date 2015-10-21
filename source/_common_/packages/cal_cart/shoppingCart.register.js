@@ -36,6 +36,8 @@ function get_class_count_in_cart(cartId, swimmerId) {
 }
 //用于检查是否已经注册过该课程
 function get_class_count_in_register(swimmerId, classId, sessionId) {
+    App.info = App.info || DB.App.findOne()
+
     sessionId = sessionId || App.info.sessionRegister
 
     var count = DB.ClassesRegister.find({
@@ -60,7 +62,7 @@ function add_class_to_cart(item) {
     //////////////////////////////////
     //check 参数
     if (!item || !item.classId) {
-        throw new Meteor.Error(500, 'in add_class_to_cart', 'param invalid');
+        throw new Meteor.Error('param invalid', 'in add_class_to_cart', item);
     }
 
     ////////////////////////////////////
@@ -102,7 +104,7 @@ function add_class_to_cart(item) {
     if (cart) {
         throw new Meteor.Error('ERROR_CLASS_ALREADY_IN_CART', 'in add_class_to_cart');
     }
-    console.log('check cart', cart,item.swimmerId,item.classId)
+    console.log('check if cart exist', cart,item.swimmerId,item.classId)
 
 
     //////////////////////////////////////////////////
