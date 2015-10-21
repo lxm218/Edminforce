@@ -23,36 +23,52 @@ Cal.ClassRegisterDetail = React.createClass({
         var title= this.props.title || 'Class Register Info'
 
         return <RC.Card title={title}>
+
+
+            {
+                /*
+                 <div className="row">
+                 <div className="col"> Swimmer</div>
+                 <div className="col">
+                 {this.data.swimmer && this.data.swimmer.name}
+                 </div>
+                 </div>
+                 <div className="row">
+                 <div className="col"> Class</div>
+                 <div className="col">
+                 {this.props.currentLevel}
+
+                 </div>
+                 </div>
+                 <div className="row">
+                 <div className="col"> Class Day</div>
+                 <div className="col">
+                 {this.data.class && App.Config.week[this.data.class.day]}
+
+
+                 </div>
+                 </div>
+                 <div className="row">
+                 <div className="col"> Class Time</div>
+                 <div className="col">
+                 {this.data.class && App.num2time(this.data.class.startTime)}-
+                 {this.data.class && App.num2time(this.data.class.endTime)}
+
+                 </div>
+                 </div>
+
+
+                 * */
+            }
+
             <div className="row">
-                <div className="col"> Swimmer</div>
+                <div className="col"> {this.data.swimmer && this.data.swimmer.name}</div>
                 <div className="col">
-                    {this.data.swimmer && this.data.swimmer.name}
+                    {this.data.class && this.data.class.name}
                 </div>
-            </div>
-            <div className="row">
-                <div className="col"> Class Level</div>
-                <div className="col">
-                    {this.props.currentLevel}
 
-                </div>
-            </div>
-            <div className="row">
-                <div className="col"> Class Day</div>
-                <div className="col">
-                    {this.data.class && App.Config.week[this.data.class.day]}
-
-
-                </div>
-            </div>
-            <div className="row">
-                <div className="col"> Class Time</div>
-                <div className="col">
-                    {this.data.class && App.num2time(this.data.class.startTime)}-
-                    {this.data.class && App.num2time(this.data.class.endTime)}
-
-                </div>
             </div>
 
-        </RC.Card>
+            </RC.Card>
     }
 })

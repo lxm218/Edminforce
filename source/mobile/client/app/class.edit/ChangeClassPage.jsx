@@ -59,6 +59,14 @@
             });
 
         },
+        requestSubmit(e){
+            e.preventDefault()
+
+            Dispatcher.dispatch({
+                actionType: "ChangeClassPage_CLASS_SEND_REQUEST"
+            });
+
+        },
 
 
 
@@ -76,6 +84,7 @@
 
 
                 <Cal.ClassRegisterDetail
+                    title="Class To Change"
                     classId={this.props.classId}
                     swimmerId={this.props.swimmerId}
                     currentLevel={this.data.currentLevel}
@@ -105,10 +114,18 @@
                             />
 
 
+                        {/*
+
+                         <RC.Button name="button" type="submit"
+                         onClick={this.formSubmit}
+                         theme="full" buttonColor="brand">
+                         confirm
+                         </RC.Button>
+                        */}
                         <RC.Button name="button" type="submit"
-                                   onClick={this.formSubmit}
+                                   onClick={this.requestSubmit}
                                    theme="full" buttonColor="brand">
-                            confirm
+                            Submit Request
                         </RC.Button>
 
 

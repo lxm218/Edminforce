@@ -112,7 +112,7 @@ Cal.AccountManagement = React.createClass({
 
                     <div className="row">
                         <div className="col">
-                            swimmers
+                            Swimmers
                         </div>
                         <div className="col">
                             <p>

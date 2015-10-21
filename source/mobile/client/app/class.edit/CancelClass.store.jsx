@@ -19,6 +19,19 @@ Dependency.add('classEdit.CancelClass.store', new function () {
 
                 break;
             }
+            case "CECancelClassPage_CLASS_SEND_REQUEST":{
+
+
+                alert(
+                    'Your request to cancel class for ' +
+                    'Daniel has been submitted. ' +
+                    'We’ll contact you soon.'
+                )
+
+                break;
+            }
+
+
 
         }
 

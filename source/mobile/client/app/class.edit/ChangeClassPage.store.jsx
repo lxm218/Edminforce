@@ -98,6 +98,30 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
                 break;
             }
+            case "ChangeClassPage_CLASS_SEND_REQUEST":
+            {
+
+                var currentClass =self.currentClass.get()
+                if(!currentClass){
+                    alert('Please select a class to change')
+                    return
+                }
+                alert(
+                    'Your request to change class for ' +
+                    'Daniel has been submitted. ' +
+                    'We’ll contact you soon.'
+                )
+
+                var href = '/classEdit/swimmerList'
+
+                FlowRouter.go(href);
+
+                break;
+            }
+
+
+
+
             //每次 router到这个页面 清空用户选择
             case "GOTO_ChangeClassPage":
             {

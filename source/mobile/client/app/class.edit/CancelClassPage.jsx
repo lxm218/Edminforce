@@ -41,6 +41,7 @@
         },
 
         next(e){
+            e.preventDefault()
             if (!cancelClassStore.refundWay.get()) {
                 alert('please select a refund way')
                 e.preventDefault()
@@ -53,6 +54,16 @@
 
             //alert(href)
             FlowRouter.go(href);
+
+        },
+        //发送一个 cancel请求
+        requestSubmit(e){
+            e.preventDefault()
+
+
+            Dispatcher.dispatch({
+                actionType: "CECancelClassPage_CLASS_SEND_REQUEST"
+            });
 
         },
 
@@ -75,26 +86,50 @@
             return <div className="padding">
 
 
-                <Cal.ClassRegisterDetail
+                <Cal.ClassRegisterDetail title="Class Cancel Info"
                     classId={this.props.classId}
                     swimmerId={this.props.swimmerId}
                     />
 
 
-                <RC.Item theme="divider">Please select a refund method</RC.Item>
 
-                <RC.RadioGroup2 list={refundMethods}
-                                changeHandler={this.selectRefundWay}
-                                ref="refundWay"
-                                name="refundWay" value="erindale"
-                                uiClass="paw" uiColor="brand"/>
+                {
+                    /*
+
+                     <RC.Item theme="divider">Please select a refund method</RC.Item>
+
+                     <RC.RadioGroup2 list={refundMethods}
+                     changeHandler={this.selectRefundWay}
+                     ref="refundWay"
+                     name="refundWay" value="erindale"
+                     uiClass="paw" uiColor="brand"/>
+
+                    * */
+
+                }
 
 
+
+                {
+                    /*
+                     <RC.Button name="button" type="submit"
+                     onClick={this.next}
+                     theme="full" buttonColor="brand">
+                     Next
+                     </RC.Button>
+                    * */
+                }
+
+
+                <div className="padding">
+                    You’re going to cancel this class for Daniel.
+                </div>
 
                 <RC.Button name="button" type="submit"
-                           onClick={this.next}
+                           onClick={this.requestSubmit}
                            theme="full" buttonColor="brand">
-                    Next
+                    Submit Request
+
                 </RC.Button>
 
 
