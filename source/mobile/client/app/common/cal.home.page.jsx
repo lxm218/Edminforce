@@ -6,13 +6,13 @@ Cal.Home = React.createClass({
 
         Meteor.subscribe("accountCurrent");
 
-        return{
+        return {
             account: Meteor.users.findOne()
         }
     },
     render() {
 
-        let title = 'Welcome To Our '+ (this.data.account && this.data.account.profile.location)+' Facility'
+        let title = 'Welcome To Our ' + (this.data.account && this.data.account.profile.location) + ' Facility'
 
         console.log(title)
         return <div className="padding">
@@ -22,17 +22,63 @@ Cal.Home = React.createClass({
 
             </RC.Card>
 
-            <RC.List theme="inset">
-                <RC.Item theme="body">
 
-                    <RC.URL href="/classRegister/registraionInfoPage">
-                        <RC.Button name="button" theme="full" buttonColor="brand">
-                            Register Class
-                        </RC.Button>
-                    </RC.URL>
-                </RC.Item>
+            <div className="row">
+                <div className="col">
+                    <RC.Button name="button" buttonColor="dark" className="button-clear">
+                        Paced Program
+                    </RC.Button>
+                </div>
+                <div className="col">
+                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
+                        Register
+                    </RC.Button>
+                </div>
 
-            </RC.List>
+            </div>
+
+            <div className="row">
+                <div className="col">
+                    <RC.Button name="button" buttonColor="dark" className="button-clear">
+                        Intense Program
+                    </RC.Button>
+                </div>
+                <div className="col">
+                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
+                        Register
+                    </RC.Button>
+                </div>
+
+            </div>
+
+            <div className="row">
+                <div className="col">
+                    <RC.Button name="button" buttonColor="dark" className="button-clear">
+                        Little Star Program
+                    </RC.Button>
+                </div>
+                <div className="col">
+                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
+                        Register
+                    </RC.Button>
+                </div>
+
+            </div>
+
+            <div className="row">
+                <div className="col">
+                    <RC.Button name="button" buttonColor="dark" className="button-clear">
+                        Fasttrack Program
+                    </RC.Button>
+                </div>
+                <div className="col">
+                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
+                        Register
+                    </RC.Button>
+                </div>
+
+            </div>
+
 
         </div>
 

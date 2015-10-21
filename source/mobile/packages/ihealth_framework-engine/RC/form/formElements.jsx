@@ -391,6 +391,8 @@ RC.Button = React.createClass({
     form: React.PropTypes.string,
     name: React.PropTypes.string,
     className: React.PropTypes.string,
+    href: React.PropTypes.string,
+
   },
   render() {
 
@@ -400,6 +402,15 @@ RC.Button = React.createClass({
     let button = <button {... this.props} className={classes}>
       {this.props.children}
     </button>
+
+
+    if(this.props.href){
+
+      return <a {... this.props} className={classes}>
+        {this.props.children}
+      </a>
+    }
+
 
     return intersection.length
     ? <div className={"wrap-"+intersection[0]+(this.props.active ? " active" : "")}>{button}</div>
