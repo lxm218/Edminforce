@@ -8,36 +8,41 @@ Cal.Nav = React.createClass({
 
     let navList = [
       { text: "Pages", type: "title" },
-      { text: "Dashboard", href: "/", uiClass: "bar-chart" },
-      { text: "Mailbox", href: "/mailbox", uiClass: "envelope-o" },
-      { text: "Gallery", href: "/gallery", uiClass: "photo" },
 
-      { text: "Example", type: "title" },
-      { text: "50% Grid Layout", href: "/examples/Grids50", uiClass: "table" },
-      { text: "60%/40% Grid Layout", href: "/examples/Grids6040", uiClass: "table" },
-      { text: "Tabs Layout", href: "/examples/TabsLayout", uiClass: "tags" },
-      { text: "Form Elements", href: "/examples/FormElements", uiClass: "file-text-o" },
-      { text: "Form Handling", href: "/examples/Form", uiClass: "scissors" },
-      {
-        text: "Pop Up",
-        uiClass: "flag",
-        onClick: function(){
-          Session.set("popup",{
-            html: "<h4>Hello World!</h4>\
-            <p>This is a popup.</p>"
-          })
-        }
-      },{
-        text: "Persistent Pop Up",
-        uiClass: "heart",
-        onClick: function(){
-          Session.set("popup",{
-            persist: true,
-            html: "<h4>I am Persistent.</h4>\
-            <p>I will not go away unless you press ESC.</p>"
-          })
-        }
-      },
+      { text: "Home", href: "/", uiClass: "bar-chart" },
+      { text: "Families", href: "/admin/FamiliesIndexPage", uiClass: "envelope-o" },
+      { text: "Students", href: "/", uiClass: "photo" },
+      { text: "Programs", href: "/", uiClass: "photo" },
+      { text: "Class Registration", href: "/", uiClass: "photo" },
+
+
+
+      //{ text: "Example", type: "title" },
+      //{ text: "50% Grid Layout", href: "/examples/Grids50", uiClass: "table" },
+      //{ text: "60%/40% Grid Layout", href: "/examples/Grids6040", uiClass: "table" },
+      //{ text: "Tabs Layout", href: "/examples/TabsLayout", uiClass: "tags" },
+      //{ text: "Form Elements", href: "/examples/FormElements", uiClass: "file-text-o" },
+      //{ text: "Form Handling", href: "/examples/Form", uiClass: "scissors" },
+      //{
+      //  text: "Pop Up",
+      //  uiClass: "flag",
+      //  onClick: function(){
+      //    Session.set("popup",{
+      //      html: "<h4>Hello World!</h4>\
+      //      <p>This is a popup.</p>"
+      //    })
+      //  }
+      //},{
+      //  text: "Persistent Pop Up",
+      //  uiClass: "heart",
+      //  onClick: function(){
+      //    Session.set("popup",{
+      //      persist: true,
+      //      html: "<h4>I am Persistent.</h4>\
+      //      <p>I will not go away unless you press ESC.</p>"
+      //    })
+      //  }
+      //},
     ]
 
     //let chatList = [{

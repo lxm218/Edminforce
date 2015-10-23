@@ -1,26 +1,13 @@
 
-input, textarea, select {
-  background: #f0f0f0; border: solid 1px #fff;
-  padding: 9px; margin: 0 0 2px;
-  -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; border-radius: 0; }
+
 .flat input, .flat textarea { border: none; }
 #app-root.ios .select select, #app-root.android .select select { padding-left: 6px; }
 
-input { height: auto; min-height: 0; }
-textarea { height: auto; min-height: 100px; }
-button {
-  border: none;
-  background: #444; color: #fff;
-  padding: 11px 12px 12px; margin: 15px 0 0; }
+
 button.bg-white { background: #fff; color: #444; }
-option { padding: 0; margin: 0; }
 
 .has-error input, .has-error textarea { border-color: red; }
 
-label {
-  display: inline-block; padding: 2px 5px;
-  background: #444; color: #fff;
-  font-size: 12px; }
 
 /* Regular */
 .input-form.regular.with-label { margin-top: 20px; }

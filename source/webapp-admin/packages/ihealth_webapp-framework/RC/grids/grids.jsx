@@ -16,6 +16,11 @@ RC.Grids = React.createClass({
       "three-quarter": "grid-three-quarter",
       "three-fifth": "grid-three-fifth",
       "two-fifth": "grid-two-fifth",
+      "one-fifth": "grid-one-fifth",
+      "four-fifth": "grid-four-fifth",
+
+
+      full:"grid-full",
       half: "grid-half",
       third: "grid-third",
       quarter: "grid-quarter"

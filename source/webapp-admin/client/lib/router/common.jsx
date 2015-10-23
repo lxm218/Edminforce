@@ -15,7 +15,7 @@ if (Meteor.isClient) {
         metaTitle: "Bruno | Framework",
         metaDescription: "React & Meteor Framework for iHealth Labs",
         pageTitle: "Home",
-        bodyTmpl: <RC.NotFound/>
+        bodyTmpl: <Cal.AdminHome />
       })
     }
   })

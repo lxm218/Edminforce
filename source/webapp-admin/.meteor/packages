@@ -54,8 +54,7 @@ msavin:mongol
 anti:fake
 email
 mrt:cookies
-meteorhacks:npm
 
 
-npm-container
-cosmos:browserify
+# react-widgets 日历组件需要
+mrt:globalize-meteor
