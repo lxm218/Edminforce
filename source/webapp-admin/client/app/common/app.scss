@@ -122,3 +122,7 @@
   #app-root.nav-open #app-header { margin-left: 0; }
   #app-root.nav-open #app-header-inner { @include opacity(0); }
 }
+
+.padding-wrap {
+  padding: 20px 10px 40px
+}

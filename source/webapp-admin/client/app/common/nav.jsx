@@ -10,10 +10,10 @@ Cal.Nav = React.createClass({
       { text: "Pages", type: "title" },
 
       { text: "Home", href: "/", uiClass: "bar-chart" },
-      { text: "Families", href: "/admin/FamiliesIndexPage", uiClass: "envelope-o" },
-      { text: "Students", href: "/", uiClass: "photo" },
-      { text: "Programs", href: "/", uiClass: "photo" },
-      { text: "Class Registration", href: "/", uiClass: "photo" },
+      { text: "Families", href: "/adminFamilies", uiClass: "envelope-o" },
+      { text: "Students", href: "/adminStudents", uiClass: "photo" },
+      { text: "Programs", href: "/adminPrograms", uiClass: "photo" },
+      { text: "Class Registration", href: "/adminRegistration", uiClass: "photo" },
 
 
 

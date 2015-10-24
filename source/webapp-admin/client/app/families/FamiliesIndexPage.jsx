@@ -53,16 +53,12 @@ Cal.FamiliesIndexPage = React.createClass({
             <RC.Grids>
 
                 <div size="full">
-                    <RC.Card>
-                        <h2>filter </h2>
-                        <RC.Input />
-
-                    </RC.Card>
-                </div>
-                <div size="full">
 
                     <RC.Card>
-                        <Table  >
+                        <Table
+                            sortable={true}
+                            filterable={['name', 'address']}
+                            className="prop-table table table-striped table-bordered">
                             <Thead>
                             {
                                 columns.map(function (col) {
@@ -81,7 +77,18 @@ Cal.FamiliesIndexPage = React.createClass({
                                         {
                                             columns.map(function (col) {
 
-                                                if (col.type == 'profile') {
+
+                                                if (col.type == 'profile' && col.key == 'name' ) {
+                                                    console.log(col)
+
+                                                    let link = (
+                                                        <a href={"/adminFamilies/detail/"+item._id}> {item.profile[col.key]} </a>
+                                                    )
+
+                                                    return <Td column={col.key}  key={col.key}  data={link}>
+                                                        {Reactable.unsafe(link)}
+                                                    </Td>
+                                                }else if (col.type == 'profile') {
 
                                                     return <Td column={col.key}  key={col.key}  data={item.profile[col.key]}>
                                                         {item.profile[col.key]}
