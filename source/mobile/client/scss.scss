@@ -188,3 +188,29 @@
 .cal-text-wrap{
   word-wrap: break-word;
 }
+
+///////////////////////////////////////
+//for auth password guide //todo delete
+.password-guide-wrap{
+}
+.password-guide{
+
+  position: absolute;
+  //display: block;
+  width: 100%;
+
+  word-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
+}
+
+.cal-checkbox{
+  background:none;
+  font-size: 14px;
+
+  word-wrap: break-word;
+  word-break: normal;
+  white-space: normal;
+}
+
+

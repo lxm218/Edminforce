@@ -51,10 +51,19 @@ RC.PasswordInput = React.createClass({
   },
 
   passwordGuide(){
-    if (this.state.showPWGuide) {
-      return 'Password shoud have at least 8 characters, containing Capital Letters AND Numbers.'
-    } else {
-      return <img  border="0" src="/assets/help.png" align="middle" width="16" height="16"/>
+    //if (this.state.showPWGuide) {
+    //
+    //  return 'Password shoud have at least 8 characters, containing Capital Letters AND Numbers.'
+    //
+    //
+    //} else
+    {
+
+      return <span className="password-guide-wrap">
+          <img   style={{margin:0}}
+               border="0" src="/assets/help.png" align="middle" width="16" height="16"/>
+           this.state.showPWGuide?<span className="password-guide cal-text-wrap">Password shoud have at least 8 characters, containing Capital Letters AND Numbers.</span>:''
+      </span>
     }
   },
 
@@ -68,8 +77,14 @@ RC.PasswordInput = React.createClass({
     var classes = this.getTheme() + (this.props.error ? " has-error" : "") + " item-input"
 
     return <label className={classes}>
-      {this.props.label ? <span onMouseOver={this.showPasswordGuide} onMouseOut={this.showQuestionMark} className={"input-label inline-block"+(h.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")} >
-      {this.props.label}{this.passwordGuide()}</span> : null}
+      {this.props.label ? <span onMouseOver={this.showPasswordGuide}
+                                onMouseOut={this.showQuestionMark}
+                                className={"input-label inline-block"+(h.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor
+                                : "")} >
+      {this.props.label}{this.passwordGuide()}
+
+      </span> : null}
+
       <input {... inputProps} type={this.props.type || "text"} value={this.getValue()} onChange={this.changeHandler} />
     </label>
   }

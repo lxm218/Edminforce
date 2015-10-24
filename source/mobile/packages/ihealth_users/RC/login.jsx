@@ -337,8 +337,8 @@ IH.RC.User = React.createClass({
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
-          <RC.Checkbox name="term" ref="term" value={true} label="Yes，I accpet Privacy Policy and Terms of Use."/>
-          <RC.Checkbox name="optIn" ref="optIn" value={true} label="Yes，I’d like to receive email communications from Calphin Aquatic Club"/>
+          <RC.Checkbox className="cal-checkbox" name="term" ref="term" value={true} label="Yes，I accpet Privacy Policy and Terms of Use."/>
+          <RC.Checkbox className="cal-checkbox" name="optIn" ref="optIn" value={true} label="Yes，I’d like to receive email communications from Calphin Aquatic Club"/>
         </RC.Form>
 
       case "reset":

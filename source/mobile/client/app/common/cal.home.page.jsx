@@ -44,7 +44,7 @@ Cal.Home = React.createClass({
                     </RC.Button>
                 </div>
                 <div className="col">
-                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
+                    <RC.Button name="button" buttonColor="brand" >
                         Register
                     </RC.Button>
                 </div>
@@ -58,7 +58,7 @@ Cal.Home = React.createClass({
                     </RC.Button>
                 </div>
                 <div className="col">
-                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
+                    <RC.Button name="button" buttonColor="brand" >
                         Register
                     </RC.Button>
                 </div>
@@ -72,7 +72,7 @@ Cal.Home = React.createClass({
                     </RC.Button>
                 </div>
                 <div className="col">
-                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
+                    <RC.Button name="button" buttonColor="brand">
                         Register
                     </RC.Button>
                 </div>
