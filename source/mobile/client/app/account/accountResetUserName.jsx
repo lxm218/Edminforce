@@ -24,7 +24,6 @@ Cal.ResetUserName = React.createClass({
 	},
 
 	changeUserName(e){
-		debugger
 		e.preventDefault()
 		let self = this
 		let form = this.refs.changeUserNameForm.getFormData()
@@ -35,7 +34,6 @@ Cal.ResetUserName = React.createClass({
 	      	this.setState({ waiting: true })
 
 	      	Meteor.call('SetUserName', Meteor.userId(), form.userName, function(err, result){
-	      		debugger
 	      		let passedMsg = err && err.error
 	      				? (ph.errorMsgs[err.error] || err.reason)
 	      				: null
@@ -61,7 +59,6 @@ Cal.ResetUserName = React.createClass({
 	},
 
 	debuggerHelper(){
-		debugger
 	},
 
 	printMsg(){

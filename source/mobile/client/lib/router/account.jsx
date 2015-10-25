@@ -62,7 +62,7 @@
 
     AccountRoute.route('/ResetPassword', {
         action: function(p){
-            debugger
+
             let pageTitle = "Reset Password"
             var dynamicRoute = {
                 pageTitle: pageTitle, // This is for header title
@@ -80,7 +80,7 @@
 
     AccountRoute.route('/ResetUserName', {
         action: function(p){
-            debugger
+
             let pageTitle = "Reset Password"
             var dynamicRoute = {
                 pageTitle: pageTitle, // This is for header title
@@ -98,7 +98,7 @@
 
     AccountRoute.route('/alternateContact', {
         action: function(p){
-            debugger
+
             let pageTitle = "Reset Password"
             var dynamicRoute = {
                 pageTitle: pageTitle, // This is for header title
@@ -116,7 +116,7 @@
 
     AccountRoute.route('/emergencyContact', {
         action: function(p){
-            debugger
+
             let pageTitle = "Reset Password"
             var dynamicRoute = {
                 pageTitle: pageTitle, // This is for header title

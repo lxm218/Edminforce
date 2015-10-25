@@ -8,7 +8,6 @@ Cal.Auth = React.createClass({
 	 },
 
 	 logOut(){
-	 	debugger
 	 	Meteor.logout()
 	 	FlowRouter.go("/auth")
 	 },

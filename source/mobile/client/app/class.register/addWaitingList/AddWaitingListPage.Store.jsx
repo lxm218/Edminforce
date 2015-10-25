@@ -86,13 +86,13 @@
                     self.currentDay.set()
                     self.currentTime.set()
 
-                    debugger
+
 
                     break;
                 }
                 case "CRAddWaitingListPage_DAY_CHANGE"://选择day
                 {
-                    debugger
+
 
                     self.currentDay.set(payload.day)
                     break;
@@ -100,7 +100,7 @@
 
                 case "CRAddWaitingListPage_TIME_CHANGE"://选择time  确定一个class
                 {
-                    debugger
+
                     self.currentTime.set(payload.time)
                     break;
                 }
@@ -108,7 +108,7 @@
 
                 case "CRAddWaitingListPage_CLASS_SELECT"://select确定
                 {
-                    debugger
+
 
                     var currentSwimmer=self.currentSwimmer.get()
                     var currentClass = self.currentClass.get()
@@ -194,7 +194,7 @@
                     seatsRemain:{$lte:0}
                 }).fetch()
 
-                //debugger
+                //
                 classes = _.uniq(classes, function (item, key, a) {
                     return item.day;
                 });

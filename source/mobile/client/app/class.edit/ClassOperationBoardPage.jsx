@@ -25,7 +25,6 @@ Cal.ClassOperationBoardPage = React.createClass({
         let classId = this.props.classId;
         let swimmerId= this.props.swimmerId
 
-        debugger
 
         let colours = [{
             uiColor: "brand",

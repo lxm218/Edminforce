@@ -35,7 +35,7 @@ IH.RC.User = React.createClass({
    * @ @ @ @
    */
   checkButtonState(e){
-    debugger
+
     switch (this.state.action){
       case "login":
         var form = this.refs.loginForm.getFormData()
@@ -112,7 +112,7 @@ IH.RC.User = React.createClass({
       let self = this
       this.setState({ waiting: true })
       Meteor.loginWithPassword( form.username, form.password, function(err){
-        debugger
+
         if (!err){
           if (form.keepName == 'on') {
             Cookie.set('username', form.username)
@@ -146,7 +146,7 @@ IH.RC.User = React.createClass({
     }
   },
   register(e){
-    debugger
+
     e.preventDefault()
     if (this.state.msg) return null
 
@@ -218,7 +218,7 @@ IH.RC.User = React.createClass({
       let self = this
       this.setState({ waiting: true })
       Meteor.call('CheckEmail', form.email, function(err, result){
-        debugger
+
         if (!!err) {
           console.log(err)
           result = false
@@ -264,7 +264,7 @@ IH.RC.User = React.createClass({
 
   printMsg(){
     console.log("printMsg is called", this.state.msg)
-    debugger
+
     let currentMessages = this.state.msg ? [this.state.msg] : []
     return <div>
       {
@@ -342,7 +342,7 @@ IH.RC.User = React.createClass({
         </RC.Form>
 
       case "reset":
-      debugger
+
         return (
           <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
           <div>Reset Password via Email</div>

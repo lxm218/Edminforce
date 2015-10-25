@@ -24,7 +24,7 @@
 //        getRegisterView(){
 //
 //
-//            debugger
+//
 //            if(this.data.registerStage ==1){//
 //                console.log('stage1')
 //

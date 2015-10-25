@@ -102,14 +102,14 @@
 
                 case "CRSelectClassEditPage_TIME_CHANGE"://选择time  确定一个class
                 {
-                    debugger
+
                     self.currentTime.set(payload.time)
                     break;
                 }
 
                 case "CRSelectClassEditPage_CLASS_SELECT"://select确定
                 {
-                    debugger
+
 
                     var props = self.props.get();
                     var currentClass = self.currentClass.get()
@@ -128,7 +128,7 @@
 
                         classData:currentClass
                     }, function (err, result) {
-                        debugger
+
                         if (err) {
                             console.error(err)
                             alert(err.error)
@@ -183,7 +183,7 @@
             //根据组件的props 初始化数据
             Tracker.autorun(function (compution) {
 
-                debugger
+
 
                 var props = self.props.get();
                 console.log(self.props.dep._dependentsById)
@@ -288,7 +288,7 @@
 
                 console.log(level, App.info.sessionRegister, classes)
 
-                //debugger
+                //
                 classes = _.uniq(classes, function (item, key, a) {
                     return item.day;
                 });

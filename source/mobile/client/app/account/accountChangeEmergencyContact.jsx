@@ -26,7 +26,6 @@ Cal.ChangeEmergencyContact = React.createClass({
 	},
 
 	updateEmergencyContact(e){
-		debugger
 		e.preventDefault()
 		let self = this
 		let form = this.refs.EmergencyContactForm.getFormData()
@@ -43,7 +42,6 @@ Cal.ChangeEmergencyContact = React.createClass({
 	      	}
 
 	      	Meteor.call('SetEmergencyContact', Meteor.userId(), emergencyContact, function(err, result){
-	      		debugger
 	      		let passedMsg = err && err.error
 	      				? (ph.errorMsgs[err.error] || err.reason)
 	      				: null
@@ -69,7 +67,6 @@ Cal.ChangeEmergencyContact = React.createClass({
 	},
 
 	debuggerHelper(){
-		debugger
 	},
 
 	printMsg(){

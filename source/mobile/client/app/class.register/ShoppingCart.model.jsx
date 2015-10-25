@@ -46,7 +46,7 @@
         function getShoppingCartId() {
             //active
             var cart = DB.ShoppingCart.findOne()
-            debugger
+
             return cart && cart._id
         }
 

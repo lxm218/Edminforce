@@ -55,7 +55,7 @@
 
             }
 
-            //debugger
+            //
             return data;
 
         },
@@ -101,7 +101,7 @@
 
             var formData = this.refs.myForm.getFormData()
 
-            debugger
+
 
             //todo validation info in ui
             if (!this.data.currentSwimmer || !this.data.currentDay || !this.data.currentTime) {
@@ -201,7 +201,7 @@
             let currentSwimmerValue = this.data.currentSwimmer
                     && this.data.currentSwimmer._id
 
-            //debugger
+            //
 
             return <div>
                 <RC.Card key={Math.random()} className="padding">

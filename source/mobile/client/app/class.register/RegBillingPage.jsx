@@ -70,7 +70,7 @@
             var self = this;
             let items = this.data.ShoppingCart && this.data.ShoppingCart.items
 
-            debugger
+
             if (!items || !items.length) return <div className="padding">
                 you have not added item in shopping cart
             </div>;

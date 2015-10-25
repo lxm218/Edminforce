@@ -133,13 +133,13 @@
                     //
                     //}
 
-                    debugger
+
 
                     break;
                 }
                 case "BookTheSameTime_DAY_CHANGE"://选择day
                 {
-                    debugger
+
 
                     self.currentDay.set(payload.day)
                     self.currentTime.set()
@@ -148,7 +148,7 @@
 
                 case "BookTheSameTime_TIME_CHANGE"://选择time  确定一个class
                 {
-                    debugger
+
                     self.currentTime.set(payload.time)
                     break;
                 }
@@ -157,7 +157,7 @@
                 //sibling 三步  可能是current swimmer BookTheSame time后的选择 也可能是return back用户 也可能是新用户
                 case "BookTheSameTime_CLASS_SELECT_FOR_SIBLING"://select确定
                 {
-                    debugger
+
 
                     if (payload.currentStep == 1) {
 
@@ -183,7 +183,7 @@
                             isFistTime:isFistTime
 
                         }, function (err, result) {
-                            debugger
+
                             if (err) {
                                 alert(err.error)
                                 return; //todo  prompt
@@ -311,7 +311,7 @@
                 //正在进行用户 四步  todo和以上合并?
                 case "BookTheSameTime_CLASS_SELECT_FOR_CURRENT":{
                     payload
-                    debugger
+
 
                     if (payload.currentStep == 1) {
 
@@ -333,7 +333,7 @@
                         //    }
                         //);
 
-                        debugger
+
 
                         Meteor.call('add_class_to_cart', {
                             swimmerId: currentSwimmer._id,
@@ -346,7 +346,7 @@
 
                             type:'register'
                         }, function (err, result) {
-                            debugger
+
                             if (err) {
                                 alert(err.error)
                                 return; //todo  prompt
@@ -378,7 +378,7 @@
 
 
                         self.currentStep.set(2)
-                        debugger
+
                     }
 
                     if (payload.currentStep == 2) {
@@ -393,7 +393,7 @@
                         let swimmer = map.get('swimmer')
                         let class1 = map.get('class1')
 
-                        debugger
+
 
                         //ShoppingCart.addClassPreference(2,{
                         //    'swimmer': swimmer,
@@ -441,7 +441,7 @@
                         let swimmer = map.get('swimmer')
                         let class1 = map.get('class1')
 
-                        debugger
+
 
                         //ShoppingCart.addClassPreference(3,{
                         //    'swimmer': swimmer,
@@ -485,7 +485,7 @@
 
                 case "componentWillMount_CRBookTheSameTimePage":
                 {
-                    //debugger
+                    //
                     console.log('componentWillMount_CRBookTheSameTimePage')
                     //清空上一轮的选择
 
@@ -656,7 +656,7 @@
                     seatsRemain:{$gt:0}
                 }).fetch()
 
-                //debugger
+                //
                 classes = _.uniq(classes, function (item, key, a) {
                     return item.day;
                 });

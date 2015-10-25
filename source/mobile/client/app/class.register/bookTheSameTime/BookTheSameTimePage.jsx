@@ -62,7 +62,7 @@
 
             }
 
-            debugger
+
             return data;
 
         },
@@ -194,7 +194,7 @@
             //    }
             //console.log(this.data.currentSwimmerClasses)
             //
-            //debugger
+            //
 
 
             return <div>

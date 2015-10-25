@@ -31,7 +31,7 @@
                 }
             }).fetch()
 
-            debugger
+
 
             return {
                 historyBillings: historyBillings,

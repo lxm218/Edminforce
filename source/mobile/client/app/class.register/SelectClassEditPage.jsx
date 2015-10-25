@@ -76,7 +76,7 @@
 
             }
 
-            //debugger
+            //
             return data;
 
         },
@@ -111,7 +111,7 @@
                 classId:this.props.classId
             })
             console.log(item)
-            //debugger
+            //
 
 
             return <div>

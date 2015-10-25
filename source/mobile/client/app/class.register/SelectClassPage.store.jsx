@@ -95,13 +95,13 @@
                     self.currentDay.set()
                     self.currentTime.set()
 
-                    debugger
+
 
                     break;
                 }
                 case "CRSelectClassPage_DAY_CHANGE"://选择day
                 {
-                    debugger
+
 
                     self.currentDay.set(payload.day)
                     self.currentTime.set()
@@ -110,7 +110,7 @@
 
                 case "CRSelectClassPage_TIME_CHANGE"://选择time  确定一个class
                 {
-                    debugger
+
                     self.currentTime.set(payload.time)
                     break;
                 }
@@ -118,7 +118,7 @@
 
                 case "CRSelectClassPage_CLASS_SELECT"://select确定
                 {
-                    debugger
+
 
                     if (payload.currentStep == 1) {
 
@@ -139,7 +139,7 @@
                             //标记购物项是否是第一次注册 用于判断 waiver form
                             isFistTime:isFistTime
                         }, function (err, result) {
-                            debugger
+
                             if (err) {
                                 alert(err.error)
                                 console.error(err)
@@ -458,7 +458,7 @@
 
                 console.log(level, App.info.sessionRegister, classes,classesNoSeatByLevel)
 
-                //debugger
+                //
                 classes = _.uniq(classes, function (item, key, a) {
                     return item.day;
                 });

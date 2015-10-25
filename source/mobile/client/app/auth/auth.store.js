@@ -20,14 +20,12 @@
             }
             case "AUTH_REGISTER_SUCCESS":{
                 FlowRouter.LastRoute
-                debugger
                 FlowRouter.LastRoute=[];
                 FlowRouter.go('/account')
                 break;
             }
             case "AUTH_RESET_SUCCESS":{
                 FlowRouter.LastRoute
-                debugger
                 FlowRouter.LastRoute=[];
                 FlowRouter.go('/account')
                 break;

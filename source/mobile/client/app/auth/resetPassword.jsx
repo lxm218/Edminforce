@@ -27,7 +27,6 @@ Cal.ResetPasswordEmail = React.createClass({
 	},
 
 	reset(e){
-		debugger
 		e.preventDefault()
 		if (this.state.msg) return null
 		let self = this
@@ -68,7 +67,7 @@ Cal.ResetPasswordEmail = React.createClass({
 	},
 
 	debuggerHelper(){
-		debugger
+
 	},
 
 	printMsg(){
@@ -106,7 +105,7 @@ Cal.ResetPasswordEmail = React.createClass({
 	},
 
 	render: function() {
-		debugger
+
 		var inputTheme = "small-label"
     	var buttonTheme = "full"
 		if (_.contains(["overlay-light","overlay-dark"], this.props.theme)) {

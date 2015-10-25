@@ -26,7 +26,6 @@ Cal.ChangeAlternateContact = React.createClass({
 	},
 
 	updateAlternateContact(e){
-		debugger
 		e.preventDefault()
 		let self = this
 		let form = this.refs.AlternateContactForm.getFormData()
@@ -43,7 +42,6 @@ Cal.ChangeAlternateContact = React.createClass({
 	      	}
 
 	      	Meteor.call('SetAlternateContact', Meteor.userId(), alternateContact, function(err, result){
-	      		debugger
 	      		let passedMsg = err && err.error
 	      				? (ph.errorMsgs[err.error] || err.reason)
 	      				: null
@@ -69,7 +67,6 @@ Cal.ChangeAlternateContact = React.createClass({
 	},
 
 	debuggerHelper(){
-		debugger
 	},
 
 	printMsg(){

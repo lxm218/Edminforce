@@ -70,7 +70,7 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
                 var hasHistory = self.getHistoryClassCount().count()
 
 
-                debugger
+
                 //var registerHref="/classRegister/register"
 
                 var commonRegisterPage = "/classRegister/SelectClass"

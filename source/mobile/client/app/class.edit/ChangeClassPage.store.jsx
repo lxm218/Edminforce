@@ -50,7 +50,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
             case "ChangeClassPage_DAY_CHANGE":
             {
 
-                debugger
+
 
                 self.currentDay.set(payload.day)
                 break;
@@ -58,7 +58,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
             case "ChangeClassPage_TIME_CHANGE":
             {
 
-                debugger
+
                 self.currentTime.set(payload.time)
 
                 break;
@@ -80,7 +80,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
                 var newClass = self.currentClass.get()
 
 
-                debugger
+
                 Meteor.call('change_class',
                     swimmer._id,
                     oldClass._id,
@@ -216,7 +216,7 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
 
             days.unshift({value: undefined})
 
-            //debugger
+            //
 
             self.avaiableDays.set(days)
 

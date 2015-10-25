@@ -31,7 +31,7 @@
 
             console.log(shoppingCart)
 
-            debugger
+
 
             var cartItem={}
             if(shoppingCart && shoppingCart.items){

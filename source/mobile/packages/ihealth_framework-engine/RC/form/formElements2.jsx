@@ -103,7 +103,7 @@
             if (_.isUndefined(n)) {
                 var realVal = null
                 let self = this
-                _.every(this.state.checked, function(c,nn){debugger
+                _.every(this.state.checked, function(c,nn){
                     if (c)
                         realVal = self.props.list[nn].value
                     return !c

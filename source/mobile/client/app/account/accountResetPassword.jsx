@@ -26,7 +26,6 @@ Cal.ResetPasswordUser = React.createClass({
 	},
 
 	changePassword(e){
-		debugger
 		e.preventDefault()
 		let self = this
 		let form = this.refs.changePasswordForm.getFormData()
@@ -66,7 +65,6 @@ Cal.ResetPasswordUser = React.createClass({
 	},
 
 	debuggerHelper(){
-		debugger
 	},
 
 	printMsg(){
