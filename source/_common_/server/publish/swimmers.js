@@ -15,3 +15,11 @@ Meteor.publish("swimmer", function (swimmerId) {//
     return DB.Swimmers.find({_id:swimmerId});
 });
 
+
+
+
+////////////////////for admin only////////////////////////
+Meteor.publish("admin/swimmers", function () {
+    //todo authentication
+    return DB.Swimmers.find();
+});

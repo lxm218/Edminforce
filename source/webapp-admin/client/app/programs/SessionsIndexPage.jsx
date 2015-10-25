@@ -1,30 +1,31 @@
 /**
- * Created on 10/23/15.
+ * Created on 10/25/15.
  */
 
-Cal.StudentsIndexPage = React.createClass({
+Cal.SessionsIndexPage = React.createClass({
 
+    propTypes: {},
     mixins: [ReactMeteorData],
     getMeteorData() {
 
-        Meteor.subscribe("admin/swimmers")
+        //sessions
+
+        Meteor.subscribe("sessions")
 
         return {
-            students: DB.Swimmers.find().fetch()
+            sessions: DB.Sessions.find().fetch()
 
         }
+
     },
 
     render: function () {
 
-
-
-
         var columns = [
-            {label: "Student Name", key: 'name', type: ""},
-            {label: "Location", key: 'location', type: ""},
-            {label: "Level", key: 'level', type: ""},
-            {label: "Account", key: 'accountId', type: ""}
+            {label: "Name", key: 'name', type: ""},
+            {label: "RegisterStartDate", key: 'registerStartDate', type: ""},
+            {label: "StartDate", key: 'startDate', type: ""},
+            {label: "Status", key: 'Status', type: ""}
 
         ]
         var Table = Reactable.Table,
@@ -38,9 +39,15 @@ Cal.StudentsIndexPage = React.createClass({
 
             <RB.Panel >
 
+                <RB.ButtonToolbar>
+
+                    <RB.Button> New Session</RB.Button>
+
+                </RB.ButtonToolbar>
+
                 <Table
                     sortable={true}
-                    filterable={['name', 'location','Level']}
+                    filterable={['name', 'registerStartDate','startDate']}
                     className="prop-table table table-striped table-bordered">
                     <Thead>
                     {
@@ -55,7 +62,7 @@ Cal.StudentsIndexPage = React.createClass({
 
 
                     {
-                        this.data.students.map(function (item) {
+                        this.data.sessions.map(function (item) {
                             return <Tr key={item._id}>
                                 {
                                     columns.map(function (col) {
@@ -65,7 +72,7 @@ Cal.StudentsIndexPage = React.createClass({
                                             console.log(col)
 
                                             let link = (
-                                                <a href={"/adminStudents/detail/"+item._id}> {item.name} </a>
+                                                <a href={"/adminSessions/detail/"+item._id}> {item.name} </a>
                                             )
 
                                             return <Td column={col.key}  key={col.key}  data={link}>
@@ -89,9 +96,7 @@ Cal.StudentsIndexPage = React.createClass({
                     }
                 </Table>
 
-
             </RB.Panel >
-
 
         </div>;
     }

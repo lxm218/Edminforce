@@ -134,6 +134,17 @@
     });
 
 
+
+
+
+    //////////////for Admin only//////////////////
+
+    Meteor.publish("adminAccountById", function (accountId) {
+        //var accountId = this.userId
+        return Meteor.users.find({_id: accountId}, {fields: extraFileds});
+    });
+
+
 }();
 
 

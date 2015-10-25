@@ -3,9 +3,25 @@
  */
 
 Cal.RegistrationIndexPage = React.createClass({
+    mixins: [ReactMeteorData],
+    getMeteorData() {
 
+        Meteor.subscribe("admin/registers")
+
+        return {
+            programs: DB.ClassesRegister.find().fetch()
+
+        }
+    },
     render: function () {
-        return <div>RegistrationIndexPage</div>;
+        return <div>
+            <RB.Panel >
+                <Reactable.Table className="prop-table table table-striped table-bordered"
+                                 data={this.data.programs}>
+
+                </Reactable.Table>
+            </RB.Panel >
+        </div>;
     }
 
 });

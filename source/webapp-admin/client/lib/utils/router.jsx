@@ -2,7 +2,7 @@
 
 // Route Handler Function for every Route
 
-App.routeHandler = function (p, args) { debugger
+App.routeHandler = function (p, args) {
     let defs = {
         // Meta
         metaTitle: Meteor.settings.public.appName,

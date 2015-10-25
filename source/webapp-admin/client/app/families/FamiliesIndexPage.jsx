@@ -44,10 +44,6 @@ Cal.FamiliesIndexPage = React.createClass({
 
 
 
-
-
-
-
         return <div>
 
             <RC.Grids>
@@ -95,8 +91,8 @@ Cal.FamiliesIndexPage = React.createClass({
                                                     </Td>
                                                 } else if (col.type == 'email') {
 
-                                                    return <Td column={col.key}  key={col.key} data={item.emails[0] && item.emails[0].address}>
-                                                        {item.emails[0] && item.emails[0].address}
+                                                    return <Td column={col.key}  key={col.key} data={item.emails && item.emails[0] && item.emails[0].address}>
+                                                        {item.emails && item.emails[0] && item.emails[0].address}
                                                     </Td>
                                                 }else {
 
@@ -109,9 +105,9 @@ Cal.FamiliesIndexPage = React.createClass({
 
 
                                         <Td column="action">
-                                            <RC.Button className="bg-brand" text="Edit" clickHandler={self.openEdit.bind(self,item)}>
 
-                                            </RC.Button>
+                                            <Cal.EditAccountMButton accountId={item._id}/>
+
 
                                         </Td>
                                     </Tr>

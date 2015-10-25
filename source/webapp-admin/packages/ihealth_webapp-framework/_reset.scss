@@ -120,8 +120,10 @@ ul { list-style-type: none; padding: 0; margin: 0; }
 
 
 
+//todo only applied to webapp-framework component
 input, textarea, select {
-  background: #f0f0f0; border: solid 1px #fff;
+  background: #f0f0f0;
+  border: solid 1px #fff;
   padding: 9px; margin: 0 0 2px;
   -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; border-radius: 0; }
 
@@ -136,7 +138,9 @@ button {
 option { padding: 0; margin: 0; }
 
 label {
-  display: inline-block; padding: 2px 5px;
-  background: #444; color: #fff;
+  display: inline-block;
+  padding: 2px 5px;
+  background: #444;
+  color: #fff;
   font-size: 12px; }
 

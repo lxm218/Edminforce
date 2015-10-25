@@ -1,11 +1,10 @@
 /**
  * Created on 10/23/15.
  */
-
 {
 
     let Route = FlowRouter.group({
-        prefix: '/adminStudents',
+        prefix: '/adminSessions',
         triggersEnter: [function (context) {
 
         }],
@@ -19,20 +18,19 @@
         //name: "account",
         action: function (p) {
             App.routeHandler(p, {
-                pageTitle: "StudentsIndexPage",
+                pageTitle: "SessionsIndexPage",
                 headerNav: null,
-                bodyTmpl: <Cal.StudentsIndexPage />
+                bodyTmpl: <Cal.SessionsIndexPage />
             })
         }
     })
-
-    Route.route('/detail/:studentId', {
+    Route.route('/detail/:sessionId', {
         //name: "account",
         action: function (p, query) {
             App.routeHandler(p, {
-                pageTitle: "FamiliesDetail",
+                pageTitle: "SessionsDetail",
                 headerNav: null,
-                bodyTmpl: <Cal.StudentsDetail {...p} {...query} />
+                bodyTmpl: <Cal.SessionsDetail {...p} {...query} />
             })
         }
     })

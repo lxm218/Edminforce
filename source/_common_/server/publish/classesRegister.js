@@ -16,3 +16,8 @@ Meteor.publish("registerInfoByAccountId", function (accountId) {
 
 //account==>swimmer==>classes
 
+//////////////////////////admin///////////////////
+
+Meteor.publish("admin/registers", function () {
+    return DB.ClassesRegister.find();
+});

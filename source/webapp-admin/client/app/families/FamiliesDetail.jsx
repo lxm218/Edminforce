@@ -3,7 +3,11 @@
  */
 
 Cal.FamiliesDetail = React.createClass({
+    propTypes: {
 
+        //this.props.accountId
+
+    },
     mixins: [ReactMeteorData],
     getMeteorData() {
 
@@ -46,8 +50,9 @@ Cal.FamiliesDetail = React.createClass({
                     <RB.Tab eventKey={1} title="swimmers">
                         <div>
                             <RB.ButtonToolbar>
-                                <RB.Button bsStyle="primary" bsSize="small">Add Swimmer</RB.Button>
-                                <RB.Button bsSize="small">Small button</RB.Button>
+
+                                <Cal.AddNewSwimmerMButton />
+
                             </RB.ButtonToolbar>
                         </div>
 
@@ -61,6 +66,14 @@ Cal.FamiliesDetail = React.createClass({
                     <RB.Tab eventKey={2} title="billing">
 
                         Tab 2 content
+
+                    </RB.Tab>
+
+                    <RB.Tab eventKey={3} title="Profile">
+
+                        <br/><br/>
+
+                        <Cal.FamiliesProfile  accountId={this.props.accountId} />
 
                     </RB.Tab>
                 </RB.Tabs>
