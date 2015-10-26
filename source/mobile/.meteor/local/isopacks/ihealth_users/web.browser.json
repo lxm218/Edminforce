@@ -1,0 +1,84 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "aldeed:simple-schema",
+      "constraint": "1.3.3"
+    },
+    {
+      "package": "aldeed:collection2",
+      "constraint": "2.3.3"
+    },
+    {
+      "package": "matb33:collection-hooks",
+      "constraint": "0.7.13"
+    },
+    {
+      "package": "accounts-password",
+      "constraint": "1.1.1"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:framework-engine"
+    },
+    {
+      "package": "react"
+    }
+  ],
+  "implies": [
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.browser/lib/ph.js",
+      "length": 119,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "lib/ph.js",
+      "hash": "82d234a11fb034f631590a9fc28c22a83371eb1c",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.browser/RC/login.jsx",
+      "length": 12286,
+      "offset": 0,
+      "path": "RC/login.jsx",
+      "hash": "415d4c601c938c528959d0328277343350e84ff9",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "css",
+      "file": "web.browser/RC/login.css",
+      "length": 306,
+      "offset": 0,
+      "path": "RC/login.css",
+      "hash": "22023209667a5154dec18485750ff1b32dc47a7a",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.browser/lib/schemas.js",
+      "length": 3402,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "lib/schemas.js",
+      "hash": "c43531a30b46a24ae95bbf61fb033d7559822130",
+      "fileOptions": {}
+    }
+  ]
+}

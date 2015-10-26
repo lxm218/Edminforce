@@ -1,0 +1,119 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/declarations.js": "ea1ef0377bb2252c181981f4ba8cd70e02ddf3ea",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/callbacks.js": "3dc64efb8b33711a37475b15e22b29faee0cb1d1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/utils.js": "2cf4fac7fafb2b4a39b937e9bebb64c0485617ef"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/declarations.js": "ea1ef0377bb2252c181981f4ba8cd70e02ddf3ea",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/callbacks.js": "3dc64efb8b33711a37475b15e22b29faee0cb1d1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/utils.js": "2cf4fac7fafb2b4a39b937e9bebb64c0485617ef",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/router.jsx": "815e5cb6802459652a70ae3e06fb2af7592b3d3d"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/declarations.js": "ea1ef0377bb2252c181981f4ba8cd70e02ddf3ea",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/callbacks.js": "3dc64efb8b33711a37475b15e22b29faee0cb1d1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/lib/utils.js": "2cf4fac7fafb2b4a39b937e9bebb64c0485617ef",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/router.jsx": "815e5cb6802459652a70ae3e06fb2af7592b3d3d"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "ihealth:utils": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    },
+    "alanning:roles": {
+      "kind": "versioned",
+      "version": "1.2.14"
+    },
+    "aldeed:simple-schema": {
+      "kind": "versioned",
+      "version": "1.3.3"
+    },
+    "aldeed:collection2": {
+      "kind": "versioned",
+      "version": "2.3.3"
+    },
+    "matb33:collection-hooks": {
+      "kind": "versioned",
+      "version": "0.7.15"
+    },
+    "kadira:flow-router": {
+      "kind": "versioned",
+      "version": "2.7.0"
+    },
+    "react": {
+      "kind": "versioned",
+      "version": "0.1.13"
+    },
+    "coffeescript": {
+      "kind": "versioned",
+      "version": "1.0.10"
+    },
+    "check": {
+      "kind": "versioned",
+      "version": "1.0.6"
+    },
+    "underscore": {
+      "kind": "versioned",
+      "version": "1.0.4"
+    },
+    "momentjs:moment": {
+      "kind": "versioned",
+      "version": "2.10.6"
+    },
+    "meteorhacks:fast-render": {
+      "kind": "versioned",
+      "version": "2.10.0"
+    },
+    "fastclick": {
+      "kind": "versioned",
+      "version": "1.0.7"
+    },
+    "mongo": {
+      "kind": "versioned",
+      "version": "1.1.2"
+    },
+    "jsx": {
+      "kind": "versioned",
+      "version": "0.2.1"
+    },
+    "react-runtime": {
+      "kind": "versioned",
+      "version": "0.13.3_7"
+    },
+    "react-meteor-data": {
+      "kind": "versioned",
+      "version": "0.1.9"
+    },
+    "babel-runtime": {
+      "kind": "versioned",
+      "version": "0.1.4"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

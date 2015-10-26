@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/server/publish/app.js"],"names":[],"mappings":"eAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA,G","file":"/server/publish/app.js","sourcesContent":["/**\n * Created on 9/15/15.\n */\n\n\nMeteor.publish(\"appInfo\", function () {\n    return DB.App.find();\n});"]}

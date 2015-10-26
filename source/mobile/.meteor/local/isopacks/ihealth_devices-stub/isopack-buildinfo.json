@@ -1,0 +1,58 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/package.js": "919863308f608f4f642240da1c1db19a261ed9a4",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/callback-simulator.js": "6d1ffc868c812251e742dafe19e6ee4ebef6894e"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/package.js": "919863308f608f4f642240da1c1db19a261ed9a4",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/callback-simulator.js": "6d1ffc868c812251e742dafe19e6ee4ebef6894e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/bg-stub.js": "aabe850a96e7612fc13da9b74a07816d65baf7b5",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/bp-stub.js": "28b898d341fb4b5f372744e521fe31b6bc738603"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/package.js": "919863308f608f4f642240da1c1db19a261ed9a4",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/callback-simulator.js": "6d1ffc868c812251e742dafe19e6ee4ebef6894e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/bg-stub.js": "aabe850a96e7612fc13da9b74a07816d65baf7b5",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/bp-stub.js": "28b898d341fb4b5f372744e521fe31b6bc738603"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub/package.js": "919863308f608f4f642240da1c1db19a261ed9a4"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "ihealth:devices-stub": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_devices-stub"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    },
+    "underscore": {
+      "kind": "versioned",
+      "version": "1.0.4"
+    },
+    "ihealth:dev-tools": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

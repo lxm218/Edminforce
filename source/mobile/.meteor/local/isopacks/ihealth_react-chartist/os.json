@@ -1,0 +1,25 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "react"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:framework-engine"
+    }
+  ],
+  "implies": [
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    }
+  ],
+  "resources": []
+}

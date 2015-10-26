@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/packages/meteorflux_namespace/meteorflux.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;AAAA;AACA,yE","file":"/packages/meteorflux_namespace.js","sourcesContent":["MeteorFlux = {};\n"]}

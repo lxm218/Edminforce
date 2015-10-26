@@ -1,0 +1,27 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "Immutable",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/vendor/Immutable.js",
+      "length": 140982,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "vendor/Immutable.js",
+      "hash": "8fb35e29593524325dcf89277bbb63b04cfb9028",
+      "fileOptions": {}
+    }
+  ]
+}

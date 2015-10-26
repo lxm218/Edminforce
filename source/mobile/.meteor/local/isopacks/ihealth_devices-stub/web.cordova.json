@@ -1,0 +1,56 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "DevicesStub",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "underscore",
+      "constraint": "1.0.3"
+    },
+    {
+      "package": "ihealth:dev-tools"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/callback-simulator.js",
+      "length": 812,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "callback-simulator.js",
+      "hash": "6d1ffc868c812251e742dafe19e6ee4ebef6894e",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/bg-stub.js",
+      "length": 7326,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "bg-stub.js",
+      "hash": "aabe850a96e7612fc13da9b74a07816d65baf7b5",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/bp-stub.js",
+      "length": 5419,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "bp-stub.js",
+      "hash": "28b898d341fb4b5f372744e521fe31b6bc738603",
+      "fileOptions": {}
+    }
+  ]
+}

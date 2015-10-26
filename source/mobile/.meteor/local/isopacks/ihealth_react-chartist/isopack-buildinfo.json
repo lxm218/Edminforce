@@ -1,0 +1,132 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/package.js": "910f746ee5d4d9b1839c35eed7acecde02b4f7a1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine/package.js": "49be9b3e74eb34c53a5ac3eb2812e03633d2ccc1"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/package.js": "910f746ee5d4d9b1839c35eed7acecde02b4f7a1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine/package.js": "49be9b3e74eb34c53a5ac3eb2812e03633d2ccc1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/lib/chartist.js": "3af9baee6566afa9e35a54414701197d3d298b4b",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/lib/chartist.min.css": "ff608d954624e012b28c7661388ccf82a9307ffe",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/lib/helper.js": "edc9b1310c97e144186c8d36ddb251199a2684a8",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/RC/chart.jsx": "05f6d817f1230671d6d076d10fc51484499d1667",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/RC/chart.css": "1cf9a6e85279ab93b9a836d2d3837e5f9adba270"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/package.js": "910f746ee5d4d9b1839c35eed7acecde02b4f7a1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine/package.js": "49be9b3e74eb34c53a5ac3eb2812e03633d2ccc1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/lib/chartist.js": "3af9baee6566afa9e35a54414701197d3d298b4b",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/lib/chartist.min.css": "ff608d954624e012b28c7661388ccf82a9307ffe",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/lib/helper.js": "edc9b1310c97e144186c8d36ddb251199a2684a8",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/RC/chart.jsx": "05f6d817f1230671d6d076d10fc51484499d1667",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/RC/chart.css": "1cf9a6e85279ab93b9a836d2d3837e5f9adba270"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist/package.js": "910f746ee5d4d9b1839c35eed7acecde02b4f7a1"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "ihealth:react-chartist": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_react-chartist"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    },
+    "react": {
+      "kind": "versioned",
+      "version": "0.1.13"
+    },
+    "ihealth:utils": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils"
+    },
+    "ihealth:framework-engine": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine"
+    },
+    "jsx": {
+      "kind": "versioned",
+      "version": "0.2.1"
+    },
+    "react-runtime": {
+      "kind": "versioned",
+      "version": "0.13.3_7"
+    },
+    "react-meteor-data": {
+      "kind": "versioned",
+      "version": "0.1.9"
+    },
+    "alanning:roles": {
+      "kind": "versioned",
+      "version": "1.2.14"
+    },
+    "aldeed:simple-schema": {
+      "kind": "versioned",
+      "version": "1.3.3"
+    },
+    "aldeed:collection2": {
+      "kind": "versioned",
+      "version": "2.3.3"
+    },
+    "matb33:collection-hooks": {
+      "kind": "versioned",
+      "version": "0.7.15"
+    },
+    "kadira:flow-router": {
+      "kind": "versioned",
+      "version": "2.7.0"
+    },
+    "coffeescript": {
+      "kind": "versioned",
+      "version": "1.0.10"
+    },
+    "check": {
+      "kind": "versioned",
+      "version": "1.0.6"
+    },
+    "underscore": {
+      "kind": "versioned",
+      "version": "1.0.4"
+    },
+    "momentjs:moment": {
+      "kind": "versioned",
+      "version": "2.10.6"
+    },
+    "meteorhacks:fast-render": {
+      "kind": "versioned",
+      "version": "2.10.0"
+    },
+    "fastclick": {
+      "kind": "versioned",
+      "version": "1.0.7"
+    },
+    "babel-runtime": {
+      "kind": "versioned",
+      "version": "0.1.4"
+    },
+    "mongo": {
+      "kind": "versioned",
+      "version": "1.1.2"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

@@ -1,0 +1,27 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "DevTools",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/debug-console.js",
+      "length": 860,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "debug-console.js",
+      "hash": "9b7e5aeffc54a2f037496947e9b51dcca6a2e6fe",
+      "fileOptions": {}
+    }
+  ]
+}

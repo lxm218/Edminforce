@@ -1,0 +1,61 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "aldeed:simple-schema",
+      "constraint": "1.3.3"
+    },
+    {
+      "package": "aldeed:collection2",
+      "constraint": "2.3.3"
+    },
+    {
+      "package": "matb33:collection-hooks",
+      "constraint": "0.7.13"
+    },
+    {
+      "package": "accounts-password",
+      "constraint": "1.1.1"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:framework-engine"
+    }
+  ],
+  "implies": [
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/lib/schemas.js",
+      "length": 3402,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "lib/schemas.js",
+      "hash": "c43531a30b46a24ae95bbf61fb033d7559822130",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/lib/server/createUser.js",
+      "length": 528,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "lib/server/createUser.js",
+      "hash": "b5ba53fd55459a902fa0fef3b6a34ceab4bb645d",
+      "fileOptions": {}
+    }
+  ]
+}

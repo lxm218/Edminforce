@@ -1,0 +1,43 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals/package.js": "e2e7c84d577327ea32113772659e6533be78a5ab",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals/globals.js": "75357294e2ec6a74fb8db03871c87f2f58b4767c"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals/package.js": "e2e7c84d577327ea32113772659e6533be78a5ab",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals/globals.js": "75357294e2ec6a74fb8db03871c87f2f58b4767c"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals/package.js": "e2e7c84d577327ea32113772659e6533be78a5ab",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals/globals.js": "75357294e2ec6a74fb8db03871c87f2f58b4767c"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals/package.js": "e2e7c84d577327ea32113772659e6533be78a5ab"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "cal:globals": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_globals"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/server/publish/sessions.js"],"names":[],"mappings":"yBAAA;AACA;AACA,G","file":"/server/publish/sessions.js","sourcesContent":["Meteor.publish(\"sessions\", function () {\n    return DB.Sessions.find();\n});"]}

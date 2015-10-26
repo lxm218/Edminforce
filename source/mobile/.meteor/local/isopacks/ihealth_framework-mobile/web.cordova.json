@@ -1,0 +1,83 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "RC",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "fourseven:scss"
+    },
+    {
+      "package": "react"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:framework-engine"
+    }
+  ],
+  "implies": [
+    {
+      "package": "react",
+      "constraint": ""
+    },
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    },
+    {
+      "package": "fastclick",
+      "constraint": "1.0.3"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/startup.js",
+      "length": 616,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "startup.js",
+      "hash": "9d151d8fd60c8aafe52d9990e93cc3afa9913046",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/swipe/swipe.jsx",
+      "length": 16935,
+      "offset": 0,
+      "path": "RC/swipe/swipe.jsx",
+      "hash": "7ad4bd55fec0db2771d84770f8ef865c3bea124e",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/leftNav/leftNav.jsx",
+      "length": 905,
+      "offset": 0,
+      "path": "RC/leftNav/leftNav.jsx",
+      "hash": "62f9a816d4ac189e320dceb07d677a9a5407906b",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/leftNav/leftNav2.jsx",
+      "length": 1768,
+      "offset": 0,
+      "path": "RC/leftNav/leftNav2.jsx",
+      "hash": "192f6307df529c9307773d7ddbc307a9c822ed53",
+      "fileOptions": {}
+    }
+  ]
+}

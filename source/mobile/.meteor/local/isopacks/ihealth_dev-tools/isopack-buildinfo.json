@@ -1,0 +1,43 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/debug-console.js": "9b7e5aeffc54a2f037496947e9b51dcca6a2e6fe"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/debug-console.js": "9b7e5aeffc54a2f037496947e9b51dcca6a2e6fe"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/debug-console.js": "9b7e5aeffc54a2f037496947e9b51dcca6a2e6fe"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "ihealth:dev-tools": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

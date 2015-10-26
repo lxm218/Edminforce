@@ -1,0 +1,34 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "iHealthBG5",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "underscore",
+      "constraint": "1.0.3"
+    },
+    {
+      "package": "ihealth:dev-tools"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/bg5.js",
+      "length": 19503,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "bg5.js",
+      "hash": "29db03f7df4019a4ebeccbe04176a841a3b958ac",
+      "fileOptions": {}
+    }
+  ]
+}

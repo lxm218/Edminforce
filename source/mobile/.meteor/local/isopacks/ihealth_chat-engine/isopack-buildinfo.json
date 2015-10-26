@@ -1,0 +1,174 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/package.js": "efd92abd6fc3f2f6093f99ba4d1c0d1f3abc7320",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_users/package.js": "04953a999d70a319461412e2d8850c4e0d46a8a3",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/dispatcher/dispatcher.js": "41d5ed4ab7aff0a639b694ddd94eb5b50e87efab",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/messageStore.coffee": "f06450141c78245e5530264858406ca7c264f778",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/channelStore.coffee": "2d8fdfaedb9fe1022d0da3a49b6ee871abbc5732",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/statusStore.coffee": "fdb82e1d93e2bb4daa40941d36b72a48efe12417",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/channelActions.coffee": "92262f70758c110680ee59aa299697f4b4628d84",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/messageActions.coffee": "12ad4d5d106c559c5bc9a058f7d034ca732672ae",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/statusActions.coffee": "f1e5e53593429b0b8d50976dd5176981ebeb93aa",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/publications.coffee": "0389a2fffece242d92b8ccfc59ecc21ca99f748f",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/methods.coffee": "39b201364277acfc059b3eb4958e44423e5eeb1e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/temp.coffee": "05b808ab85d3ddd3601add7a7c924df5f81d7bde"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/package.js": "efd92abd6fc3f2f6093f99ba4d1c0d1f3abc7320",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_users/package.js": "04953a999d70a319461412e2d8850c4e0d46a8a3",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/dispatcher/dispatcher.js": "41d5ed4ab7aff0a639b694ddd94eb5b50e87efab",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/messageStore.coffee": "f06450141c78245e5530264858406ca7c264f778",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/channelStore.coffee": "2d8fdfaedb9fe1022d0da3a49b6ee871abbc5732",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/statusStore.coffee": "fdb82e1d93e2bb4daa40941d36b72a48efe12417",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/channelActions.coffee": "92262f70758c110680ee59aa299697f4b4628d84",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/messageActions.coffee": "12ad4d5d106c559c5bc9a058f7d034ca732672ae",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/statusActions.coffee": "f1e5e53593429b0b8d50976dd5176981ebeb93aa",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/camera.coffee": "2ee29d58f028ab0b775047046edd5e7cae116d2e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/components/ChatChannelList.jsx": "46057929ece634122e67ae4eb049cabf5198d9b2",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/components/ChatMessageList.jsx": "3fcbd1f879a947812b92f0c061f7d340494c6603",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/components/ChatView.jsx": "793bfb2a93bdcc3d63bd215e943b43d2ec475a04"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/package.js": "efd92abd6fc3f2f6093f99ba4d1c0d1f3abc7320",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_users/package.js": "04953a999d70a319461412e2d8850c4e0d46a8a3",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/dispatcher/dispatcher.js": "41d5ed4ab7aff0a639b694ddd94eb5b50e87efab",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/messageStore.coffee": "f06450141c78245e5530264858406ca7c264f778",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/channelStore.coffee": "2d8fdfaedb9fe1022d0da3a49b6ee871abbc5732",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/stores/statusStore.coffee": "fdb82e1d93e2bb4daa40941d36b72a48efe12417",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/channelActions.coffee": "92262f70758c110680ee59aa299697f4b4628d84",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/messageActions.coffee": "12ad4d5d106c559c5bc9a058f7d034ca732672ae",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/actions/statusActions.coffee": "f1e5e53593429b0b8d50976dd5176981ebeb93aa",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/camera.coffee": "2ee29d58f028ab0b775047046edd5e7cae116d2e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/components/ChatChannelList.jsx": "46057929ece634122e67ae4eb049cabf5198d9b2",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/components/ChatMessageList.jsx": "3fcbd1f879a947812b92f0c061f7d340494c6603",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/components/ChatView.jsx": "793bfb2a93bdcc3d63bd215e943b43d2ec475a04"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine/package.js": "efd92abd6fc3f2f6093f99ba4d1c0d1f3abc7320"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "ihealth:chat-engine": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_chat-engine"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    },
+    "ihealth:utils": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils"
+    },
+    "ihealth:users": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_users"
+    },
+    "accounts-password": {
+      "kind": "versioned",
+      "version": "1.1.3"
+    },
+    "reywood:publish-composite": {
+      "kind": "versioned",
+      "version": "1.4.2"
+    },
+    "meteorflux:dispatcher": {
+      "kind": "versioned",
+      "version": "1.1.0"
+    },
+    "alanning:roles": {
+      "kind": "versioned",
+      "version": "1.2.14"
+    },
+    "aldeed:simple-schema": {
+      "kind": "versioned",
+      "version": "1.3.3"
+    },
+    "aldeed:collection2": {
+      "kind": "versioned",
+      "version": "2.3.3"
+    },
+    "matb33:collection-hooks": {
+      "kind": "versioned",
+      "version": "0.7.15"
+    },
+    "kadira:flow-router": {
+      "kind": "versioned",
+      "version": "2.7.0"
+    },
+    "react": {
+      "kind": "versioned",
+      "version": "0.1.13"
+    },
+    "coffeescript": {
+      "kind": "versioned",
+      "version": "1.0.10"
+    },
+    "check": {
+      "kind": "versioned",
+      "version": "1.0.6"
+    },
+    "underscore": {
+      "kind": "versioned",
+      "version": "1.0.4"
+    },
+    "momentjs:moment": {
+      "kind": "versioned",
+      "version": "2.10.6"
+    },
+    "meteorhacks:fast-render": {
+      "kind": "versioned",
+      "version": "2.10.0"
+    },
+    "fastclick": {
+      "kind": "versioned",
+      "version": "1.0.7"
+    },
+    "accounts-base": {
+      "kind": "versioned",
+      "version": "1.2.1"
+    },
+    "meteorflux:namespace": {
+      "kind": "versioned",
+      "version": "1.0.0"
+    },
+    "mongo": {
+      "kind": "versioned",
+      "version": "1.1.2"
+    },
+    "jsx": {
+      "kind": "versioned",
+      "version": "0.2.1"
+    },
+    "react-runtime": {
+      "kind": "versioned",
+      "version": "0.13.3_7"
+    },
+    "react-meteor-data": {
+      "kind": "versioned",
+      "version": "0.1.9"
+    },
+    "babel-runtime": {
+      "kind": "versioned",
+      "version": "0.1.4"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

@@ -1,0 +1,53 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_bg5/package.js": "c9af0b57ed68d9fc8429869de379ef56de2ceeb9",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_bg5/package.js": "c9af0b57ed68d9fc8429869de379ef56de2ceeb9",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_bg5/bg5.js": "29db03f7df4019a4ebeccbe04176a841a3b958ac"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_bg5/package.js": "c9af0b57ed68d9fc8429869de379ef56de2ceeb9",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools/package.js": "904562e993e3a7c78d44e2d6ac7fb646ad29e010",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_bg5/bg5.js": "29db03f7df4019a4ebeccbe04176a841a3b958ac"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_bg5/package.js": "c9af0b57ed68d9fc8429869de379ef56de2ceeb9"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "ihealth:bg5": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_bg5"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    },
+    "underscore": {
+      "kind": "versioned",
+      "version": "1.0.4"
+    },
+    "ihealth:dev-tools": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_dev-tools"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

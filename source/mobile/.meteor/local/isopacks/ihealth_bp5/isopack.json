@@ -1,0 +1,29 @@
+{
+  "isopack-2": {
+    "name": "ihealth:bp5",
+    "summary": "iHealth BP5 Javascript class -- use with iHealth BP5 Cordova Plugin.",
+    "version": "0.2.1",
+    "isTest": false,
+    "builds": [
+      {
+        "kind": "main",
+        "arch": "os",
+        "path": "os.json"
+      },
+      {
+        "kind": "main",
+        "arch": "web.browser",
+        "path": "web.browser.json"
+      },
+      {
+        "kind": "main",
+        "arch": "web.cordova",
+        "path": "web.cordova.json"
+      }
+    ],
+    "plugins": [],
+    "cordovaDependencies": {
+      "com.ihealth.plugin.bpmanagercordova": "https://github.com/iHealthLab/plugin-ihealth-bp/tarball/0a815b6a02bb622db40255f1220b223b078e0730"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "react"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:framework-engine"
+    }
+  ],
+  "implies": [
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/lib/chartist.js",
+      "length": 163301,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "lib/chartist.js",
+      "hash": "3af9baee6566afa9e35a54414701197d3d298b4b",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "css",
+      "file": "web.cordova/lib/chartist.min.css",
+      "length": 11463,
+      "offset": 0,
+      "path": "lib/chartist.min.css",
+      "hash": "ff608d954624e012b28c7661388ccf82a9307ffe",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/lib/helper.js",
+      "length": 2723,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "lib/helper.js",
+      "hash": "edc9b1310c97e144186c8d36ddb251199a2684a8",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/chart.jsx",
+      "length": 1317,
+      "offset": 0,
+      "path": "RC/chart.jsx",
+      "hash": "05f6d817f1230671d6d076d10fc51484499d1667",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "css",
+      "file": "web.cordova/RC/chart.css",
+      "length": 33,
+      "offset": 0,
+      "path": "RC/chart.css",
+      "hash": "1cf9a6e85279ab93b9a836d2d3837e5f9adba270",
+      "fileOptions": {}
+    }
+  ]
+}

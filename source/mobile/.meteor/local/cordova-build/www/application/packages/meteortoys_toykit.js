@@ -1,0 +1,373 @@
+//////////////////////////////////////////////////////////////////////////
+//                                                                      //
+// This is a generated file. You can view the original                  //
+// source in your browser if your browser supports source maps.         //
+// Source maps are supported by all recent versions of Chrome, Safari,  //
+// and Firefox, and by Internet Explorer 11.                            //
+//                                                                      //
+//////////////////////////////////////////////////////////////////////////
+
+
+(function () {
+
+/* Imports */
+var Meteor = Package.meteor.Meteor;
+var Template = Package.templating.Template;
+var check = Package.check.check;
+var Match = Package.check.Match;
+var ReactiveDict = Package['reactive-dict'].ReactiveDict;
+var ReactiveVar = Package['reactive-var'].ReactiveVar;
+var Tracker = Package.tracker.Tracker;
+var Deps = Package.tracker.Deps;
+var $ = Package.jquery.$;
+var jQuery = Package.jquery.jQuery;
+var Mongo = Package.mongo.Mongo;
+var LocalCollection = Package.minimongo.LocalCollection;
+var Minimongo = Package.minimongo.Minimongo;
+var Session = Package.session.Session;
+var Blaze = Package.blaze.Blaze;
+var UI = Package.blaze.UI;
+var Handlebars = Package.blaze.Handlebars;
+var Spacebars = Package.spacebars.Spacebars;
+var HTML = Package.htmljs.HTML;
+
+/* Package-scope variables */
+var MeteorToysData, ToyKitData, ToyKit, password, email, MeteorToys, quote, MeteorToysDict, MeteorToys_JSON, data, keys, temp, em, pw, targetPackage, ToyKitCore, ToyKitAddon, name, pixels, current, position, coordinate, self, MeteorToysNotifications, MeteorToysNotifyDict, Note, Counter, Data, item, NotifyClose, NotifyInternal;
+
+(function(){
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+// packages/meteortoys_toykit/lib/collections.js                                                                      //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                      //
+var _0x753f=["\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x49\x6D\x70\x65\x72\x73\x6F\x6E\x61\x74\x65","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x4A\x65\x74\x53\x65\x74\x74\x65\x72","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x4D\x6F\x6E\x67\x6F\x6C","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x41\x75\x74\x6F\x50\x75\x62","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x45\x6D\x61\x69\x6C","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x52\x65\x73\x75\x6C\x74","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x54\x68\x72\x6F\x74\x74\x6C\x65","\x61\x6C\x6C\x6F\x77","\x49\x6D\x70\x65\x72\x73\x6F\x6E\x61\x74\x65","\x4A\x65\x74\x53\x65\x74\x74\x65\x72","\x4D\x6F\x6E\x67\x6F\x6C","\x41\x75\x74\x6F\x50\x75\x62","\x45\x6D\x61\x69\x6C","\x52\x65\x73\x75\x6C\x74","\x69\x73\x53\x65\x72\x76\x65\x72","\x63\x72\x65\x64\x65\x6E\x74\x69\x61\x6C\x73","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x43\x72\x65\x64\x65\x6E\x74\x69\x61\x6C\x73","\x69\x73\x43\x6C\x69\x65\x6E\x74","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x2F\x54\x6F\x79\x4B\x69\x74","\x74\x6F\x67\x67\x6C\x65\x44\x69\x73\x70\x6C\x61\x79","\x64\x69\x73\x70\x6C\x61\x79","\x67\x65\x74","\x73\x65\x74","\x66\x6F\x63\x75\x73","\x73\x74\x61\x72\x74\x53\x75\x62\x73\x63\x72\x69\x70\x74\x69\x6F\x6E","\x61\x75\x74\x6F\x70\x75\x62\x6C\x69\x73\x68","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x61\x75\x74\x6F\x70\x75\x62\x6C\x69\x73\x68","\x73\x75\x62\x73\x63\x72\x69\x62\x65","\x61\x75\x74\x6F\x72\x75\x6E","\x62\x69\x6E\x64\x48\x6F\x74\x4B\x65\x79\x73","\x6B\x65\x79\x43\x6F\x64\x65","\x63\x74\x72\x6C\x4B\x65\x79","\x6B\x65\x79\x64\x6F\x77\x6E","\x63\x68\x65\x63\x6B\x41\x75\x74\x68\x65\x6E\x74\x69\x63\x61\x74\x69\x6F\x6E","\x61\x75\x74\x68\x65\x6E\x74\x69\x63\x61\x74\x65\x64","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x70\x61\x73\x73\x77\x6F\x72\x64","\x67\x65\x74\x49\x74\x65\x6D","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x65\x6D\x61\x69\x6C","\x4D\x6F\x6E\x67\x6F\x6C\x5F\x76\x65\x72\x69\x66\x79\x44\x6F\x63","\x63\x61\x6C\x6C","\x54\x68\x65\x20\x73\x74\x6F\x72\x65\x64\x20\x61\x75\x74\x68\x65\x6E\x74\x69\x63\x61\x74\x69\x6F\x6E\x20\x6B\x65\x79\x73\x20\x66\x6F\x72\x20\x4D\x65\x74\x65\x6F\x72\x20\x54\x6F\x79\x73\x20\x61\x72\x65\x20\x69\x6E\x76\x61\x6C\x69\x64\x2E","\x6C\x6F\x67","\x67\x72\x61\x62\x54\x6F\x79\x73","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x52\x65\x67\x69\x73\x74\x72\x79","\x72\x65\x67\x69\x73\x74\x72\x79","\x70\x61\x72\x73\x65","\x63\x6F\x6C\x6F\x72\x69\x7A\x65","\x3C\x65\x6D\x3E\x4E\x6F\x20\x64\x61\x74\x61\x3C\x2F\x65\x6D\x3E","\x73\x74\x72\x69\x6E\x67","\x73\x74\x72\x69\x6E\x67\x69\x66\x79","\x3C\x73\x70\x61\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x73\x74\x72\x69\x6E\x67\x22\x3E\x22","\x22\x3C\x2F\x73\x70\x61\x6E\x3E","\x26\x67\x74\x3B","\x72\x65\x70\x6C\x61\x63\x65","\x26\x6C\x74\x3B","\x26\x61\x6D\x70\x3B","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x75\x6D\x62\x65\x72","\x74\x65\x73\x74","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6B\x65\x79","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x73\x74\x72\x69\x6E\x67","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x62\x6F\x6F\x6C\x65\x61\x6E","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x75\x6C\x6C","\x3C\x73\x70\x61\x6E\x20\x63\x6C\x61\x73\x73\x3D\x22","\x22\x3E\x22\x3C\x2F\x73\x70\x61\x6E\x3E","","\x22\x20\x63\x6F\x6E\x74\x65\x6E\x74\x65\x64\x69\x74\x61\x62\x6C\x65\x3D\x22\x66\x61\x6C\x73\x65\x22\x3E","\x3C\x2F\x73\x70\x61\x6E\x3E","\x3A","\x6C\x65\x6E\x67\x74\x68","\x73\x75\x62\x73\x74\x72\x69\x6E\x67","\x63\x6F\x6C\x6F\x72\x69\x7A\x65\x45\x64\x69\x74\x61\x62\x6C\x65","\x20\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x69\x6E\x6C\x69\x6E\x65\x22\x20\x63\x6F\x6E\x74\x65\x6E\x74\x65\x64\x69\x74\x61\x62\x6C\x65\x3D\x22\x74\x72\x75\x65\x22\x3E","\x20\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x69\x6E\x6C\x69\x6E\x65\x22\x20\x63\x6F\x6E\x74\x65\x6E\x74\x65\x64\x69\x74\x61\x62\x6C\x65\x3D\x22\x74\x72\x75\x65\x22\x3E\x22","\x63\x6C\x6F\x73\x65\x54\x6F\x79","\x63\x75\x72\x72\x65\x6E\x74","\x6F\x70\x65\x6E\x54\x6F\x79"];MeteorToysData={"\x49\x6D\x70\x65\x72\x73\x6F\x6E\x61\x74\x65": new Mongo.Collection(_0x753f[0]),"\x4A\x65\x74\x53\x65\x74\x74\x65\x72": new Mongo.Collection(_0x753f[1]),"\x4D\x6F\x6E\x67\x6F\x6C": new Mongo.Collection(_0x753f[2]),"\x41\x75\x74\x6F\x50\x75\x62": new Mongo.Collection(_0x753f[3]),"\x45\x6D\x61\x69\x6C": new Mongo.Collection(_0x753f[4]),"\x52\x65\x73\x75\x6C\x74": new Mongo.Collection(_0x753f[5]),"\x54\x68\x72\x6F\x74\x74\x6C\x65": new Mongo.Collection(_0x753f[6])};MeteorToysData[_0x753f[8]][_0x753f[7]]({insert:function(){return true},remove:function(){return true},update:function(){return true}});MeteorToysData[_0x753f[9]][_0x753f[7]]({insert:function(){return true},remove:function(){return true},update:function(){return true}});MeteorToysData[_0x753f[10]][_0x753f[7]]({insert:function(){return true},remove:function(){return true},update:function(){return true}});MeteorToysData[_0x753f[11]][_0x753f[7]]({insert:function(){return true},remove:function(){return true},update:function(){return true}});MeteorToysData[_0x753f[12]][_0x753f[7]]({insert:function(){return true},remove:function(){return true},update:function(){return true}});MeteorToysData[_0x753f[13]][_0x753f[7]]({insert:function(){return true},remove:function(){return true},update:function(){return true}});if(Meteor[_0x753f[14]]){MeteorToysData[_0x753f[15]]= new Mongo.Collection(_0x753f[16])};if(Meteor[_0x753f[17]]){ToyKitData= new ReactiveDict(_0x753f[18]);ToyKit=ToyKitData;ToyKit[_0x753f[19]]=function(){var _0xab66x1=ToyKit[_0x753f[21]](_0x753f[20]);if(_0xab66x1){ToyKit[_0x753f[22]](_0x753f[20],false);ToyKit[_0x753f[22]](_0x753f[23],null);}else {ToyKit[_0x753f[22]](_0x753f[20],true);ToyKit[_0x753f[22]](_0x753f[23],null);};};ToyKit[_0x753f[24]]=function(){if(Package[_0x753f[25]]){return false};Tracker[_0x753f[29]](function(){Meteor[_0x753f[28]](_0x753f[26],MeteorToysDict[_0x753f[21]](_0x753f[27]))});};ToyKit[_0x753f[30]]=function(){$(document)[_0x753f[33]](function(_0xab66x2){if(_0xab66x2[_0x753f[31]]===77&&_0xab66x2[_0x753f[32]]){ToyKit[_0x753f[19]]()}})};ToyKit[_0x753f[34]]=function(){Meteor[_0x753f[40]](_0x753f[26],function(_0xab66x2,_0xab66x3){ToyKit[_0x753f[22]](_0x753f[35],_0xab66x3);if(!_0xab66x3){password=localStorage[_0x753f[37]](_0x753f[36]);email=localStorage[_0x753f[37]](_0x753f[38]);Meteor[_0x753f[40]](_0x753f[39],email,password,function(_0xab66x2,_0xab66x3){if(_0xab66x3){Meteor[_0x753f[40]](_0x753f[26],function(_0xab66x2,_0xab66x3){ToyKit[_0x753f[22]](_0x753f[35],_0xab66x3)})}else {if(localStorage[_0x753f[37]](_0x753f[38])){console[_0x753f[42]](_0x753f[41])}}});};})};ToyKit[_0x753f[43]]=function(){Meteor[_0x753f[40]](_0x753f[44],function(_0xab66x2,_0xab66x3){ToyKit[_0x753f[22]](_0x753f[45],_0xab66x3)})};MeteorToys= new ReactiveDict(_0x753f[26]);MeteorToys[_0x753f[46]]=function(_0xab66x4){var _0xab66x5=false;try{_0xab66x5=JSON[_0x753f[46]](_0xab66x4)}catch(error){_0xab66x5=String(_0xab66x4)};return _0xab66x5;};MeteorToys[_0x753f[47]]=function(_0xab66x6){if(!_0xab66x6){return _0x753f[48]};if( typeof _0xab66x6!=_0x753f[49]){_0xab66x6=JSON[_0x753f[50]](_0xab66x6,undefined,2)}else {return _0x753f[51]+_0xab66x6+_0x753f[52]};_0xab66x6=_0xab66x6[_0x753f[54]](/&/g,_0x753f[56])[_0x753f[54]](/</g,_0x753f[55])[_0x753f[54]](/>/g,_0x753f[53]);return _0xab66x6[_0x753f[54]](/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,function(_0xab66x7){var _0xab66x8=_0x753f[57];if(/^"/[_0x753f[58]](_0xab66x7)){if(/:$/[_0x753f[58]](_0xab66x7)){_0xab66x8=_0x753f[59]}else {_0xab66x8=_0x753f[60]}}else {if(/true|false/[_0x753f[58]](_0xab66x7)){_0xab66x8=_0x753f[61]}else {if(/null/[_0x753f[58]](_0xab66x7)){_0xab66x8=_0x753f[62]}}};quote=_0x753f[63]+_0xab66x8+_0x753f[64];switch(_0xab66x8){case _0x753f[59]:_0xab66x7=_0xab66x7[_0x753f[54]](/"/g,_0x753f[65]);_0xab66x7=_0xab66x7[_0x753f[54]](/:/g,_0x753f[65]);return quote+_0x753f[63]+_0xab66x8+_0x753f[66]+_0xab66x7+_0x753f[67]+quote+_0x753f[68];break ;;case _0x753f[57]:return _0x753f[63]+_0xab66x8+_0x753f[66]+_0xab66x7+_0x753f[67];break ;;case _0x753f[60]:_0xab66x7=_0xab66x7[_0x753f[70]](1,_0xab66x7[_0x753f[69]]-1);return quote+_0x753f[63]+_0xab66x8+_0x753f[66]+_0xab66x7+_0x753f[67]+quote;break ;;case _0x753f[61]:return _0x753f[63]+_0xab66x8+_0x753f[66]+_0xab66x7+_0x753f[67];break ;;case _0x753f[62]:return _0x753f[63]+_0xab66x8+_0x753f[66]+_0xab66x7+_0x753f[67];break ;;};});};MeteorToys[_0x753f[71]]=function(_0xab66x6){if(!_0xab66x6){return _0x753f[48]};if( typeof _0xab66x6!=_0x753f[49]){_0xab66x6=JSON[_0x753f[50]](_0xab66x6,undefined,2)};_0xab66x6=_0xab66x6[_0x753f[54]](/&/g,_0x753f[56])[_0x753f[54]](/</g,_0x753f[55])[_0x753f[54]](/>/g,_0x753f[53]);return _0xab66x6[_0x753f[54]](/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,function(_0xab66x7){var _0xab66x8=_0x753f[57];if(/^"/[_0x753f[58]](_0xab66x7)){if(/:$/[_0x753f[58]](_0xab66x7)){_0xab66x8=_0x753f[59]}else {_0xab66x8=_0x753f[60]}}else {if(/true|false/[_0x753f[58]](_0xab66x7)){_0xab66x8=_0x753f[61]}else {if(/null/[_0x753f[58]](_0xab66x7)){_0xab66x8=_0x753f[62]}}};quote=_0x753f[63]+_0xab66x8+_0x753f[64];switch(_0xab66x8){case _0x753f[59]:_0xab66x7=_0xab66x7[_0x753f[54]](/"/g,_0x753f[65]);_0xab66x7=_0xab66x7[_0x753f[54]](/:/g,_0x753f[65]);return quote+_0x753f[63]+_0xab66x8+_0x753f[72]+_0xab66x7+_0x753f[67]+quote+_0x753f[68];break ;;case _0x753f[57]:return _0x753f[63]+_0xab66x8+_0x753f[72]+_0xab66x7+_0x753f[67];break ;;case _0x753f[60]:_0xab66x7=_0xab66x7[_0x753f[70]](1,_0xab66x7[_0x753f[69]]-1);return _0x753f[63]+_0xab66x8+_0x753f[73]+_0xab66x7+_0x753f[52];break ;;case _0x753f[61]:return _0x753f[63]+_0xab66x8+_0x753f[72]+_0xab66x7+_0x753f[67];break ;;case _0x753f[62]:return _0x753f[63]+_0xab66x8+_0x753f[72]+_0xab66x7+_0x753f[67];break ;;};});};MeteorToys[_0x753f[74]]=function(){ToyKit[_0x753f[22]](_0x753f[75],null)};MeteorToys[_0x753f[76]]=function(_0xab66x9){MeteorToys[_0x753f[22]](_0x753f[75],_0xab66x9)};MeteorToysDict=MeteorToys;MeteorToys_JSON=MeteorToys;};
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}).call(this);
+
+
+
+
+
+
+(function(){
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+// packages/meteortoys_toykit/client/template.main.js                                                                 //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                      //
+                                                                                                                      // 1
+Template.__checkName("MeteorToys");                                                                                   // 2
+Template["MeteorToys"] = new Template("Template.MeteorToys", (function() {                                            // 3
+  var view = this;                                                                                                    // 4
+  return Blaze.If(function() {                                                                                        // 5
+    return Spacebars.call(view.lookup("MeteorToys"));                                                                 // 6
+  }, function() {                                                                                                     // 7
+    return [ "\n\n		", HTML.Comment(" Render Meteor Toys "), "\n		", Blaze.If(function() {                            // 8
+      return Spacebars.call(view.lookup("MeteorToys_Pro"));                                                           // 9
+    }, function() {                                                                                                   // 10
+      return [ "\n			", Spacebars.include(view.lookupTemplate("MeteorToys_tooltip")), "\n			", HTML.DIV({             // 11
+        "class": "MeteorToys_orbs"                                                                                    // 12
+      }, "\n				", HTML.Comment(" Render Toys "), "\n				", Blaze.Each(function() {                                   // 13
+        return Spacebars.call(view.lookup("MeteorToy"));                                                              // 14
+      }, function() {                                                                                                 // 15
+        return [ "\n					", Blaze._TemplateWith(function() {                                                          // 16
+          return {                                                                                                    // 17
+            template: Spacebars.call(view.lookup("."))                                                                // 18
+          };                                                                                                          // 19
+        }, function() {                                                                                               // 20
+          return Spacebars.include(function() {                                                                       // 21
+            return Spacebars.call(Template.__dynamic);                                                                // 22
+          });                                                                                                         // 23
+        }), "\n				" ];                                                                                               // 24
+      }), "\n				", HTML.Comment(" Render Addons "), "\n				", Blaze.Each(function() {                                // 25
+        return Spacebars.call(view.lookup("MeteorToy_addon"));                                                        // 26
+      }, function() {                                                                                                 // 27
+        return [ "\n					", HTML.Comment(" {{#MeteorToy name=this}} "), "\n						", Blaze._TemplateWith(function() {  // 28
+          return {                                                                                                    // 29
+            template: Spacebars.call(view.lookup("."))                                                                // 30
+          };                                                                                                          // 31
+        }, function() {                                                                                               // 32
+          return Spacebars.include(function() {                                                                       // 33
+            return Spacebars.call(Template.__dynamic);                                                                // 34
+          });                                                                                                         // 35
+        }), "\n					", HTML.Comment(" {{/MeteorToy}} "), "\n				" ];                                                  // 36
+      }), "\n				", HTML.Comment(" End "), "\n			"), "\n			", HTML.Comment(" {{> MeteorToys_notifications}} "), "\n		" ];
+    }, function() {                                                                                                   // 38
+      return [ "\n			", HTML.DIV({                                                                                    // 39
+        "class": "MeteorToys_orbs"                                                                                    // 40
+      }, "\n				", Blaze._TemplateWith(function() {                                                                   // 41
+        return {                                                                                                      // 42
+          template: Spacebars.call(view.lookup("all"))                                                                // 43
+        };                                                                                                            // 44
+      }, function() {                                                                                                 // 45
+        return Spacebars.include(function() {                                                                         // 46
+          return Spacebars.call(Template.__dynamic);                                                                  // 47
+        });                                                                                                           // 48
+      }), "\n				", Blaze.Each(function() {                                                                           // 49
+        return Spacebars.call(view.lookup("MeteorToy_addon"));                                                        // 50
+      }, function() {                                                                                                 // 51
+        return [ "\n					", HTML.Comment(" {{#MeteorToy name=this}} "), "\n						", Blaze._TemplateWith(function() {  // 52
+          return {                                                                                                    // 53
+            template: Spacebars.call(view.lookup("."))                                                                // 54
+          };                                                                                                          // 55
+        }, function() {                                                                                               // 56
+          return Spacebars.include(function() {                                                                       // 57
+            return Spacebars.call(Template.__dynamic);                                                                // 58
+          });                                                                                                         // 59
+        }), "\n					", HTML.Comment(" {{/MeteorToy}} "), "\n				" ];                                                  // 60
+      }), "\n			"), "\n		" ];                                                                                         // 61
+    }), "\n\n		", HTML.Comment(" Render Non-Toy Packages "), "\n		", HTML.Comment(" ie. Mongol, JetSetter "), "\n		", Blaze.Each(function() {
+      return Spacebars.call(view.lookup("MeteorToysPackage"));                                                        // 63
+    }, function() {                                                                                                   // 64
+      return [ "\n			", Blaze._TemplateWith(function() {                                                              // 65
+        return {                                                                                                      // 66
+          template: Spacebars.call(view.lookup("."))                                                                  // 67
+        };                                                                                                            // 68
+      }, function() {                                                                                                 // 69
+        return Spacebars.include(function() {                                                                         // 70
+          return Spacebars.call(Template.__dynamic);                                                                  // 71
+        });                                                                                                           // 72
+      }), "\n		" ];                                                                                                   // 73
+    }), "\n		", HTML.Comment(" End "), "\n	" ];                                                                       // 74
+  }, function() {                                                                                                     // 75
+    return [ "\n		", Spacebars.include(view.lookupTemplate("MeteorToys_notification_widget")), "\n	" ];               // 76
+  });                                                                                                                 // 77
+}));                                                                                                                  // 78
+                                                                                                                      // 79
+Template.__checkName("MeteorToys_basic");                                                                             // 80
+Template["MeteorToys_basic"] = new Template("Template.MeteorToys_basic", (function() {                                // 81
+  var view = this;                                                                                                    // 82
+  return Blaze._TemplateWith(function() {                                                                             // 83
+    return {                                                                                                          // 84
+      name: Spacebars.call("MeteorToys_basic")                                                                        // 85
+    };                                                                                                                // 86
+  }, function() {                                                                                                     // 87
+    return Spacebars.include(view.lookupTemplate("MeteorToy"), function() {                                           // 88
+      return [ "\n		", HTML.DIV({                                                                                     // 89
+        "class": "MeteorToys_sub_header"                                                                              // 90
+      }, "\n			", HTML.DIV({                                                                                          // 91
+        "class": "MeteorToys_name"                                                                                    // 92
+      }, "Activate Meteor Toys"), "\n		"), "\n		", HTML.DIV({                                                         // 93
+        "class": "MeteorToys_sub_content"                                                                             // 94
+      }, "\n\n		", HTML.FORM("\n			", HTML.DIV({                                                                      // 95
+        "class": "MeteorToys_row"                                                                                     // 96
+      }, "\n				", HTML.INPUT({                                                                                       // 97
+        id: "meteortoyscadf"                                                                                          // 98
+      }), "\n				", HTML.DIV({                                                                                        // 99
+        "class": "MeteorToys_row_name"                                                                                // 100
+      }, "Email"), "\n			"), "\n\n			", HTML.DIV({                                                                    // 101
+        "class": "MeteorToys_row"                                                                                     // 102
+      }, "\n				", HTML.INPUT({                                                                                       // 103
+        id: "meteortoyspass"                                                                                          // 104
+      }), "\n				", HTML.DIV({                                                                                        // 105
+        "class": "MeteorToys_row_name"                                                                                // 106
+      }, "Serial"), "\n			"), "\n\n			", HTML.INPUT({                                                                 // 107
+        type: "submit",                                                                                               // 108
+        value: "Activate",                                                                                            // 109
+        style: "margin-top: -4px"                                                                                     // 110
+      }), "\n\n			", HTML.BR(), HTML.BR(), HTML.BR(), HTML.BR(), HTML.BR(), HTML.BR(), HTML.BR(), "\n			", HTML.DIV({
+        style: "height:10px;"                                                                                         // 112
+      }), "\n			Experience the next level", HTML.BR(), " of Mongol and JetSetter. ", HTML.BR(), "\n			", HTML.A({     // 113
+        href: "http://bit.ly/1FqdsPM"                                                                                 // 114
+      }, "See Meteor Toys ", HTML.CharRef({                                                                           // 115
+        html: "&raquo;",                                                                                              // 116
+        str: "»"                                                                                                      // 117
+      })), "\n\n		"), "\n		"), "\n	" ];                                                                               // 118
+    });                                                                                                               // 119
+  });                                                                                                                 // 120
+}));                                                                                                                  // 121
+                                                                                                                      // 122
+Template.__checkName("MeteorToy");                                                                                    // 123
+Template["MeteorToy"] = new Template("Template.MeteorToy", (function() {                                              // 124
+  var view = this;                                                                                                    // 125
+  return HTML.DIV({                                                                                                   // 126
+    "class": function() {                                                                                             // 127
+      return [ "MeteorToys_orb MeteorToys_hide_Orb ", Spacebars.mustache(view.lookup("type")), " ", Spacebars.mustache(view.lookup("state")) ];
+    },                                                                                                                // 129
+    id: function() {                                                                                                  // 130
+      return Spacebars.mustache(view.lookup("name"));                                                                 // 131
+    },                                                                                                                // 132
+    oncontextmenu: "return false;"                                                                                    // 133
+  }, "\n		", Blaze.If(function() {                                                                                    // 134
+    return Spacebars.call(view.lookup("empty"));                                                                      // 135
+  }, function() {                                                                                                     // 136
+    return [ "\n			", Blaze._InOuterTemplateScope(view, function() {                                                  // 137
+      return Spacebars.include(function() {                                                                           // 138
+        return Spacebars.call(view.templateContentBlock);                                                             // 139
+      });                                                                                                             // 140
+    }), "\n		" ];                                                                                                     // 141
+  }, function() {                                                                                                     // 142
+    return [ "\n			", HTML.DIV({                                                                                      // 143
+      "class": "MeteorToys_icon"                                                                                      // 144
+    }), "\n			", HTML.DIV({                                                                                           // 145
+      "class": "MeteorToys_orb_wrapper"                                                                               // 146
+    }, "\n				", Blaze.If(function() {                                                                                // 147
+      return Spacebars.call(view.lookup("load"));                                                                     // 148
+    }, function() {                                                                                                   // 149
+      return [ "\n					", Blaze._InOuterTemplateScope(view, function() {                                              // 150
+        return Spacebars.include(function() {                                                                         // 151
+          return Spacebars.call(view.templateContentBlock);                                                           // 152
+        });                                                                                                           // 153
+      }), "\n				" ];                                                                                                 // 154
+    }), "\n			"), "\n		" ];                                                                                           // 155
+  }), "\n	");                                                                                                         // 156
+}));                                                                                                                  // 157
+                                                                                                                      // 158
+Template.__checkName("MeteorToys_tooltip");                                                                           // 159
+Template["MeteorToys_tooltip"] = new Template("Template.MeteorToys_tooltip", (function() {                            // 160
+  var view = this;                                                                                                    // 161
+  return Blaze.If(function() {                                                                                        // 162
+    return Spacebars.call(view.lookup("display"));                                                                    // 163
+  }, function() {                                                                                                     // 164
+    return [ "\n	", HTML.DIV({                                                                                        // 165
+      "class": "MeteorToys_tooltip_wrapper MeteorToys_notification_fadeInUp",                                         // 166
+      style: function() {                                                                                             // 167
+        return [ "left: ", Spacebars.mustache(view.lookup("position")), "px;" ];                                      // 168
+      }                                                                                                               // 169
+    }, "\n		", HTML.DIV({                                                                                             // 170
+      "class": "MeteorToys_tooltip "                                                                                  // 171
+    }, "\n			", HTML.DIV({                                                                                            // 172
+      "class": "MeteorToys_tooltip_arrow1"                                                                            // 173
+    }), "\n			", HTML.DIV({                                                                                           // 174
+      "class": "MeteorToys_tooltip_arrow2"                                                                            // 175
+    }), "\n			", Blaze.View("lookup:name", function() {                                                               // 176
+      return Spacebars.mustache(view.lookup("name"));                                                                 // 177
+    }), "\n		"), "\n	"), "\n	" ];                                                                                     // 178
+  });                                                                                                                 // 179
+}));                                                                                                                  // 180
+                                                                                                                      // 181
+Template.__checkName("MeteorToys_notifications");                                                                     // 182
+Template["MeteorToys_notifications"] = new Template("Template.MeteorToys_notifications", (function() {                // 183
+  var view = this;                                                                                                    // 184
+  return HTML.DIV({                                                                                                   // 185
+    id: "MeteorToys_notifications",                                                                                   // 186
+    "class": "MeteorToys_notifications MeteorToys_hide_Notifications",                                                // 187
+    oncontextmenu: "return false;"                                                                                    // 188
+  }, "\n		", Blaze.Each(function() {                                                                                  // 189
+    return Spacebars.call(view.lookup("notifications"));                                                              // 190
+  }, function() {                                                                                                     // 191
+    return [ "\n			", Blaze._TemplateWith(function() {                                                                // 192
+      return {                                                                                                        // 193
+        template: Spacebars.call(view.lookup("type"))                                                                 // 194
+      };                                                                                                              // 195
+    }, function() {                                                                                                   // 196
+      return Spacebars.include(function() {                                                                           // 197
+        return Spacebars.call(Template.__dynamic);                                                                    // 198
+      });                                                                                                             // 199
+    }), "\n		" ];                                                                                                     // 200
+  }), "\n	");                                                                                                         // 201
+}));                                                                                                                  // 202
+                                                                                                                      // 203
+Template.__checkName("MeteorToys_notification_counter");                                                              // 204
+Template["MeteorToys_notification_counter"] = new Template("Template.MeteorToys_notification_counter", (function() {  // 205
+  var view = this;                                                                                                    // 206
+  return HTML.DIV({                                                                                                   // 207
+    "class": "MeteorToys_notification MeteorToys_notification_counter",                                               // 208
+    id: function() {                                                                                                  // 209
+      return [ "MeteorToys_", Spacebars.mustache(view.lookup("_id")) ];                                               // 210
+    }                                                                                                                 // 211
+  }, "\n		", HTML.DIV({                                                                                               // 212
+    "class": "MeteorToys_notification_symbol"                                                                         // 213
+  }, HTML.STRONG(Blaze.View("lookup:data", function() {                                                               // 214
+    return Spacebars.mustache(view.lookup("data"));                                                                   // 215
+  }))), "\n		", HTML.DIV({                                                                                            // 216
+    "class": "MeteorToys_notification_text"                                                                           // 217
+  }, Blaze.View("lookup:text", function() {                                                                           // 218
+    return Spacebars.makeRaw(Spacebars.mustache(view.lookup("text")));                                                // 219
+  })), "\n	");                                                                                                        // 220
+}));                                                                                                                  // 221
+                                                                                                                      // 222
+Template.__checkName("MeteorToys_notification_text");                                                                 // 223
+Template["MeteorToys_notification_text"] = new Template("Template.MeteorToys_notification_text", (function() {        // 224
+  var view = this;                                                                                                    // 225
+  return HTML.DIV({                                                                                                   // 226
+    "class": "MeteorToys_notification",                                                                               // 227
+    id: function() {                                                                                                  // 228
+      return [ "MeteorToys_", Spacebars.mustache(view.lookup("_id")) ];                                               // 229
+    }                                                                                                                 // 230
+  }, HTML.Raw('\n		<div class="MeteorToys_notification_symbol"><strong></strong></div>\n		'), HTML.DIV({              // 231
+    "class": "MeteorToys_notification_text"                                                                           // 232
+  }, Blaze.View("lookup:text", function() {                                                                           // 233
+    return Spacebars.makeRaw(Spacebars.mustache(view.lookup("text")));                                                // 234
+  })), "\n	");                                                                                                        // 235
+}));                                                                                                                  // 236
+                                                                                                                      // 237
+Template.__checkName("MeteorToys_notification_data");                                                                 // 238
+Template["MeteorToys_notification_data"] = new Template("Template.MeteorToys_notification_data", (function() {        // 239
+  var view = this;                                                                                                    // 240
+  return HTML.DIV({                                                                                                   // 241
+    "class": function() {                                                                                             // 242
+      return [ "MeteorToys_notification ", Spacebars.mustache(view.lookup("expanded")) ];                             // 243
+    },                                                                                                                // 244
+    id: function() {                                                                                                  // 245
+      return [ "MeteorToys_", Spacebars.mustache(view.lookup("_id")) ];                                               // 246
+    }                                                                                                                 // 247
+  }, HTML.Raw('\n		<div class="MeteorToys_notification_symbol">\n			<div class="MeteorToys_notification_triangle"></div>\n		</div>\n		'), HTML.DIV({
+    "class": "MeteorToys_notification_text"                                                                           // 249
+  }, Blaze.View("lookup:text", function() {                                                                           // 250
+    return Spacebars.makeRaw(Spacebars.mustache(view.lookup("text")));                                                // 251
+  })), "\n		", Blaze.If(function() {                                                                                  // 252
+    return Spacebars.call(view.lookup("lazyload"));                                                                   // 253
+  }, function() {                                                                                                     // 254
+    return [ HTML.DIV({                                                                                               // 255
+      "class": "MeteorToys_notification_data"                                                                         // 256
+    }, "\n", HTML.PRE(Blaze.View("lookup:data", function() {                                                          // 257
+      return Spacebars.makeRaw(Spacebars.mustache(view.lookup("data")));                                              // 258
+    })), "\n		"), "\n		" ];                                                                                           // 259
+  }), "\n	");                                                                                                         // 260
+}));                                                                                                                  // 261
+                                                                                                                      // 262
+Template.__checkName("MeteorToys_notification_widget");                                                               // 263
+Template["MeteorToys_notification_widget"] = new Template("Template.MeteorToys_notification_widget", (function() {    // 264
+  var view = this;                                                                                                    // 265
+  return Blaze.If(function() {                                                                                        // 266
+    return Spacebars.call(view.lookup("count"));                                                                      // 267
+  }, function() {                                                                                                     // 268
+    return [ HTML.DIV({                                                                                               // 269
+      "class": "MeteorToys_notification_widget"                                                                       // 270
+    }, "\n		", Blaze.View("lookup:count", function() {                                                                // 271
+      return Spacebars.mustache(view.lookup("count"));                                                                // 272
+    }), "\n	"), "\n	" ];                                                                                              // 273
+  });                                                                                                                 // 274
+}));                                                                                                                  // 275
+                                                                                                                      // 276
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}).call(this);
+
+
+
+
+
+
+(function(){
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                    //
+// packages/meteortoys_toykit/client/main.js                                                                          //
+//                                                                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                      //
+var _0x70a6=["\x62\x6F\x64\x79","\x72\x65\x6E\x64\x65\x72","\x64\x65\x66\x65\x72","\x63\x68\x65\x63\x6B\x41\x75\x74\x68\x65\x6E\x74\x69\x63\x61\x74\x69\x6F\x6E","\x73\x74\x61\x72\x74\x53\x75\x62\x73\x63\x72\x69\x70\x74\x69\x6F\x6E","\x66\x6F\x63\x75\x73","\x73\x65\x74","\x62\x69\x6E\x64\x48\x6F\x74\x4B\x65\x79\x73","\x67\x72\x61\x62\x54\x6F\x79\x73","\x73\x74\x61\x72\x74\x75\x70","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x50\x72\x6F","\x61\x75\x74\x68\x65\x6E\x74\x69\x63\x61\x74\x65\x64","\x67\x65\x74","\x72\x65\x67\x69\x73\x74\x65\x72\x48\x65\x6C\x70\x65\x72","\x64\x69\x73\x70\x6C\x61\x79","\x63\x6F\x72\x65","\x72\x65\x67\x69\x73\x74\x72\x79","\x6B\x65\x79\x73","\x61\x64\x64\x6F\x6E","\x6D\x73\x61\x76\x69\x6E\x3A\x6D\x6F\x6E\x67\x6F\x6C","\x4D\x6F\x6E\x67\x6F\x6C","\x70\x75\x73\x68","\x6D\x73\x61\x76\x69\x6E\x3A\x6A\x65\x74\x73\x65\x74\x74\x65\x72","\x4A\x65\x74\x53\x65\x74\x74\x65\x72","\x6D\x65\x74\x65\x6F\x72\x74\x6F\x79\x73\x3A\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x73","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x73","\x6D\x65\x74\x65\x6F\x72\x74\x6F\x79\x73\x3A\x61\x6C\x6C\x74\x68\x69\x6E\x67\x73","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x62\x61\x73\x69\x63","\x68\x65\x6C\x70\x65\x72\x73","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73","\x70\x72\x65\x76\x65\x6E\x74\x44\x65\x66\x61\x75\x6C\x74","\x76\x61\x6C","\x23\x6D\x65\x74\x65\x6F\x72\x74\x6F\x79\x73\x63\x61\x64\x66","\x23\x6D\x65\x74\x65\x6F\x72\x74\x6F\x79\x73\x70\x61\x73\x73","","\x50\x6C\x65\x61\x73\x65\x20\x65\x6E\x74\x65\x72\x20\x61\x6E\x20\x65\x6D\x61\x69\x6C","\x50\x6C\x65\x61\x73\x65\x20\x65\x6E\x74\x65\x72\x20\x61\x20\x6C\x69\x63\x65\x6E\x73\x65","\x4D\x6F\x6E\x67\x6F\x6C\x5F\x76\x65\x72\x69\x66\x79\x44\x6F\x63","\x63\x61\x6C\x6C","\x54\x68\x61\x6E\x6B\x73\x20\x66\x6F\x72\x20\x62\x75\x79\x69\x6E\x67\x20\x4D\x65\x74\x65\x6F\x72\x20\x54\x6F\x79\x73\x21","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x65\x6D\x61\x69\x6C","\x73\x65\x74\x49\x74\x65\x6D","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x70\x61\x73\x73\x77\x6F\x72\x64","\x49\x6E\x76\x61\x6C\x69\x64\x20\x43\x72\x65\x64\x65\x6E\x74\x69\x61\x6C\x73\x2E\x20\x50\x6C\x65\x61\x73\x65\x20\x74\x72\x79\x20\x61\x67\x61\x69\x6E\x2E","\x65\x76\x65\x6E\x74\x73","\x6E\x61\x6D\x65","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x61\x75\x74\x6F\x70\x75\x62","\x70\x61\x63\x6B\x61\x67\x65\x4E\x61\x6D\x65","\x63\x75\x72\x72\x65\x6E\x74","\x6F\x6E\x43\x6C\x6F\x73\x65","\x54\x6F\x79\x4B\x69\x74","\x6F\x6E\x4F\x70\x65\x6E","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6F\x72\x62\x5F\x61\x63\x74\x69\x76\x65","\x68\x61\x73\x43\x6C\x61\x73\x73","\x23","\x73\x74\x6F\x70\x50\x72\x6F\x70\x61\x67\x61\x74\x69\x6F\x6E","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79","\x74\x79\x70\x65","\x62\x75\x74\x74\x6F\x6E","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x62\x75\x74\x74\x6F\x6E","\x65\x71\x75\x61\x6C\x73","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6F\x72\x62\x5F\x63\x6F\x6E\x64\x65\x6E\x73\x65\x64","\x55\x4E\x4B\x4E\x4F\x57\x4E","\x6C\x65\x66\x74","\x70\x6F\x73\x69\x74\x69\x6F\x6E","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x74\x6F\x6F\x6C\x74\x69\x70","\x66\x69\x6E\x64","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x5F","\x64\x61\x74\x61","\x65\x78\x70\x61\x6E\x64\x4F\x72\x52\x65\x6D\x6F\x76\x65","\x72\x65\x6D\x6F\x76\x65","\x73\x68\x72\x69\x6E\x6B","\x65\x78\x70\x61\x6E\x64","\x66\x6F\x63\x75\x73\x32","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x5F\x64\x61\x74\x61\x5F\x65\x78\x70\x61\x6E\x64\x65\x64","\x63\x6F\x6C\x6F\x72\x69\x7A\x65","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x5F\x64\x61\x74\x61","\x63\x6F\x75\x6E\x74\x65\x72","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x5F\x77\x69\x64\x67\x65\x74","\x6B\x65\x79\x43\x6F\x64\x65","\x63\x74\x72\x6C\x4B\x65\x79","\x63\x6C\x65\x61\x72\x41\x6C\x6C\x44\x61\x74\x61","\x6B\x65\x79\x64\x6F\x77\x6E","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x4E\x6F\x74\x69\x66\x79","\x75\x70\x64\x61\x74\x65","\x69\x6E\x73\x65\x72\x74","\x66\x69\x6E\x64\x4F\x6E\x65","\x5F\x69\x64","\x69\x6E\x63\x72\x65\x6D\x65\x6E\x74\x43\x6F\x75\x6E\x74\x65\x72","\x74\x65\x78\x74","\x75\x6E\x72\x65\x61\x64","\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x4E\x6F\x74\x69\x66\x69\x65\x72\x5F\x68\x69\x64\x65\x41\x6E\x69\x6D\x61\x74\x69\x6F\x6E","\x61\x64\x64\x43\x6C\x61\x73\x73","\x23\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F","\x73\x65\x74\x54\x69\x6D\x65\x6F\x75\x74","\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E","\x61\x75\x74\x6F\x72\x75\x6E"];Meteor[_0x70a6[9]](function(){Meteor[_0x70a6[2]](function(){Blaze[_0x70a6[1]](Template.MeteorToys,document[_0x70a6[0]])});ToyKit[_0x70a6[3]]();ToyKit[_0x70a6[4]]();ToyKit[_0x70a6[6]](_0x70a6[5],null);ToyKit[_0x70a6[7]]();ToyKit[_0x70a6[8]]();});UI[_0x70a6[13]](_0x70a6[10],function(_0x9264x1){return ToyKit[_0x70a6[12]](_0x70a6[11])});Template[_0x70a6[29]][_0x70a6[28]]({MeteorToys:function(){return ToyKit[_0x70a6[12]](_0x70a6[14])},MeteorToy:function(){data=ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[15]];keys=Object[_0x70a6[17]](data);return keys;},MeteorToy_addon:function(){data=ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[18]];keys=Object[_0x70a6[17]](data);return keys;},MeteorToysPackage:function(){temp=[];if(Package[_0x70a6[19]]){temp[_0x70a6[21]](_0x70a6[20])};if(Package[_0x70a6[22]]){temp[_0x70a6[21]](_0x70a6[23])};if(Package[_0x70a6[24]]){temp[_0x70a6[21]](_0x70a6[25])};return temp;},all:function(){if(Package[_0x70a6[26]]){return _0x70a6[27]}}});Template[_0x70a6[27]][_0x70a6[44]]({"\x73\x75\x62\x6D\x69\x74":function(_0x9264x2,_0x9264x3){_0x9264x2[_0x70a6[30]]();em=$(_0x70a6[32])[_0x70a6[31]](),pw=$(_0x70a6[33])[_0x70a6[31]]();if(em===_0x70a6[34]){alert(_0x70a6[35]);return false;};if(pw===_0x70a6[34]){alert(_0x70a6[36]);return false;};Meteor[_0x70a6[38]](_0x70a6[37],em,pw,function(_0x9264x2,_0x9264x4){if(_0x9264x4){Meteor[_0x70a6[38]](_0x70a6[29],function(_0x9264x2,_0x9264x4){ToyKit[_0x70a6[6]](_0x70a6[11],_0x9264x4)});alert(_0x70a6[39]);localStorage[_0x70a6[41]](_0x70a6[40],em);localStorage[_0x70a6[41]](_0x70a6[42],pw);}else {alert(_0x70a6[43])}});}});Template[_0x70a6[56]][_0x70a6[44]]({"\x63\x6C\x69\x63\x6B\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6F\x72\x62":function(){if(this[_0x70a6[45]]===_0x70a6[46]){return false};targetPackage=false;ToyKitCore=ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[15]];ToyKitAddon=ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[18]];if(ToyKitCore[this[_0x70a6[45]]]){targetPackage=ToyKitCore[this[_0x70a6[45]]][_0x70a6[47]]};if(ToyKitAddon[this[_0x70a6[45]]]){targetPackage=ToyKitAddon[this[_0x70a6[45]]][_0x70a6[47]]};if(ToyKit[_0x70a6[12]](_0x70a6[48])===this[_0x70a6[45]]){if(targetPackage){Package[targetPackage][_0x70a6[50]][_0x70a6[49]]()};ToyKit[_0x70a6[6]](_0x70a6[48],false);}else {if(targetPackage){Package[targetPackage][_0x70a6[50]][_0x70a6[51]]()};ToyKit[_0x70a6[6]](_0x70a6[48],this[_0x70a6[45]]);};},"\x63\x6C\x69\x63\x6B\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6F\x72\x62\x5F\x77\x72\x61\x70\x70\x65\x72":function(_0x9264x5,_0x9264x3){if($(_0x70a6[54]+this[_0x70a6[45]])[_0x70a6[53]](_0x70a6[52])){_0x9264x5[_0x70a6[55]]()}},"\x63\x6C\x69\x63\x6B\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x61\x6D\x65":function(){ToyKit[_0x70a6[6]](_0x70a6[48],false);targetPackage=false;ToyKitCore=ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[15]];ToyKitAddon=ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[18]];if(ToyKitCore[this[_0x70a6[45]]]){targetPackage=ToyKitCore[this[_0x70a6[45]]][_0x70a6[47]]};if(ToyKitAddon[this[_0x70a6[45]]]){targetPackage=ToyKitAddon[this[_0x70a6[45]]][_0x70a6[47]]};if(targetPackage){Package[tagetPackage][_0x70a6[50]][_0x70a6[49]]()};},"\x6D\x6F\x75\x73\x65\x6F\x76\x65\x72\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6F\x72\x62":function(){ToyKit[_0x70a6[6]](_0x70a6[5],this[_0x70a6[45]])},"\x6D\x6F\x75\x73\x65\x6F\x75\x74\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6F\x72\x62":function(){ToyKit[_0x70a6[6]](_0x70a6[5])}});Template[_0x70a6[56]][_0x70a6[28]]({type:function(){if(this[_0x70a6[57]]===_0x70a6[58]){return _0x70a6[59]}},state:function(){if(ToyKit[_0x70a6[60]](_0x70a6[48],this[_0x70a6[45]])){return _0x70a6[52]}else {return _0x70a6[61]}},load:function(){if(this[_0x70a6[45]]===_0x70a6[40]){return true};if(ToyKit[_0x70a6[60]](_0x70a6[48],this[_0x70a6[45]])){return true};if(ToyKit[_0x70a6[60]](_0x70a6[5],this[_0x70a6[45]])){return true};},tmpName:function(){}});Template[_0x70a6[65]][_0x70a6[28]]({display:function(){var _0x9264x6=ToyKit[_0x70a6[12]](_0x70a6[5]);if(ToyKit[_0x70a6[60]](_0x70a6[48],_0x9264x6)){return false};if(ToyKit[_0x70a6[12]](_0x70a6[5])){return true};},name:function(){var _0x9264x6=ToyKit[_0x70a6[12]](_0x70a6[5]);if(_0x9264x6){if(ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[15]][_0x9264x6]){return ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[15]][_0x9264x6][_0x70a6[45]]}else {if(ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[18]][_0x9264x6]){return ToyKit[_0x70a6[12]](_0x70a6[16])[_0x70a6[18]][_0x9264x6][_0x70a6[45]]}else {return _0x70a6[62]}}};},position:function(){name=ToyKit[_0x70a6[12]](_0x70a6[5]);pixels=$(_0x70a6[54]+name)[_0x70a6[64]]()[_0x70a6[63]];current=ToyKit[_0x70a6[12]](_0x70a6[5]);position=$(_0x70a6[54]+name)[_0x70a6[64]]()[_0x70a6[63]]+7,coordinate=(200-46)* -0.5,pixels=coordinate+position;return pixels;}});Template[_0x70a6[25]][_0x70a6[28]]({"\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x73":function(){if(ToyKit[_0x70a6[12]](_0x70a6[11])){return MeteorToysNotifications[_0x70a6[66]]()}},"\x74\x79\x70\x65":function(){return _0x70a6[67]+this[_0x70a6[57]]}});Template[_0x70a6[25]][_0x70a6[44]]({"\x63\x6C\x69\x63\x6B\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E":function(){self=this;if(self[_0x70a6[57]]===_0x70a6[68]){NotifyInternal[_0x70a6[69]]()}else {NotifyInternal[_0x70a6[70]]()};},"\x63\x6C\x69\x63\x6B\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x5F\x73\x79\x6D\x62\x6F\x6C":function(_0x9264x2){_0x9264x2[_0x70a6[55]]();self=this;if(MeteorToysNotifyDict[_0x70a6[60]](_0x70a6[48],this._id)){NotifyInternal[_0x70a6[71]]()}else {if(self[_0x70a6[57]]===_0x70a6[68]){NotifyInternal[_0x70a6[72]]()}};},"\x63\x6C\x69\x63\x6B\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E\x5F\x64\x61\x74\x61":function(_0x9264x2){_0x9264x2[_0x70a6[55]]()},"\x6D\x6F\x75\x73\x65\x6F\x76\x65\x72\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E":function(){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[5],this._id)},"\x6D\x6F\x75\x73\x65\x6F\x75\x74\x20\x2E\x4D\x65\x74\x65\x6F\x72\x54\x6F\x79\x73\x5F\x6E\x6F\x74\x69\x66\x69\x63\x61\x74\x69\x6F\x6E":function(){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[5],false);current=MeteorToysNotifyDict[_0x70a6[12]](_0x70a6[48]);MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[73],current);}});Template[_0x70a6[76]][_0x70a6[28]]({"\x65\x78\x70\x61\x6E\x64\x65\x64":function(){if(MeteorToysNotifyDict[_0x70a6[60]](_0x70a6[48],this._id)){return _0x70a6[74]}else {return false}},"\x6C\x61\x7A\x79\x6C\x6F\x61\x64":function(){if(MeteorToysNotifyDict[_0x70a6[60]](_0x70a6[48],this._id)){return true};if(MeteorToysNotifyDict[_0x70a6[60]](_0x70a6[5],this._id)){return true};if(MeteorToysNotifyDict[_0x70a6[60]](_0x70a6[73],this._id)){return true};},"\x64\x61\x74\x61":function(){return MeteorToys[_0x70a6[75]](this[_0x70a6[68]])}});Template[_0x70a6[78]][_0x70a6[28]]({"\x63\x6F\x75\x6E\x74":function(){return MeteorToysNotifyDict[_0x70a6[12]](_0x70a6[77])}});$(document)[_0x70a6[82]](function(_0x9264x2){if(_0x9264x2[_0x70a6[79]]===67&&_0x9264x2[_0x70a6[80]]){NotifyInternal[_0x70a6[81]]();MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[48]);}});MeteorToysNotifications= new Mongo.Collection(null);MeteorToysNotifyDict= new ReactiveDict(_0x70a6[83]);MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[77],0);Note=function(_0x9264x7,_0x9264x8){if(_0x9264x8===_0x70a6[77]){Counter(_0x9264x7)}else {Data(_0x9264x7,_0x9264x8)}};Counter=function(_0x9264x7){var _0x9264x9;var _0x9264xa=function(){MeteorToysNotifications[_0x70a6[84]]({type:_0x70a6[77],text:_0x9264x7},{$inc:{data:+1}})};var _0x9264xb=function(){var _0x9264xc=MeteorToysNotifications[_0x70a6[85]]({type:_0x70a6[77],data:1,text:_0x9264x7,unread:true});_0x9264x9=_0x9264xc;};var _0x9264x8=MeteorToysNotifications[_0x70a6[86]]({"\x74\x79\x70\x65":_0x70a6[77],"\x74\x65\x78\x74":_0x9264x7});if(_0x9264x8){_0x9264xa();_0x9264x9=_0x9264x8[_0x70a6[87]];}else {_0x9264xb()};NotifyInternal[_0x70a6[88]]();};Data=function(_0x9264x7,_0x9264x8){item={};item[_0x70a6[89]]=_0x9264x7;item[_0x70a6[90]]=true;if(_0x9264x8){item[_0x70a6[57]]=_0x70a6[68];item[_0x70a6[68]]=_0x9264x8;}else {item[_0x70a6[57]]=_0x70a6[89]};var _0x9264xd=MeteorToysNotifications[_0x70a6[85]](item);NotifyInternal[_0x70a6[88]]();};NotifyClose=function(){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[48],null);MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[5],null);MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[73],null);};NotifyInternal={"\x65\x78\x70\x61\x6E\x64":function(){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[48],self._id)},"\x72\x65\x6D\x6F\x76\x65":function(){if(MeteorToysNotifyDict[_0x70a6[60]](_0x70a6[48],self._id)){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[48],false)};$(_0x70a6[93]+self[_0x70a6[87]])[_0x70a6[92]](_0x70a6[91]);window[_0x70a6[94]](function(){MeteorToysNotifications[_0x70a6[70]](self._id)},300);},"\x65\x78\x70\x61\x6E\x64\x4F\x72\x52\x65\x6D\x6F\x76\x65":function(){if(MeteorToysNotifyDict[_0x70a6[60]](_0x70a6[48],self._id)){NotifyInternal[_0x70a6[70]](self._id)}else {NotifyInternal[_0x70a6[72]]()}},"\x73\x68\x72\x69\x6E\x6B":function(){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[48],false)},"\x63\x6C\x65\x61\x72\x41\x6C\x6C\x44\x61\x74\x61":function(){$(_0x70a6[95])[_0x70a6[92]](_0x70a6[91]);window[_0x70a6[94]](function(){MeteorToysNotifications[_0x70a6[70]]({})},300);},"\x69\x6E\x63\x72\x65\x6D\x65\x6E\x74\x43\x6F\x75\x6E\x74\x65\x72":function(){if(ToyKit[_0x70a6[12]](_0x70a6[14])){return };current=MeteorToysNotifyDict[_0x70a6[12]](_0x70a6[77]);if(current){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[77],current+1)}else {MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[77],1)};}};Tracker[_0x70a6[96]](function(){if(ToyKit[_0x70a6[12]](_0x70a6[14])){MeteorToysNotifyDict[_0x70a6[6]](_0x70a6[77],0)}});
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}).call(this);
+
+
+/* Exports */
+if (typeof Package === 'undefined') Package = {};
+Package['meteortoys:toykit'] = {
+  MeteorToysData: MeteorToysData,
+  MeteorToys: MeteorToys,
+  ToyKit: ToyKit,
+  Note: Note,
+  MeteorToys_JSON: MeteorToys_JSON,
+  MeteorToysDict: MeteorToysDict
+};
+
+})();

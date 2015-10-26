@@ -1,0 +1,49 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/package.js": "b5ef4ef80e769aab27aec1d73e2114ee50c5aba3",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/shoppingCart.common.js": "37213de923a732791051d906df76ae7a6c936119",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/shoppingCart.register.js": "75a52f853f5c1b682e0268aff806f11a4949509e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/shoppingCart.change.js": "b7eafd401564438631ce6ede9e96bf6b680ddcea",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/shoppingCart.cancel.js": "c949205bb0c205d037ed0060acd32eea5825dd54",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/shoppingCart.cron.js": "8804b77a99b49e96afad1ed0830d551a004b00d5"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/package.js": "b5ef4ef80e769aab27aec1d73e2114ee50c5aba3"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/package.js": "b5ef4ef80e769aab27aec1d73e2114ee50c5aba3"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart/package.js": "b5ef4ef80e769aab27aec1d73e2114ee50c5aba3"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "cal:cart": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_cart"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    },
+    "underscore": {
+      "kind": "versioned",
+      "version": "1.0.4"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

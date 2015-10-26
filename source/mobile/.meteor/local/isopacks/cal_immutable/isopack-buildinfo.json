@@ -1,0 +1,46 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/package.js": "c7c86b00f68134e227ef2171a67831807e8c3224",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/.npm/package/npm-shrinkwrap.json": "da375e2d15a54110cf0d66faf13cf2fe826d8971",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/lib/require-immutable.js": "548330bed6d8c63fd3280773b3a965d525f0fff5"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/package.js": "c7c86b00f68134e227ef2171a67831807e8c3224",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/.npm/package/npm-shrinkwrap.json": "da375e2d15a54110cf0d66faf13cf2fe826d8971",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/vendor/Immutable.js": "8fb35e29593524325dcf89277bbb63b04cfb9028"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/package.js": "c7c86b00f68134e227ef2171a67831807e8c3224",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/.npm/package/npm-shrinkwrap.json": "da375e2d15a54110cf0d66faf13cf2fe826d8971",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/vendor/Immutable.js": "8fb35e29593524325dcf89277bbb63b04cfb9028"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable/package.js": "c7c86b00f68134e227ef2171a67831807e8c3224"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "cal:immutable": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/cal_immutable"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

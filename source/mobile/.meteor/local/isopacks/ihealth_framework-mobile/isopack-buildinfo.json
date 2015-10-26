@@ -1,0 +1,138 @@
+{
+  "builtBy": "meteor/17",
+  "unibuildDependencies": {
+    "os.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/package.js": "0819acfe121d44994118e8bff3864fceba34f543",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine/package.js": "49be9b3e74eb34c53a5ac3eb2812e03633d2ccc1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/_mobile.scss": "9a9e18e5a106ea0ee67a3d3d4ebceeef34507bdc",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/leftNav/_leftNav.scss": "10e933dd04836b7d35fdbb55597dedce1ebd69ae",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/_import.scss": "2d169eac67022bf19dcdc8d34075da0bb9d85604",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/startup.js": "9d151d8fd60c8aafe52d9990e93cc3afa9913046"
+      },
+      "directories": []
+    },
+    "web.browser.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/package.js": "0819acfe121d44994118e8bff3864fceba34f543",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine/package.js": "49be9b3e74eb34c53a5ac3eb2812e03633d2ccc1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/startup.js": "9d151d8fd60c8aafe52d9990e93cc3afa9913046",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/swipe/swipe.jsx": "7ad4bd55fec0db2771d84770f8ef865c3bea124e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/leftNav/leftNav.jsx": "62f9a816d4ac189e320dceb07d677a9a5407906b",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/leftNav/leftNav2.jsx": "192f6307df529c9307773d7ddbc307a9c822ed53"
+      },
+      "directories": []
+    },
+    "web.cordova.json": {
+      "files": {
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/package.js": "0819acfe121d44994118e8bff3864fceba34f543",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils/package.js": "ff1c850dc51f41a5d6ee1c67c465aa9372a43199",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine/package.js": "49be9b3e74eb34c53a5ac3eb2812e03633d2ccc1",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/startup.js": "9d151d8fd60c8aafe52d9990e93cc3afa9913046",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/swipe/swipe.jsx": "7ad4bd55fec0db2771d84770f8ef865c3bea124e",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/leftNav/leftNav.jsx": "62f9a816d4ac189e320dceb07d677a9a5407906b",
+        "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/RC/leftNav/leftNav2.jsx": "192f6307df529c9307773d7ddbc307a9c822ed53"
+      },
+      "directories": []
+    }
+  },
+  "pluginDependencies": {
+    "files": {
+      "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile/package.js": "0819acfe121d44994118e8bff3864fceba34f543"
+    },
+    "directories": []
+  },
+  "pluginProviderPackageMap": {
+    "ihealth:framework-mobile": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-mobile"
+    },
+    "meteor": {
+      "kind": "versioned",
+      "version": "1.1.9"
+    },
+    "fourseven:scss": {
+      "kind": "versioned",
+      "version": "3.2.0"
+    },
+    "react": {
+      "kind": "versioned",
+      "version": "0.1.13"
+    },
+    "ihealth:utils": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_utils"
+    },
+    "ihealth:framework-engine": {
+      "kind": "local",
+      "sourceRoot": "/Users/kevinzhang/github/Calphin-Project/source/mobile/packages/ihealth_framework-engine"
+    },
+    "jsx": {
+      "kind": "versioned",
+      "version": "0.2.1"
+    },
+    "react-runtime": {
+      "kind": "versioned",
+      "version": "0.13.3_7"
+    },
+    "react-meteor-data": {
+      "kind": "versioned",
+      "version": "0.1.9"
+    },
+    "alanning:roles": {
+      "kind": "versioned",
+      "version": "1.2.14"
+    },
+    "aldeed:simple-schema": {
+      "kind": "versioned",
+      "version": "1.3.3"
+    },
+    "aldeed:collection2": {
+      "kind": "versioned",
+      "version": "2.3.3"
+    },
+    "matb33:collection-hooks": {
+      "kind": "versioned",
+      "version": "0.7.15"
+    },
+    "kadira:flow-router": {
+      "kind": "versioned",
+      "version": "2.7.0"
+    },
+    "coffeescript": {
+      "kind": "versioned",
+      "version": "1.0.10"
+    },
+    "check": {
+      "kind": "versioned",
+      "version": "1.0.6"
+    },
+    "underscore": {
+      "kind": "versioned",
+      "version": "1.0.4"
+    },
+    "momentjs:moment": {
+      "kind": "versioned",
+      "version": "2.10.6"
+    },
+    "meteorhacks:fast-render": {
+      "kind": "versioned",
+      "version": "2.10.0"
+    },
+    "fastclick": {
+      "kind": "versioned",
+      "version": "1.0.7"
+    },
+    "babel-runtime": {
+      "kind": "versioned",
+      "version": "0.1.4"
+    },
+    "mongo": {
+      "kind": "versioned",
+      "version": "1.1.2"
+    }
+  },
+  "includeCordovaUnibuild": true
+}

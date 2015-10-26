@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/packages/velocity_chokidar/chokidar.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;AAAA;AACA,yE","file":"/packages/velocity_chokidar.js","sourcesContent":["chokidar = Npm.require('chokidar');\n"]}

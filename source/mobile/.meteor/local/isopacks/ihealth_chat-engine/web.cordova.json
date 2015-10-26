@@ -1,0 +1,150 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "Dispatcher",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:users"
+    },
+    {
+      "package": "accounts-password",
+      "constraint": "1.1.1"
+    },
+    {
+      "package": "reywood:publish-composite",
+      "constraint": "1.3.6"
+    },
+    {
+      "package": "meteorflux:dispatcher"
+    }
+  ],
+  "implies": [
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "web.cordova/dispatcher/dispatcher.js",
+      "length": 128,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "dispatcher/dispatcher.js",
+      "hash": "41d5ed4ab7aff0a639b694ddd94eb5b50e87efab",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "web.cordova/stores/messageStore.coffee",
+      "length": 1516,
+      "offset": 0,
+      "path": "stores/messageStore.coffee",
+      "hash": "f06450141c78245e5530264858406ca7c264f778",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "web.cordova/stores/channelStore.coffee",
+      "length": 2359,
+      "offset": 0,
+      "path": "stores/channelStore.coffee",
+      "hash": "2d8fdfaedb9fe1022d0da3a49b6ee871abbc5732",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "web.cordova/stores/statusStore.coffee",
+      "length": 2510,
+      "offset": 0,
+      "path": "stores/statusStore.coffee",
+      "hash": "fdb82e1d93e2bb4daa40941d36b72a48efe12417",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "web.cordova/actions/channelActions.coffee",
+      "length": 185,
+      "offset": 0,
+      "path": "actions/channelActions.coffee",
+      "hash": "92262f70758c110680ee59aa299697f4b4628d84",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "web.cordova/actions/messageActions.coffee",
+      "length": 186,
+      "offset": 0,
+      "path": "actions/messageActions.coffee",
+      "hash": "12ad4d5d106c559c5bc9a058f7d034ca732672ae",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "web.cordova/actions/statusActions.coffee",
+      "length": 285,
+      "offset": 0,
+      "path": "actions/statusActions.coffee",
+      "hash": "f1e5e53593429b0b8d50976dd5176981ebeb93aa",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "web.cordova/camera.coffee",
+      "length": 552,
+      "offset": 0,
+      "path": "camera.coffee",
+      "hash": "2ee29d58f028ab0b775047046edd5e7cae116d2e",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/components/ChatChannelList.jsx",
+      "length": 1737,
+      "offset": 0,
+      "path": "components/ChatChannelList.jsx",
+      "hash": "46057929ece634122e67ae4eb049cabf5198d9b2",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/components/ChatMessageList.jsx",
+      "length": 2852,
+      "offset": 0,
+      "path": "components/ChatMessageList.jsx",
+      "hash": "3fcbd1f879a947812b92f0c061f7d340494c6603",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/components/ChatView.jsx",
+      "length": 5680,
+      "offset": 0,
+      "path": "components/ChatView.jsx",
+      "hash": "793bfb2a93bdcc3d63bd215e943b43d2ec475a04",
+      "fileOptions": {}
+    }
+  ]
+}

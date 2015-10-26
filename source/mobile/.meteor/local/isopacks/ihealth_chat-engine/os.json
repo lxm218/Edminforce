@@ -1,0 +1,140 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "Dispatcher",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:users"
+    },
+    {
+      "package": "accounts-password",
+      "constraint": "1.1.1"
+    },
+    {
+      "package": "reywood:publish-composite",
+      "constraint": "1.3.6"
+    },
+    {
+      "package": "meteorflux:dispatcher"
+    }
+  ],
+  "implies": [
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/dispatcher/dispatcher.js",
+      "length": 128,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "dispatcher/dispatcher.js",
+      "hash": "41d5ed4ab7aff0a639b694ddd94eb5b50e87efab",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/stores/messageStore.coffee",
+      "length": 1516,
+      "offset": 0,
+      "path": "stores/messageStore.coffee",
+      "hash": "f06450141c78245e5530264858406ca7c264f778",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/stores/channelStore.coffee",
+      "length": 2359,
+      "offset": 0,
+      "path": "stores/channelStore.coffee",
+      "hash": "2d8fdfaedb9fe1022d0da3a49b6ee871abbc5732",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/stores/statusStore.coffee",
+      "length": 2510,
+      "offset": 0,
+      "path": "stores/statusStore.coffee",
+      "hash": "fdb82e1d93e2bb4daa40941d36b72a48efe12417",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/actions/channelActions.coffee",
+      "length": 185,
+      "offset": 0,
+      "path": "actions/channelActions.coffee",
+      "hash": "92262f70758c110680ee59aa299697f4b4628d84",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/actions/messageActions.coffee",
+      "length": 186,
+      "offset": 0,
+      "path": "actions/messageActions.coffee",
+      "hash": "12ad4d5d106c559c5bc9a058f7d034ca732672ae",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/actions/statusActions.coffee",
+      "length": 285,
+      "offset": 0,
+      "path": "actions/statusActions.coffee",
+      "hash": "f1e5e53593429b0b8d50976dd5176981ebeb93aa",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/publications.coffee",
+      "length": 1308,
+      "offset": 0,
+      "path": "publications.coffee",
+      "hash": "0389a2fffece242d92b8ccfc59ecc21ca99f748f",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/methods.coffee",
+      "length": 750,
+      "offset": 0,
+      "path": "methods.coffee",
+      "hash": "39b201364277acfc059b3eb4958e44423e5eeb1e",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "coffee",
+      "file": "os/temp.coffee",
+      "length": 1025,
+      "offset": 0,
+      "path": "temp.coffee",
+      "hash": "05b808ab85d3ddd3601add7a7c924df5f81d7bde",
+      "fileOptions": {}
+    }
+  ]
+}

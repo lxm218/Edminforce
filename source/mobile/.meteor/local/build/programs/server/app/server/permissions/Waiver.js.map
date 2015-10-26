@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/server/permissions/Waiver.js"],"names":[],"mappings":"eAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA,E","file":"/server/permissions/Waiver.js","sourcesContent":["/**\n * Created by Jeffreyfan on 10/18/15.\n */\n\nDB.Waiver.allow({\n\n    insert: function (userId, doc) {\n\n        return userId;\n    }\n\n})"]}

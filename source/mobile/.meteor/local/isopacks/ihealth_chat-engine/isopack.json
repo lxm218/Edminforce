@@ -1,0 +1,29 @@
+{
+  "isopack-2": {
+    "name": "ihealth:chat-engine",
+    "summary": "Mongo schemas and chat functions designed to work with chat-ui.",
+    "version": "0.1.2",
+    "isTest": false,
+    "builds": [
+      {
+        "kind": "main",
+        "arch": "os",
+        "path": "os.json"
+      },
+      {
+        "kind": "main",
+        "arch": "web.browser",
+        "path": "web.browser.json"
+      },
+      {
+        "kind": "main",
+        "arch": "web.cordova",
+        "path": "web.cordova.json"
+      }
+    ],
+    "plugins": [],
+    "cordovaDependencies": {
+      "org.apache.cordova.camera": "0.3.2"
+    }
+  }
+}

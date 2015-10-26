@@ -1,0 +1,225 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "fourseven:scss"
+    },
+    {
+      "package": "react"
+    },
+    {
+      "package": "underscore",
+      "constraint": "1.0.3"
+    },
+    {
+      "package": "momentjs:moment"
+    },
+    {
+      "package": "ihealth:utils"
+    }
+  ],
+  "resources": [
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/_mixins.scss",
+      "length": 16380,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/_mixins.scss",
+      "path": "RC/_mixins.scss",
+      "hash": "8ba258c6cfc977fa48849a9a152307576f8629ca"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/_variables.scss",
+      "length": 22623,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/_variables.scss",
+      "path": "RC/_variables.scss",
+      "hash": "f96bd3240b633a06c07e38a409904ab4d1a319aa"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/_core.scss",
+      "length": 14779,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/_core.scss",
+      "path": "_core.scss",
+      "hash": "cac701977be7485bada2206317558922828c59cd"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/_framework.scss",
+      "length": 3220,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/_framework.scss",
+      "path": "RC/_framework.scss",
+      "hash": "d9943ca59d1aaf6aab56ed6381096db21795dde0"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/card/_card.scss",
+      "length": 2382,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/card/_card.scss",
+      "path": "RC/card/_card.scss",
+      "hash": "0219e5b9a211e7d49d09a2400ea7aee251fa31d4"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/item/_item.scss",
+      "length": 18327,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/item/_item.scss",
+      "path": "RC/item/_item.scss",
+      "hash": "22f351b00ca5eb636ae73c41bf6175cc8c2e1c8e"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/chat/_chat.scss",
+      "length": 2289,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/chat/_chat.scss",
+      "path": "RC/chat/_chat.scss",
+      "hash": "d51f236aa7179a7bdcefd707777a367e067c2568"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/globalNav/_globalNav.scss",
+      "length": 2619,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/globalNav/_globalNav.scss",
+      "path": "RC/globalNav/_globalNav.scss",
+      "hash": "b1be4c575166c11db3412bc62ac3a09552585dbc"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/form/_form.scss",
+      "length": 8840,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/form/_form.scss",
+      "path": "RC/form/_form.scss",
+      "hash": "fdcbc2676157ac47077aa24b6aa67ed81dc56186"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/form/_button.scss",
+      "length": 7979,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/form/_button.scss",
+      "path": "RC/form/_button.scss",
+      "hash": "716dc39a9b1526e9f22d63b67f908b1d1fb28f76"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/form/_select.scss",
+      "length": 2058,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/form/_select.scss",
+      "path": "RC/form/_select.scss",
+      "hash": "5f2b67709fd57a6dd592d98f081356e8b3f82e7b"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/form/_checkbox.scss",
+      "length": 4255,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/form/_checkbox.scss",
+      "path": "RC/form/_checkbox.scss",
+      "hash": "d3424f107a4947ea6a0cd319d1d2164d8f91f084"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/form/_radio.scss",
+      "length": 1197,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/form/_radio.scss",
+      "path": "RC/form/_radio.scss",
+      "hash": "ad3cbfec0ef62f81b5400b1f8a6ca31f62d7b749"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/form/_range.scss",
+      "length": 3369,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/form/_range.scss",
+      "path": "RC/form/_range.scss",
+      "hash": "657be860ec33f023a1e162cdf229050151a6a321"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/form/_toggle.scss",
+      "length": 4548,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/form/_toggle.scss",
+      "path": "RC/form/_toggle.scss",
+      "hash": "af85cf0c3b9d36509792679acb368ee0b2c38bd3"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/headerNav/_headerNav.scss",
+      "length": 2936,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/headerNav/_headerNav.scss",
+      "path": "RC/headerNav/_headerNav.scss",
+      "hash": "c18d2b722caac83acea22175428114cb7ddb1386"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/leftNav/_leftNav.scss",
+      "length": 755,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/leftNav/_leftNav.scss",
+      "path": "RC/leftNav/_leftNav.scss",
+      "hash": "10e933dd04836b7d35fdbb55597dedce1ebd69ae"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/list/_list.scss",
+      "length": 1768,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/list/_list.scss",
+      "path": "RC/list/_list.scss",
+      "hash": "c16320e3eef51367334b94563cfbeeb29eb56ca8"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/navList/_navList.scss",
+      "length": 1903,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/navList/_navList.scss",
+      "path": "RC/navList/_navList.scss",
+      "hash": "d86bb2c32a5573cee9638b891531dd13ba58bc40"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/tabs/_tabs.scss",
+      "length": 11633,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/tabs/_tabs.scss",
+      "path": "RC/tabs/_tabs.scss",
+      "hash": "84de8c547834485a8c3eee734cb4b54e2990160e"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/RC/timeline/_timeline.scss",
+      "length": 4182,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/RC/timeline/_timeline.scss",
+      "path": "RC/timeline/_timeline.scss",
+      "hash": "20f3c6ce181afb3f561ea349663fa92d6204315f"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-engine/_import.scss",
+      "length": 427,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-engine/_import.scss",
+      "path": "_import.scss",
+      "hash": "9064235116274f36d2fa053fbc19830ebd6f02f4"
+    }
+  ]
+}

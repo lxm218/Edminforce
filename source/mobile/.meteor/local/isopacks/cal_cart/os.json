@@ -1,0 +1,75 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "shoppingCart",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "underscore",
+      "constraint": "1.0.3"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/shoppingCart.common.js",
+      "length": 3075,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "shoppingCart.common.js",
+      "hash": "37213de923a732791051d906df76ae7a6c936119",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/shoppingCart.register.js",
+      "length": 15956,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "shoppingCart.register.js",
+      "hash": "75a52f853f5c1b682e0268aff806f11a4949509e",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/shoppingCart.change.js",
+      "length": 8025,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "shoppingCart.change.js",
+      "hash": "b7eafd401564438631ce6ede9e96bf6b680ddcea",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/shoppingCart.cancel.js",
+      "length": 3093,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "shoppingCart.cancel.js",
+      "hash": "c949205bb0c205d037ed0060acd32eea5825dd54",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/shoppingCart.cron.js",
+      "length": 591,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "shoppingCart.cron.js",
+      "hash": "8804b77a99b49e96afad1ed0830d551a004b00d5",
+      "fileOptions": {}
+    }
+  ]
+}

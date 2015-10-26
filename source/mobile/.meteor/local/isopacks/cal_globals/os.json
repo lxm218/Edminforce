@@ -1,0 +1,35 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "App",
+      "testOnly": false
+    },
+    {
+      "name": "Cal",
+      "testOnly": false
+    },
+    {
+      "name": "DB",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/globals.js",
+      "length": 281,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "globals.js",
+      "hash": "75357294e2ec6a74fb8db03871c87f2f58b4767c",
+      "fileOptions": {}
+    }
+  ]
+}

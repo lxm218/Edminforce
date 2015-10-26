@@ -1,0 +1,192 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "RC",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "fourseven:scss"
+    },
+    {
+      "package": "react"
+    },
+    {
+      "package": "underscore",
+      "constraint": "1.0.3"
+    },
+    {
+      "package": "momentjs:moment"
+    },
+    {
+      "package": "ihealth:utils"
+    }
+  ],
+  "resources": [
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/framework.jsx",
+      "length": 4780,
+      "offset": 0,
+      "path": "RC/framework.jsx",
+      "hash": "c15f0a12c0ed317cb96ef19406f3b6f0396ab89c",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/framework_helpers.jsx",
+      "length": 1460,
+      "offset": 0,
+      "path": "RC/framework_helpers.jsx",
+      "hash": "9551d940bb241a0792b468796de16f64018481cd",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/card/card.jsx",
+      "length": 1460,
+      "offset": 0,
+      "path": "RC/card/card.jsx",
+      "hash": "313c80aa6707dd560485dbac55ca1fae0c4196e8",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/item/item.jsx",
+      "length": 5066,
+      "offset": 0,
+      "path": "RC/item/item.jsx",
+      "hash": "3910794c3e50ef75265d08f732766a1947bbdc60",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/chat/chatBubble.jsx",
+      "length": 1282,
+      "offset": 0,
+      "path": "RC/chat/chatBubble.jsx",
+      "hash": "0a9cb0e8371377f0c9d83cdf8b8fdec4022c375f",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/chat/chatTextarea.jsx",
+      "length": 1205,
+      "offset": 0,
+      "path": "RC/chat/chatTextarea.jsx",
+      "hash": "d962b7f91f5535a4ab6f4cf8e09d52a1af9ad0aa",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/globalNav/globalNav.jsx",
+      "length": 2987,
+      "offset": 0,
+      "path": "RC/globalNav/globalNav.jsx",
+      "hash": "833e79b348a6f24633b877f619b111d4112a605e",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/form/formElements.jsx",
+      "length": 14588,
+      "offset": 0,
+      "path": "RC/form/formElements.jsx",
+      "hash": "e89bfc70878683ea31edbe383ac2dfc4039618ec",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/form/formElements2.jsx",
+      "length": 5426,
+      "offset": 0,
+      "path": "RC/form/formElements2.jsx",
+      "hash": "d43a4b4ee91fd1e34dcce409f53f32830ed0001a",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/form/passwordInput.jsx",
+      "length": 2855,
+      "offset": 0,
+      "path": "RC/form/passwordInput.jsx",
+      "hash": "b1056938e7e3802ad1a1fea9658f8e56730fb631",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/headerNav/headerNav.jsx",
+      "length": 5787,
+      "offset": 0,
+      "path": "RC/headerNav/headerNav.jsx",
+      "hash": "d502dd7ad20ad059ca81d9fd109a079db17ebc12",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/leftNav/leftNav.jsx",
+      "length": 1091,
+      "offset": 0,
+      "path": "RC/leftNav/leftNav.jsx",
+      "hash": "15dc8f950b0cc36d67c86115a821feaf53878633",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/list/list.jsx",
+      "length": 4338,
+      "offset": 0,
+      "path": "RC/list/list.jsx",
+      "hash": "87a1cc50dd6165b11a84b29fa1321518525d32f8",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/navList/navList.jsx",
+      "length": 1319,
+      "offset": 0,
+      "path": "RC/navList/navList.jsx",
+      "hash": "a90f500a6e76e461bb889ccd87484f0764738d15",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/tabs/tabs.jsx",
+      "length": 2000,
+      "offset": 0,
+      "path": "RC/tabs/tabs.jsx",
+      "hash": "b0310ca8c1524781cf7e1a616ada4ba3c7a03e43",
+      "fileOptions": {}
+    },
+    {
+      "type": "source",
+      "extension": "jsx",
+      "file": "web.cordova/RC/timeline/timeline.jsx",
+      "length": 4916,
+      "offset": 0,
+      "path": "RC/timeline/timeline.jsx",
+      "hash": "36156821f3161490d36d2628381d7564cfa5a49b",
+      "fileOptions": {}
+    }
+  ]
+}

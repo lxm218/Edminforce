@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/server/permissions/Swimmers.js"],"names":[],"mappings":"eAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA,E","file":"/server/permissions/Swimmers.js","sourcesContent":["/**\n * Created on 9/27/15.\n */\n\n\nDB.Swimmers.allow({\n\n    insert: function (userId, doc) {\n\n        return userId;\n    }\n\n})"]}

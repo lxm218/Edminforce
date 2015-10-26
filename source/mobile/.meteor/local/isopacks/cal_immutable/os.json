@@ -1,0 +1,28 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [
+    {
+      "name": "Immutable",
+      "testOnly": false
+    }
+  ],
+  "uses": [
+    {
+      "package": "meteor"
+    }
+  ],
+  "node_modules": "npm/node_modules",
+  "resources": [
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/lib/require-immutable.js",
+      "length": 38,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "lib/require-immutable.js",
+      "hash": "548330bed6d8c63fd3280773b3a965d525f0fff5",
+      "fileOptions": {}
+    }
+  ]
+}

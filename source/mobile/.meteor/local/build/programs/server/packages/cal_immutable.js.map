@@ -1,0 +1,1 @@
+{"version":3,"sources":["meteor://💻app/packages/cal_immutable/lib/require-immutable.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;AAAA;AACA,yE","file":"/packages/cal_immutable.js","sourcesContent":["Immutable = Npm.require(\"immutable\");\n"]}

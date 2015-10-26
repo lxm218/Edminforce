@@ -1,0 +1,75 @@
+{
+  "format": "isopack-2-unibuild",
+  "declaredExports": [],
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "fourseven:scss"
+    },
+    {
+      "package": "react"
+    },
+    {
+      "package": "ihealth:utils"
+    },
+    {
+      "package": "ihealth:framework-engine"
+    }
+  ],
+  "implies": [
+    {
+      "package": "react",
+      "constraint": ""
+    },
+    {
+      "package": "ihealth:utils",
+      "constraint": ""
+    },
+    {
+      "package": "fastclick",
+      "constraint": "1.0.3"
+    }
+  ],
+  "resources": [
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-mobile/RC/_mobile.scss",
+      "length": 77,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-mobile/RC/_mobile.scss",
+      "path": "RC/_mobile.scss",
+      "hash": "9a9e18e5a106ea0ee67a3d3d4ebceeef34507bdc"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-mobile/RC/leftNav/_leftNav.scss",
+      "length": 755,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-mobile/RC/leftNav/_leftNav.scss",
+      "path": "RC/leftNav/_leftNav.scss",
+      "hash": "10e933dd04836b7d35fdbb55597dedce1ebd69ae"
+    },
+    {
+      "type": "asset",
+      "file": "os/packages/ihealth_framework-mobile/_import.scss",
+      "length": 47,
+      "offset": 0,
+      "servePath": "/packages/ihealth_framework-mobile/_import.scss",
+      "path": "_import.scss",
+      "hash": "2d169eac67022bf19dcdc8d34075da0bb9d85604"
+    },
+    {
+      "type": "source",
+      "extension": "js",
+      "file": "os/startup.js",
+      "length": 616,
+      "offset": 0,
+      "usesDefaultSourceProcessor": true,
+      "path": "startup.js",
+      "hash": "9d151d8fd60c8aafe52d9990e93cc3afa9913046",
+      "fileOptions": {}
+    }
+  ]
+}
