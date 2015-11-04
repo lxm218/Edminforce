@@ -320,10 +320,11 @@ IH.RC.User = React.createClass({
           {this.printMsg()}
           <RC.Input name="username" label="E-Mail" theme={inputTheme} ref="username" value={Cookie.get('username')}/>
           <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" />
+          <RC.Checkbox name="keepName" ref="keepName" value={true} label="Remember My User Name"/>
+
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Log In"}
           </RC.Button>
-          <RC.Checkbox name="keepName" ref="keepName" value={true} label="Remember My User Name"/>
         </RC.Form>
       break
 
