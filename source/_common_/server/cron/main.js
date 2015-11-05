@@ -99,17 +99,32 @@ Meteor.startup(function () {
     //case  购物车expired 先删除注册信息 再删除购物车
     //case class注册信息存在 对应购物车不存在
     //todo check all case
+    //SyncedCron.add({
+    //    name: 'Clear Shopping Cart',
+    //    schedule: function (parser) {
+    //
+    //        return parser.text('every 15 minutes');
+    //        //return parser.text('every 10 seconds');
+    //
+    //    },
+    //    job: function () {
+    //        changeStaus()
+    //        clearShoppingCart()
+    //
+    //    }
+    //});
+
     SyncedCron.add({
-        name: 'Clear Shopping Cart',
+        name: 'cleanup_addClassToCart',
         schedule: function (parser) {
 
-            return parser.text('every 15 minutes');
-            //return parser.text('every 10 seconds');
+            return parser.text('every 30 seconds');
 
         },
         job: function () {
-            changeStaus()
-            clearShoppingCart()
+
+
+            shoppingCart['register_cleanup_addClassToCart']();
 
         }
     });

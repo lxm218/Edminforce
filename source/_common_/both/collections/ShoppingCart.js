@@ -88,6 +88,12 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
         sessionId   //todo remove
         swimmerId classId, quantity
         swimmer class1 class2 class3
+
+         //购物车的每个item都是通过独立的事务完成的
+         pendingTransactions:{
+            type: [Object],
+            optional: true
+         },
         }
 
         change class

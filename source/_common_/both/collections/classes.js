@@ -37,12 +37,6 @@ DB.Schema.Classes = new SimpleSchema({
         type: String
     },
 
-    //todo delete
-    level:  {
-      type: String,
-      optional: true
-    },
-
     // 一个class包含多个level
     levels:  {
       type: [String],
@@ -65,11 +59,6 @@ DB.Schema.Classes = new SimpleSchema({
         type: Number
     },
 
-    carted:{
-        type: [DB.Schema.ClassesShoppingCart],
-        optional: true
-    },
-
     seatsTotal:{
         type: Number
     },
@@ -77,41 +66,52 @@ DB.Schema.Classes = new SimpleSchema({
         type: Number
     },
     students:{
-        type: [String],  //students ids
+        type: [Object],  //students ids  包含了时间信息
+        optional: true
+    },
+
+    pendingTransactions:{
+        type: [String],
         optional: true
     },
 
     ///////////////////////////////////////////////
-    startDate: {
-        type: Date,
-        optional: true
-    },
-    endDate: {
-        type: Date,
-        optional: true
-    },
 
-    duration: {
-        type: Number,
+    carted:{
+        type: [DB.Schema.ClassesShoppingCart],
         optional: true
-    },
-    frequency:{
-        type: String,
-        optional: true
-    },
-    type: {
-        type: String,
-        optional: true
-    },
-    coachId: {
-        type: String,
-        optional: true
-    },
-    coachName: {
-        type: String,
-        optional: true
-
     }
+    //,
+    //startDate: {
+    //    type: Date,
+    //    optional: true
+    //},
+    //endDate: {
+    //    type: Date,
+    //    optional: true
+    //},
+    //
+    //duration: {
+    //    type: Number,
+    //    optional: true
+    //},
+    //frequency:{
+    //    type: String,
+    //    optional: true
+    //},
+    //type: {
+    //    type: String,
+    //    optional: true
+    //},
+    //coachId: {
+    //    type: String,
+    //    optional: true
+    //},
+    //coachName: {
+    //    type: String,
+    //    optional: true
+    //
+    //}
 });
 
 

@@ -94,6 +94,8 @@ create_cart = function (item) {
 
 }
 
+common_create_cart = create_cart
+
 //todo pending且未超时状态下 恢复为active的逻辑
 get_active_cart_id =function (createIfNotExist) {
 
@@ -106,6 +108,10 @@ get_active_cart_id =function (createIfNotExist) {
 
     return (cart && cart._id) || (createIfNotExist && create_cart());
 }
+
+
+common_get_active_cart_id = get_active_cart_id
+
 
 get_carts = function (status) {
     App.info = App.info || DB.App.findOne()

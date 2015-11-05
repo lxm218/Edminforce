@@ -20,7 +20,9 @@ Package.onUse(function(api) {
         "shoppingCart.register.js",
         "shoppingCart.change.js",
         "shoppingCart.cancel.js",
-        "shoppingCart.cron.js"
+        "shoppingCart.cron.js",
+        "register.js"
+
 
     ], ["server"])
 
