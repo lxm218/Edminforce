@@ -16,7 +16,7 @@ DB.Schema.ClassesRegister = new SimpleSchema({
         type: String,
         optional: true
     },
-    
+
     //方便查询  因为注册level 并不能根据swimmer或者 class的信息得出!!!
     // 一个class有多个level
     // 对于新用户returnback用户swimmer的level可能和注册的level一致

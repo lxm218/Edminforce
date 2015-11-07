@@ -34,7 +34,9 @@
             Meteor.call('delete_class_from_cart',{
                 classId :shoppingCartItem.class1._id,
                 swimmerId :shoppingCartItem.swimmer._id,
-                cartId:this.data.ShoppingCart._id
+                cartId:this.data.ShoppingCart._id,
+
+                cartItem:shoppingCartItem // 完整的购物信息 回滚时需要
             },function(err, result){
                 if(err){
                     console.error(err)

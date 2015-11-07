@@ -19,14 +19,33 @@ shopping_cart_export=function(obj){
         }
     }
 }
-/////////////////////////////////////////////////////////
 
-////package scope
+/////////////////////////////////////////////////////////
+////定义package范围内可见的函数
+// 由于meteor的package的特点需以  x＝funciton(){}的形式 不可加 var
+
+
+checkCartStatus =function (cartId, status) {
+
+    //todo 加入时间计算
+    var cart = DB.ShoppingCart.findOne({
+        _id: cartId,
+        accountId: Meteor.userId(),
+        status: status
+    })
+
+    return !!(cart && cart._id)
+
+}
 
 //{type:'register'}
 common_create_cart = function (params) {
 
+    params = params ||{ type:'register' }
+
     App.info = App.info || DB.App.findOne()
+
+
 
     var shoppingCart = {
         status: 'active',
@@ -38,10 +57,10 @@ common_create_cart = function (params) {
 
     var cartId = DB.ShoppingCart.insert(shoppingCart);
 
-    return DB.ShoppingCart.findOne({_id: cartId});
+    return cartId;
+    //return DB.ShoppingCart.findOne({_id: cartId});
 
 }
-
 
 //{type:'register'}
 common_get_or_create_active_cart = function (params) {
@@ -58,46 +77,7 @@ common_get_or_create_active_cart = function (params) {
     return cart || create_cart({status: 'active', type: params.type})
 }
 
-
-common_check_cart_status =function (cartId, status) {
-
-    //todo 加入时间计算
-    var cart = DB.ShoppingCart.findOne({
-        _id: cartId,
-        accountId: Meteor.userId(),
-        status: status
-    })
-
-    return !!(cart && cart._id)
-
-}
-
-
-
-
-
-
-///////////////////old to delete///////////////////
-create_cart = function (item) {
-    App.info = App.info || DB.App.findOne()
-
-    var shoppingCart = {
-        status: 'active',
-        accountId: Meteor.userId(),
-        sessionId: App.info.sessionRegister,
-        items: item ? [item] : []
-    }
-
-    var cartId = DB.ShoppingCart.insert(shoppingCart);
-
-    return cartId;
-
-}
-
-common_create_cart = create_cart
-
-//todo pending且未超时状态下 恢复为active的逻辑
-get_active_cart_id =function (createIfNotExist) {
+common_get_active_cart_id =function (createIfNotExist) {
 
     var cart = DB.ShoppingCart.findOne({ //todo 加入时间计算
         accountId: Meteor.userId(),
@@ -106,14 +86,10 @@ get_active_cart_id =function (createIfNotExist) {
 
     //console.log(cart)
 
-    return (cart && cart._id) || (createIfNotExist && create_cart());
+    return (cart && cart._id) || (createIfNotExist && common_create_cart());
 }
 
-
-common_get_active_cart_id = get_active_cart_id
-
-
-get_carts = function (status) {
+common_get_carts = function (status) {
     App.info = App.info || DB.App.findOne()
 
     var options = {
@@ -128,35 +104,37 @@ get_carts = function (status) {
     return carts;
 }
 
-
-//package scope
-checkCartStatus =function (cartId, status) {
-
-    //todo 加入时间计算
+//cart中 单个swimmer添加的课程的数量
+ common_get_class_count_in_cart = function(cartId, swimmerId) {
     var cart = DB.ShoppingCart.findOne({
-        _id: cartId,
-        accountId: Meteor.userId(),
-        status: status
+        _id: cartId
+    })
+    if (!cart)throw new Meteor.Error(500, 'in get_class_count_in_cart', 'cart not exist ' + cartId)
+
+    var items = cart.items
+    var count = 0
+
+    items.forEach(function (item) {
+        if (item.swimmerId == swimmerId) count++
     })
 
-    return !!(cart && cart._id)
-
+    return count;
 }
 
+//用于检查是否已经注册过该课程
+ common_get_class_count_in_register = function(swimmerId, classId, sessionId) {
+    App.info = App.info || DB.App.findOne()
 
+    sessionId = sessionId || App.info.sessionRegister
 
+    var count = DB.ClassesRegister.find({
+        swimmerId:swimmerId,
+        classId:classId,
+        sessionId: sessionId
+    }).count()
 
-shopping_cart_export({
-    //create_cart: create_cart,
-    get_or_create_active_cart: common_get_or_create_active_cart,
-    check_cart_status: common_check_cart_status,
+    return count;
+}
 
-
-    ////////old/////
-    create_cart: create_cart,
-    get_active_cart_id: get_active_cart_id,
-    get_carts: get_carts,
-    checkCartStatus: checkCartStatus
-})
 
 

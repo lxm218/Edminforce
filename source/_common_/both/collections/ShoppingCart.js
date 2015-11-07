@@ -110,7 +110,15 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
     items: {
         type: [Object],
         optional: true,
-        blackbox: true
+        blackbox: true,
+        defaultValue:[]
+    },
+
+    //当购物车checkout时数组应为空  否则需先回滚对应的事务
+    pendingTransactions:{
+        type: [String],
+        optional: true,
+        defaultValue:[]
     }
 
 }))

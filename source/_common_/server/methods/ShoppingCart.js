@@ -20,12 +20,13 @@ Meteor.startup(function () {
         add_preference_to_cart: shoppingCart.register_add_preference_to_cart,
 
 
-        delete_class_from_cart:shoppingCart.delete_class_from_cart,
-        change_preference_in_cart:shoppingCart.change_preference_in_cart,
+        delete_class_from_cart:shoppingCart.register_delete_class_from_cart,
 
+        //change_preference_in_cart:shoppingCart.change_preference_in_cart,
+        change_preference_in_cart:shoppingCart.register_change_preference_in_cart,
 
         //清除不完整购物项
-        clear_uncompleted_item_in_cart:shoppingCart.clear_uncompleted_item_in_cart,
+        clear_uncompleted_item_in_cart:shoppingCart.register_clear_uncompleted_item_in_cart,
 
         //active => checking
         move_to_checking: shoppingCart.move_to_checking,
@@ -39,11 +40,11 @@ Meteor.startup(function () {
 
         //////can only called from server//////
         //this.connection==null
-        cron_move_applied_to_done:shoppingCart.cron_move_applied_to_done,
-        cron_expiring:shoppingCart.cron_expiring,
+        //cron_move_applied_to_done:shoppingCart.cron_move_applied_to_done,
+        //cron_expiring:shoppingCart.cron_expiring,
 
 
-        ///cancel class
+        ///cancel class 仅可通过admin实现 todo 根据两段提交实现
         cancel_class:function(swimmerId,classId){
             //check if has been cancel
 
@@ -63,8 +64,7 @@ Meteor.startup(function () {
         },
 
 
-        ///change class
-
+        ///change class 仅可通过admin实现 todo 根据两段提交实现
         change_class:function(swimmerId, fromClassId, toClassId){
 
             //todo check 逻辑提出来

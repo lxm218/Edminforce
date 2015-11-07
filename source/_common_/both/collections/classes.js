@@ -67,12 +67,15 @@ DB.Schema.Classes = new SimpleSchema({
     },
     students:{
         type: [Object],  //students ids  包含了时间信息
-        optional: true
+        optional: true,
+        blackbox: true,
+        defaultValue:[]
     },
 
     pendingTransactions:{
         type: [String],
-        optional: true
+        optional: true,
+        defaultValue:[]
     },
 
     ///////////////////////////////////////////////

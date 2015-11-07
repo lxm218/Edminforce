@@ -111,8 +111,9 @@
                 {
 
 
-                    var props = self.props.get();
+                    //var props = self.props.get();
                     var currentClass = self.currentClass.get()
+                    var swimmer = self.currentSwimmer.get()
                     /*
                      * cartId  确定购物车
                      * swimmerId classId   确定一个item
@@ -121,11 +122,19 @@
                      *
                      * */
                     Meteor.call('change_preference_in_cart', {
-                        cartId:props.cartId,
-                        swimmerId: props.swimmerId,
-                        classId: props.classId,
-                        preferenceNum:props.preferenceNum,
+                        cartId:payload.cartId,
+                        swimmerId: payload.swimmerId,
+                        classId: payload.classId,
+                        preferenceNum:payload.preferenceNum,
 
+                        cartItem:payload.cartItem, //购物项
+
+                        //optimize
+                        fromClassId:payload.classId,
+                        toClassId:currentClass._id,
+
+
+                        swimmer:swimmer,
                         classData:currentClass
                     }, function (err, result) {
 

@@ -54,12 +54,10 @@
 
             var data = {
 
-                cart:PageStore.cart.get(),
+                cart:DB.ShoppingCart.findOne({_id:this.props.cartId}),
+                currentSwimmer: DB.Swimmers.findOne({_id:this.props.swimmerId}),
 
-                //account: Meteor.users.find().fetch(),
-                currentSwimmer: PageStore.currentSwimmer.get(),
                 currentClass:PageStore.currentClass.get(),
-
                 currentLevel:PageStore.currentLevel.get(), //next level
 
 
@@ -93,9 +91,26 @@
         formSubmit(e){
             e.preventDefault()
 
+
+            var cartItems = this.data.cart && this.data.cart.items
+
+
+            var cartItem = _.findWhere(cartItems,{
+                classId:this.props.classId,
+                swimmerId:this.props.swimmerId
+
+            })
+            console.log(cartItem)
+
+
             Dispatcher.dispatch({
                 actionType: 'CRSelectClassEditPage_CLASS_SELECT',
-                props: this.props
+
+                cartId:this.props.cartId,
+                swimmerId:this.props.swimmerId,
+                classId:this.props.classId,
+                preferenceNum:this.props.preferenceNum,
+                cartItem:cartItem //具有购物项的完整信息用于恢复
             });
 
         },
@@ -105,11 +120,13 @@
 
         render: function () {
 
+
             let items = this.data.cart && this.data.cart.items ;
             var item = _.findWhere(items,{
                 swimmerId:this.props.swimmerId,
                 classId:this.props.classId
             })
+            console.log('cart',this.data.cart)
             console.log(item)
             //
 

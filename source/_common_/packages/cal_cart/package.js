@@ -16,12 +16,22 @@ Package.onUse(function(api) {
     ], ["server"])
 
     api.addFiles([
-        "shoppingCart.common.js",
-        "shoppingCart.register.js",
-        "shoppingCart.change.js",
-        "shoppingCart.cancel.js",
-        "shoppingCart.cron.js",
-        "register.js"
+        "shoppingCart.common.js",// common functions in package scope
+
+        "shoppingCart.register.js", //todo delete
+        "shoppingCart.register.add.js",
+        "shoppingCart.register.change.js",
+        "shoppingCart.register.delete.js",
+        "shoppingCart.register.pay.js",
+
+        "shoppingCart.expring.js", //depend on shoppingCart.register.delete.js
+
+
+        "shoppingCart.change.js",//支付后的change 仅在admin端处理
+
+        "shoppingCart.cancel.js",//支付后的cancel 仅在admin端处理
+
+        "shoppingCart.cron.js"//todo delete
 
 
     ], ["server"])
