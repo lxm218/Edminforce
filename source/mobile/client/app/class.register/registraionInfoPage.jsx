@@ -18,7 +18,7 @@
             return {}
         },
         continue(){
-
+            console.log("Paced Program Register");
             Dispatcher.dispatch({
                 actionType: "CRRegistraionInfoPage_CONTINUE"
             });
@@ -97,7 +97,7 @@
                     <button onClick={this.continue}
                             className="button button-full button-brand ">
 
-                        Continue
+                        Register
                     </button>
                 </p>
 

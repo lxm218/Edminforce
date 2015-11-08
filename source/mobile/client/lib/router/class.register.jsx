@@ -16,8 +16,7 @@
         }]
     });
 
-
-    ClassRegisterRoute.route('/registraionInfoPage', {
+    ClassRegisterRoute.route('/info', {
         //name: "home",
         action: function (p) {
             App.routeHandler(p, {

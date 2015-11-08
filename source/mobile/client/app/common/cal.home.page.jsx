@@ -15,7 +15,7 @@ Cal.Home = React.createClass({
         let title = 'Welcome To Our ' + (this.data.account && this.data.account.profile.location) + ' Facility'
 
         console.log(title)
-        return <div className="padding">
+        return <div className="padding home">
 
 
             <RC.Card title={title}>
@@ -24,61 +24,29 @@ Cal.Home = React.createClass({
 
 
             <div className="row">
-                <div className="col">
-                    <RC.Button name="button" buttonColor="dark" className="button-clear">
-                        Paced Program
-                    </RC.Button>
-                </div>
-                <div className="col">
-                    <RC.Button name="button" buttonColor="brand" href="/classRegister/registraionInfoPage">
-                        Register
-                    </RC.Button>
-                </div>
-
+                <RC.Button className="item-button" name="button" buttonColor="brand"
+                           href="/classRegister/info">
+                    Paced Program
+                </RC.Button>
             </div>
 
             <div className="row">
-                <div className="col">
-                    <RC.Button name="button" buttonColor="dark" className="button-clear">
-                        Intense Program
-                    </RC.Button>
-                </div>
-                <div className="col">
-                    <RC.Button name="button" buttonColor="brand" >
-                        Register
-                    </RC.Button>
-                </div>
-
+                <RC.Button className="item-button" name="button" buttonColor="brand" href="/intense/info">
+                    Intense Program
+                </RC.Button>
             </div>
 
             <div className="row">
-                <div className="col">
-                    <RC.Button name="button" buttonColor="dark" className="button-clear">
-                        Little Star Program
-                    </RC.Button>
-                </div>
-                <div className="col">
-                    <RC.Button name="button" buttonColor="brand" >
-                        Register
-                    </RC.Button>
-                </div>
-
+                <RC.Button className="item-button"  name="button" buttonColor="brand" href="/littlestar/info">
+                    Little Star Program
+                </RC.Button>
             </div>
 
             <div className="row">
-                <div className="col">
-                    <RC.Button name="button" buttonColor="dark" className="button-clear">
-                        Fasttrack Program
-                    </RC.Button>
-                </div>
-                <div className="col">
-                    <RC.Button name="button" buttonColor="brand">
-                        Register
-                    </RC.Button>
-                </div>
-
+                <RC.Button className="item-button"  name="button" buttonColor="brand" href="/fastrack/info">
+                    Fastrack Program
+                </RC.Button>
             </div>
-
 
         </div>
 

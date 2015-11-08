@@ -1,3 +1,14 @@
 
 /* Nav States */
 #app-body { padding-top: $height_nav; }
+.home{
+  .row{
+
+    margin: 10px 0;
+
+    .item-button{
+      width: 100%;
+      margin: 0 10%;
+    }
+  }
+}
