@@ -24,4 +24,16 @@
             });
         }
     });
+
+    RegisterRoute.route('/register',{
+        name: "littlestar_register",
+        action: function(params){
+            App.routeHandler(params, {
+                pageTitle: "Little Star Program Register",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRLittleStartProgramRegister/>
+            });
+        }
+    });
 }

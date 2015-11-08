@@ -4,7 +4,8 @@ Cal.CRFastrackProgramIntro = React.createClass({
         return {};
     },
     register: function () {
-        console.log("Click Register");
+        console.log("Fastrack Program - Click Register");
+        FlowRouter.go('fastrack_register');
     },
     render: function () {
         return (

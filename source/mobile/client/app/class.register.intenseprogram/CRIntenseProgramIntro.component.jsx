@@ -4,7 +4,8 @@ Cal.CRIntenseProgramIntro = React.createClass({
         return {};
     },
     register: function () {
-        console.log("Click Register");
+        console.log("Intense Program Info - Click Register");
+        FlowRouter.go('intense_register');
     },
     render: function () {
         return (

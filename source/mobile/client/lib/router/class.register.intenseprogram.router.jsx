@@ -24,4 +24,16 @@
             });
         }
     });
+
+    RegisterRoute.route('/register',{
+        name: "intense_register",
+        action: function(params){
+            App.routeHandler(params, {
+                pageTitle: "Intense Program Register",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRIntenseProgramRegister/>
+            });
+        }
+    });
 }

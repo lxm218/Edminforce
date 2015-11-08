@@ -74,6 +74,13 @@ Refer to the following style guides if need be:
 		// write your css here
 	}
 	```
+	
+### Develop Tips
+#### CRUD MongoDB
+After you start, in your browser type `Control+M`, it will show [Mongol](https://github.com/msavin/Mongol/) Console
+#### MongoDB Schema
+In our project, we are using iHealth framework, and iHealth framework use [aldeed:collection2@2.3.3](https://github.com/aldeed/meteor-collection2) and [aldeed:simple-schema@1.3.3](https://github.com/aldeed/meteor-simple-schema/), so you can use the feature they provide to define MongoDB Schema
+
 
 
 

@@ -24,4 +24,16 @@
             });
         }
     });
+
+    RegisterRoute.route('/register',{
+        name: "fastrack_register",
+        action: function(params){
+            App.routeHandler(params, {
+                pageTitle: "Fastrack Program Register",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRFastrackProgramRegister/>
+            });
+        }
+    });
 }

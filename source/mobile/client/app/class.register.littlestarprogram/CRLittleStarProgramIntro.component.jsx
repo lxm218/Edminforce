@@ -4,7 +4,8 @@ Cal.CRLittleStartProgramIntro = React.createClass({
         return {};
     },
     register: function () {
-        console.log("Click Register");
+        //console.log("Click Register");
+        FlowRouter.go('littlestar_register');
     },
     render: function () {
         return (
