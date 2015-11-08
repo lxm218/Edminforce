@@ -153,7 +153,19 @@
 
 
                         //回到上一页
-                        window.history.back();
+                        //window.history.back();
+
+                        if(payload.preferenceNum==1){
+                            let href= '/classRegister/SelectClassReady'
+                                +"?cartId="+payload.cartId
+                                +"&swimmerId="+payload.swimmerId
+                                +"&classId="+currentClass._id  //改后的课程
+
+                            FlowRouter.go(href);
+                        }else{
+                            window.history.back();
+                        }
+
 
                     })
 

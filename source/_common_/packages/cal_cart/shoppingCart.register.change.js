@@ -220,7 +220,7 @@
                 //    }
                 //},
                 $set: {
-                    'items.$.classId': params.classData.classId,
+                    'items.$.classId': params.classData._id,
                     'items.$.class1': params.classData //class3
                 },
                 $push:{

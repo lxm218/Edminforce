@@ -368,7 +368,7 @@
 
         items.forEach(function(item){
 
-            shoppingCart.delete_class_from_cart({
+            shoppingCart.register_delete_class_from_cart({
                 cartId:cart._id,
                 swimmerId: item.swimmerId,
                 classId:item.classId,
@@ -377,7 +377,6 @@
             })
         })
     }
-
 
 
 

@@ -65,6 +65,23 @@ DB.Schema.Classes = new SimpleSchema({
     seatsRemain:{
         type: Number
     },
+
+
+    /*
+
+     {
+        swimmerId: item.swimmerId,
+        swimmer: item.swimmer,
+        cartId: cart_id,
+        status: 'pending'/'paied'
+
+
+        ////暂未加 根据需要加
+        accountId:'',
+        transactionId:''
+     }
+
+    */
     students:{
         type: [Object],  //students ids  包含了时间信息
         optional: true,
