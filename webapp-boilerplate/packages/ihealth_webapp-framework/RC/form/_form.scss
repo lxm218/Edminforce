@@ -1,0 +1,42 @@
+
+input, textarea {
+  background: #fff; border: solid 1px #fff;
+  padding: 9px; margin: 0 0 2px;
+  -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; border-radius: 0; }
+
+input { height: auto; min-height: 0; }
+textarea { height: auto; min-height: 100px; }
+button {
+  border: none;
+  background: #444; color: #fff;
+  padding: 11px 12px 12px; margin: 15px 0 0; }
+button.bg-white { background: #fff; color: #444; }
+
+.has-error input, .has-error textarea { border-color: red; }
+
+label {
+  display: inline-block; padding: 2px 5px 3px;
+  background: #444; color: #fff;
+  font-size: 13px; }
+#app-root.android label { padding-bottom: 0; }
+
+/* Regular */
+.input-form.regular.with-label { margin-top: 20px; }
+
+/* Label Inside */
+.input-form.label-inside.with-label { position: relative; }
+.input-form.label-inside.with-label label {
+  position: absolute; left: 10px; top: 12px;
+  width: 100px; padding: 0;
+  background: #fff; color: #aaa;
+  font-size: 1em; }
+.input-form.label-inside.with-label input { padding: 10px 9px 10px 119px; }
+
+/* Sizes for Inputs */
+.input-form.normal { width: 255px; }
+.input-form.half { width: 50%; float: left; }
+.input-form.third { width: 33.3333%; float: left; }
+
+.input-form.half .inner, .input-form.third .inner { padding: 0 1px; }
+.input-form:first-child .inner { padding-left: 0; }
+.input-form:last-child .inner { padding-right: 0; }
