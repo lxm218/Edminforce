@@ -46,6 +46,7 @@ ihealth:bp5@0.2.2
 ihealth:chat-engine@0.1.2
 ihealth:debug-console@0.0.1
 ihealth:dev-tools@0.0.1
+ihealth:devices-commons@0.0.1
 ihealth:devices-stub@0.0.1
 ihealth:devices-ui@0.3.2
 ihealth:devices-ui-bg@0.3.3
