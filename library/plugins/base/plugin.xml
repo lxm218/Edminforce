@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="com.ihealth.plugin.base.basemanagercordova"
+        version="0.0.1">
+
+  <name>plugin_Am</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/BaseManagerCordova.js" target="js/BaseManagerCordova.js"/>
+
+  <js-module src="www/BaseManagerCordova.js" name="BaseManagerCordova">
+    <clobbers target="BaseManagerCordova" />
+  </js-module>
+
+  <platform name="android">
+     
+    <lib-file src="src/android/libs/PluginBase.jar" />
+
+  </platform>
+
+  <platform name="ios">
+    
+    <config-file target="config.xml" parent="/*">
+      <feature name="BaseManagerCordova">
+        <param name="ios-package" value="BaseManagerCordova"/>
+      </feature>
+    </config-file>
+    <config-file target="*-Info.plist" parent="UISupportedExternalAccessoryProtocols"> 
+      <array> 
+        <string>com.jiuan.AMV11</string> 
+      </array> 
+    </config-file>
+    <config-file target="*-Info.plist" parent="UIBackgroundModes">
+      <array>
+        <string>external-accessory</string>
+      </array>
+    </config-file>
+    <source-file src="src/ios/iHealthSDK.a" framework="true" />
+        <framework src="CoreGraphics.framework" />
+        <framework src="Foundation.framework" />
+        <framework src="ExternalAccessory.framework" />
+        <framework src="AudioToolbox.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="Accelerate.framework" />
+        <framework src="CoreBluetooth.framework" />
+        <framework src="UIKit.framework" />
+  </platform>
+
+  <platform name="wp7">
+    <source-file src="src/wp7/Hello.cs"/>
+  </platform>
+
+</plugin>
