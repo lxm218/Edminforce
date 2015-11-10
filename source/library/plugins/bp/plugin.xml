@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="com.ihealth.plugin.bp.bpmanagercordova"
+        version="0.0.1">
+
+  <name>plugin_Bp</name>
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/BpManagerCordova.js" target="js/BpManagerCordova.js"/>
+
+  <js-module src="www/BpManagerCordova.js" name="BpManagerCordova">
+    <clobbers target="BpManagerCordova" />
+  </js-module>
+
+  <platform name="android">
+
+    <config-file target="res/xml/config.xml" parent="/*">
+      <feature name="BpManagerCordova">
+        <param name="android-package" value="com.ihealth.plugin.bp.BpManagerCordova"/>
+      </feature>
+    </config-file>
+    
+    <config-file target="AndroidManifest.xml" parent="/manifest">
+      <uses-permission android:name="android.permission.BLUETOOTH" />
+      <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    </config-file>    
+    <source-file src="src/android/BpManagerCordova.java" target-dir="src/com/ihealth/plugin/"/>  
+    <lib-file src="src/android/libs/PluginBp.jar" />
+
+  </platform>
+
+  <platform name="ios">
+    <config-file target="config.xml" parent="/*">
+      <feature name="BpManagerCordova">
+        <param name="ios-package" value="BpManagerCordova"/>
+      </feature>
+    </config-file>
+    <config-file target="*-Info.plist" parent="UISupportedExternalAccessoryProtocols"> 
+      <array> 
+        <string>com.jiuan.BPV20</string> 
+      </array> 
+    </config-file>
+    <header-file src="src/ios/User.h"/>
+    <header-file src="src/ios/BP3L.h"/>
+    <header-file src="src/ios/BP3LController.h"/>
+    <header-file src="src/ios/BP5.h"/>
+    <header-file src="src/ios/BP5Controller.h"/>
+    <header-file src="src/ios/BP7.h"/>
+    <header-file src="src/ios/BP7Controller.h"/>
+    <header-file src="src/ios/BPHeader.h"/>
+    <header-file src="src/ios/BPMacroFile.h"/>
+    <header-file src="src/ios/BpManagerCordova.h"/>
+    <source-file src="src/ios/BpManagerCordova.m"/>
+  <!--   <source-file src="src/ios/iHealthSDK.a" framework="true" /> -->
+        <!-- <framework src="src/ios/iHealthPlugin.framework" custom="true"/> -->
+        <framework src="CoreGraphics.framework" />
+        <framework src="Foundation.framework" />
+        <framework src="ExternalAccessory.framework" />
+        <framework src="AudioToolbox.framework" />
+        <framework src="AVFoundation.framework" />
+        <framework src="Accelerate.framework" />
+        <framework src="CoreBluetooth.framework" />
+        <framework src="UIKit.framework" />
+  </platform>
+
+
+  <platform name="wp7">
+    <source-file src="src/wp7/Hello.cs"/>
+  </platform>
+
+</plugin>
