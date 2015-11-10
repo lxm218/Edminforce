@@ -1,0 +1,6 @@
+
+.ih-login .re-wrapper { max-width: 320px; padding: 15px; position: relative; }
+.ih-login img { display: block; width: auto; max-width: 210px; margin: 10px auto 48px; }
+
+.ih-login .open-registration { border-bottom: dotted 1px rgba(255,255,255,.85); }
+.ih-login-overlay-dark .open-registration { border-color: rgba(40,40,40,85); }

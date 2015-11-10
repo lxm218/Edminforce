@@ -1,0 +1,15 @@
+
+.ct-chart.bp .ct-grid, .ct-chart.heartrate .ct-grid {
+  stroke: rgba(0,0,0,.1);
+  stroke-width: 1px;
+  stroke-dasharray: 3px;
+}
+
+.ct-chart.bp .ct-bar, .ct-chart.bp  .ct-line, .ct-chart.bp .ct-point, .ct-chart.bp .ct-slice-donut {
+  stroke: rgba(0,0,0,.1);
+}
+
+.ct-chart.heartrate .ct-bar, .ct-chart.heartrate  .ct-line, .ct-chart.heartrate .ct-point, .ct-chart.heartrate .ct-slice-donut {
+  stroke: rgba(0,130,236,.3);
+}
+.ct-chart.heartrate .ct-area { fill: #0082ec; }

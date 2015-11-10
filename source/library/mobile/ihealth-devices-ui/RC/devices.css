@@ -1,0 +1,140 @@
+
+svg.device-control {
+  position: absolute; bottom: 75px; left: 50%; z-index: 5;
+  background: #e4e4e4;
+  width: 140px; height: 140px; margin: 0 0 0 -70px;
+  -webkit-animation: device-up-animate .75s 1;
+	-moz-animation: device-up-animate .75s 1;
+	animation: device-up-animate .75s 1; }
+svg.device-control.active { background: #ddd; }
+
+.device-back { background: #fff; z-index: 5001 !important; }
+.device-back .device-back-blur { z-index: 1; }
+
+/* Search Bar */
+.device-search-bar {
+  position: absolute; top: 0; left: 0; right: 0; bottom: auto; z-index: 10;
+  min-height: 1px;
+  background: rgba(0,0,0,.08); }
+
+.dsb-loading { height: 5px; }
+.dsb-loading:before {
+  content: " "; background: rgba(125,125,125,.5);
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  animation: dsb-load-animate 1s infinite;
+  -moz-animation: dsb-load-animate 1s infinite;
+  -webkit-animation: dsb-load-animate 1s infinite;
+  -o-animation: dsb-load-animate 1s infinite;
+}
+
+@keyframes dsb-load-animate {
+  0% { left: 0; right: 100%; }
+  50% { left: 0; right: 0; }
+  100% { left: 100%; right: 0; }
+}
+
+@-moz-keyframes dsb-load-animate {
+  0% { left: 0; right: 100%; }
+  50% { left: 0; right: 0; }
+  100% { left: 100%; right: 0; }
+}
+
+@-webkit-keyframes dsb-load-animate {
+  0% { left: 0; right: 100%; }
+  50% { left: 0; right: 0; }
+  100% { left: 100%; right: 0; }
+}
+
+@-o-keyframes dsb-load-animate {
+  0% { left: 0; right: 100%; }
+  50% { left: 0; right: 0; }
+  100% { left: 100%; right: 0; }
+}
+
+
+/* Plate & Text */
+.device-plate {
+  position: absolute; bottom: 0; left: 50%; z-index: 1;
+  width: 140px; height: 150px; margin: 0 0 0 -70px;
+  background: rgba(0,0,0,.04);
+	-webkit-animation: device-up-animate .75s 1;
+	-moz-animation: device-up-animate .75s 1;
+	animation: device-up-animate .75s 1;
+}
+.device-plate .battery {
+  font-size: 1em; color: rgba(255,255,255,.25);
+  position: absolute; top: auto; bottom: 10px; left: 10px; right: 10px; }
+.device-plate .battery p { position: relative; display: inline-block; padding: 0 30px 0 0; }
+.device-plate .fa {
+  font-size: 1.2em;
+  top: 2px; right: 0; left: auto; bottom: auto;
+  margin: 0; }
+
+.device-text {
+  overflow: visible;
+  font-size: 1.05em; color: rgba(0,0,0,.58);
+  position: absolute; left: 50%; top: 50%; z-index: 10;
+  height: 100px; width: 320px; margin: -145px 0 0 -160px; }
+.device-text .title {
+  margin: 0 0 8px;
+  color: rgba(0,0,0,.73); font-size: 1.6em; }
+
+.device-help {
+  background: rgba(0,0,0,.2);
+  display: block; margin: 5px auto;
+  width: 70px; height: 70px; padding: 23px 0 0; }
+
+/* Device Errors */
+#device-error { padding: 0 0 10px; z-index: 101; }
+#device-error p { max-width: 370px; margin: 0 auto; padding: 0 4% 13px; }
+
+#device-error h1 { color: #e31c1c; letter-spacing: .1em; text-indent: .1em; }
+#device-error .round {
+  border: solid 1px #e31c1c; color: #e31c1c; text-indent: 1px;
+  display: block; margin: 5px auto 0;
+  width: 74px; height: 75px; padding: 27px 0 0; }
+#device-error .round.active { background-color: #e31c1c; color: #fff; }
+
+@-webkit-keyframes device-up-animate {
+	0% {
+  	-webkit-transform: translate(0, 240px);
+  	transform: translate(0, 240px); }
+  100% {
+  	-webkit-transform: translate(0, 0);
+  	transform: translate(0, 0); }
+}
+@-moz-keyframes device-up-animate {
+	0% { -moz-transform: translate(0, 240px); }
+  100% { -moz-transform: translate(0, 0); }
+}
+@keyframes device-up-animate {
+	0% { transform: translate(0, 240px); }
+  100% { transform: translate(0, 0); }
+}
+
+@media screen and (min-height: 580px) {
+  svg.device-control { width: 180px; height: 180px; margin: 0 0 0 -90px; bottom: 70px; }
+  .device-plate { width: 180px; height: 150px; margin: 0 0 0 -90px; }
+
+  .device-text { margin-top: -150px; }
+  .device-text .title { font-size: 1.7em; }
+}
+@media screen and (min-height: 640px) {
+  svg.device-control { width: 200px; height: 200px; margin: 0 0 0 -100px; bottom: 80px; }
+  .device-plate { width: 200px; height: 200px; margin: 0 0 0 -100px; }
+}
+@media screen and (min-height: 800px) {
+  svg.device-control { width: 240px; height: 240px; margin: 0 0 0 -120px; bottom: 120px; }
+  .device-plate { width: 240px; height: 240px; margin: 0 0 0 -120px; }
+
+  .device-text {
+    width: 480px; margin: -155px 0 0 -240px;
+    font-size: 1.25em; }
+  .device-text .title { font-size: 1.8em; }
+  .device-help { width: 80px; height: 80px; padding: 30px 0 0; }
+}
+@media screen and (min-width: 440px) {
+  .device-text {
+    width: 400px; margin: -160px 0 0 -200px;
+    font-size: 1.15em; }
+}
