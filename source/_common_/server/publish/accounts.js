@@ -95,33 +95,41 @@
                             find: function (swimmer, account) {//swimmers对应的class id
 
                                 //console.log(swimmer)
-                                return DB.ClassesRegister.find(
+                                //return DB.ClassesRegister.find(
+                                //    {
+                                //        swimmerId: swimmer._id
+                                //
+                                //    });
+
+                                return DB.Classes.find(
                                     {
-                                        swimmerId: swimmer._id
+                                        'students.swimmerId': swimmer._id  //todo  session?
 
                                     });
                             },
                             children: [
                                 {
-                                    find: function (classesRegister, swimmer, account) {//class对应的详细信息
+                                    find: function (classes, swimmer, account) {//class对应的详细信息
 
                                         //console.log(classesRegister)
 
-                                        return DB.Classes.find(
-                                            {
-                                                _id: classesRegister.classId
+                                        //return DB.Classes.find(
+                                        //    {
+                                        //        _id: classesRegister.classId
+                                        //
+                                        //    });
 
-                                            });
-                                    },
-                                    children: [
-                                        {
-                                            find: function (classDetail, classesRegister, swimmer, account) {//just for test
 
-                                                //console.log(classDetail)
-
-                                            }
-                                        }
-                                    ]
+                                    }//,
+                                    //children: [
+                                    //    {
+                                    //        find: function (classDetail, classesRegister, swimmer, account) {//just for test
+                                    //
+                                    //            //console.log(classDetail)
+                                    //
+                                    //        }
+                                    //    }
+                                    //]
 
 
                                 }

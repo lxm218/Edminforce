@@ -228,7 +228,9 @@
                     swimmerId: item.swimmerId,
                     swimmer: item.swimmer,
                     cartId: cart_id,
-                    status: 'pending'
+                    status: 'pending',
+
+                    accountId:item.accountId //方便查询account类型 在特定session是否有课
                 },
                 pendingTransactions: tid
             }

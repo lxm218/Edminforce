@@ -28,10 +28,15 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
         var appInfo= self.appInfo.get()
 
         //if(!App.info) return;
-        return DB.ClassesRegister.find({
-            accountId:Meteor.userId(),
-            sessionId:appInfo && appInfo.sessionNow
-        })
+        //return DB.ClassesRegister.find({
+        //    accountId:Meteor.userId(),
+        //    sessionId:appInfo && appInfo.sessionNow
+        //})
+
+        return DB.Classes.find({
+            'students.accountId':Meteor.userId(),
+            sessionId: App.info && App.info.sessionNow
+        })//.fetch()
 
     }
 
@@ -42,10 +47,16 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
         //if(!App.info) return;
         var appInfo= self.appInfo.get()
 
-        return DB.ClassesRegister.find({
-            accountId:Meteor.userId(),
-            sessionId:{$nin:[appInfo && appInfo.sessionNow , appInfo && appInfo.sessionRegister]}
-        })
+        //return DB.ClassesRegister.find({
+        //    accountId:Meteor.userId(),
+        //    sessionId:{$nin:[appInfo && appInfo.sessionNow , appInfo && appInfo.sessionRegister]}
+        //})
+
+
+        return DB.Classes.find({
+            'students.accountId':Meteor.userId(),
+            'sessionId':{$nin:[appInfo && appInfo.sessionNow , appInfo && appInfo.sessionRegister]}
+        })//.fetch()
 
     }
 

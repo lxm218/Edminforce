@@ -74,10 +74,10 @@ DB.Schema.Classes = new SimpleSchema({
         swimmer: item.swimmer,
         cartId: cart_id,
         status: 'pending'/'paied'
+        accountId:'',   //用于一次性查询一个account下的所有注册的class，可用于判断用户类型 正在游／return back
 
 
         ////暂未加 根据需要加
-        accountId:'',
         transactionId:''
      }
 

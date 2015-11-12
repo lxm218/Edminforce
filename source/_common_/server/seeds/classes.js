@@ -259,7 +259,8 @@ Meteor.startup(function () {
               swimmerId: item.swimmerId,
               swimmer: DB.Swimmers.findOne({_id:item.swimmerId}),
               cartId: 'test_cart_1', //占位
-              status: 'paied'
+              status: 'paied',
+              accountId:item.accountId
             },
             //pendingTransactions: tid
           }

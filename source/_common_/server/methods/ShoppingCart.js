@@ -45,35 +45,35 @@ Meteor.startup(function () {
 
 
         ///cancel class 仅可通过admin实现 todo 根据两段提交实现
-        cancel_class:function(swimmerId,classId){
-            //check if has been cancel
-
-            var item = DB.ClassesRegister.findOne({
-                swimmerId:swimmerId,
-                classId:classId
-            })
-            if(!item){
-                throw new Meteor.Error(500, 'swimmerId don not have that class');
-
-            }else if(item.status=='canceling'){
-                throw new Meteor.Error(500, 'class is already canceling process');
-
-            }
-
-            shoppingCart.cancel_add_class_to_cart(swimmerId,classId)
-        },
+        //cancel_class:function(swimmerId,classId){
+        //    //check if has been cancel
+        //
+        //    var item = DB.ClassesRegister.findOne({
+        //        swimmerId:swimmerId,
+        //        classId:classId
+        //    })
+        //    if(!item){
+        //        throw new Meteor.Error(500, 'swimmerId don not have that class');
+        //
+        //    }else if(item.status=='canceling'){
+        //        throw new Meteor.Error(500, 'class is already canceling process');
+        //
+        //    }
+        //
+        //    shoppingCart.cancel_add_class_to_cart(swimmerId,classId)
+        //},
 
 
         ///change class 仅可通过admin实现 todo 根据两段提交实现
-        change_class:function(swimmerId, fromClassId, toClassId){
-
-            //todo check 逻辑提出来
-            shoppingCart.change_class(
-                swimmerId,
-                fromClassId,
-                toClassId
-            )
-        }
+        //change_class:function(swimmerId, fromClassId, toClassId){
+        //
+        //    //todo check 逻辑提出来
+        //    shoppingCart.change_class(
+        //        swimmerId,
+        //        fromClassId,
+        //        toClassId
+        //    )
+        //}
 
 
     })

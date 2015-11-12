@@ -7,24 +7,43 @@ Cal.SwimmerRegisteredClassPage = React.createClass({
     mixins: [ReactMeteorData],
     getMeteorData() {
 
-        var registeredClasses = DB.ClassesRegister.find({
-            swimmerId: this.props.swimmerId,
-            status:'normal',  //不显示cancel中的和 change中的
-            sessionId: App.info && App.info.sessionRegister
-        }).fetch();
+        Meteor.subscribe("classes");
 
-        var nowClasses = DB.ClassesRegister.find({
-            swimmerId: this.props.swimmerId,
-            status:'normal',  //不显示cancel中的和 change中的
+
+        //var registeredClasses = DB.ClassesRegister.find({
+        //    swimmerId: this.props.swimmerId,
+        //    status:'normal',  //不显示cancel中的和 change中的
+        //    sessionId: App.info && App.info.sessionRegister
+        //}).fetch();
+
+        var registeredClasses= DB.Classes.find({
+            'students.swimmerId':this.props.swimmerId,
+             sessionId: App.info && App.info.sessionRegister
+        }).fetch()
+
+
+        //var nowClasses = DB.ClassesRegister.find({
+        //    swimmerId: this.props.swimmerId,
+        //    status:'normal',  //不显示cancel中的和 change中的
+        //    sessionId: App.info && App.info.sessionNow
+        //}).fetch();
+        var nowClasses= DB.Classes.find({
+            'students.swimmerId':this.props.swimmerId,
             sessionId: App.info && App.info.sessionNow
-        }).fetch();
+        }).fetch()
 
-        var historyClasses=DB.ClassesRegister.find({
-            swimmerId: this.props.swimmerId,
-            status:'normal',  //不显示cancel中的和 change中的
-            sessionId:{$nin:[App.info && App.info.sessionNow , App.info && App.info.sessionRegister]}
 
-        }).fetch();
+        //var historyClasses=DB.ClassesRegister.find({
+        //    swimmerId: this.props.swimmerId,
+        //    status:'normal',  //不显示cancel中的和 change中的
+        //    sessionId:{$nin:[App.info && App.info.sessionNow , App.info && App.info.sessionRegister]}
+        //
+        //}).fetch();
+
+        var historyClasses= DB.Classes.find({
+            'students.swimmerId':this.props.swimmerId,
+             sessionId:{$nin:[App.info && App.info.sessionNow , App.info && App.info.sessionRegister]}
+        }).fetch()
 
 
 
@@ -36,6 +55,9 @@ Cal.SwimmerRegisteredClassPage = React.createClass({
     },
 
     render() {
+
+        var swimmerId = this.props.swimmerId;
+
         return <RC.Tabs className="bg-white">
             <div label="new session" className="padding">
 
@@ -45,7 +67,9 @@ Cal.SwimmerRegisteredClassPage = React.createClass({
 
                         return <Cal.ClassEditSwimmerItemClassItem
                             isLink={true}
-                                registerInfo={item}
+                            classInfo= {item}
+                            swimmerId={swimmerId}
+
                             />
                     })
                 }
@@ -60,7 +84,8 @@ Cal.SwimmerRegisteredClassPage = React.createClass({
 
                         return <Cal.ClassEditSwimmerItemClassItem
                             isLink={true}
-                            registerInfo={item}
+                            classInfo= {item}
+                            swimmerId={swimmerId}
                             />
                     })
 
@@ -73,7 +98,8 @@ Cal.SwimmerRegisteredClassPage = React.createClass({
                     this.data.historyClasses && this.data.historyClasses.map(function (item) {
 
                         return <Cal.ClassEditSwimmerItemClassItem
-                            registerInfo={item}
+                            classInfo= {item}
+                            swimmerId={swimmerId}
                             />
                     })
 

@@ -538,11 +538,16 @@
 
                 Tracker.autorun(function () {
 
-                    var nowClasses = DB.ClassesRegister.find({
-                        swimmerId: currentSwimmer._id,
-                        status:'normal',  //不显示cancel中的和 change中的
-                        sessionId: App.info.sessionNow
-                    }).fetch();
+                    //var nowClasses = DB.ClassesRegister.find({
+                    //    swimmerId: currentSwimmer._id,
+                    //    status:'normal',  //不显示cancel中的和 change中的
+                    //    sessionId: App.info.sessionNow
+                    //}).fetch();
+
+                    var nowClasses =DB.Classes.find({
+                        'students.swimmerId':currentSwimmer._id,
+                        sessionId: App.info && App.info.sessionNow
+                    }).fetch()
 
                     self.nowClasses.set(nowClasses)
 
@@ -552,23 +557,37 @@
                 })
                 Tracker.autorun(function () {
 
-                    var registeredClasses = DB.ClassesRegister.find({
-                        swimmerId: currentSwimmer._id,
-                        status:'normal',  //不显示cancel中的和 change中的
-                        sessionId: App.info.sessionRegister
-                    }).fetch();
+                    //var registeredClasses = DB.ClassesRegister.find({
+                    //    swimmerId: currentSwimmer._id,
+                    //    status:'normal',  //不显示cancel中的和 change中的
+                    //    sessionId: App.info.sessionRegister
+                    //}).fetch();
+
+                    var registeredClasses =DB.Classes.find({
+                        'students.swimmerId':currentSwimmer._id,
+                        sessionId: App.info && App.info.sessionRegister
+                    }).fetch()
+
+
                     self.registeredClasses.set(registeredClasses)
 
 
                 })
                 Tracker.autorun(function () {
 
-                    var historyClasses=DB.ClassesRegister.find({
-                        swimmerId: currentSwimmer._id,
-                        status:'normal',  //不显示cancel中的和 change中的
-                        sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
+                    //var historyClasses=DB.ClassesRegister.find({
+                    //    swimmerId: currentSwimmer._id,
+                    //    status:'normal',  //不显示cancel中的和 change中的
+                    //    sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
+                    //
+                    //}).fetch();
 
-                    }).fetch();
+                    var historyClasses =DB.Classes.find({
+                        'students.swimmerId':currentSwimmer._id,
+                        sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
+                    }).fetch()
+
+
                     self.historyClasses.set(historyClasses)
 
                 })

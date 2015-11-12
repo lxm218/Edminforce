@@ -18,7 +18,7 @@
             href: "/classEdit/swimmerList",
             text: "Your Swimmers"
         }, {
-            href: "/classRegister/registraionInfoPage",
+            href: "/classRegister/info",
             text: "Class Registration"
         },
         {

@@ -1,7 +1,8 @@
 Cal.ClassEditSwimmerItemClassItem = React.createClass({
     propTypes: {
-        registerInfo: React.PropTypes.object,
-        isLink: React.PropTypes.bool
+        //registerInfo: React.PropTypes.object,
+        isLink: React.PropTypes.bool,
+        classInfo:React.PropTypes.object
     },
     mixins: [ReactMeteorData],
     getMeteorData() {
@@ -9,17 +10,24 @@ Cal.ClassEditSwimmerItemClassItem = React.createClass({
         //account swimmers classes
         //Meteor.subscribe("accountWithSwimmersAndClasses",'account1');
 
-        let registerInfo = this.props.registerInfo
-        let classId = registerInfo.classId;
-        let swimmerId = registerInfo.swimmerId
+        //let registerInfo = this.props.registerInfo
+        //let classId = registerInfo.classId;
+        //let swimmerId = registerInfo.swimmerId
 
-        Meteor.subscribe("class", classId);
+
+        let classInfo = this.props.classInfo
+        let swimmerId = this.props.swimmerId
+
+
+        //Meteor.subscribe("class", classId);
         Meteor.subscribe("swimmer", swimmerId);
 
 
         return {
             swimmer: DB.Swimmers.find({_id: swimmerId}).fetch(),
-            classInfo: DB.Classes.find({_id: classId}).fetch()
+            //classInfo: DB.Classes.find({_id: classId}).fetch(),
+            classInfo: classInfo
+
         };
     },
 
@@ -27,22 +35,21 @@ Cal.ClassEditSwimmerItemClassItem = React.createClass({
         let registerInfo = this.props.registerInfo
 
         let href = '/classEdit/operationBoard?'
-            + 'classId=' + encodeURIComponent(registerInfo.classId)
-            + '&swimmerId=' + registerInfo.swimmerId
-            + '&registerInfoId=' + registerInfo._id
+            + 'classId=' + encodeURIComponent(this.props.classInfo._id)
+            + '&swimmerId=' + this.props.swimmerId
 
         return !this.props.isLink ? <p>
             {
-                this.data.classInfo.length ? <span >
-                    {this.data.classInfo[0].name}
-                </span> : ''
+                <span>
+                    {this.props.classInfo.name}
+                </span>
             }
         </p> :
-            this.data.classInfo.length ?<RC.Item className="item-text-wrap"
+            <RC.Item className="item-text-wrap"
                      href={href}
                      theme="icon-left, icon-right "
                      uiClass="user, angle-right">
-                {this.data.classInfo[0].name}
-            </RC.Item>:''
+                {this.data.classInfo.name}
+            </RC.Item>
     }
 });

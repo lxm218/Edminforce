@@ -127,11 +127,18 @@ common_get_carts = function (status) {
 
     sessionId = sessionId || App.info.sessionRegister
 
-    var count = DB.ClassesRegister.find({
-        swimmerId:swimmerId,
-        classId:classId,
-        sessionId: sessionId
-    }).count()
+    //var count = DB.ClassesRegister.find({
+    //    swimmerId:swimmerId,
+    //    classId:classId,
+    //    sessionId: sessionId
+    //}).count()
+
+     var count = DB.Classes.find({
+         'students.swimmerId':swimmerId,
+         sessionId:sessionId
+     }).count()
+
+
 
     return count;
 }

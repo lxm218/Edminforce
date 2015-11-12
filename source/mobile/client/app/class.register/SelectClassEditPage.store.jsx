@@ -261,11 +261,16 @@
 
                 Tracker.autorun(function () {
 
-                    var nowClasses = DB.ClassesRegister.find({
-                        swimmerId: currentSwimmer._id,
-                        status:'normal',  //不显示cancel中的和 change中的
-                        sessionId: App.info.sessionNow
-                    }).fetch();
+                    //var nowClasses = DB.ClassesRegister.find({
+                    //    swimmerId: currentSwimmer._id,
+                    //    status:'normal',  //不显示cancel中的和 change中的
+                    //    sessionId: App.info.sessionNow
+                    //}).fetch();
+
+                    var nowClasses =DB.Classes.find({
+                        'students.swimmerId':currentSwimmer._id,
+                        sessionId: App.info && App.info.sessionNow
+                    }).fetch()
 
                     //self.nowClasses.set(nowClasses)
 
