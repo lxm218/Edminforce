@@ -3,10 +3,10 @@
  */
 
 {
-    let classRegisterStore;
-    Dependency.autorun(function () {
-        classRegisterStore = Dependency.get('ClassRegister.ViewControl.store');
-    });
+    //let classRegisterStore;
+    //Dependency.autorun(function () {
+    //    classRegisterStore = Dependency.get('ClassRegister.ViewControl.store');
+    //});
 
     Cal.CRRegistraionInfoPage = React.createClass({
 
@@ -94,11 +94,19 @@
 
                 <p className="padding-left padding-right">
 
-                    <button onClick={this.continue}
+                    {
+                        /*
+                        * Don't know why click can be triggered directly in home page,and this page is skipped
+                        * So add key={Math.random()}
+                        * It will cause some underlying issues if data-react-id is the same in diffrent page ?
+                        * */
+                    }
+                    <RC.Button onClick={this.continue}
+                               key={Math.random()}
                             className="button button-full button-brand ">
 
                         Register
-                    </button>
+                    </RC.Button>
                 </p>
 
 

@@ -9,7 +9,7 @@ Meteor.startup(function () {
 
     //购物车过期处理
     SyncedCron.add({
-        name: 'Clear Shopping Cart',
+        name: 'Clear expired Shopping Cart',
         schedule: function (parser) {
 
             return parser.text('every 15 minutes');

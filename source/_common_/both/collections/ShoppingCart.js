@@ -89,6 +89,8 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
         swimmerId classId, quantity
         swimmer class1 class2 class3
 
+        comment  //用户可选
+
          //购物车的每个item都是通过独立的事务完成的
          pendingTransactions:{
             type: [Object],

@@ -37,6 +37,29 @@ DB.Schema.Classes = new SimpleSchema({
         type: String
     },
 
+    /*
+
+     App.Config.program={}
+
+     Paced Program
+     Intense Program
+     Little Star Program
+     Fastrack Program
+
+    * */
+    programId:{
+        type: String,
+        allowedValues:['paced','intence','littleStar','fastrack'],
+        defaultValue:'paced'
+
+    },
+    //programName:{
+    //    type: String,
+    //    optional: true
+    //},
+
+
+
     // 一个class包含多个level
     levels:  {
       type: [String],

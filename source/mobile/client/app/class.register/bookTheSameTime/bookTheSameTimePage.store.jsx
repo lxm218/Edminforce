@@ -11,6 +11,7 @@
 
     //subscribes
     Meteor.subscribe('accountWithSwimmersAndClasses');
+    Meteor.subscribe("classes");
 
 
     Dependency.add('classRegister.bookTheSameTimePage.store', new function () {
@@ -546,10 +547,12 @@
 
                     var nowClasses =DB.Classes.find({
                         'students.swimmerId':currentSwimmer._id,
-                        sessionId: App.info && App.info.sessionNow
+                        sessionId: appInfo.sessionNow
                     }).fetch()
 
                     self.nowClasses.set(nowClasses)
+                    console.log('nowClasses',nowClasses)
+
 
                     //self.currentSwimmerClassesRegisterInfo.set(currentSwimmerClassesRegisterInfo)
 
@@ -565,11 +568,12 @@
 
                     var registeredClasses =DB.Classes.find({
                         'students.swimmerId':currentSwimmer._id,
-                        sessionId: App.info && App.info.sessionRegister
+                        sessionId: appInfo.sessionRegister
                     }).fetch()
 
 
                     self.registeredClasses.set(registeredClasses)
+                    console.log('registeredClasses',registeredClasses)
 
 
                 })
@@ -584,11 +588,13 @@
 
                     var historyClasses =DB.Classes.find({
                         'students.swimmerId':currentSwimmer._id,
-                        sessionId:{$nin:[ App.info.sessionNow , App.info.sessionRegister]}
+                        sessionId:{$nin:[ appInfo.sessionNow , appInfo.sessionRegister]}
                     }).fetch()
 
 
                     self.historyClasses.set(historyClasses)
+                    console.log('historyClasses',historyClasses)
+
 
                 })
 
@@ -610,7 +616,7 @@
                     }
 
                     self.shoppingCartClasses.set(classItems)
-                    console.log(classItems)
+                    console.log('shoppingCartClasses',classItems)
 
                 })
 
@@ -801,7 +807,7 @@
 
                     var ids=[]
                     _.each(nowClasses,function(item){
-                        ids.push(item.classId)
+                        ids.push(item._id)
                     })
                     var currentClasses =  DB.Classes.find({
                         _id:{$in:ids}
@@ -863,10 +869,10 @@
 
 
                 var registeredClassesIds = registeredClasses.map(function(item){
-                    return item.classId
+                    return item._id
                 });
                 var shoppingCartClassesIds = shoppingCartClasses.map(function(item){
-                    return item.classId
+                    return item._id
                 })
 
                 var exceptionIds=_.union(registeredClassesIds,shoppingCartClassesIds)

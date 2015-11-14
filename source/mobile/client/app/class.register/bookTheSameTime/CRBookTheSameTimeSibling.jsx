@@ -27,6 +27,12 @@
 
             var selectedClasses =this.props.selectedClasses
             var currentClass =this.props.currentClass
+
+            if(!currentClass){
+                alert('please select a class')
+                return;
+            }
+
             if(App.currentClass_in_selectedClasses(currentClass,selectedClasses)){
                 alert('class duplicated')
                 return;

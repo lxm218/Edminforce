@@ -74,6 +74,10 @@
 
         },
 
+        updateComment(){
+
+        },
+
         render() {
             let self = this
 
@@ -91,6 +95,8 @@
                 var class1 = this.data.cartItem['class1']
                 var class2 = this.data.cartItem['class2']
                 var class3 = this.data.cartItem['class3']
+
+                var comment = this.data.cartItem.comment
             }
 
 
@@ -169,6 +175,15 @@
                             </div> : ''
 
                         }
+
+                        <div>
+                            <RC.Textarea
+                                placeholder="Add a comment(optional)"
+                                changeHandler={this.updateComment}
+                                label="Comment:"
+                                value="{comment}"
+                                />
+                        </div>
 
                     </RC.Item>
                         <RC.Button name="button" type="submit"

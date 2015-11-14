@@ -159,7 +159,7 @@
         if (cart) {
             throw new Meteor.Error('ERROR_CLASS_ALREADY_IN_CART', 'in add_class_to_cart');
         }
-        console.log('check if cart exist', cart, item.swimmerId, item.classId)
+        //console.log('check if cart exist', cart, item.swimmerId, item.classId)
 
 
         //////////////////////////////////////////////////

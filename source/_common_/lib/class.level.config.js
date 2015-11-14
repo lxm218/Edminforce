@@ -60,10 +60,10 @@ App.Config.classLevelsNUM = [ //从高到底 名字
 
     "GLD3",
     "GLD2",
-    "GLD2",
+    "GLD1",
 
     "CRL3",
-    "CRL3",
+    "CRL2",
     "CRL1",
 
     "BUB3",
@@ -77,7 +77,7 @@ App.Config.classEVALLevels = [ //从高到底 名字
     {label:"CHL",value:'CHL1'},
     {label:"RCR",value:'RCR1'},
     {label:"SPR",value:'SPR1'},
-    {label:"GLD",value:'GLD2'},
+    {label:"GLD",value:'GLD1'},
     {label:"CRL",value:'CRL1'},
     {label:"BUB",value:'BUB1'}
 ]
@@ -91,4 +91,15 @@ App.Config.week = {
     5: "Friday",
     6: "Saturday",
     7: "Sunday"
+}
+
+
+//四种程序类型
+App.Config.program={
+
+    'paced':'Paced Program',
+    'intence':'Intense Program',
+    'littleStar':'Little Star Program',
+    'fastrack':'Fastrack Program'
+
 }

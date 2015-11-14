@@ -86,20 +86,26 @@
 
                         />
 
-                    <RC.Item>
-                        <span  >Level</span>
+                    <label className="item item-input">
+                        <span  className="input-label" style={{'float':'left'}}>
+                            Level
+                        </span>
 
-                        <b style={{'marginLeft':'5px',color:'blue'}}>
+                        <span style={{'font-size':'14px'}}>
                             {this.data.evalLevel}
-                        </b>
+                        </span>
 
 
                          <a className="button-clear"
                             onClick={this.goToEvaluation}
-                            style={{float:'right'}}> Evaluation Level</a>
+                            style={{position:'absolute','top':'14px',right:'2px'}}>
+                             {this.data.evalLevel?
+                                 'online Evaluation':
+                                 'Evaluation Level'}
+                         </a>
 
 
-                    </RC.Item>
+                    </label>
 
 
                     <RC.Button name="level" theme="full"

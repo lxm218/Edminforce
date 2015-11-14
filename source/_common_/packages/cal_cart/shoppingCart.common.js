@@ -134,6 +134,7 @@ common_get_carts = function (status) {
     //}).count()
 
      var count = DB.Classes.find({
+         _id:classId,
          'students.swimmerId':swimmerId,
          sessionId:sessionId
      }).count()
