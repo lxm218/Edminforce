@@ -89,6 +89,11 @@ DB.Schema.Classes = new SimpleSchema({
         type: Number
     },
 
+    seatsMinimum:{  //
+        type: Number,
+        optional: true
+    },
+
 
     /*
 

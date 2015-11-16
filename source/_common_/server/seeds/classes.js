@@ -155,7 +155,7 @@ Meteor.startup(function () {
       ['WED17', 'testSession3', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "15:45", "16:45", "WED-CHL/MST 3:45-4:45pm", "Jimmy", "L"],
       ['WED18', 'testSession3', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "WED-CHL/MST 5:00-6:00pm", "Jimmy", "L"],
       ['WED19', 'testSession3', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "WED-CHL/MST 6:00-7:00pm", "Jimmy", "L"],
-
+      ['WED20', 'testSession3', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "WED-CHL/MST 6:00-7:00pm", "Jimmy", "L"]
     ]
 
     classesDataArr.forEach(function (item) {
