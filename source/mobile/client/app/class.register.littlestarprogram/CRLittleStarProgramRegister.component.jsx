@@ -57,6 +57,11 @@
             if(!this.state.currentSwimmer){
                 alert("Please select a swimmer");
             }
+
+            // TODO Need to do add to cart
+
+            //Then go to next page
+            FlowRouter.go('littlestar_confirm');
         },
         render: function () {
             console.log(this.state);

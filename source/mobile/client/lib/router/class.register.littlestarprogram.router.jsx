@@ -36,4 +36,16 @@
             });
         }
     });
+
+    RegisterRoute.route('/confirm',{
+        name: "littlestar_confirm",
+        action: function(params){
+            App.routeHandler(params, {
+                pageTitle: "Little Star Program Register",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRLittleStartProgramConfirm/>
+            });
+        }
+    });
 }
