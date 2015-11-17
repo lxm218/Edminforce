@@ -84,7 +84,7 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
     /*
         添加class或取消class
         {
-        type=='add'
+        type=='register-paced|register-littleStar|register-intence|register-fastrack'
         sessionId   //todo remove
         swimmerId classId, quantity
         swimmer class1 class2 class3

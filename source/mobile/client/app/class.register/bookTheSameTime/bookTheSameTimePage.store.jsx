@@ -179,7 +179,7 @@
                             quantity: 1,
                             swimmer: currentSwimmer,
                             class1: currentClass,
-                            type:'register',
+                            type:'register-paced',
 
                             isFistTime:isFistTime
 
@@ -345,7 +345,7 @@
 
                             isBookTheSameTime:true,
 
-                            type:'register'
+                            type:'register-paced'
                         }, function (err, result) {
 
                             if (err) {

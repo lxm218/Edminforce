@@ -134,7 +134,7 @@
                             quantity: 1,
                             swimmer: currentSwimmer,
                             class1: currentClass,
-                            type:'register',  //目前不是必须
+                            type:'register-paced',  //四种类型的默认类型
 
                             accountId:Meteor.userId(),
 

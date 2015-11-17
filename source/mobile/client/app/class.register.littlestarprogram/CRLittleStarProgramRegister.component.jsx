@@ -28,9 +28,18 @@
           };
         },
         getMeteorData: function () {
+
+            Meteor.subscribe('classes')
+            var appInfo = DB.App.findOne()
+
+
             var data = {
                 account: Meteor.users.find().fetch(),
-                swimmers: getSwimmers()
+                swimmers: getSwimmers(),
+                currentClass:DB.Classes.findOne({//todo需要根据level去查询相应课程？
+                    sessionId:appInfo && appInfo.sessionRegister,
+                    programId:'littleStar'
+                })
             };
 
             if(!this.state.currentSwimmer){
@@ -52,16 +61,56 @@
         },
         submitForm: function (event) {
             event.preventDefault();
+
+            let formData = this.refs.form.getFormData()
+
+
             console.log("Submit Form");
-            console.log('data: %o', this.refs.form.getFormData());
+            console.log('data: %o', formData);
             if(!this.state.currentSwimmer){
                 alert("Please select a swimmer");
+                return
+            }
+            if(!this.data.currentClass){
+                console.error('currentClass not exist')
+                return
             }
 
-            // TODO Need to do add to cart
+            //TODO Need to do add to cart
 
-            //Then go to next page
-            FlowRouter.go('littlestar_confirm');
+
+            Meteor.call('add_class_to_cart', {
+                swimmerId: this.state.currentSwimmer._id,
+                classId: this.data.currentClass._id,
+
+                quantity: 1,
+                swimmer: this.state.currentSwimmer,
+                class1: this.data.currentClass,
+                type:'register-littleStar',
+
+                accountId:Meteor.userId(),
+
+                comment:formData.comments
+
+                //标记购物项是否是第一次注册 用于判断 waiver form
+                //isFistTime:isFistTime
+            }, function (err, result) {
+
+                if (err) {
+                    alert(err.error)
+                    console.error(err)
+                    return; //todo  prompt
+                }
+
+                //Then go to next page
+                FlowRouter.go('littlestar_confirm');
+            })
+
+
+
+
+
+
         },
         render: function () {
             console.log(this.state);
@@ -86,11 +135,12 @@
                         </RC.Item>
                         <RC.Item>
                             <p>
-                                Tue and Thu 3:45-4:45pm
+                                {this.data.currentClass.name}
                             </p>
 
                             <p>
-                                Price: $528
+                                Price: ${this.data.currentClass.price}
+
                             </p>
 
                             <div>

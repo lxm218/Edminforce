@@ -217,6 +217,8 @@
 
         console.log('DB.ShoppingCart.update',result)
 
+        console.log('item.comment',item.comment)
+
         result = DB.Classes.update({
             _id: item.classId,
             'seatsRemain': {'$gte': item.quantity},
@@ -230,7 +232,10 @@
                     cartId: cart_id,
                     status: 'pending',
 
-                    accountId:item.accountId //方便查询account类型 在特定session是否有课
+                    accountId:item.accountId, //方便查询account类型 在特定session是否有课
+
+                    //注册课程时的comment
+                    comment:item.comment||''
                 },
                 pendingTransactions: tid
             }
@@ -362,7 +367,10 @@
         //找出未完成的item
         if(cart && cart.items){
             items=_.filter(cart.items,function(item){
-                return  !(item.class1 && item.class2 && item.class3)
+
+                //一种有4种注册类型 'paced','intence','littleStar','fastrack' 默认为paced类型
+                //仅'paced'类型需要另外选两个preference
+                return  item.type=='register-paced' && !(item.class1 && item.class2 && item.class3)
             })
         }
 

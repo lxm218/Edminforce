@@ -104,6 +104,7 @@ DB.Schema.Classes = new SimpleSchema({
         status: 'pending'/'paied'
         accountId:'',   //用于一次性查询一个account下的所有注册的class，可用于判断用户类型 正在游／return back
 
+        comment:  //注册课程时的注释
 
         ////暂未加 根据需要加
         transactionId:''
