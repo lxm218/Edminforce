@@ -61,6 +61,11 @@ IH.RC.User = React.createClass({
         this.setState({ msg: null })
       }
     }
+    if (this.state.action == 'login' && form.password){
+      if (this.state.msg) {
+        this.setState({ msg: null })
+      }
+    }
     if (test !== this.state.buttonActive)
       this.setState({ buttonActive: test })
   },
