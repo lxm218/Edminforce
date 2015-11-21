@@ -3,28 +3,28 @@ DB.Classes = new Mongo.Collection('classes');
 
 
 
-DB.Schema.ClassesShoppingCart= new SimpleSchema({
-
-    cartId: {
-        type: String,
-        optional: true
-    },
-    swimmerId:{
-        type: String,
-        optional: true
-    },
-    quantity:{
-        type: Number
-    },
-    timestamp: {
-        type: Date
-    },
-    type:{
-        type: String,
-        allowedValues:['register','cancel','change'],
-        defaultValue:'register'
-    }
-});
+//DB.Schema.ClassesShoppingCart= new SimpleSchema({
+//
+//    cartId: {
+//        type: String,
+//        optional: true
+//    },
+//    swimmerId:{
+//        type: String,
+//        optional: true
+//    },
+//    quantity:{
+//        type: Number
+//    },
+//    timestamp: {
+//        type: Date
+//    },
+//    type:{
+//        type: String,
+//        allowedValues:['register','cancel','change'],
+//        defaultValue:'register'
+//    }
+//});
 
 
 
@@ -126,10 +126,10 @@ DB.Schema.Classes = new SimpleSchema({
 
     ///////////////////////////////////////////////
 
-    carted:{
-        type: [DB.Schema.ClassesShoppingCart],
-        optional: true
-    }
+    //carted:{
+    //    type: [DB.Schema.ClassesShoppingCart],
+    //    optional: true
+    //}
     //,
     //startDate: {
     //    type: Date,

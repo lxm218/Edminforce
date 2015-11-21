@@ -31,9 +31,9 @@ DB.Schema.Swimmers = new SimpleSchema({
         optional: true
     },
 
-    location: {
-        type: String,
-    },
+    //location: {
+    //    type: String,
+    //},
     level:{
         type: String
     },
@@ -53,10 +53,10 @@ DB.Schema.Swimmers = new SimpleSchema({
         type: Date,
         optional: true
     },
-    classes:{
-        type: [String],  //｛class ids  ，register date｝?
-        optional: true
-    }
+    //classes:{
+    //    type: [String],  //｛class ids  ，register date｝?
+    //    optional: true
+    //}
 
 
 });

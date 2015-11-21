@@ -20,12 +20,19 @@ Cal.TestAdminRegisterStage = React.createClass({
 
         var value = this.refs.stageSelect.getValue()
 
-        DB.App.update(
-            {_id: App.info._id },
-            {
-                $set:{registerStage: value}
-            })
+        //DB.App.update(
+        //    {_id: App.info._id },
+        //    {
+        //        $set:{registerStage: value}
+        //    })
 
+
+        Meteor.call('test_change_stage',value,function(err,result){
+
+            if(err) console.error(err)
+
+
+        })
     },
 
     render() {
@@ -34,7 +41,13 @@ Cal.TestAdminRegisterStage = React.createClass({
             {text: "stage-1", value: 1},
             {text: "stage-2", value: 2},
             {text: "stage-3", value: 3},
-            {text: "stage-4", value: 4}]
+
+            {text: "stage-4-case1", value: 4},
+            {text: "stage-4-case2", value: 5},
+
+            {text: "frozen", value: -1}
+
+        ]
 
 
         return <div>

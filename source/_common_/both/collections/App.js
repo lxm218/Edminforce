@@ -29,11 +29,32 @@ DB.Schema.App = new SimpleSchema(
             type: String,
             optional: true
         },
+
+
+        //session 的详细信息 冗余字段 用于减少查询
+        sessionNowInfo:{
+            type: Object,
+            optional: true,
+            blackbox: true
+        },
+        sessionRegisterInfo:{
+            type: Object,
+            optional: true,
+            blackbox: true
+        },
+
+
+
         openRegister:{
             type: Boolean,
             optional: true
         },
-        //for test  当前注册阶段  1 2 3 4
+
+        ////////////////////////////////////////////////////////
+        //状态信息
+
+
+        //for test  当前注册阶段  1 2 3 4 5 -1 -2 -3
         registerStage:{
             type: Number,
             optional: true

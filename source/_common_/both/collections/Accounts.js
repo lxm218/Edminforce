@@ -24,10 +24,10 @@ DB.Schema.AccountProfile = new SimpleSchema({
         type: String,
         optional: true
     },
-    address: {
-        type: String,
-        optional: true
-    },
+    //address: {
+    //    type: String,
+    //    optional: true
+    //},
     location: {
         type: String,
         optional: true
@@ -99,11 +99,11 @@ DB.Schema.Account = new SimpleSchema({
         type: Boolean,
         optional: true
     },
-    swimmers: {
-        type: [String],
-        optional: true
-
-    }
+    //swimmers: {
+    //    type: [String],
+    //    optional: true
+    //
+    //}
 });
 
 

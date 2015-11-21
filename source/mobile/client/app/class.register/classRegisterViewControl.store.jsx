@@ -87,6 +87,17 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
                 var commonRegisterPage = "/classRegister/SelectClass"
                 var BookTheSameTimePage ="/classRegister/BookTheSameTimePage"
 
+                var appInfo= self.appInfo.get()
+
+                if(registerStage == -1 ){
+                    alert('registration has been frozen, Please come back after ')
+                    return;
+                }
+                if(registerStage == -2){
+                    alert('registration has been frozen, Please come back after ')
+                    return
+                }
+
                 if(registerStage ==1){//
 
                     if(isActive){
