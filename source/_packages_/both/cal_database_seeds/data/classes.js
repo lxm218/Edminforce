@@ -156,11 +156,6 @@ Meteor.startup(function () {
       ['WED18', 'testSession3', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "WED-CHL/MST 5:00-6:00pm", "Jimmy", "L",'paced'],
       ['WED19', 'testSession3', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'paced'],
 
-
-      //littleStar class
-      ['WED20', 'testSession3', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "littleStar WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'littleStar'],
-
-
       //////////////////////////////////////////////////////////
       ['WED1', 'testSession4',3, ["BUB1"], "15:00", "15:30", "WED-BUB1 3:00-3:30pm", "Betsy", "S",'paced'],
       ['WED2', 'testSession4', 3, ["BUB1"], "15:30", "16:00pm", "WED-BUB1 3:30-4:00pm", "Betsy", "S",'paced'],
@@ -182,11 +177,6 @@ Meteor.startup(function () {
       ['WED18', 'testSession4', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "WED-CHL/MST 5:00-6:00pm", "Jimmy", "L",'paced'],
       ['WED19', 'testSession4', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'paced'],
 
-
-      //littleStar class
-      ['WED20', 'testSession4', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "littleStar WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'littleStar'],
-
-
       //////////////////////////////////////////////////////////
       ['WED1', 'testSession5',3, ["BUB1"], "15:00", "15:30", "WED-BUB1 3:00-3:30pm", "Betsy", "S",'paced'],
       ['WED2', 'testSession5', 3, ["BUB1"], "15:30", "16:00pm", "WED-BUB1 3:30-4:00pm", "Betsy", "S",'paced'],
@@ -207,11 +197,6 @@ Meteor.startup(function () {
       ['WED17', 'testSession5', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "15:45", "16:45", "WED-CHL/MST 3:45-4:45pm", "Jimmy", "L",'paced'],
       ['WED18', 'testSession5', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "WED-CHL/MST 5:00-6:00pm", "Jimmy", "L",'paced'],
       ['WED19', 'testSession5', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'paced'],
-
-
-      //littleStar class
-      ['WED20', 'testSession5', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "littleStar WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'littleStar'],
-
 
 
       //////////////////////////////////////////////////////////
@@ -236,11 +221,6 @@ Meteor.startup(function () {
       ['WED19', 'testSession6', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'paced'],
 
 
-      //littleStar class
-      ['WED20', 'testSession6', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "littleStar WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'littleStar'],
-
-
-
       //////////////////////////////////////////////////////////
       ['WED1', 'testSession100',3, ["BUB1"], "15:00", "15:30", "WED-BUB1 3:00-3:30pm", "Betsy", "S",'paced'],
       ['WED2', 'testSession100', 3, ["BUB1"], "15:30", "16:00pm", "WED-BUB1 3:30-4:00pm", "Betsy", "S",'paced'],
@@ -261,11 +241,6 @@ Meteor.startup(function () {
       ['WED17', 'testSession100', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "15:45", "16:45", "WED-CHL/MST 3:45-4:45pm", "Jimmy", "L",'paced'],
       ['WED18', 'testSession100', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "WED-CHL/MST 5:00-6:00pm", "Jimmy", "L",'paced'],
       ['WED19', 'testSession100', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'paced'],
-
-
-      //littleStar class
-      ['WED20', 'testSession100', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "littleStar WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'littleStar'],
-
 
 
       //////////////////////////////////////////////////////////
@@ -293,6 +268,8 @@ Meteor.startup(function () {
       //littleStar class
       ['WED20', 'testSession200', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "littleStar WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'littleStar'],
 
+      //Fastrack class
+      ['WED21', 'testSession200', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "Fastrack WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'fastrack', '10'],
 
     ]
 
@@ -318,7 +295,8 @@ Meteor.startup(function () {
 
         price: 100,
         seatsTotal: 10,
-        seatsRemain: 10
+        seatsRemain: 10,
+        seatsMini: item[10]||0
 
       })
 

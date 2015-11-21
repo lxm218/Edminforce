@@ -37,10 +37,12 @@
                 account: Meteor.users.find().fetch(),
                 swimmers: getSwimmers(),
                 currentClass:DB.Classes.findOne({//todo需要根据level去查询相应课程？
-                    sessionId:appInfo && appInfo.sessionRegister,
+                    //sessionId:appInfo && appInfo.sessionRegister,
                     programId:'littleStar'
                 })
             };
+
+            //console.log("*************Little Star Program - currentClass: %o", data.currentClass);
 
             if(!this.state.currentSwimmer){
                 this.state.currentSwimmer = data.swimmers[0];

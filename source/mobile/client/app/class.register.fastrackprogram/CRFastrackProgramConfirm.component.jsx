@@ -1,11 +1,15 @@
-Cal.CRFastrackProgramIntro = React.createClass({
+Cal.CRFastrackProgramConfirm = React.createClass({
     mixins: [ReactMeteorData],
     getMeteorData: function () {
         return {};
     },
-    register: function () {
-        console.log("Fastrack Program - Click Register");
-        FlowRouter.go('fastrack_register');
+    registerMore: function () {
+        //console.log("Click Register");
+        FlowRouter.go('littlestar_register');
+    },
+    checkout: function(){
+        // TODO add checkou logic
+
     },
     render: function () {
         return (
@@ -14,30 +18,33 @@ Cal.CRFastrackProgramIntro = React.createClass({
                 <RC.Card key={Math.random()} title="Fastrack Program">
 
                     <p className="padding-left padding-right">
-                        Fastrack program-Get ready for competitive swimming: twice a week, for selected swimmers to receive special lessons and training.
+                        You’ve book Little star program:
                     </p>
 
                     <p className="padding-left padding-right">
-                        Tue and Thu 6:30-7:30am
+                        Tue and Thu 3:45-4:45pm
                     </p>
 
                     <br/>
                     <br/>
                     <br/>
-
-                    <p className="padding-left padding-right">
-                        Price: $354; (29 Practices; $12/practice)
-                    </p>
 
                 </RC.Card>
 
 
                 <p className="padding-left padding-right">
 
-                    <button onClick={this.register}
+                    <button onClick={this.registerMore}
                             className="button button-full button-brand ">
-                        Register
+                        Register More
                     </button>
+                    <RC.URL href="/classRegister/RegBillingPage">
+                        <RC.Button name="button" type="submit"
+                                   theme="full" buttonColor="brand">
+                            Checkout
+                        </RC.Button>
+
+                    </RC.URL>
                 </p>
 
 
