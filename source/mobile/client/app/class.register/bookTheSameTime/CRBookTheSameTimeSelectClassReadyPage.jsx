@@ -75,6 +75,21 @@
         },
 
         updateComment(){
+            //todo remove
+            console.log(this.refs.comment.getValue())
+
+        },
+        componentWillUnmount(){
+            var comment =this.refs.comment.getValue()
+            Meteor.call('add_comment_to_cart_item',{
+                cartId:this.props.cartId,
+                swimmerId:this.props.swimmerId,
+                classId:this.props.classId,
+                comment:comment
+            },function( err,result){
+
+                if(err) console.error(err)
+            })
 
         },
 
@@ -178,6 +193,7 @@
 
                         <div>
                             <RC.Textarea
+                                ref="comment"
                                 placeholder="Add a comment(optional)"
                                 changeHandler={this.updateComment}
                                 label="Comment:"

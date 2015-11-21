@@ -389,6 +389,26 @@
     }
 
 
+    //cartId   swimmerId classId comment
+    function add_comment_to_cart_item(p){
+
+        var result=DB.ShoppingCart.update({
+            '_id': p.cartId,
+            'items': {
+                $elemMatch: {
+                    'swimmerId': p.swimmerId,
+                    'classId': p.classId
+
+                }
+            }
+        }, {
+            $set: {
+                'items.$.comment': p.comment  //class2
+            }
+        })
+        return result;
+
+    }
 
     //shopping cart status:
     // active checking  applied done
@@ -401,6 +421,8 @@
         register_cleanup_addClassToCart: cleanup_addClassToCart,  //定时任务
         register_rollback_addClassToCart: rollback_addClassToCart,
         register_retire_addClassToCart: retire_addClassToCart,
+
+        register_add_comment_to_cart_item:add_comment_to_cart_item,
 
         //在开始注册界面触发; 或用户checkout时触发；  非定时任务
         register_clear_uncompleted_item_in_cart:clear_uncompleted_item_in_cart

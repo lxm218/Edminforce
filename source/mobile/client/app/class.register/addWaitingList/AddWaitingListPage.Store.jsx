@@ -303,6 +303,8 @@
                     level = self.currentLevel.get()
                 });
 
+                var currentStep = self.currentStep.get()
+
                 if(currentStep ==1){
                     var classes = DB.Classes.find({
                         sessionId: App.info.sessionRegister, // session level day
@@ -362,6 +364,8 @@
                     level = self.currentLevel.get()
                     day = self.currentDay.get()
                 });
+
+                var currentStep = self.currentStep.get()
 
                 if(currentStep ==1) {
                     var theClass = DB.Classes.find({
