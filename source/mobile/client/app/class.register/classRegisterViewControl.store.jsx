@@ -90,11 +90,12 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
                 var appInfo= self.appInfo.get()
 
                 if(registerStage == -1 ){
-                    alert('registration has been frozen, Please come back after ')
+                    //todo format
+                    alert('registration has been frozen, Please come back after '+ appInfo.sessionRegisterInfo.startDate)
                     return;
                 }
                 if(registerStage == -2){
-                    alert('registration has been frozen, Please come back after ')
+                    alert('registration has been frozen, Please come back after '+ appInfo.sessionRegisterInfo.registerStartDate)
                     return
                 }
 

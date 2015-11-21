@@ -98,10 +98,20 @@ function updateStage(){
 
     var nowStage = getStageNum(sessionNowInfo, sessionRegisterInfo)
 
+
+    //是否处于 registerStartDate 和 startDate之间  决定是否显示new session tab
+    var isBetween_RegStartDate_StartDate
+    var registerStartDate = +sessionRegisterInfo.registerStartDate
+    var startDate = +sessionRegisterInfo.startDate
+    isBetween_RegStartDate_StartDate =  now > registerStartDate && now < startDate
+
+
+
     DB.App.update(
         {_id: appInfo._id}, {
             $set: {
-                registerStage: nowStage
+                registerStage: nowStage,
+                isBetween_RegStartDate_StartDate:isBetween_RegStartDate_StartDate
             }
         })
 }
