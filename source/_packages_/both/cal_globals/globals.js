@@ -8,8 +8,8 @@ App={}
 App.Utils={}
 App.Config={}
 
-DB={}   //collections
-DB.Schema={}  //mogodb documents define
+//DB={}   //collections
+//DB.Schema={}  //mogodb documents define
 
 
 /*

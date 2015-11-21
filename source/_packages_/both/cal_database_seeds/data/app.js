@@ -4,8 +4,9 @@
 
 Meteor.startup(function () {
 
-    var sessionNowInfo = DB.App.findOne({_id:'testSession2'})
-    var sessionRegisterInfo = DB.App.findOne({_id:'testSession3'})
+    var sessionNowInfo = DB.Sessions.findOne({_id:'testSession2'})
+    var sessionRegisterInfo = DB.Sessions.findOne({_id:'testSession3'})
+
 
     if (DB.App.find({}).count() === 0) {
 

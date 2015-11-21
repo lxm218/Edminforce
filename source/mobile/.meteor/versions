@@ -15,6 +15,9 @@ boilerplate-generator@1.0.4
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 cal:cart@0.0.1
+cal:cron@0.0.1
+cal:database@0.0.1
+cal:database-seeds@0.0.1
 cal:globals@0.0.1
 cal:immutable@0.0.1
 cal:stage-manager@0.0.1
