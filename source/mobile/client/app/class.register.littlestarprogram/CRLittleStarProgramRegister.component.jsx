@@ -116,6 +116,9 @@
             console.log(this.state);
             let comments = this.state.comments;
             console.log(comments);
+
+            console.log("currentClass: %o", this.data.currentClass);
+
             return (
                 <div className="littlestar-register">
                     <RC.Card title="Little Star Program">
@@ -135,11 +138,11 @@
                         </RC.Item>
                         <RC.Item>
                             <p>
-                                {this.data.currentClass.name}
+                                {this.data.currentClass&&this.data.currentClass.name}
                             </p>
 
                             <p>
-                                Price: ${this.data.currentClass.price}
+                                Price: ${this.data.currentClass&&this.data.currentClass.price}
 
                             </p>
 
