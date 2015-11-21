@@ -49,8 +49,9 @@ $width_phone_small: 375px;
 $width_nav: 230px;
 $height_nav: 50px;
 
-@import "packages/ihealth_framework-engine/import";
-@import "packages/ihealth_framework-mobile/import";
+
+@import "../_packages_/ihealth/ihealth_framework-engine/import";
+@import "../_packages_/ihealth/ihealth_framework-mobile/import";
 
 @import "client/app/common/app.scss";
 @import "client/scss.scss";
