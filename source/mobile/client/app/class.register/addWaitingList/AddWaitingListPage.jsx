@@ -35,6 +35,12 @@
                 avaiableTimes: PageStore.avaiableTimes.get(),
                 currentDay: PageStore.currentDay.get(),
                 currentTime: PageStore.currentTime.get(),
+
+                currentStep: PageStore.currentStep.get(),
+
+
+                //一次选课流程的所有信息
+                selectedClasses: PageStore.selectedClasses.get()
             }
 
             return data
@@ -90,6 +96,7 @@
 
             Dispatcher.dispatch({
                 actionType: "CRAddWaitingListPage_CLASS_SELECT",
+                currentStep: this.data.currentStep,
                 selectedClass: formData
             });
 
@@ -110,6 +117,12 @@
             //})
 
 
+            let swimmer = this.data.selectedClasses.get('swimmer')
+            let class1 = this.data.selectedClasses.get('class1')
+            let class2 = this.data.selectedClasses.get('class2')
+            let class3 = this.data.selectedClasses.get('class3')
+
+
             let currentSwimmerValue = this.data.currentSwimmer
                 && {value:this.data.currentSwimmer._id,
                     text:this.data.currentSwimmer.name}
@@ -118,12 +131,48 @@
             return <div>
 
                 <RC.Card key={Math.random()} className="padding">
+                    <h4 className="brand">Add Waiting List</h4>
 
-                    <p>
-                        Pick a time and you will be on our waiting list
-                    </p>
+                    {/*swimmer && swimmer.name*/}
+
+                    {
+                        class1?<div className="row">
+                            <div className="col">
+                                Preference 1
+                            </div>
+                            <div className="col">
+                                {class1.name}
+                            </div>
+
+                        </div>:'Pick a time and you will be on our waiting list'
+
+                    }
+
+                    {
+                        class2?<div className="row">
+                            <div className="col">
+                                Preference 2
+                            </div>
+                            <div className="col">
+                                {class2 && class2.name}
+                            </div>
+
+                        </div>:''
+                    }
+                    {
+                        class3?<div className="row">
+                            <div className="col">
+                                Preference 3
+                            </div>
+                            <div className="col ">
+                                {class3 && class3.name}
+                            </div>
+
+                        </div>:''
+                    }
 
                 </RC.Card>
+
 
                 <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
                     <RC.List theme="inset">
@@ -155,11 +204,20 @@
                             changeHandler={this.timeChange}
                             label="Time"
                             />
-                        <RC.Button name="button" type="submit"
-                                   onClick={this.formSubmit}
-                                   theme="full" buttonColor="brand">
-                            Add Waiting List
-                        </RC.Button>
+
+                        {
+                            this.data.currentStep == 3?
+                                <RC.Button name="button" type="submit"
+                                        onClick={this.formSubmit} theme="full" buttonColor="brand">
+                                Add Waiting List
+                            </RC.Button>:
+                                <RC.Button name="button" type="submit"
+                                           onClick={this.formSubmit}
+                                           theme="full" buttonColor="brand">
+                                Next
+                            </RC.Button>
+
+                        }
 
 
                     </RC.List>

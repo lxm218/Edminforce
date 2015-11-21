@@ -8,7 +8,7 @@ Meteor.startup(function () {
     Meteor.methods({
 
 
-        add_waiting_list: function (swimmerId, classId) {
+        add_waiting_list: function (item) {
 
             if (!this.userId) {
                 throw new Meteor.Error(500, 'add_waiting_list: need login');
@@ -16,8 +16,13 @@ Meteor.startup(function () {
 
             //upinsert?
             var result = DB.WaitingList.insert({
-                swimmerId: swimmerId,
-                classId: classId,
+                swimmerId: item.swimmerId,
+                classId: item.classId,
+
+                swimmer:item.swimmer,
+                class1:item.class1,
+                class2:item.class2,
+                class3:item.class3,
 
                 accountId: this.userId,
                 sessionId: App.info.sessionRegister
@@ -27,6 +32,7 @@ Meteor.startup(function () {
                 throw new Meteor.Error(500, 'add_waiting_list error');
             }
 
+            return result
 
         }
 

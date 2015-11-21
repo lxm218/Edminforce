@@ -128,12 +128,12 @@
     })
     ClassRegisterRoute.route('/AddWaitingListConfirm', {
         //name: "AddWaitingList",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "AddWaitingListConfirm",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.AddWaitingListConfirmPage/>
+                bodyTmpl: <Cal.AddWaitingListConfirmPage {...p} {...query} />
             })
         }
     })

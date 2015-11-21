@@ -301,6 +301,11 @@
 
         Meteor.startup(function () {
 
+            Meteor.subscribe("swimmersByAccountId", Meteor.userId());
+            Meteor.subscribe("appInfo");
+            Meteor.subscribe("classes");
+
+
             //初始化swimmer and level
             Tracker.autorun(function () {
 

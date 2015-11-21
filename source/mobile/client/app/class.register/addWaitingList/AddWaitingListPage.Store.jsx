@@ -39,11 +39,28 @@
         self.currentTime = new ReactiveVar()
         self.currentClass = new ReactiveVar()
 
+        //需要选3个preference
+        self.currentStep = new ReactiveVar(1)
+
+
 
         //可选days 依赖于 当前的currentLevel
         self.avaiableDays = new ReactiveVar([])
         //可选时间   依赖于 当前选中的currentDay
         self.avaiableTimes = new ReactiveVar([])
+
+
+        /*
+         * 一次流程选择的class信息  3步
+         * 使用Immutable库进行对象修改
+         * {
+         *  swimmer:
+         *  class1:{classId, swimmerId}
+         *  class2:
+         *  class3:
+         * }
+         * */
+        self.selectedClasses = new ReactiveVar(Immutable.Map())
 
 
 
@@ -71,6 +88,8 @@
                     self.currentDay.set()
                     self.currentTime.set()
                     self.currentClass.set()
+
+
 
 
                     break;
@@ -109,19 +128,60 @@
                 case "CRAddWaitingListPage_CLASS_SELECT"://select确定
                 {
 
+                    if (payload.currentStep == 1) {
 
-                    var currentSwimmer=self.currentSwimmer.get()
-                    var currentClass = self.currentClass.get()
+                        let currentSwimmer = self.currentSwimmer.get()
+                        let currentClass = self.currentClass.get()
 
-                    Meteor.call('add_waiting_list',currentSwimmer._id,
-                        currentClass._id,function(err, result){
-                            if(err){
-                                console.error(err)
-                                return;
-                            }
+                        //selectedClasses
+                        let map = self.selectedClasses.get()
+                        map = map.set('swimmer', currentSwimmer)
+                        map = map.set('class1', currentClass)
+                        self.selectedClasses.set(map)
 
-                            FlowRouter.go('/classRegister/AddWaitingListConfirm');
-                        })
+                        self.currentStep.set(2)
+                        resetDateAndTime();
+
+
+                    }else if (payload.currentStep == 2) {
+
+                        let currentClass = self.currentClass.get()
+
+                        let map = self.selectedClasses.get()
+                        map = map.set('class2', currentClass)
+                        self.selectedClasses.set(map)
+
+                        self.currentStep.set(3)
+                        resetDateAndTime();
+
+
+                    }else if (payload.currentStep == 3) {
+
+                        let currentClass = self.currentClass.get()
+
+                        let map = self.selectedClasses.get()
+                        map = map.set('class3', currentClass)
+                        self.selectedClasses.set(map)
+
+
+                        Meteor.call('add_waiting_list',{
+                                swimmerId: map.get('swimmer')._id,
+                                classId: map.get('class1')._id,
+                                swimmer:map.get('swimmer'),
+                                class1:_.omit(map.get('class1'),'students','pendingTransactions'),
+                                class2:_.omit(map.get('class2'),'students','pendingTransactions'),
+                                class3:_.omit(map.get('class3'),'students','pendingTransactions')
+                            },function(err, result){
+                                if(err){
+                                    console.error(err)
+                                    return;
+                                }
+                                console.log(result)
+
+                                FlowRouter.go('/classRegister/AddWaitingListConfirm?id='+result);
+                            })
+                    }
+
 
                     break;
                 }
@@ -133,12 +193,11 @@
                     self.currentDay.set(undefinedSelectValue)
                     self.currentTime.set(undefinedSelectValue)
                     self.currentClass.set(null)
-                    //self.currentStep.set(1)
+                    self.currentStep.set(1)
                     //self.avaiableDays //依赖于 当前的currentLevel
                     //self.avaiableTimes //依赖于 当前选中的currentDay
 
                     self.selectedClasses.set(Immutable.Map())
-
 
                 }
 
@@ -183,16 +242,28 @@
                 if (!App.info) return;
 
 
+
+
+                var currentStep = self.currentStep.get()
                 var level = self.currentLevel.get();
 
                 //Tracker.nonreactive(function () {
 
                 //todo  计算可用数目报名数
-                let classes = DB.Classes.find({
-                    sessionId: App.info && App.info.sessionRegister, //level session
-                    levels: level,
-                    seatsRemain:{$lte:0}
-                }).fetch()
+                if(currentStep ==1){
+                    var classes = DB.Classes.find({
+                        sessionId: App.info && App.info.sessionRegister, //level session
+                        levels: level,
+                        seatsRemain:{$lte:0}
+                    }).fetch()
+                }else{
+                    var classes = DB.Classes.find({
+                        sessionId: App.info && App.info.sessionRegister, //level session
+                        levels: level,
+                        //seatsRemain:{$lte:0}
+                    }).fetch()
+                }
+
 
                 //
                 classes = _.uniq(classes, function (item, key, a) {
@@ -232,13 +303,25 @@
                     level = self.currentLevel.get()
                 });
 
-                let classes = DB.Classes.find({
-                    sessionId: App.info.sessionRegister, // session level day
-                    levels: level,
-                    day: currentDay,
-                    seatsRemain:{$lte:0}
+                if(currentStep ==1){
+                    var classes = DB.Classes.find({
+                        sessionId: App.info.sessionRegister, // session level day
+                        levels: level,
+                        day: currentDay,
+                        seatsRemain:{$lte:0}
 
-                }).fetch()
+                    }).fetch()
+                }else{
+                    var classes = DB.Classes.find({
+                        sessionId: App.info.sessionRegister, // session level day
+                        levels: level,
+                        day: currentDay,
+                        //seatsRemain:{$lte:0}
+
+                    }).fetch()
+                }
+
+
 
                 let times = classes.map(function (v, n) {
                     return {
@@ -280,14 +363,27 @@
                     day = self.currentDay.get()
                 });
 
-                let theClass = DB.Classes.find({
-                    sessionId:  App.info.sessionRegister, // session level day
-                    levels: level,
-                    day: day,
-                    startTime: time,
-                    seatsRemain:{$lte:0}
+                if(currentStep ==1) {
+                    var theClass = DB.Classes.find({
+                        sessionId:  App.info.sessionRegister, // session level day
+                        levels: level,
+                        day: day,
+                        startTime: time,
+                        seatsRemain:{$lte:0}
 
-                }).fetch()
+                    }).fetch()
+                }else{
+                    var theClass = DB.Classes.find({
+                        sessionId:  App.info.sessionRegister, // session level day
+                        levels: level,
+                        day: day,
+                        startTime: time,
+                        //seatsRemain:{$lte:0}
+
+                    }).fetch()
+                }
+
+
 
                 if (theClass[0]) {
                     self.currentClass.set(theClass[0])

@@ -24,6 +24,29 @@ DB.WaitingList.attachSchema(new SimpleSchema(
             type: String,
             optional: true
         },
+
+        //////冗余信息 减少查询
+        swimmer:{
+            type: Object,
+            optional: true,
+            blackbox: true
+        },
+        class1:{
+            type: Object,
+            optional: true,
+            blackbox: true
+        },
+        class2:{
+            type: Object,
+            optional: true,
+            blackbox: true
+        },
+        class3:{
+            type: Object,
+            optional: true,
+            blackbox: true
+        },
+
         lastModified: {
             type: Date,
             autoValue: function () {

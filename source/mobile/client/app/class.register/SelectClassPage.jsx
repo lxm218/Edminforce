@@ -160,10 +160,10 @@
             if(classesNoSeat==0){
 
                 alert('All classes are available, you can register now')
-
-            }else{
-                FlowRouter.go(href);
+                return
             }
+
+            FlowRouter.go(href);
 
 
         },
