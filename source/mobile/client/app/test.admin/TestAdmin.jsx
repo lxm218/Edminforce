@@ -10,8 +10,19 @@ Cal.TestAdmin = React.createClass({
         Meteor.subscribe('appInfo')
 
         return {
-           app: DB.App.findOne()
+            app: DB.App.findOne()
         }
+    },
+    resetTestData(){
+
+        Meteor.call('resetTestData',function(err){
+            if(err){
+                alert('resetTestData error '+ err)
+                return;
+            }
+
+            alert('resetTestData success')
+        })
     },
 
     render() {
@@ -33,7 +44,6 @@ Cal.TestAdmin = React.createClass({
             <RC.List>
 
 
-
                 <RC.Item theme="icon-left" uiClass="list-ul" uiColor="brand1"
                          href="#">accounts</RC.Item>
 
@@ -46,6 +56,15 @@ Cal.TestAdmin = React.createClass({
                          href="/testAdmin/billing">billings</RC.Item>
 
             </RC.List>
+
+            <div className="row">
+                <RC.Button className="item-button" name="button"
+                           onClick={this.resetTestData}
+                           buttonColor="brand">
+
+                    Reset TestData
+                </RC.Button>
+            </div>
 
         </div>
     }

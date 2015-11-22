@@ -8,7 +8,8 @@ Meteor.startup(function () {
     var sessionRegisterInfo = DB.Sessions.findOne({_id:'testSession3'})
 
 
-    if (DB.App.find({}).count() === 0) {
+    function resetData(){
+        DB.App.remove({})
 
         DB.App.insert({
             sessionNow: 'testSession2',
@@ -23,4 +24,12 @@ Meteor.startup(function () {
             registerStage:1
         })
     }
+
+    if (DB.App.find({}).count() === 0) {
+
+        resetData()
+    }
+
+    calTestData.resetApp = resetData
+
 });

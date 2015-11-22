@@ -1,5 +1,5 @@
 Meteor.startup(function () {
-    DB.Sessions.remove();
+
 
 
     //构造不同阶段的场景
@@ -109,7 +109,9 @@ Meteor.startup(function () {
     ]
 
 
-    function fillTestdata(){
+    function resetData(){
+        DB.Sessions.remove({});
+
         sessionsData.forEach(function(session,i,a){
 
             console.log(+session.startDate + (1000 * 3600 * 24 * 90))
@@ -126,9 +128,16 @@ Meteor.startup(function () {
         })
     }
 
+
+
+
     if (DB.Sessions.find({}).count() === 0) {
-        fillTestdata();
+        resetData();
     }
+
+
+    calTestData.resetSessions = resetData
+
 
 
     //添加设置的 methods
@@ -142,9 +151,7 @@ Meteor.startup(function () {
                 }
 
                 //重置数据
-                var number = DB.Sessions.remove({});
-                console.log(number+ ' sessions removed')
-                fillTestdata();
+                resetData()
 
 
                 var sessionNowInfo = DB.App.findOne({_id:config.sessionNow})

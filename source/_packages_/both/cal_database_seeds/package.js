@@ -21,6 +21,8 @@ Package.onUse(function(api) {
 
 
     api.addFiles([
+        "globals.js",
+
         "data/accounts.js",
         "data/app.js",
         "data/auth.js",
@@ -28,6 +30,8 @@ Package.onUse(function(api) {
         "data/sessions.js",
         "data/shoppingCarts.js",
         "data/swimmers.js",
+
+        "main.js"
 
     ], ["server"])
 

@@ -3,9 +3,11 @@
  */
 
 Meteor.startup(function () {
-    DB.ShoppingCart.remove();
 
-    if (DB.ShoppingCart.find({}).count() === 0) {
+
+
+    function resetData(){
+        DB.ShoppingCart.remove({});
 
         DB.ShoppingCart.insert({
             _id:'test_cart_1',
@@ -75,8 +77,13 @@ Meteor.startup(function () {
                 },
             ]
         })
-
-
-
     }
+
+
+    if (DB.ShoppingCart.find({}).count() === 0) {
+        resetData()
+    }
+
+    calTestData.resetShoppingCart = resetData
+
 });
