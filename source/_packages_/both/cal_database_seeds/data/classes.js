@@ -269,6 +269,70 @@ Meteor.startup(function () {
     //Fastrack class
     ['WED21', 'testSession200', 3, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "Fastrack WED-CHL/MST 6:00-7:00pm", "Jimmy", "L",'fastrack', '10'],
 
+    //Intense Program
+    //Monday - Session1
+    ['MON021', 'intense1', 1, ["BUB1"], "15:00", "15:30", "MON-BUB1 3:00-3:30pm", "Betsy", "S", 'intense'],
+    ['MON022', 'intense1', 1, ["BUB1"], "15:30", "16:00", "MON-BUB1 3:30-4:00pm", "Betsy", "S", 'intense'],
+    ['MON023', 'intense1', 1, ["BUB2", "BUB3"], "15:00", "15:30", "MON-BUB 2,3 3:00-3:30pm", "Gabriela", "S", 'intense'],
+    ['MON024', 'intense1', 1, ["BUB2", "BUB3"], "15:30", "4:00", "MON-BUB 2, 3 3:30-4:00pm", "Gabriela", "S", 'intense'],
+    ['MON025', 'intense1', 1, ["BUB2", "BUB3"], "16:00", "16:30", "MON-BUB 2, 3 4:00-4:30pm", "Charlie", "S", 'intense'],
+    ['MON026', 'intense1', 1, ["CRL1"], "16:00", "16:30", "MON-CRL1 4:00-4:30pm", "Leslie", "S", 'intense'],
+    ['MON027', 'intense1', 1, ["CRL2", "CRL3"], "16:00", "16:30", "MON-CRL 2, 3 4:00-4:30pm", "Erica", "S", 'intense'],
+    ['MON028', 'intense1', 1, ["CRL2", "CRL3"], "16:45", "17:15", "MON-CRL 2, 3 4:45-5:15pm", "Erica", "S", 'intense'],
+    ['MON029', 'intense1', 1, ["GLD1"], "16:00", "16:45", "MON-GLD1 4:00-4:45pm", "Drishtee", "L", 'intense'],
+    ['MON0210', 'intense1', 1, ["GLD1", "GLD2", "GLD3"], "16:00", "16:45", "MON-GLD1,2,3 4:00-4:45pm", "Betsy", "L", 'intense'],
+    ['MON0211', 'intense1', 1, ["GLD1", "GLD2", "GLD3"], "19:15", "20:00", "MON-GLD1,2,3 7:15-8:00pm", "Gabriela", "L", 'intense'],
+    ['MON0212', 'intense1', 1, ["GLD2", "GLD3"], "17:30", "18:15", "MON-GLD 2, 3 5:30-6:15pm", "Charlie", "L", 'intense'],
+    ['MON0213', 'intense1', 1, ["GLD2", "GLD3"], "18:30", "19:15", "MON-GLD 2, 3 6:30-7:15pm", "Charlie", "L", 'intense'],
+    ['MON0214', 'intense1', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "15:45", "16:45", "MON-SPR/RCR 3:45-4:45pm", "Nicholas", "L", 'intense'],
+    ['MON0215', 'intense1', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "17:00", "18:00", "MON-SPR/RCR 5:00-6:00pm", "Nicholas", "L", 'intense'],
+    ['MON0216', 'intense1', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "18:00", "19:00", "MON-SPR/RCR 6:00-7:00pm", "Nicholas", "L", 'intense'],
+    ['MON0217', 'intense1', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "15:45", "16:45", "MON-CHL/MST 3:45-4:45pm", "Jimmy", "L", 'intense'],
+    ['MON0218', 'intense1', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "MON-CHL/MST 5:00-6:00pm", "Jimmy", "L", 'intense'],
+    ['MON0219', 'intense1', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "MON-CHL/MST 6:00-7:00pm", "Jimmy", "L", 'intense'],
+
+    //Monday - Session 2
+    ['MON021', 'intense2', 1, ["BUB1"], "15:00", "15:30", "MON-BUB1 3:00-3:30pm", "Betsy", "S", 'intense'],
+    ['MON022', 'intense2', 1, ["BUB1"], "15:30", "16:00", "MON-BUB1 3:30-4:00pm", "Betsy", "S", 'intense'],
+    ['MON023', 'intense2', 1, ["BUB2", "BUB3"], "15:00", "15:30", "MON-BUB 2,3 3:00-3:30pm", "Gabriela", "S", 'intense'],
+    ['MON024', 'intense2', 1, ["BUB2", "BUB3"], "15:30", "4:00", "MON-BUB 2, 3 3:30-4:00pm", "Gabriela", "S", 'intense'],
+    ['MON025', 'intense2', 1, ["BUB2", "BUB3"], "16:00", "16:30", "MON-BUB 2, 3 4:00-4:30pm", "Charlie", "S", 'intense'],
+    ['MON026', 'intense2', 1, ["CRL1"], "16:00", "16:30", "MON-CRL1 4:00-4:30pm", "Leslie", "S", 'intense'],
+    ['MON027', 'intense2', 1, ["CRL2", "CRL3"], "16:00", "16:30", "MON-CRL 2, 3 4:00-4:30pm", "Erica", "S", 'intense'],
+    ['MON028', 'intense2', 1, ["CRL2", "CRL3"], "16:45", "17:15", "MON-CRL 2, 3 4:45-5:15pm", "Erica", "S", 'intense'],
+    ['MON029', 'intense2', 1, ["GLD1"], "16:00", "16:45", "MON-GLD1 4:00-4:45pm", "Drishtee", "L", 'intense'],
+    ['MON0210', 'intense2', 1, ["GLD1", "GLD2", "GLD3"], "16:00", "16:45", "MON-GLD1,2,3 4:00-4:45pm", "Betsy", "L", 'intense'],
+    ['MON0211', 'intense2', 1, ["GLD1", "GLD2", "GLD3"], "19:15", "20:00", "MON-GLD1,2,3 7:15-8:00pm", "Gabriela", "L", 'intense'],
+    ['MON0212', 'intense2', 1, ["GLD2", "GLD3"], "17:30", "18:15", "MON-GLD 2, 3 5:30-6:15pm", "Charlie", "L", 'intense'],
+    ['MON0213', 'intense2', 1, ["GLD2", "GLD3"], "18:30", "19:15", "MON-GLD 2, 3 6:30-7:15pm", "Charlie", "L", 'intense'],
+    ['MON0214', 'intense2', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "15:45", "16:45", "MON-SPR/RCR 3:45-4:45pm", "Nicholas", "L", 'intense'],
+    ['MON0215', 'intense2', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "17:00", "18:00", "MON-SPR/RCR 5:00-6:00pm", "Nicholas", "L", 'intense'],
+    ['MON0216', 'intense2', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "18:00", "19:00", "MON-SPR/RCR 6:00-7:00pm", "Nicholas", "L", 'intense'],
+    ['MON0217', 'intense2', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "15:45", "16:45", "MON-CHL/MST 3:45-4:45pm", "Jimmy", "L", 'intense'],
+    ['MON0218', 'intense2', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "MON-CHL/MST 5:00-6:00pm", "Jimmy", "L", 'intense'],
+    ['MON0219', 'intense2', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "MON-CHL/MST 6:00-7:00pm", "Jimmy", "L", 'intense'],
+
+    //Monday - Session 3
+    ['MON021', 'intense3', 1, ["BUB1"], "15:00", "15:30", "MON-BUB1 3:00-3:30pm", "Betsy", "S", 'intense'],
+    ['MON022', 'intense3', 1, ["BUB1"], "15:30", "16:00", "MON-BUB1 3:30-4:00pm", "Betsy", "S", 'intense'],
+    ['MON023', 'intense3', 1, ["BUB2", "BUB3"], "15:00", "15:30", "MON-BUB 2,3 3:00-3:30pm", "Gabriela", "S", 'intense'],
+    ['MON024', 'intense3', 1, ["BUB2", "BUB3"], "15:30", "4:00", "MON-BUB 2, 3 3:30-4:00pm", "Gabriela", "S", 'intense'],
+    ['MON025', 'intense3', 1, ["BUB2", "BUB3"], "16:00", "16:30", "MON-BUB 2, 3 4:00-4:30pm", "Charlie", "S", 'intense'],
+    ['MON026', 'intense3', 1, ["CRL1"], "16:00", "16:30", "MON-CRL1 4:00-4:30pm", "Leslie", "S", 'intense'],
+    ['MON027', 'intense3', 1, ["CRL2", "CRL3"], "16:00", "16:30", "MON-CRL 2, 3 4:00-4:30pm", "Erica", "S", 'intense'],
+    ['MON028', 'intense3', 1, ["CRL2", "CRL3"], "16:45", "17:15", "MON-CRL 2, 3 4:45-5:15pm", "Erica", "S", 'intense'],
+    ['MON029', 'intense3', 1, ["GLD1"], "16:00", "16:45", "MON-GLD1 4:00-4:45pm", "Drishtee", "L", 'intense'],
+    ['MON0210', 'intense3', 1, ["GLD1", "GLD2", "GLD3"], "16:00", "16:45", "Intense 3 4:00-4:45pm", "Betsy", "L", 'intense'],
+    ['MON0211', 'intense3', 1, ["GLD1", "GLD2", "GLD3"], "19:15", "20:00", "Intense 3 7:15-8:00pm", "Gabriela", "L", 'intense'],
+    ['MON0212', 'intense3', 1, ["GLD2", "GLD3"], "17:30", "18:15", "Intense 3 5:30-6:15pm", "Charlie", "L", 'intense'],
+    ['MON0213', 'intense3', 1, ["GLD2", "GLD3"], "18:30", "19:15", "Intense 3 6:30-7:15pm", "Charlie", "L", 'intense'],
+    ['MON0214', 'intense3', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "15:45", "16:45", "Intense 3 3:45-4:45pm", "Nicholas", "L", 'intense'],
+    ['MON0215', 'intense3', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "17:00", "18:00", "Intense 3 5:00-6:00pm", "Nicholas", "L", 'intense'],
+    ['MON0216', 'intense3', 1, ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3"], "18:00", "19:00", "Intense 3 6:00-7:00pm", "Nicholas", "L", 'intense'],
+    ['MON0217', 'intense3', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "15:45", "16:45", "Intense 3 3:45-4:45pm", "Jimmy", "L", 'intense'],
+    ['MON0218', 'intense3', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "17:00", "18:00", "Intense 3 5:00-6:00pm", "Jimmy", "L", 'intense'],
+    ['MON0219', 'intense3', 1, ["CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3"], "18:00", "19:00", "Intense 3 6:00-7:00pm", "Jimmy", "L", 'intense']
+
   ]
 
   var classRegisterData=[

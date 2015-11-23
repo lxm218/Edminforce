@@ -16,6 +16,11 @@ DB.Schema.Sessions = new SimpleSchema(
         endDate: {      //session结束时间
             type: Date,
             optional: true //todo remove
+        },
+        programIds: {   // This session for which programs
+            type: [String],
+            allowedValues:['paced','intense','littleStar','fastrack'],
+            optional: true
         }
     });
 

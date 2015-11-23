@@ -28,9 +28,20 @@ Meteor.startup(function () {
         5:{
             sessionNow:'testSession2',
             sessionRegister:'testSession2'
-
         },
 
+        6:{
+            sessionNow: "intenseSession1",
+            sessionRegister: "testSession2"
+        },
+        7:{
+            sessionNow: "intenseSession2",
+            sessionRegister: "testSession2"
+        },
+        7:{
+            sessionNow: "intenseSession3",
+            sessionRegister: "testSession2"
+        },
         //冻结
         '-1':{
             sessionNow:'testSession2',
@@ -104,8 +115,29 @@ Meteor.startup(function () {
         {
             name:'testSession200',
             registerStartDate:new Date(+new Date() + (1000 * 3600 * 24 * ( 5))),
-            startDate:new Date(+new Date() + (1000 * 3600 * 24 * (5+41 ))),
+            startDate:new Date(+new Date() + (1000 * 3600 * 24 * (5+41 )))
         },
+        {
+            name:'Intense 1',
+            registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * ( 30))),
+            startDate:new Date(+new Date() + (1000 * 3600 * 24 * (30*1 ))),
+            endDate: new Date(+new Date() + (1000 * 3600 * 24 * (30*2 ))),
+            programIds: ["intense"]
+        },
+        {
+            name:'Intense 2',
+            registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * ( 30))),
+            startDate:new Date(+new Date() + (1000 * 3600 * 24 * (30*2 ))),
+            endDate: new Date(+new Date() + (1000 * 3600 * 24 * (30*3 ))),
+            programIds: ["intense"]
+        },
+        {
+            name:'Intense 3',
+            registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * ( 30))),
+            startDate:new Date(+new Date() + (1000 * 3600 * 24 * (30*3 ))),
+            endDate: new Date(+new Date() + (1000 * 3600 * 24 * (30*4 ))),
+            programIds: ["intense"]
+        }
     ]
 
 
@@ -116,15 +148,27 @@ Meteor.startup(function () {
 
             console.log(+session.startDate + (1000 * 3600 * 24 * 90))
 
+            function toID(str){
+                str = str.toLowerCase();
+                return str.replace(/\s/g, function(){
+                    return "";
+                });
+            }
 
-            DB.Sessions.insert({
-                _id: session.name ,
+            var sessionObj = {
+                _id: toID(session.name) ,
                 name: session.name,
                 // 模拟4个不同的注册时间
                 registerStartDate: session.registerStartDate,
                 startDate:session.startDate,
-                endDate:+session.startDate + (1000 * 3600 * 24 * 90)
-            });
+                endDate:session.endDate || +session.startDate + (1000 * 3600 * 24 * 90)
+            };
+
+            if(session.programIds){
+                sessionObj.programIds = session.programIds;
+            }
+
+            DB.Sessions.insert(sessionObj);
         })
     }
 

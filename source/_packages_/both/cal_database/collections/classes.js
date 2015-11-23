@@ -49,7 +49,7 @@ DB.Schema.Classes = new SimpleSchema({
     * */
     programId:{
         type: String,
-        allowedValues:['paced','intence','littleStar','fastrack'],
+        allowedValues:['paced','intense','littleStar','fastrack'],
         defaultValue:'paced'
 
     },
