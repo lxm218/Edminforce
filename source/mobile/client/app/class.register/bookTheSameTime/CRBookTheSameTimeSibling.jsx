@@ -57,11 +57,20 @@
                 <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
 
 
-                    <Cal.SelectSwimmer
-                        swimmers={this.props.swimmers}
-                        currentSwimmer={this.props.currentSwimmer}
-                        changeMessage="BookTheSameTime_SWIMMER_CHANGE"
-                        />
+                    {
+                        this.props.currentStep == 1 ?
+                            <Cal.SelectSwimmer
+                                swimmers={this.props.swimmers}
+                                currentSwimmer={this.props.currentSwimmer}
+                                changeMessage="BookTheSameTime_SWIMMER_CHANGE"
+                                />
+
+                            : <RC.Item uiColor="brand1">
+                            Swimmer: {this.props.currentSwimmer && this.props.currentSwimmer.name}
+                        </RC.Item>
+                    }
+
+
 
 
                     <RC.Item uiColor="brand1">
