@@ -11,6 +11,11 @@ App.time2num=function(str){
     var s= parseInt(t[2],10)||0
     return h*3600*1000 + m*60*1000 + s*1000;
 }
+App.numPrepend0 = function(num){
+    var numbers = [0,1,2,3,4,5,6,7,8,9]
+    var i =numbers.indexOf(num)
+    return i==-1?num:'0'+numbers[i]
+}
 
 App.num2time=function(num, second){
     var h= Math.floor(num/(3600*1000))
@@ -20,7 +25,7 @@ App.num2time=function(num, second){
     var s = h_mod % (60*1000)
 
     //todo format  5:3=> 05:03
-    return h+':'+m+(second?(':'+s):'')
+    return App.numPrepend0(h)+':'+App.numPrepend0(m)+(second?(':'+s):'')
 }
 App.getNextClassLevel=function(level){
 
