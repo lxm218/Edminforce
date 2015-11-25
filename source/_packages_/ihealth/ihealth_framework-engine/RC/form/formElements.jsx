@@ -373,7 +373,7 @@ RC.Textarea = React.createClass({
 
     return <label className={classes}>
       {this.props.label ? <span className={"input-label"+(h.checkColorClass(this.props.labelColor) ? " colored "+this.props.labelColor : "")}>{this.props.label}</span> : null}
-      <textarea {... _.omit(this.props, ["changeHandler","value","type","children","labelColor"])} type={this.props.type || "text"} value={this.getValue()} onChange={this.changeHandler} />
+      <textarea {... _.omit(this.props, ["changeHandler","value","type","children","labelColor"])} type={this.props.type || "text"} value={this.getValue()} onChange={this.changeHandler} >{this.getValue()}</textarea>
     </label>
   }
 })

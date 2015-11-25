@@ -20,6 +20,7 @@ Meteor.startup(function () {
         add_preference_to_cart: shoppingCart.register_add_preference_to_cart,
 
         add_comment_to_cart_item:shoppingCart.register_add_comment_to_cart_item,
+        add_comment_to_class_register_item:shoppingCart.register_add_comment_to_class_register_item,
 
 
         delete_class_from_cart:shoppingCart.register_delete_class_from_cart,

@@ -410,6 +410,33 @@
 
     }
 
+    /*
+     为注册项 class中的注册记录 添加comment
+
+        p:{
+            classId
+            swimmerId
+            comment
+        }
+    * */
+    function add_comment_to_class_register_item(p){
+        var result=DB.Classes.update({
+            '_id': p.classId,
+            'students': {
+                $elemMatch: {
+                    'swimmerId': p.swimmerId
+                }
+            }
+        }, {
+            $set: {
+                'students.$.comment': p.comment  //class2
+            }
+        })
+        return result;
+
+    }
+
+
     //shopping cart status:
     // active checking  applied done
     // expring  expried
@@ -423,6 +450,7 @@
         register_retire_addClassToCart: retire_addClassToCart,
 
         register_add_comment_to_cart_item:add_comment_to_cart_item,
+        register_add_comment_to_class_register_item:add_comment_to_class_register_item,
 
         //在开始注册界面触发; 或用户checkout时触发；  非定时任务
         register_clear_uncompleted_item_in_cart:clear_uncompleted_item_in_cart

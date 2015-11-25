@@ -125,12 +125,12 @@
     })
     ClassEditRoute.route('/writeComment', {
         //name: "home",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "Class Operation",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.WriteComment {...p}  />
+                bodyTmpl: <Cal.WriteComment {...p}  {...query}/>
             })
         }
     })
