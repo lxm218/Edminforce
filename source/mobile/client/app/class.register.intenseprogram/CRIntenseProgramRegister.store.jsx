@@ -9,7 +9,7 @@
         self.currentIntenseSession = new ReactiveVar();
         self.currentClass = new ReactiveVar();
 
-        self.currentStep = new ReactiveVar(1)
+        self.currentStep = new ReactiveVar(1);
 
         self.avaiableIntenseSessions = new ReactiveVar();
         self.avaialbeClasses = new ReactiveVar();
@@ -165,7 +165,7 @@
 
                             console.log('step3', currentClass);
 
-                            var href="/classRegister/SelectClassReady"
+                            var href="/intense/ready"
                                 +"?cartId="+Session.get('CART_ID')
                                 +"&swimmerId="+swimmer._id
                                 +"&classId="+class1._id;

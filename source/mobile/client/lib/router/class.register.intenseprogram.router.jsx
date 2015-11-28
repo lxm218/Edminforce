@@ -36,4 +36,28 @@
             });
         }
     });
+
+    RegisterRoute.route('/ready',{
+        name: "intense_ready",
+        action: function(params, query){
+            App.routeHandler(params, {
+                pageTitle: "Intense Program",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRIntenseProgramReady {...params} {...query}/>
+            });
+        }
+    });
+
+    RegisterRoute.route('/edit',{
+        name: "intense_edit",
+        action: function(params, query){
+            App.routeHandler(params, {
+                pageTitle: "Intense Program",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CRIntenseProgramEdit {...params} {...query}/>
+            });
+        }
+    });
 }
