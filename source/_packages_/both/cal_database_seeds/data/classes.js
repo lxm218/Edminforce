@@ -392,7 +392,8 @@ Meteor.startup(function () {
 
         price: 100,
         seatsTotal: 10,
-        seatsRemain: 10,
+        seatsRemain: 9,
+        seatsReserve:1, //预留一个 https://github.com/lxm218/Calphin-Project/issues/104
         seatsMini: item[10]||0
 
       })
