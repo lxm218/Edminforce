@@ -38,7 +38,7 @@ Meteor.startup(function () {
             sessionNow: "intenseSession2",
             sessionRegister: "testSession2"
         },
-        7:{
+        8:{
             sessionNow: "intenseSession3",
             sessionRegister: "testSession2"
         },
@@ -62,6 +62,7 @@ Meteor.startup(function () {
 
         //history
         {
+            _id:'testSession1',
             name:'testSession1',
             registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * (150  + 1))),
             startDate:new Date(+new Date() + (1000 * 3600 * 24 * (-110 )))
@@ -69,6 +70,7 @@ Meteor.startup(function () {
 
         //current session  61天前一开始注册 20天前开始 还有70天才结束
         {
+            _id:'testSession2',
             name:'testSession2',
             registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * ( 60+1))),
             startDate:new Date(+new Date() + (1000 * 3600 * 24 * (-20 ))),
@@ -78,18 +80,21 @@ Meteor.startup(function () {
 
         //第1周  1天前已开始注册
         {
+            _id:'testSession3',
             name:'testSession3',
             registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * (1))),
             startDate:new Date(+new Date() + (1000 * 3600 * 24 * (40)))
         },
         //第2周
         {
+            _id:'testSession4',
             name:'testSession4',
             registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * (7+1))),
             startDate:new Date(+new Date() + (1000 * 3600 * 24 * (33)))
         },
         //第3周
         {
+            _id: 'testSession5',
             name: 'testSession5',
             registerStartDate: new Date(+new Date() - (1000 * 3600 * 24 * (14 + 1))),
             startDate: new Date(+new Date() + (1000 * 3600 * 24 * (26)))
@@ -97,6 +102,7 @@ Meteor.startup(function () {
 
         //第4周
         {
+            _id:'testSession6',
             name:'testSession6',
             registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * (21+1))),
             startDate:new Date(+new Date() + (1000 * 3600 * 24 * (19)))
@@ -104,6 +110,7 @@ Meteor.startup(function () {
 
         //36天前已开始注册 5天后就开始  处于开始前的冻结期（一周）
         {
+            _id:'testSession100',
             name:'testSession100',
             registerStartDate:new Date(+new Date() - (1000 * 3600 * 24 * (36))),
             startDate:new Date(+new Date() + (1000 * 3600 * 24 * (5)))
@@ -113,6 +120,7 @@ Meteor.startup(function () {
         //新的session已设置 当前session相应停止注册
         //但新session的registerStartDate还没开始
         {
+            _id:'testSession200',
             name:'testSession200',
             registerStartDate:new Date(+new Date() + (1000 * 3600 * 24 * ( 5))),
             startDate:new Date(+new Date() + (1000 * 3600 * 24 * (5+41 )))
@@ -156,7 +164,7 @@ Meteor.startup(function () {
             }
 
             var sessionObj = {
-                _id: toID(session.name) ,
+                _id: session._id || toID(session.name) ,
                 name: session.name,
                 // 模拟4个不同的注册时间
                 registerStartDate: session.registerStartDate,
@@ -198,8 +206,8 @@ Meteor.startup(function () {
                 resetData()
 
 
-                var sessionNowInfo = DB.App.findOne({_id:config.sessionNow})
-                var sessionRegisterInfo = DB.App.findOne({_id:config.sessionRegister})
+                var sessionNowInfo = DB.Sessions.findOne({_id:config.sessionNow})
+                var sessionRegisterInfo = DB.Sessions.findOne({_id:config.sessionRegister})
 
 
                 var appInfo = DB.App.findOne()

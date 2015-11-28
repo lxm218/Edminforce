@@ -89,6 +89,16 @@ DB.Schema.Classes = new SimpleSchema({
         type: Number
     },
 
+    /*
+    * 开放注册后，每个课留一个名额
+    * 留的一个名额，在考试结束那周放出来。
+    * 考试结束时间是从session end的时间往前推两周
+    * */
+    seatsReserve:{
+        type: Number,
+        defaultValue:0
+    },
+
     seatsMinimum:{  //
         type: Number,
         optional: true
