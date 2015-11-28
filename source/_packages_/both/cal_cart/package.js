@@ -41,3 +41,8 @@ Package.onUse(function(api) {
         "shoppingCart"
     ], ["server"])
 })
+
+Package.on_test(function (api) {
+    api.use(['cal:cart', 'tinytest', 'test-helpers'], ['client', 'server']);
+    api.add_files('test/0.js', ['client', 'server']);
+});
