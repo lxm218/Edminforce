@@ -33,6 +33,7 @@ Package.onUse(function(api) {
         "collections/WaitingList.js",
         "collections/Waiver.js",
         "collections/App.js",  //app.js should after Sessions.js
+        "collections/Requests.js"
 
     ], ["client","server"])
 
