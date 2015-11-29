@@ -675,11 +675,28 @@
                 if(!appInfo || !level) return;
 
 
-                let classes = DB.Classes.find({
+                let classesAllByLevel =DB.Classes.find({
+                    sessionId: App.info.sessionRegister, //level session
+                    levels: level
+                }).fetch()
+
+                let classesHasSeatByLevel = DB.Classes.find({
                     sessionId: appInfo.sessionRegister, //level session
                     levels: level,
                     seatsRemain:{$gt:0}
                 }).fetch()
+
+
+                var currentStep = self.currentStep.get()
+
+                if(1==currentStep){
+                    classes=classesHasSeatByLevel
+
+                }else{
+                    classes=classesAllByLevel  //第二步和三不考虑是否有空位
+                }
+
+
 
                 //
                 classes = _.uniq(classes, function (item, key, a) {
@@ -728,6 +745,19 @@
                     seatsRemain:{$gt:0}
                 }).fetch()
 
+                let classesAll = DB.Classes.find({
+                    sessionId: appInfo.sessionRegister, // session level day
+                    levels: level,
+                    day: currentDay,
+                }).fetch()
+
+                //第二步和三不考虑是否有空位
+                var currentStep = self.currentStep.get()
+                if(2==currentStep || 3==currentStep){
+                    classes=classesAll
+                }
+
+
                 let times = classes.map(function (v, n) {
                     return {
                         text: App.num2time(v.startTime) + "-" + App.num2time(v.endTime),
@@ -770,13 +800,28 @@
                     day = self.currentDay.get()
                 });
 
-                let theClass = DB.Classes.find({
-                    sessionId: appInfo.sessionRegister, // session level day
-                    levels: level,
-                    day: day,
-                    startTime: time,
-                    seatsRemain:{$gt:0}
-                }).fetch()
+
+
+                var theClass;
+                var currentStep = self.currentStep.get()
+                if(1==currentStep ){
+                    theClass = DB.Classes.find({
+                        sessionId: appInfo.sessionRegister, // session level day
+                        levels: level,
+                        day: day,
+                        startTime: time,
+                        seatsRemain:{$gt:0}
+                    }).fetch()
+                }else{
+                    theClass = DB.Classes.find({
+                        sessionId: appInfo.sessionRegister, // session level day
+                        levels: level,
+                        day: day,
+                        startTime: time,
+                    }).fetch()
+                }
+
+
 
                 if (theClass[0]) {
                     self.currentClass.set(theClass[0])
