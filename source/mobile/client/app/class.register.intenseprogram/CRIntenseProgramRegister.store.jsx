@@ -193,6 +193,8 @@
                     swimmer['value'] = swimmer['_id'];
                 });
 
+                swimmers = _.sortBy(swimmers, 'text');
+
                 self.swimmers.set(swimmers);
                 if(swimmers.length){
                     self.currentSwimmer.set(swimmers[0]);
@@ -218,6 +220,8 @@
                         avaiableIntenseSessions.push(session);
                     }
                 });
+
+                avaiableIntenseSessions = _.sortBy(avaiableIntenseSessions, 'text');
 
                 avaiableIntenseSessions.unshift(undefinedSelectValueOption);
 
@@ -251,6 +255,8 @@
                     aClass['text'] = App.num2time(aClass.startTime) + "-" + App.num2time(aClass.endTime);
                     aClass['value'] = aClass['_id'];
                 });
+
+                availableClass = _.sortBy(availableClass, 'startTime');
 
                 availableClass.unshift(undefinedSelectValueOption);
 
