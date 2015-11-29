@@ -24,6 +24,7 @@ Package.onUse(function(api) {
     api.addFiles([
         "lib/stageMonitor.js",
         "lib/main.js",
+        "lib/classes.js"
 
     ], ["server"])
 
