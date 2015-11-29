@@ -125,7 +125,7 @@
 
 
                 <div className="padding">
-                    You’re going to cancel this class for Daniel.
+                    You’re going to cancel this class for {this.data.swimmerInfo && this.data.swimmerInfo.name}.
                 </div>
 
                 <RC.Button name="button" type="submit"
