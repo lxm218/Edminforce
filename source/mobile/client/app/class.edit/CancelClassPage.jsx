@@ -25,7 +25,7 @@
                 class: DB.Classes.findOne({_id: classId}),
                 swimmer:   DB.Swimmers.findOne({_id: swimmerId}),
 
-                refundWay: cancelClassStore.refundWay
+                //refundWay: cancelClassStore.refundWay
             }
         },
 
@@ -62,7 +62,10 @@
 
 
             Dispatcher.dispatch({
-                actionType: "CECancelClassPage_CLASS_SEND_REQUEST"
+                actionType: "CECancelClassPage_CLASS_SEND_REQUEST",
+                classInfo:this.data.class,
+                swimmerInfo:this.data.swimmer,
+
             });
 
         },

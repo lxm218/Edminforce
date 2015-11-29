@@ -75,46 +75,76 @@ Dependency.add('classEdit.ChangeClass.store', new function () {
             case "ChangeClassPage_BILLING_CONFIRM":
             {
 
-                var swimmer =self.swimmer.get()
-                var oldClass = self.class.get()
-                var newClass = self.currentClass.get()
-
-
-
-                Meteor.call('change_class',
-                    swimmer._id,
-                    oldClass._id,
-                    newClass._id,
-
-                    function (err) {
-                    if (err) {//todo  prompt
-                        console.error(err)
-                        alert(err.message)
-                        return;
-                    }
-
-                    FlowRouter.go('/classEdit/swimmerList');
-                })
+                //var swimmer =self.swimmer.get()
+                //var oldClass = self.class.get()
+                //var newClass = self.currentClass.get()
+                //
+                //
+                //
+                //Meteor.call('change_class',
+                //    swimmer._id,
+                //    oldClass._id,
+                //    newClass._id,
+                //
+                //    function (err) {
+                //    if (err) {//todo  prompt
+                //        console.error(err)
+                //        alert(err.message)
+                //        return;
+                //    }
+                //
+                //    FlowRouter.go('/classEdit/swimmerList');
+                //})
 
                 break;
             }
             case "ChangeClassPage_CLASS_SEND_REQUEST":
             {
 
+                var fromClass =self.class.get()
+
                 var currentClass =self.currentClass.get()
+
+                var swimmer = self.swimmer.get()
                 if(!currentClass){
                     alert('Please select a class to change')
                     return
                 }
-                alert(
-                    'Your request to change class for ' +
-                    'Daniel has been submitted. ' +
-                    'We’ll contact you soon.'
-                )
 
-                var href = '/classEdit/swimmerList'
+                DB.Requests.insert({
+                    type:'change_class',
+                    swimmerId:swimmer._id,
+                    swimmerInfo:swimmer,
+                    classId:fromClass._id,
+                    classInfo: _.omit(fromClass,['students','pendingTransactions']),
 
-                FlowRouter.go(href);
+                    toClassId:currentClass._id,
+                    toClassInfo: _.omit(currentClass,['students','pendingTransactions'])
+                },function(err,result){
+
+                    if(err){
+                        console.error(err)
+                        return
+                    }
+
+
+                    alert(
+                        'Your request to change class for ' +
+                        'Daniel has been submitted. ' +
+                        'We’ll contact you soon.'
+                    )
+
+                    var href = '/classEdit/swimmerList'
+
+                    FlowRouter.go(href);
+
+                })
+
+
+
+
+
+
 
                 break;
             }
