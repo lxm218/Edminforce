@@ -52,6 +52,7 @@
                 + '&sessionId=' + sessionId
                 + '&preferenceNum=' + preferenceNum
                 + '&cartId=' + this.props.cartId
+                + '&classId=' + classId
                 + '&className= '+ className;
 
             FlowRouter.go(url);
