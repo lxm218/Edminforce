@@ -88,6 +88,18 @@
             })
         }
     })
+
+    ClassEditRoute.route('/makeup', {
+        //name: "home",
+        action: function (p, query) {
+            App.routeHandler(p, {
+                pageTitle: "Class Operation",
+                showGlobalNav: false,
+                headerNav: null,
+                bodyTmpl: <Cal.CEMakeUpClassPage {...p} {...query} />
+            })
+        }
+    })
     ClassEditRoute.route('/CancelClassConfirmPage', {
         //name: "home",
         action: function (p, query) {
