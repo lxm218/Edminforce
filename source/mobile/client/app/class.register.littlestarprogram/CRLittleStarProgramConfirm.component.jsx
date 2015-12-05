@@ -5,7 +5,7 @@ Cal.CRLittleStartProgramConfirm = React.createClass({
     },
     registerMore: function () {
         //console.log("Click Register");
-        FlowRouter.go('littlestar_register');
+        FlowRouter.go('/');
     },
     checkout: function(){
         // TODO add checkou logic

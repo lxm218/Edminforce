@@ -173,7 +173,7 @@
                     </RC.Item>
 
 
-                    <RC.URL href="/intense/register">
+                    <RC.URL href="/">
                         <RC.Button name="button" type="submit"
                                    theme="full" buttonColor="brand">
                             Register More
