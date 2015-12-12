@@ -8,6 +8,23 @@
     function getSwimmers(){
         var swimmers = DB.Swimmers.find({accountId: Meteor.userId()}).fetch();
 
+        var registered = {};
+
+        for(var i = 0; i<swimmers.length; i++){
+            var registerClass = DB.Classes.find({
+                "programId": "fastrack",
+                "students":{
+                    "$elemMatch":{
+                        "swimmerId" : swimmers[i]["_id"]
+                    }
+                }
+            }).fetch();
+
+            if(registerClass&&registerClass.length){
+                registered[swimmers[i]["_id"].toString()]=registerClass;
+            }
+        }
+
         var allowLevels = ["SPR2", "SPR3", "GLD1", "GLD2", "GLD3", "CRL1", "CRL2", "CRL3", "CRL3", "BUB1", "BUB2", "BUB3"];
 
         // `swimmers` need to used on select component, need to add `text` and `value` property
@@ -18,7 +35,7 @@
                 return (level.toLowerCase() == swimmer.level.toLowerCase());
             });
 
-            if(isLevelOK){
+            if(isLevelOK&&!registered[swimmers[i]["_id"].toString()]){
                 swimmer['text'] = swimmer['name'];
                 swimmer['value'] = swimmer['_id'];
                 transferSwimmers.push(swimmer);

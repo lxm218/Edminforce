@@ -8,6 +8,25 @@
     function getSwimmers(){
         var swimmers = DB.Swimmers.find({accountId: Meteor.userId()}).fetch();
 
+        //var registered = new ReactiveVar();
+        //registered.set([]);
+        var registered = {};
+
+        for(var i = 0; i<swimmers.length; i++){
+            var registerClass = DB.Classes.find({
+                "programId": "littleStar",
+                "students":{
+                    "$elemMatch":{
+                        "swimmerId" : swimmers[i]["_id"]
+                    }
+                }
+            }).fetch();
+
+            if(registerClass&&registerClass.length){
+                registered[swimmers[i]["_id"].toString()]=registerClass;
+            }
+        }
+
         var allowLevels = ["SPR1", "SPR2", "SPR3", "GLD1", "GLD2", "GLD3", "CRL1", "CRL2", "CRL3", "CRL3", "BUB1", "BUB2", "BUB3"];
 
         function getAge(dateStr){
@@ -51,7 +70,7 @@
                 return (level.toLowerCase() == swimmer.level.toLowerCase());
             });
 
-            if(age.year<=8&&isLevelOK){
+            if(age.year<=8&&isLevelOK&&!registered[swimmers[i]["_id"].toString()]){
                 swimmer['text'] = swimmer['name'];
                 swimmer['value'] = swimmer['_id'];
                 transferSwimmers.push(swimmer);
