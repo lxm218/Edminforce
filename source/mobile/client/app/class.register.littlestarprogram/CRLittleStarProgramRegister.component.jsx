@@ -8,12 +8,55 @@
     function getSwimmers(){
         var swimmers = DB.Swimmers.find({accountId: Meteor.userId()}).fetch();
 
+        var allowLevels = ["SPR1", "SPR2", "SPR3", "GLD1", "GLD2", "GLD3", "CRL1", "CRL2", "CRL3", "CRL3", "BUB1", "BUB2", "BUB3"];
+
+        function getAge(dateStr){
+            var birth = new Date(dateStr);
+            var today = new Date();
+            var birthYear = birth.getFullYear();
+            var birthMonth = birth.getMonth();
+            var birthDay = birth.getDate();
+
+            var currentYear = today.getFullYear();
+            var currentMonth = today.getMonth();
+            var currentDay = today.getDate();
+
+            var year = currentYear - birthYear;
+            var month = currentMonth - birthMonth;
+            var day = currentDay - birthDay;
+
+            if(day<0){
+                month--;
+                day = 30+day;
+            }
+
+            if(month<0){
+                year--;
+                month = 12+month;
+            }
+
+            return {
+                year: year,
+                month: month,
+                day: day
+            };
+        }
+
         // `swimmers` need to used on select component, need to add `text` and `value` property
-        var transferSwimmers = swimmers.map(function (swimmer) {
-            swimmer['text'] = swimmer['name'];
-            swimmer['value'] = swimmer['_id'];
-            return swimmer;
-        });
+        var transferSwimmers = [];
+        for(var i=0;i < swimmers.length; i++){
+            var swimmer = swimmers[i];
+            var age = getAge(swimmer.birthday);
+            var isLevelOK = _.find(allowLevels, function (level) {
+                return (level.toLowerCase() == swimmer.level.toLowerCase());
+            });
+
+            if(age.year<=8&&isLevelOK){
+                swimmer['text'] = swimmer['name'];
+                swimmer['value'] = swimmer['_id'];
+                transferSwimmers.push(swimmer);
+            }
+        }
 
         //console.log("getSwimmers - swimmers: %o", swimmers);
         return transferSwimmers;
