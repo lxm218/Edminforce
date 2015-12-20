@@ -27,7 +27,7 @@
             }
         }
 
-        var allowLevels = ["SPR1", "SPR2", "SPR3", "GLD1", "GLD2", "GLD3", "CRL1", "CRL2", "CRL3", "CRL3", "BUB1", "BUB2", "BUB3"];
+        var allowLevels = ["SPR1", "SPR2", "SPR3", "RCR1", "RCR2", "RCR3", "CHL1", "CHL2", "CHL3", "MST1", "MST2", "MST3", "ELT1", "ELT2", "ELT3"];
 
         function getAge(dateStr){
             var birth = new Date(dateStr);
