@@ -5,8 +5,13 @@ RC.Tabs = React.createClass({
       tab: this.props.tab || 0
     }
   },
-  switchTab(tab) {
+  switchTab(tab,onclick) {
     this.setState({tab:tab})
+
+    if(onclick){
+      onclick(tab)
+    }
+
   },
   getTheme(name){
     let theme = _.contains(["regular","nav-tabs"], name)
@@ -42,7 +47,7 @@ RC.Tabs = React.createClass({
       <div className="tabs-nav clear unselect">
         {
         tabs.map( function(t,n){
-          return <p className={"cursor boxed"} key={n} style={tabStyle} onClick={self.switchTab.bind(null,n)}>
+          return <p className={"cursor boxed"} key={n} style={tabStyle} onClick={self.switchTab.bind(null,n,t.props.onClick)}>
             {<RC.uiIcon uiSize={0} uiClass={t.props.uiClass} uiColor={t.props.uiColor} />}
             {t.props.label || "\u00a0"}
           </p>
