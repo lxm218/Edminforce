@@ -90,3 +90,4 @@ cal:stage-manager
 cal:database
 cal:database-seeds
 cal:cron
+http

@@ -48,6 +48,12 @@ Cal.Home = React.createClass({
                 </RC.Button>
             </div>
 
+            <div className="row">
+                <RC.Button className="item-button"  name="button" buttonColor="brand" href="/payment/test">
+                    Payment
+                </RC.Button>
+            </div>
+
         </div>
 
     }
