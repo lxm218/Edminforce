@@ -1,0 +1,43 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor
+underscore
+session
+webapp
+logging
+tracker
+ddp
+mongo
+check
+jquery
+reload
+autoupdate
+coffeescript
+
+standard-minifiers      # JS/CSS minifiers run for production mode
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+
+
+react
+
+kadira:flow-router
+kadira:react-layout
+
+fourseven:scss@=3.2.0
+fortawesome:fontawesome
+
+ihealth:utils
+ihealth:framework-webapp
+
+aldeed:simple-schema
+
+meteorflux:dispatcher
+meteorflux:reactive-dependency
+
+cal:globals

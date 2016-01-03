@@ -9,16 +9,16 @@ DB.App = new Mongo.Collection('app');
 
 DB.Schema.App = new SimpleSchema(
     {
-        status: {
-            type: Object,
-            optional: true,
-            blackbox: true
-        },
-        setting: {
-            type: Object,
-            optional: true,
-            blackbox: true
-        },
+        //status: {
+        //    type: Object,
+        //    optional: true,
+        //    blackbox: true
+        //},
+        //setting: {
+        //    type: Object,
+        //    optional: true,
+        //    blackbox: true
+        //},
 
 
         sessionNow:{//正在进行的session
@@ -53,13 +53,13 @@ DB.Schema.App = new SimpleSchema(
         ////////////////////////////////////////////////////////
         //状态信息
 
-        //是否在 session开始注册和session开始之间
+        //是否在 session开始注册和session开始之间  todo 删除
         isBetween_RegStartDate_StartDate:{
             type: Boolean,
             optional: true
         },
 
-        //for test  当前注册阶段  1 2 3 4 5 -1 -2 -3
+        //for test  当前注册阶段  1 2 3 4 5 -1 -2 -3 todo 删除
         registerStage:{
             type: Number,
             optional: true
