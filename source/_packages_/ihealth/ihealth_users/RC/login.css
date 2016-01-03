@@ -1,9 +1,0 @@
-
-.ih-login {
-  padding: 2%;
-}
-.ih-login .re-wrapper { max-width: 320px; }
-.ih-login img { width: auto; max-width: 284px; margin: 0 18px 32px; }
-
-.ih-login .open-registration { border-bottom: dotted 1px rgba(255,255,255,.85); }
-.ih-login-overlay-dark .open-registration { border-color: rgba(40,40,40,85); }
