@@ -530,6 +530,7 @@
             })
 
             //获取当前swimmer的课数 用于判断swimmer的类型
+            //todo case:用户已经注册新的session 但当前session还未结束 用户又去注册正在进行的session
             Tracker.autorun(function () {
                 var currentSwimmer = self.currentSwimmer.get()
                 var appInfo = DB.App.findOne()
@@ -670,9 +671,12 @@
             Tracker.autorun(function () {
                 //if (!DB.Classes) return;
                 var level = self.currentLevel.get();
-                var appInfo = DB.App.findOne()
+                //var appInfo = DB.App.findOne()
 
-                if(!appInfo || !level) return;
+                //if(!appInfo || !level) return;
+
+                var selectedSession = Session.get('selectedSession')
+                if (!selectedSession) return;
 
 
                 let classesAllByLevel =DB.Classes.find({
@@ -681,7 +685,7 @@
                 }).fetch()
 
                 let classesHasSeatByLevel = DB.Classes.find({
-                    sessionId: appInfo.sessionRegister, //level session
+                    sessionId: selectedSession, //level session
                     levels: level,
                     seatsRemain:{$gt:0}
                 }).fetch()
@@ -728,9 +732,12 @@
                 //if (!DB.Classes) return;
 
                 var currentDay = self.currentDay.get();
-                var appInfo = DB.App.findOne()
+                //var appInfo = DB.App.findOne()
+                //
+                //if(!appInfo) return;
 
-                if(!appInfo) return;
+                var selectedSession = Session.get('selectedSession')
+                if (!selectedSession) return;
 
 
                 var level
@@ -739,14 +746,14 @@
                 });
 
                 let classes = DB.Classes.find({
-                    sessionId: appInfo.sessionRegister, // session level day
+                    sessionId: selectedSession, // session level day
                     levels: level,
                     day: currentDay,
                     seatsRemain:{$gt:0}
                 }).fetch()
 
                 let classesAll = DB.Classes.find({
-                    sessionId: appInfo.sessionRegister, // session level day
+                    sessionId: selectedSession, // session level day
                     levels: level,
                     day: currentDay,
                 }).fetch()
@@ -787,10 +794,13 @@
                 //if (!DB.Classes) return;
 
                 let time = self.currentTime.get()
-                let appInfo = DB.App.findOne()
+                //let appInfo = DB.App.findOne()
+                //
+                //if(!appInfo) return;
 
-                if(!appInfo) return;
 
+                var selectedSession = Session.get('selectedSession')
+                if (!selectedSession) return;
 
 
                 let level
@@ -806,7 +816,7 @@
                 var currentStep = self.currentStep.get()
                 if(1==currentStep ){
                     theClass = DB.Classes.find({
-                        sessionId: appInfo.sessionRegister, // session level day
+                        sessionId: selectedSession, // session level day
                         levels: level,
                         day: day,
                         startTime: time,
@@ -814,7 +824,7 @@
                     }).fetch()
                 }else{
                     theClass = DB.Classes.find({
-                        sessionId: appInfo.sessionRegister, // session level day
+                        sessionId: selectedSession, // session level day
                         levels: level,
                         day: day,
                         startTime: time,
@@ -838,13 +848,16 @@
 
             * */
             Tracker.autorun(function () {
-                App.info = App.info || DB.App.findOne()
+                //App.info = App.info || DB.App.findOne()
                 var nowClasses= self.nowClasses.get()
 
                 var currentLevel = self.currentLevel.get()
 
-                if(!App.info) return;
+               // if(!App.info) return;
                 if(!currentLevel) return;
+
+                var selectedSession = Session.get('selectedSession')
+                if (!selectedSession) return;
 
 
 
@@ -869,7 +882,7 @@
                         _.each(currentClasses,function(currentClass){
 
                             var sameClass = DB.Classes.findOne({
-                                sessionId: App.info.sessionRegister,
+                                sessionId: selectedSession,
                                 levels:currentLevel,
 
                                 day:currentClass.day,

@@ -18,9 +18,8 @@ Meteor.startup(function () {
 
         },
         job: function () {
-
-            calStageManager.updateSession()
             calStageManager.updateStage()
+            calStageManager.updateSession()
         }
     });
 

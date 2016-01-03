@@ -9,6 +9,12 @@ if (Meteor.isClient) {
     Meteor.startup(function () {
         setInterval(function () {
             Meteor.call("getServerTime", function (error, result) {
+                if(error){
+                    console.error(error,'getServerTime faild')
+                    //Session.set("serverTime", +new Date);
+                    Session.set("serverTime", Session.get("serverTime")+5000);
+
+                }
                 Session.set("serverTime", result);
             });
         }, 5000);  //todo 减少频率

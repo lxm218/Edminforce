@@ -59,11 +59,11 @@ DB.Schema.App = new SimpleSchema(
             optional: true
         },
 
-        //for test  当前注册阶段  1 2 3 4 5 -1 -2 -3 todo 删除
-        registerStage:{
-            type: Number,
-            optional: true
-        }
+        //for test  当前注册阶段  1 2 3 4 5 -1 -2 0 todo 删除
+        //registerStage:{
+        //    type: Number,
+        //    optional: true
+        //}
 
     });
 

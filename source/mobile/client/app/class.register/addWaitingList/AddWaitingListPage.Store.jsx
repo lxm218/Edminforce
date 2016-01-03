@@ -238,9 +238,11 @@
                 //days depend on level of swimmer
             Tracker.autorun(function () {
                 //wait for App.info ready
-                App.info = App.info || DB.App.findOne()
-                if (!App.info) return;
+                //App.info = App.info || DB.App.findOne()
+                //if (!App.info) return;
 
+                var selectedSession = Session.get('selectedSession')
+                if (!selectedSession) return;
 
 
 
@@ -252,13 +254,13 @@
                 //todo  计算可用数目报名数
                 if(currentStep ==1){
                     var classes = DB.Classes.find({
-                        sessionId: App.info && App.info.sessionRegister, //level session
+                        sessionId: selectedSession, //level session
                         levels: level,
                         seatsRemain:{$lte:0}
                     }).fetch()
                 }else{
                     var classes = DB.Classes.find({
-                        sessionId: App.info && App.info.sessionRegister, //level session
+                        sessionId: selectedSession, //level session
                         levels: level,
                         //seatsRemain:{$lte:0}
                     }).fetch()
@@ -293,8 +295,11 @@
             /// time depend on day
             Tracker.autorun(function () {
                 //wait for App.info ready
-                App.info = App.info || DB.App.findOne()
-                if (!App.info) return;
+                //App.info = App.info || DB.App.findOne()
+                //if (!App.info) return;
+
+                var selectedSession = Session.get('selectedSession')
+                if (!selectedSession) return;
 
                 var currentDay = self.currentDay.get();
 
@@ -307,7 +312,7 @@
 
                 if(currentStep ==1){
                     var classes = DB.Classes.find({
-                        sessionId: App.info.sessionRegister, // session level day
+                        sessionId: selectedSession, // session level day
                         levels: level,
                         day: currentDay,
                         seatsRemain:{$lte:0}
@@ -315,7 +320,7 @@
                     }).fetch()
                 }else{
                     var classes = DB.Classes.find({
-                        sessionId: App.info.sessionRegister, // session level day
+                        sessionId: selectedSession, // session level day
                         levels: level,
                         day: currentDay,
                         //seatsRemain:{$lte:0}
@@ -352,8 +357,11 @@
             //level + day+ time  确定一个class
             Tracker.autorun(function () {
                 //wait for App.info ready
-                App.info = App.info || DB.App.findOne()
-                if (!App.info) return;
+                //App.info = App.info || DB.App.findOne()
+                //if (!App.info) return;
+
+                var selectedSession = Session.get('selectedSession')
+                if (!selectedSession) return;
 
                 let time = self.currentTime.get()
 
@@ -369,7 +377,7 @@
 
                 if(currentStep ==1) {
                     var theClass = DB.Classes.find({
-                        sessionId:  App.info.sessionRegister, // session level day
+                        sessionId:  selectedSession, // session level day
                         levels: level,
                         day: day,
                         startTime: time,
@@ -378,7 +386,7 @@
                     }).fetch()
                 }else{
                     var theClass = DB.Classes.find({
-                        sessionId:  App.info.sessionRegister, // session level day
+                        sessionId:  selectedSession, // session level day
                         levels: level,
                         day: day,
                         startTime: time,

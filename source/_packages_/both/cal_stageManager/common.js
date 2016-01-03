@@ -135,13 +135,14 @@ function updateStage_old(){
  *
  *一个session有三个属性 sessionRegisterStart sessionStart sessionEnd
  * 阶段编号:
- * -1: 未开始
+ * -1: session注册尚未开始
  * 1:sessionRegisterStart 第1周
  * 2:sessionRegisterStart 第2周
  * 3:sessionRegisterStart 第3周
  * 4:sessionRegisterStart 第4周=>sessionStart前一周
- * -2:sessionStart前一周=>sessionStart 冻结期
- * 6:sessionStart=>sessionEnd
+ * 0:sessionStart前一周=>sessionStart 冻结期
+ * 5:sessionStart=>sessionEnd  session开始
+ * -2 session已结束
  *
  *session只要不结束总可以注册
  *下一个session的 sessionRegisterStart后 当前session的sessionEnd之前 两个session都可以注册
@@ -172,7 +173,7 @@ function getStageNum(sessionInfo){
     //    registerStartDate + oneWeek)
 
 
-    if (now < registerStartDate) { //未开始
+    if (now < registerStartDate) { //注册未开始
         stage = -1
     } else if (now >= registerStartDate && now < (registerStartDate + oneWeek)) {
         stage = 1
@@ -184,35 +185,39 @@ function getStageNum(sessionInfo){
     }else if (now >= (registerStartDate + 3 * oneWeek) && (now < startDate - oneWeek)) {
         stage = 4
     }else if (now >= (startDate - oneWeek) && now < startDate) { //冻结期
-        stage = -2
+        stage = 0
     }else if (now >= startDate && now < endDate) { //session已开始 注册规则同4
         stage = 5
+    }else if(now >= endDate){
+        stage = -2  //已结束
     }
 
     return stage
 
 }
 
+/*
+* 根据server时间 更新sessionNow 和sessionRegister 的stage 值
+* */
 function updateStage(){
     var appInfo = DB.App.findOne()
-    var sessionRegister = appInfo.sessionRegister
+
     var sessionNow = appInfo.sessionNow
-
-    var sessionRegisterInfo = DB.Sessions.findOne({_id: sessionRegister})
     var sessionNowInfo = DB.Sessions.findOne({_id: sessionNow})
-
-
-
-    //console.log(sessionNowInfo)
     var sessionNowStage = getStageNum(sessionNowInfo)
-    var sessionRegisterStage = sessionRegisterStage ==sessionNowStage?sessionNowStage:getStageNum(sessionRegisterInfo)
 
 
-    //添加额外字段 stage
-    //仅在有变化时才更新 避免触发前端更新
-    //if(sessionNowStage!=sessionNowInfo.stage
-    //    || sessionRegisterStage!=sessionRegisterInfo.stage){
+    if(appInfo.sessionRegister){
+        var sessionRegister = appInfo.sessionRegister
+        var sessionRegisterInfo = DB.Sessions.findOne({_id: sessionRegister})
+        var sessionRegisterStage = sessionRegister ==sessionNow?sessionNowStage:getStageNum(sessionRegisterInfo)
 
+
+
+        //添加额外字段 stage
+        //仅在有变化时才更新 避免触发前端更新
+        //if(sessionNowStage!=sessionNowInfo.stage
+        //    || sessionRegisterStage!=sessionRegisterInfo.stage){
         DB.App.update(
             {_id: appInfo._id}, {
                 $set: {
@@ -220,39 +225,38 @@ function updateStage(){
                     'sessionRegisterInfo.stage':sessionRegisterStage
                 }
             })
+        //}
+    }else{
+        DB.App.update(
+            {_id: appInfo._id}, {
+                $set: {
+                    'sessionNowInfo.stage':sessionNowStage//,
+                    //'sessionRegisterInfo.stage':sessionRegisterStage
+                }
+            })
+    }
 
-    //}
+
+
 
 }
 
 
-//当currentSession!=registerSession 后来registerSession开始时把currentSession设置为registerSession
-//为判断currentSession是否结束 当前session结束 新session还未开始的情况
+/*
+* 若当前sessionNow已结束  sessionRegister已设置且其未结束(包括未开始注册) 把sessionNow的值设置为sessionRegister的值
+* */
 function updateSession(){
     var appInfo = DB.App.findOne()
     var sessionRegister = appInfo.sessionRegister
     var sessionNow = appInfo.sessionNow
 
-    var sessionRegisterInfo = DB.Sessions.findOne({_id: sessionRegister})
-    var sessionNowInfo = DB.Sessions.findOne({_id: sessionNow})
 
-    var now = +new Date()
+    if(sessionRegister && sessionNow != sessionRegister){
+        var sessionRegisterInfo = DB.Sessions.findOne({_id: sessionRegister})
+        var sessionNowInfo = DB.Sessions.findOne({_id: sessionNow})
 
-    //todo 考虑sessionNow sessionRegister 为undefined的异常case
-    //动态计算current session
-    //唯一可能的改变：currentSession=>registerSession
-    if (sessionNow != sessionRegister
-        && now >sessionNowInfo.endDate) {//当前session已结束
 
-        if( now < sessionRegisterInfo.endDate
-
-        /*
-        * !!! 不对sessionRegisterInfo的start时间做判断
-        * 可能存在sessionNow已结束 但sessionRegister还未开始 此时仍用sessionRegister替换sessionNow 因为这是当前可注册的最新的也是唯一的session
-        *
-        * */
-        // now > sessionRegisterInfo.startDate
-        ){
+        if(sessionNowInfo.stage == -2 && sessionRegisterInfo.stage!=-2){ //当前session已结束 下一个session未结束
             DB.App.update(
                 {_id: appInfo._id}, {
                     $set: {
@@ -260,15 +264,8 @@ function updateSession(){
                         sessionNowInfo:sessionRegisterInfo
                     }
                 })
-        }else{
-            console.error('session时间有错误 旧session已结束 新session也处于结束状态 ',sessionNow,sessionRegister)
         }
-
-
     }
-
-
-
 }
 
 

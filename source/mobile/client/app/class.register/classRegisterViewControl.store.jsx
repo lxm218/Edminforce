@@ -6,68 +6,31 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
 
     var self = this;
 
-    //定义一个数据源 leftNav打开关闭
-    /*
-        0  下个session的注册尚未开始 本session已关闭
-        1  第一阶段
-        2  第2阶段
-        3  第3阶段
-        4  第4阶段
-        5  已经过了第4个阶段 但仍开放注册？
+    /*=====new session的注册阶段定义======
+     *
+     *一个session有三个属性 sessionRegisterStart sessionStart sessionEnd
+     * 阶段编号:
+     * -1: session注册尚未开始
+     * 1:sessionRegisterStart 第1周
+     * 2:sessionRegisterStart 第2周
+     * 3:sessionRegisterStart 第3周
+     * 4:sessionRegisterStart 第4周=>sessionStart前一周
+     * 0:sessionStart前一周=>sessionStart 冻结期
+     * 5:sessionStart=>sessionEnd  session开始
+     * -2 session已结束
+     *
+     *session只要不结束总可以注册
+     *下一个session的 sessionRegisterStart后 当前session的sessionEnd之前 两个session都可以注册
+     *当前session结束 sessionNow==sessionRegister由定时任务确定
+     *
+     * */
+    //self.registerStage = new ReactiveVar(1)
 
-        目前不是server side render 真正处于那个阶段 后端仍需check
-
-    * */
-    self.registerStage = new ReactiveVar(1)
-
-    self.appInfo = new ReactiveVar(1)
-
-
-
-    self.getCurrentClassCount= function(){
-        var appInfo= self.appInfo.get()
-
-        //if(!App.info) return;
-        //return DB.ClassesRegister.find({
-        //    accountId:Meteor.userId(),
-        //    sessionId:appInfo && appInfo.sessionNow
-        //})
-
-        return DB.Classes.find({
-            'students.accountId':Meteor.userId(),
-            sessionId: App.info && App.info.sessionNow
-        })//.fetch()
-
-    }
+    self.appInfo = new ReactiveVar({})
 
 
-
-
-    self.getHistoryClassCount= function(){
-        //if(!App.info) return;
-        var appInfo= self.appInfo.get()
-
-        //return DB.ClassesRegister.find({
-        //    accountId:Meteor.userId(),
-        //    sessionId:{$nin:[appInfo && appInfo.sessionNow , appInfo && appInfo.sessionRegister]}
-        //})
-
-
-        return DB.Classes.find({
-            'students.accountId':Meteor.userId(),
-            'sessionId':{$nin:[appInfo && appInfo.sessionNow , appInfo && appInfo.sessionRegister]}
-        })//.fetch()
-
-    }
-
-
-     //当前时间
-    function getStage(){
-        //meteor  call
-
-    }
-
-    //acount 是否有swimmer正在参与课程
+    self.isActive = new ReactiveVar()  //是否正在参与当前session
+    self.hasHistory = new ReactiveVar() //是否曾经参加过
 
 
     self.tokenId = Dispatcher.register(function(payload){
@@ -76,30 +39,34 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
 
             case "CRRegistraionInfoPage_CONTINUE":{
 
-                var registerStage = self.registerStage.get()
-                var isActive = self.getCurrentClassCount().count()
-                var hasHistory = self.getHistoryClassCount().count()
+                var selectedSessionInfo = Session.get('selectedSessionInfo')
 
+                var registerStage = selectedSessionInfo.stage
 
+                var isActive = self.isActive.get()
+                var hasHistory = self.hasHistory.get()
 
-                //var registerHref="/classRegister/register"
 
                 var commonRegisterPage = "/classRegister/SelectClass"
                 var BookTheSameTimePage ="/classRegister/BookTheSameTimePage"
 
-                var appInfo= self.appInfo.get()
 
-                if(registerStage == -1 ){
-                    //todo format
-                    alert('registration has been frozen, Please come back after '+ appInfo.sessionRegisterInfo.startDate)
-                    return;
+                if(registerStage == -1){//注册尚未开始
+                    alert('registration is still not opened '+ selectedSessionInfo.registerStartDate)
+                    return
                 }
-                if(registerStage == -2){
-                    alert('registration has been frozen, Please come back after '+ appInfo.sessionRegisterInfo.registerStartDate)
+                if(registerStage == -2){//session已结束
+                    alert('registration was already end')
                     return
                 }
 
-                if(registerStage ==1){//
+                if(registerStage == 0 ){//注册已开始 但在在sessionStart前一周冻结了
+                    //todo format
+                    alert('registration has been frozen, Please come back after '+ selectedSessionInfo.startDate)
+                    return;
+                }
+
+                if(registerStage ==1){//第一阶段 仅current和relative  ;current仅可book the same time
 
                     if(isActive){
 
@@ -116,7 +83,7 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
                         }
                     }
 
-                }else if(registerStage ==2){//current可自由选择
+                }else if(registerStage ==2){//第2阶段 仅current和relative;可自由选择
 
                     if(isActive){
 
@@ -133,7 +100,7 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
                         }
                     }
 
-                }else if(registerStage ==3){//return user可选择
+                }else if(registerStage ==3){//第2阶段 return user可选择
                     if(isActive){
 
                         FlowRouter.go(commonRegisterPage);
@@ -152,7 +119,7 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
                     }
 
 
-                }else if(registerStage ==4){//所有用户可选择
+                }else if(registerStage ==4 || registerStage ==5){//所有用户可选择
 
                     FlowRouter.go(commonRegisterPage);
 
@@ -169,18 +136,32 @@ Dependency.add('ClassRegister.ViewControl.store',new function(){
     Meteor.startup(function () {
         Meteor.subscribe('registerInfoByAccountId',Meteor.userId())
 
-
         Tracker.autorun(function () {
-            //if(!DB.Swimmers) return;
-
             var appInfo = DB.App.findOne()
+            if(!appInfo) return
 
-            if(appInfo){
-                self.appInfo.set(appInfo)
-                self.registerStage.set(appInfo.registerStage)
-            }
+            self.appInfo.set(appInfo)
 
+
+            //getCurrentClassCount
+            var isActive =DB.Classes.find({
+                'students.accountId':Meteor.userId(),
+                'sessionId': appInfo.sessionNow
+            }).count()
+
+            self.isActive.set(isActive)
+
+
+
+            //getHistoryClassCount
+            var hasHistory =  DB.Classes.find({
+                'students.accountId':Meteor.userId(),
+                'sessionId':{$nin:[appInfo.sessionNow , appInfo.sessionRegister]}
+            }).count()
+
+            self.hasHistory.set(hasHistory)
         })
+
     })
 
 

@@ -12,7 +12,10 @@ Cal.Home = React.createClass({
             account: Meteor.users.findOne(),
 
             selectableSessions:Session.get('selectableSessions'),
-            selectedSession:Session.get('selectedSession')
+
+            selectedSession:Session.get('selectedSession'),
+            selectedSessionInfo:Session.get('selectedSessionInfo')
+
         }
     },
 
@@ -20,7 +23,8 @@ Cal.Home = React.createClass({
 
         console.log('tabClick',this.data.selectableSessions[index])
 
-        Session.set('selectedSession',this.data.selectableSessions[index])
+        Session.set('selectedSession',this.data.selectableSessions[index]._id)
+        Session.set('selectedSessionInfo',this.data.selectableSessions[index])
     },
     render() {
 
@@ -68,7 +72,7 @@ Cal.Home = React.createClass({
 
             {
                 this.data.selectableSessions.length==2?
-                    <RC.Tabs className="bg-white" tab={this.data.selectableSessions[0]._id == this.data.selectedSession._id?0:1}>
+                    <RC.Tabs className="bg-white" tab={this.data.selectableSessions[0]._id == this.data.selectedSession?0:1}>
                         <div label={this.data.selectableSessions[0].name} className="padding" onClick={this.tabClick}>
                             {Programs}
                         </div>
