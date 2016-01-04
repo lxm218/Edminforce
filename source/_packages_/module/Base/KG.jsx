@@ -36,3 +36,12 @@ KG = {
         return AllClass[name];
     }
 };
+
+KG.schema = {
+    default : function(opts){
+        return _.extend({
+            type : String,
+            optional : false
+        }, opts||{});
+    }
+};

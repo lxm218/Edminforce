@@ -33,7 +33,7 @@ kadira:react-layout
 fourseven:scss@=3.2.0
 fortawesome:fontawesome
 
-ihealth:utils
+#ihealth:utils
 ihealth:framework-webapp
 
 aldeed:simple-schema
@@ -44,3 +44,5 @@ meteorflux:reactive-dependency
 cal:globals
 
 kg:base
+
+edminforce:admin-user

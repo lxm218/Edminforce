@@ -41,7 +41,8 @@ let Base = class{
     getDB(){}
 
     initDBEnd(){
-        this._db.attachSchema(this._schema);
+        let schema = new SimpleSchema(this._schema);
+        this._db.attachSchema(schema);
     }
 
     initVar(){
