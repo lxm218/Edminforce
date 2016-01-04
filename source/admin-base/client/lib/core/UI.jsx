@@ -81,6 +81,11 @@ KUI.Class = F;
 var noop = function(){};
 KUI.Class.define('Base', {
 
+    mixins: [ReactMeteorData],
+    getMeteorData : function(){
+        return {};
+    },
+
     initStart : noop,
     initStyle : function(){
         return {};

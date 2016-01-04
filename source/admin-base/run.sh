@@ -10,7 +10,7 @@
 printf "params: %s %s %s\n " "$1" "$2" "$3"
 
 export PACKAGE_ROOT=$PWD/../library
-export PACKAGE_DIRS=$PACKAGE_ROOT/both:$PACKAGE_ROOT/mobile:$PACKAGE_ROOT/webapp:$PWD/../_packages_/both
+export PACKAGE_DIRS=$PACKAGE_ROOT/both:$PACKAGE_ROOT/mobile:$PACKAGE_ROOT/webapp:$PWD/../_packages_/both:$PWD/../_packages_/module
 
 
 
