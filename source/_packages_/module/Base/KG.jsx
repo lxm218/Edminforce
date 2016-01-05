@@ -45,3 +45,23 @@ KG.schema = {
         }, opts||{});
     }
 };
+
+KG.result = {
+    out : function(flag, data, text){
+        return {
+            status : flag,
+            data : data,
+            statusText : text || ''
+        };
+    },
+    handle : function(rs, opts){
+        var type = rs.status;
+
+        if(type){
+            opts.success && opts.success(rs.data, rs);
+        }
+        else{
+            opts.error && opts.error(rs.data, rs);
+        }
+    }
+};

@@ -57,7 +57,7 @@ let Base = class{
         this.initEnd();
 
         Meteor.startup(function(){
-            self.addTestData();
+            self.addTestData.call(self);
         });
     }
 

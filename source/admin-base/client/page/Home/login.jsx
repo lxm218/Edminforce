@@ -18,11 +18,22 @@ KUI.Home_login = KUI.Class.define('ui.Home_login', {
     },
 
     login : function(e){
-        var s = this.refs.school.getValue(),
-            s1 = this.refs.user.getValue(),
+        let s1 = this.refs.user.getValue(),
             s2 = this.refs.pwd.getValue();
 
-        alert(s+' - '+s1+' - '+s2);
+        let md = KG.get('EF-AdminUser'),
+            rs = md.login({
+                userID : s1,
+                password : s2
+            });
+        KG.result.handle(rs, {
+            success : function(data){
+                console.log(data.userProfile);
+            },
+            error : function(data, err){
+                alert(err.statusText);
+            }
+        });
     },
 
     getRender : function(style){
@@ -32,7 +43,6 @@ KUI.Home_login = KUI.Class.define('ui.Home_login', {
                 <RB.Col md={8} mdOffset={0}>
                     <form className="form-horizontal">
                         <h3 style={style.h3}>Employee Login</h3>
-                        <RB.Input ref="school" type="text" label="School ID" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <RB.Input ref="user" type="text" label="User ID" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
                         <RB.Input ref="pwd" type="password" label="Password" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
 
