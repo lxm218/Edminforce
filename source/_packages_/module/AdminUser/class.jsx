@@ -108,6 +108,20 @@ let AdminUser = class extends Base{
             return KG.result.out(false, {}, '用户不存在');
         }
     }
+
+    changePassword(opts){
+        let old = opts.oldPassword,
+            userID = opts.userID,
+            newPwd = opts.newPassword,
+            confirmPwd = opts.newsPassword2;
+
+        if(newPwd !== confirmPwd){
+            return KG.result.out(false, {}, '二次输入的密码不一致');
+        }
+
+        //TODO 处理修改密码的逻辑
+
+    }
 };
 
 KG.define('EF-AdminUser', AdminUser);
