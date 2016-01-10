@@ -64,8 +64,13 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
             }
         }
     },
-    appliedTime:{//完成交易 设置applied的时间
+    appliedTime:{//完成交易 设置applied的时间 结合status==done才有效
         type: Date,
+        autoValue: function () {
+            if (this.isUpdate) {
+                return new Date();
+            }
+        },
         optional: true
     },
     /*
@@ -110,6 +115,16 @@ DB.ShoppingCart.attachSchema(new SimpleSchema({
     * */
     //
     items: {
+        type: [Object],
+        optional: true,
+        blackbox: true,
+        defaultValue:[]
+    },
+
+    //纪录哪些swimmer需交年费
+    //由于存在年费可能在其它购物车支付的情况 此数据需动态计算 每次到支付页都会尝试更新
+    //年费25$
+    oweAnnualFeeSwimmers:{
         type: [Object],
         optional: true,
         blackbox: true,

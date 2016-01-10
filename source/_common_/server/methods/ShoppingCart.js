@@ -82,4 +82,60 @@ Meteor.startup(function () {
     })
 
 
+
+
+
+    Meteor.methods({
+        //swimmer年费计算
+        //由于存在多个未支付购物车同时存在的情况 需要每次更新
+        update_annual_fee_in_cart:function(cartId){
+
+            var shoppingCart = DB.ShoppingCart.findOne({
+                _id:cartId
+            })
+
+            var items =  shoppingCart.items
+
+
+
+            var ids = _.map(items, function (item) {
+                return item.swimmerId
+            })
+            ids = _.uniq(ids);
+
+            var  annualFeeSwimmers=[]
+
+            var aYearBefore= new Date()
+            aYearBefore.setFullYear(aYearBefore.getFullYear()-1)
+
+            console.log('aYearBefore',aYearBefore.toDateString())
+
+            //一年里是否交过年费
+            ids.forEach(function(swimmerId){
+
+                var paied =  DB.ShoppingCart.find({
+                    status:'done',
+                    'items.swimmerId':swimmerId,
+                    appliedTime:{
+                        $gt:aYearBefore
+                    }
+                }).count()
+
+                if(!paied){
+                    annualFeeSwimmers.push( DB.Swimmers.findOne({_id:swimmerId}))
+                }
+
+            })
+
+            DB.ShoppingCart.update({
+                _id:cartId
+            },{
+               $set:{
+                   'oweAnnualFeeSwimmers':annualFeeSwimmers
+               }
+            })
+
+        }
+    })
+
 })

@@ -82,34 +82,34 @@
 
     ClassRegisterRoute.route('/RegBillingPage', {
         //name: "CRRegBillingPage",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "CRRegBillingPage",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.CRRegBillingPage/>
+                bodyTmpl: <Cal.CRRegBillingPage {...query}/>
             })
         }
     })
     ClassRegisterRoute.route('/paymentOptionsPage', {
         //name: "CRPaymentOptionsPage",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "CRPaymentOptionsPage",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.CRPaymentOptionsPage/>
+                bodyTmpl: <Cal.CRPaymentOptionsPage {...query}/>
             })
         }
     })
     ClassRegisterRoute.route('/paymentInstoreConfirm', {
         //name: "CRPaymentInstoreConfirm",
-        action: function (p) {
+        action: function (p, query) {
             App.routeHandler(p, {
                 pageTitle: "CRPaymentInstoreConfirm",
                 showGlobalNav: false,
                 headerNav: null,
-                bodyTmpl: <Cal.CRPaymentInstoreConfirm/>
+                bodyTmpl: <Cal.CRPaymentInstoreConfirm {...query}/>
             })
         }
     })

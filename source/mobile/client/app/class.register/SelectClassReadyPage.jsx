@@ -101,6 +101,7 @@
                 var class3 = this.data.cartItem['class3']
             }
 
+            let RegBillingPageUrl= "/classRegister/RegBillingPage?cartId="+this.props.cartId
 
 
             return <div>
@@ -192,7 +193,7 @@
                     </RC.URL>
 
 
-                    <RC.URL href="/classRegister/RegBillingPage">
+                    <RC.URL href={RegBillingPageUrl}>
                         <RC.Button name="button" type="submit"
                                    theme="full" buttonColor="brand">
                             Checkout

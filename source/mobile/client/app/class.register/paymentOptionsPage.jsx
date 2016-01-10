@@ -5,16 +5,21 @@
 
 
 Cal.CRPaymentOptionsPage = React.createClass({
-
+    propTypes: {
+        cartId: React.PropTypes.string
+    },
     mixins: [ReactMeteorData],
     getMeteorData() {
-        Meteor.subscribe("activeShoppingCart");
+        //Meteor.subscribe("activeShoppingCart");
+        Meteor.subscribe("accountShoppingCartByCartId", this.props.cartId);
+
 
         return {
             //当前的 ShoppingCart
             shoppingCart: DB.ShoppingCart.findOne({
-                status:'active',
-                type:'register'
+                _id:this.props.cartId
+                //status:'active',
+                //type:'register'
             })
         }
     },
@@ -25,7 +30,8 @@ Cal.CRPaymentOptionsPage = React.createClass({
         alert('Pay now module need third-party gateway and is still not implemented')
     },
     payInStore(){
-        var cartId =  this.data.shoppingCart && this.data.shoppingCart._id
+        //var cartId =  this.data.shoppingCart && this.data.shoppingCart._id
+        var cartId = this.props.cartId
 
         Meteor.call('move_to_checking', cartId, 'pay-in-store',function(err,result){
             if(err) {
@@ -33,7 +39,7 @@ Cal.CRPaymentOptionsPage = React.createClass({
                 return;
             };
 
-            FlowRouter.go('/classRegister/paymentInstoreConfirm');
+            FlowRouter.go('/classRegister/paymentInstoreConfirm?cartId='+cartId);
 
         })
 

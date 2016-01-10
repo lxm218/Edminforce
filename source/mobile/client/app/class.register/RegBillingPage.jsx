@@ -4,48 +4,68 @@
 
 {
 
-    let AgreementWaiverPageStore;
-    Dependency.autorun(function () {
-        AgreementWaiverPageStore = Dependency.get('classRegister.AgreementWaiverPage.store');
-    });
+    //let AgreementWaiverPageStore;
+    //Dependency.autorun(function () {
+    //    AgreementWaiverPageStore = Dependency.get('classRegister.AgreementWaiverPage.store');
+    //});
+
+
+    let hasNewSwimmer = new ReactiveVar(true)
+
+    let swimmerIds = new ReactiveVar([])
+
 
 
     Cal.CRRegBillingPage = React.createClass({
-
+        propTypes: {
+            cartId: React.PropTypes.string
+        },
         mixins: [ReactMeteorData],
         getMeteorData() {
-            Meteor.subscribe("activeShoppingCart");
+            Meteor.subscribe("accountShoppingCartByCartId",this.props.cartId);
+            Meteor.subscribe("accountWithSwimmersAndClasses");
+
+
 
             return {
                 //当前的 ShoppingCart
                 ShoppingCart: DB.ShoppingCart.findOne({
-                    status:'active',
-                    type:'register'
+                    _id:this.props.cartId
+                    //status:'active',
+                    //type:'register'
                 }),
-                hasNewSwimmer:AgreementWaiverPageStore.hasNewSwimmer.get()
+                hasNewSwimmer:hasNewSwimmer.get(),
             }
         },
 
-        //actions
-        delete(shoppingCartItem){
+        componentWillMount(){
+            var self= this;
 
-            console.log(shoppingCartItem)
 
-            Meteor.call('delete_class_from_cart',{
-                classId :shoppingCartItem.class1._id,
-                swimmerId :shoppingCartItem.swimmer._id,
-                cartId:this.data.ShoppingCart._id,
+            console.log(self.props.cartId)
 
-                cartItem:shoppingCartItem // 完整的购物信息 回滚时需要
-            },function(err, result){
-                if(err){
-                    console.error(err)
-                    return;
-                }
+            this._businessCompution = Tracker.autorun(function () {
+                var shoppingCart = DB.ShoppingCart.findOne({
+                    _id:self.props.cartId
+                })
 
-            })
+                var items = shoppingCart && shoppingCart.items;
+
+                var _hasNewSwimmer = _.some(items, function (item) {
+                    return item.isFistTime == true;
+                })
+                hasNewSwimmer.set(_hasNewSwimmer)
+
+
+                 })
+
 
         },
+        componentWillUnmount(){
+
+            this._businessCompution.stop()
+        },
+
 
         //如果有new swimmer就 waiver form 否则 payment option
         goToNextPage(e){
@@ -56,11 +76,11 @@
             console.log('hasNewSwimmer', hasNewSwimmer)
             if(hasNewSwimmer){
 
-                let href= '/classRegister/waiver'
+                let href= '/classRegister/waiver?cartId='+this.props.cartId
                 FlowRouter.go(href);
 
             }else{
-                let href= '/classRegister/paymentOptionsPage'
+                let href= '/classRegister/paymentOptionsPage?cartId='+this.props.cartId
 
                 FlowRouter.go(href);
 
@@ -78,31 +98,10 @@
             </div>;
 
             return <div className="padding">
-                <div className="row">
-                    <div className="col">Student</div>
-                    <div className="col">Class</div>
-                    <div className="col">Amt</div>
-                    <div className="col"></div>
-                </div>
-                {
-                    items.map(function (item, index, all) {
 
-                        return <div className="row" key={index}>
-                            <div className="col">{item.swimmer.name}</div>
-                            <div className="col">{item.class1.name}</div>
-                            <div className="col">{item.class1.price}</div>
-                            {
-                                !item.isBookTheSameTime?
-                                    <div className="col" onClick={self.delete.bind(self,item)}>Delete</div>
-                                    :<div className="col"></div>
-
-                            }
-
-                        </div>
-                    })
-
-
-                }
+               <Cal.CRRegBillingDetailCard
+                   cartId={this.props.cartId}
+               />
 
                 <br/><br/>
                     <RC.Button name="button" type="submit"

@@ -9,6 +9,15 @@ Meteor.publish("accountShoppingCart", function () {
     });
 });
 
+//根据id获取cart
+Meteor.publish("accountShoppingCartByCartId", function (cartId) {
+    return DB.ShoppingCart.find({
+        _id:cartId,
+        accountId: this.userId
+    });
+});
+
+
 Meteor.publish("activeShoppingCart", function () {
     return DB.ShoppingCart.find({
         status: 'active',

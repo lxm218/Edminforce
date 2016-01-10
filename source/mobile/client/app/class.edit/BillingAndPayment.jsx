@@ -27,7 +27,7 @@
             let unfinishedBillings = DB.ShoppingCart.find({
                 accountId: Meteor.userId(),
                 status: {
-                    $in: ['active', 'checking','applied']
+                    $in: ['active', 'checking']  //,'applied'
                 }
             }).fetch()
 

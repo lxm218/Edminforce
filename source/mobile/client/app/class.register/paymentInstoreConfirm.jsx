@@ -3,7 +3,9 @@
  */
 
 Cal.CRPaymentInstoreConfirm = React.createClass({
-
+    propTypes: {
+        cartId: React.PropTypes.string
+    },
     mixins: [ReactMeteorData],
     getMeteorData() {
         return {}
@@ -26,16 +28,14 @@ Cal.CRPaymentInstoreConfirm = React.createClass({
     },
     render() {
 
-        let title="You’ve choose to pay in store. Please go to our store to " +
-            "make a payment of $— within 24 hours in order to secure your spot!"
         return <div>
 
+            <Cal.CRRegBillingDetailCard
+                cartId={this.props.cartId}
+                view="view2"
+            />
 
-            <RC.Card  className="item-text-wrap"
-                key={Math.random()} title={title}>
 
-
-            </RC.Card>
 
             <RC.List theme="inset">
                 <RC.Item theme="body">

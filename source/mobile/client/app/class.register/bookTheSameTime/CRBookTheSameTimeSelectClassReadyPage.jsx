@@ -114,6 +114,8 @@
                 var comment = this.data.cartItem.comment
             }
 
+            let RegBillingPageUrl= "/classRegister/RegBillingPage?cartId="+this.props.cartId
+
 
             return <div>
                 <RC.List theme="inset">
@@ -210,7 +212,7 @@
 
 
 
-                    <RC.URL href="/classRegister/RegBillingPage">
+                    <RC.URL href={RegBillingPageUrl}>
                         <RC.Button name="button" type="submit"
                                    theme="full" buttonColor="brand">
                             Checkout

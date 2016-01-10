@@ -1,5 +1,14 @@
 Cal.BillingUnfinished = React.createClass({
 
+    propTypes:{
+        unfinishedBillings:[React.PropTypes.object]
+    },
+
+    checkout(cartId){
+        let RegBillingPage = '/classRegister/RegBillingPage?cartId='+cart._id
+        FlowRouter.go(RegBillingPage)
+
+    },
     render: function () {
 
         /*
@@ -21,6 +30,9 @@ Cal.BillingUnfinished = React.createClass({
             {
                 this.props.unfinishedBillings.map(function (cart) {
 
+                    let RegBillingPage = '/classRegister/RegBillingPage?cartId='+cart._id
+
+
                     return <div className="padding">
                         <div>
                         {
@@ -41,12 +53,13 @@ Cal.BillingUnfinished = React.createClass({
                         }
                         </div>
 
-                        <RC.Button name="button" type="submit"
-                                   onClick={this.formSubmit}
-                                   theme="full" buttonColor="brand">
-                            Checkout
-                        </RC.Button>
+                        <RC.URL href={RegBillingPage}>
 
+                            <RC.Button name="button" type="submit"
+                                       theme="full" buttonColor="brand">
+                                Checkout
+                            </RC.Button>
+                        </RC.URL>
 
                     </div>
 
