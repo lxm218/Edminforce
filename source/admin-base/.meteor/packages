@@ -44,5 +44,6 @@ meteorflux:reactive-dependency
 cal:globals
 
 kg:base
-
 edminforce:admin-user
+edminforce:class
+edminforce:student

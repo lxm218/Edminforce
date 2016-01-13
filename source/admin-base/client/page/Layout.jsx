@@ -8,7 +8,8 @@ KUI.Layout = KUI.Class.define('ui.Layout', {
             },
             right : {
                 paddingLeft : '20px',
-                borderLeft : '1px solid #cdcdcd'
+                borderLeft : '1px solid #cdcdcd',
+                minHeight : '500px'
             }
         };
     },

@@ -16,6 +16,7 @@ KG = {
         var cls = KG.getClass(name);
 
         All[name] = new cls(name);
+        console.log('['+name+'] class is create success');
 
         return All[name];
     },

@@ -1,9 +1,9 @@
 
 
-KUI.Classes_index = KUI.Class.define('ui.Classes_index', {
+KUI.Student_index = KUI.Class.define('ui.Student-index', {
 
     getMeteorData : function(){
-        var cls = KG.get('EF-Class').getDB();
+        var cls = KG.get('EF-Student').getDB();
 
         return cls.find({}).fetch();
     },
@@ -36,14 +36,9 @@ KUI.Classes_index = KUI.Class.define('ui.Classes_index', {
                         {item.name}
                     </td>
                     <td>
-                        {item.teacher}
+                        {item.accountID}
                     </td>
-                    <td>
-                        {item.schedule}
-                    </td>
-                    <td>
-                        {item.length}
-                    </td>
+
                 </tr>;
             })
         }
@@ -55,10 +50,11 @@ KUI.Classes_index = KUI.Class.define('ui.Classes_index', {
 
         return (
             <RB.Table striped bordered condensed hover>
-                <thead>
-
-
-                </thead>
+                <thead><tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>AccountID</th>
+                </tr></thead>
                 {
                     this.getEachTr()
                 }

@@ -81,6 +81,8 @@ KUI.Class = F;
 var noop = function(){};
 KUI.Class.define('Base', {
 
+    _data_ : {},
+
     mixins: [ReactMeteorData],
     getMeteorData : function(){
         return {};
@@ -99,6 +101,15 @@ KUI.Class.define('Base', {
 
 
     render : function(){
+        let self = this;
+        this.cache = {
+            set : function(key, value){
+                self._data_[key] = value;
+            },
+            get : function(key){
+                return self._data_[key];
+            }
+        };
 
         this.initStart();
         this.initView();

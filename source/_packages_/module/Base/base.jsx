@@ -37,8 +37,9 @@ let Base = class{
         this._db = new Mongo.Collection(this._name);
     }
 
-    defineDB(){}
-    getDB(){}
+    getDB(){
+        return this._db;
+    }
 
     initDBEnd(){
         let schema = new SimpleSchema(this._schema);
@@ -52,13 +53,16 @@ let Base = class{
     initStart(){}
 
     _initEnd(){
-        var self = this;
+        let self = this;
 
         this.initEnd();
 
-        Meteor.startup(function(){
-            self.addTestData.call(self);
-        });
+        if(Meteor.isServer){
+            Meteor.startup(function(){
+                self.addTestData.call(self);
+            });
+        }
+
     }
 
     initEnd(){}
