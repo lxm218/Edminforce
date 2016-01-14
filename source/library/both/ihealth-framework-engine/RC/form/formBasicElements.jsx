@@ -489,7 +489,7 @@ RC.Select = React.createClass({
         {
         this.props.options.map(function(o,n){
           if (_.isString(o)) o = { value: o }
-          o = _.isObject(o) && o.value ? o : { value: undefined }
+          o = _.isObject(o) && !_.isUndefined(o.value) ? o : { value: undefined }
           return <option value={o.value} key={n}>{o.text || o.value}</option>
         })
         }
