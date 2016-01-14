@@ -118,6 +118,8 @@ Cal.CreditCard = React.createClass({
 		paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardNumber = form.creditCardNumber
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.expirationDate = form.expirationDate
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardCode = form.ccv
+	 	paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
+	 	console.log(paymentInfo.createTransactionRequest.refId)
 
 		var URL = 'https://apitest.authorize.net/xml/v1/request.api'
 		HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
