@@ -57,14 +57,14 @@ RC.PasswordInput = React.createClass({
     //
     //
     //} else
-    {
+    // {
 
-      return <span className="password-guide-wrap">
-          <img   style={{margin:0}}
-               border="0" src="/assets/help.png" align="middle" width="16" height="16"/>
-           this.state.showPWGuide?<span className="password-guide cal-text-wrap">Password shoud have at least 8 characters, containing Capital Letters AND Numbers.</span>:''
-      </span>
-    }
+    //   return <span className="password-guide-wrap">
+    //       <img   style={{margin:0}}
+    //            border="0" src="/assets/help.png" align="middle" width="16" height="16"/>
+    //        this.state.showPWGuide?<span className="password-guide cal-text-wrap">Password shoud have at least 8 characters, containing Capital Letters AND Numbers.</span>:''
+    //   </span>
+    // }
   },
 
   render() {
