@@ -69,6 +69,7 @@ IH.RC.User = React.createClass({
     if (test !== this.state.buttonActive)
       this.setState({ buttonActive: test })
   },
+
   resetForm(){
     this.setState({
       waiting: false,
@@ -86,6 +87,7 @@ IH.RC.User = React.createClass({
       this.refs.email.reset()
     }
   },
+
   switchAction(){
     this.resetForm()
     this.setState({ buttonActive: false })
@@ -98,6 +100,7 @@ IH.RC.User = React.createClass({
       this.setState({ action: this.state.action=="register" ? "login" : "register" })
     }
   },
+
   startReset(){
     this.resetForm()
     this.setState({
@@ -106,6 +109,7 @@ IH.RC.User = React.createClass({
     this.setState({action: "reset"})
     return   
   },
+
   login(e){
     e.preventDefault()
     if (this.state.msg) return null
@@ -150,8 +154,8 @@ IH.RC.User = React.createClass({
       })
     }
   },
-  register(e){
 
+  register(e){
     e.preventDefault()
     if (this.state.msg) return null
 
