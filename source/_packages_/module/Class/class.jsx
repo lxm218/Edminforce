@@ -62,6 +62,7 @@ let Class = class extends Base{
         };
     }
     addTestData(){
+        //this._db.remove({});
         if(this._db.find({}).count() > 0){
             return false;
         }
@@ -86,6 +87,13 @@ let Class = class extends Base{
                 teacher : ['Jason'],
                 schedule : 'Web 4:00pm',
                 maxStudent : 10
+            },
+            {
+                name : 'Test Class',
+                length : '50 min',
+                teacher : ['Jacky'],
+                schedule : 'Sun 4:00pm',
+                maxStudent : 2
             }
         ];
 
@@ -94,6 +102,11 @@ let Class = class extends Base{
             self._db.insert(item);
         });
 
+    }
+
+    getClassMaxStudent(classID){
+        let one = this._db.findOne({_id: classID});
+        return one.maxStudent;
     }
 };
 

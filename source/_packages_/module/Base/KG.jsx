@@ -58,11 +58,15 @@ KG.result = {
     handle : function(rs, opts){
         var type = rs.status;
 
+        opts.error = opts.error || function(){
+                alert(rs.statusText);
+            };
+
         if(type){
             opts.success && opts.success(rs.data, rs);
         }
         else{
-            opts.error && opts.error(rs.data, rs);
+            opts.error(rs.data, rs);
         }
     }
 };

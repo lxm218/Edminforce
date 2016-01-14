@@ -26,10 +26,49 @@ let ClassStudent = class extends Base{
         };
     }
 
+    addTestData(){
+        //this._db.remove({});
+    }
+
+    checkHasPosition(classID){
+        let max = KG.get('EF-Class').getClassMaxStudent(classID);
+        let nn = this._db.find({
+            classID : classID
+        }).count();
+
+        return max > nn;
+    }
+
     save(param){
         param = _.extend({
             status : 'doing'
         }, param);
+
+        let one = this._db.findOne({
+            classID : param.classID,
+            studentID : param.studentID
+        });
+
+        if(one){
+            return KG.result.out(false, {}, '纪录已经存在');
+        }
+
+        let max = KG.get('EF-Class').getClassMaxStudent(param.classID);
+        let nn = this._db.find({
+            classID : param.classID
+        }).count();
+        let has = this.checkHasPosition(param.classID);
+
+        let rs;
+        if(has){
+            // can be in
+            rs = this._db.insert(param);
+        }
+        else{
+            param.status = 'wait';
+            rs = this._db.insert(param);
+        }
+        return KG.result.out(true, rs);
     }
 };
 
