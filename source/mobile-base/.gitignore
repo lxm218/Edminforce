@@ -1,0 +1,5 @@
+.idea
+.meteor/local
+.meteor/meteorite
+node_modules
+source/admin-base/client/css/.sass-cache
