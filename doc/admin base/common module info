@@ -1,0 +1,68 @@
+＃本文档会持续更新，api需要和实际模块内容保持一致。
+#基本模块用package的方式包装，都继承自base模块 /source/_package_/module/Base
+
+主要模块部分的说明和划分
+
+
+1 AdminUser
+admin的用户系统
+Api
+    login
+    addUser
+    deleteUser
+    updateUser
+    changePassword
+    ...
+
+2 Account
+用户系统
+Api
+    login
+    register
+    addAccount
+    updateAccount
+    changePassword
+    ...
+
+3 Student
+学生模块，处理和学生有关的逻辑
+Api
+    add
+    update
+    delete
+    getAllByAccount
+    ...
+
+4 Class
+课程模块 需要依赖模块5
+Api
+    add
+    update
+    delete
+
+    checkHasPosition 判断课程是否还可以被注册
+    getAllStudentByClass 返回特定课程的所有学生
+
+    ...
+
+5 ClassStudent
+课程学生关联模块
+Api
+    add
+    update
+    delete
+    ...
+
+CustomerOrder
+用户请求纪录模块，纪录用户的所有操作，方便追溯
+Api
+    add
+    update
+    delete
+    getAll 返回特定条件的所有操作
+    ...
+
+
+
+
+
