@@ -1,6 +1,6 @@
 // Variable Declarations
-Schema = {} // Schemas
-App = {} // Main App
+//Schema = {} // Schemas
+//App = {} // Main App
 
 if (!Meteor.settings) Meteor.settings = {}
 if (!Meteor.settings.public) Meteor.settings.public = {}

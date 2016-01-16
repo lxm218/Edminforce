@@ -56,6 +56,10 @@ cal:database-seeds
 cal:cron
 cal:cart
 
+//customize ihealth:users
+cal:users
+
+
 ######
 #sanjo:jasmine
 #velocity:console-reporter
