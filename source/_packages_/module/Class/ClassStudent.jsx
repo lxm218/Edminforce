@@ -39,17 +39,22 @@ let ClassStudent = class extends Base{
         return max > nn;
     }
 
-    save(param){
-        param = _.extend({
-            status : 'doing'
-        }, param);
-
+    checkRecord(param){
         let one = this._db.findOne({
             classID : param.classID,
             studentID : param.studentID
         });
 
-        if(one){
+        return !!one;
+    }
+
+    save(param){
+        param = _.extend({
+            status : 'doing'
+        }, param);
+
+
+        if(this.checkRecord(param)){
             return KG.result.out(false, {}, '纪录已经存在');
         }
 

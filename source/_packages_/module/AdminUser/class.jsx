@@ -122,6 +122,20 @@ let AdminUser = class extends Base{
         //TODO 处理修改密码的逻辑
 
     }
+
+    addUser(param){
+        //TODO add user
+    }
+
+    deleteUser(opts){
+        let query = {
+            _id : opts.id
+        };
+
+        //TODO delete user
+    }
+
+
 };
 
 KG.define('EF-AdminUser', AdminUser);
