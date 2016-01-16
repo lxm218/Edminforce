@@ -53,10 +53,7 @@ let ClassStudent = class extends Base{
             return KG.result.out(false, {}, '纪录已经存在');
         }
 
-        let max = KG.get('EF-Class').getClassMaxStudent(param.classID);
-        let nn = this._db.find({
-            classID : param.classID
-        }).count();
+
         let has = this.checkHasPosition(param.classID);
 
         let rs;

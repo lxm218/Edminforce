@@ -144,3 +144,9 @@ KUI.Class.define('Base', {
 
 
 });
+
+KUI.dom = {
+    prop : function(prop) {
+
+    }
+};

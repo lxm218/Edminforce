@@ -3,16 +3,17 @@ KUI.Layout = KUI.Class.define('ui.Layout', {
     initStyle : function(){
         return {
             left : {
-                minHeight : '200px',
-                paddingRight : '20px'
+
             },
             right : {
-                paddingLeft : '20px',
-                borderLeft : '1px solid #cdcdcd',
-                minHeight : '500px'
+
+            },
+            con : {
+                position : 'relative'
             }
         };
     },
+
 
     getRender : function(style){
 
@@ -20,18 +21,27 @@ KUI.Layout = KUI.Class.define('ui.Layout', {
 
             <KUI.Header />
 
-            <RB.Grid className="container">
-               <RB.Row className="">
-                    <RB.Col md={3} style={style.left}>
-                        <KUI.LeftNav />
-                    </RB.Col>
-                   <RB.Col md={9} style={style.right}>
+            <div className="container" style={style.con}>
+                <KUI.LeftNav />
+                <div id="page-wrapper" style={{paddingRight:0}}>
 
-                       <KUI.Body tmpl={this.props.body} />
+                    <div style={
+                        {
+                            paddingTop : 0
 
-                   </RB.Col>
-               </RB.Row>
-            </RB.Grid>
+                        }
+                    } className="wrapper wrapper-content animated fadeInRight">
+                        <div className="ibox">
+                            <div className="ibox-content">
+                                <KUI.Body tmpl={this.props.body} />
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div className="footer"></div>
+                </div>
+            </div>
 
 
 
