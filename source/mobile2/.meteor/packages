@@ -56,7 +56,7 @@ cal:database-seeds
 cal:cron
 cal:cart
 
-//customize ihealth:users
+#customize ihealth:users
 cal:users
 
 
