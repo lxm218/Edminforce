@@ -7,7 +7,8 @@
 #
 #meteor --port 4000
 
-export PACKAGE_ROOT=$PWD/../library
-export PACKAGE_DIRS=$PACKAGE_ROOT/both:$PACKAGE_ROOT/mobile:$PACKAGE_ROOT/webapp
+
+source env.sh
 
 meteor
+

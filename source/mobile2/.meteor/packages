@@ -21,6 +21,49 @@ react
 kadira:flow-router
 kadira:react-layout
 
+
+accounts-password
+insecure    #todo remove
+
+reactive-var
+reywood:publish-composite
+
+# flux
+meteorflux:dispatcher
+meteorflux:reactive-dependency
+cal:immutable
+
+# cron task
+percolate:synced-cron
+
+
+# for test
+spacebars   # mongol depend on this
+msavin:mongol
+anti:fake
+
+
+########
 ihealth:utils
 ihealth:framework-engine
 ihealth:framework-mobile
+
+#######
+cal:globals  #defind global vars
+cal:stage-manager
+cal:database
+cal:database-seeds
+cal:cron
+cal:cart
+
+######
+#sanjo:jasmine
+#velocity:console-reporter
+email
+mrt:cookies
+http
+
+
+
+
+
