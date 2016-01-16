@@ -1,3 +1,6 @@
 [submodule "source/mobile-base/iHealthLab-framework-ui"]
 	path = source/mobile-base/iHealthLab-framework-ui
 	url = https://github.com/iHealthLab/framework-ui.git
+[submodule "source/_packages_/ihealth-framework-ui"]
+	path = source/_packages_/ihealth-framework-ui
+	url = https://github.com/iHealthLab/framework-ui.git

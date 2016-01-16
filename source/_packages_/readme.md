@@ -2,6 +2,8 @@
 
 ##package说明
 
+todo 整体文件夹重命名为 library
+
 ###both
 ```
  cal_cart  定义购物车package
@@ -18,7 +20,13 @@
 ###ihealth
 
 ```
-  ihealth的package 
+  ihealth-framework-ui   //老版本 todo delete
+  
+```
+###ihealth-framework-ui 
+
+```
+  ihealth-framework-ui 同步最新版的 
   
 ```
 
