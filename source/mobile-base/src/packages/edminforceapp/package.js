@@ -14,7 +14,8 @@ Package.onUse(function(api){
         'edminforce:lib@0.0.1',
         'edminforce:i18n@0.0.1',
         'edminforce:core@0.0.1',
-        'edminforce:settings@0.0.1'
+        'edminforce:settings@0.0.1',
+        'edminforce:home@0.0.1'
     ];
 
     api.use(packages);
@@ -40,7 +41,21 @@ Package.onUse(function(api){
         'public/icon/ms-icon-70x70.png',
         'public/icon/ms-icon-144x144.png',
         'public/icon/ms-icon-150x150.png',
-        'public/icon/ms-icon-310x310.png'
+        'public/icon/ms-icon-310x310.png',
+        "public/index.html"
     ], 'client');
+
+    api.addFiles([
+        "lib/client/views/App.Components.jsx",
+        "lib/router/edminforceapp.router.jsx",
+        "lib/startup.jsx",
+        'lib/client/less/edminforceapp.less'
+    ], ["client"]);
+
+    var languages = ["en"];
+    var languagesPaths = languages.map(function (language) {
+        return "i18n/"+language+".i18n.json";
+    });
+    api.addFiles(languagesPaths, ["client", "server"]);
 
 });

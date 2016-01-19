@@ -1,0 +1,4 @@
+FlowRouter.route("/", {
+    action: function() {
+    }
+});

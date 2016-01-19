@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'edminforce:home',
+    name: 'edminforce:name',
     summary: 'Summary',
     version: '0.0.1',
     git: ''
@@ -14,8 +14,7 @@ Package.onUse(function(api){
         'edminforce:lib@0.0.1',
         'edminforce:i18n@0.0.1',
         'edminforce:core@0.0.1',
-        'edminforce:settings@0.0.1',
-        'edminforce:appbar@0.0.1'
+        'edminforce:settings@0.0.1'
     ];
 
     api.use(packages);
@@ -30,8 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/Home.Components.jsx',
-        'lib/client/less/edminforce-home.less'
+        'lib/client/views/Home.Components.jsx'
     ], ["client"]);
 
     api.addFiles([

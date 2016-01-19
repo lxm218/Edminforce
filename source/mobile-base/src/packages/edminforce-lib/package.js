@@ -18,6 +18,8 @@ Package.onUse(function (api) {
         'reactive-var@1.0.6',
         'tap:i18n@1.7.0',
         'sewdn:collection-behaviours@0.3.0',
+        'momentjs:moment@2.10.6',
+        'izzilab:material-ui@0.2.4',
         'edminforce'
     ];
 
