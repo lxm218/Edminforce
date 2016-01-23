@@ -13,6 +13,15 @@ Cal.CreditCard = React.createClass({
 	 	FlowRouter.go("/auth")
 	 },
 
+	getInitialState() {
+	    return {
+	      buttonActive: false,
+	      waiting: false,
+	      msg: null,
+	      notification: null
+	    }
+  	},
+
 	 postPayment(e){
 
 	 	// To do: get the charging amount from database
@@ -137,13 +146,89 @@ Cal.CreditCard = React.createClass({
             		Meteor.user().emails[0].address,
             		'Confirmation',
             		'Thank you for your order.');
-				FlowRouter.go("/payment/PaymentConfirmation")
-
-			};
+				FlowRouter.go("/payment/PaymentConfirmation") 
+			} 
 
 		})
 
+		this.setState({
+		    msg: "The transaction was unsuccessful."
+		})
+
 	 },
+
+	printMsg(){
+		// debugger
+	    console.log("printMsg is called", this.state.msg)
+
+	    let currentMessages = this.state.msg ? [this.state.msg] : []
+	    return <div>
+	      {
+	        currentMessages.map(function(m,n){
+	          return <div className="center" key={n}>
+	                      <div className="bigger inline-block invis-70 red">
+	                        {_.isString(m) ? <p>{m}</p> : m}
+	                      </div>
+	                    </div>
+	        })
+	      }
+	    </div>
+
+  	},
+
+  	checkCardNumber(e){
+  		// debugger
+  		var ccv = this.refs.paymentForm.getFormData().ccv
+  		var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
+  		var expirationDate = this.refs.paymentForm.getFormData().expirationDate
+  		if (cardNumber.length > 16){
+  			this.setState({
+		          msg: "Credit Card Length Error"
+		        })
+  		}
+  	},
+
+  	checkExpirationDate(e){
+  		var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
+  		var ccv = this.refs.paymentForm.getFormData().ccv
+  		var expirationDate = this.refs.paymentForm.getFormData().expirationDate
+  		var message = []
+  		if(cardNumber.length != 16){
+  			message.push("Credit Card Length Error; ")
+  		}
+
+  		if (expirationDate.length > 4){
+  			message.push("Expiration Date Format Format Error; ")
+  		}
+  		if (message.length != 0) {
+  			this.setState({
+		          msg: message
+		        })
+  		}
+  	},
+
+  	checkCCV(e){
+  		var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
+  		var ccv = this.refs.paymentForm.getFormData().ccv
+  		var expirationDate = this.refs.paymentForm.getFormData().expirationDate
+  		var message = []
+  		if(cardNumber.length != 16){
+  			message.push("Credit Card Length Error; ")
+  		}
+
+  		if (expirationDate.length != 4){
+  			message.push("Expiration Date Format Format Error; ")
+  		}
+  		if (ccv.length > 4){
+  			message.push("CCV Format Error;")
+  		}
+  		if (message.length != 0) {
+  			this.setState({
+		          msg: message
+		        })
+  		}
+  		
+  	},
 
 					
 	render() {
@@ -181,10 +266,11 @@ Cal.CreditCard = React.createClass({
 	                </RC.Button>
 	            </RC.URL>
 
-	            <RC.Form onSubmit={this.postPayment} onKeyUp={this.checkButtonState} ref="paymentForm">
-	            	<RC.Input name="creditCardNumber" label="Credit Card Number" theme={inputTheme} ref="cardNumber" />
-			        <RC.Input name="expirationDate" label="Expiration Date"  theme={inputTheme} ref="expirationDate" />
-			        <RC.Input name="ccv" ref="ccv"  label="CCV" theme={inputTheme} ref="ccv"/>
+	            <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
+	            	{this.printMsg()}
+	            	<RC.Input name="creditCardNumber" onKeyUp={this.checkCardNumber} label="Credit Card Number" theme={inputTheme} ref="cardNumber" />
+			        <RC.Input name="expirationDate" onKeyUp={this.checkExpirationDate} label="Expiration Date (MM/YY)"  theme={inputTheme} ref="expirationDate" />
+			        <RC.Input name="ccv" onKeyUp={this.checkCCV} label="CCV" theme={inputTheme} ref="ccv"/>
 		            <RC.Button name="button" theme="full" buttonColor="brand">
 		                    Pay Now
 		                </RC.Button>
