@@ -34,18 +34,27 @@ KUI.Home_index = KUI.Class.define('ui.Home_index', {
         );
     },
 
+    toChangePassword : function(){
+        FlowRouter.go('/home/changepassword');
+    },
+
 
 
     getRender : function(style){
 
         return (
-            <RB.Table striped bordered condensed hover>
+            <div>
+                <RB.Table striped bordered condensed hover>
 
-                {
-                    this.getTableBody()
-                }
-            </RB.Table>
+                    {
+                        this.getTableBody()
+                    }
+                </RB.Table>
 
+                <RB.ButtonToolbar>
+                    <RB.Button onClick={this.toChangePassword} bsStyle="primary">Change Password</RB.Button>
+                </RB.ButtonToolbar>
+            </div>
         );
 
     }

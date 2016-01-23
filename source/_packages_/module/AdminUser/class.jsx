@@ -97,21 +97,6 @@ let AdminUser = class extends Base{
     }
 
 
-
-    changePassword(opts){
-        let old = opts.oldPassword,
-            userID = opts.userID,
-            newPwd = opts.newPassword,
-            confirmPwd = opts.newsPassword2;
-
-        if(newPwd !== confirmPwd){
-            return KG.result.out(false, {}, '二次输入的密码不一致');
-        }
-
-        //TODO 处理修改密码的逻辑
-
-    }
-
     addUser(param){
         //TODO add user
     }
@@ -129,7 +114,7 @@ let AdminUser = class extends Base{
             findUserById : function(id){
 
                 let rs = this._db.findOne({_id:id});
-                console.log(rs);
+                //console.log(rs);
                 return rs;
             }
         };
@@ -194,8 +179,28 @@ let AdminUser = class extends Base{
                 Meteor._localStorage.removeItem(KG.const.USERTOKEN);
                 KG.user.reset();
                 return true;
+            },
+
+            changePassword : function(opts){
+                let old = opts.oldPassword,
+                    userID = opts.userID,
+                    newPwd = opts.newPassword,
+                    confirmPwd = opts.newPassword2;
+
+                if(newPwd.length < 6){
+                    return KG.result.out(false, {}, '密码的长度不能小于6');
+                }
+console.log(opts);
+                if(newPwd !== confirmPwd){
+                    return KG.result.out(false, {}, '二次输入的密码不一致');
+                }
+
+                //TODO 处理修改密码的逻辑
+                KG.result.out(true, 'comming soon');
             }
-        };
+        }
+
+
     }
 
 

@@ -25,7 +25,7 @@ if(Meteor.isClient){
         };
         if (_.isObject(args)) _.defaults(args, defs); else args = defs;
 
-        document.title = args.metaTitle;
+        document.title = args.pageTitle;
         document.description = args.metaDesc;
 
         ReactLayout.render(args.layout, {
