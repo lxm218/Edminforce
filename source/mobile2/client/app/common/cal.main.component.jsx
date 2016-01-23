@@ -63,13 +63,23 @@
         render() {
 
             return <RC.Body>
-                  <Cal.HeaderNav nav={this.props.headerNav}
-                                 logoUrl='assets/logo.png'
+                  <Cal.HeaderNav
+                    hideBackButton= {this.props.hideBackButton}
+                    hideLeftNavToggle={this.props.hideLeftNavToggle}
+                    hideShoppingCartButton={this.props.hideShoppingCartButton}
+                    shoppingCart={this.data.shoppingCart}
+
+                    transitionName="from-left"
+                    nav={this.props.headerNav}
+                                 logoUrl='/assets/logo.png'
                                  useMiniNav={!!this.props.headerNav}>
 
                       {
+
                           leftNavList.map(function(item){
-                            return  <RC.URL style={{fontSize:'15px'}}> {item.text}</RC.URL>
+
+                            return  <RC.URL style={{fontSize:'15px'}} onClick={item.onClick || null}> {item.text}</RC.URL>
+
 
                           })
                       }

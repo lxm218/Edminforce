@@ -29,9 +29,9 @@ App.routeHandler = function (p, args) {
         headerNav: args.headerNav,
         //leftNavToggle:args.leftNavToggle,
 
-        //hideBackButton:args.hideBackButton,
-        //hideLeftNavToggle:args.hideLeftNavToggle,
-        //hideShoppingCartButton:args.hideShoppingCartButton,
+        hideBackButton:args.hideBackButton,
+        hideLeftNavToggle:args.hideLeftNavToggle,
+        hideShoppingCartButton:args.hideShoppingCartButton,
 
         body: args.bodyTmpl
     })

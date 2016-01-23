@@ -252,7 +252,7 @@
 
                         {
                             this.data.currentStep == 1 ?
-                                <RC.Select2
+                                <RC.Select
                                     ref="swimmer"
                                     options={swimmers}
                                     value= {currentSwimmerValue}
@@ -271,7 +271,7 @@
                             Level: {this.data.currentLevel}
                         </RC.Item>
 
-                        <RC.Select2
+                        <RC.Select
                             ref="day"
                             options={this.data.avaiableDays}
                             value={this.data.currentDay}
@@ -280,7 +280,7 @@
                             label="Day"
                             />
 
-                        <RC.Select2
+                        <RC.Select
                             ref="time"
                             options={this.data.avaiableTimes}
                             value={this.data.currentTime}
