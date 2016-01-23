@@ -137,6 +137,7 @@ Cal.CreditCard = React.createClass({
             		Meteor.user().emails[0].address,
             		'Confirmation',
             		'Thank you for your order.');
+				FlowRouter.go("/payment/PaymentConfirmation")
 
 			};
 
