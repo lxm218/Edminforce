@@ -2,12 +2,8 @@ if(Meteor.isClient){
 
     let Route = FlowRouter.group({
         prefix: '/classes',
-        triggersEnter: [function (context) {
-
-        }],
-        triggersExit: [function () {
-
-        }]
+        triggersEnter: [],
+        triggersExit: []
     });
 
     Route.route('/', {

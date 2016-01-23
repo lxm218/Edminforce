@@ -28,7 +28,14 @@ KUI.Home_login = KUI.Class.define('ui.Home_login', {
             });
         KG.result.handle(rs, {
             success : function(data){
-                console.log(data.userProfile);
+                var url = Session.get(KG.const.CACHELOGINPATH);
+                if(url){
+                    FlowRouter.go(url);
+                }
+                else{
+                    FlowRouter.go('/home/');
+                }
+
             },
             error : function(data, err){
                 alert(err.statusText);

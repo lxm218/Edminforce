@@ -8,6 +8,8 @@ let Base = class{
         this._db = null;
         this._schema = null;
 
+        this._extendMethod();
+
         this.initVar();
         this.initStart();
 
@@ -17,6 +19,26 @@ let Base = class{
 
         this._initEnd();
 
+    }
+
+    _extendMethod(){
+        var self = this;
+        var sm = this.defineServerMethod(),
+            cm = this.defineClientMethod();
+        _.each(sm, function(method, key){
+            self[key] = method.bind(self);
+        });
+        _.each(cm, function(method, key){
+            self[key] = method.bind(self);
+        });
+    }
+
+    defineServerMethod(){
+        return {};
+    }
+
+    defineClientMethod(){
+        return {};
     }
 
     _initDB(){

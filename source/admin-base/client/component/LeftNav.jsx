@@ -14,31 +14,31 @@ KUI.LeftNav = KUI.Class.define('ui.LeftNav', {
         let list = [
             {
                 name : 'Home',
-                href : '/home/'
+                href : '/home'
             },
             {
                 name : 'Families',
-                href : '/family/'
+                href : '/family'
             },
             {
                 name : 'Students',
-                href : '/student/'
+                href : '/student'
             },
             {
                 name : 'Classes',
-                href : '/classes/'
+                href : '/classes'
             },
             {
                 name : 'Registrations',
-                href : '/registration/'
+                href : '/registration'
             },
             {
                 name : 'Email',
-                href : '/email/'
+                href : '/email'
             },
             {
                 name : 'Reports',
-                href : '/report/'
+                href : '/report'
             }
         ];
 

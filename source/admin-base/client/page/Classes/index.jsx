@@ -52,6 +52,7 @@ KUI.Classes_index = KUI.Class.define('ui.Classes_index', {
     },
 
     getRender : function(style){
+        console.log(KG.user.current);
 
         return (
             <RB.Table striped bordered condensed hover>

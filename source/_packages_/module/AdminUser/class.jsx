@@ -65,6 +65,17 @@ let AdminUser = class extends Base{
         };
     }
 
+    initEnd(){
+        var self = this;
+
+        if(Meteor.isServer){
+            Meteor.methods({
+                findUserById : self.findUserById
+            });
+        }
+
+    }
+
     addTestData(){
         if(this._db.find({}).count() > 0){
             return false;
@@ -86,28 +97,6 @@ let AdminUser = class extends Base{
     }
 
 
-    //api
-    login(opts){
-        let userID = opts.userID,
-            pwd = opts.password;
-        var one = this._db.findOne({
-            userID : userID
-        });
-
-        if(one){
-
-            //TODO password需要加密
-            if(one.password === pwd){
-                return KG.result.out(true, one);
-            }
-            else{
-                return KG.result.out(false, {}, '用户密码错误');
-            }
-        }
-        else{
-            return KG.result.out(false, {}, '用户不存在');
-        }
-    }
 
     changePassword(opts){
         let old = opts.oldPassword,
@@ -133,6 +122,80 @@ let AdminUser = class extends Base{
         };
 
         //TODO delete user
+    }
+
+    defineServerMethod(){
+        return {
+            findUserById : function(id){
+
+                let rs = this._db.findOne({_id:id});
+                console.log(rs);
+                return rs;
+            }
+        };
+    }
+
+    defineClientMethod(){
+        return {
+            login : function(opts){
+                let userID = opts.userID,
+                    pwd = opts.password;
+                let one = this._db.findOne({
+                    userID : userID
+                });
+
+                if(one){
+
+                    //TODO password需要加密
+                    if(one.password === pwd){
+                        KG.user.isLogin = true;
+                        KG.user.current = one;
+
+                        //TODO coypto
+                        Meteor._localStorage.setItem(KG.const.USERTOKEN, one._id);
+
+                        return KG.result.out(true, one);
+                    }
+                    else{
+                        return KG.result.out(false, {}, '用户密码错误');
+                    }
+                }
+                else{
+                    return KG.result.out(false, {}, '用户不存在');
+                }
+            },
+            checkLogin : function(callback){
+                var self = this;
+                if(KG.user.isLogin){
+                    callback(true);
+                    return;
+                }
+
+                let token = Meteor._localStorage.getItem(KG.const.USERTOKEN);
+
+                if(!token){
+                    callback(false);
+                    return;
+                }
+
+                Meteor.call('findUserById', token, function(err, rs){
+                    console.log(err, rs);
+                    if(rs){
+                        KG.user.loginWithUser(rs);
+                        callback(true);
+                    }
+                    else{
+                        callback(false);
+                    }
+                });
+
+            },
+            logout : function(){
+                Meteor._localStorage.removeItem(KG.const.USERTOKEN);
+                KG.user.reset();
+                return true;
+            }
+        };
     }
 
 

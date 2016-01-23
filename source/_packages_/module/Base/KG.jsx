@@ -38,6 +38,11 @@ KG = {
     }
 };
 
+KG.const = {
+    USERTOKEN : 'Meteor:user-token',
+    CACHELOGINPATH : 'meteor:login-cache-path'
+};
+
 KG.schema = {
     default : function(opts){
         return _.extend({
@@ -68,5 +73,20 @@ KG.result = {
         else{
             opts.error(rs.data, rs);
         }
+    }
+};
+
+
+KG.user = {
+    isLogin : false,
+    current : {},
+
+    loginWithUser : function(user){
+        KG.user.isLogin = true;
+        KG.user.current = user;
+    },
+    reset : function(){
+        KG.user.isLogin = false;
+        KG.user.current = {};
     }
 };

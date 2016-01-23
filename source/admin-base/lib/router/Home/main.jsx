@@ -1,13 +1,12 @@
 if(Meteor.isClient){
 
+
+
+
     let Route = FlowRouter.group({
         prefix: '/home',
-        triggersEnter: [function (context) {
-
-        }],
-        triggersExit: [function () {
-
-        }]
+        triggersEnter: [],
+        triggersExit: []
     });
 
     Route.route('/login', {
@@ -15,6 +14,15 @@ if(Meteor.isClient){
             App.routeHandler(p, {
                 pageTitle: "Home | login",
                 bodyTmpl: <KUI.Home_login />
+            })
+        }
+    });
+
+    Route.route('/', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Home | login",
+                bodyTmpl: <KUI.Home_index />
             })
         }
     });
