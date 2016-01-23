@@ -28,6 +28,7 @@ Cal.CreditCard = React.createClass({
 	 	// To do: change the referece id
 
 	 	e.preventDefault()
+	 	let self = this
 	  	var paymentInfo = {
 		    "createTransactionRequest": {
 		        "merchantAuthentication": {
@@ -117,12 +118,37 @@ Cal.CreditCard = React.createClass({
 		}
 
 		// if (this.state.msg) return null
-		let self = this
+
 		let form = this.refs.paymentForm.getFormData()
 
 		console.log(form.creditCardNumber)
 		console.log(form.expirationDate)
 		console.log(form.ccv)
+
+		var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
+  		var ccv = this.refs.paymentForm.getFormData().ccv
+  		var expirationDate = this.refs.paymentForm.getFormData().expirationDate
+  		var message = []
+  		if(cardNumber.length != 16){
+  			message.push("Credit Card Length Error; ")
+  		}
+
+  		var patt = /[0-9]{2}\/[0-9]{2}/
+
+
+  		if (!patt.test(expirationDate)){
+  			message.push("Expiration Date Format Format Error; ")
+  		}
+  		if (ccv.length > 4){
+  			message.push("CCV Format Error;")
+  		}
+  		if (message.length != 0) {
+  			this.setState({
+		          msg: message
+		        })
+  			return
+  		}
+  		expirationDate = expirationDate.slice(0,2)+expirationDate.slice(3,5)
 
 		paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardNumber = form.creditCardNumber
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.expirationDate = form.expirationDate
@@ -132,7 +158,6 @@ Cal.CreditCard = React.createClass({
 
 		var URL = 'https://apitest.authorize.net/xml/v1/request.api'
 		HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
-			// debugger
 			if(!!error){
 				console.log(error)
 			}
@@ -147,18 +172,17 @@ Cal.CreditCard = React.createClass({
             		'Confirmation',
             		'Thank you for your order.');
 				FlowRouter.go("/payment/PaymentConfirmation") 
-			} 
+			} else{
+				self.setState({
+		    		msg: "The transaction was unsuccessful."
+				})
+			}
 
-		})
-
-		this.setState({
-		    msg: "The transaction was unsuccessful."
 		})
 
 	 },
 
 	printMsg(){
-		// debugger
 	    console.log("printMsg is called", this.state.msg)
 
 	    let currentMessages = this.state.msg ? [this.state.msg] : []
@@ -177,7 +201,6 @@ Cal.CreditCard = React.createClass({
   	},
 
   	checkCardNumber(e){
-  		// debugger
   		var ccv = this.refs.paymentForm.getFormData().ccv
   		var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
   		var expirationDate = this.refs.paymentForm.getFormData().expirationDate
@@ -197,7 +220,7 @@ Cal.CreditCard = React.createClass({
   			message.push("Credit Card Length Error; ")
   		}
 
-  		if (expirationDate.length > 4){
+  		if (expirationDate.length > 5){
   			message.push("Expiration Date Format Format Error; ")
   		}
   		if (message.length != 0) {
@@ -216,7 +239,10 @@ Cal.CreditCard = React.createClass({
   			message.push("Credit Card Length Error; ")
   		}
 
-  		if (expirationDate.length != 4){
+  		var patt = /[0-9]{2}\/[0-9]{2}/
+
+
+  		if (!patt.test(expirationDate)){
   			message.push("Expiration Date Format Format Error; ")
   		}
   		if (ccv.length > 4){
