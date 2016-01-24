@@ -15,14 +15,14 @@ My understand, we should do it.
 
  * Increas package number, if we didn't organizate well, increase the difficult of maintain package  - I think we can use name standard to improve this
 
-Kevin>>> No, we should not. Most Meteor Packages are not either. Please read most of the current existing packages, how they managed. They have client and server in the same package. I did not see any of your "Advantages" if you separate client and server. Package is separated by functionalities.
-<<<
-
+ > **Kevin:** **No**, we should not. Most Meteor Packages are not either. Please read most of the current existing packages, how they managed. They have client and server in the same package. I did not see any of your "Advantages" if you separate client and server. Package is separated by functionalities.
 
 
 2. How to extend a package?
-Kevin>>> The same as you expend any javascript object. For example, Package A export an object Shaoke. You can easily add a function to Shaoke by Shaoke.newFunction = function something(){...}
-<<<
+
+ > **Kevin:** The same as you expend any javascript object. For example, Package A export an object Shaoke. You can easily add a function to Shaoke by Shaoke.newFunction = function something(){...}
+ 
+ > **Note:** After discuss with Kevin, Kevin's suggestion is for this version, we don't need to think about extend pacakge, so we don't need to export our class, Kevin's suggestion he think if we need to extend a package, we can create a branch, and modify on it this branch, and you need to take care about merge by yourself, or you can copy this package and modify. Kevin said duplicate code sometime is unavoid. 
 
 3. Should we make collections be a package?
 
@@ -31,9 +31,11 @@ Kevin>>> The same as you expend any javascript object. For example, Package A ex
   Currently, we have both mobile app and web app, and they are using same Database, so collections will be reuse both mobile app and web app, but maybe the server code is different, so I think we should make collections be a package, and one package has one collection.
 
 
-Kevin>>> My answer is **No**
-If one of your package use a collection, and you are sure no one else will use it, you can define the collection in side your package. I did not see any reason you create a pacakge without any functionalities just a group of collections.
-<<<
+  > Kevin My answer is **No**
+  
+  > If one of your package use a collection, and you are sure no one else will use it, you can define the collection in side your package. I did not see any reason you create a pacakge without any functionalities just a group of collections.
+  
+  > Kevin think to solve the problem: same collection used by admin and mobile app, we should document it on git or wiki. Github has wiki, so when you create a collection, you need to create a wiki page to descibe this collection. For example: schema, field.
 
 # Package based Architecture
 
@@ -81,17 +83,9 @@ When I find my structure is not feeling comfortable, I go back and revisit these
 		|-- edminforce-lib/
 		|-- edminforce-core/
 		|-- edminforce-common/
-		|-- edminforce-collections-account/
-		|-- edminforce-collections-classes/
 		|-- edminforce-login/
-		|-- edminforce-login-client/
-		|-- edminforce-login-server/
 		|-- edminforce-classes/
-		|-- edminforce-classes-client/
-		|-- edminforce-classes-server/
 		|-- edminforce-classses-register/
-		|-- edminforce-classses-register-client/
-		|-- edminforce-classses-register-server/
 |-- edminforce-index/
 ```
 
@@ -99,49 +93,30 @@ When I find my structure is not feeling comfortable, I go back and revisit these
 2. `edminforce-lib`: Include all common third party libraries
 3. `edminforce-core`: Core function of your application.
 4. `edminforce-common`: Sharable function between packages
-5. `edminforce-login`: The main package for edminforce module, code for both server and client, and this package will include `edminforce-login-client`(code just for client) and `edminforce-login-server`(code just for server).
 
 ## Folder Structure of Package
 
 ```
 /edminforce-login/
-	|-- package.js
-	|-- startup.js
-	|-- README.md
-	|-- tests/
-	|-- i18n/
-	|-- lib/
-		|-- router.js
-```
-
-```
-/edminforce-login-client/
-	|-- package.js
-	|-- startup.js
-	|-- README.md
-	|-- tests/
-	|-- i18n/
-	|-- lib/
-			|-- models/
-			|-- views/
-			|-- controllers/
-			|-- lib/
-			|-- less/
-```
-
-```
-/edminforce-login-server/
-	|-- package.js
-	|-- startup.js
-	|-- README.md
-	|-- tests/
-	|-- i18n/
-	|-- lib/
-			|-- models/
-			|-- views/
-			|-- controllers/
-			|-- lib/
-			|-- less/
+    |-- package.js
+    |-- startup.js  
+    |-- README.md
+    |-- tests/
+    |-- lib/
+            |-- client/
+                |-- models/
+                |-- views/
+                |-- controllers/
+                |-- lib/
+                |-- collections/
+                |-- less/
+                |-- vendor/
+            |-- server/
+            |-- both/
+            |-- collections/
+            |-- router/
+            |-- packages/
+            |-- private/
 ```
 
 ## Code Standards
@@ -179,3 +154,4 @@ Package name `edminforce-home`, then the global namespace should be `EdminForce.
 3. [Large Meteor projects - best practices](https://blog.tableflip.io/large-meteor-projects-best-practices/)
 4. [Building Large Apps: Tips](https://meteor.hackpad.com/Building-Large-Apps-Tips-d8PQ848nLyE)
 5. [Telescope](https://github.com/TelescopeJS/Telescope)
+6. [Fast and Efficient Meteor Apps](https://bulletproofmeteor.com/basics/introduction)
