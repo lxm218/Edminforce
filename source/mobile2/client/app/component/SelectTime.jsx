@@ -17,7 +17,7 @@ Cal.SelectTime = React.createClass({
     //},
 
     timeChange(e){
-        var value = this.refs.time.getValue()
+        var value = e.target.value//this.refs.time.getValue()
         value = parseInt(value, 10)
         Dispatcher.dispatch({
             actionType: this.props.changeMessage,
@@ -28,7 +28,7 @@ Cal.SelectTime = React.createClass({
 
     render() {
 
-        return <RC.Select2
+        return <RC.Select theme="right"
                 ref="time"
                 options={this.props.avaiableTimes}
                 value={this.props.currentTime}

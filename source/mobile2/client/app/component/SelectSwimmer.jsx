@@ -32,7 +32,7 @@ Cal.SelectSwimmer = React.createClass({
 
     //actions
     swimmerChange(e){
-        var value = this.refs.swimmer.getValue()
+        var value = e.target.value//this.refs.swimmer.getValue()
 
         var swimmer = _.find(this.props.swimmers, function (v, n) {
             return v._id == value;
@@ -52,7 +52,7 @@ Cal.SelectSwimmer = React.createClass({
                 Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
             </RC.Item>
 
-            : <RC.Select2
+            : <RC.Select theme="right"
                 ref="swimmer"
                 options={this.data.swimmers}
                 value={this.data.currentSwimmerValue}

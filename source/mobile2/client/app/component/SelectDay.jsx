@@ -20,7 +20,7 @@ Cal.SelectDay = React.createClass({
     //},
 
     dayChange(e){
-        var value = this.refs.day.getValue()
+        var value = e.target.value//this.refs.day.getValue()
         value = parseInt(value, 10)
 
         Dispatcher.dispatch({
@@ -31,7 +31,7 @@ Cal.SelectDay = React.createClass({
     },
 
     render() {
-        return <RC.Select2
+        return <RC.Select theme="right"
                 ref="day"
                 options={this.props.avaiableDays}
                 value={this.props.currentDay}

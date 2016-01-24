@@ -528,7 +528,7 @@
 
                 self.avaiableDays.set(days)
 
-
+                console.log(days)
                 //重置day
                 //self.currentDay.set(days[0].value)
 
@@ -581,6 +581,8 @@
                     return (a.value - b.value);
                 })
 
+
+                console.log(times)
 
                 //add an empty value to prevent browser init select value  use the first item
                 times.unshift(undefinedSelectValueOption)

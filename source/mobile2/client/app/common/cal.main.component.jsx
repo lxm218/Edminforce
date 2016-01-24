@@ -78,7 +78,9 @@
 
                           leftNavList.map(function(item){
 
-                            return  <RC.URL style={{fontSize:'15px'}} onClick={item.onClick || null}> {item.text}</RC.URL>
+                            return  <RC.URL style={{fontSize:'15px'}}
+                                            href={item.href}
+                                            onClick={item.onClick || null}> {item.text}</RC.URL>
 
 
                           })

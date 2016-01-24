@@ -63,12 +63,13 @@
         /////////////////////////////////////////////////////////////////
         ///////////actions///////////
         swimmerChange(e){
-            var value = this.refs.swimmer.getValue()
+            var value = e.target.value//this.refs.swimmer.getValue()
 
             var swimmer = _.find(this.data.swimmers, function (v, n) {
                 return v._id == value;
             })
 
+            console.log(swimmer)
             Dispatcher.dispatch({
                 actionType: "CRSelectClassPage_SWIMMER_CHANGE",
                 swimmer: swimmer
@@ -76,7 +77,7 @@
 
         },
         dayChange(e){
-            var value = this.refs.day.getValue()
+            var value = e.target.value //this.refs.day.getValue()
             value = parseInt(value, 10)
 
             Dispatcher.dispatch({
@@ -87,7 +88,7 @@
 
         },
         timeChange(e){
-            var value = this.refs.time.getValue()
+            var value = e.target.value //this.refs.time.getValue()
             value = parseInt(value, 10)
             Dispatcher.dispatch({
                 actionType: "CRSelectClassPage_TIME_CHANGE",
@@ -252,12 +253,12 @@
 
                         {
                             this.data.currentStep == 1 ?
-                                <RC.Select
+                                <RC.Select theme="right"
                                     ref="swimmer"
                                     options={swimmers}
                                     value= {currentSwimmerValue}
                                     name="swimmer"
-                                    changeHandler={this.swimmerChange}
+                                    onChange={this.swimmerChange}
                                     label="Swimmer"
                                     />
 
@@ -271,21 +272,21 @@
                             Level: {this.data.currentLevel}
                         </RC.Item>
 
-                        <RC.Select
+                        <RC.Select theme="right"
                             ref="day"
                             options={this.data.avaiableDays}
                             value={this.data.currentDay}
                             name="day"
-                            changeHandler={this.dayChange}
+                            onChange={this.dayChange}
                             label="Day"
                             />
 
-                        <RC.Select
+                        <RC.Select theme="right"
                             ref="time"
                             options={this.data.avaiableTimes}
                             value={this.data.currentTime}
                             name="time"
-                            changeHandler={this.timeChange}
+                            onChange={this.timeChange}
                             label="Time"
                             />
                         <RC.Button name="button" type="submit"

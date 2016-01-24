@@ -115,7 +115,7 @@ Cal.HeaderNav = class extends RC.HeaderNav {
 
     let styles = this.css.get("styles")
     let ht = RC.Theme.size.headerNavHeight()
-    let count = this.props.shoppingCart && this.props.shoppingCart.items && this.props.shoppingCart.items.length || 10
+    let count = this.props.shoppingCart && this.props.shoppingCart.items && this.props.shoppingCart.items.length || 0
 
 
     return <div style={this.props.absolute ? {} : {paddingTop: ht, position: "relative"}}>
