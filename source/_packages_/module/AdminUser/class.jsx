@@ -190,7 +190,7 @@ let AdminUser = class extends Base{
                 if(newPwd.length < 6){
                     return KG.result.out(false, {}, '密码的长度不能小于6');
                 }
-console.log(opts);
+
                 if(newPwd !== confirmPwd){
                     return KG.result.out(false, {}, '二次输入的密码不一致');
                 }

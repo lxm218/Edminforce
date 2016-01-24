@@ -12,8 +12,9 @@ printf "params: %s %s %s\n " "$1" "$2" "$3"
 
 export MONGO_URL="mongodb://127.0.0.1:27017/EdminForce"
 
-export PACKAGE_ROOT=$PWD/../library
-export PACKAGE_DIRS=$PACKAGE_ROOT/both:$PACKAGE_ROOT/mobile:$PACKAGE_ROOT/webapp:$PWD/../_packages_/both:$PWD/../_packages_/module
+export PACKAGE_ROOT=$PWD/../_packages_
+export RC_DIR=$PACKAGE_ROOT/ihealth-framework-ui/library
+export PACKAGE_DIRS=$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/both:$PACKAGE_ROOT/module
 
 
 
