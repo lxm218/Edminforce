@@ -1,21 +1,7 @@
 
 KUI.YesButton = KUI.Class.define('ui.YesButton', {
     initStyle : function(){
-        var top = this.props.top || '10px';
-
-        return {
-            main : {
-                color : '#fff',
-                lineHeight : '36px',
-                fontSize : '16px',
-                fontWeight : '700',
-                borderRadius : '5px',
-                padding : '0 20px',
-                display : 'inline-block',
-                marginTop : top,
-                float : this.props.float || 'auto'
-            }
-        };
+        return this.props.style || {};
     },
 
     click : function(){
@@ -26,7 +12,8 @@ KUI.YesButton = KUI.Class.define('ui.YesButton', {
     getRender : function(style){
 
         return (
-            <RB.Button onClick={this.click} style={style.main} bsStyle="primary">{this.props.label}</RB.Button>
+            <button onClick={this.click} type="button" style={style.main} className="btn btn-w-m btn-primary">{this.props.label}</button>
         );
     }
+
 }, 'Base');

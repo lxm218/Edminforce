@@ -3,10 +3,14 @@
 let Base = class{
 
 
-    constructor(name){
+    constructor(name, option){
         this._name = name;
         this._db = null;
         this._schema = null;
+
+        this.option = _.extend({
+            DBName : ''
+        }, option||{});
 
         this._extendMethod();
 
@@ -33,40 +37,71 @@ let Base = class{
         });
     }
 
+    /*
+    * define server side method
+    * @return: function map
+    * */
     defineServerMethod(){
         return {};
     }
 
+    /*
+    * define client side method
+    * @return: function map
+    * */
     defineClientMethod(){
         return {};
     }
 
     _initDB(){
-        this.initDB();
+
         this.initDBSchema();
+        this.initDB();
         this.initDBEnd();
     }
 
     initDBSchema(){
         this._schema = this.defineDBSchema();
+    }
+
+    /*
+    * define DB schema if DB exist
+    * @return: DB schema
+    *
+    * */
+    defineDBSchema(){
+        return {};
+    }
+
+    getDBSchema(){
+        return this._schema;
+    }
+
+    /*
+    * define db object
+    * if you do not have a DB, you can override and return null or any object you want.
+    *
+    * */
+    defineDB(){
+        let db = new Mongo.Collection(this.option.DBName || this._name);
+        if(this._schema){
+            let schema = new SimpleSchema(this._schema);
+            db.attachSchema(schema);
+        }
+
+        return db;
 
     }
 
-    defineDBSchema(){}
-    getDBSchema(){}
-
     initDB(){
-        this._db = new Mongo.Collection(this._name);
+        this._db = this.defineDB();
     }
 
     getDB(){
         return this._db;
     }
 
-    initDBEnd(){
-        let schema = new SimpleSchema(this._schema);
-        this._db.attachSchema(schema);
-    }
+    initDBEnd(){}
 
     initVar(){
 
