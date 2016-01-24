@@ -128,7 +128,7 @@
                     You’re going to cancel this class for {this.data.swimmerInfo && this.data.swimmerInfo.name}.
                 </div>
 
-                <RC.Button name="button" type="submit"
+                <RC.Button name="button" type="submit" bgColor="brand1"
                            onClick={this.requestSubmit}
                            theme="full" buttonColor="brand">
                     Submit Request

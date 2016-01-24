@@ -174,7 +174,7 @@
 
                 nature of Parent or Legal Guardian if Under 18)
 
-                <RC.Button name="button" type="submit"
+                <RC.Button name="button" type="submit" bgColor="brand1"
                             onClick={this.submit}
                             theme="full" buttonColor="brand">
                      Confirm

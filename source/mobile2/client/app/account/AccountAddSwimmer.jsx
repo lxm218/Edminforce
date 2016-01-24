@@ -108,7 +108,7 @@
                     </label>
 
 
-                    <RC.Button name="level" theme="full"
+                    <RC.Button name="level" theme="full" bgColor="brand1"
                                onClick={this.formSubmit}
                                buttonColor="brand">
                         Add

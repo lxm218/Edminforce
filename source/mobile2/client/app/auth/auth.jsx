@@ -24,18 +24,18 @@ Cal.Auth = React.createClass({
 	            	</div> : <RC.Item theme="text-wrap"> User Not Logged In</RC.Item>
 	            }
 	            { this.data.currentUser ?
-	            	<RC.Button onClick={this.logOut} name="button" theme="full" buttonColor="brand">
+	            	<RC.Button bgColor="brand1" onClick={this.logOut} name="button" theme="full" buttonColor="brand">
 		                Log Out
 		            </RC.Button> :
 		            <RC.URL href="/login">
-		                <RC.Button name="button" theme="full" buttonColor="brand">
+		                <RC.Button bgColor="brand1" name="button" theme="full" buttonColor="brand">
 		                    Log In
 		                </RC.Button>
 		            </RC.URL>
 		            
 		        }
 	            <RC.URL href="/">
-	                <RC.Button name="button" theme="full" buttonColor="brand">
+	                <RC.Button bgColor="brand1" name="button" theme="full" buttonColor="brand">
 	                    Home
 	                </RC.Button>
 	            </RC.URL>

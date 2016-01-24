@@ -204,7 +204,7 @@
                         </div>
 
                     </RC.Item>
-                        <RC.Button name="button" type="submit"
+                        <RC.Button name="button" type="submit" bgColor="brand1"
                                     onClick={this.selectMore}
                                    theme="full" buttonColor="brand">
                             Register More
@@ -213,7 +213,7 @@
 
 
                     <RC.URL href={RegBillingPageUrl}>
-                        <RC.Button name="button" type="submit"
+                        <RC.Button name="button" type="submit" bgColor="brand1"
                                    theme="full" buttonColor="brand">
                             Checkout
                         </RC.Button>

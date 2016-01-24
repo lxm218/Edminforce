@@ -122,7 +122,7 @@ Cal.ChangeEmergencyContact = React.createClass({
 			              </span>
 			            </p>
 			        }
-					<RC.Button name="button" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
+					<RC.Button bgColor="brand1" name="button" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
 						{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Update Emergency Contact"}
 					</RC.Button>
 				</RC.Form>

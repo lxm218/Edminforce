@@ -40,7 +40,7 @@ Cal.CRPaymentInstoreConfirm = React.createClass({
             <RC.List theme="inset">
                 <RC.Item theme="body">
 
-                    <RC.Button name="button"
+                    <RC.Button name="button" bgColor="brand1"
                                onClick={this.paied}
                                theme="full" buttonColor="brand">
                         OK

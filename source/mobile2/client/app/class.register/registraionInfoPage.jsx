@@ -32,6 +32,8 @@
 
                 <RC.Card key={Math.random()} title="Registration Information">
 
+                    <RC.Item theme="body">
+
                     <div className="row">
                         <div className="col col-33">
                             <b>1st week</b>:
@@ -86,14 +88,13 @@
                     </p>
 
 
-
+                    </RC.Item>
 
 
                 </RC.Card>
 
 
-                <p className="padding-left padding-right">
-
+                <RC.Div style={{margin: '10px'}}>
                     {
                         /*
                         * Don't know why click can be triggered directly in home page,and this page is skipped
@@ -101,13 +102,13 @@
                         * It will cause some underlying issues if data-react-id is the same in diffrent page ?
                         * */
                     }
-                    <RC.Button onClick={this.continue}
-                               key={Math.random()}
-                            className="button button-full button-brand ">
+                    <RC.Button bgColor="brand1"
+                      onClick={this.continue}
+                               key={Math.random()}>
 
                         Register
                     </RC.Button>
-                </p>
+                </RC.Div>
 
 
             </div>

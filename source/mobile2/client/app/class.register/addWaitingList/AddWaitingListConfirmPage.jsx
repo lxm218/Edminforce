@@ -47,7 +47,7 @@
 
 
                 <RC.URL href="/">
-                    <RC.Button name="button" theme="full" buttonColor="brand">
+                    <RC.Button name="button" theme="full" bgColor="brand1" buttonColor="brand">
                         OK
                     </RC.Button>
                 </RC.URL>

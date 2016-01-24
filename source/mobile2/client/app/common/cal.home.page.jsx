@@ -143,38 +143,23 @@ Cal.Home = React.createClass({
       <RC.Form ref="myForm" onSubmit={this.formSubmit} theme="padding">
 
 
-        <RC.Select
+        <RC.Select theme="right"
           ref="sessionSelect"
           options={sessionOptions}
           onChange={this.sessionSelectChange}
            label="Session"
         />
-        <RC.Select
+        <RC.Select theme="right"
           ref="programSelect"
           options={programOptions}
           onChange={this.programSelectChange}
           value="" label="Program"
         />
 
-        <RC.Button theme="brand3" onClick={this.continue}>continue</RC.Button>
+        <RC.Button bgColor="brand1" onClick={this.continue}>continue</RC.Button>
 
 
       </RC.Form>
-
-
-      {
-        //this.data.selectableSessions.length == 1 ? {Programs} : ''
-      }
-
-
-      {
-        //<div className="row">
-        //  <RC.Button className="item-button"  name="button" buttonColor="brand" href="/payment/CreditCard">
-        //    Payment
-        //  </RC.Button>
-        //</div>
-      }
-
 
     </div>
 

@@ -90,7 +90,7 @@
 
                         />
 
-                    <RC.Button name="button" type="submit"
+                    <RC.Button name="button" type="submit" bgColor="brand1"
                                onClick={this.formSubmit}
                                theme="full" buttonColor="brand">
                         {this.props.currentStep == 1 ? 'Book' : 'Select'}

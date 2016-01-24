@@ -39,7 +39,7 @@ Cal.CRLittleStartProgramConfirm = React.createClass({
                         Register More
                     </button>
                     <RC.URL href="/classRegister/RegBillingPage">
-                        <RC.Button name="button" type="submit"
+                        <RC.Button name="button" type="submit" bgColor="brand1"
                                    theme="full" buttonColor="brand">
                             Checkout
                         </RC.Button>

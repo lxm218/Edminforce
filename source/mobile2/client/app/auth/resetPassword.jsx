@@ -118,7 +118,7 @@ Cal.ResetPasswordEmail = React.createClass({
 				<RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="newPw" />
 				<RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="newPwRepeat" />
 				{this.printMsg()}
-				<RC.Button name="button" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
+				<RC.Button name="button" bgColor="brand1" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
 					{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Reset Password"}
 				</RC.Button>
 				</RC.Form>

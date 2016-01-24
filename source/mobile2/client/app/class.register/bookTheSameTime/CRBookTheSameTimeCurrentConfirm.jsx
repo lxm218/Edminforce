@@ -63,7 +63,7 @@
 
 
 
-                <RC.Button name="button" type="submit"
+                <RC.Button name="button" type="submit" bgColor="brand1"
                            onClick={this.confirm}
                            theme="full" buttonColor="brand">
                     Confirm

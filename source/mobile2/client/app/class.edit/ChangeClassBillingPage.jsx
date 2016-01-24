@@ -84,7 +84,7 @@
 
                 </div>
 
-                <RC.Button name="button"
+                <RC.Button name="button" bgColor="brand1"
                            onClick={this.confirm}
                            theme="full" buttonColor="brand">
                     Confirm

@@ -185,7 +185,7 @@
                             </div>
                         </RC.Item>
 
-                        <RC.Button name="button" type="submit"
+                        <RC.Button name="button" type="submit" bgColor="brand1"
                                    onClick={this.selectMore}
                                    theme="full" buttonColor="brand">
                             Book

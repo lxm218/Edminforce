@@ -50,14 +50,14 @@ Cal.CRPaymentOptionsPage = React.createClass({
         return <div className="padding">
 
 
-            <RC.Button name="button" type="submit"
+            <RC.Button name="button" type="submit" bgColor="brand1"
                        onClick={this.payNow}
                        theme="full" buttonColor="brand">
                 Pay Now
             </RC.Button>
 
 
-            <RC.Button name="button" type="submit"
+            <RC.Button name="button" type="submit" bgColor="brand1"
                        onClick={this.payInStore}
                        theme="full" buttonColor="brand">
                 Pay In Store

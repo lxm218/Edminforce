@@ -104,7 +104,7 @@
                />
 
                 <br/><br/>
-                    <RC.Button name="button" type="submit"
+                    <RC.Button name="button" type="submit" bgColor="brand1"
                                onClick={this.goToNextPage}
                                theme="full" buttonColor="brand">
                         Process To Checkout

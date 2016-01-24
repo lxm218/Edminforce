@@ -206,6 +206,8 @@
 
             return <div>
                 <RC.Card key={Math.random()} className="padding">
+                    <RC.Item theme="body">
+
                     <h4 className="brand">Register for spring 2015</h4>
 
                     {/*swimmer && swimmer.name*/}
@@ -245,11 +247,11 @@
 
                         </div>:''
                     }
+                    </RC.Item>
 
                 </RC.Card>
 
-                <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit}>
-                    <RC.List theme="inset">
+                <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit} theme="padding">
 
                         {
                             this.data.currentStep == 1 ?
@@ -289,7 +291,7 @@
                             onChange={this.timeChange}
                             label="Time"
                             />
-                        <RC.Button name="button" type="submit"
+                        <RC.Button name="button" type="submit" bgColor="brand1"
                                    onClick={this.formSubmit}
                                    theme="full" buttonColor="brand">
                             {this.data.currentStep == 1 ? 'Book':'Select'}
@@ -298,7 +300,7 @@
 
                         {
                             this.data.currentStep == 1 ?
-                                    <RC.Button name="button"
+                                    <RC.Button name="button" bgColor="brand1"
                                                onClick={this.goToWaitingList}
                                                theme="full" buttonColor="brand">
                                         Waiting List
@@ -307,7 +309,6 @@
                         }
 
 
-                    </RC.List>
                 </RC.Form>
             </div>
         }

@@ -123,7 +123,7 @@
                                 changeHandler={this.timeChange}
                                 label="Time"
                                 />
-                            <RC.Button name="button" type="submit"
+                            <RC.Button name="button" type="submit" bgColor="brand1"
                                        onClick={this.formSubmit}
                                        theme="full" buttonColor="brand">
                                 Select

@@ -83,7 +83,7 @@ Cal.WriteComment = React.createClass({
                         placeholder="Add a comment(optional)"
                         label="Comment:">{currentComment}</RC.Textarea>
 
-                    <RC.Button name="button" type="submit"
+                    <RC.Button name="button" type="submit" bgColor="brand1"
                                theme="full" buttonColor="brand">
                         submit
                     </RC.Button>

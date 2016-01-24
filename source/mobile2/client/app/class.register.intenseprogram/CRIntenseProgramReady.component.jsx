@@ -174,7 +174,7 @@
 
 
                     <RC.URL href="/">
-                        <RC.Button name="button" type="submit"
+                        <RC.Button name="button" type="submit" bgColor="brand1"
                                    theme="full" buttonColor="brand">
                             Register More
                         </RC.Button>
@@ -183,7 +183,7 @@
 
 
                     <RC.URL href="/classRegister/RegBillingPage">
-                        <RC.Button name="button" type="submit"
+                        <RC.Button name="button" type="submit" bgColor="brand1"
                                    theme="full" buttonColor="brand">
                             Checkout
                         </RC.Button>

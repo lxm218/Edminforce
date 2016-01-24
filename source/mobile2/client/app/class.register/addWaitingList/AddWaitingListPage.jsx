@@ -207,11 +207,11 @@
 
                         {
                             this.data.currentStep == 3?
-                                <RC.Button name="button" type="submit"
+                                <RC.Button name="button" type="submit" bgColor="brand1"
                                         onClick={this.formSubmit} theme="full" buttonColor="brand">
                                 Add Waiting List
                             </RC.Button>:
-                                <RC.Button name="button" type="submit"
+                                <RC.Button name="button" type="submit" bgColor="brand1"
                                            onClick={this.formSubmit}
                                            theme="full" buttonColor="brand">
                                 Next
