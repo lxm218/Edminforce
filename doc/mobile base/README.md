@@ -1,3 +1,5 @@
+> **This document still in progress**
+
 # Package based Architecture
 
 You can think package is same with Modularity. So all the principles of Modularity, you can use it here.
@@ -95,5 +97,9 @@ Package name `edminforce-home`, then the global namespace should be `EdminForce.
 
 ## Reference
 1. [Converting a project to a package based architecture](http://experimentsinmeteor.com/package-based-architecture/)
-2. 
+2. [http://meteor.redandivory.com/#/](http://meteor.redandivory.com/#/)
+3. [Large Meteor projects - best practices](https://blog.tableflip.io/large-meteor-projects-best-practices/)
+4. [Building Large Apps: Tips](https://meteor.hackpad.com/Building-Large-Apps-Tips-d8PQ848nLyE)
+5. [Telescope](https://github.com/TelescopeJS/Telescope)
+
 
