@@ -41,7 +41,11 @@ List all the available Programs
 
   How to calculate:
   
-  `Class's current students number + Register trail student number<= Class's Max student + Class's trail Max student number` Then this day is available
+  `Register trail student number<= Class's Max student-Class's current students number`
+   
+   if `Class's trail Max student number` not 0,  `Register trail student number<=Class's trail Max student number`
+   
+   Then this day is available
   
   ***Note***
   
