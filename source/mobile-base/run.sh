@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-export PACKAGE_ROOT=$PWD/../library
-export PACKAGE_DIRS=$PACKAGE_ROOT/both:$PACKAGE_ROOT/mobile:$PACKAGE_ROOT/webapp:$PWD/../_packages_/both:$PWD/../_packages_/module
+export IHEALTH_ROOT=$PWD/../_packages_/ihealth-framework-ui/library
+export PACKAGE_DIRS=$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobile:$IHEALTH_ROOT/webapp:$PWD/../_packages_/module
 
 LOG=true
 PORT=5000
 DIR=$PWD
 
 
-startMongoDB(){
+startMongoDB() {
   echo "[INFO] Start Mongo DB Server"
   nohup mongod --dbpath ./data/db --port 6001 > /dev/null 2>&1 &
 }
