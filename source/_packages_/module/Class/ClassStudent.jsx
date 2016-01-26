@@ -15,14 +15,7 @@ let ClassStudent = class extends Base{
             process : KG.schema.default({
                 optional : true
             }),
-            createTime : KG.schema.default({
-                type: Date,
-                autoValue: function(){
-                    if (this.isInsert){
-                        return new Date();
-                    }
-                }
-            })
+            createTime : KG.schema.createTime()
         };
     }
 

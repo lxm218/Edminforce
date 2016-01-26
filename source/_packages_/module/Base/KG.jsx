@@ -49,6 +49,16 @@ KG.schema = {
             type : String,
             optional : false
         }, opts||{});
+    },
+    createTime : function(opts){
+        return _.extend({
+            type: Date,
+            autoValue: function(){
+                if (this.isInsert){
+                    return new Date();
+                }
+            }
+        }, opts||{});
     }
 };
 

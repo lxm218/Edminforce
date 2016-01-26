@@ -63,16 +63,16 @@ if(Meteor.isClient){
 
     let cacheUrl = '';
     FlowRouter.triggers.enter([function(param){
-        console.log(param);
-        App.checkLogin(function(flag){
-            if(!flag){
-                if(param.path !== '/home/login')
-                    Session.set(KG.const.CACHELOGINPATH, param.path);
-
-                FlowRouter.go('/home/login');
-            }
-
-        });
+        //console.log(param);
+        //App.checkLogin(function(flag){
+        //    if(!flag){
+        //        if(param.path !== '/home/login')
+        //            Session.set(KG.const.CACHELOGINPATH, param.path);
+        //
+        //        FlowRouter.go('/home/login');
+        //    }
+        //
+        //});
     }]);
 
 

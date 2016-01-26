@@ -117,9 +117,20 @@ let Base = class{
         if(Meteor.isServer){
             Meteor.startup(function(){
                 self.addTestData.call(self);
+
+                self._publishMeteorData.call(self);
             });
         }
 
+    }
+
+    _publishMeteorData(){
+        var self = this;
+        Meteor.publish(this._name, function(){
+            return self._db.find({});
+        });
+
+        console.log(`[${this._name} Data] is publish`);
     }
 
     initEnd(){}
