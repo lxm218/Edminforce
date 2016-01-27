@@ -51,14 +51,7 @@ let Class = class extends Base{
                 type : Date,
                 optional : true
             }),
-            createTime : KG.schema.default({
-                type: Date,
-                autoValue: function(){
-                    if (this.isInsert){
-                        return new Date();
-                    }
-                }
-            })
+            createTime : KG.schema.createTime()
         };
     }
     addTestData(){
