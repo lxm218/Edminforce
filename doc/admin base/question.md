@@ -22,9 +22,11 @@ UI -> [https://lxmworkshop.mybalsamiq.com/projects/edminforceadminwebapp-simplif
 7. 需要加入试课的最大人数限制吧 -> 我加上了，默认的如果是0，就是根据实际上课人数如果小于max，如果设置为1或2，这个就是max之外允许的人数
 8. 需要加入可选的Session吧 -> 我随后会加上
 9. 需要加入可选的Program吧 -> 我随后会加上
-10. 需要加入可以注册的开始和结束时间吧，或者在Status中加入一个字段表示目前阶段可以注册。-> 这个在session里面 
+10. 需要加入可以注册的开始和结束时间吧，或者在Status中加入一个字段表示目前阶段可以注册。-> 这个在session里面
 11. 需要加入总共的课程次数吧 -> 这个有了，number of class
 12. 需要加入每堂课的时间长度吧，看UI上是有的 -> 加上了，下拉列表（预设30 min, 45 min, 1 hr, 1.5 hr, 2 hr)
 
 (by malan)
+class 里面 有个schedule，这个是两个字段组成：day and time。 这个day就是 Day of Class里面的值。
 
+另外，class name 能否这个组合而成：program+level+day+time. 如果level为空，就是program+day+time
