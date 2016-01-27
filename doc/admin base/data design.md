@@ -5,6 +5,7 @@
 * name
 * description (maybe html string)
 * createTime
+* updateTime
 
 
 #### Session
@@ -15,4 +16,30 @@
 * registrationEndDate (equal endDate)
 * registrationStatus [Yes/No]
 * createTime
+* updateTime
 
+
+#### Student
+* accountID
+* accountName
+* nickname
+* profile (see StudentProfile)
+* status
+* skillLevel
+* createTime
+* updateTime
+
+##### StudentProfile
+* email
+* firstName
+* lastName
+* image
+* phone
+* location
+* emergencyPhone
+* emergencyContact
+* alternativePhone
+* alternativeContact
+* birthday
+* gender [Male/Female]
+* description
