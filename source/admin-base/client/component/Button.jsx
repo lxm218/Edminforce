@@ -24,8 +24,11 @@ KUI.NoButton = KUI.Class.define('ui.NoButton', {
     },
 
     click : function(){
-
-        this.props.onClick.apply(this, arguments);
+        var arg = [].slice.call(arguments);
+        if(this.props.param){
+            arg = [this.props.param].concat(arg);
+        }
+        this.props.onClick.apply(this, arg);
     },
 
     getRender : function(style){

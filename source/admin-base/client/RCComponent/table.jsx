@@ -53,12 +53,24 @@ KUI.Table = class extends RC.CSS{
     }
 
     renderTBody(){
-
+        var self = this;
         let eachTD = (item, index)=>{
             return (
                 <tr key={index}>
                     {
                         _.map(this.props.title, (one, i)=>{
+
+                            // if one.reactDom exist
+                            if(one.reactDom){
+                                if(_.isFunction(one.reactDom)){
+                                    return <td key={i}>{one.reactDom(item)}</td>;
+                                }
+                                else{
+                                    return <td key={i}>{one.reactDom}</td>;
+                                }
+                            }
+
+
                             let key = one.key.split('.');
                             let rs = item, n=0;
                             do{

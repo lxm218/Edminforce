@@ -28,9 +28,15 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         return KG.get('EF-Student');
     }
 
+
     render(){
+        let self = this;
 
         let style = this.css.get('styles');
+
+        let goToUrl = function(item){
+            alert(item._id);
+        };
 
         const titleArray = [
             {
@@ -57,6 +63,19 @@ KUI.Student_index = class extends RC.CSSMeteorData{
                 style : {
 
                 }
+            },
+            {
+                title : 'Level',
+                key : 'skillLevel',
+                style : {}
+            },
+            {
+                title : 'Action',
+                reactDom : function(item){
+                    return (
+                        <KUI.NoButton param={item} onClick={goToUrl} label="Edit"></KUI.NoButton>
+                    );
+                }
             }
         ];
 
@@ -65,7 +84,6 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         _.map(list, (item)=> {
             item.age = '';
             if(item.profile.birthday){
-                console.log(moment().year(), moment(item.profile.birthday).year());
                 item.age = moment().year() - moment(item.profile.birthday).year()
             }
             return item;
