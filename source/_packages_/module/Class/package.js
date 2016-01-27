@@ -20,6 +20,7 @@ Package.onUse(function(api) {
         'ClassStudent.jsx',
 
         'Program.jsx',
+        'Session.jsx',
         'Class.jsx'
     ], ["client","server"]);
 

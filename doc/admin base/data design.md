@@ -13,6 +13,6 @@
 * endDate
 * registrationStartDate
 * registrationEndDate (equal endDate)
-* registrationStatus
-
+* registrationStatus [Yes/No]
+* createTime
 

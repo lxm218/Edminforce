@@ -9,5 +9,9 @@ TestData = {
             name : 'P2',
             description : 'P2 program'
         }
+    ],
+
+    Session : [
+        
     ]
 };

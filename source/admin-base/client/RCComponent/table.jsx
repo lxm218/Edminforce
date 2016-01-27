@@ -45,7 +45,7 @@ KUI.Table = class extends RC.CSS{
             <thead><tr>
                 {
                     _.map(this.props.title, (item, index)=>{
-                        return <th key={index}>{item.title}</th>;
+                        return <th key={index} style={item.style}>{item.title}</th>;
                     })
                 }
             </tr></thead>

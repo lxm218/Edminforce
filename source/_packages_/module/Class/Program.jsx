@@ -26,14 +26,15 @@ KG.define('EF-Program', class extends Base{
     insert(data){
         //TODO validate
 
-        var rs = this._db.insert(data);
-
-        if(rs){
+        try{
+            var rs = this._db.insert(data, function(err){
+                throw err;
+            });
             return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.toString());
         }
-        else{
-            return KG.result.out(false, rs, 'insert fail');
-        }
+
     }
 
 });

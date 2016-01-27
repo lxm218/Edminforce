@@ -85,15 +85,24 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         const titleArray = [
             {
                 title : 'Programs',
-                key : 'name'
+                key : 'name',
+                style : {
+                    width : '30%'
+                }
             },
             {
                 title : 'Description',
-                key : 'description'
+                key : 'description',
+                style : {
+                    width : '50%'
+                }
             },
             {
                 title : 'Create Time',
-                key : 'createTime'
+                key : 'createTime',
+                style : {
+                    width : '20%'
+                }
             }
         ];
 
@@ -138,8 +147,8 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         });
     }
     resetAddBox(){
-        this.refs.pname.value = '';
-        this.refs.pdesc.value = '';
+        this.refs.pname.getInputDOMNode().value = '';
+        this.refs.pdesc.getInputDOMNode().value = '';
 
         this.setState({
             showAddBox : false
