@@ -15,7 +15,8 @@ Package.onUse(function(api) {
     ], ["client","server"]);
 
     api.addFiles([
-        'class.jsx'
+        'schema.jsx',
+        'Student.jsx'
     ], ["client","server"]);
 
 

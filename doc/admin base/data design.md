@@ -24,7 +24,7 @@
 * accountName
 * nickname
 * profile (see StudentProfile)
-* status
+* status [Active/Inactive]
 * skillLevel
 * createTime
 * updateTime

@@ -12,10 +12,10 @@ KG = {
         return cls;
     },
 
-    create : function(name){
+    create : function(name, opts){
         var cls = KG.getClass(name);
 
-        All[name] = new cls(name);
+        All[name] = new cls(name, opts);
         console.log('['+name+'] class is create success');
 
         return All[name];
@@ -55,6 +55,19 @@ KG.schema = {
             type: Date,
             autoValue: function(){
                 if (this.isInsert){
+                    return new Date();
+                }
+            }
+        }, opts||{});
+    },
+    updateTime : function(opts){
+        return _.extend({
+            type: Date,
+            autoValue: function(){
+                if (this.isInsert){
+                    return new Date();
+                }
+                if (this.isUpdate){
                     return new Date();
                 }
             }

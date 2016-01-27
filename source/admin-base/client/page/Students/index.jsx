@@ -1,67 +1,91 @@
 
 
-KUI.Student_index = KUI.Class.define('ui.Student-index', {
+KUI.Student_index = class extends RC.CSSMeteorData{
+    constructor(p){
+        super(p);
+    }
 
-    getMeteorData : function(){
-        var cls = KG.get('EF-Student').getDB();
-
-        return cls.find({}).fetch();
-    },
-
-    initStyle : function(){
-
-
+    baseStyles(){
         return {
-            h3 : {
-                position : 'relative',
-                top : '-10px',
-                textAlign : 'center',
-                marginBottom : '50px'
-            },
-            a : {
-                marginTop : '50px'
+            table : {
             }
         };
-    },
+    }
 
-    getEachTr : function(){
-        return <tbody>
-        {
-            _.map(this.data, (item, index)=>{
-                return <tr key={index}>
-                    <td>
-                        {item._id}
-                    </td>
-                    <td>
-                        {item.name}
-                    </td>
-                    <td>
-                        {item.accountID}
-                    </td>
+    getMeteorData(){
+        let list = this.getStudentModule().getDB().find({},{
+            sort : {
+                updateTime : -1
+            }
+        }).fetch();
 
-                </tr>;
-            })
-        }
-        </tbody>;
+        return {
+            list
+        };
+    }
 
-    },
+    getStudentModule(){
+        return KG.get('EF-Student');
+    }
 
-    getRender : function(style){
+    render(){
+
+        let style = this.css.get('styles');
+
+        const titleArray = [
+            {
+                title : 'Student',
+                key : 'nickName',
+                style : {
+                }
+            },
+            {
+                title : 'Gender',
+                key : 'profile.gender',
+                style : {
+                }
+            },
+            {
+                title : 'Age',
+                key : 'age',
+                style : {
+                }
+            },
+            {
+                title : 'Parents',
+                key : 'accountName',
+                style : {
+
+                }
+            }
+        ];
+
+        var list = this.data.list;
+
+        _.map(list, (item)=> {
+            item.age = '';
+            if(item.profile.birthday){
+                console.log(moment().year(), moment(item.profile.birthday).year());
+                item.age = moment().year() - moment(item.profile.birthday).year()
+            }
+            return item;
+
+        });
+
 
         return (
-            <RB.Table striped bordered condensed hover>
-                <thead><tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>AccountID</th>
-                </tr></thead>
-                {
-                    this.getEachTr()
-                }
-            </RB.Table>
+            <RC.Div>
 
+                <KUI.Table
+                    style={style.table}
+                    list={list}
+                    title={titleArray}
+                    ref="table"></KUI.Table>
+
+
+            </RC.Div>
         );
 
     }
+};
 
-}, 'Base');

@@ -59,9 +59,15 @@ KUI.Table = class extends RC.CSS{
                 <tr key={index}>
                     {
                         _.map(this.props.title, (one, i)=>{
-                            let key = one.key;
+                            let key = one.key.split('.');
+                            let rs = item, n=0;
+                            do{
+                                rs = rs[key[n]];
+                                n++;
+                            }while(key[n]);
+
                             return (
-                                <td key={i}>{item[key]}</td>
+                                <td key={i}>{rs}</td>
                             );
                         })
                     }
