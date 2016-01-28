@@ -13,9 +13,19 @@ if(Meteor.isClient){
     Route.route('/', {
         action: function (p) {
             App.routeHandler(p, {
-                pageTitle: "Home | Students",
+                pageTitle: "Students | Index",
                 bodyTmpl: <KUI.Student_index />
-            })
+            });
+        }
+    });
+
+    Route.route('/:id', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | profile",
+                bodyTmpl: <KUI.Student_profile />
+            });
+
         }
     });
 

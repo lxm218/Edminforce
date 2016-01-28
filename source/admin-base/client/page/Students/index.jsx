@@ -3,6 +3,10 @@
 KUI.Student_index = class extends RC.CSSMeteorData{
     constructor(p){
         super(p);
+
+        this.state = {
+            query : {}
+        };
     }
 
     baseStyles(){
@@ -13,7 +17,9 @@ KUI.Student_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
-        let list = this.getStudentModule().getDB().find({},{
+        let query = this.state.query;
+
+        let list = this.getStudentModule().getDB().find(query,{
             sort : {
                 updateTime : -1
             }
@@ -35,7 +41,8 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         let style = this.css.get('styles');
 
         let goToUrl = function(item){
-            alert(item._id);
+            let url = '/student/'+item._id;
+            FlowRouter.go(url);
         };
 
         const titleArray = [
@@ -91,8 +98,12 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         });
 
 
+
         return (
             <RC.Div>
+                {this.getSearchBox()}
+
+                <hr />
 
                 <KUI.Table
                     style={style.table}
@@ -104,6 +115,86 @@ KUI.Student_index = class extends RC.CSSMeteorData{
             </RC.Div>
         );
 
+    }
+
+    getSearchBox(){
+        var p = {
+            name : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'sname',
+                label : 'Search Students'
+            },
+            active : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-4',
+                ref : 'sactive',
+                label : 'Active'
+            }
+        };
+
+        const style = {
+            marginTop : '40px'
+        };
+
+        const sy = {
+            td : {
+                textAlign : 'left'
+            },
+            ml : {
+                marginLeft : '20px'
+            },
+            rd : {
+                textAlign : 'right'
+            }
+        };
+
+        let option = ['Active', 'Inactive'];
+
+        return (
+            <RC.Div style={style}>
+                <RB.Row>
+                    <RB.Col md={12} mdOffset={0}>
+                        <form className="form-horizontal">
+
+                            <RB.Input type="text" {... p.name} />
+
+
+                            <RB.Input type="select" {... p.active}>
+                                {
+                                    _.map(option, (item, index)=>{
+                                        return <option key={index} value={item}>{item}</option>;
+                                    })
+                                }
+                            </RB.Input>
+
+                            <RC.Div style={sy.rd}>
+                                <KUI.YesButton style={sy.ml} onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
+                            </RC.Div>
+                        </form>
+                    </RB.Col>
+                </RB.Row>
+            </RC.Div>
+        );
+    }
+
+    search(){
+        let sname = this.refs.sname,
+            sa = this.refs.sactive;
+
+        //TODO input to Student module
+        let query = {};
+        if(sname.getValue()){
+            query.nickName = new RegExp(sname.getValue(), 'i');
+        }
+        if(sa.getValue){
+            query.status = sa.getValue();
+        }
+
+        console.log(query);
+        this.setState({
+            query : query
+        });
     }
 };
 
