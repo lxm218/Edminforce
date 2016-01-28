@@ -20,4 +20,10 @@ insecure                # Allow all DB writes from clients (for prototyping)
 ############################################################
 # Added by Manually
 
-edminforceapp
+edminforce@0.0.1
+edminforce:lib@0.0.1
+edminforce:i18n@0.0.1
+edminforce:core@0.0.1
+edminforce:settings@0.0.1
+edminforce:home@0.0.1
+edminforce:users@0.0.1

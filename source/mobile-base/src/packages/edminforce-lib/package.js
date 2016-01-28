@@ -20,6 +20,11 @@ Package.onUse(function (api) {
         'sewdn:collection-behaviours@0.3.0',
         'momentjs:moment@2.10.6',
         'izzilab:material-ui@0.2.4',
+        'meteorflux:dispatcher',
+        'meteorflux:reactive-dependency',
+        'ihealth:utils',
+        'ihealth:framework-engine',
+        'ihealth:framework-mobile',
         'edminforce'
     ];
 

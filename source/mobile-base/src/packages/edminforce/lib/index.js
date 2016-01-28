@@ -4,6 +4,8 @@
 
 EdminForce = {};
 
+EdminForce.utils = {};
+
 // Store all collections on this object
 EdminForce.Collections = {};
 

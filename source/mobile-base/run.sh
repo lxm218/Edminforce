@@ -4,7 +4,7 @@ export IHEALTH_ROOT=$PWD/../_packages_/ihealth-framework-ui/library
 export PACKAGE_DIRS=$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobile:$IHEALTH_ROOT/webapp:$PWD/../_packages_/module
 
 LOG=true
-PORT=5000
+PORT=5010
 DIR=$PWD
 
 
@@ -18,10 +18,14 @@ stopMongoDB() {
   stopProcess "tail.*logs/mongodb"
 }
 
-stopMongoDB
-startMongoDB
+stopProcess() {
+  ps -ef | grep "$1" | grep -v grep | awk '{print $2}' | xargs kill -9
+}
 
-export MONGO_URL=mongodb://localhost:6001/meteor
+#stopMongoDB
+#startMongoDB
+
+#export MONGO_URL=mongodb://localhost:6001/meteor
 
 cd src
 
