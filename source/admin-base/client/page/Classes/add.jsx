@@ -330,7 +330,7 @@ KUI.Class_comp_add = class extends RC.CSS{
                         <RB.Input type="select" {... p.tuitionType}>
                             {
                                 _.map(option.tuitionType, (item, index)=>{
-                                    return <option key={index} value={item}>{item} class</option>;
+                                    return <option key={index} value={item}>{`${item} class`}</option>;
                                 })
                             }
                         </RB.Input>
@@ -345,6 +345,44 @@ KUI.Class_comp_add = class extends RC.CSS{
                 </form>
             </RB.Row>
         );
+    }
+
+    componentDidMount(){
+        super.componentDidMount();
+        if(this.props['init-data']){
+            this.setValue(this.props['init-data']);
+        }
+    }
+
+    setValue(data){
+        let {
+            name, program, session, status, teacher, len, number, maxAge, minAge,
+            level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime
+            } = this.getReactObj();
+        name.getInputDOMNode().value = data.nickName;
+        program.getInputDOMNode().value = data.programID;
+        session.getInputDOMNode().value = data.sessionID;
+        status.getInputDOMNode().value = data.status;
+        teacher.getInputDOMNode().value = data.teacher || '';
+        len.getInputDOMNode().value = data.length;
+        number.getInputDOMNode().value = data.numberOfClass;
+        maxAge.getInputDOMNode().value = data.maxAgeRequire || '';
+        minAge.getInputDOMNode().value = data.minAgeRequire || '';
+        level.getInputDOMNode().value = data.level;
+        gender.getInputDOMNode().value = data.genderRequire;
+        trial.getInputDOMNode().value = data.trialStudent || '';
+        min.getInputDOMNode().value = data.minStudent || '';
+        max.getInputDOMNode().value = data.maxStudent || '';
+        tuitionMoney.getInputDOMNode().value = data.tuition.money || '';
+        tuitionType.getInputDOMNode().value = data.tuition.type;
+        scheduleDay.getInputDOMNode().value = data.schedule.day;
+        scheduleTime.getInputDOMNode().value = data.schedule.time;
+    }
+
+    componentWillUpdate(np, ns){
+        super.componentWillUpdate(np, ns);
+
+        this.setValue(np['init-data']);
     }
 };
 

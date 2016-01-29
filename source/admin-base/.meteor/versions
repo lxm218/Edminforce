@@ -3,7 +3,6 @@ alanning:roles@1.2.14
 aldeed:collection2@2.3.3
 aldeed:simple-schema@1.5.3
 aramk:tinycolor@1.1.0_1
-autopublish@1.0.4
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
@@ -43,7 +42,6 @@ id-map@1.0.4
 ihealth:framework-engine@0.5.7
 ihealth:framework-webapp@0.4.3
 ihealth:utils@0.1.5
-insecure@1.0.4
 jag:pince@0.0.6
 jquery@1.11.4
 jsx@0.2.3

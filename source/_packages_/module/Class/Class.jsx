@@ -66,9 +66,23 @@ let Class = class extends Base{
         }
 
         try{
-            let rs = this._db.insert(data, function(err){
-                throw err;
-            });
+            let rs = this._db.insert(data);
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.toString());
+        }
+    }
+
+    updateById(data, id){
+        data = this.makeDefault(data);
+        let vd = this.validate(data);
+        if(vd !== true){
+            return KG.result.out(false, vd, vd.toString());
+        }
+
+
+        try{
+            let rs = this._db.update({_id : id}, {'$set' : data});
             return KG.result.out(true, rs);
         }catch(e){
             return KG.result.out(false, e, e.toString());

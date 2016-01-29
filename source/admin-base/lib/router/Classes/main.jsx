@@ -24,6 +24,16 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/detail/:id', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Class | detail",
+                bodyTmpl: <KUI.Class_detail />
+            });
+
+        }
+    });
+
 
 
 
