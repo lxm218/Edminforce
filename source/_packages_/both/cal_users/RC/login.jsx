@@ -22,8 +22,16 @@ Cal.User = React.createClass({
       buttonActive: false,
       waiting: false,
       action: _.contains(["login","register","reset"], this.props.action) ? this.props.action : "login",
-      msg: null,
+      msg: [],
       notification: null
+    }
+  },
+
+   messageInfo(){
+    return {
+      "pwFormatError": "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
+      "termError": "Please accept the following terms of use.",
+      "emailError": "Entered E-mail is not in record."
     }
   },
   /**
@@ -48,23 +56,37 @@ Cal.User = React.createClass({
     })
     if (this.state.action == 'register' && form.pwRepeat){
       if (!App.checkPassword(form.pw)) {
+        var message = this.state.msg ? this.state.msg : []
+        message.push(this.messageInfo()['pwFormatError'])
         this.setState({
-          msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
+          msg: message,
           buttonActive: false
         })
         return
       } else if (this.state.msg) {
-        this.setState({ msg: null })
+        this.setState({ msg: [] })
+      }
+      if (form.term == '1'){
+        var message = this.state.msg ? this.state.msg : []
+        var index = message.indexOf(this.messageInfo()['termError'])
+        if (index != -1) {
+          message = message.slice(0, index) + message.slice(index + 1, message.length)
+          this.setState({
+            msg: message,
+            buttonActive: true
+          })
+        }
       }
     }
     if (this.state.action == 'login' && form.password){
       if (this.state.msg) {
-        this.setState({ msg: null })
+        this.setState({ msg: [] })
       }
     }
     if (test !== this.state.buttonActive)
       this.setState({ buttonActive: test })
   },
+
   resetForm(){
     this.setState({
       waiting: false,
@@ -106,7 +128,7 @@ Cal.User = React.createClass({
 
   login(e){
     e.preventDefault()
-    if (this.state.msg) return null
+    if (this.state.msg && this.state.msg.length != 0) return null
 
     let form = this.refs.loginForm.getFormData()
 
@@ -117,7 +139,7 @@ Cal.User = React.createClass({
       Meteor.loginWithPassword( form.username, form.password, function(err){
 
         if (!err){
-          if (form.keepName == 'on') {
+          if (form.keepName == '1') {
             Cookie.set('username', form.username)
           } else  {
             Cookie.clear('username')
@@ -151,22 +173,26 @@ Cal.User = React.createClass({
 
   register(e){
     e.preventDefault()
-    if (this.state.msg) return null
+    if (this.state.msg && this.state.msg.length != 0) return null
 
     let self = this
     let form = this.refs.registerForm.getFormData()
 
-    if (form.term != 'on') {
-      this.setState({
-        notification: "Please accept the following terms of use."
-      })
+    if (form.term != '1') {
+        var message = this.state.message ? this.state.msg : []
+        message.push(this.messageInfo()['termError'])
+        this.setState({
+          msg: message,
+        })
       return null
     }
 
     if (form.pw==form.pwRepeat) {
       if (!App.checkPassword(form.pw)) {
+        var message = this.state.msg ? this.state.msg : []
+        message.push(this.messageInfo()['pwFormatError'])
         this.setState({
-          msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers."
+          msg: message,
         })
         return
       }
@@ -212,15 +238,15 @@ Cal.User = React.createClass({
 
   reset(e){
     e.preventDefault()
-    if (this.state.msg) return null
+    if (this.state.msg && this.state.msg.length != 0) return null
 
     let form = this.refs.resetForm.getFormData()
 
     if (form.email.length) {
-      // Attempt Log In
-      let self = this
-      this.setState({ waiting: true })
-      Meteor.call('CheckEmail', form.email, function(err, result){
+        // Attempt Log In
+        let self = this
+        this.setState({ waiting: true })
+        Meteor.call('CheckEmail', form.email, function(err, result){
 
         if (!!err) {
           console.log(err)
@@ -353,7 +379,7 @@ Cal.User = React.createClass({
         return (
           <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
             {this.printMsg()}
-            <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" />
+            <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" value="" />
             <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
               {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Send Password Reset E-mail"}
             </RC.Button>
