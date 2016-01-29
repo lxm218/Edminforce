@@ -32,7 +32,7 @@ let Student = class extends Base{
             {
                 accountID : 'test AccountID',
                 accountName : 'test AccountName',
-                nickName : 'Tom',
+                nickName : 'Tom1',
                 profile : {
                     birthday : moment('19901111', 'YYYYMMDD').toDate(),
                     gender : 'Male'
@@ -46,6 +46,15 @@ let Student = class extends Base{
             self._db.insert(item);
         });
 
+    }
+
+    publishMeteorData(){
+        let self = this;
+        Meteor.publish(this._name, function(query, sort){
+            query = query || {};
+            sort = sort || {};
+            return self._db.find(query, sort);
+        });
     }
 };
 

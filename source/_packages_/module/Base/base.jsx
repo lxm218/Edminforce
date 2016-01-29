@@ -57,11 +57,31 @@ let Base = class{
 
         this.initDBSchema();
         this.initDB();
+        this.initDBPermission();
         this.initDBEnd();
     }
 
     initDBSchema(){
         this._schema = this.defineDBSchema();
+    }
+
+    defineDBPermission(){
+        return {
+            insert : function(){
+                return true;
+            },
+            update : function(){
+                return true;
+            },
+            remove : function(){
+                return true;
+            }
+        };
+    }
+
+    initDBPermission(){
+        var perm = this.defineDBPermission();
+        this._db.allow(perm);
     }
 
     /*
@@ -125,14 +145,11 @@ let Base = class{
     }
 
     _publishMeteorData(){
-        var self = this;
-        Meteor.publish(this._name, function(){
-            return self._db.find({});
-        });
 
-        console.log(`[${this._name} Data] is publish`);
+        this.publishMeteorData();
+
     }
-
+    publishMeteorData(){}
     initEnd(){}
     addTestData(){}
 

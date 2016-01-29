@@ -17,6 +17,8 @@ KUI.Student_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
+        Meteor.subscribe('EF-Student', {});
+
         let query = this.state.query;
 
         let list = this.getStudentModule().getDB().find(query,{
@@ -40,10 +42,6 @@ KUI.Student_index = class extends RC.CSSMeteorData{
 
         let style = this.css.get('styles');
 
-        let goToUrl = function(item){
-            let url = '/student/'+item._id;
-            FlowRouter.go(url);
-        };
 
         const titleArray = [
             {
@@ -78,9 +76,37 @@ KUI.Student_index = class extends RC.CSSMeteorData{
             },
             {
                 title : 'Action',
+                style : {
+                    textAlign : 'center'
+                },
                 reactDom : function(item){
+                    const sy = {
+                        cursor : 'pointer',
+                        position : 'relative',
+                        top : '2px'
+                    };
+                    const ml = {
+                        marginLeft : '10px',
+                        cursor : 'pointer'
+                    };
+
+                    var del = function(){
+                        util.dialog.confirm({
+                            msg : 'delete this student?',
+                            YesFn : function(){
+                                KG.get('EF-Student').getDB().remove({
+                                    _id : item._id
+                                });
+                            }
+                        });
+                    };
+
                     return (
-                        <KUI.NoButton param={item} onClick={goToUrl} label="Edit"></KUI.NoButton>
+                        <RC.Div style={{textAlign:'center'}}>
+                            <RC.URL href={`/student/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
+                            <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
+                        </RC.Div>
+
                     );
                 }
             }

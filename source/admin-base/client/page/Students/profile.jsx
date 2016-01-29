@@ -15,14 +15,21 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
+        let sub = Meteor.subscribe('EF-Student', {
+            _id : this.getProfileId()
+        });
 
         let id = this.getProfileId(),
-            profile = this.getStudentModule().getDB().findOne({
-                _id : id
-            });
+            profile = {};
+
+        if(sub.ready()){
+            profile = this.getStudentModule().getDB().findOne();
+
+        }
 
         return {
             id,
+            ready : sub.ready(),
             profile
         };
     }
@@ -161,10 +168,8 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
         alert('update success');
     }
 
-    componentDidMount(){
-        super.componentDidMount();
+    setDefaultValue(){
 
-        //console.log(this.data.profile);
         let data = this.data.profile;
         let {name, gender, birthday, status} = this.getRefs();
 
@@ -176,6 +181,13 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
         $(birthday.getInputDOMNode()).datepicker('setDate', data.profile.birthday);
         status.getInputDOMNode().value = data.status;
 
+    }
+
+    componentWillUpdate(np, ns){
+        super.componentWillUpdate(np, ns);
+
+        if(!this.data.ready) return;
+        this.setDefaultValue();
     }
 
 
