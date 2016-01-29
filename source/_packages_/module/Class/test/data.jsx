@@ -13,5 +13,23 @@ TestData = {
 
     Session : [
         
+    ],
+
+    Class : [
+        {
+            name : 'Test Class One',
+            length : '60 min',
+            teacher : 'Jason',
+            schedule : {
+                day : 'Mon',
+                time : '09:00AM'
+            },
+            maxStudent : 3,
+            trialStudent : 1,
+            maxAgeRequire: 20,
+            programID : 'null',
+            sessionID : 'null',
+            numberOfClass : 10
+        }
     ]
 };

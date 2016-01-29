@@ -15,7 +15,7 @@ Schema.StudentProfile = {
 let list = [
     'email','firstName','lastName','image','phone','location',
     'emergencyPhone', 'emergencyContact', 'alternativePhone', 'alternativeContact',
-    'description'
+    'description', 'school', 'note', 'medicalInfo'
 ];
 
 _.each(list, function(item){

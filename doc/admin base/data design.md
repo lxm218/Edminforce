@@ -22,7 +22,7 @@
 #### Student
 * accountID
 * accountName
-* nickname
+* nickName
 * profile (see StudentProfile)
 * status [Active/Inactive]
 * skillLevel
@@ -43,3 +43,27 @@
 * birthday
 * gender [Male/Female]
 * description
+* school
+* medicalInfo
+* note
+
+
+#### Class
+* name
+* program
+* session
+* status
+* level
+* teacher
+* schedule (include "day, time")
+* length
+* tuition (include "type [each/total], money")
+* numberOfClass
+* maxStudent
+* minStudent
+* trialStudent
+* genderRequire
+* maxAgeRequire
+* minAgeRequire
+* createTime
+* updateTime

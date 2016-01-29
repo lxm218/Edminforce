@@ -136,6 +136,16 @@ let Base = class{
     initEnd(){}
     addTestData(){}
 
+    getSchemaConst(key){
+        if(!Schema || !Schema.const){
+            throw new Error(`[${this._name} module] is not define Schema.const`);
+        }
+        let d = Schema.const;
+
+        if(key) return d[key] || null;
+        else return d;
+    }
+
 };
 
 
