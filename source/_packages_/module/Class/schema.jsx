@@ -20,11 +20,15 @@ Schema.ClassTuition = {
     type : KG.schema.default({
         allowedValues : Schema.const.tuitionType
     }),
-    money : KG.schema.default({})
+    money : KG.schema.default({
+        label : 'Tuition money'
+    })
 };
 
 Schema.Class = {
-    name : KG.schema.default(),
+    name : KG.schema.default({
+        optional : true
+    }),
 
     programID : KG.schema.default(),
     sessionID : KG.schema.default(),
@@ -64,11 +68,13 @@ Schema.Class = {
     minAgeRequire : KG.schema.default({
         type : Number,
         defaultValue : 0,
-        optional : true
+        optional : true,
+        label : 'Minimum Age'
     }),
     maxAgeRequire : KG.schema.default({
         type : Number,
-        optional : true
+        optional : true,
+        label : 'Maximum Age'
     }),
     genderRequire : KG.schema.default({
         allowedValues : Schema.const.genderRequire,

@@ -74,7 +74,7 @@ let Base = class{
     }
 
     getDBSchema(){
-        return this._schema;
+        return this._db ? this._db.simpleSchema() : null;
     }
 
     /*
@@ -136,17 +136,6 @@ let Base = class{
     initEnd(){}
     addTestData(){}
 
-    getSchemaConst(key){
-
-        //TODO has error
-        if(_.isUndefined(Schema) || _isUndefined(Schema.const)){
-            throw new Error(`[${this._name} module] is not define Schema.const`);
-        }
-        let d = Schema.const;
-
-        if(key) return d[key] || null;
-        else return d;
-    }
 
 };
 

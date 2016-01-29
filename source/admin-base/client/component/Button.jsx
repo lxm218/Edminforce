@@ -4,7 +4,13 @@ KUI.YesButton = KUI.Class.define('ui.YesButton', {
         return this.props.style || {};
     },
 
-    click : function(){
+    click : function(e){
+        e.preventDefault();
+
+        if(this.props.href){
+            FlowRouter.go(this.props.href);
+            return false;
+        }
 
         this.props.onClick.apply(this, arguments);
     },

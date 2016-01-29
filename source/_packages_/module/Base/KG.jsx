@@ -53,6 +53,7 @@ KG.schema = {
     createTime : function(opts){
         return _.extend({
             type: Date,
+            optional : true,
             autoValue: function(){
                 if (this.isInsert){
                     return new Date();
@@ -63,6 +64,7 @@ KG.schema = {
     updateTime : function(opts){
         return _.extend({
             type: Date,
+            optional : true,
             autoValue: function(){
                 if (this.isInsert){
                     return new Date();
@@ -86,7 +88,8 @@ KG.result = {
     handle : function(rs, opts){
         var type = rs.status;
 
-        opts.error = opts.error || function(){
+        opts.error = opts.error || function(err, rs){
+                console.log(err);
                 alert(rs.statusText);
             };
 

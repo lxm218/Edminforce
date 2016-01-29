@@ -9,8 +9,8 @@ if(Meteor.isClient){
     Route.route('/', {
         action: function (p) {
             App.routeHandler(p, {
-                pageTitle: "Home | Classes",
-                bodyTmpl: <KUI.Classes_index />
+                pageTitle: "Class | index",
+                bodyTmpl: <KUI.Class_index />
             })
         }
     });
@@ -18,7 +18,7 @@ if(Meteor.isClient){
     Route.route('/add', {
         action: function (p) {
             App.routeHandler(p, {
-                pageTitle: "Classes | add",
+                pageTitle: "Class | add",
                 bodyTmpl: <KUI.Class_add />
             })
         }
