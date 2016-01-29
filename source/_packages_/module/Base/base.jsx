@@ -137,7 +137,9 @@ let Base = class{
     addTestData(){}
 
     getSchemaConst(key){
-        if(!Schema || !Schema.const){
+
+        //TODO has error
+        if(_.isUndefined(Schema) || _isUndefined(Schema.const)){
             throw new Error(`[${this._name} module] is not define Schema.const`);
         }
         let d = Schema.const;

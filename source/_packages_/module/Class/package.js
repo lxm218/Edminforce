@@ -16,6 +16,7 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'test/data.jsx',
+        'schema.jsx',
 
         'ClassStudent.jsx',
 

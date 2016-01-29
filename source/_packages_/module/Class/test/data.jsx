@@ -24,6 +24,11 @@ TestData = {
                 day : 'Mon',
                 time : '09:00AM'
             },
+            status : 'Active',
+            tuition : {
+                type : 'total',
+                money : '200$'
+            },
             maxStudent : 3,
             trialStudent : 1,
             maxAgeRequire: 20,

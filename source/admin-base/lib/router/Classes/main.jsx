@@ -19,7 +19,7 @@ if(Meteor.isClient){
         action: function (p) {
             App.routeHandler(p, {
                 pageTitle: "Classes | add",
-                bodyTmpl: <KUI.Classes_add />
+                bodyTmpl: <KUI.Class_add />
             })
         }
     });
