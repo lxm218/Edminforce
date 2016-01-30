@@ -11,7 +11,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
-        //let listC = Meteor.subscribe('EF-Program', {});
+        let x = Meteor.subscribe('EF-Program');
 
         let list = KG.get('EF-Program').getDB().find({}, {
             sort : {
@@ -21,7 +21,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
 
         return {
             list : list,
-            isReady : false
+            ready : x.ready()
         };
     }
 
@@ -94,14 +94,49 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                 title : 'Description',
                 key : 'description',
                 style : {
-                    width : '50%'
+                    width : '60%'
                 }
             },
             {
-                title : 'Create Time',
-                key : 'createTime',
+                title : 'Action',
                 style : {
-                    width : '20%'
+                    textAlign : 'center'
+                },
+                reactDom : function(item){
+                    const sy = {
+                        cursor : 'pointer',
+                        position : 'relative',
+                        top : '2px'
+                    };
+                    const ml = {
+                        //marginLeft : '10px',
+                        cursor : 'pointer'
+                    };
+
+                    var del = function(){
+                        util.dialog.confirm({
+                            msg : 'Delete this Program?',
+                            YesFn : function(){
+                                let rs = KG.get('EF-Program').removeById(item._id, function(flag, err){
+                                    if(!flag){
+                                        alert(err);
+                                    }
+
+                                });
+
+                            }
+                        });
+                    };
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+                            {/*
+                            <RC.URL><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
+                            */}
+                            <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
+                        </RC.Div>
+
+                    );
                 }
             }
         ];

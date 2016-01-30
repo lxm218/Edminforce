@@ -22,6 +22,12 @@ KG.define('EF-Program', class extends Base{
         }, this);
     }
 
+    publishMeteorData(){
+        Meteor.publish(this._name, ()=>{
+            return this._db.find();
+        });
+    }
+
     // insert api
     insert(data){
         //TODO validate
@@ -35,6 +41,31 @@ KG.define('EF-Program', class extends Base{
             return KG.result.out(false, e, e.toString());
         }
 
+    }
+
+    removeById(id, callback){
+        let one = this._db.findOne({_id:id});
+        if(!one){
+            return KG.result.out(false, {}, '纪录不存在');
+        }
+
+        //check can delete or not
+        let tmp = this.getClassModule().callMeteorMethod('isProgramExist', [id], {
+            success : (flag)=>{
+                if(flag){
+                    callback(false, '在Class表中有包含此Program的纪录，无法删除');
+                }
+                else{
+                    this._db.remove({_id:id});
+                    callback(true, {});
+                }
+            }
+        });
+
+    }
+
+    getClassModule(){
+        return KG.get('EF-Class');
     }
 
 });

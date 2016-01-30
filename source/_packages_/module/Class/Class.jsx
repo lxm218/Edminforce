@@ -18,6 +18,7 @@ let Class = class extends Base{
 
     }
 
+
     makeDefault(data){
         if(_.isUndefined(data.minStudent)){
             data.minStudent = 0;
@@ -66,7 +67,9 @@ let Class = class extends Base{
         }
 
         try{
-            let rs = this._db.insert(data);
+            let rs = this._db.insert(data, function(err){
+                throw err;
+            });
             return KG.result.out(true, rs);
         }catch(e){
             return KG.result.out(false, e, e.toString());
@@ -96,6 +99,11 @@ let Class = class extends Base{
 
 
     getAll(query){
+        if(Meteor.isClient){
+            Meteor.subscribe('EF-Program');
+            Meteor.subscribe('EF-Session');
+        }
+
         query = query || {};
 
         let program = KG.get('EF-Program').getDB().find({}).fetch(),
@@ -129,6 +137,22 @@ let Class = class extends Base{
         });
 
         return data;
+    }
+
+    defineMeteorMethod(){
+        let self = this;
+        return {
+            isProgramExist : function(programID){
+                //run in server
+                let rs = self._db.find({programID : programID}).count();
+                return rs > 0;
+            }
+        };
+    }
+
+    isProgramExist(programID){
+        let rs = this._db.find({programID : programID}).count();
+        return rs > 0;
     }
 };
 

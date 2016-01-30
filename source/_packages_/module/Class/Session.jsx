@@ -24,6 +24,7 @@ KG.define('EF-Session', class extends Base{
         };
     }
 
+
     insert(data){
         //TODO validate
 

@@ -13,15 +13,21 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
-        Meteor.subscribe('EF-Class');
+
+        let x = Meteor.subscribe('EF-Class', {
+            query : {
+                _id : this.getClassId()
+            }
+        });
 
         let id = this.getClassId();
-        let data = KG.get('EF-Class').getAll({
-            _id : id
-        })[0];
+        let data = KG.get('EF-Class').getAll()[0];
+
 
         return {
-            data : data
+            ready : x.ready(),
+            data : data,
+            id : id
         };
     }
 
@@ -32,6 +38,9 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
     }
 
     render(){
+        if(!this.data.ready){
+            return null;
+        }
         let data = this.data.data;
 
         return (

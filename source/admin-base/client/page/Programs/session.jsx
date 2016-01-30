@@ -11,6 +11,9 @@ KUI.Program_session = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
+
+        let x = Meteor.subscribe('EF-Session');
+
         let list = this.getSessionModule().getDB().find({}, {
             sort : {
                 createTime : -1

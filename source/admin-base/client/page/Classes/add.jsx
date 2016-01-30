@@ -13,21 +13,33 @@ let TIME = [
     '08:00PM', '08:30PM'
 ];
 
-KUI.Class_comp_add = class extends RC.CSS{
+KUI.Class_comp_add = class extends RC.CSSMeteorData{
 
     getProgramData(){
+
         let m = KG.get('EF-Program');
         return m.getDB().find({}, {sort:{
             createTime : -1
         }}).fetch();
     }
     getSessionData(){
+
         let m = KG.get('EF-Session');
         return m.getDB().find({}, {
             sort : {
                 updateTime : -1
             }
         }).fetch();
+    }
+
+    getMeteorData(){
+        Meteor.subscribe('EF-Program');
+        Meteor.subscribe('EF-Session');
+
+        return {
+            program : this.getProgramData(),
+            session : this.getSessionData()
+        };
     }
 
     getReactObj(){
@@ -114,8 +126,8 @@ KUI.Class_comp_add = class extends RC.CSS{
 
     getSelectOption(){
         return {
-            program : this.getProgramData(),
-            session : this.getSessionData(),
+            program : this.data.program,
+            session : this.data.session,
             status : KG.get('EF-Class').getDBSchema().schema('status').allowedValues,
             lengthOfClass : ['30 min', '45 min', '1 hr', '1.5 hr', '2 hr'],
             scheduleDay : KG.get('EF-Class').getDBSchema().schema('schedule.day').allowedValues,
@@ -382,7 +394,8 @@ KUI.Class_comp_add = class extends RC.CSS{
     componentWillUpdate(np, ns){
         super.componentWillUpdate(np, ns);
 
-        this.setValue(np['init-data']);
+        if(np['init-data'])
+            this.setValue(np['init-data']);
     }
 };
 
@@ -430,6 +443,7 @@ KUI.Class_add = class extends RC.CSS{
             success : function(json){
                 console.log(json);
                 alert('insert success');
+                util.goPath('/classes');
             }
         });
     }

@@ -35,6 +35,15 @@ let Base = class{
         _.each(cm, function(method, key){
             self[key] = method.bind(self);
         });
+
+        if(Meteor.isServer){
+            let mm = this.defineMeteorMethod();
+            let mms = {};
+            _.each(mm, (item, key)=>{
+                mms[this._name+':'+key] = item;
+            });
+            Meteor.methods(mms);
+        }
     }
 
     /*
@@ -52,6 +61,43 @@ let Base = class{
     defineClientMethod(){
         return {};
     }
+
+    defineMeteorMethod(){
+        return {};
+    }
+
+    callMeteorMethod(methodName, args, opts){
+        let self = this;
+        opts = _.extend({
+            error : function(err){
+                console.error(err);
+            },
+            success : function(rs){
+                console.log(rs);
+            },
+            context : self
+        }, opts||{});
+
+        Meteor.apply(this._name+':'+methodName, args, function(error, rs){
+            if(error){
+                opts.error.call(opts.context, error);
+                return;
+            }
+
+            opts.success.call(opts.context, rs);
+        });
+    }
+    //callMeteorMethodAsync(methodName, args){
+    //    let fn = (param, callback)=>{
+    //        Meteor.apply(this._name+'__'+methodName, param, callback);
+    //    };
+    //
+    //    fn = Meteor.wrapAsync(fn);
+    //
+    //    let tmp = fn(args);
+    //    console.log(tmp);
+    //    return tmp;
+    //}
 
     _initDB(){
 
@@ -149,7 +195,28 @@ let Base = class{
         this.publishMeteorData();
 
     }
-    publishMeteorData(){}
+    publishMeteorData(){
+        Meteor.publish(this._name, (opts)=>{
+            opts = _.extend({
+                query : {},
+                sort : {},
+                pageSize : 100,
+                pageNum : 1,
+                field : null
+            }, opts||{});
+            let skip = opts.pageSize * (opts.pageNum-1);
+            let option = {
+                sort : opts.sort,
+                skip : skip,
+                limit : opts.pageSize
+            };
+            if(opts.field){
+                option.fields = opts.field;
+            }
+
+            return this._db.find(opts.query, option);
+        });
+    }
     initEnd(){}
     addTestData(){}
 

@@ -11,6 +11,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
     }
 
     getProgramData(){
+
+
+
         let m = KG.get('EF-Program');
         return m.getDB().find({}, {sort:{
             createTime : -1
@@ -34,6 +37,11 @@ KUI.Class_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
+        Meteor.subscribe('EF-Class');
+        Meteor.subscribe('EF-Program');
+        Meteor.subscribe('EF-Session');
+
+
         let list = KG.get('EF-Class').getAll();
 
         return {
