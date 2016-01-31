@@ -49,10 +49,10 @@ IH.Schema.Users = new SimpleSchema({
     optional: true
   },
   roles: {
-   type: Object,
-   blackbox: true,
-   optional: true
- },
+    type: Object,
+    blackbox: true,
+    optional: true
+  },
   profile: {
     type: Object,
     optional: true,

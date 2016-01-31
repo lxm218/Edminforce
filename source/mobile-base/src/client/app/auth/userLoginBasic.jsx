@@ -9,7 +9,7 @@ EdminForce.Components.Login = React.createClass({
 
 
     return<EdminForce.Components.User fullHeight={true} theme="overlay-dark" bgColor="brand-light">
-      </EdminForce.Components.User>
+    </EdminForce.Components.User>
 
   }
 })

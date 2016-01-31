@@ -29,7 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/Home.Components.jsx'
+        'lib/client/views/Home.Component.jsx'
     ], ["client"]);
 
     api.addFiles([

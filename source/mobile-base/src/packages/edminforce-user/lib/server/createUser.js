@@ -1,7 +1,7 @@
 /*
-  *Server-only*
-  Tentative hooks:
-    send verification emails?
+ *Server-only*
+ Tentative hooks:
+ send verification emails?
  */
 var setupUser;
 
@@ -11,9 +11,9 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 /*
-  setupUser:
-    doctor: only set iHealth.doctor
-    patient: only set iHealth.patient
+ setupUser:
+ doctor: only set iHealth.doctor
+ patient: only set iHealth.patient
  */
 
 setupUser = function(user, options) {
