@@ -143,6 +143,10 @@ let Base = class{
         return this._db ? this._db.simpleSchema() : null;
     }
 
+    defineSchemaValidateMessage(){
+        return {};
+    }
+
     /*
     * define db object
     * if you do not have a DB, you can override and return null or any object you want.
@@ -152,6 +156,7 @@ let Base = class{
         let db = new Mongo.Collection(this.option.DBName || this._name);
         if(this._schema){
             let schema = new SimpleSchema(this._schema);
+            schema.messages(this.defineSchemaValidateMessage());
             db.attachSchema(schema);
         }
 
@@ -219,6 +224,22 @@ let Base = class{
     }
     initEnd(){}
     addTestData(){}
+
+    /*
+    * use schema validate the doc
+    * @return true/error
+    *   if pass, return true
+    *   if not, return a error include reason
+    * */
+    validateWithSchema(doc){
+        try{
+            this.getDBSchema().validate(doc);
+        }catch(e){
+            return e;
+        }
+
+        return true;
+    }
 
 
 };

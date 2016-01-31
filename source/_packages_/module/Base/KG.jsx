@@ -116,3 +116,7 @@ KG.user = {
         KG.user.current = {};
     }
 };
+
+
+
+SimpleSchema.debug = true;

@@ -1,13 +1,16 @@
 
 Schema = {};
+Validate = {};
 
 Schema.const = {
     day : ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
     tuitionType : ['each', 'total'],
     status : ['Active', 'Inactive'],
     level : ['Beginner', 'Intermediate', 'Advanced'],
-    genderRequire : ['All', 'Male', 'Female']
+    genderRequire : ['All', 'Male', 'Female'],
     //length : ['30 min', '45 min', '1 hr', '1.5 hr', '2 hr']
+
+    registrationStatus : ['register', 'wait']
 };
 
 Schema.ClassSchedule = {
@@ -23,6 +26,11 @@ Schema.ClassTuition = {
     money : KG.schema.default({
         label : 'Tuition money'
     })
+};
+
+
+Validate.Class = {
+    'MinStudentMoreThanMaxStudent' : 'max student is must more than minimum student!'
 };
 
 Schema.Class = {
@@ -52,7 +60,16 @@ Schema.Class = {
     }),
     maxStudent : KG.schema.default({
         type : Number,
-        label : 'Maximum Student'
+        label : 'Maximum Student',
+        custom : function(){
+            let min = this.field('minStudent');
+            //console.log(min, this.value);
+            if(this.value < min.value){
+                //throw new Error('max student is must more than minimum student');
+                return 'MinStudentMoreThanMaxStudent';
+            }
+
+        }
     }),
     minStudent : KG.schema.default({
         defaultValue : 0,
@@ -86,6 +103,39 @@ Schema.Class = {
 };
 
 Schema.ClassStudentPayment = {
-
+    time : KG.schema.default({
+        type : Date,
+        optional : true,
+        autoValue : function(doc){
+            if(this.isInsert || this.isUpdate){
+                if(doc.payment.status === 'success'){
+                    return new Date()
+                }
+            }
+        }
+    }),
+    status : KG.schema.default({
+        optional : true
+    }),
+    money : KG.schema.default({
+        optional : true
+    }),
+    type : KG.schema.default({
+        optional : true
+    })
 };
-Schema.ClassStudent = {};
+Schema.ClassStudent = {
+    classID : KG.schema.default(),
+    studentID : KG.schema.default(),
+    status : KG.schema.default({
+        allowedValues : Schema.const.registrationStatus
+    }),
+    payment : {
+        type : new SimpleSchema(Schema.ClassStudentPayment)
+    },
+    createTime : KG.schema.createTime(),
+    updateTime : KG.schema.updateTime(),
+    dynamicKey : KG.schema.default({
+        optional : true
+    })
+};

@@ -18,6 +18,10 @@ let Class = class extends Base{
 
     }
 
+    defineSchemaValidateMessage(){
+        return Validate.Class;
+    }
+
 
     makeDefault(data){
         if(_.isUndefined(data.minStudent)){
@@ -38,24 +42,7 @@ let Class = class extends Base{
     //api
     validate(data){
 
-        //TODO validate
-        if(data.minStudent > data.maxStudent){
-            return 'min student can\'t more than max student';
-        }
-        if(data.minAgeRequire > data.maxAgeRequire){
-            return 'min age cannot more than max age';
-        }
-
-
-
-
-        try{
-            check(data, this.getDBSchema());
-            return true;
-        }catch(e){
-            return e;
-        }
-
+        return super.validateWithSchema(data);
 
     }
 
@@ -63,7 +50,7 @@ let Class = class extends Base{
         data = this.makeDefault(data);
         let vd = this.validate(data);
         if(vd !== true){
-            return KG.result.out(false, vd, vd.toString());
+            return KG.result.out(false, vd, vd.reason);
         }
 
         try{
@@ -80,7 +67,7 @@ let Class = class extends Base{
         data = this.makeDefault(data);
         let vd = this.validate(data);
         if(vd !== true){
-            return KG.result.out(false, vd, vd.toString());
+            return KG.result.out(false, vd, vd.reason);
         }
 
 
