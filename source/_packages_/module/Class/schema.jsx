@@ -10,7 +10,7 @@ Schema.const = {
     genderRequire : ['All', 'Male', 'Female'],
     //length : ['30 min', '45 min', '1 hr', '1.5 hr', '2 hr']
 
-    registrationStatus : ['register', 'wait']
+    registrationStatus : ['trail', 'register', 'wait']
 };
 
 Schema.ClassSchedule = {
@@ -30,7 +30,8 @@ Schema.ClassTuition = {
 
 
 Validate.Class = {
-    'MinStudentMoreThanMaxStudent' : 'max student is must more than minimum student!'
+    'MinStudentMoreThanMaxStudent' : 'max student is must more than minimum student!',
+    'NumberOfClassLess' : '[label] is must more than 0'
 };
 
 Schema.Class = {
@@ -56,7 +57,13 @@ Schema.Class = {
         type : new SimpleSchema(Schema.ClassTuition)
     },
     numberOfClass : KG.schema.default({
-        type : Number
+        type : Number,
+        label : 'Number Of Class',
+        custom : function(){
+            if(this.value < 1){
+                return 'NumberOfClassLess';
+            }
+        }
     }),
     maxStudent : KG.schema.default({
         type : Number,
@@ -108,7 +115,7 @@ Schema.ClassStudentPayment = {
         optional : true,
         autoValue : function(doc){
             if(this.isInsert || this.isUpdate){
-                if(doc.payment.status === 'success'){
+                if(doc.payment && doc.payment.status === 'success'){
                     return new Date()
                 }
             }
@@ -131,7 +138,8 @@ Schema.ClassStudent = {
         allowedValues : Schema.const.registrationStatus
     }),
     payment : {
-        type : new SimpleSchema(Schema.ClassStudentPayment)
+        type : new SimpleSchema(Schema.ClassStudentPayment),
+        optional : true
     },
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime(),

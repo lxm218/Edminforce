@@ -1,36 +1,13 @@
 let Base = KG.getClass('Base');
 let ClassStudent = class extends Base{
     defineDBSchema(){
-        return {
-            classID : KG.schema.default(),
-            className : KG.schema.default(),
-            studentID : KG.schema.default(),
-            studentName : KG.schema.default(),
-            status : KG.schema.default({
-                allowedValues : ['wait', 'doing', 'finish']
-            }),
-            level : KG.schema.default({
-                optional : true
-            }),
-            process : KG.schema.default({
-                optional : true
-            }),
-            createTime : KG.schema.createTime()
-        };
+        return Schema.ClassStudent;
     }
 
     addTestData(){
         //this._db.remove({});
     }
 
-    checkHasPosition(classID){
-        let max = KG.get('EF-Class').getClassMaxStudent(classID);
-        let nn = this._db.find({
-            classID : classID
-        }).count();
-
-        return max > nn;
-    }
 
     checkRecord(param){
         let one = this._db.findOne({
@@ -41,29 +18,48 @@ let ClassStudent = class extends Base{
         return !!one;
     }
 
-    save(param){
-        param = _.extend({
-            status : 'doing'
-        }, param);
+    checkCanBeRegister(data){
+        let max = KG.get('EF-Class').getDB().findOne({
+            _id : data.classID
+        }).maxStudent;
+        let nn = this._db.find({
+            classID : data.classID,
+            status : 'register'
+        }).count();
+
+        if((nn+1) > max){
+            return false;
+        }
 
 
-        if(this.checkRecord(param)){
+
+        return true;
+    }
+
+    insertByData(data){
+        if(this.checkRecord(data)){
             return KG.result.out(false, {}, '纪录已经存在');
         }
 
+        let flag = this.checkCanBeRegister(data);
 
-        let has = this.checkHasPosition(param.classID);
+        let resultFn = function(){
+            data.status = 'wait';
+            let f = this._db.insert(data);
+            return KG.result.out(true, f);
+        };
 
-        let rs;
-        if(has){
-            // can be in
-            rs = this._db.insert(param);
+        if(!flag){
+            return KG.result.out(true, resultFn.bind(this), '');
         }
-        else{
-            param.status = 'wait';
-            rs = this._db.insert(param);
-        }
+
+        data.status = 'register';
+        let rs = this._db.insert(data);
         return KG.result.out(true, rs);
+    }
+
+    save(data){
+
     }
 };
 

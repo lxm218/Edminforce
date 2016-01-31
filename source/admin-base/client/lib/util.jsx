@@ -19,6 +19,9 @@ util.dialog = {
         if(confirm(opts.msg)){
             opts.YesFn();
         }
+    },
+    alert : function(msg){
+        alert(msg);
     }
 };
 

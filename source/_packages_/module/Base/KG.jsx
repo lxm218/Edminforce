@@ -94,7 +94,14 @@ KG.result = {
             };
 
         if(type){
-            opts.success && opts.success(rs.data, rs);
+            if(_.isFunction(rs.data)){
+                opts.step && opts.step(rs.data, rs.statusText);
+            }
+            else{
+                opts.success && opts.success(rs.data, rs.statusText);
+            }
+
+
         }
         else{
             opts.error(rs.data, rs);

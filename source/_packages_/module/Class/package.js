@@ -18,11 +18,10 @@ Package.onUse(function(api) {
         'test/data.jsx',
         'schema.jsx',
 
-        'ClassStudent.jsx',
-
         'Program.jsx',
         'Session.jsx',
-        'Class.jsx'
+        'Class.jsx',
+        'ClassStudent.jsx'
     ], ["client","server"]);
 
 

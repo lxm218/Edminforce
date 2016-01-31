@@ -79,16 +79,15 @@ let Class = class extends Base{
         }
     }
 
-    getClassMaxStudent(classID){
-        let one = this._db.findOne({_id: classID});
-        return one.maxStudent;
-    }
 
 
     getAll(query){
         if(Meteor.isClient){
-            Meteor.subscribe('EF-Program');
-            Meteor.subscribe('EF-Session');
+            let s1 = Meteor.subscribe('EF-Program');
+            let s2 = Meteor.subscribe('EF-Session');
+            if(!s1.ready() || !s2.ready()){
+                return [];
+            }
         }
 
         query = query || {};
