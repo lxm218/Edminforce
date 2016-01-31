@@ -1,6 +1,9 @@
 UI -> [https://lxmworkshop.mybalsamiq.com/projects/edminforceadminwebapp-simplified/grid]
 ***
 
+#### 4. registration
+
+
 #### 3. student profile页
 1. student profile部分是从student页面点击某条纪录过来的吧，这里应该有个Save按钮吧？
 2. Family Information这里是什么？

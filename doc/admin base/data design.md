@@ -67,3 +67,18 @@
 * minAgeRequire
 * createTime
 * updateTime
+
+#### ClassStudent
+* classID
+* studentID
+* status [register, wait]
+* payment (see ClassStudentPayment)
+* createTime
+* updateTime
+* dynamicKey (hold for future)
+
+##### ClassStudentPayment
+* time
+* status [hold/success]
+* money
+* type (unnecessary now)

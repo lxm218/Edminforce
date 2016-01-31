@@ -84,3 +84,8 @@ Schema.Class = {
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };
+
+Schema.ClassStudentPayment = {
+
+};
+Schema.ClassStudent = {};
