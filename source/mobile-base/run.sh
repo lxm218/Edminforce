@@ -6,11 +6,12 @@ export PACKAGE_DIRS=$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobile:$IHEALTH_ROOT/webapp
 LOG=true
 PORT=5010
 DIR=$PWD
+PORT_MONGODB=27017
 
 
 startMongoDB() {
   echo "[INFO] Start Mongo DB Server"
-  nohup mongod --dbpath ./data/db --port 6001 > /dev/null 2>&1 &
+  nohup mongod --dbpath ./data/db --port $PORT_MONGODB > /dev/null 2>&1 &
 }
 
 stopMongoDB() {
@@ -22,10 +23,10 @@ stopProcess() {
   ps -ef | grep "$1" | grep -v grep | awk '{print $2}' | xargs kill -9
 }
 
-#stopMongoDB
-#startMongoDB
+stopMongoDB
+startMongoDB
 
-#export MONGO_URL=mongodb://localhost:6001/meteor
+export MONGO_URL=mongodb://localhost:27017/EdminForce
 
 cd src
 

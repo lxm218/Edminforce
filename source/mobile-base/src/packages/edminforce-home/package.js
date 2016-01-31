@@ -14,8 +14,7 @@ Package.onUse(function(api){
         'edminforce:lib@0.0.1',
         'edminforce:i18n@0.0.1',
         'edminforce:core@0.0.1',
-        'edminforce:settings@0.0.1',
-        'edminforce:appbar@0.0.1'
+        'edminforce:settings@0.0.1'
     ];
 
     api.use(packages);
@@ -24,19 +23,20 @@ Package.onUse(function(api){
 
     ], 'client');
 
-    api.addFiles([
-
-    ], ["client", "server"]);
-
     // Don't forget to add your jsx file
     api.addFiles([
         'lib/client/views/Home.Components.jsx',
+        'lib/router/home.router.jsx',
         'lib/client/less/edminforce-home.less'
     ], ["client"]);
 
     api.addFiles([
 
     ], ["server"]);
+
+    api.addFiles([
+
+    ], ["client", "server"]);
 
     var languages = ["en"];
     var languagesPaths = languages.map(function (language) {

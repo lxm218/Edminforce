@@ -1,4 +1,14 @@
 
+function checkPassword(str){
+  // should have at least one capital letter
+  var containCapitalLetter = /[A-Z]/.test(str);
+  // should be at least one numerical number
+  var containNumber = /[0-9]/.test(str);
+  // should be at least 8 characters
+  var longEnough = str.length >= 8;
+  return (containNumber && containCapitalLetter && longEnough);
+}
+
 EdminForce.Components.User = React.createClass({
   mixins: [RC.Mixins.CSS],
   displayName: "Cal.User",
@@ -47,7 +57,7 @@ EdminForce.Components.User = React.createClass({
       return t.length && t.length>0
     })
     if (this.state.action == 'register' && form.pwRepeat){
-      if (!App.checkPassword(form.pw)) {
+      if (!checkPassword(form.pw)) {
         this.setState({
           msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
           buttonActive: false
@@ -164,7 +174,7 @@ EdminForce.Components.User = React.createClass({
     }
 
     if (form.pw==form.pwRepeat) {
-      if (!App.checkPassword(form.pw)) {
+      if (!checkPassword(form.pw)) {
         this.setState({
           msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers."
         })

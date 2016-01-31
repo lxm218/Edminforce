@@ -14,6 +14,6 @@ Package.onUse(function(api) {
     api.use(packages);
 
     api.addFiles([
-
+        'lib/client/router.util.jsx'
     ], 'client');
 });

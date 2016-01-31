@@ -12,14 +12,15 @@ Package.onUse(function(api){
     var packages = [
         'edminforce@0.0.1',
         'edminforce:lib@0.0.1',
-        'edminforce:settings@0.0.1',
-        'aldeed:collection2@2.8.0'
+        'edminforce:settings@0.0.1'
     ];
 
     api.use(packages);
 
     api.addFiles([
-        "lib/program.collection.js"
+        "lib/BaseCollection.js",
+        "lib/ProgramCollection.js",
+        "lib/startup.js"
     ], ["client", "server"]);
 
     // TODO: DataBase i18n

@@ -18,13 +18,16 @@ Package.onUse(function (api) {
         'reactive-var@1.0.6',
         'tap:i18n@1.7.0',
         'sewdn:collection-behaviours@0.3.0',
+        'aldeed:collection2@2.8.0',
         'momentjs:moment@2.10.6',
         'izzilab:material-ui@0.2.4',
+        'stevezhu:lodash@4.0.0',
         'meteorflux:dispatcher',
         'meteorflux:reactive-dependency',
         'ihealth:utils',
         'ihealth:framework-engine',
         'ihealth:framework-mobile',
+        'ihealth:dev-tools',
         'edminforce'
     ];
 
