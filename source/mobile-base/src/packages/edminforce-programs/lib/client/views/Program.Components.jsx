@@ -16,7 +16,11 @@
             return (
                 <div>
                     Program Lists
-                    <RC.Button onClick={this.bookTrial}>Book Trial</RC.Button>
+                    <RC.Button bgColor="brand1" onClick={this.bookTrial}>Beginning</RC.Button>
+                    <RC.Div>
+                        Class Level: 1
+                    </RC.Div>
+                    <RC.Button bgColor="brand2" onClick={this.bookTrial}>Book Trial</RC.Button>
                 </div>
             );
         }

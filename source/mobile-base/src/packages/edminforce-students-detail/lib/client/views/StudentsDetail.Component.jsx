@@ -3,13 +3,22 @@
     // Don't forget to change `SomeName` to correct name
     EdminForce.Components.StudentsDetail = React.createClass({
 
+        getInitialState() {
+            return {
+                obj:{
+                    tab:0
+                }
+            }
+        },
+
         changeTab(num) {
-            this.setStateObj({ tab: num })
+            console.log(num);
+            this.state.obj.tab=num;
         },
 
         renderTab() {
-            let content
-            switch (this.state.obj.get("tab")) {
+            let content;
+            switch (this.state.obj.tab) {
                 case 0:
                     content = <span style={{color: "#FFF"}}>This is current</span>
                     break
@@ -17,6 +26,7 @@
                     content = <span style={{color: RC.Theme.color.yellow}}>This is History</span>
                     break
             }
+            console.log(content);
             return <div style={{textAlign: "center", padding: 20}}>
                 {content}
             </div>
