@@ -1,18 +1,18 @@
 
 let {
-    name
+    Contact
     } = EdminForce.Components;
 let {
     routeHandler
     } = EdminForce.utils;
 
-DefaultRoutes.route('/name', {
+DefaultRoutes.route('/contact', {
     name: "Programs",
     action: function(p) {
         routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <name/>
+            bodyTmpl: <Contact/>
         })
     }
 })

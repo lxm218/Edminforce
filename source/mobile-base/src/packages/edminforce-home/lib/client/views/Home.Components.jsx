@@ -7,6 +7,18 @@
             FlowRouter.go('/programs');
         }
 
+        goToAccount(){
+            if(!Meteor.user()){
+                FlowRouter.go('/login');
+            }else{
+                FlowRouter.go('/account');
+            }
+        }
+
+        goToContact(){
+            FlowRouter.go('/contact');
+        }
+
         //
         getTemplate(){
             return <RC.List>
@@ -14,10 +26,10 @@
                     <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.goToPrograms}><$translate label="programs"/></RC.Button>
                 </RC.Item>
                 <RC.Item>
-                    <RC.Button bgColor="brand2" bgColorHover="dark"><$translate label="customer_portal"/></RC.Button>
+                    <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.goToAccount}><$translate label="customer_portal"/></RC.Button>
                 </RC.Item>
                 <RC.Item>
-                    <RC.Button bgColor="brand2" bgColorHover="dark"><$translate label="contact_us"/></RC.Button>
+                    <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.goToContact}><$translate label="contact_us"/></RC.Button>
                 </RC.Item>
             </RC.List>
         }

@@ -53,7 +53,7 @@ Dependency.add('auth.store', new function () {
                     Session.set("BookTrialClassId", null);
                     Session.set("BookTrialProgramId", null)
                 }else{
-                    FlowRouter.go('/')
+                    FlowRouter.go('/account')
                 }
 
                 break;

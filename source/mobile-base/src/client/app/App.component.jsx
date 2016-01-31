@@ -7,13 +7,23 @@
 
     EdminForce.Components.AppMain = React.createClass({
 
+        signout(){
+            Dispatcher.dispatch({actionType: 'LEFT_NAV_CLOSE'})
+            Dispatcher.dispatch({actionType: 'AUTH_LOGOUT'})
+        },
+
         render: function () {
             return (
                 <RC.Body>
-                    <RC.HeaderNav nav={this.props.headerNav} title={this.props.title} useMiniNav={!!this.props.headerNav}>
-                        <RC.URL>This is an Example</RC.URL>
-                        <RC.URL>Ripe Peaches</RC.URL>
-
+                    <RC.HeaderNav nav={this.props.headerNav} title={this.props.title}
+                                  useMiniNav={!!this.props.headerNav}>
+                        <RC.URL href="/">Home</RC.URL>
+                        <RC.URL href="/account">My Account</RC.URL>
+                        <RC.URL href="/students">Students</RC.URL>
+                        <RC.URL href="/classregistration">Class Registration</RC.URL>
+                        <RC.URL href="/billing">Billing</RC.URL>
+                        <RC.URL href="/contact">Contact Us</RC.URL>
+                        <RC.URL onClick={this.signout}>Sign Out</RC.URL>
                     </RC.HeaderNav>
 
                     <RC.MobileContentArea>

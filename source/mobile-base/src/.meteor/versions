@@ -33,8 +33,11 @@ diff-sequence@1.0.1
 ecmascript@0.1.6
 ecmascript-runtime@0.2.6
 edminforce@0.0.1
+edminforce:account@0.0.1
+edminforce:account-addstudent@0.0.1
 edminforce:collections@0.0.1
 edminforce:collections-seed@0.0.1
+edminforce:contact@0.0.1
 edminforce:core@0.1.0
 edminforce:home@0.0.1
 edminforce:i18n@0.0.1
@@ -44,7 +47,6 @@ edminforce:programs-classes@0.0.1
 edminforce:programs-classes-confirm@0.0.1
 edminforce:programs-classes-summary@0.0.1
 edminforce:settings@0.0.1
-edminforce:settings-addstudent@0.0.1
 edminforce:users@0.0.1
 ejson@1.0.7
 email@1.0.8

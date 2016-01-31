@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'edminforce:name',
+    name: 'edminforce:account',
     summary: 'Summary',
     version: '0.0.1',
     git: ''
@@ -29,7 +29,8 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/Home.Component.jsx'
+        'lib/client/views/Account.Component.jsx',
+        'lib/router/account.router.jsx'
     ], ["client"]);
 
     api.addFiles([
