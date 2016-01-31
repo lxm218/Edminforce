@@ -35,6 +35,10 @@ ecmascript-runtime@0.2.6
 edminforce@0.0.1
 edminforce:account@0.0.1
 edminforce:account-addstudent@0.0.1
+edminforce:account-alternative@0.0.1
+edminforce:account-changepassword@0.0.1
+edminforce:account-emergency@0.0.1
+edminforce:account-updatephone@0.0.1
 edminforce:billings@0.0.1
 edminforce:classes@0.0.1
 edminforce:collections@0.0.1

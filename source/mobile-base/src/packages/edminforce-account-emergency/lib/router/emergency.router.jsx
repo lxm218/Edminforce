@@ -1,18 +1,18 @@
 
 let {
-    SettingsAddStudent
+    AccountEmergency
     } = EdminForce.Components;
 let {
     routeHandler
     } = EdminForce.utils;
 
-DefaultRoutes.route('/account/addstudent', {
+DefaultRoutes.route('/account/emergency', {
     name: "Programs",
     action: function(p) {
         routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <SettingsAddStudent/>
+            bodyTmpl: <AccountEmergency/>
         })
     }
-});
+})

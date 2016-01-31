@@ -13,7 +13,7 @@
         },
 
         addStudent(){
-            FlowRouter.go('/settings/addstudent');
+            FlowRouter.go('/account/addstudent');
             Session.set("BookTrialClassId", "class_11");
             Session.set("BookTrialProgramId", "111");
         },

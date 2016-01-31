@@ -14,7 +14,7 @@
                 Session.set("BookTrialClassId", null);
                 Session.set("BookTrialProgramId", null)
             }else{
-                FlowRouter.go("/settings");
+                FlowRouter.go("/account");
             }
         },
 

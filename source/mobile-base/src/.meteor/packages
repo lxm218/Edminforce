@@ -34,7 +34,11 @@ edminforce:programs-classes@0.0.1
 edminforce:programs-classes-confirm@0.0.1
 edminforce:programs-classes-summary@0.0.1
 edminforce:account@0.0.1
+edminforce:account-changepassword@0.0.1
+edminforce:account-updatephone@0.0.1
 edminforce:account-addstudent@0.0.1
+edminforce:account-alternative@0.0.1
+edminforce:account-emergency@0.0.1
 edminforce:students@0.0.1
 edminforce:students-detail@0.0.1
 edminforce:classes@0.0.1
