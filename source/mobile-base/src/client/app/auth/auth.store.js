@@ -2,7 +2,7 @@
  * Created on 9/27/15.
  */
 
- Dependency.add('auth.store', new function () {
+Dependency.add('auth.store', new function () {
 
     var self = this;
 
@@ -21,7 +21,19 @@
             case "AUTH_REGISTER_SUCCESS":{
                 FlowRouter.LastRoute
                 FlowRouter.LastRoute=[];
-                FlowRouter.go('/account')
+                if(Session.get("BookTrialClassId")){
+                    let params = {
+                        programsId: Session.get("BookTrialProgramId"),
+                        classId: Session.get("BookTrialClassId")
+                    }
+                    let path = FlowRouter.path("/programs/:programsId/:classId/confirm", params);
+                    FlowRouter.go(path);
+                    Session.set("BookTrialClassId", null);
+                    Session.set("BookTrialProgramId", null)
+                }else{
+                    FlowRouter.go('/account')
+                }
+
                 break;
             }
             case "AUTH_RESET_SUCCESS":{
@@ -31,7 +43,19 @@
                 break;
             }
             case "AUTH_LOGIN_SUCCESS":{
-                FlowRouter.go('/')
+                if(Session.get("BookTrialClassId")){
+                    let params = {
+                        programsId: Session.get("BookTrialProgramId"),
+                        classId: Session.get("BookTrialClassId")
+                    }
+                    let path = FlowRouter.path("/programs/:programsId/:classId/confirm", params);
+                    FlowRouter.go(path);
+                    Session.set("BookTrialClassId", null);
+                    Session.set("BookTrialProgramId", null)
+                }else{
+                    FlowRouter.go('/')
+                }
+
                 break;
             }
         }

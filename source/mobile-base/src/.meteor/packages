@@ -31,3 +31,6 @@ edminforce:users@0.0.1
 edminforce:home@0.0.1
 edminforce:programs@0.0.1
 edminforce:programs-classes@0.0.1
+edminforce:programs-classes-confirm@0.0.1
+edminforce:programs-classes-summary@0.0.1
+edminforce:settings-addstudent@0.0.1

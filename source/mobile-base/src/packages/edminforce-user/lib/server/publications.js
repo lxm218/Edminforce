@@ -11,7 +11,7 @@ Meteor.users.allow({
       var allowed = ["deviceId","profile.","updatedAt"]
       var modifierTest = _.every(modifier, function(op){
         var test = _.map(op, function(val, key){
-            return _.contains(allowed, key) || _.contains(allowed, (key.indexOf(".") && key.substr(0, key.indexOf(".")+1)))
+          return _.contains(allowed, key) || _.contains(allowed, (key.indexOf(".") && key.substr(0, key.indexOf(".")+1)))
         })
         return !_.contains(test, false)
       })
@@ -23,13 +23,13 @@ Meteor.users.allow({
 
 Meteor.publish("userData", function(){
   return Meteor.users.find({_id: this.userId},
-    {
-      fields: {
-        profile:1, roles:1, username:1,
-        deviceId: 1,
-        devices: 1
-      }
-    })
+      {
+        fields: {
+          profile:1, roles:1, username:1,
+          deviceId: 1,
+          devices: 1
+        }
+      })
 })
 
 

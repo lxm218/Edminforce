@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'edminforce:settings-addstudent',
+    name: 'edminforce:programs-classes-summary',
     summary: 'Summary',
     version: '0.0.1',
     git: ''
@@ -29,8 +29,8 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/SettingsAddStudent.Components.jsx',
-        'lib/router/settings-addstudent.router.jsx'
+        'lib/client/views/ProgramsClassesSummary.Component.jsx',
+        'lib/router/programs-classes-summary.router.jsx'
     ], ["client"]);
 
     api.addFiles([

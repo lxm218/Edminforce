@@ -8,7 +8,6 @@ function checkPassword(str){
   var longEnough = str.length >= 8;
   return (containNumber && containCapitalLetter && longEnough);
 }
-
 EdminForce.Components.User = React.createClass({
   mixins: [RC.Mixins.CSS],
   displayName: "Cal.User",
@@ -32,8 +31,16 @@ EdminForce.Components.User = React.createClass({
       buttonActive: false,
       waiting: false,
       action: _.contains(["login","register","reset"], this.props.action) ? this.props.action : "login",
-      msg: null,
+      msg: [],
       notification: null
+    }
+  },
+
+  messageInfo(){
+    return {
+      "pwFormatError": "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
+      "termError": "Please accept the following terms of use.",
+      "emailError": "Entered E-mail is not in record."
     }
   },
   /**
@@ -41,7 +48,7 @@ EdminForce.Components.User = React.createClass({
    * Handler
    * @ @ @ @
    */
-  checkButtonState(e){
+      checkButtonState(e){
     switch (this.state.action){
       case "login":
         var form = this.refs.loginForm.getFormData()
@@ -58,23 +65,37 @@ EdminForce.Components.User = React.createClass({
     })
     if (this.state.action == 'register' && form.pwRepeat){
       if (!checkPassword(form.pw)) {
+        var message = this.state.msg ? this.state.msg : []
+        message.push(this.messageInfo()['pwFormatError'])
         this.setState({
-          msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
+          msg: message,
           buttonActive: false
         })
         return
       } else if (this.state.msg) {
-        this.setState({ msg: null })
+        this.setState({ msg: [] })
+      }
+      if (form.term == '1'){
+        var message = this.state.msg ? this.state.msg : []
+        var index = message.indexOf(this.messageInfo()['termError'])
+        if (index != -1) {
+          message = message.slice(0, index) + message.slice(index + 1, message.length)
+          this.setState({
+            msg: message,
+            buttonActive: true
+          })
+        }
       }
     }
     if (this.state.action == 'login' && form.password){
       if (this.state.msg) {
-        this.setState({ msg: null })
+        this.setState({ msg: [] })
       }
     }
     if (test !== this.state.buttonActive)
       this.setState({ buttonActive: test })
   },
+
   resetForm(){
     this.setState({
       waiting: false,
@@ -116,7 +137,7 @@ EdminForce.Components.User = React.createClass({
 
   login(e){
     e.preventDefault()
-    if (this.state.msg) return null
+    if (this.state.msg && this.state.msg.length != 0) return null
 
     let form = this.refs.loginForm.getFormData()
 
@@ -127,17 +148,17 @@ EdminForce.Components.User = React.createClass({
       Meteor.loginWithPassword( form.username, form.password, function(err){
 
         if (!err){
-          if (form.keepName == 'on') {
+          if (form.keepName == '1') {
             Cookie.set('username', form.username)
           } else  {
-            Cookie.clear('username')
+            Cookie.remove('username')
           }
           self.resetForm()
         }
 
         let passedMsg = err && err.error
-          ? (ph.errorMsgs[err.error] || err.reason)
-          : <p>You are now logged in!</p>
+            ? (ph.errorMsgs[err.error] || err.reason)
+            : <p>You are now logged in!</p>
 
         if (_.isFunction(self.props.loginCallback))
           self.props.loginCallback()
@@ -161,22 +182,26 @@ EdminForce.Components.User = React.createClass({
 
   register(e){
     e.preventDefault()
-    if (this.state.msg) return null
+    if (this.state.msg && this.state.msg.length != 0) return null
 
     let self = this
     let form = this.refs.registerForm.getFormData()
 
-    if (form.term != 'on') {
+    if (form.term != '1') {
+      var message = this.state.message ? this.state.msg : []
+      message.push(this.messageInfo()['termError'])
       this.setState({
-        notification: "Please accept the following terms of use."
+        msg: message,
       })
       return null
     }
 
     if (form.pw==form.pwRepeat) {
       if (!checkPassword(form.pw)) {
+        var message = this.state.msg ? this.state.msg : []
+        message.push(this.messageInfo()['pwFormatError'])
         this.setState({
-          msg: "Password shoud have at least 8 characters, containing Capital Letters AND Numbers."
+          msg: message,
         })
         return
       }
@@ -194,8 +219,8 @@ EdminForce.Components.User = React.createClass({
         }
 
         let passedMsg = err && err.error
-          ? (ph.errorMsgs[err.error] || err.reason)
-          : <p>Thank you for registering!</p>
+            ? (ph.errorMsgs[err.error] || err.reason)
+            : <p>Thank you for registering!</p>
 
         if (_.isFunction(self.props.registerCallback))
           self.props.registerCallback()
@@ -222,7 +247,7 @@ EdminForce.Components.User = React.createClass({
 
   reset(e){
     e.preventDefault()
-    if (this.state.msg) return null
+    if (this.state.msg && this.state.msg.length != 0) return null
 
     let form = this.refs.resetForm.getFormData()
 
@@ -241,8 +266,8 @@ EdminForce.Components.User = React.createClass({
           Accounts.forgotPassword({ email: form.email },function(err){
             console.log(err)
             let passedMsg = err && err.error
-              ? (ph.errorMsgs[err.error] || err.reason)
-              : <p>Password Reset Email Has Been Sent!</p>
+                ? (ph.errorMsgs[err.error] || err.reason)
+                : <p>Password Reset Email Has Been Sent!</p>
             self.setState({ msg: passedMsg })
           })
         } else {
@@ -298,7 +323,7 @@ EdminForce.Components.User = React.createClass({
    * Render
    * @ @ @ @
    */
-  renderMsg(){
+      renderMsg(){
     let self = this
     let bg = h.checkColorClass(this.props.bgColor) ? this.props.bgColor : null
     let msgs = this.state.notification ? [this.state.notification] : [] // This will always be either 1 or 0
@@ -361,13 +386,13 @@ EdminForce.Components.User = React.createClass({
       case "reset":
         //<div>Reset Password via Email</div>
         return (
-          <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
-            {this.printMsg()}
-            <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" />
-            <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
-              {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Send Password Reset E-mail"}
-            </RC.Button>
-          </RC.Form>
+            <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
+              {this.printMsg()}
+              <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" value="" />
+              <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
+                {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Send Password Reset E-mail"}
+              </RC.Button>
+            </RC.Form>
         )
         break
     }
@@ -381,14 +406,14 @@ EdminForce.Components.User = React.createClass({
     return <div>
       <RC.Animate transitionName="zoom" transitionEnterTimeout={250} transitionLeaveTimeout={250}>
         {
-        //!!this.state.msg
-        //  ? <div style={styles.msg}>
-        //    <div style={styles.msgInner}>
-        //      {typeof this.state.msg==="string" ? <p>{this.state.msg}</p> : this.state.msg}
-        //      <RC.Button onClick={this.removeMsg} theme="circle" bgColor={this.color.textColor} color={this.color.bgColor} style={{marginTop: 10}}>OK</RC.Button>
-        //    </div>
-        //  </div>
-        //  : null
+          //!!this.state.msg
+          //  ? <div style={styles.msg}>
+          //    <div style={styles.msgInner}>
+          //      {typeof this.state.msg==="string" ? <p>{this.state.msg}</p> : this.state.msg}
+          //      <RC.Button onClick={this.removeMsg} theme="circle" bgColor={this.color.textColor} color={this.color.bgColor} style={{marginTop: 10}}>OK</RC.Button>
+          //    </div>
+          //  </div>
+          //  : null
         }
       </RC.Animate>
       <RC.Div {... this.props} bgColor={this.props.bgColor || "white"} theme="absFull">
@@ -443,7 +468,7 @@ EdminForce.Components.User = React.createClass({
         break
     }
   },
-    // @@@@
+  // @@@@
   // @@@@
   // Styles
   // @@@@

@@ -21,7 +21,7 @@ EdminForce.Components.ResetPasswordEmail = React.createClass({
 	clearForm(){
 		this.refs.newPw.reset()
 		this.refs.newPwRepeat.reset()
-		this.setState({ 
+		this.setState({
 			msg: null,
 			waiting: false })
 	},
@@ -35,35 +35,35 @@ EdminForce.Components.ResetPasswordEmail = React.createClass({
 		if (form.pw == form.pwRepeat) {
 			if (!App.checkPassword(form.pw)) {
 				this.setState({
-          			msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers.",
-          			waiting: false
-        		})
-        		return
+					msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers.",
+					waiting: false
+				})
+				return
 			};
-	      	// Reset Account Password using token
-	      	this.setState({ waiting: true })
-	      	Accounts.resetPassword(
-	      	this.props.userToken,
-	      	form.pw,
-	      	function(err) {
-		      	let passedMsg = err && err.error
-		      		? (ph.errorMsgs[err.error] || err.reason)
-		      		: <p>Thank you for registering!</p>
-		      	if (!err) {
-		      		self.clearForm()
-		      		Dispatcher.dispatch({
-		        		actionType: "AUTH_RESET_SUCCESS"
-		        	});
-		        	return;
-		      	}
-		        self.setState({
-		        	msg: passedMsg
-		        })
-	    	})
-	  	} else { 
-	  		this.setState({ msg: "Your passwords did not match, please try again." })
-	  		this.setState({ waiting: false })
-	  	}
+			// Reset Account Password using token
+			this.setState({ waiting: true })
+			Accounts.resetPassword(
+				this.props.userToken,
+				form.pw,
+				function(err) {
+					let passedMsg = err && err.error
+						? (ph.errorMsgs[err.error] || err.reason)
+						: <p>Thank you for registering!</p>
+					if (!err) {
+						self.clearForm()
+						Dispatcher.dispatch({
+							actionType: "AUTH_RESET_SUCCESS"
+						});
+						return;
+					}
+					self.setState({
+						msg: passedMsg
+					})
+				})
+		} else {
+			this.setState({ msg: "Your passwords did not match, please try again." })
+			this.setState({ waiting: false })
+		}
 	},
 
 	debuggerHelper(){
@@ -77,10 +77,10 @@ EdminForce.Components.ResetPasswordEmail = React.createClass({
 			{
 				currentMessages.map(function(m,n){
 					return <div className="center" key={n}>
-				             	<div className="bigger inline-block invis-70 red">
-				             		{_.isString(m) ? <div>{m}</div> : m}
-				             	</div>
-			            	</div>
+						<div className="bigger inline-block invis-70 red">
+							{_.isString(m) ? <div>{m}</div> : m}
+						</div>
+					</div>
 				})
 			}
 		</div>
@@ -95,9 +95,9 @@ EdminForce.Components.ResetPasswordEmail = React.createClass({
 		if (test && pwMatch) {
 			this.setState({ msg: null, waiting: false, buttonActive: true})
 		} else if (test && !pwMatch) {
-			this.setState({ 
-				msg: "Your passwords did not match, please try again.", 
-				waiting: false, 
+			this.setState({
+				msg: "Your passwords did not match, please try again.",
+				waiting: false,
 				buttonActive: false})
 		} else {
 			this.setState({ buttonActive: false })
@@ -107,22 +107,22 @@ EdminForce.Components.ResetPasswordEmail = React.createClass({
 	render: function() {
 
 		var inputTheme = "small-label"
-    	var buttonTheme = "full"
+		var buttonTheme = "full"
 		if (_.contains(["overlay-light","overlay-dark"], this.props.theme)) {
-      		inputTheme += ","+this.props.theme
-      		buttonTheme += ","+this.props.theme
-    	}
+			inputTheme += ","+this.props.theme
+			buttonTheme += ","+this.props.theme
+		}
 		return (
 			<div>
 				<RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
-				<RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="newPw" />
-				<RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="newPwRepeat" />
-				{this.printMsg()}
-				<RC.Button name="button" bgColor="brand1" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
-					{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Reset Password"}
-				</RC.Button>
+					<RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="newPw" />
+					<RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="newPwRepeat" />
+					{this.printMsg()}
+					<RC.Button name="button" bgColor="brand1" active={this.state.buttonActive} theme={buttonTheme} disabled={this.state.waiting}>
+						{this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Reset Password"}
+					</RC.Button>
 				</RC.Form>
-				
+
 			</div>
 		);
 	}

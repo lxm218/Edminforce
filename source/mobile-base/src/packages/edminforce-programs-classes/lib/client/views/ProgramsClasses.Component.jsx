@@ -8,9 +8,18 @@
                 //TODO if currently user not student, jump to add student page, after add successful then jump to confirm page
                 console.log("User logged");
 
+                let params = {
+                    programsId: "111",
+                    classId: "class_11"
+                }
+                let path = FlowRouter.path("/programs/:programsId/:classId/confirm", params);
+                FlowRouter.go(path);
+
             }else{  // user not login
                 console.log("User not logged");
                 FlowRouter.go('/login');
+                Session.set("BookTrialClassId", "class_11");
+                Session.set("BookTrialProgramId", "111");
             }
         },
 
