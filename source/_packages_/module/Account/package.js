@@ -1,6 +1,6 @@
 
 Package.describe({
-    name: "edminforce:class",
+    name: "edminforce:account",
     summary: "",
     version: "0.0.1",
     git: ""
@@ -11,17 +11,20 @@ Package.onUse(function(api) {
     api.versionsFrom("METEOR@1.2.0.2");
 
     api.use([
+        "ihealth:utils",
+        "accounts-password",
+        "alanning:roles@1.2.14",
         "kg:base"
     ], ["client","server"]);
 
-    api.addFiles([
-        'test/data.jsx',
-        'schema.jsx',
+    api.imply([
+        "ihealth:utils",
+        "accounts-password",
+        "alanning:roles@1.2.14"
+    ], ["client","server"]);
 
-        'Program.jsx',
-        'Session.jsx',
-        'Class.jsx',
-        'ClassStudent.jsx'
+    api.addFiles([
+        'Account.jsx'
     ], ["client","server"]);
 
 
