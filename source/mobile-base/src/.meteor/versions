@@ -41,6 +41,9 @@ edminforce:account-emergency@0.0.1
 edminforce:account-updatephone@0.0.1
 edminforce:billings@0.0.1
 edminforce:classes@0.0.1
+edminforce:classes-checkout@0.0.1
+edminforce:classes-confirm@0.0.1
+edminforce:classes-summary@0.0.1
 edminforce:collections@0.0.1
 edminforce:collections-seed@0.0.1
 edminforce:contact@0.0.1
@@ -48,6 +51,7 @@ edminforce:core@0.1.0
 edminforce:home@0.0.1
 edminforce:i18n@0.0.1
 edminforce:lib@0.0.1
+edminforce:payment@0.0.1
 edminforce:programs@0.0.1
 edminforce:programs-classes@0.0.1
 edminforce:programs-classes-confirm@0.0.1
