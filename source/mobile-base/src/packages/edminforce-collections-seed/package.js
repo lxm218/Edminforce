@@ -22,7 +22,10 @@ Package.onUse(function(api){
 
     api.addFiles([
         'data/account.js',
-        'data/program.js'
+        'data/class.js',
+        'data/program.js',
+        'data/session.js',
+        'data/student.js'
     ], ["server"]);
 
 });

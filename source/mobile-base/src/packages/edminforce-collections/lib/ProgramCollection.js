@@ -1,5 +1,5 @@
 /**
- * @name edminforce_program
+ * @name ProgramCollection
  * @description store the program information
  * @type {Mongo.Collection}
  */
