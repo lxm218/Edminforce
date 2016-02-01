@@ -15,6 +15,12 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
+        let sort = {
+            sort : {
+                updateTime : -1
+            }
+        };
+
         let sub = Meteor.subscribe('EF-Student', {
             _id : this.getProfileId()
         });
@@ -27,10 +33,35 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
 
         }
 
+        //find from ClassStudent
+        let s1 = Meteor.subscribe('EF-ClassStudent', {
+            query : {studentID : id}
+        });
+        let s2 = Meteor.subscribe('EF-Class');
+        if(!s1.ready() || !s2.ready()){
+            return {ready : false};
+        }
+
+        let cs = KG.get('EF-ClassStudent').getDB().find({}, sort).fetch();
+        let classData = {};
+        _.each(cs, (item)=>{
+            let clsId = item.classID;
+            let obj = KG.get('EF-Class').getAll({
+                _id : clsId
+            })[0];
+            if(obj){
+                classData[clsId] = obj;
+            }
+
+        });
+
+
         return {
             id,
             ready : sub.ready(),
-            profile
+            profile,
+            classStudentData : cs,
+            classData : classData
         };
     }
 
@@ -45,6 +76,29 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
 
     render(){
 
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
+
+        const sy = {
+            td : {
+                textAlign : 'left'
+            },
+            ml : {
+                marginLeft : '20px'
+            },
+            rd : {
+                textAlign : 'right'
+            }
+        };
+
+
+        //run after render
+        util.delay(()=>{
+            if(this.data.ready){
+                this.setDefaultValue();
+            }
+        }, 500);
 
         return (
             <RC.Div>
@@ -53,9 +107,61 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
 
                 {this.getProfileBox()}
 
+                <hr />
+                <h3>Class History</h3>
+                {this.renderClassTable()}
+
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} href="/registration" label="Register New Class"></KUI.YesButton>
+                </RC.Div>
+
             </RC.Div>
         );
 
+    }
+
+    renderClassTable(){
+
+        if(_.keys(this.data.classData).length < 1){
+            return util.renderLoading();
+        }
+
+
+        const titleArray = [
+            {
+                title : 'Class',
+                key : 'class'
+            },
+            {
+                title : 'Teacher',
+                key : 'teacher'
+            },
+            {
+                title : 'Session',
+                key : 'session'
+            },
+            {
+                title : 'Status',
+                key : 'status'
+            }
+        ];
+
+        let json = _.map(this.data.classStudentData, (item)=>{
+            let cls = this.data.classData[item.classID];
+            item.class = cls.nickName;
+            item.teacher = cls.teacher;
+            item.session = cls.sessionName;
+
+            return item;
+        });
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={json}
+                title={titleArray}
+                ref="table"></KUI.Table>
+        );
     }
 
     getProfileBox(){
@@ -183,12 +289,6 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
 
     }
 
-    componentWillUpdate(np, ns){
-        super.componentWillUpdate(np, ns);
-
-        if(!this.data.ready) return;
-        this.setDefaultValue();
-    }
 
 
 };

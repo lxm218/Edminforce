@@ -5,6 +5,10 @@ _.extend(util, _);
 _.extend(util, {
     goPath : function(url){
         FlowRouter.go(url);
+    },
+
+    renderLoading : function(opts){
+        return <RC.Loading isReady={false} />;
     }
 });
 
@@ -24,6 +28,7 @@ util.dialog = {
         alert(msg);
     }
 };
+
 
 
 
