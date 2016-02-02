@@ -21,17 +21,19 @@
 
         //
         getTemplate(){
-            return <RC.List>
-                <RC.Item>
+            return(
+            <RC.List style={{padding: "30px"}}>
+                <RC.Item style={{border: "none", padding: 0}}>
                     <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.goToPrograms}><$translate label="programs"/></RC.Button>
                 </RC.Item>
-                <RC.Item>
+                <RC.Item style={{border: "none", padding: 0}}>
                     <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.goToAccount}><$translate label="customer_portal"/></RC.Button>
                 </RC.Item>
-                <RC.Item>
+                <RC.Item style={{border: "none", padding: 0}}>
                     <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.goToContact}><$translate label="contact_us"/></RC.Button>
                 </RC.Item>
             </RC.List>
+            )
         }
 
         render () {

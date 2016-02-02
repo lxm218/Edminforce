@@ -27,6 +27,10 @@ Package.onUse(function(api){
         "lib/startup.js"
     ], ["client", "server"]);
 
+    api.addFiles([
+        "lib/publish.js"
+    ], ["server"]);
+
     // TODO: DataBase i18n
     //var languages = ["en"];
     //var languagesPaths = languages.map(function (language) {
