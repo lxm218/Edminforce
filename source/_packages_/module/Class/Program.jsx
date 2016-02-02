@@ -22,11 +22,6 @@ KG.define('EF-Program', class extends Base{
         }, this);
     }
 
-    publishMeteorData(){
-        Meteor.publish(this._name, ()=>{
-            return this._db.find();
-        });
-    }
 
     // insert api
     insert(data){
@@ -41,6 +36,17 @@ KG.define('EF-Program', class extends Base{
             return KG.result.out(false, e, e.toString());
         }
 
+    }
+
+    updateById(data, id){
+        try{
+            var rs = this._db.update({_id:id}, {'$set':data}, function(err){
+                throw err;
+            });
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.toString());
+        }
     }
 
     removeById(id, callback){

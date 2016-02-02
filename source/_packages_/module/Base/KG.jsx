@@ -126,4 +126,4 @@ KG.user = {
 
 
 
-SimpleSchema.debug = true;
+//SimpleSchema.debug = true;

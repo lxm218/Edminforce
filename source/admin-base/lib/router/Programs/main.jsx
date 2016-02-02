@@ -15,6 +15,17 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/edit/:id', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Program | Edit",
+                bodyTmpl: <KUI.Program_edit />
+            })
+        }
+    });
+
+
+
     Route.route('/session', {
         action: function (p) {
             App.routeHandler(p, {
