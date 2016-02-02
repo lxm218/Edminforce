@@ -23,11 +23,30 @@ stopProcess() {
   ps -ef | grep "$1" | grep -v grep | awk '{print $2}' | xargs kill -9
 }
 
-stopMongoDB
-startMongoDB
+deploy(){
+    REMOTEURL="ef.meteor.com"
+    echo "[info]start deploy to ${REMOTEURL}"
+    cd src
+    meteor deploy ${REMOTEURL}
+    echo "---- deploy success ----"
+}
 
-export MONGO_URL=mongodb://localhost:27017/EdminForce
+runLocal(){
+  stopMongoDB
+  startMongoDB
+  export MONGO_URL=mongodb://localhost:27017/EdminForce
+  cd src
+  meteor run --port $PORT
+}
 
-cd src
 
-meteor run --port $PORT
+case "$1" in
+    deploy)
+        deploy
+        ;;
+    *)
+        runLocalHost
+        ;;
+
+esac
+
