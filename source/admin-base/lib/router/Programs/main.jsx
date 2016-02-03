@@ -35,6 +35,17 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/session/edit/:id', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Session | Edit",
+                bodyTmpl: <KUI.Session_edit />
+            })
+        }
+    });
+
+
+
 
 
 

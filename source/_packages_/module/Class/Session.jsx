@@ -10,6 +10,10 @@ KG.define('EF-Session', class extends Base{
             endDate : KG.schema.default({
                 type : Date
             }),
+            blockOutDay : KG.schema.default({
+                type : [Date],
+                optional : true
+            }),
             registrationStartDate : KG.schema.default({
                 type : Date
             }),
@@ -20,7 +24,8 @@ KG.define('EF-Session', class extends Base{
             registrationStatus : KG.schema.default({
                 allowedValues : ['Yes', 'No']
             }),
-            createTime : KG.schema.createTime()
+            createTime : KG.schema.createTime(),
+            updateTime : KG.schema.updateTime()
         };
     }
 
@@ -38,7 +43,20 @@ KG.define('EF-Session', class extends Base{
             });
             return KG.result.out(true, rs);
         }catch(e){
-            console.error(e);
+            return KG.result.out(false, e, e.toString());
+        }
+    }
+    updateById(data, id){
+        if(!data.registrationEndDate){
+            data.registrationEndDate = data.endDate;
+        }
+
+        try{
+            let rs = this._db.update({_id:id}, {'$set':data}, function(err){
+                throw err;
+            });
+            return KG.result.out(true, rs);
+        }catch(e){
             return KG.result.out(false, e, e.toString());
         }
     }

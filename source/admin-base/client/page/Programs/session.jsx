@@ -5,7 +5,8 @@ KUI.Program_session = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            showAddBox : false
+            showAddBox : false,
+            blockList : []
         };
 
     }
@@ -49,6 +50,47 @@ KUI.Program_session = class extends RC.CSSMeteorData{
             {
                 title : 'Registration Status',
                 key : 'registrationStatus'
+            },
+            {
+                title : 'Action',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom : function(item){
+                    const sy = {
+                        cursor : 'pointer',
+                        position : 'relative',
+                        top : '2px'
+                    };
+                    const ml = {
+                        marginLeft : '10px',
+                        cursor : 'pointer'
+                    };
+
+                    var del = function(){
+                        util.dialog.confirm({
+                            msg : 'Delete this Session?',
+                            YesFn : function(){
+                                let rs = KG.get('EF-Session').removeById(item._id, function(flag, err){
+                                    if(!flag){
+                                        alert(err);
+                                    }
+
+                                });
+
+                            }
+                        });
+                    };
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+                            <RC.URL href={`/program/session/edit/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
+                            {/*<KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
+                            */}
+                        </RC.Div>
+
+                    );
+                }
             }
         ];
 
@@ -98,14 +140,40 @@ KUI.Program_session = class extends RC.CSSMeteorData{
     }
 
     componentDidMount(){
-        let [sd1, sd2,,] = this.getAddBoxRefs();
+        //super.componentDidMount();
+
+        let {sd1, sd2, blockDay} = this.getAddBoxRefs();
         $(sd1.getInputDOMNode()).datepicker({});
 
+        $(blockDay.getInputDOMNode()).datepicker({});
         sd2 = $(sd2);
         sd2.find('.input-daterange').datepicker({});
     }
 
+    addBlockDayToList(){
+        var m = this.refs['blockDay'];
+        let v = m.getValue();
+
+        if(!v){
+            alert('please select blockout day');
+            return;
+        }
+
+        //注意这里，如果this.state赋值的时候指向同一个引用，则不会引起重绘。
+        //可以去掉_.clone看效果
+        let list = _.clone(this.state.blockList);
+        list.push(moment(v, util.const.dateFormat).toDate());
+
+        this.setState({
+            blockList : list
+        });
+
+        $(m.getInputDOMNode()).datepicker('clearDates');
+
+    }
+
     getAddBox(){
+
         var p = {
             name : {
                 labelClassName : 'col-xs-3',
@@ -124,6 +192,12 @@ KUI.Program_session = class extends RC.CSSMeteorData{
                 wrapperClassName : 'col-xs-4',
                 ref : 'ss',
                 label : 'Registration Status'
+            },
+            blockDay : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-5',
+                ref : 'blockDay',
+                label : 'Blockout Day'
             }
         };
 
@@ -138,10 +212,19 @@ KUI.Program_session = class extends RC.CSSMeteorData{
             },
             ml : {
                 marginLeft : '20px'
+            },
+            btn : {
+                color : '#1ab394',
+                cursor : 'pointer'
             }
         };
 
         let option = ['Yes', 'No'];
+
+
+
+        let blockDayButton = <b onClick={this.addBlockDayToList.bind(this)} style={sy.btn}>Add</b>;
+
 
         return (
             <RC.Div style={style}>
@@ -156,7 +239,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
                                     <span>Session Schedule</span>
                                 </label>
                                 <div className="col-xs-9">
-                                    <div className="input-daterange input-group " >
+                                    <div className="input-daterange input-group" >
                                         <input style={sy.td} type="text" className="input-sm form-control" name="start" />
                                         <span className="input-group-addon">to</span>
                                         <input style={sy.td} type="text" className="input-sm form-control" name="end" />
@@ -165,7 +248,12 @@ KUI.Program_session = class extends RC.CSSMeteorData{
 
                             </div>
 
+
                             <RB.Input type="text" {... p.sd1} />
+
+                            <RB.Input type="text" {... p.blockDay} addonAfter={blockDayButton} />
+                            {this.setBlockOutDayListBox()}
+
 
                             <RB.Input type="select" {... p.ss}>
                                 {
@@ -193,18 +281,26 @@ KUI.Program_session = class extends RC.CSSMeteorData{
     }
 
     getAddBoxRefs(){
-        let arr = ['sd1', 'sd2', 'sname', 'ss'];
-        return _.map(arr, (item)=>{
+        let arr = ['sd1', 'sd2', 'sname', 'ss', 'blockDay'];
+        arr = _.map(arr, (item)=>{
             return this.refs[item];
         });
+
+        return {
+            sname : arr[2],
+            sd1 : arr[0],
+            'sd2' : arr[1],
+            ss : arr[3],
+            blockDay : arr[4]
+        };
 
     }
 
     save(){
         let self = this;
-        let [sd1, sd2, sname, ss] = this.getAddBoxRefs();
+        let {sd1, sd2, sname, ss, blockDay} = this.getAddBoxRefs();
 
-        let format = 'MM/DD/YYYY';
+        let format = util.const.dateFormat;
 
         let data = {
             name : sname.getValue(),
@@ -217,6 +313,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
         data.startDate = moment(data.startDate, format).toDate();
         data.endDate = moment(data.endDate, format).toDate();
         data.registrationStartDate = moment(data.registrationStartDate, format).toDate();
+        data.blockOutDay = this.state.blockList;
 
         console.log(data);
 
@@ -230,7 +327,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
     }
 
     resetAddBox(){
-        let [sd1, sd2, sname, ss] = this.getAddBoxRefs();
+        let {sd1, sd2, sname, ss} = this.getAddBoxRefs();
         sname.getInputDOMNode().value = '';
         $(sd1.getInputDOMNode()).datepicker('clearDates');
         $(sd2).find('input').eq(0).datepicker('clearDates');
@@ -244,6 +341,31 @@ KUI.Program_session = class extends RC.CSSMeteorData{
 
     getSessionModule(){
         return KG.get('EF-Session');
+    }
+
+    setBlockOutDayListBox(){
+        let list = this.state.blockList;
+
+        const sy = {
+            sp : {
+                display : 'inline-block',
+                margin : '0 20px 10px 0'
+            }
+        };
+
+        return (
+            <div className="form-group">
+                <label className="control-label col-xs-3">
+                </label>
+                <div className="col-xs-9">
+                    {
+                        _.map(this.state.blockList, (item, n)=>{
+                            return <span style={sy.sp} className="label" key={n}>{moment(item).format('MM/DD/YYYY')}</span>;
+                        })
+                    }
+                </div>
+            </div>
+        );
     }
 
 };

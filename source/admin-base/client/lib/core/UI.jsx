@@ -150,3 +150,26 @@ KUI.dom = {
 
     }
 };
+
+KUI.Page = class extends RC.CSSMeteorData{
+    componentDidMount(){
+        super.componentDidMount();
+
+        if(!_.isUndefined(this.data.ready)){
+            let loop = ()=>{
+                if(!this.data.ready){
+                    _.delay(loop.bind(this), 100);
+                }
+                else{
+                    this.runOnceAfterDataReady();
+                }
+            };
+
+            _.delay(loop.bind(this), 100);
+        }
+
+    }
+    runOnceAfterDataReady(){
+
+    }
+};

@@ -7,7 +7,8 @@ KG.define('EF-Program', class extends Base{
             description : KG.schema.default({
                 optional : true
             }),
-            createTime : KG.schema.createTime()
+            createTime : KG.schema.createTime(),
+            updateTime : KG.schema.updateTime()
         };
     }
 

@@ -8,14 +8,19 @@ _.extend(util, {
     },
 
     renderLoading : function(opts){
-        return <RC.Loading isReady={false} />;
+        opts = _.extend({
+            isReady : false
+        }, opts||{});
+        return <RC.Loading {... opts} />;
     }
 });
 
 util.const = {
     //TODO input to module
     'StudentStatus' : ['Active', 'Inactive'],
-    'Gender' : ['Male', 'Female']
+    'Gender' : ['Male', 'Female'],
+
+    dateFormat : 'MM/DD/YYYY'
 };
 
 util.dialog = {
