@@ -45,7 +45,7 @@ case "$1" in
         deploy
         ;;
     *)
-        runLocalHost
+        runLocal
         ;;
 
 esac

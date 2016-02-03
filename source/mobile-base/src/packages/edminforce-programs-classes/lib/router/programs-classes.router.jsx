@@ -6,8 +6,8 @@ let {
     routeHandler
     } = EdminForce.utils;
 
-DefaultRoutes.route('/programs/:programsId', {
-    name: "Programs",
+DefaultRoutes.route('/programs/:programID', {
+    name: "programs_classes",
     action: function(p) {
         routeHandler(p, {
             pageTitle: "Edmin Force",

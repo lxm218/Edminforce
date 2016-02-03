@@ -1,55 +1,75 @@
 {
 
-    EdminForce.Components.ProgramsClasses = React.createClass({
+    EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
 
-        bookClass(){
+        getMeteorData() {
+            let programID = FlowRouter.getParam("programID");
+            let classProgramIDHandler;
+            Tracker.autorun(function () {
+                classProgramIDHandler = Meteor.subscribe('EF-Class-programID', programID);
+            });
+
+            let classes = EdminForce.Collections.class.find({}, {
+                sort: {
+                    createTime: -1
+                }
+            }).fetch();
+
+            //console.log(classes);
+
+            return {
+                classes: classes,
+                isReady: classProgramIDHandler.ready()
+            }
+        }
+
+        bookClass(item) {
             // user login
-            if(Meteor.user()){
+            if (Meteor.user()) {
                 //TODO if currently user not student, jump to add student page, after add successful then jump to confirm page
                 console.log("User logged");
 
+                let programID = FlowRouter.getParam("programID");
+
                 let params = {
-                    programsId: "111",
-                    classId: "class_11"
+                    programId: programID,
+                    classId: item._id
                 }
-                let path = FlowRouter.path("/programs/:programsId/:classId/confirm", params);
+                let path = FlowRouter.path("/programs/:programId/:classId/confirm", params);
                 FlowRouter.go(path);
 
-            }else{  // user not login
+            } else {  // user not login
                 console.log("User not logged");
                 FlowRouter.go('/login');
                 Session.set("BookTrialClassId", "class_11");
                 Session.set("BookTrialProgramId", "111");
             }
-        },
+        }
 
-        render: function () {
-
+        render() {
+            let self = this;
             // Fill with your UI
             return (
                 <div>
                     <RC.List>
-                        <RC.Item theme="divider" onClick={this.bookClass}>
-                            <h3>Beginning Trial Class 1</h3>
+                        <RC.Loading isReady={this.data.isReady}>
+                            {
+                                this.data.classes.map(function (item) {
+                                    return (
+                                        <RC.Item key={item._id} theme="divider" onClick={self.bookClass.bind(self, item)}>
+                                            <h3>{item.name}</h3>
 
-                            <p>2/20/2016, 1:00pm-2:00pm</p>
-                        </RC.Item>
-
-                        <RC.Item theme="divider" onClick={this.bookClass}>
-                            <h3>Beginning Trial Class 2</h3>
-
-                            <p>2/21/2016, 2:00pm-3:00pm</p>
-                        </RC.Item>
-
-                        <RC.Item theme="divider" onClick={this.bookClass}>
-                            <h3>Beginning Trial Class 3</h3>
-
-                            <p>2/22/2016, 2:00pm-3:00pm</p>
-                        </RC.Item>
+                                            <p>Day: {item.schedule.day}, Time: {item.schedule.time},
+                                                Length: {item.length}</p>
+                                        </RC.Item>
+                                    )
+                                })
+                            }
+                        </RC.Loading>
                     </RC.List>
                 </div>
             );
         }
-    });
+    };
 
 }
