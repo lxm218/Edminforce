@@ -80,6 +80,43 @@ let Class = class extends Base{
     }
 
 
+    /*
+    * return number of class
+    * @param - data
+    *        - session
+    * @return numberOfClass
+    * */
+    calculateNumberOfClass(data, session){
+        let start = moment(session.startDate),
+            end = moment(session.endDate);
+
+        let day = this.getDBSchema().schema('schedule.day').allowedValues;
+        day = _.indexOf(day, data.schedule.day);
+
+        let format = 'YYYYMMDD';
+
+        let rs = 0,
+            cur = start;
+
+        let blockDay = _.map(session.blockOutDay || [], (item)=>{
+            return moment(item).format(format);
+        });
+
+        while(end.isAfter(cur, 'day')){
+            if(cur.day() === day){
+                if(_.indexOf(blockDay, cur.format(format)) < 0){
+                    rs++;
+                }
+
+            }
+
+            cur = cur.add(1, 'd');
+        }
+
+        return rs;
+
+    }
+
 
     getAll(query){
         if(Meteor.isClient){
@@ -100,11 +137,20 @@ let Class = class extends Base{
         };
 
         let data = this._db.find(query, {sort : sort}).fetch();
-        _.map(data, function(item){
+        _.map(data, (item)=>{
 
-            item.sessionName = _.find(session, (s)=>{
+            let stmp = _.find(session, (s)=>{
                 return s._id === item.sessionID;
-            }).name;
+            });
+
+            item.sessionName = stmp.name;
+            item.session = stmp;
+
+
+            if(true || !item.numberOfClass){
+                item.numberOfClass = this.calculateNumberOfClass(item, stmp);
+            }
+
 
             //nickName
             let tn = _.find(program, (p)=>{

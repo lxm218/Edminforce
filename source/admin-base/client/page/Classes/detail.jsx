@@ -21,7 +21,7 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
         });
 
         let id = this.getClassId();
-        let data = KG.get('EF-Class').getAll()[0];
+        let data = KG.get('EF-Class').getAll({_id : this.getClassId()})[0];
 
 
         return {

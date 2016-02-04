@@ -34,7 +34,11 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
 
     getMeteorData(){
         Meteor.subscribe('EF-Program');
-        Meteor.subscribe('EF-Session');
+        Meteor.subscribe('EF-Session', {
+            query : {
+                registrationStatus : 'Yes'
+            }
+        });
 
         return {
             program : this.getProgramData(),
@@ -79,7 +83,7 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
             status : status.getValue(),
             teacher : teacher.getValue(),
             length : len.getValue(),
-            numberOfClass : number.getValue(),
+            //numberOfClass : number.getValue(),
             maxAgeRequire : maxAge.getValue(),
             minAgeRequire : minAge.getValue(),
             level : level.getValue(),
@@ -96,6 +100,10 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
                 time : scheduleTime.getValue()
             }
         };
+
+        let stmp = KG.get('EF-Session').getDB().findOne({_id : data.sessionID});
+        data.numberOfClass = KG.get('EF-Class').calculateNumberOfClass(data, stmp);
+
         return data;
     }
 
@@ -110,7 +118,7 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
         status.getInputDOMNode().value = opt.status[0];
         teacher.getInputDOMNode().value = '';
         len.getInputDOMNode().value = opt.lengthOfClass[0];
-        number.getInputDOMNode().value = '';
+        //number.getInputDOMNode().value = '';
         maxAge.getInputDOMNode().value = '';
         minAge.getInputDOMNode().value = '';
         level.getInputDOMNode().value = opt.level[0];
@@ -185,7 +193,9 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'numberOfClass',
-                label : 'Number Of Class'
+                label : 'Number Of Class',
+                placeholder : 'automatic calculation',
+                disabled : true
             },
             maxAge : {
                 labelClassName : 'col-xs-4',

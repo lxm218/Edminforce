@@ -31,7 +31,7 @@ Schema.ClassTuition = {
 
 Validate.Class = {
     'MinStudentMoreThanMaxStudent' : 'max student is must more than minimum student!',
-    'NumberOfClassLess' : '[label] is must more than 0'
+    'NumberOfClassLess' : 'calculate "[label]" is 0, please check!'
 };
 
 Schema.Class = {
