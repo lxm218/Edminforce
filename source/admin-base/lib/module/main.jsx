@@ -1,6 +1,6 @@
 
 
-
+KG.Account = KG.create('Account');
 App.AdminUser = KG.create('EF-AdminUser');
 
 KG.create('EF-Program');

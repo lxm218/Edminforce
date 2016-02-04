@@ -1,7 +1,15 @@
 
-KUI.Home_login = KUI.Class.define('ui.Home_login', {
+KUI.Home_login = class extends KUI.Page{
 
-    initStyle : function(){
+    getMeteorData(){
+
+        return {
+            data : ''
+        };
+    }
+
+
+    baseStyles(){
 
 
         return {
@@ -13,53 +21,79 @@ KUI.Home_login = KUI.Class.define('ui.Home_login', {
             },
             a : {
                 marginTop : '50px'
+            },
+            ml : {
+                marginLeft : '20px'
             }
         };
-    },
+    }
 
-    login : function(e){
-        let s1 = this.refs.user.getValue(),
+    login(e){
+        let s1 = this.refs.username.getValue(),
             s2 = this.refs.pwd.getValue();
 
-        let md = KG.get('EF-AdminUser'),
-            rs = md.login({
-                userID : s1,
-                password : s2
-            });
-        KG.result.handle(rs, {
-            success : function(data){
-                var url = Session.get(KG.const.CACHELOGINPATH);
-                if(url){
-                    FlowRouter.go(url);
-                }
-                else{
-                    FlowRouter.go('/home/');
-                }
+        KG.Account.login({
+            username : s1,
+            password : s2,
+            success : function(user){
+                console.log(user);
 
-            },
-            error : function(data, err){
-                alert(err.statusText);
+                let url = Session.get(KG.const.CACHELOGINPATH);
+                util.goPath(url || '/home');
             }
         });
-    },
 
-    getRender : function(style){
-
-        return (
-            <RB.Row>
-                <RB.Col md={8} mdOffset={0}>
-                    <form className="form-horizontal">
-                        <h3 style={style.h3}>Employee Login</h3>
-                        <RB.Input ref="user" type="text" label="User ID" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
-                        <RB.Input ref="pwd" type="password" label="Password" labelClassName="col-xs-3" wrapperClassName="col-xs-9" />
-
-                        <KUI.YesButton onClick={this.login} top="50px" float="right" label="Login" />
-                    </form>
-                </RB.Col>
-            </RB.Row>
-
-        );
 
     }
 
-}, 'Base');
+    render(){
+
+        let style = this.css.get('styles');
+
+        let p = {
+            username : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'username',
+                label : 'User ID'
+            },
+            password : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'pwd',
+                label : 'Password'
+            }
+        };
+
+        const sy = {
+            a : {
+                cursor : 'pointer'
+            }
+        };
+
+        return (
+            <RC.Div>
+                <h3>Employee Login</h3>
+                <hr/>
+                <RB.Row>
+                    <RB.Col md={8} mdOffset={0}>
+                        <form className="form-horizontal">
+                            <RB.Input type="text" {... p.username} />
+                            <RB.Input type="password" {... p.password} />
+
+                        </form>
+                        <RC.Div style={{textAlign:'right'}}>
+                            <RC.URL style={sy.a}><p>Forgot password?</p></RC.URL>
+                            <KUI.YesButton style={style.ml} onClick={this.login.bind(this)} label="Login"></KUI.YesButton>
+                        </RC.Div>
+                    </RB.Col>
+                </RB.Row>
+
+
+            </RC.Div>
+        );
+
+
+    }
+
+};

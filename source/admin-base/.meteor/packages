@@ -41,9 +41,11 @@ aldeed:simple-schema
 meteorflux:dispatcher
 meteorflux:reactive-dependency
 
+
 cal:globals
 
 kg:base
+edminforce:account
 edminforce:admin-user
 edminforce:class
 edminforce:student

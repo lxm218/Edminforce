@@ -13,20 +13,22 @@ KUI.Header = KUI.Class.define('ui.Header', {
         };
 
         return <RB.Nav pullRight>
-            <RB.Navbar.Text eventKey={1}>Welcome <b style={style}>{user.userProfile.nickName}</b></RB.Navbar.Text>
+            <RB.Navbar.Text eventKey={1}>Welcome <b style={style}>{user.username}</b></RB.Navbar.Text>
             <RB.NavItem eventKey={2} onClick={this.logout}>Logout</RB.NavItem>
         </RB.Nav>;
     },
 
     logout : function(){
-        App.AdminUser.logout();
 
-        FlowRouter.go('/home/login');
+        Meteor.logout(function(){
+            util.goPath('/home/login');
+        });
+
     },
 
     getRender : function(){
 
-        var user = KG.user;
+        var user = KG.Account.checkIsLogin();
 
         return (<RB.Navbar>
             <RB.Navbar.Header>
@@ -37,7 +39,7 @@ KUI.Header = KUI.Class.define('ui.Header', {
 
             </RB.Navbar.Header>
             <RB.Navbar.Collapse>
-                {user.isLogin?this.getAfterLogin(user.current):this.getBeforeLogin()}
+                {user?this.getAfterLogin(user):this.getBeforeLogin()}
             </RB.Navbar.Collapse>
         </RB.Navbar>);
     }

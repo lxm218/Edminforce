@@ -46,33 +46,25 @@ if(Meteor.isClient){
 
 
     App.checkLogin = function(callback){
-        KG.get('EF-AdminUser').checkLogin(function(flag){
-            if(!flag){
-                //not login
-                FlowRouter.go('/home/login');
-                callback(false);
 
-                return;
-            }
+        let user = KG.Account.checkIsLogin();
 
-            callback(true);
-        });
-
+        callback(user);
 
     };
 
     let cacheUrl = '';
     FlowRouter.triggers.enter([function(param){
-        //console.log(param);
-        //App.checkLogin(function(flag){
-        //    if(!flag){
-        //        if(param.path !== '/home/login')
-        //            Session.set(KG.const.CACHELOGINPATH, param.path);
-        //
-        //        FlowRouter.go('/home/login');
-        //    }
-        //
-        //});
+        console.log(param);
+        App.checkLogin(function(flag){
+            if(!flag){
+                if(param.path !== '/home/login')
+                    Session.set(KG.const.CACHELOGINPATH, param.path);
+
+                FlowRouter.go('/home/login');
+            }
+
+        });
     }]);
 
 

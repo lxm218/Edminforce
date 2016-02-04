@@ -21,11 +21,10 @@ Schema.Account = {
         type: Boolean,
         optional: true
     },
-    roles: {
-        type: Object,
-        blackbox: true,
-        optional: true
-    },
+    roles : KG.schema.default({
+        defaultValue : 'admin',
+        allowedValues : ['admin', 'user']
+    }),
     profile: {
         type: Object,
         optional: true,
@@ -40,5 +39,5 @@ Schema.Account = {
         optional: true,
         blackbox: true,
         type: Object
-    },
+    }
 };
