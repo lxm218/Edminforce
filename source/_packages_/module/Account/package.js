@@ -8,7 +8,7 @@ Package.describe({
 
 
 Package.onUse(function(api) {
-    api.versionsFrom("METEOR@1.2.0.2");
+    api.versionsFrom("1.2.0.2");
 
     api.use([
         'sha',
@@ -20,15 +20,19 @@ Package.onUse(function(api) {
 
     api.imply([
         'sha',
-        "ihealth:utils",
-        "accounts-password",
-        "alanning:roles@1.2.14"
+        "accounts-password"
     ], ["client","server"]);
+
+    api.addFiles([
+        'server.jsx'
+    ], ['server']);
 
     api.addFiles([
         'schema.jsx',
         'Account.jsx'
     ], ["client","server"]);
+
+
 
 
     //api.export([

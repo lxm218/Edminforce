@@ -32,9 +32,12 @@ KUI.Home_login = class extends KUI.Page{
         let s1 = this.refs.username.getValue(),
             s2 = this.refs.pwd.getValue();
 
+        let keep = $(this.refs.keep.getInputDOMNode()).prop('checked');
+
         KG.Account.login({
             username : s1,
             password : s2,
+            keepLogin : keep,
             success : function(user){
                 console.log(user);
 
@@ -62,12 +65,20 @@ KUI.Home_login = class extends KUI.Page{
                 wrapperClassName : 'col-xs-9',
                 ref : 'pwd',
                 label : 'Password'
+            },
+            keep : {
+
             }
         };
 
         const sy = {
             a : {
                 cursor : 'pointer'
+            },
+            checkout : {
+                position : 'relative',
+                left : '8px',
+                top : '-6px'
             }
         };
 
@@ -80,9 +91,14 @@ KUI.Home_login = class extends KUI.Page{
                         <form className="form-horizontal">
                             <RB.Input type="text" {... p.username} />
                             <RB.Input type="password" {... p.password} />
+                            <div style={sy.checkout} className="col-md-3 col-md-offset-3">
+                                <RB.Input onChange={this.changeRemember} ref="keep" type="checkbox" label="Remember Me" />
+                            </div>
+
 
                         </form>
                         <RC.Div style={{textAlign:'right'}}>
+
                             <RC.URL style={sy.a}><p>Forgot password?</p></RC.URL>
                             <KUI.YesButton style={style.ml} onClick={this.login.bind(this)} label="Login"></KUI.YesButton>
                         </RC.Div>
@@ -94,6 +110,10 @@ KUI.Home_login = class extends KUI.Page{
         );
 
 
+    }
+    changeRemember(){}
+    componentDidMount(){
+        $(this.refs.keep.getInputDOMNode()).attr('checked', true);
     }
 
 };
