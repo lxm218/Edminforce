@@ -10,7 +10,7 @@ Schema.const = {
     genderRequire : ['All', 'Male', 'Female'],
     //length : ['30 min', '45 min', '1 hr', '1.5 hr', '2 hr']
 
-    registrationStatus : ['trail', 'register', 'wait']
+    registrationStatus : ['trail', 'register', 'wait', 'makeup']
 };
 
 Schema.ClassSchedule = {
@@ -139,6 +139,10 @@ Schema.ClassStudent = {
     }),
     payment : {
         type : new SimpleSchema(Schema.ClassStudentPayment),
+        optional : true
+    },
+    lessonDate : {
+        type : Date,
         optional : true
     },
     createTime : KG.schema.createTime(),
