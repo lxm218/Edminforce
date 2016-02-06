@@ -33,6 +33,23 @@ DefaultRoutes.route('/payment/CreditCard', {
     }
   })
 
+DefaultRoutes.route('/payment/PaymentConfirmation', {
+  name: "Payment Confirmation",
+  action: function(p) {
+
+    var dynamicRoute = {
+        pageTitle: "Credit Card Payment", // This is for header title
+        showGlobalNav: false,
+        headerNav: null,    
+        hideBackButton:true,
+        leftNavToggle:true
+      }
+      if (Cal["CreditCard"])
+        dynamicRoute.bodyTmpl = React.createElement(Cal["PaymentConfirmation"])
+      App.routeHandler(p, dynamicRoute)
+    }
+  })
+
 // DefaultRoutes.route('/login', {
 //   name: "Log In",
 //   action: function(p) {
