@@ -1,8 +1,9 @@
 
 
 KG.Account = KG.create('Account');
-App.AdminUser = KG.create('EF-AdminUser');
 
+App.AdminUser = KG.create('EF-AdminUser');
+KG.create('EF-Customer');
 KG.create('EF-Program');
 KG.create('EF-Session');
 App.Class = KG.create('EF-Class');
