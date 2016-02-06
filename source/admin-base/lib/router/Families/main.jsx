@@ -15,6 +15,15 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/profile/:id', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle : 'Family | profile',
+                bodyTmpl : <KUI.Family_profile />
+            });
+        }
+    });
+
 
 
 

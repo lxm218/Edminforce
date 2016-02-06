@@ -13,7 +13,7 @@ KUI.Family_index = class extends KUI.Page{
     getMeteorData(){
         let x = Meteor.subscribe('EF-Customer');
 
-        let query = {};
+        let query = this.state.query;
 
         let list = KG.get('EF-Customer').getAll(query, {
             sort : {
@@ -30,7 +30,18 @@ KUI.Family_index = class extends KUI.Page{
     getSearchBox(){
 
         let p = {
-
+            sname : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'sname',
+                label : 'Search Families'
+            },
+            status : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'status',
+                label : 'Status'
+            }
         };
 
         return (
@@ -58,11 +69,36 @@ KUI.Family_index = class extends KUI.Page{
             {
                 title : 'Status',
                 key : 'status'
+            },
+            {
+                title : 'Action',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom : function(item){
+                    const sy = {
+                        cursor : 'pointer',
+                        position : 'relative',
+                        top : '2px'
+                    };
+                    const ml = {
+                        //marginLeft : '10px',
+                        cursor : 'pointer'
+                    };
+
+                    var del = function(){
+
+                    };
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+                            <RC.URL href={`/family/profile/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
+                            {/*<KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>*/}
+                        </RC.Div>
+
+                    );
+                }
             }
-            //{
-            //    title : 'Action',
-            //
-            //}
 
         ];
 
