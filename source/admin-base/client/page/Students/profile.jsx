@@ -122,10 +122,9 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
 
     renderClassTable(){
 
-        if(_.keys(this.data.classData).length < 1){
+        if(this.data.classStudentData.length > 0 && _.keys(this.data.classData).length < 1){
             return util.renderLoading();
         }
-
 
         const titleArray = [
             {

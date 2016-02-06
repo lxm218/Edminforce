@@ -15,7 +15,7 @@ Schema.StudentProfile = {
 let list = [
     'email','firstName','lastName','image','phone','location',
     'emergencyPhone', 'emergencyContact', 'alternativePhone', 'alternativeContact',
-    'description', 'school', 'note', 'medicalInfo'
+    'school', 'note', 'medicalInfo'
 ];
 
 _.each(list, function(item){
@@ -26,8 +26,10 @@ _.each(list, function(item){
 
 Schema.Student = {
     accountID : KG.schema.default(),
-    accountName : KG.schema.default(),
-    nickName : KG.schema.default(),
+    //accountName : KG.schema.default(),
+    nickName : KG.schema.default({
+        label : 'Student Name'
+    }),
     profile : {
         type : new SimpleSchema(Schema.StudentProfile)
     },

@@ -48,14 +48,46 @@ let Student = class extends Base{
 
     }
 
-    publishMeteorData(){
-        let self = this;
-        Meteor.publish(this._name, function(query, sort){
-            query = query || {};
-            sort = sort || {};
-            return self._db.find(query, sort);
+    getDepModule(){
+        return {
+            customer : KG.get('EF-Customer')
+        };
+    }
+
+    getAll(query, option){
+        let list = this._db.find(query||{}, option||{}).fetch();
+
+        let {customer} = this.getDepModule();
+
+        return _.map(list, (item)=>{
+            item.age = '';
+            if(item.profile.birthday){
+                item.age = moment().year() - moment(item.profile.birthday).year()
+            }
+
+            //find family name
+            let tmp = customer.getDB().findOne({_id:item.accountID});
+            if(tmp){
+                item.accountName = tmp.name;
+            }
+
+            return item;
         });
     }
+
+    insert(data){
+
+        try{
+            let rs = this._db.insert(data, function(err){
+                if(err) throw err;
+            });
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.reason||e.toString());
+        }
+    }
+
+
 };
 
 KG.define('EF-Student', Student);

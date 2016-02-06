@@ -140,12 +140,25 @@ KUI.Family_profile = class extends KUI.Page{
             query : {_id : id}
         });
 
+        let y = Meteor.subscribe('EF-Student', {
+            query : {
+                accountID : id
+            }
+        });
+
         let profile = KG.get('EF-Customer').getAll()[0];
+        let list = KG.get('EF-Student').getAll({}, {
+            sort : {
+                updateTime : -1
+            }
+        });
 
         return {
             id : id,
             ready : x.ready(),
-            profile : profile
+            listReady : y.ready(),
+            profile : profile,
+            list : list
         };
     }
 
@@ -168,8 +181,17 @@ KUI.Family_profile = class extends KUI.Page{
                     <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>
                 <hr/>
+                <h4>Students</h4>
+                {this.renderStudentTable()}
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.toAdd.bind(this)} label="Add"></KUI.YesButton>
+                </RC.Div>
             </RC.Div>
         );
+    }
+
+    toAdd(){
+        util.goPath('/student/add/under/'+this.data.id);
     }
 
     save(){
@@ -187,6 +209,50 @@ KUI.Family_profile = class extends KUI.Page{
     runOnceAfterDataReady(){
         let data = this.data.profile;
         this.refs.form.setDefaultValue(data);
+    }
+
+    renderStudentTable(){
+
+        if(!this.data.listReady){
+            return util.renderLoading();
+        }
+
+        const titleArray = [
+            {
+                title : 'Name',
+                key : 'nickName'
+            },
+            {
+                title : 'Birthday',
+                reactDom : function(doc){
+                    return moment(doc.profile.birthday).format(util.const.dateFormat);
+                }
+            },
+            {
+                title : 'Age',
+                key : 'age'
+            },
+            {
+                title : 'Gender',
+                key : 'profile.gender'
+            },
+            {
+                title : 'Status',
+                key : 'status'
+            }
+        ];
+
+        let list = this.data.list;
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={list}
+                title={titleArray}
+                ref="table">
+            </KUI.Table>
+        );
+
     }
 
 };
