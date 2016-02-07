@@ -84,16 +84,16 @@ Cal.CreditCard = React.createClass({
 		                "zip": "44628",
 		                "country": "USA"
 		            },
-		            "shipTo": {
-		                "firstName": "China",
-		                "lastName": "Bayles",
-		                "company": "Thyme for Tea",
-		                "address": "12 Main Street",
-		                "city": "Pecan Springs",
-		                "state": "TX",
-		                "zip": "44628",
-		                "country": "USA"
-		            },
+		            // "shipTo": {
+		            //     "firstName": "China",
+		            //     "lastName": "Bayles",
+		            //     "company": "Thyme for Tea",
+		            //     "address": "12 Main Street",
+		            //     "city": "Pecan Springs",
+		            //     "state": "TX",
+		            //     "zip": "44628",
+		            //     "country": "USA"
+		            // },
 		            "customerIP": "192.168.1.1",
 		            "transactionSettings": {
 		                "setting": {
@@ -153,6 +153,12 @@ Cal.CreditCard = React.createClass({
 		paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardNumber = form.creditCardNumber
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.expirationDate = form.expirationDate
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardCode = form.ccv
+	 	paymentInfo.createTransactionRequest.transactionRequest.billTo.firstName = form.cardHolderFirstName
+		paymentInfo.createTransactionRequest.transactionRequest.billTo.lastName = form.cardHolderLastName
+		paymentInfo.createTransactionRequest.transactionRequest.billTo.address = form.street
+		paymentInfo.createTransactionRequest.transactionRequest.billTo.city = form.city
+		paymentInfo.createTransactionRequest.transactionRequest.billTo.state = form.state
+		paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = form.zip
 	 	paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
 	 	console.log(paymentInfo.createTransactionRequest.refId)
 
@@ -297,6 +303,12 @@ Cal.CreditCard = React.createClass({
 	            	<RC.Input name="creditCardNumber" onKeyUp={this.checkCardNumber} label="Credit Card Number" theme={inputTheme} ref="cardNumber" />
 			        <RC.Input name="expirationDate" onKeyUp={this.checkExpirationDate} label="Expiration Date (MM/YY)"  theme={inputTheme} ref="expirationDate" />
 			        <RC.Input name="ccv" onKeyUp={this.checkCCV} label="CCV" theme={inputTheme} ref="ccv"/>
+			        <RC.Input name="cardHolderFirstName" label="Card Holder First Name" theme={inputTheme} ref="cardHolderFirstName"/>
+			        <RC.Input name="cardHolderLastName" label="Card Holder Last Name" theme={inputTheme} ref="cardHolderLastName"/>
+			        <RC.Input name="street"  label="Street Address" theme={inputTheme} ref="street"/>
+			        <RC.Input name="city"  label="City" theme={inputTheme} ref="city"/>
+			        <RC.Input name="state" label="State" theme={inputTheme} ref="state"/>
+			        <RC.Input name="zip" label="Zip" theme={inputTheme} ref="zip"/>
 		            <RC.Button name="button" theme="full" buttonColor="brand">
 		                    Pay Now
 		                </RC.Button>
