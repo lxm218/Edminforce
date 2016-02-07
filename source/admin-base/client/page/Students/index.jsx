@@ -17,15 +17,16 @@ KUI.Student_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
+        Meteor.subscribe('EF-Customer');
         Meteor.subscribe('EF-Student', {});
 
         let query = this.state.query;
 
-        let list = this.getStudentModule().getDB().find(query,{
+        let list = this.getStudentModule().getAll(query,{
             sort : {
                 updateTime : -1
             }
-        }).fetch();
+        });
 
         return {
             list
@@ -113,16 +114,6 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         ];
 
         var list = this.data.list;
-
-        _.map(list, (item)=> {
-            item.age = '';
-            if(item.profile.birthday){
-                item.age = moment().year() - moment(item.profile.birthday).year()
-            }
-            return item;
-
-        });
-
 
 
         return (

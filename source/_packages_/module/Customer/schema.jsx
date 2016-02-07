@@ -1,13 +1,24 @@
 
 Schema = {};
+Validate ={};
 
 Schema.Contact = {
     name : KG.schema.default({
-
+        optional : true
     }),
     phone : KG.schema.default({
-        optional : true
+        optional : true,
+        label : 'Contact Phone',
+        custom : function(){
+            if(this.value && !/^[0-9]*$/g.test(this.value)){
+                return '601';
+            }
+        }
     })
+};
+
+Validate.Customer = {
+    '601' : '[label] must be a number'
 };
 
 Schema.Customer = {
@@ -22,7 +33,12 @@ Schema.Customer = {
         optional : true
     }),
     phone : KG.schema.default({
-        optional : true
+        optional : true,
+        custom : function(){
+            if(this.value && !/^[0-9]*$/g.test(this.value)){
+                return '601';
+            }
+        }
     }),
     location : KG.schema.default({
         optional : true
@@ -40,7 +56,8 @@ Schema.Customer = {
     },
     status : KG.schema.default({
         allowedValues : ['Active', 'Inactive'],
-        defaultValue : 'Active'
+        defaultValue : 'Active',
+        optional : true
     }),
 
     createTime : KG.schema.createTime(),

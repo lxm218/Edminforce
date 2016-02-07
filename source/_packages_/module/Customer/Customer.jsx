@@ -29,11 +29,29 @@ KG.define('EF-Customer', class extends Base{
         });
     }
 
+    defineSchemaValidateMessage(){
+        return Validate.Customer;
+    }
+
     getAll(query, option){
 
         let rs = this._db.find(query||{}, option||{}).fetch();
 
         return rs;
 
+    }
+
+    updateById(data, id){
+        let vd = this.validateWithSchema(data);
+        if(vd !== true){
+            return KG.result.out(false, vd, vd.reason);
+        }
+
+        try{
+            let rs = this._db.update({_id : id}, {'$set' : data});
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.toString());
+        }
     }
 });

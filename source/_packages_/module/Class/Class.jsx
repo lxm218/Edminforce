@@ -42,7 +42,7 @@ let Class = class extends Base{
     //api
     validate(data){
 
-        return super.validateWithSchema(data);
+        return this.validateWithSchema(data);
 
     }
 

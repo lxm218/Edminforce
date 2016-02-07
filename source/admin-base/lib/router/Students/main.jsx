@@ -29,6 +29,16 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/add/under/:accountID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | add",
+                bodyTmpl: <KUI.Student_add />
+            });
+
+        }
+    });
+
 
 
 
