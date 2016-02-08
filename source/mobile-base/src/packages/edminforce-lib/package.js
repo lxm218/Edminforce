@@ -22,6 +22,7 @@ Package.onUse(function (api) {
         'izzilab:material-ui@0.2.4',
         'stevezhu:lodash@4.0.0',
         'chuangbo:cookie@1.1.0',
+        'reywood:publish-composite@1.4.2',
         'meteorflux:dispatcher',
         'meteorflux:reactive-dependency',
         'ihealth:utils',
