@@ -35,15 +35,15 @@ App.Radio_Buttons = React.createClass({
 
     return <RC.List>
       <RC.Item theme="body">
-        <h2 className="brand">Description</h2>
+        <h3>Description</h3>
         <p>If you do not assign a &quot;name&quot; prop, a random string will be generated for you.</p>
       </RC.Item>
 
-      <RC.Item theme="divider">My Favourite Parks</RC.Item>
-      <RC.RadioGroup list={myParks} name="my-park" value="elora-gorge" uiColor="brand2" />
+      <RC.ItemDivider>My Favourite Parks</RC.ItemDivider>
+      <RC.RadioGroup list={myParks} name="my-park" value="elora-gorge" />
 
-      <RC.Item theme="divider">Bruno's Favourite Parks</RC.Item>
-      <RC.RadioGroup list={brunoParks} name="brunos-park" value="erindale" uiClass="paw" uiColor="brand" />
+      <RC.ItemDivider>Bruno's Favourite Parks</RC.ItemDivider>
+    <RC.RadioGroup list={brunoParks} name="brunos-park" value="erindale" uiClass="paw" />
 
     </RC.List>
   }

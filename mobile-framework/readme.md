@@ -6,14 +6,3 @@
 
 ## git-packages.json example
 ```
-{
-  "ihealth:bp5": {
-    "git": "https://github.com/iHealthLab/framework-iHealth.git",
-    "path": "ihealth-packages-mobile/packages/ihealth_bp5"
-  },
-  "ihealth:devices-ui": {
-    "git": "https://github.com/iHealthLab/framework-iHealth.git",
-    "path": "ihealth-packages-mobile/packages/ihealth_devices-ui"
-  }
-}
-```

@@ -1,15 +1,7 @@
-# Calphin-Project
-Hello Team, this is the first project we work together!!! I hope these new tools work out nicely. 
-We will be using Github to code and documents tracking, Trello for project process tracking and moxtra for communication e.g. online meetings.
+# Meteor/React Framework for iHealth
 
-# Team Members
-* Lin Yang - Project Manager
-* Lan Ma - Product Manager
-* Joseph He - Project Partner
-* Shaoke Xu - Developer
-* Yifan Wang - Developer
-* Jinhui Fan - Developer
-* Kevin Zhang - IT Advisor
-
-
-Weekly Moxtra meeting is every Sunday night 9pm. 
+### Contents
+1. /library folder contains all the framework packages and app library.
+2. /webapp-framework folder is the Framework documentation website (WIP).
+3. /mobile-framework folder is a mini-app and sample code for the mobile framework.
+4. /mobile-boilerplate folder is a boilerplate for the mobile-framework. An empty app to start creating your app.

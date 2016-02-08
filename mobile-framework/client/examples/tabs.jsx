@@ -36,7 +36,7 @@ App.Tabs = React.createClass({
         brand: 1
       }]
 
-    return <RC.Tabs className="bg-white">
+    return <RC.Tabs>
 
       <div label="Strawberries">
         <RC.Timeline theme="double" list={notificationList} />

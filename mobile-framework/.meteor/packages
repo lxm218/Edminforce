@@ -4,32 +4,23 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-#meteor-platform
-
-meteor
-underscore
-session
-webapp
-logging
-tracker
-ddp
-mongo
-check
+ecmascript
+es5-shim
 jquery
-reload
-autoupdate
+meteor-base
+mobile-experience
+mongo
+session
+standard-minifiers
+tracker
+
 coffeescript
+underscore
 
 react
 
-launch-screen
-mobile-status-bar
-
 kadira:flow-router
 kadira:react-layout
-
-fourseven:scss
-fortawesome:fontawesome
 
 ####
 ## Framework & Addons
@@ -51,6 +42,11 @@ ihealth:devices-stub
 ####
 ## iHealth Device
 ####
+# ihealth:devices-ui-bp
 ihealth:devices-ui
-ihealth:bg5
-ihealth:bp5
+ihealth:devices-ui-bg
+ihealth:bp
+ihealth:bp-ui
+jhartma:cjsx
+ihealth:plugin-am3s
+ihealth:igluco-ui

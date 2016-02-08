@@ -8,14 +8,12 @@ if (Meteor.isClient) {
   let routeHandler = function(p, args){
     let defs = {
       // Meta
-      metaTitle: Meteor.settings.public.appName,
-      metaDesc: Meteor.settings.public.appDesc,
+      metaTitle: (Meteor.settings && Meteor.settings.public.appName) || "iHealth Framework",
+      metaDesc: (Meteor.settings && Meteor.settings.public.appName) || "iHealth Framework",
 
       // Route
       layout: App.Main,
       pageTitle: "Unknown",
-      showGlobalNav: false,
-      globalNav: null,
       globalNavLocation: "auto",
       headerNav: null,
       bodyTmpl: <RC.NotFound/>
@@ -27,9 +25,6 @@ if (Meteor.isClient) {
 
     ReactLayout.render( args.layout, {
       title: args.pageTitle,
-      showGlobalNav: args.showGlobalNav,
-      globalNav: args.globalNav,
-      globalNavLocation: args.globalNavLocation,
       headerNav: args.headerNav,
       body: args.bodyTmpl
     })
@@ -45,43 +40,19 @@ if (Meteor.isClient) {
     action: function(p) {
       routeHandler(p, {
         pageTitle: "Home",
-        showGlobalNav: false,
         headerNav: null,
         bodyTmpl: <App.Home/>
       })
     }
   })
 
-  // BP5 Cordova JS Class
-  DefaultRoutes.route('/BP5', {
-    name: "BP5",
+  // Cordova Plugin test screen
+  DefaultRoutes.route('/plugins', {
+    name: "iHealthPlugins",
     action: function(p) {
       routeHandler(p, {
-        pageTitle: "BP5 JS Class",
-        bodyTmpl: <App.BP5 />
-      })
-    }
-  })
-
-
-  // BG5 Cordova JS Class
-  DefaultRoutes.route('/BG5', {
-    name: "BG5",
-    action: function(p) {
-      routeHandler(p, {
-        pageTitle: "BG5 JS Class",
-        bodyTmpl: <App.BG5 />
-      })
-    }
-  })
-
-  // BG5 Cordova JS Class
-  DefaultRoutes.route('/animate', {
-    name: "animate",
-    action: function(p) {
-      routeHandler(p, {
-        pageTitle: "animate",
-        bodyTmpl: <App.Animate />
+        pageTitle: "iHealth Plugins",
+        bodyTmpl: <App.Plugins />
       })
     }
   })
@@ -90,36 +61,71 @@ if (Meteor.isClient) {
   DefaultRoutes.route('/BPComponent', {
     name: "BP5Component",
     action: function(p) {
-      let callback = function(res){
-        console.log("@@ Finish Callback @@")
-        console.log(res)
-      }
       routeHandler(p, {
         pageTitle: "BP Component",
         metaTitle: "iHealth BP Component",
         metaDesc: "Blood Pressure ReactJSX Component",
-        bodyTmpl: <DeviceRC.Prepare device={iHealth.BP5} finishCallback={callback} deviceName="BP" />
+        bodyTmpl: <App.BP />
       })
     }
   })
 
-  // BG Component
   DefaultRoutes.route('/BGComponent', {
     name: "BG5Component",
     action: function(p) {
-      let callback = function(res){
-        console.log("@@ Finish Callback @@")
-        console.log(res)
-      }
       routeHandler(p, {
         pageTitle: "BG Component",
         metaTitle: "iHealth BG Component",
         metaDesc: "Glucometer ReactJSX Component",
-        bodyTmpl: <DeviceRC.Prepare device={iHealth.BG5} finishCallback={callback} deviceName="BG" />
+        bodyTmpl: <App.BG />
       })
     }
   })
 
+  DefaultRoutes.route('/AM3SComponent', {
+    name: "AM3SComponent",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "AM3S Component",
+        metaTitle: "iHealth AM3S Component",
+        metaDesc: "Activity tracker ReactJSX Component",
+        bodyTmpl: <App.AM3S />
+      })
+    }
+  })
+
+  DefaultRoutes.route('/BPList', {
+    name: "BPList",
+    action: function(p) {
+      let cleanMeasurements = _.map(IH.RC.SampleBPMeasurements, bp =>
+        DbTools.renameKeys(_.invert(DbTools.keyMap.bp), bp)
+      )
+      routeHandler(p, {
+        pageTitle: "BP List",
+        metaTitle: "BP List",
+        metaDesc: "BP List",
+        bodyTmpl: <IH.RC.BPListResult measurements={cleanMeasurements}  />
+      })
+    }
+  })
+  DefaultRoutes.route('/BGList', {
+    name: "BGList",
+    action: function(p) {
+      Meteor.subscribe("BGMeasurements", {deviceType: 'BG'}, {sort: {MDate: -1}, limit: 15}, () => {
+        let measurementsRaw = IH.Coll.Measurements.find({deviceType: 'BG'}, {sort: {MDate: -1}, limit: 15})
+        console.log('measurementsRaw', measurementsRaw.count())
+        measurements = measurementsRaw.map((m0) =>
+          DbTools.renameKeys (_.invert(DbTools.keyMap.bg), m0)
+        )
+        routeHandler(p, {
+          pageTitle: "BG List",
+          metaTitle: "BG List",
+          metaDesc: "BG List",
+          bodyTmpl: <IH.RC.BGList measurements={measurements}  detailClickHandler={(bg)=> console.log(bg)} />
+        })
+      })
+    }
+  })
   // Dirty Route -- All List Examples
   DefaultRoutes.route('/lists/:slug', {
     name: "lists",
@@ -129,15 +135,11 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: false,
       }
 
       dynamicRoute.headerNav = [{
           href: "/lists/Mixed_List",
           text: "List with Mixed Elements",
-        },{
-          href: "/lists/List_From_Array",
-          text: "List from an Array",
         },{
           href: "/lists/Mapped_List",
           text: "Mapped (Repeat) List",
@@ -147,7 +149,64 @@ if (Meteor.isClient) {
         },{
           href: "/lists/Inset_List",
           text: "Inset List",
+        },{
+          href: "/lists/Short_List",
+          text: "Short List Items"
         }]
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
+  // Dirty Route -- All Card Examples
+  DefaultRoutes.route('/cards/:slug', {
+    name: "cards",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+      }
+
+      dynamicRoute.headerNav = [{
+          href: "/cards/Cards_Index",
+          text: "Cards Index",
+        },{
+          href: "/cards/Normal_Cards",
+          text: "Normal Cards",
+        },{
+          href: "/cards/Colored_Cards",
+          text: "Colored Cards",
+        }]
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
+  // Dirty Route -- All Hero Examples
+  DefaultRoutes.route('/hero/:slug', {
+    name: "hero",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+      }
+
+      dynamicRoute.headerNav = [{
+        href: "/hero/Hero_Index",
+        text: "Hero Index",
+      },{
+        href: "/hero/Normal_Hero",
+        text: "Normal Hero",
+      },{
+        href: "/hero/Hero_Actions",
+        text: "Hero with Actions",
+      }]
 
       if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
       routeHandler(p, dynamicRoute)
@@ -163,10 +222,12 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: false,
       }
 
       dynamicRoute.headerNav = [{
+          href: "/forms/Form_Index",
+          text: "Forms Index",
+        },{
           href: "/forms/Basic_Form_Items",
           text: "Basic Form Elements",
         },{
@@ -203,7 +264,6 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: false,
       }
 
       dynamicRoute.headerNav = [{
@@ -221,12 +281,6 @@ if (Meteor.isClient) {
     name: "globalNav",
     action: function(p) {
 
-      let slugs = [
-        "Top_Global_Nav",
-        "Automatic_Global_Nav",
-        "Bottom_Global_Nav"
-      ]
-
       let location = {
         Top_Global_Nav: "top",
         Automatic_Global_Nav: "auto",
@@ -237,15 +291,61 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: _.contains(slugs, p.slug),
-        globalNavLocation: location[p.slug],
-        globalNav: [
-          { label: "Home", href: "/", uiClass: "hand-rock-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
-          { label: "Top", href: "/globalNav/"+slugs[0], uiClass: "hand-paper-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
-          { label: "Auto", href: "/globalNav/"+slugs[1], uiClass: "hand-peace-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
-          { label: "Bot", href: "/globalNav/"+slugs[2], uiClass: "hand-scissors-o", uiClassCur: "check", uiColor: "brand", uiColorCur: "brand2" },
-        ]
       }
+
+      dynamicRoute.bodyTmpl = p.slug=="Global_Nav_Index"
+        ? <App.Global_Nav_Index/>
+        : <App.Global_Nav loc={location[p.slug]} />
+
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
+  // Dirty Route -- Global Nav Examples
+  DefaultRoutes.route('/tabs/:slug', {
+    name: "tabs",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+      }
+
+      dynamicRoute.headerNav = [{
+          href: "/tabs/Tabs_Index",
+          text: "Tabs Index",
+        },{
+          href: "/tabs/Normal_Tabs",
+          text: "Normal Tabs",
+        },{
+          href: "/tabs/Tabs_with_Icons",
+          text: "Tabs with Icons",
+        },{
+          href: "/tabs/Tab_Sliders",
+          text: "Tab Sliders",
+        }]
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
+  // Dirty Route -- Backdrop Examples
+  DefaultRoutes.route('/backdrop/:slug', {
+    name: "backdrops",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+      }
+
+      dynamicRoute.headerNav = [{
+          href: "/backdrop/Backdrop_Index",
+          text: "Backdrop Index",
+        }]
 
       if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
       routeHandler(p, dynamicRoute)
@@ -261,7 +361,6 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: false,
         headerNav: [{
           href: "/chat/Chat_Index",
           text: "Chat Index",
@@ -282,7 +381,6 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: false,
         headerNav: [{
           href: "/graphs/Graph_Index",
           text: "Graph Index",
@@ -315,7 +413,6 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: false,
         headerNav: [{
           href: "/user/User_Index",
           text: "User Index",
@@ -336,6 +433,38 @@ if (Meteor.isClient) {
     }
   })
 
+  // Dirty Route -- Stress Tests
+  DefaultRoutes.route('/stress/:slug', {
+    name: "stress",
+    action: function(p) {
+
+      let pageTitle = h.capitalize(p.slug.replace(/_/g, " "))
+      var dynamicRoute = {
+        pageTitle: pageTitle, // This is for header title
+        metaTitle: pageTitle, // This is for meta title
+        headerNav: [{
+          href: "/stress/Stress_Test_Index",
+          text: "Stress Test Index",
+        },{
+          href: "/stress/Stress_Test_1",
+          text: "Stress Test 1",
+        },{
+          href: "/stress/Stress_Test_1_SCU",
+          text: "Stress Test 1 SCU",
+        },{
+          href: "/stress/Stress_Test_2",
+          text: "Stress Test 2",
+        },{
+          href: "/stress/Stress_Test_3",
+          text: "Stress Test 3",
+        }]
+      }
+
+      if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
+      routeHandler(p, dynamicRoute)
+    }
+  })
+
   DefaultRoutes.route('/chat_channel/:slug', {
     name: "chat_channel",
     action: function(p) {
@@ -344,7 +473,6 @@ if (Meteor.isClient) {
       var dynamicRoute = {
         pageTitle: pageTitle, // This is for header title
         metaTitle: pageTitle, // This is for meta title
-        showGlobalNav: false,
       }
 
       if (p.slug === "all") {
@@ -369,6 +497,16 @@ if (Meteor.isClient) {
 
       if (App[p.slug]) dynamicRoute.bodyTmpl = React.createElement(App[p.slug])
       routeHandler(p, dynamicRoute)
+    }
+  })
+
+  DefaultRoutes.route('/datepicker', {
+    name: "DatePicker",
+    action: function(p) {
+      routeHandler(p, {
+        pageTitle: "DatePicker",
+        bodyTmpl: <App.DatePicker />
+      })
     }
   })
 

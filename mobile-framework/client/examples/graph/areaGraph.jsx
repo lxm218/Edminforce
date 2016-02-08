@@ -53,16 +53,16 @@ App.Area_Graph = React.createClass({
      * NOTE
      * Notice how both <RC.Item /> and <RC.Chart /> are used together.
      * They are both "item" components.
-     * Thus they can work together inside a "canvas" component such as <RC.List />
+     * Thus they can work together inside a "area: {" component such as <RC.List />
      */
     return <RC.List>
-      <RC.Item theme="divider">Line Graph with Area</RC.Item>
+      <RC.ItemDivider>Line Graph with Area</RC.ItemDivider>
       <RC.Chart data={ex1data} options={ex1opt} type="Line" />
 
-      <RC.Item theme="divider">Bipolar Graph</RC.Item>
+      <RC.ItemDivider>Bipolar Graph</RC.ItemDivider>
       <RC.Chart data={ex2data} options={ex2opt} type="Line" />
 
-      <RC.Item theme="divider">Bipolar Area Graph</RC.Item>
+      <RC.ItemDivider>Bipolar Area Graph</RC.ItemDivider>
       <RC.Chart data={ex3data} options={ex3opt} type="Line" />
     </RC.List>
   }

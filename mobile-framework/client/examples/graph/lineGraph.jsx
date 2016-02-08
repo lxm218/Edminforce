@@ -81,19 +81,19 @@ App.Line_Graph = React.createClass({
      * NOTE
      * Notice how both <RC.Item /> and <RC.Chart /> are used together.
      * They are both "item" components.
-     * Thus they can work together inside a "canvas" component such as <RC.List />
+     * Thus they can work together inside a "area: {" component such as <RC.List />
      */
     return <RC.List>
-      <RC.Item theme="divider">Normal Line Graph</RC.Item>
+      <RC.ItemDivider>Normal Line Graph</RC.ItemDivider>
       <RC.Chart data={ex1data} options={ex1opt} type="Line" />
 
-      <RC.Item theme="divider">Straight Line Graph, No Dots</RC.Item>
+      <RC.ItemDivider>Straight Line Graph, No Dots</RC.ItemDivider>
       <RC.Chart data={ex2data} options={ex2opt} type="Line" />
 
-      <RC.Item theme="divider">Multiple Data Set</RC.Item>
+      <RC.ItemDivider>Multiple Data Set</RC.ItemDivider>
       <RC.Chart data={ex3data} options={ex3opt} type="Line" />
 
-      <RC.Item theme="divider">Dot Graph</RC.Item>
+      <RC.ItemDivider>Dot Graph</RC.ItemDivider>
       <RC.Chart data={ex4data} options={ex4opt} type="Line" />
     </RC.List>
   }

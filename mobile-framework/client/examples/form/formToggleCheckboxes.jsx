@@ -3,44 +3,44 @@ App.Toggle_Checkboxes = React.createClass({
   render() {
 
     let groceries = [{
-      value: true,
+      checked: false,
       label: "Air Canada",
-      uiColor: "brand1"
+      uiBgColor: "light",
     },{
-      value: true,
+      checked: false,
       label: "United Airlines",
-      uiColor: "brand2"
+      uiBgColor: "gray",
+      uiBgColorActive: "brand2"
     },{
-      value: true,
+      checked: false,
       label: "Delta Airlines",
-      uiColor: "brand3"
+      uiBgColor: "white",
+      uiBgColorActive: "brand3"
     },{
-      value: true,
+      checked: true,
       label: "Porter Airlines",
-      uiColor: "light"
+      uiBgColorActive: "dark"
     },{
-      value: true,
+      checked: true,
       label: "Korean Air",
-      uiColor: "stable"
+      uiBgColorActive: "red"
     },{
-      value: true,
+      checked: true,
       label: "Air China",
-      uiColor: "dark"
+      uiBgColorActive: "green"
     }]
 
     return <RC.List>
       <RC.Item theme="body">
-        <h2 className="brand">Description</h2>
+        <h3>Description</h3>
         <p>Checkboxes are great for lists as well as forms.</p>
       </RC.Item>
-      <RC.Item theme="divider">Airline Choices</RC.Item>
+      <RC.ItemDivider>Airline Choices</RC.ItemDivider>
       {
       groceries.map(function(g,n){
-        return <RC.Checkbox {... g} theme="toggle" key={n}/>
+        return <RC.ToggleCheckbox {... g} key={n}/>
       })
       }
     </RC.List>
   }
 })
-
-//dfdfd
