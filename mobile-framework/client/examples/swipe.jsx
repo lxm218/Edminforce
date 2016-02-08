@@ -12,9 +12,9 @@ App.Swipe = React.createClass({
     var panes = [
       // This is the FIRST window
       <RC.Card>
-        <RC.Item theme="divider">Passing a Component</RC.Item>
+        <RC.ItemDivider>Passing a Component</RC.ItemDivider>
         <RC.Item theme="body">
-          <p>Swipe is a &quot;canvas&quot; component. You can pass any components into &lt;Swipe/&gt;.</p>
+          <p>Swipe is a &quot;area /&quot; component. You can pass any components into &lt;Swipe/&gt;.</p>
           <p>You can swipe your finger left/right to view more content. But it only works in mobile.</p>
           <p>This component is only available in the mobile framework. It is <strong>not</strong> included in the webapp framework.</p>
           <p>You can activate a swipe by swiping a finger left or right; <em>or</em> you can also create an event handler <span className="clickHandler" onClick={this.swipeLeft}>like this</span> or <span className="clickHandler" onClick={this.swipeRight}>this</span>.</p>
@@ -53,13 +53,7 @@ App.Swipe = React.createClass({
     ]
 
     return <RC.Swipe ref="swiper" createNavHeight={true}>
-      {
-      panes.map(function(p,n){
-        return <div className="scroll" key={n}>
-            {p}
-        </div>
-      })
-      }
+      {panes}
     </RC.Swipe>
   }
 })

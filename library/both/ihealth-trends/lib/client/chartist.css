@@ -1,0 +1,21 @@
+
+/* Steps */
+.ct-chart.Steps .ct-bar { stroke-width: 0.3em; }
+.ct-chart.Steps .ct-series-a .ct-bar { stroke: rgb(121,176,236); }
+.ct-chart.Steps .ct-series-b .ct-bar { stroke: rgb(121,176,236); }
+
+/* Calories */
+.ct-chart.Calories .ct-bar { stroke-width: 0.3em; }
+.ct-chart.Calories .ct-series-a .ct-bar { stroke: #f78f6d; }
+.ct-chart.Calories .ct-series-b .ct-bar { stroke: rgb(247,212,109); }
+
+/* Distance */
+.ct-chart.Distance .ct-bar { stroke-width: 0.3em; }
+.ct-chart.Distance .ct-series-a .ct-bar { stroke: rgb(124,213,186); }
+.ct-chart.Distance .ct-series-b .ct-bar { stroke: #7cd58e; }
+
+/* Sleep */
+.ct-chart.Sleep .ct-bar { stroke-width: 0.5em; }
+.ct-chart.Sleep .ct-series-a .ct-bar { stroke: #660099 }
+.ct-chart.Sleep .ct-series-b .ct-bar { stroke: #FFCC00 }
+.ct-chart.Sleep .ct-series-c .ct-bar { stroke: #336699 }

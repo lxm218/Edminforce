@@ -67,21 +67,21 @@ App.Bar_Graph = React.createClass({
         }
       }
     }
-    let ex3listener = h.Chart.BarGraphStroke("28px")
+    let ex3listener = h.ChartMixins.BarGraphStroke("28px")
     /**
      * NOTE
      * Notice how both <RC.Item /> and <RC.Chart /> are used together.
      * They are both "item" components.
-     * Thus they can work together inside a "canvas" component such as <RC.List />
+     * Thus they can work together inside a "area: {" component such as <RC.List />
      */
     return <RC.List>
-      <RC.Item theme="divider">Normal Bar Graph</RC.Item>
+      <RC.ItemDivider>Normal Bar Graph</RC.ItemDivider>
       <RC.Chart data={ex1data} options={ex1opt} type="Bar" />
 
-      <RC.Item theme="divider">Multiple Data Set</RC.Item>
+      <RC.ItemDivider>Multiple Data Set</RC.ItemDivider>
       <RC.Chart data={ex2data} options={ex2opt} type="Bar" />
 
-      <RC.Item theme="divider">Stacked Bar Graph</RC.Item>
+      <RC.ItemDivider>Stacked Bar Graph</RC.ItemDivider>
       <RC.Chart data={ex3data} options={ex3opt} listener={ex3listener} type="Bar" />
     </RC.List>
   }

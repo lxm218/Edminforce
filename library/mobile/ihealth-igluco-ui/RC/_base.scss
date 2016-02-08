@@ -1,0 +1,19 @@
+
+.aligncenter {
+  -webkit-align-items: center;
+}
+
+.center {
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+}
+
+.flex {
+  display: -webkit-flex;
+}
+
+.column {
+  @extend .flex;
+  -webkit-flex-direction: column;
+}

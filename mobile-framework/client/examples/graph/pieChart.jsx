@@ -8,7 +8,7 @@ App.Pie_Chart = React.createClass({
     }
     // Get the default chart options, this will make your circles have "%" at end of the value.
     // Next, extend the default options with your custom options.
-    let ex1opt = h.Chart.DefaultOptions(ex1data, {
+    let ex1opt = h.ChartMixins.DefaultOptions(ex1data, {
       donut: true,
       donutWidth: 85,
       height: "300px", // Height is pretty much the same thing as Radius
@@ -16,7 +16,7 @@ App.Pie_Chart = React.createClass({
 
     // This returns a pre-made Pie Chart animator.
     // If you want more listeners along with this, you must extend the object.
-    let ex1listener = h.Chart.AnimatePieChart()
+    let ex1listener = h.ChartMixins.AnimatePieChart()
 
     // Example 2
     let ex2data = {
@@ -32,7 +32,7 @@ App.Pie_Chart = React.createClass({
         return value[0]
       }
     }
-    // If you wana get really complicated, you can use responsive options
+    // If you want to get really complicated, you can use responsive options
     let ex2resp = [
       ['screen and (min-width: 580px)', {
         labelInterpolationFnc: function(value) {
@@ -50,7 +50,7 @@ App.Pie_Chart = React.createClass({
       series: [20,25,15,21]
       // series: [20,10,30,40]
     }
-    let ex3opt = h.Chart.DefaultOptions(ex3data, {
+    let ex3opt = h.ChartMixins.DefaultOptions(ex3data, {
       donut: true,
       startAngle: 270,
       total: 162, // In order for the donut to be cut in half, this value must be 2x the sum of data series.
@@ -61,16 +61,16 @@ App.Pie_Chart = React.createClass({
      * NOTE
      * Notice how both <RC.Item /> and <RC.Chart /> are used together.
      * They are both "item" components.
-     * Thus they can work together inside a "canvas" component such as <RC.List />
+     * Thus they can work together inside a "area: {" component such as <RC.List />
      */
     return <RC.List>
-      <RC.Item theme="divider">Animated Donut Chart</RC.Item>
+      <RC.ItemDivider>Animated Donut Chart</RC.ItemDivider>
       <RC.Chart data={ex1data} options={ex1opt} listener={ex1listener} type="Pie" />
 
-      <RC.Item theme="divider">Normal Pie Chart</RC.Item>
+      <RC.ItemDivider>Normal Pie Chart</RC.ItemDivider>
       <RC.Chart data={ex2data} options={ex2opt} responsiveOptions={ex2resp} type="Pie" />
 
-      <RC.Item theme="divider">Half Donute Chart</RC.Item>
+      <RC.ItemDivider>Half Donute Chart</RC.ItemDivider>
       <RC.Chart data={ex3data} options={ex3opt} type="Pie" />
 
     </RC.List>
