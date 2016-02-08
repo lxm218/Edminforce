@@ -12,9 +12,10 @@ let Base = class{
             DBName : ''
         }, option||{});
 
+        this.initVar();
         this._extendMethod();
 
-        this.initVar();
+
         this.initStart();
 
         this._initDB();
@@ -99,6 +100,14 @@ let Base = class{
     //    return tmp;
     //}
 
+    /*
+    * return dependent module
+    *
+    * */
+    defineDepModule(){
+        return {};
+    }
+
     _initDB(){
 
         this.initDBSchema();
@@ -175,8 +184,10 @@ let Base = class{
     initDBEnd(){}
 
     initVar(){
+        this.module = this.defineDepModule();
 
     }
+
 
     initStart(){}
 

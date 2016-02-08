@@ -31,7 +31,9 @@ Schema.ClassTuition = {
 
 Validate.Class = {
     'MinStudentMoreThanMaxStudent' : 'max student is must more than minimum student!',
-    'NumberOfClassLess' : 'calculate "[label]" is 0, please check!'
+    'NumberOfClassLess' : 'calculate "[label]" is 0, please check!',
+
+    '610' : 'max age is must more than minimum age'
 };
 
 Schema.Class = {
@@ -98,7 +100,13 @@ Schema.Class = {
     maxAgeRequire : KG.schema.default({
         type : Number,
         optional : true,
-        label : 'Maximum Age'
+        label : 'Maximum Age',
+        custom : function(){
+            let min = this.field('minAgeRequire');
+            if(this.value < min.value){
+                return '610';
+            }
+        }
     }),
     genderRequire : KG.schema.default({
         allowedValues : Schema.const.genderRequire,
@@ -131,11 +139,23 @@ Schema.ClassStudentPayment = {
         optional : true
     })
 };
+Validate.ClassStudent = {
+
+};
 Schema.ClassStudent = {
     classID : KG.schema.default(),
     studentID : KG.schema.default(),
     status : KG.schema.default({
-        allowedValues : Schema.const.registrationStatus
+        allowedValues : Schema.const.registrationStatus,
+        custom : function(){
+
+            return KG.get('EF-ClassStudent').validateSchemaStatus({
+                status : this.value,
+                classID : this.field('classID').value,
+                studentID : this.field('studentID').value
+            });
+
+        }
     }),
     payment : {
         type : new SimpleSchema(Schema.ClassStudentPayment),

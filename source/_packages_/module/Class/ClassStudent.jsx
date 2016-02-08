@@ -4,6 +4,21 @@ let ClassStudent = class extends Base{
         return Schema.ClassStudent;
     }
 
+    defineSchemaValidateMessage(){
+        return _.extend(Validate.ClassStudent, {
+            '601' : 'student age is more than class max require age',
+            '602' : 'student age is less than class min require age',
+            '610' : 'the record is exist'
+        });
+    }
+
+    defineDepModule(){
+        return {
+            student : KG.get('EF-Student'),
+            class : KG.get('EF-Class')
+        };
+    }
+
     addTestData(){
         //this._db.remove({});
     }
@@ -12,7 +27,8 @@ let ClassStudent = class extends Base{
     checkRecord(param){
         let one = this._db.findOne({
             classID : param.classID,
-            studentID : param.studentID
+            studentID : param.studentID,
+            status : {'$in':['register', 'wait']}
         });
 
         return !!one;
@@ -36,10 +52,40 @@ let ClassStudent = class extends Base{
         return true;
     }
 
-    insertByData(data){
-        if(this.checkRecord(data)){
-            return KG.result.out(false, {}, '纪录已经存在');
+    // will run in schema custom func
+    validateSchemaStatus(doc){
+        let co = this.module.class.getDB().findOne({_id : doc.classID}),
+            so = this.module.student.getAll({_id : doc.studentID})[0];
+        let rs = true;
+
+        let SA = ['register', 'wait'];
+
+        if(_.contains(SA, doc.status)){
+            //check record is exist
+            rs = this.checkRecord(doc);
+            if(rs){
+                return '610';
+            }
         }
+
+        if(so.age > co.maxAgeRequire){
+            return '601';
+        }
+        if(so.age < co.minAgeRequire){
+            return '602';
+        }
+
+        return rs;
+    }
+
+    insertByData(data){
+        data.status = 'register';
+
+        let vd = this.validateWithSchema(data);
+        if(vd !== true){
+            return KG.result.out(false, vd, vd.reason);
+        }
+
 
         let flag = this.checkCanBeRegister(data);
 
@@ -53,7 +99,7 @@ let ClassStudent = class extends Base{
             return KG.result.out(true, resultFn.bind(this), '');
         }
 
-        data.status = 'register';
+
         let rs = this._db.insert(data);
         return KG.result.out(true, rs);
     }
