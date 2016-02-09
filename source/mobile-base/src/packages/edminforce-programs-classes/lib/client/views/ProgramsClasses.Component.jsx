@@ -2,7 +2,7 @@
 
     const schemaConst = {
         day: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
-        weekDay:{
+        weekDay: {
             "mon": 1,
             "tues": 2,
             "wed": 3,
@@ -31,14 +31,14 @@
 
 
             return {
-                classes: this.getAvailableTrialClasses(),
+                lessons: this.getAvailableTrialLessons(),
                 isReady: classProgramIDHandler.ready()
             }
         }
 
-        getAvailableTrialClasses() {
+        getAvailableTrialLessons() {
 
-            let displayWeekNumber = 2;
+            let displayWeekNumber = 4;
 
             let classes = EdminForce.Collections.class.find({}, {
                 sort: {
@@ -58,10 +58,10 @@
                 }
             }).fetch();
 
-            let today = new Date();
 
-            let availableClasses = [];
+            let availableLessons = [];
 
+            // find all available lessons for each class
             for (let i = 0; i < classes.length; i++) {
                 //if(classes.max)
                 let item = classes[i];
@@ -71,95 +71,172 @@
                 //console.log(item.status);
                 //console.log(schemaConst.status[0]);
 
-                if(lodash.lowerCase(item.status)!== lodash.lowerCase(schemaConst.status[0])){
+                if (lodash.lowerCase(item.status) !== lodash.lowerCase(schemaConst.status[0])) {
                     continue;
                 }
 
                 // get regular register students number
                 let regularRegisterStudents = EdminForce.Collections.classStudent.find({
-                    classID: item._id,
-                    status: schemaConst.registrationStatus[1]       // register
-                }, {
-                    sort: {
-                        lessonDate: 1
-                    }
-                }).fetch() || [];
+                        classID: item._id,
+                        status: schemaConst.registrationStatus[1]       // register
+                    }, {
+                        sort: {
+                            lessonDate: 1
+                        }
+                    }).fetch() || [];
 
                 // Get the student who register
                 let trialRegisterStudents = EdminForce.Collections.classStudent.find({
-                    classID: item._id,
-                    status: schemaConst.registrationStatus[0]       // trial
+                        classID: item._id,
+                        status: schemaConst.registrationStatus[0]       // trial
 
-                }, {
-                    sort: {
-                        lessonDate: 1
-                    }
-                }).fetch() || [];
+                    }, {
+                        sort: {
+                            lessonDate: 1
+                        }
+                    }).fetch() || [];
 
-                // school didn't set the trial student number
-                if(item.trialStudent == 0){
-                    // Class not full, trial is avaiable
-                    if(item.maxStudent > regularRegisterStudents.length){
+                // if trial student is 0, and class already full, then skip this class
+                if (item.trialStudent == 0 && (item.maxStudent === regularRegisterStudents.length)) {
+                    console.log("[info]class is full, and not all trial");
+                    continue;
+                }
 
-                        let classSession = EdminForce.Collections.session.find({
-                            _id: item.sessionID
+
+                let availableNumber = item.maxStudent - regularRegisterStudents.length+item.trialStudent;
+                let classSession = EdminForce.Collections.session.find({
+                        _id: item.sessionID
+                    }, {
+                        sort: {
+                            startDate: 1
+                        }
+                    }).fetch() || [];
+
+                classSession = classSession[0];
+
+
+                // cannot find class relative session, then skip this class
+                if (!classSession) {
+                    console.error("Didn't find session information");
+                    continue;
+                }
+
+                console.log(item);
+                console.log(classSession);
+
+                let classDate = this.getClassDate(item.schedule.day, item.schedule.time);
+
+                if(!classDate){
+                    continue;
+                }
+
+                console.log("[info] classDate: ", classDate);
+
+                // how many available lesson to show
+                for (let j = 0; j < displayWeekNumber; j++) {
+
+                    let trialNumber = EdminForce.Collections.classStudent.find({
+                            classID: item.classID,
+                            lessonDate: moment(classDate).toDate()
                         }, {
                             sort: {
                                 startDate: 1
                             }
                         }).fetch() || [];
 
-                        classSession = classSession[0];
-
-                        if(!classSession){
-                            console.error("Didn't find session information");
-                            continue;
-                        }
-
-                        console.log(item);
-                        console.log(classSession);
-
-                        // which week day this class has in every week
-                        let classWeekDay = item.schedule.day;
-                        // The time of this class
-                        let classTime = item.schedule.time;
-
-                        classWeekDay = schemaConst.weekDay[lodash.lowerCase(item.schedule.day)];
-
-                        // the week day of today
-                        let todayWeekDay = today.getDay();
-
-                        // next class date
-                        let classDate = null;
-                        if(todayWeekDay>classWeekDay){
-                            classDate = moment(today).add(7-todayWeekDay+classWeekDay, 'days').toDate();
-                        }else if(todayWeekDay<classWeekDay){
-                            classDate = moment(today).add(classWeekDay-todayWeekDay, 'days').toDate();
-                        }else{
-                            classDate = moment(today).toDate();
-                        }
-
-                        for(let j = 0; j< displayWeekNumber; j++){
-                            // first clone it
-                            //let lesson = lodash.cloneDeep(item);
-
-                            //lesson.lessonDate =
-                        }
-
-                    }else if(item.maxStudent == regularRegisterStudents.length){         // class full, trial isn't avaiable
-
-                    }else{
-                        console.error("[Error]Something wrong, max student shouldn't less than registered student number");
+                    // most of case should just equal
+                    // no trial available for this date
+                    if(trialNumber>=availableNumber){
+                        continue;
                     }
-                }else if(item.trialStudent>0){  // school set the trial number
 
+                    // first clone it
+                    let lesson = lodash.cloneDeep(item);
 
-                }else{
-                    console.error("[Error]Something wrong, trial student should less than 0");
+                    // available lesson
+                    lesson.key = btoa(lesson._id+":"+j);
+                    lesson.lessonDate = moment(classDate).toDate();
+
+                    availableLessons.push(lesson);
+
+                    let tmpDate = moment(classDate).add(7, 'days');
+                    classDate.year = tmpDate.year();
+                    classDate.month = tmpDate.month();
+                    classDate.date = tmpDate.date();
                 }
+
             }
 
-            return classes;
+            return availableLessons;
+        }
+
+        /**
+         * get an object can used by [moment](http://momentjs.com/docs/#/parsing/object/)
+         * @param day
+         * @param time
+         * @returns {*}
+         */
+        getClassDate(day, time){
+            // which week day this class has in every week
+            let classWeekDay = day;
+            // The time of this class
+            let classTime = time;
+
+            let today = new Date();
+
+            // regular expression to get hour, min, am/pm
+            let reg = /^(\d{1,2})\s*:\s*(\d{1,2})\s*(\w{2})$/;
+
+            let result = reg.exec(classTime);
+
+            let classHour = lodash.toNumber(result[1]);
+            let classMin = lodash.toNumber(result[2]);
+            let class12Clock = result[3];
+            // if class 12 clock is pm, then need to plus 12
+            if (lodash.lowerCase(class12Clock) == 'pm') {
+                classHour += 12;
+            }
+
+            // we must get this value, any of them is null or undefined, console error, and skip this class
+            if (!lodash.isNumber(classHour) || !lodash.isNumber(classMin)) {
+                console.error("The class time format isn't correct! Support format like 08:09 pm. Currently value: ", classTime);
+                return null;
+            }
+
+            classWeekDay = schemaConst.weekDay[lodash.lowerCase(classWeekDay)];
+
+            // the week day of today
+            let todayWeekDay = today.getDay();
+
+            // next class date object
+            let classDate = {
+                year: null,
+                month: null,
+                date: null,
+                hour: classHour,
+                minute: classMin,
+                second: 0,
+                millisecond: 0
+            };
+            if (todayWeekDay >= classWeekDay) {  // if today's week day is big than or equal class week day, so it need to be next week
+                let date = moment(today).add(7 - todayWeekDay + classWeekDay, 'days');
+                classDate.year = date.year();
+                classDate.month = date.month();
+                classDate.date = date.date();
+            } else if (todayWeekDay < classWeekDay) {    // if today's week day is less than class week day, so it should be in this week
+                let date = moment(today).add(classWeekDay - todayWeekDay, 'days');
+                classDate.year = date.year();
+                classDate.month = date.month();
+                classDate.date = date.date();
+                //classDate
+            } else {                                  // For this version, didn't let use to select today's trial class
+                let date = moment(today).toDate();
+                classDate.year = date.year();
+                classDate.month = date.month();
+                classDate.date = date.date();
+            }
+
+            return classDate;
         }
 
         bookClass(item) {
@@ -194,14 +271,13 @@
                     <RC.List>
                         <RC.Loading isReady={this.data.isReady}>
                             {
-                                this.data.classes.map(function (item) {
+                                this.data.lessons.map(function (item) {
                                     return (
-                                        <RC.Item key={item._id} theme="divider"
+                                        <RC.Item key={item.key} theme="divider"
                                                  onClick={self.bookClass.bind(self, item)}>
                                             <h3>{item.name}</h3>
 
-                                            <p>Day: {item.schedule.day}, Time: {item.schedule.time},
-                                                Length: {item.length}</p>
+                                            <p>Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}, Length: {item.length}</p>
                                         </RC.Item>
                                     )
                                 })
@@ -211,6 +287,7 @@
                 </div>
             );
         }
-    };
+    }
+    ;
 
 }
