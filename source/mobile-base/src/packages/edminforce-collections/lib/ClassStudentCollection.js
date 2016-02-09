@@ -24,6 +24,9 @@ ClassStudentCollection = class ClassStudentCollection extends BaseCollection {
 
     defineCollectionSchema() {
         return {
+            accountID:{
+                type: String
+            },
             classID: {
                 type: String
             },

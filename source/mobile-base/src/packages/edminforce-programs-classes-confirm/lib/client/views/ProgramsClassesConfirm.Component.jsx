@@ -30,11 +30,33 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
 
         classInfo = classInfo && classInfo[0] || {};
 
-        console.log(students);
+        let programRegisterStudents = EdminForce.Collections.classStudent.find({
+            accountID: Meteor.userId(),
+            programID: classInfo.programID
+        }).fetch();
+
+        let canRegisterStudents = [];
+
+        for(let i =0; i< students.length; i++){
+            let find = false;
+            for(let j = 0; j< programRegisterStudents.length; j++){
+                if(students[i]._id == programRegisterStudents[j].studentID){        // find it
+                    find = true;
+                    break;
+                }
+            }
+            if(!find){
+                canRegisterStudents.push(students[i]);
+            }
+        }
+
+        console.log(programRegisterStudents);
+
+        console.log(canRegisterStudents);
 
         return {
             classInfo: classInfo,
-            students: students,
+            students: canRegisterStudents,
             isReady: classByClassIDHandler.ready()
         };
     }
@@ -56,6 +78,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         var insertData = [];
         for (let i = 0; i < selectedStudents.length; i++) {
             var data = {
+                accountID: Meteor.userId(),
                 classID: this.data.classInfo._id,
                 studentID: selectedStudents[i]._id,
                 programID: this.data.classInfo.programID,
