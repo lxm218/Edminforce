@@ -37,15 +37,15 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
 
         let canRegisterStudents = [];
 
-        for(let i =0; i< students.length; i++){
+        for (let i = 0; i < students.length; i++) {
             let find = false;
-            for(let j = 0; j< programRegisterStudents.length; j++){
-                if(students[i]._id == programRegisterStudents[j].studentID){        // find it
+            for (let j = 0; j < programRegisterStudents.length; j++) {
+                if (students[i]._id == programRegisterStudents[j].studentID) {        // find it
                     find = true;
                     break;
                 }
             }
-            if(!find){
+            if (!find) {
                 canRegisterStudents.push(students[i]);
             }
         }
@@ -90,21 +90,20 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
             insertData.push(data);
         }
 
-        //EdminForce.Collections.classStudent.insert(data, function(){
-        //    console.log(arguments);
-        //});
+        let self = this;
 
-        var moreIds = EdminForce.Collections.classStudent.batchInsert(insertData, function( err, res){
+        var moreIds = EdminForce.Collections.classStudent.batchInsert(insertData, function (err, res) {
             //called with err or res where res is array of created _id values
 
-            if(err){
+            if (err) {
                 alert("Insert Fail!");
-            }else{
+            } else {
                 let params = {
-                    programsId: "111",
-                    classId: "class_11"
+                    programId: self.data.classInfo.programID,
+                    classId: self.data.classInfo._id,
+                    timestamp: timestamp
                 };
-                let path = FlowRouter.path("/programs/:programsId/:classId/summary", params);
+                let path = FlowRouter.path("/programs/:programId/:classId/:timestamp/summary", params);
                 FlowRouter.go(path);
             }
         });
