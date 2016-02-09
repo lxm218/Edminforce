@@ -1,9 +1,6 @@
 // when meteor startup, create all collections
 Meteor.startup(function () {
 
-    // initial schema util
-    EdminForce.utils.schemaUtil = new SchemaUtil();
-
     // Initial ProgramCollection
     EdminForce.Collections.program = new ProgramCollection("EF-Program");
     EdminForce.Collections.class = new ClassCollection("EF-Class");

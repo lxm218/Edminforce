@@ -8,7 +8,7 @@ Meteor.startup(function () {
     Meteor.publishComposite("EF-Class-programID", function (programID) {
             return {
                 find: function () {
-                    console.log(programID);
+                    //console.log(programID);
                     return EdminForce.Collections.class.find({
                         programID: programID
                     });
@@ -34,5 +34,39 @@ Meteor.startup(function () {
             }
         }
     );
+
+    // Get Trial Class information
+    Meteor.publishComposite("EF-Class-By-ClassID", function (classID) {
+        return {
+            find: function () {
+                return EdminForce.Collections.class.find({
+                    _id: classID
+                });
+            },
+            children:[{
+                find: function(){
+                    //console.log(this.userId);
+                    return EdminForce.Collections.student.find({
+                       accountID: this.userId
+                    },{
+                        sort: {
+                            name: 1
+                        }
+                    })
+                }
+            },{
+                find: function(){
+                    //console.log(this.userId);
+                    return EdminForce.Collections.classStudent.find({
+                        accountID: this.userId
+                    },{
+                        sort: {
+                            lessonDate: 1
+                        }
+                    })
+                }
+            }]
+        }
+    });
 
 });

@@ -8,6 +8,7 @@ Package.onUse(function(api) {
     api.versionsFrom(['METEOR@1.0']);
 
     var packages = [
+        'edminforce@0.0.1',
         'edminforce:lib@0.0.1'
     ];
 
@@ -16,4 +17,8 @@ Package.onUse(function(api) {
     api.addFiles([
         'lib/client/router.util.jsx'
     ], 'client');
+
+    api.addFiles([
+        'lib/both/schemaUtil.js',
+    ], ["client", "server"]);
 });

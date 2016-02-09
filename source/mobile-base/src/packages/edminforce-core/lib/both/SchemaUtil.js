@@ -1,4 +1,6 @@
-SchemaUtil = class SchemaUtil{
+
+let _ = lodash;
+class SchemaUtil{
 
     static _instance;
 
@@ -48,3 +50,5 @@ SchemaUtil = class SchemaUtil{
         }, opts||{});
     }
 };
+
+EdminForce.utils.schemaUtil = new SchemaUtil();

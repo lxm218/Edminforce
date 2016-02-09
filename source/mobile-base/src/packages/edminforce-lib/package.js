@@ -21,6 +21,7 @@ Package.onUse(function (api) {
         'momentjs:moment@2.10.6',
         'izzilab:material-ui@0.2.4',
         'stevezhu:lodash@4.0.0',
+        'mikowals:batch-insert@1.1.13',
         'chuangbo:cookie@1.1.0',
         'reywood:publish-composite@1.4.2',
         'meteorflux:dispatcher',

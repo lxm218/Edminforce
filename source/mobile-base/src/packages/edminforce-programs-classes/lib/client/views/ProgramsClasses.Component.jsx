@@ -1,293 +1,290 @@
-{
+const schemaConst = {
+    day: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
+    weekDay: {
+        "mon": 1,
+        "tues": 2,
+        "wed": 3,
+        "thu": 4,
+        "fri": 5,
+        "sat": 6,
+        "sun": 7
+    },
+    tuitionType: ['each', 'total'],
+    status: ['Active', 'Inactive'],
+    level: ['Beginner', 'Intermediate', 'Advanced'],
+    genderRequire: ['All', 'Male', 'Female'],
+    //length : ['30 min', '45 min', '1 hr', '1.5 hr', '2 hr']
 
-    const schemaConst = {
-        day: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
-        weekDay: {
-            "mon": 1,
-            "tues": 2,
-            "wed": 3,
-            "thu": 4,
-            "fri": 5,
-            "sat": 6,
-            "sun": 7
-        },
-        tuitionType: ['each', 'total'],
-        status: ['Active', 'Inactive'],
-        level: ['Beginner', 'Intermediate', 'Advanced'],
-        genderRequire: ['All', 'Male', 'Female'],
-        //length : ['30 min', '45 min', '1 hr', '1.5 hr', '2 hr']
+    registrationStatus: ['trial', 'register', 'wait', 'makeup']
+};
 
-        registrationStatus: ['trial', 'register', 'wait', 'makeup']
-    };
+EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
 
-    EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
-
-        getMeteorData() {
-            let programID = FlowRouter.getParam("programID");
-            let classProgramIDHandler;
-            Tracker.autorun(function () {
-                classProgramIDHandler = Meteor.subscribe('EF-Class-programID', programID);
-            });
+    getMeteorData() {
+        let programID = FlowRouter.getParam("programID");
+        let classProgramIDHandler;
+        Tracker.autorun(function () {
+            classProgramIDHandler = Meteor.subscribe('EF-Class-programID', programID);
+        });
 
 
-            return {
-                lessons: this.getAvailableTrialLessons(),
-                isReady: classProgramIDHandler.ready()
-            }
+        return {
+            lessons: this.getAvailableTrialLessons(),
+            isReady: classProgramIDHandler.ready()
         }
+    }
 
-        getAvailableTrialLessons() {
+    getAvailableTrialLessons() {
 
-            let displayWeekNumber = 4;
+        let displayWeekNumber = 4;
 
-            let classes = EdminForce.Collections.class.find({}, {
-                sort: {
-                    createTime: 1
-                }
-            }).fetch();
+        let classes = EdminForce.Collections.class.find({}, {
+            sort: {
+                createTime: 1
+            }
+        }).fetch();
 
-            let sessions = EdminForce.Collections.session.find({}, {
-                sort: {
-                    startDate: 1
-                }
-            }).fetch();
+        let sessions = EdminForce.Collections.session.find({}, {
+            sort: {
+                startDate: 1
+            }
+        }).fetch();
 
-            let classStudent = EdminForce.Collections.classStudent.find({}, {
-                sort: {
-                    lessonDate: 1
-                }
-            }).fetch();
-
-
-            let availableLessons = [];
-
-            // find all available lessons for each class
-            for (let i = 0; i < classes.length; i++) {
-                //if(classes.max)
-                let item = classes[i];
-
-                // Following condition, skip this class
-                // 1. class's status isn't Active
-                //console.log(item.status);
-                //console.log(schemaConst.status[0]);
-
-                if (lodash.lowerCase(item.status) !== lodash.lowerCase(schemaConst.status[0])) {
-                    continue;
-                }
-
-                // get regular register students number
-                let regularRegisterStudents = EdminForce.Collections.classStudent.find({
-                        classID: item._id,
-                        status: schemaConst.registrationStatus[1]       // register
-                    }, {
-                        sort: {
-                            lessonDate: 1
-                        }
-                    }).fetch() || [];
-
-                // Get the student who register
-                let trialRegisterStudents = EdminForce.Collections.classStudent.find({
-                        classID: item._id,
-                        status: schemaConst.registrationStatus[0]       // trial
-
-                    }, {
-                        sort: {
-                            lessonDate: 1
-                        }
-                    }).fetch() || [];
-
-                // if trial student is 0, and class already full, then skip this class
-                if (item.trialStudent == 0 && (item.maxStudent === regularRegisterStudents.length)) {
-                    console.log("[info]class is full, and not all trial");
-                    continue;
-                }
+        let classStudent = EdminForce.Collections.classStudent.find({}, {
+            sort: {
+                lessonDate: 1
+            }
+        }).fetch();
 
 
-                let availableNumber = item.maxStudent - regularRegisterStudents.length+item.trialStudent;
-                let classSession = EdminForce.Collections.session.find({
-                        _id: item.sessionID
+        let availableLessons = [];
+
+        // find all available lessons for each class
+        for (let i = 0; i < classes.length; i++) {
+            //if(classes.max)
+            let item = classes[i];
+
+            // Following condition, skip this class
+            // 1. class's status isn't Active
+            //console.log(item.status);
+            //console.log(schemaConst.status[0]);
+
+            if (lodash.lowerCase(item.status) !== lodash.lowerCase(schemaConst.status[0])) {
+                continue;
+            }
+
+            // get regular register students number
+            let regularRegisterStudents = EdminForce.Collections.classStudent.find({
+                    classID: item._id,
+                    status: schemaConst.registrationStatus[1]       // register
+                }, {
+                    sort: {
+                        lessonDate: 1
+                    }
+                }).fetch() || [];
+
+            // Get the student who register
+            let trialRegisterStudents = EdminForce.Collections.classStudent.find({
+                    classID: item._id,
+                    status: schemaConst.registrationStatus[0]       // trial
+
+                }, {
+                    sort: {
+                        lessonDate: 1
+                    }
+                }).fetch() || [];
+
+            // if trial student is 0, and class already full, then skip this class
+            if (item.trialStudent == 0 && (item.maxStudent === regularRegisterStudents.length)) {
+                console.log("[info]class is full, and not all trial");
+                continue;
+            }
+
+
+            let availableNumber = item.maxStudent - regularRegisterStudents.length + item.trialStudent;
+            let classSession = EdminForce.Collections.session.find({
+                    _id: item.sessionID
+                }, {
+                    sort: {
+                        startDate: 1
+                    }
+                }).fetch() || [];
+
+            classSession = classSession[0];
+
+
+            // cannot find class relative session, then skip this class
+            if (!classSession) {
+                console.error("Didn't find session information");
+                continue;
+            }
+
+            console.log(item);
+            console.log(classSession);
+
+            let classDate = this.getClassDate(item.schedule.day, item.schedule.time);
+
+            if (!classDate) {
+                continue;
+            }
+
+            console.log("[info] classDate: ", classDate);
+
+            // how many available lesson to show
+            for (let j = 0; j < displayWeekNumber; j++) {
+
+                let trialNumber = EdminForce.Collections.classStudent.find({
+                        classID: item.classID,
+                        lessonDate: moment(classDate).toDate()
                     }, {
                         sort: {
                             startDate: 1
                         }
                     }).fetch() || [];
 
-                classSession = classSession[0];
-
-
-                // cannot find class relative session, then skip this class
-                if (!classSession) {
-                    console.error("Didn't find session information");
+                // most of case should just equal
+                // no trial available for this date
+                if (trialNumber >= availableNumber) {
                     continue;
                 }
 
-                console.log(item);
-                console.log(classSession);
+                // first clone it
+                let lesson = lodash.cloneDeep(item);
 
-                let classDate = this.getClassDate(item.schedule.day, item.schedule.time);
+                // available lesson
+                lesson.key = btoa(lesson._id + ":" + j);
+                lesson.lessonDate = moment(classDate).toDate();
 
-                if(!classDate){
-                    continue;
-                }
+                availableLessons.push(lesson);
 
-                console.log("[info] classDate: ", classDate);
-
-                // how many available lesson to show
-                for (let j = 0; j < displayWeekNumber; j++) {
-
-                    let trialNumber = EdminForce.Collections.classStudent.find({
-                            classID: item.classID,
-                            lessonDate: moment(classDate).toDate()
-                        }, {
-                            sort: {
-                                startDate: 1
-                            }
-                        }).fetch() || [];
-
-                    // most of case should just equal
-                    // no trial available for this date
-                    if(trialNumber>=availableNumber){
-                        continue;
-                    }
-
-                    // first clone it
-                    let lesson = lodash.cloneDeep(item);
-
-                    // available lesson
-                    lesson.key = btoa(lesson._id+":"+j);
-                    lesson.lessonDate = moment(classDate).toDate();
-
-                    availableLessons.push(lesson);
-
-                    let tmpDate = moment(classDate).add(7, 'days');
-                    classDate.year = tmpDate.year();
-                    classDate.month = tmpDate.month();
-                    classDate.date = tmpDate.date();
-                }
-
+                let tmpDate = moment(classDate).add(7, 'days');
+                classDate.year = tmpDate.year();
+                classDate.month = tmpDate.month();
+                classDate.date = tmpDate.date();
             }
 
-            return availableLessons;
         }
 
-        /**
-         * get an object can used by [moment](http://momentjs.com/docs/#/parsing/object/)
-         * @param day
-         * @param time
-         * @returns {*}
-         */
-        getClassDate(day, time){
-            // which week day this class has in every week
-            let classWeekDay = day;
-            // The time of this class
-            let classTime = time;
+        return availableLessons;
+    }
 
-            let today = new Date();
+    /**
+     * get an object can used by [moment](http://momentjs.com/docs/#/parsing/object/)
+     * @param day
+     * @param time
+     * @returns {*}
+     */
+    getClassDate(day, time) {
+        // which week day this class has in every week
+        let classWeekDay = day;
+        // The time of this class
+        let classTime = time;
 
-            // regular expression to get hour, min, am/pm
-            let reg = /^(\d{1,2})\s*:\s*(\d{1,2})\s*(\w{2})$/;
+        let today = new Date();
 
-            let result = reg.exec(classTime);
+        // regular expression to get hour, min, am/pm
+        let reg = /^(\d{1,2})\s*:\s*(\d{1,2})\s*(\w{2})$/;
 
-            let classHour = lodash.toNumber(result[1]);
-            let classMin = lodash.toNumber(result[2]);
-            let class12Clock = result[3];
-            // if class 12 clock is pm, then need to plus 12
-            if (lodash.lowerCase(class12Clock) == 'pm') {
-                classHour += 12;
-            }
+        let result = reg.exec(classTime);
 
-            // we must get this value, any of them is null or undefined, console error, and skip this class
-            if (!lodash.isNumber(classHour) || !lodash.isNumber(classMin)) {
-                console.error("The class time format isn't correct! Support format like 08:09 pm. Currently value: ", classTime);
-                return null;
-            }
-
-            classWeekDay = schemaConst.weekDay[lodash.lowerCase(classWeekDay)];
-
-            // the week day of today
-            let todayWeekDay = today.getDay();
-
-            // next class date object
-            let classDate = {
-                year: null,
-                month: null,
-                date: null,
-                hour: classHour,
-                minute: classMin,
-                second: 0,
-                millisecond: 0
-            };
-            if (todayWeekDay >= classWeekDay) {  // if today's week day is big than or equal class week day, so it need to be next week
-                let date = moment(today).add(7 - todayWeekDay + classWeekDay, 'days');
-                classDate.year = date.year();
-                classDate.month = date.month();
-                classDate.date = date.date();
-            } else if (todayWeekDay < classWeekDay) {    // if today's week day is less than class week day, so it should be in this week
-                let date = moment(today).add(classWeekDay - todayWeekDay, 'days');
-                classDate.year = date.year();
-                classDate.month = date.month();
-                classDate.date = date.date();
-                //classDate
-            } else {                                  // For this version, didn't let use to select today's trial class
-                let date = moment(today).toDate();
-                classDate.year = date.year();
-                classDate.month = date.month();
-                classDate.date = date.date();
-            }
-
-            return classDate;
+        let classHour = lodash.toNumber(result[1]);
+        let classMin = lodash.toNumber(result[2]);
+        let class12Clock = result[3];
+        // if class 12 clock is pm, then need to plus 12
+        if (lodash.lowerCase(class12Clock) == 'pm') {
+            classHour += 12;
         }
 
-        bookClass(item) {
-
-            let programID = FlowRouter.getParam("programID");
-
-            // user login
-            if (Meteor.user()) {
-                //TODO if currently user not student, jump to add student page, after add successful then jump to confirm page
-                console.log("User logged");
-
-                let params = {
-                    programId: programID,
-                    classId: item._id
-                }
-                let path = FlowRouter.path("/programs/:programId/:classId/confirm", params);
-                FlowRouter.go(path);
-
-            } else {  // user not login
-                console.log("User not logged");
-                FlowRouter.go('/login');
-                Session.set("BookTrialClassId", item._id);
-                Session.set("BookTrialProgramId", programID);
-            }
+        // we must get this value, any of them is null or undefined, console error, and skip this class
+        if (!lodash.isNumber(classHour) || !lodash.isNumber(classMin)) {
+            console.error("The class time format isn't correct! Support format like 08:09 pm. Currently value: ", classTime);
+            return null;
         }
 
-        render() {
-            let self = this;
-            // Fill with your UI
-            return (
-                <div>
-                    <RC.List>
-                        <RC.Loading isReady={this.data.isReady}>
-                            {
-                                this.data.lessons.map(function (item) {
-                                    return (
-                                        <RC.Item key={item.key} theme="divider"
-                                                 onClick={self.bookClass.bind(self, item)}>
-                                            <h3>{item.name}</h3>
+        classWeekDay = schemaConst.weekDay[lodash.lowerCase(classWeekDay)];
 
-                                            <p>Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}, Length: {item.length}</p>
-                                        </RC.Item>
-                                    )
-                                })
-                            }
-                        </RC.Loading>
-                    </RC.List>
-                </div>
-            );
+        // the week day of today
+        let todayWeekDay = today.getDay();
+
+        // next class date object
+        let classDate = {
+            year: null,
+            month: null,
+            date: null,
+            hour: classHour,
+            minute: classMin,
+            second: 0,
+            millisecond: 0
+        };
+        if (todayWeekDay >= classWeekDay) {  // if today's week day is big than or equal class week day, so it need to be next week
+            let date = moment(today).add(7 - todayWeekDay + classWeekDay, 'days');
+            classDate.year = date.year();
+            classDate.month = date.month();
+            classDate.date = date.date();
+        } else if (todayWeekDay < classWeekDay) {    // if today's week day is less than class week day, so it should be in this week
+            let date = moment(today).add(classWeekDay - todayWeekDay, 'days');
+            classDate.year = date.year();
+            classDate.month = date.month();
+            classDate.date = date.date();
+            //classDate
+        } else {                                  // For this version, didn't let use to select today's trial class
+            let date = moment(today).toDate();
+            classDate.year = date.year();
+            classDate.month = date.month();
+            classDate.date = date.date();
+        }
+
+        return classDate;
+    }
+
+    bookClass(item) {
+
+        let programID = FlowRouter.getParam("programID");
+
+        // user login
+        if (Meteor.user()) {
+            //TODO if currently user not student, jump to add student page, after add successful then jump to confirm page
+            console.log("User logged");
+
+            let params = {
+                programID: programID,
+                classID: item._id,
+                timestamp: item.lessonDate.getTime()
+            }
+            let path = FlowRouter.path("/programs/:programID/:classID/:timestamp", params);
+            FlowRouter.go(path);
+
+        } else {  // user not login
+            console.log("User not logged");
+            FlowRouter.go('/login');
+            Session.set("BookTrialClassId", item._id);
+            Session.set("BookTrialProgramId", programID);
         }
     }
-    ;
 
-}
+    render() {
+        let self = this;
+        // Fill with your UI
+        return (
+            <div>
+                <RC.List>
+                    <RC.Loading isReady={this.data.isReady}>
+                        {
+                            this.data.lessons.map(function (item) {
+                                return (
+                                    <RC.Item key={item.key} theme="divider"
+                                             onClick={self.bookClass.bind(self, item)}>
+                                        <h3>{item.name}</h3>
+
+                                        <p>Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm:ss a")},
+                                            Length: {item.length}</p>
+                                    </RC.Item>
+                                )
+                            })
+                        }
+                    </RC.Loading>
+                </RC.List>
+            </div>
+        );
+    }
+};

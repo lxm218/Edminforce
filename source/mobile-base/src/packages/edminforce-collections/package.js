@@ -12,13 +12,13 @@ Package.onUse(function(api){
     var packages = [
         'edminforce@0.0.1',
         'edminforce:lib@0.0.1',
+        'edminforce:core@0.0.1',
         'edminforce:settings@0.0.1'
     ];
 
     api.use(packages);
 
     api.addFiles([
-        "lib/SchemaUtil.js",
         "lib/BaseCollection.js",
         "lib/ClassCollection.js",
         "lib/ClassStudentCollection.js",
