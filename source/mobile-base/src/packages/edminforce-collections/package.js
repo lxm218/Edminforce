@@ -18,8 +18,10 @@ Package.onUse(function(api){
     api.use(packages);
 
     api.addFiles([
+        "lib/SchemaUtil.js",
         "lib/BaseCollection.js",
         "lib/ClassCollection.js",
+        "lib/ClassStudentCollection.js",
         "lib/ProgramCollection.js",
         "lib/SessionCollection.js",
         "lib/StudentCollection.js",

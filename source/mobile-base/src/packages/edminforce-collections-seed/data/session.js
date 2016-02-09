@@ -13,42 +13,42 @@ Meteor.startup(function () {
             {
                 _id: "2016_session1",
                 name: "2016 session1",
-                startDate: new Date("1/1/2016"),
-                endDate: new Date("3/31/2016"),
-                registrationStartDate : new Date("12/1/2015"),
-                registrationEndDate : new Date("2/1/2016"),
+                startDate: moment("1/1/2016", 'MM/DD/YYYY').toDate(),
+                endDate: moment("3/31/2016", 'MM/DD/YYYY').toDate(),
+                registrationStartDate : moment("12/1/2015", 'MM/DD/YYYY').toDate(),
+                registrationEndDate : moment("2/1/2016", 'MM/DD/YYYY').toDate(),
                 registrationStatus :"Yes",
-                createTime : new Date("11/1/2015")
+                createTime : moment("11/1/2016", 'MM/DD/YYYY').toDate()
             },
             {
                 _id: "2016_session2",
                 name: "2016 session2",
-                startDate: new Date("3/31/2016"),
-                endDate: new Date("6/30/2016"),
-                registrationStartDate : new Date("2/1/2015"),
-                registrationEndDate : new Date("5/1/2016"),
+                startDate: moment("3/31/2016", 'MM/DD/YYYY').toDate(),
+                endDate: moment("6/30/2016", 'MM/DD/YYYY').toDate(),
+                registrationStartDate : moment("2/1/2016", 'MM/DD/YYYY').toDate(),
+                registrationEndDate : moment("5/1/2016", 'MM/DD/YYYY').toDate(),
                 registrationStatus :"Yes",
-                createTime : new Date("1/1/2016")
+                createTime : moment("1/1/2016", 'MM/DD/YYYY').toDate()
             },
             {
                 _id: "2016_session3",
                 name: "2016 session3",
-                startDate: new Date("6/30/2016"),
-                endDate: new Date("9/30/2016"),
-                registrationStartDate : new Date("5/1/2015"),
-                registrationEndDate : new Date("8/1/2016"),
+                startDate: moment("6/30/2016", 'MM/DD/YYYY').toDate(),
+                endDate: moment("9/30/2016", 'MM/DD/YYYY').toDate(),
+                registrationStartDate : moment("5/1/2016", 'MM/DD/YYYY').toDate(),
+                registrationEndDate : moment("8/1/2016", 'MM/DD/YYYY').toDate(),
                 registrationStatus :"Yes",
-                createTime : new Date("3/1/2016")
+                createTime : moment("3/1/2016", 'MM/DD/YYYY').toDate()
             },
             {
                 _id: "2016_session4",
                 name: "2016 session4",
-                startDate: new Date("9/30/2016"),
-                endDate: new Date("12/30/2016"),
-                registrationStartDate : new Date("8/1/2015"),
-                registrationEndDate : new Date("11/1/2016"),
+                startDate: moment("9/30/2016", 'MM/DD/YYYY').toDate(),
+                endDate: moment("12/30/2016", 'MM/DD/YYYY').toDate(),
+                registrationStartDate : moment("8/1/2016", 'MM/DD/YYYY').toDate(),
+                registrationEndDate : moment("11/1/2016", 'MM/DD/YYYY').toDate(),
                 registrationStatus :"Yes",
-                createTime : new Date("6/1/2016")
+                createTime : moment("6/1/2016", 'MM/DD/YYYY').toDate()
             }
         ];
 

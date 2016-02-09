@@ -5,11 +5,34 @@ Meteor.startup(function () {
     });
 
     // Get Trial Class list based on programID
-    Meteor.publish("EF-Class-programID", function(programID){
-        console.log(programID);
-        return EdminForce.Collections.class.find({
-            programID: programID
-        });
-    });
+    Meteor.publishComposite("EF-Class-programID", function (programID) {
+            return {
+                find: function () {
+                    console.log(programID);
+                    return EdminForce.Collections.class.find({
+                        programID: programID
+                    });
+                },
+                children: [{
+                    find: function () {
+                        return EdminForce.Collections.session.find({}, {
+                            sort: {
+                                startDate: -1
+                            }
+                        });
+                    }
+                },
+                    {
+                        find: function () {
+                            return EdminForce.Collections.classStudent.find({}, {
+                                sort: {
+                                    startDate: -1
+                                }
+                            });
+                        }
+                    }]
+            }
+        }
+    );
 
 });
