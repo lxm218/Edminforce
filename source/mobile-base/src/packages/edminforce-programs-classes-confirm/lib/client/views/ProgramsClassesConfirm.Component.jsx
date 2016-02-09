@@ -158,11 +158,9 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                             {this.data.classInfo.name}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("date")}>
-                            {moment(new Date(timestamp)).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                            {moment(new Date(timestamp)).format("dddd, MMMM Do YYYY, h:mm a")}
                         </RC.Item>
-                        <RC.Item title={TAPi18n.__("length")}>
-                            {this.data.classInfo.length}
-                        </RC.Item>
+                        
                     </RC.List>
                     <RC.Button bgColor="brand2" onClick={self.confirm.bind(self)}>
                         <$translate label="confirm"/>
