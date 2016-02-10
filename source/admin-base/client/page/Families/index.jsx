@@ -31,8 +31,8 @@ KUI.Family_index = class extends KUI.Page{
 
         let p = {
             sname : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
+                labelClassName : 'col-xs-5',
+                wrapperClassName : 'col-xs-7',
                 ref : 'sname',
                 label : 'Search Families'
             },
@@ -44,11 +44,60 @@ KUI.Family_index = class extends KUI.Page{
             }
         };
 
-        return (
-            <RC.Div>
+        const sy = {
+            td : {
+                textAlign : 'left'
+            },
+            ml : {
+                marginLeft : '20px'
+            },
+            rd : {
+                textAlign : 'right'
+            }
+        };
 
-            </RC.Div>
+        let op1 = ['Active', 'Inactive'];
+
+        return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Col md={6} mdOffset={0}>
+                        <RB.Input type="text" {... p.sname} />
+
+                    </RB.Col>
+                    <RB.Col md={6} mdOffset={0}>
+                        <RB.Input type="select" {... p.status}>
+                            {
+                                _.map(op1, (item, index)=>{
+                                    return <option key={index} value={item}>{item}</option>;
+                                })
+                            }
+                        </RB.Input>
+                    </RB.Col>
+                </RB.Row>
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
+                </RC.Div>
+            </form>
         );
+    }
+
+    search(){
+        let name = this.refs.sname.getValue(),
+            status = this.refs.status.getValue();
+
+        let query = {};
+        if(name){
+            query.name = new RegExp(name, 'i');
+        }
+        if(status){
+            query.status = status;
+        }
+
+        console.log(query);
+        this.setState({
+            query : query
+        });
     }
 
     renderListTable(style){

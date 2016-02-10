@@ -229,6 +229,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             <RC.Div>
 
                 <KUI.ProgramTopTab select={2} />
+                <hr/>
 
                 {this.getSearchBox()}
                 <RC.Div style={sy.rd}>
