@@ -20,10 +20,7 @@ Meteor.startup(function () {
                         verified: false
                     }
                 ],
-                profile: {
-                    name: item.name,
-                    location:item.location
-                },
+                username: item.name,
                 role: 'role1',
 
                 //password

@@ -6,11 +6,13 @@
 
 contact = new SimpleSchema({
     name:{
-        type: String
+        type: String,
+        optional: true
     },
     email:{
         type: String,
-        regEx: SimpleSchema.RegEx.Email
+        regEx: SimpleSchema.RegEx.Email,
+        optional: true
     },
     phone:{
         type: String,
