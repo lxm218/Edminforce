@@ -22,7 +22,7 @@
 
             return {
                 list: list,
-                ready: programSub.ready()
+                isReady: programSub.ready()
             };
         }
 

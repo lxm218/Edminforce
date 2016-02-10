@@ -43,29 +43,69 @@ Meteor.startup(function () {
                     _id: classID
                 });
             },
-            children:[{
-                find: function(){
+            children: [{
+                find: function () {
                     //console.log(this.userId);
                     return EdminForce.Collections.student.find({
-                       accountID: this.userId
-                    },{
+                        accountID: this.userId
+                    }, {
                         sort: {
                             name: 1
                         }
                     })
                 }
-            },{
-                find: function(){
+            }, {
+                find: function () {
                     //console.log(this.userId);
                     return EdminForce.Collections.classStudent.find({
                         accountID: this.userId
-                    },{
+                    }, {
                         sort: {
                             lessonDate: 1
                         }
                     })
                 }
             }]
+        }
+    });
+
+    // Get the class for register
+    Meteor.publishComposite("EF-Classes-For-Register", function () {
+        return {
+            find: function () {
+                return EdminForce.Collections.student.find({
+                    accountID: this.userId
+                }, {
+                    sort: {
+                        name: 1
+                    }
+                })
+            },
+            children: [
+                {
+                    find: function () {
+                        return EdminForce.Collections.program.find({}, {
+                            sort: {
+                                createTime: 1
+                            }
+                        })
+                    }
+                },
+                {
+                    find: function(){
+                        return EdminForce.Collections.classStudent.find({
+                            accountID: this.userId
+                        })
+                    }
+                },
+                {
+                    find: function(){
+                        return EdminForce.Collections.class.find({
+                        })
+                    }
+                }
+
+            ]
         }
     });
 

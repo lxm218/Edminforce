@@ -1,3 +1,10 @@
 {
-  "title": ""
+  "ef_classes_title": "Registeration for __session__ __year__",
+  "ef_classes_1": "Spring",
+  "ef_classes_2": "Summer",
+  "ef_classes_3": "Autumn",
+  "ef_classes_4": "Winter",
+  "ef_classes_students": "Students",
+  "ef_classes_program": "Program",
+  "ef_classes_book": "Book"
 }
