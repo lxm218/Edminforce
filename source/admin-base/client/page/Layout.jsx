@@ -10,7 +10,7 @@ KUI.Layout = class extends RC.CSS{
 
         let self = this;
         util.message.register('KG:show-error-message', function(param){
-console.log(param)
+
             self.setState({
                 errorMessage : param.error
             });

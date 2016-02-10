@@ -66,6 +66,13 @@ if(Meteor.isClient){
 
         });
     }]);
+    FlowRouter.triggers.exit([function(){
+        try{
+            util.message.publish('KG:show-error-message', {
+                error : false
+            })
+        }catch(e){}
+    }]);
 
 
 }

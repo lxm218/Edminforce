@@ -157,6 +157,12 @@ KUI.Student_add = class extends RC.CSS{
             success : function(json){
                 console.log(json);
                 util.goPath('/family/profile/'+data.accountID);
+            },
+            error : function(e, error){
+                console.log(error);
+                util.message.publish('KG:show-error-message', {
+                    error : error.statusText
+                });
             }
         });
     }
