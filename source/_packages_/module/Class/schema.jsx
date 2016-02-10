@@ -4,7 +4,7 @@ Validate = {};
 
 Schema.const = {
     day : ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
-    tuitionType : ['each', 'total'],
+    tuitionType : ['class', 'session'],
     status : ['Active', 'Inactive'],
     level : ['Beginner', 'Intermediate', 'Advanced'],
     genderRequire : ['All', 'Male', 'Female'],

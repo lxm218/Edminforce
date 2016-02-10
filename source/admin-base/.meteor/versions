@@ -31,6 +31,7 @@ ecmascript-runtime@0.2.6
 edminforce:account@0.0.1
 edminforce:admin-user@0.0.1
 edminforce:class@0.0.1
+edminforce:coupon@0.0.1
 edminforce:customer@0.0.1
 edminforce:student@0.0.1
 ejson@1.0.7

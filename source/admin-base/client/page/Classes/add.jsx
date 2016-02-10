@@ -354,7 +354,7 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
                         <RB.Input type="select" {... p.tuitionType}>
                             {
                                 _.map(option.tuitionType, (item, index)=>{
-                                    return <option key={index} value={item}>{`${item} class`}</option>;
+                                    return <option key={index} value={item}>{`per ${item}`}</option>;
                                 })
                             }
                         </RB.Input>
@@ -458,7 +458,6 @@ KUI.Class_add = class extends RC.CSS{
                 util.goPath('/program/class');
             },
             error : function(err, error){
-                console.log(err);
                 util.message.publish('KG:show-error-message', {
                     error : error.statusText
                 });

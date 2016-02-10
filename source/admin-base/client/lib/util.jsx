@@ -66,7 +66,11 @@ util.message = {
 };
 
 util.toast = {
-
+    showError(msg){
+        util.message.publish('KG:show-error-message', {
+            error : msg
+        });
+    }
 };
 
 
