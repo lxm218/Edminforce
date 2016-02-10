@@ -114,7 +114,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
                     return (
                         <RC.Div style={{textAlign:'center'}}>
-                            <RC.URL href={`/classes/detail/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
+                            <RC.URL href={`/program/class/detail/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
                             <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
                         </RC.Div>
 
@@ -227,6 +227,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
         return (
             <RC.Div>
+
+                <KUI.ProgramTopTab select={2} />
+
                 {this.getSearchBox()}
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
@@ -234,7 +237,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
                 <hr/>
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton href="/classes/add" label="Add New Class"></KUI.YesButton>
+                    <KUI.YesButton href="/program/class/add" label="Add New Class"></KUI.YesButton>
                 </RC.Div>
 
                 {this.renderTable()}

@@ -151,10 +151,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
 
         return (
             <RC.Div>
-                <RC.TabsSlider bgColor="#f9f9f9" cursorColor="brand1" initialTab={0}>
-                    <RC.URL href="/program">Program</RC.URL>
-                    <RC.URL href="/program/session">Session</RC.URL>
-                </RC.TabsSlider>
+                <KUI.ProgramTopTab select={0} />
 
                 <KUI.Table
                     style={style.table}

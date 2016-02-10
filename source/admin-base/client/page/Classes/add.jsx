@@ -453,7 +453,7 @@ KUI.Class_add = class extends RC.CSS{
             success : function(json){
                 console.log(json);
                 alert('insert success');
-                util.goPath('/classes');
+                util.goPath('/program/class');
             }
         });
     }
