@@ -35,6 +35,41 @@ util.dialog = {
 };
 
 
+let MSGALL = {};
+util.message = {
+    init : false,
+    register : function(name, fn){
+        let all = MSGALL;
+        all[name] = fn;
+
+        if(this.init){
+            return;
+        }
+
+        Dispatcher.register(function(param){
+            if(all[param.actionType]){
+                all[param.actionType].call(null, param);
+            }
+        });
+        this.init = true;
+    },
+    publish : function(name, param){
+        let data = {
+            actionType : name
+        };
+        param = param || {};
+        param = _.isObject(param) ? param : {data:param};
+        _.extend(data, param);
+
+        Dispatcher.dispatch(data);
+    }
+};
+
+util.toast = {
+
+};
+
+
 
 
 window.util = util;

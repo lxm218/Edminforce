@@ -1,6 +1,23 @@
-KUI.Layout = KUI.Class.define('ui.Layout', {
+KUI.Layout = class extends RC.CSS{
 
-    initStyle : function(){
+    constructor(p){
+        super(p);
+
+        this.state = {
+            errorMessage : false
+        };
+
+
+        let self = this;
+        util.message.register('KG:show-error-message', function(param){
+console.log(param)
+            self.setState({
+                errorMessage : param.error
+            });
+        });
+    }
+
+    baseStyles(){
         return {
             left : {
 
@@ -12,16 +29,42 @@ KUI.Layout = KUI.Class.define('ui.Layout', {
                 position : 'relative'
             }
         };
-    },
+    }
+
+    hideErrorMsg(){
+        this.setState({
+            errorMessage : false
+        });
+    }
+
+    renderErrorMsg(){
+        //let error = Session.get('KG:show-error-message');
+        let error = this.state.errorMessage;
+        if(!error){
+            return '';
+        }
 
 
-    getRender : function(style){
+        return (
+            <div className="alert alert-danger alert-dismissable">
+                <button aria-hidden="true" data-dismiss="alert" onClick={this.hideErrorMsg.bind(this)} className="close" type="button">×</button>
+                {error}
+            </div>
+        );
+    }
+
+
+    render(){
+        let style = this.css.get('styles');
+
 
         return <div id="ui-layout">
 
             <KUI.Header />
 
             <div className="container" style={style.con}>
+                {this.renderErrorMsg()}
+
                 <KUI.LeftNav />
                 <div id="page-wrapper" style={{paddingRight:0}}>
 
@@ -45,8 +88,6 @@ KUI.Layout = KUI.Class.define('ui.Layout', {
 
 
 
-
-
         </div>
     }
-}, 'Base');
+};

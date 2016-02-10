@@ -47,7 +47,7 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
             <RC.Div>
                 <h3>{data.nickName}</h3>
                 <hr/>
-                <KUI.Class_comp_add init-data={data} ref="form"></KUI.Class_comp_add>
+                <KUI.Class_comp_add edit={true} init-data={data} ref="form"></KUI.Class_comp_add>
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton onClick={this.update.bind(this)} label="Save Change"></KUI.YesButton>
                 </RC.Div>

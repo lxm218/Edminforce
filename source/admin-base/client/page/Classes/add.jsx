@@ -149,6 +149,8 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
 
     render(){
 
+        let edit = this.props.edit ? true : false;
+
         let p = {
             name : {
                 labelClassName : 'col-xs-4',
@@ -274,7 +276,7 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
             <RB.Row>
                 <form className="form-horizontal">
                     <RB.Col md={6} mdOffset={0}>
-                        <RB.Input type="text" {... p.name} />
+                        {edit ? <RB.Input type="text" {... p.name} /> : ''}
                         <RB.Input type="select" {... p.status}>
                             {
                                 _.map(option.status, (item, index)=>{
@@ -292,7 +294,7 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
                             }
                         </RB.Input>
 
-                        <RB.Input type="text" {... p.numberOfClass} />
+                        {edit ? <RB.Input type="text" {... p.numberOfClass} /> : ''}
 
                         <RB.Input type="select" {... p.level}>
                             {
@@ -454,6 +456,12 @@ KUI.Class_add = class extends RC.CSS{
                 console.log(json);
                 alert('insert success');
                 util.goPath('/program/class');
+            },
+            error : function(err, error){
+                console.log(err);
+                util.message.publish('KG:show-error-message', {
+                    error : error.statusText
+                });
             }
         });
     }
