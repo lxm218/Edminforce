@@ -10,9 +10,12 @@ ENV3="PACKAGE_DIRS=$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/both
 
 runLocalHost(){
     export MONGO_URL="mongodb://127.0.0.1:27017/EdminForce"
-    export ENV1
-    export ENV2
-    export ENV3
+
+    echo "---- start set env ----"
+    export ${ENV1}
+    export ${ENV2}
+    export ${ENV3}
+    echo "---- set env end ----"
     meteor --port 8000
 }
 
