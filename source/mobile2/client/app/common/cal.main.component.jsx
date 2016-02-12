@@ -79,6 +79,7 @@
                           leftNavList.map(function(item){
 
                             return  <RC.URL style={{fontSize:'15px'}}
+                                            colorHover="#000"
                                             href={item.href}
                                             onClick={item.onClick || null}> {item.text}</RC.URL>
 
