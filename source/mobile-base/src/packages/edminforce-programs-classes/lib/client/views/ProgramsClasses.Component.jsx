@@ -276,8 +276,8 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
                                              onClick={self.bookClass.bind(self, item)}>
                                         <h3>{item.name}</h3>
 
-                                        <p>Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm:ss a")},
-                                            Length: {item.length}</p>
+                                        <p>Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm a")}</p>
+                                        <p>Length: {item.length}</p>
                                     </RC.Item>
                                 )
                             })

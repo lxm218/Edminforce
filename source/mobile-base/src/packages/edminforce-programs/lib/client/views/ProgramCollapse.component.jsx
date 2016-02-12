@@ -47,7 +47,7 @@
                     <RC.Button bgColor="brand1" onClick={this.click}>{this.props.program.name}</RC.Button>
                     <RC.Div style={this.state.style}>
                         <div style={{"fontSize":"12px"}} dangerouslySetInnerHTML={{__html: this.props.program.description}} />
-                        //<RC.Button bgColor="brand2" theme="inline">Simple Art Work</RC.Button>
+                
                         <RC.Button bgColor="brand2" theme="inline" onClick={this.bookTrial}>Book Trial Class</RC.Button>
                     </RC.Div>
                 </RC.Div>

@@ -14,10 +14,11 @@
                         </h2>
                     </RC.VerticalAlign>
                     <RC.Div>
-                        You've book trial class successful. More questions:
-                        <p>Email: edminforce@gmail.com</p>
+                        <p>You've book trial class successful.</p>
+                        <p>Contact us if you have more questions:</p>
+                        <p>Email: <a href="mailto: calcoloracademy@gmail.com">calcoloracademy@gmail.com</a></p>
 
-                        <p>Phone: 5302048869</p>
+                        <p>Phone: 530-204-8869</p>
 
                     </RC.Div>
                 </RC.Div>
