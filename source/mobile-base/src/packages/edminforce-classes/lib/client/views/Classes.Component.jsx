@@ -5,13 +5,22 @@
     // Don't forget to change `SomeName` to correct name
     EdminForce.Components.Classes = class extends RC.CSSMeteorData {
 
-        getMeteorData() {
+        constructor(p) {
+            super(p);
+
+            this.classes = new ReactiveVar(null);
+            this.programs = new ReactiveVar(null);
+            this.students = new ReactiveVar(null);
 
             // selected programID
-            this.programID = null;
+            this.programID = new ReactiveVar(null);
 
             // selected StudentID
-            this.studentID = null;
+            this.studentID = new ReactiveVar(null);
+
+        }
+
+        getMeteorData() {
 
             let handler = null;
 
@@ -20,6 +29,18 @@
                 handler = Meteor.subscribe("EF-Classes-For-Register");
             });
 
+            this.getPrograms();
+
+            this.getStudents();
+
+            this.getClasses();
+
+            return {
+                isReady: handler.ready()
+            }
+        }
+
+        getPrograms(){
             let programs = EdminForce.Collections.program.find({}).fetch();
 
             for (let i = 0; i < programs.length; i++) {
@@ -27,38 +48,23 @@
                 programs[i].label = programs[i].name;
             }
 
+
+            this.programs.set(programs);
+
             // If this.programID didn't selected, default select first one
-            if (!this.programID) {
-                this.programID = programs[0] && programs[0]["_id"];
-            }
-
-            let students = this.getStudents();
-
-            if (!this.studentID) {
-                this.studentID = students[0] && students[0]['_id'];
-            }
-
-            let classes = this.getClasses();
-
-            console.log("student: %o", students);
-            console.log("classes: %o", classes);
-            console.log("programs: %o", programs);
-
-            return {
-                programs: programs,
-                classes: classes,
-                students: students,
-                isReady: handler.ready()
+            if (!this.programID.get()) {
+                this.programID.set(programs[0] && programs[0]["_id"]);
             }
         }
 
         getStudents() {
+            console.log("getStudent, time: ", new Date().getTime());
             let students = EdminForce.Collections.student.find({
                 accountID: Meteor.userId()
             }).fetch();
 
             let registeredStudents = EdminForce.Collections.classStudent.find({
-                programID: this.programID
+                programID: this.programID.get()
             }).fetch();
 
             let validStudents = [];
@@ -82,16 +88,17 @@
                 }
             }
 
-            return validStudents;
+            if (!this.studentID.get()) {
+                this.studentID.set(students[0] && students[0]['_id']);
+            }
+
+            this.students.set(validStudents);
         }
 
         getClasses() {
-
             let classes = EdminForce.Collections.class.find({
-                programID: this.programID
+                programID: this.programID.get()
             }).fetch();
-
-            console.log("getClasses - classes: %o", classes);
 
             let validClasses = [];
 
@@ -108,7 +115,7 @@
                 }
             }
 
-            return validClasses;
+            this.classes.set(validClasses);
         }
 
         book() {
@@ -117,6 +124,14 @@
             };
             let path = FlowRouter.path("/classes/:cartId/confirm", params);
             FlowRouter.go(path);
+        }
+
+        onSelectStudent(event){
+            this.studentID.set(event.target.value);
+        }
+
+        onSelectProgram(event){
+            this.programID.set(event.target.value);
         }
 
         render() {
@@ -135,12 +150,12 @@
                                 {title}
                             </h2>
                         </RC.VerticalAlign>
-                        <RC.Select options={this.data.students} value={this.studentID}
-                                   label={TAPi18n.__("ef_classes_students")} labelColor="brand1"/>
-                        <RC.Select options={this.data.programs} value={this.programID}
-                                   label={TAPi18n.__("ef_classes_program")} labelColor="brand1"/>
+                        <RC.Select options={this.students.get()} value={this.studentID}
+                                   label={TAPi18n.__("ef_classes_students")} labelColor="brand1" onChange={this.onSelectStudent.bind(this)}/>
+                        <RC.Select options={this.programs.get()} value={this.programID}
+                                   label={TAPi18n.__("ef_classes_program")} labelColor="brand1" onChange={this.onSelectProgram.bind(this)}/>
                         {
-                            this.data.classes.map(function (item) {
+                            this.classes.get().map(function (item) {
                                 return (
                                     <RC.Item key={item['_id']} theme="divider"
                                              onClick={self.book.bind(self, item)}>
