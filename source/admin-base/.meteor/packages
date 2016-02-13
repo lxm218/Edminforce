@@ -51,3 +51,5 @@ edminforce:customer
 edminforce:class
 edminforce:student
 edminforce:coupon
+
+edminforce:email

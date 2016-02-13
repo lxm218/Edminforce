@@ -30,12 +30,19 @@ let Base = class{
         var self = this;
         var sm = this.defineServerMethod(),
             cm = this.defineClientMethod();
-        _.each(sm, function(method, key){
-            self[key] = method.bind(self);
-        });
-        _.each(cm, function(method, key){
-            self[key] = method.bind(self);
-        });
+
+        if(Meteor.isServer){
+            _.each(sm, function(method, key){
+                self[key] = method;
+            });
+        }
+
+        if(Meteor.isClient){
+            _.each(cm, function(method, key){
+                self[key] = method;
+            });
+        }
+
 
         if(Meteor.isServer){
             let mm = this.defineMeteorMethod();
@@ -78,7 +85,7 @@ let Base = class{
             },
             context : self
         }, opts||{});
-
+console.log('['+this._name+':'+methodName+' call]');
         Meteor.apply(this._name+':'+methodName, args, function(error, rs){
             if(error){
                 opts.error.call(opts.context, error);
