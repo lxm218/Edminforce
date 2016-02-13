@@ -1,6 +1,6 @@
 
 
-KUI.Student_profile = class extends RC.CSSMeteorData{
+KUI.Student_profile = class extends KUI.Page{
     constructor(p){
         super(p);
 
@@ -22,14 +22,18 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
         };
 
         let sub = Meteor.subscribe('EF-Student', {
-            _id : this.getProfileId()
+            query : {
+                _id : this.getProfileId()
+            }
         });
 
         let id = this.getProfileId(),
             profile = {};
 
         if(sub.ready()){
-            profile = this.getStudentModule().getDB().findOne();
+            profile = this.getStudentModule().getDB().findOne({
+                //_id : this.getProfileId()
+            });
 
         }
 
@@ -70,7 +74,7 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
     }
 
     getProfileId(){
-        return FlowRouter.current().params.id;
+        return FlowRouter.getParam('id');
     }
 
 
@@ -92,13 +96,6 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
             }
         };
 
-
-        //run after render
-        util.delay(()=>{
-            if(this.data.ready){
-                this.setDefaultValue();
-            }
-        }, 500);
 
         return (
             <RC.Div>
@@ -164,33 +161,6 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
     }
 
     getProfileBox(){
-        var p = {
-            name : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
-                ref : 'name',
-                label : 'Student Name'
-            },
-            gender : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-4',
-                ref : 'gender',
-                label : 'Gender'
-            },
-            birthday : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-4',
-                ref : 'birthday',
-                label : 'Birthday'
-            },
-            status : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-4',
-                ref : 'status',
-                label : 'Status'
-            }
-        };
-
 
         const sy = {
             td : {
@@ -204,64 +174,21 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
             }
         };
 
-        let op_status = util.const.StudentStatus,
-            op_gender = util.const.Gender;
 
         return (
             <RC.Div>
-                <RB.Row>
-                    <RB.Col md={12} mdOffset={0}>
-                        <form className="form-horizontal">
+                <KUI.Student_comp_add ref="form" />
+                <RC.Div style={sy.rd}>
 
-                            <RB.Input type="text" {... p.name} />
-                            <RB.Input type="select" {... p.gender}>
-                                {
-                                    _.map(op_gender, (item, index)=>{
-                                        return <option key={index} value={item}>{item}</option>;
-                                    })
-                                }
-                            </RB.Input>
-                            <RB.Input type="text" {... p.birthday} />
-
-                            <RB.Input type="select" {... p.status}>
-                                {
-                                    _.map(op_status, (item, index)=>{
-                                        return <option key={index} value={item}>{item}</option>;
-                                    })
-                                }
-                            </RB.Input>
-
-                            <RC.Div style={sy.rd}>
-
-                                <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
-                            </RC.Div>
-                        </form>
-                    </RB.Col>
-                </RB.Row>
+                    <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
+                </RC.Div>
             </RC.Div>
         );
     }
 
-    getRefs(){
-        return {
-            name : this.refs.name,
-            gender : this.refs.gender,
-            birthday : this.refs.birthday,
-            status : this.refs.status
-        };
-    }
 
     save(){
-        let {name, gender, birthday, status} = this.getRefs();
-
-        let sd = {
-            status : status.getValue(),
-            'profile.birthday' : moment(birthday.getValue(), 'MM/DD/YYYY').toDate(),
-            'profile.gender' : gender.getValue()
-        };
-        if(name.getValue()){
-            sd.nickName = name.getValue();
-        }
+        let sd = this.refs.form.getValue();
 
         console.log(sd);
 
@@ -273,18 +200,15 @@ KUI.Student_profile = class extends RC.CSSMeteorData{
         alert('update success');
     }
 
+    runOnceAfterDataReady(){
+        this.setDefaultValue();
+    }
+
     setDefaultValue(){
 
         let data = this.data.profile;
-        let {name, gender, birthday, status} = this.getRefs();
-
-        $(birthday.getInputDOMNode()).datepicker({});
-
-        name.getInputDOMNode().value = data.nickName;
-        gender.getInputDOMNode().value = data.profile.gender;
-        //birthday.getInputDOMNode().value = moment(data.profile.birthday).format('MM/DD/YYYY');
-        $(birthday.getInputDOMNode()).datepicker('setDate', data.profile.birthday);
-        status.getInputDOMNode().value = data.status;
+        console.log(data);
+        this.refs.form.setDefaultValue(data);
 
     }
 

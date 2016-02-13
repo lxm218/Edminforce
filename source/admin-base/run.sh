@@ -24,6 +24,9 @@ deploy(){
     REMOTEURL="edminforce.meteor.com"
     echo "start deploy to ${REMOTEURL}"
     sudo ${ENV1} ${ENV2} ${ENV3} meteor deploy ${REMOTEURL}
+    echo "PACKAGE_ROOT = ${PACKAGE_ROOT}"
+    echo "RC_DIR = ${RC_DIR}"
+    echo "PACKAGE_DIRS = ${PACKAGE_DIRS}"
     echo "---- deploy success ----"
 }
 

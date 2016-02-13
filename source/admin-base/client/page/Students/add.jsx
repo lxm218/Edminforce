@@ -28,6 +28,12 @@ KUI.Student_comp_add = class extends RC.CSS{
                 ref : 'status',
                 label : 'Status'
             },
+            school : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'school',
+                label : 'School'
+            },
             note : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-9',
@@ -73,6 +79,7 @@ KUI.Student_comp_add = class extends RC.CSS{
                                 })
                             }
                         </RB.Input>
+                        <RB.Input type="text" {... p.school} />
 
                         <RB.Input type="textarea" {... p.note} />
 
@@ -88,12 +95,13 @@ KUI.Student_comp_add = class extends RC.CSS{
             gender : this.refs.gender,
             birthday : this.refs.birthday,
             status : this.refs.status,
+            school : this.refs.school,
             note : this.refs.note
         };
     }
 
     getValue(){
-        let {name, gender, birthday, status, note} = this.getRefs();
+        let {name, gender, birthday, status, note, school} = this.getRefs();
 
         let sd = {
             nickName : name.getValue(),
@@ -101,6 +109,7 @@ KUI.Student_comp_add = class extends RC.CSS{
             profile : {
                 birthday : moment(birthday.getValue(), util.const.dateFormat).toDate(),
                 gender : gender.getValue(),
+                school : school.getValue(),
                 note : note.getValue()
             }
         };
@@ -116,14 +125,14 @@ KUI.Student_comp_add = class extends RC.CSS{
 
     setDefaultValue(data){
 
-        let {name, gender, birthday, status} = this.getRefs();
+        let {name, gender, birthday, status, school, note} = this.getRefs();
 
-
+        school.getInputDOMNode().value = data.profile.school || '';
         name.getInputDOMNode().value = data.nickName;
         gender.getInputDOMNode().value = data.profile.gender;
         $(birthday.getInputDOMNode()).datepicker('setDate', data.profile.birthday);
         status.getInputDOMNode().value = data.status;
-        note.getInputDOMNode().value = data.profile.note;
+        note.getInputDOMNode().value = data.profile.note || '';
     }
 };
 
