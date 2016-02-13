@@ -13,7 +13,8 @@ Schema.Coupon = {
     }),
     useFor : KG.schema.default({
         //allowedValues : ['all', 'program', 'session', 'class'],
-        defaultValue : 'all'
+        type : [String],
+        defaultValue : ['all']
     }),
     overRequire : KG.schema.default({
         optional : true
@@ -25,10 +26,14 @@ Schema.Coupon = {
         type : Date
     }),
     weekdayRequire : KG.schema.default({
-        defaultValue : 'all',
-        allowedValues : ['all', 'Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
-        optional : true
+        defaultValue : ['all'],
+        //allowedValues : ['all', 'Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
+        type : [String]
     }),
+    validForNoBooked : {
+        type : Boolean,
+        defaultValue : false
+    },
 
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()

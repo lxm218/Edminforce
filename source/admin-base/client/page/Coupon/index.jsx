@@ -45,6 +45,41 @@ KUI.Coupon_index = class extends KUI.Page{
                     let date = doc.endDate;
                     return moment(date).format(util.const.dateFormat);
                 }
+            },
+            {
+                title : 'Action',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom : function(item){
+                    const sy = {
+                        cursor : 'pointer',
+                        position : 'relative',
+                        top : '2px'
+                    };
+                    const ml = {
+                        //marginLeft : '10px',
+                        cursor : 'pointer'
+                    };
+
+                    var del = function(){
+                        util.dialog.confirm({
+                            msg : 'delete this coupon?',
+                            YesFn : function(){
+                                KG.get('EF-Coupon').getDB().remove({
+                                    _id : item._id
+                                });
+                            }
+                        });
+                    };
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+                            <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
+                        </RC.Div>
+
+                    );
+                }
             }
         ];
 

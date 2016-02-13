@@ -21,14 +21,18 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
         const sy = {
             td : {
                 textAlign : 'left'
+            },
+            checkout : {
+                position : 'relative',
+                left : '8px',
+                top : '-6px'
             }
         };
 
         let p = {
             discount : {
                 labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
-                ref : 'discount',
+                wrapperClassName : 'wrapper',
                 label : 'Discount'
             },
             description : {
@@ -47,36 +51,59 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
                 ref : 'forP',
-                label : 'For'
+                label : 'For',
+                multiple : true
             },
             weekday : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
                 ref : 'weekday',
-                label : 'On'
+                label : 'On',
+                multiple : true
             },
             times : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
                 ref : 'times',
                 label : 'Count'
+            },
+            validForNew : {
+                ref : 'validForNew',
+                onChange : function(){},
+                label : 'valid for new customers who haven\'t booked bofore'
             }
 
         };
 
         let option = {
             program : this.data.program,
-            weekday : KG.get('EF-Coupon').getDBSchema().schema('weekdayRequire').allowedValues
+            weekday : ['all', 'Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat']
         };
+
 
         return (
             <form className="form-horizontal">
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
-                        <RB.Input type="text" {... p.discount} />
+                        <RB.Input {... p.discount}>
+                            <RB.Row>
+                                <RB.Col xs={4}>
+                                    <input ref="discount" type="text" className="form-control" />
+                                </RB.Col>
+                                <RB.Col xs={2}>
+                                    <select ref="discount_unit" className="form-control">
+                                        <option>%</option>
+                                        <option>$</option>
+                                    </select>
+                                </RB.Col>
+                            </RB.Row>
+                        </RB.Input>
+
+
                         <RB.Input type="textarea" {... p.description} />
                         <RB.Input type="text" {... p.workover} />
                         <RB.Input type="select" {... p.forP}>
+                            <option value="all">all</option>
                             {
                                 _.map(option.program, (item, index)=>{
                                     return <option key={index} value={item._id}>{item.name}</option>;
@@ -104,6 +131,10 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
                             }
                         </RB.Input>
                         <RB.Input type="text" {... p.times} />
+                        <div style={sy.checkout} className="col-md-9 col-md-offset-3">
+                            <RB.Input type="checkbox" {... p.validForNew} />
+                        </div>
+
                     </RB.Col>
                 </RB.Row>
             </form>
@@ -115,6 +146,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
 
         return {
             discount : this.refs.discount,
+            dis_unit : this.refs.discount_unit,
             description : this.refs.description,
             workover : this.refs.workover,
             forP : this.refs.forP,
@@ -122,7 +154,9 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
             count : this.refs.times,
             date : date,
             startDateJq : $(date).find('input').eq(0),
-            endDateJq : $(date).find('input').eq(1)
+            endDateJq : $(date).find('input').eq(1),
+
+            validForNew : this.refs.validForNew
         };
     }
 
@@ -135,17 +169,24 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
     }
 
     getValue(){
-        let {discount, description, workover, forP, weekday, count, startDateJq, endDateJq} = this.getRefs();
+        let {
+            discount, dis_unit, description, workover,
+            forP, weekday, count, startDateJq, endDateJq,
+            validForNew
+
+            } = this.getRefs();
 
         return {
-            discount : discount.getValue(),
+            discount : discount.value + dis_unit.value,
             description : description.getValue(),
             overRequire : workover.getValue(),
             weekdayRequire : weekday.getValue(),
             useFor : forP.getValue(),
             maxCount : count.getValue(),
             startDate : moment(startDateJq.val(), util.const.dateFormat).toDate(),
-            endDate : moment(endDateJq.val(), util.const.dateFormat).toDate()
+            endDate : moment(endDateJq.val(), util.const.dateFormat).toDate(),
+
+            validForNoBooked : $(validForNew.getInputDOMNode()).prop('checked')
         };
     }
 };
