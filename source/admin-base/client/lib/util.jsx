@@ -70,6 +70,11 @@ util.toast = {
         util.message.publish('KG:show-error-message', {
             error : msg
         });
+    },
+    alert(msg){
+        util.message.publish('KG:show-toast-message', {
+            toast : msg || ''
+        });
     }
 };
 

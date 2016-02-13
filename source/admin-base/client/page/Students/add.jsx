@@ -164,7 +164,7 @@ KUI.Student_add = class extends RC.CSS{
         let rs = KG.get('EF-Student').insert(data);
         KG.result.handle(rs, {
             success : function(json){
-                console.log(json);
+                util.toast.alert('Insert Success');
                 util.goPath('/family/profile/'+data.accountID);
             },
             error : function(e, error){

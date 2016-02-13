@@ -43,6 +43,11 @@ KUI.Home_login = class extends KUI.Page{
 
                 let url = Session.get(KG.const.CACHELOGINPATH);
                 util.goPath(url || '/home');
+            },
+            error : function(e){
+                util.message.publish('KG:show-error-message', {
+                    error : e.reason
+                });
             }
         });
 

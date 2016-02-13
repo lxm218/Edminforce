@@ -4,8 +4,11 @@ KUI.Layout = class extends RC.CSS{
         super(p);
 
         this.state = {
-            errorMessage : false
+            errorMessage : false,
+            alertMessage : false
         };
+
+        this._tm = null;
 
 
         let self = this;
@@ -13,6 +16,15 @@ KUI.Layout = class extends RC.CSS{
 
             self.setState({
                 errorMessage : param.error
+            });
+        });
+
+        util.message.register('KG:show-toast-message', function(param){
+            try{
+                self.hideErrorMsg();
+            }catch(e){}
+            self.setState({
+                alertMessage : param.toast
             });
         });
     }
@@ -37,6 +49,12 @@ KUI.Layout = class extends RC.CSS{
         });
     }
 
+    hideToastMsg(){
+        this.setState({
+            alertMessage : false
+        });
+    }
+
     renderErrorMsg(){
         //let error = Session.get('KG:show-error-message');
         let error = this.state.errorMessage;
@@ -44,12 +62,55 @@ KUI.Layout = class extends RC.CSS{
             return '';
         }
 
+        const trans = {
+            transitionName: "zoom",
+            transitionAppear: true,
+            transitionAppearTimeout: 300,
+            transitionEnterTimeout: 300,
+            transitionLeaveTimeout: 300
+        };
+
 
         return (
-            <div className="alert alert-danger alert-dismissable">
-                <button aria-hidden="true" data-dismiss="alert" onClick={this.hideErrorMsg.bind(this)} className="close" type="button">×</button>
-                {error}
-            </div>
+            <RC.Animate {... trans}>
+                <div className="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" onClick={this.hideErrorMsg.bind(this)} className="close" type="button">×</button>
+                    {error}
+                </div>
+            </RC.Animate>
+
+        );
+    }
+
+    renderToastMsg(){
+        if(this._tm){
+            window.clearTimeout(this._tm);
+            this._tm = null;
+        }
+
+        let msg = this.state.alertMessage;
+        if(!msg){
+            return '';
+        }
+
+        const trans = {
+            transitionName: "zoom",
+            transitionAppear: true,
+            transitionAppearTimeout: 300,
+            transitionEnterTimeout: 300,
+            transitionLeaveTimeout: 300
+        };
+
+        this._tm = window.setTimeout(this.hideToastMsg.bind(this), 2000);
+
+        return (
+            <RC.Animate {... trans}>
+                <div className="alert alert-success alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" onClick={this.hideToastMsg.bind(this)} className="close" type="button">×</button>
+                    {msg}
+                </div>
+            </RC.Animate>
+
         );
     }
 
@@ -59,11 +120,11 @@ KUI.Layout = class extends RC.CSS{
 
 
         return <div id="ui-layout">
-
             <KUI.Header />
 
             <div className="container" style={style.con}>
                 {this.renderErrorMsg()}
+                {this.renderToastMsg()}
 
                 <KUI.LeftNav />
                 <div id="page-wrapper" style={{paddingRight:0}}>
@@ -85,6 +146,8 @@ KUI.Layout = class extends RC.CSS{
                     <div className="footer"></div>
                 </div>
             </div>
+
+
 
 
 

@@ -83,7 +83,7 @@ KG.define('Account', class extends Base{
         }, opts);
 
         if(!opts.username){
-            opts.error(new Meteor.Error(-1, 'username is required'));
+            opts.error(new Meteor.Error(-1, 'userID is required'));
             return;
         }
         if(!opts.password){
