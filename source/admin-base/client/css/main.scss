@@ -1,6 +1,9 @@
 body{
     background: #f5f5f5;
 }
+body.modal-open{
+    overflow : auto !important;
+}
 
 .container{
     max-width: 1080px;

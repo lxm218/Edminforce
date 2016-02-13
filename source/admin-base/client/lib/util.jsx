@@ -7,11 +7,23 @@ _.extend(util, {
         FlowRouter.go(url);
     },
 
+    //renderLoading : function(opts){
+    //    opts = _.extend({
+    //        isReady : false
+    //    }, opts||{});
+    //    return <RC.Loading {... opts} />;
+    //},
     renderLoading : function(opts){
         opts = _.extend({
             isReady : false
         }, opts||{});
-        return <RC.Loading {... opts} />;
+
+
+        return <div className="sk-spinner sk-spinner-three-bounce">
+            <div className="sk-bounce1"></div>
+            <div className="sk-bounce2"></div>
+            <div className="sk-bounce3"></div>
+        </div>;
     }
 });
 
