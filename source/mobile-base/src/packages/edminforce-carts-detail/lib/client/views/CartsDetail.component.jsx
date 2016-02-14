@@ -10,7 +10,7 @@
         }=MUI;
 
     // Don't forget to change `SomeName` to correct name
-    EdminForce.Components.ClassesConfirm = class extends RC.CSSMeteorData {
+    EdminForce.Components.CartsDetail = class extends RC.CSSMeteorData {
         constructor(p) {
             super(p);
 
@@ -29,7 +29,7 @@
                 handler = Meteor.subscribe("EF-Cart-Detail-By-ID", this.cartID.get(), this.classID.get(), this.studentID.get());
             }.bind(this));
 
-            let cart = EdminForce.Collections.shoppingCart.find({
+            let cart = EdminForce.Collections.classStudent.find({
                 _id: this.cartID.get()
             }).fetch();
 

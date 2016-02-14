@@ -105,14 +105,6 @@ Meteor.startup(function () {
                     find: function () {
                         return EdminForce.Collections.class.find({});
                     }
-                },
-                // currently user's shopping cart
-                {
-                    find: function () {
-                        return EdminForce.Collections.shoppingCart.find({
-                            accountID: this.userId
-                        });
-                    }
                 }
 
             ]
@@ -123,7 +115,7 @@ Meteor.startup(function () {
         console.log(studentID);
         return {
             find: function () {
-                return EdminForce.Collections.shoppingCart.find({
+                return EdminForce.Collections.classStudent.find({
                     _id: cartID
                 });
             },
@@ -133,16 +125,14 @@ Meteor.startup(function () {
                         return EdminForce.Collections.class.find({
                             _id: classID
                         });
-                    },
-                    children:[
-                        {
-                            find: function () {
-                                return EdminForce.Collections.student.find({
-                                    _id: studentID
-                                });
-                            }
-                        }
-                    ]
+                    }
+                },
+                {
+                    find: function () {
+                        return EdminForce.Collections.student.find({
+                            _id: studentID
+                        });
+                    }
                 }
             ]
         }
@@ -151,8 +141,10 @@ Meteor.startup(function () {
     Meteor.publishComposite("EF-ShoppingCarts-Checkout", function () {
         return {
             find: function () {
-                return EdminForce.Collections.shoppingCart.find({
-                    status: "pending"
+                return EdminForce.Collections.classStudent.find({
+                    payment:{
+                        status: "pending"
+                    }
                 });
             },
             children: [

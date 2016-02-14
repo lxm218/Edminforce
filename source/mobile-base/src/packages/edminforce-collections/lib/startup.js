@@ -7,7 +7,6 @@ Meteor.startup(function () {
     EdminForce.Collections.classStudent = new ClassStudentCollection("EF-ClassStudent");
     EdminForce.Collections.session = new SessionCollection("EF-Session");
     EdminForce.Collections.student = new StudentCollection("EF-Student");
-    EdminForce.Collections.shoppingCart = new ShoppingCartCollection("EF-Shopping-Cart");
 
     // Add user schema to Meteor.user
     Meteor.users.attachSchema(userSchema);

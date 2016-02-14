@@ -43,7 +43,7 @@ ClassStudentCollection = class ClassStudentCollection extends BaseCollection {
                         optional: true,
                         autoValue: function (doc) {
                             if (this.isInsert || this.isUpdate) {
-                                if (doc.payment && doc.payment.status === 'success') {
+                                if (doc.payment && doc.payment.status === 'checkouted') {
                                     return new Date()
                                 }
                             }
@@ -51,6 +51,7 @@ ClassStudentCollection = class ClassStudentCollection extends BaseCollection {
                     },
                     status: {
                         type: String,
+                        allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled'],
                         optional: true
                     },
                     money: {

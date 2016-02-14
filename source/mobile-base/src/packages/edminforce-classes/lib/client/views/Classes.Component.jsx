@@ -83,33 +83,33 @@
 
             // discuss with Ma Lan, she said same student can register multiple class in same program
             /*
-            let registeredStudents = EdminForce.Collections.classStudent.find({
-                programID: this.programID.get()
-            }).fetch();
+             let registeredStudents = EdminForce.Collections.classStudent.find({
+             programID: this.programID.get()
+             }).fetch();
 
-            let validStudents = [];
+             let validStudents = [];
+
+             for (let i = 0; i < students.length; i++) {
+             let student = students[i];
+             let find = false;
+             for (let j = 0; j < registeredStudents.length; j++) {
+             // This student already registered this program
+             if (student["_id"] === registeredStudents[j].studentID) {
+             find = true;
+             break;
+             }
+             }
+
+             // not registered before
+             if (!find) {
+             student.value = student["_id"];
+             student.label = student.name;
+             validStudents.push(student);
+             }
+             }
+             */
 
             for (let i = 0; i < students.length; i++) {
-                let student = students[i];
-                let find = false;
-                for (let j = 0; j < registeredStudents.length; j++) {
-                    // This student already registered this program
-                    if (student["_id"] === registeredStudents[j].studentID) {
-                        find = true;
-                        break;
-                    }
-                }
-
-                // not registered before
-                if (!find) {
-                    student.value = student["_id"];
-                    student.label = student.name;
-                    validStudents.push(student);
-                }
-            }
-            */
-
-            for(let i = 0; i<students.length; i++){
                 let student = students[i];
                 student.value = student["_id"];
                 student.label = student.name;
@@ -194,7 +194,7 @@
 
             console.log(existedClass);
 
-            if(existedClass&&existedClass[0]){
+            if (existedClass && existedClass[0]) {
                 return false;
             }
 
@@ -263,6 +263,9 @@
                 classID: this.selectedClass["_id"],
                 programID: this.programID.get(),
                 studentID: this.studentID.get(),
+                payment: {
+                    status: "pending"
+                },
                 status: 'register'
             }];
 
@@ -271,31 +274,14 @@
                 if (err) {
                     alert("Insert Fail!");
                 } else {
-                    let insertData = [{
-                        accountID: Meteor.userId(),
-                        classID: this.selectedClass["_id"],
-                        programID: this.programID.get(),
-                        studentID: this.studentID.get(),
-                        classStudentID: res[0],
-                        status: "pending"
-                    }];
 
-                    // then insert to shopping cart
-                    EdminForce.Collections.shoppingCart.batchInsert(insertData, function (err, res) {
-                        //called with err or res where res is array of created _id values
-                        if (err) {
-                            alert("Insert Fail!");
-                        } else {
-                            let params = {
-                                cartId: res[0]
-                            };
+                    let params = {
+                        cartId: res[0]
+                    };
 
-                            console.log(res);
+                    let path = FlowRouter.path("/carts/detail/:cartId", params);
+                    FlowRouter.go(path);
 
-                            let path = FlowRouter.path("/carts/detail/:cartId", params);
-                            FlowRouter.go(path);
-                        }
-                    });
                 }
             }.bind(this));
         }
@@ -310,7 +296,7 @@
 
             let classItems = this.classes.get().map(function (item, index) {
 
-                let style = self.state.styles[index]?self.state.styles[index]:{};
+                let style = self.state.styles[index] ? self.state.styles[index] : {};
 
                 return (
                     <RC.Item key={item['_id']} theme="divider"

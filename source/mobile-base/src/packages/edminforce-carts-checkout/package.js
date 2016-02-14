@@ -29,7 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/ClassesCheckout.Component.jsx',
+        'lib/client/views/CartsCheckout.component.jsx',
         'lib/router/checkout.router.jsx'
     ], ["client"]);
 

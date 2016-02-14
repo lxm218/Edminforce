@@ -1,6 +1,6 @@
 
 let {
-    ClassesCheckout
+    CartsCheckout
     } = EdminForce.Components;
 let {
     routeHandler
@@ -12,7 +12,7 @@ DefaultRoutes.route('/carts/checkout', {
         routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <ClassesCheckout/>
+            bodyTmpl: <CartsCheckout/>
         })
     }
 })

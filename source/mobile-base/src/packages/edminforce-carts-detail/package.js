@@ -29,7 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/ClassesConfirm.Component.jsx',
+        'lib/client/views/CartsDetail.component.jsx',
         'lib/router/confirm.router.jsx'
     ], ["client"]);
 

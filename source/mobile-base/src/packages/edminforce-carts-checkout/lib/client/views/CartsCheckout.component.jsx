@@ -12,7 +12,7 @@
     let _ = lodash;
 
     // Don't forget to change `SomeName` to correct name
-    EdminForce.Components.ClassesCheckout = class extends RC.CSSMeteorData {
+    EdminForce.Components.CartsCheckout = class extends RC.CSSMeteorData {
 
         constructor(p) {
             super(p);
@@ -27,8 +27,10 @@
                 handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
             }.bind(this));
 
-            let carts = EdminForce.Collections.shoppingCart.find({
-                status: "pending"
+            let carts = EdminForce.Collections.classStudent.find({
+                payment:{
+                    status: "pending"
+                }
             }, {
                 sort: {
                     studentID: -1
@@ -70,18 +72,14 @@
         deleteCartItem(cart) {
             console.log(cart)
             this.data.isReady = false;
-            EdminForce.Collections.shoppingCart.remove({
+            EdminForce.Collections.classStudent.remove({
                 "_id": cart["_id"]
             }, function(err, res){
                 this.data.isReady = true;
                 if(err){
                     alert("Delete Fail!");
                 }else{
-                    EdminForce.Collections.classStudent.remove({
-                        "_id": cart["classStudentID"]
-                    }, function(err, res){
-                        console.log("[Info]delete successful");
-                    });
+                    console.log("[info]Delete successful");
                 }
             }.bind(this));
         }
