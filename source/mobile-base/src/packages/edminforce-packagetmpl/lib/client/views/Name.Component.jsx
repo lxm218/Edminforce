@@ -1,9 +1,13 @@
 {
 
     // Don't forget to change `SomeName` to correct name
-    EdminForce.Components.SomeName = React.createClass({
+    EdminForce.Components.SomeName = class extends RC.CSSMeteorData {
 
-        render: function () {
+        constructor(p) {
+            super(p);
+        }
+
+        render () {
 
             // Fill with your UI
             return (
@@ -12,6 +16,6 @@
                 </div>
             );
         }
-    });
+    };
 
 }

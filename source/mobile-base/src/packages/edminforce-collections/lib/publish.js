@@ -82,26 +82,37 @@ Meteor.startup(function () {
                 })
             },
             children: [
+                // program list
                 {
                     find: function () {
                         return EdminForce.Collections.program.find({}, {
                             sort: {
                                 createTime: 1
                             }
-                        })
+                        });
                     }
                 },
+                // currently user's students registered which classes
                 {
                     find: function(){
                         return EdminForce.Collections.classStudent.find({
                             accountID: this.userId
-                        })
+                        });
                     }
                 },
+                // all classes
                 {
                     find: function(){
                         return EdminForce.Collections.class.find({
-                        })
+                        });
+                    }
+                },
+                // currently user's shopping cart
+                {
+                    find: function(){
+                        return EdminForce.Collections.shoppingCart.find({
+                            accountID: this.userId
+                        });
                     }
                 }
 

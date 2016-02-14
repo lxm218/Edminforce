@@ -29,7 +29,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "200"
                 },
-                maxStudent: 10,
+                maxStudent: 2,
 
                 minStudent: 0,
                 trialStudent: 0,
@@ -59,7 +59,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "200"
                 },
-                maxStudent: 10,
+                maxStudent: 2,
 
                 minStudent: 0,
                 trialStudent: 2,
@@ -88,7 +88,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "300"
                 },
-                maxStudent: 10,
+                maxStudent: 2,
 
                 minStudent: 0,
                 trialStudent: 1,
@@ -118,7 +118,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "250"
                 },
-                maxStudent: 10,
+                maxStudent: 2,
 
                 minStudent: 0,
                 trialStudent: 3,
@@ -148,7 +148,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "300"
                 },
-                maxStudent: 8,
+                maxStudent: 2,
 
                 minStudent: 0,
                 trialStudent: 2,
@@ -178,7 +178,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "300"
                 },
-                maxStudent: 8,
+                maxStudent: 1,
 
                 minStudent: 0,
                 trialStudent: 1,
@@ -208,7 +208,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "300"
                 },
-                maxStudent: 8,
+                maxStudent: 1,
 
                 minStudent: 0,
                 trialStudent: 2,
@@ -238,7 +238,7 @@ Meteor.startup(function () {
                     type: "total",
                     money: "300"
                 },
-                maxStudent: 8,
+                maxStudent: 1,
 
                 minStudent: 0,
                 trialStudent: 0,
@@ -268,10 +268,10 @@ Meteor.startup(function () {
                     type: "total",
                     money: "300"
                 },
-                maxStudent: 8,
+                maxStudent: 2,
 
                 minStudent: 0,
-                trialStudent: 2,
+                trialStudent: 1,
 
                 minAgeRequire: 0,
                 maxAgeRequire: 100,

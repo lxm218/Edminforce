@@ -24,6 +24,7 @@ Package.onUse(function(api){
         "lib/ClassStudentCollection.js",
         "lib/ProgramCollection.js",
         "lib/SessionCollection.js",
+        "lib/ShoppingCartCollection.js",
         "lib/StudentCollection.js",
         "lib/UserSchema.js",
         "lib/startup.js"
