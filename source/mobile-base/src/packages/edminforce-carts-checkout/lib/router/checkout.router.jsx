@@ -6,7 +6,7 @@ let {
     routeHandler
     } = EdminForce.utils;
 
-DefaultRoutes.route('/classes/:cartId/checkout', {
+DefaultRoutes.route('/carts/checkout', {
     name: "Programs",
     action: function(p) {
         routeHandler(p, {

@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'edminforce:classes-confirm',
+    name: 'edminforce:carts-detail',
     summary: 'Summary',
     version: '0.0.1',
     git: ''

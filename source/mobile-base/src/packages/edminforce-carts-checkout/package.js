@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'edminforce:classes-checkout',
+    name: 'edminforce:carts-checkout',
     summary: 'Summary',
     version: '0.0.1',
     git: ''

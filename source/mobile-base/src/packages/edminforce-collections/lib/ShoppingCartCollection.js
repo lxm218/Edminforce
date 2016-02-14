@@ -40,6 +40,9 @@ ShoppingCartCollection = class ShoppingCartCollection extends BaseCollection {
             studentID:{
                 type: String
             },
+            classStudentID:{
+                type: String
+            },
             /**
              * 1. pending: [default] when create a cart it's status is pending
              * 2. checkouting: user start checkout checkout process

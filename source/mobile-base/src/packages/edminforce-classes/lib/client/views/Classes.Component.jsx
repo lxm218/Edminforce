@@ -76,11 +76,13 @@
         }
 
         getStudents() {
-            console.log("getStudent, time: ", new Date().getTime());
+            //console.log("getStudent, time: ", new Date().getTime());
             let students = EdminForce.Collections.student.find({
                 accountID: Meteor.userId()
             }).fetch();
 
+            // discuss with Ma Lan, she said same student can register multiple class in same program
+            /*
             let registeredStudents = EdminForce.Collections.classStudent.find({
                 programID: this.programID.get()
             }).fetch();
@@ -105,12 +107,19 @@
                     validStudents.push(student);
                 }
             }
+            */
+
+            for(let i = 0; i<students.length; i++){
+                let student = students[i];
+                student.value = student["_id"];
+                student.label = student.name;
+            }
 
             if (!this.studentID.get()) {
                 this.studentID.set(students[0] && students[0]['_id']);
             }
 
-            this.students.set(validStudents);
+            this.students.set(students);
         }
 
         getClasses() {
@@ -160,14 +169,6 @@
                 }
             }
 
-            // find selected student information
-            for (let i = 0; i < students.length; i++) {
-                // if id is same, then this is the student we want to find
-                if (students[i]['_id'] == this.studentID.get()) {
-                    student = students[i];
-                    break;
-                }
-            }
 
             // Get class register information
             let registeredStudents = EdminForce.Collections.classStudent.find({
@@ -176,7 +177,7 @@
 
             // this class isn't available
             if (classInfo.maxStudent <= registeredStudents.length) {
-                console.log("[Info]Class already full");
+                //console.log("[Info]Class already full");
                 bAvailable = false;
                 return false;
             }
@@ -185,9 +186,21 @@
                 return true;
             }
 
+            // this student already registered
+            let existedClass = EdminForce.Collections.classStudent.find({
+                classID: classInfo["_id"],
+                studentID: student["_id"]
+            }).fetch();
+
+            console.log(existedClass);
+
+            if(existedClass&&existedClass[0]){
+                return false;
+            }
+
             // class required gender isn't same with student's
             if (classInfo.genderRequire && (classInfo.genderRequire.toLowerCase() !== 'all') && (classInfo.genderRequire.toLowerCase() !== student.profile.gender.toLowerCase())) {
-                console.log("[Info]gender didn't meet requirement");
+                //console.log("[Info]gender didn't meet requirement");
                 bAvailable = false;
                 return false;
             }
@@ -199,14 +212,14 @@
 
             // if class has min age, and currently student's age less than min age
             if (classInfo.minAgeRequire && classInfo.minAgeRequire > age) {
-                console.log("[Info]min age:", classInfo.minAgeRequire, "studnet's age: ", age);
+                //console.log("[Info]min age:", classInfo.minAgeRequire, "studnet's age: ", age);
                 bAvailable = false;
                 return false;
             }
 
             // if class has max age, and currently student's age bigger than max age
             if (classInfo.maxAgeRequire && classInfo.maxAgeRequire < age) {
-                console.log("[Info]max age:", classInfo.maxAgeRequire, "studnet's age: ", age);
+                //console.log("[Info]max age:", classInfo.maxAgeRequire, "studnet's age: ", age);
                 bAvailable = false;
                 return false;
             }
@@ -223,8 +236,6 @@
         }
 
         onSelectClass(item, index) {
-            console.log(item);
-            console.log(index);
 
             this.selectedClass = item;
             this.classID.set(this.selectedClass["_id"]);
@@ -265,6 +276,7 @@
                         classID: this.selectedClass["_id"],
                         programID: this.programID.get(),
                         studentID: this.studentID.get(),
+                        classStudentID: res[0],
                         status: "pending"
                     }];
 
@@ -275,12 +287,12 @@
                             alert("Insert Fail!");
                         } else {
                             let params = {
-                                cartId: 11
+                                cartId: res[0]
                             };
 
                             console.log(res);
 
-                            let path = FlowRouter.path("/classes/:cartId/confirm", params);
+                            let path = FlowRouter.path("/carts/detail/:cartId", params);
                             FlowRouter.go(path);
                         }
                     });
@@ -297,8 +309,6 @@
             let self = this;
 
             let classItems = this.classes.get().map(function (item, index) {
-
-                console.log("classItems");
 
                 let style = self.state.styles[index]?self.state.styles[index]:{};
 

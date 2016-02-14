@@ -94,7 +94,7 @@ Meteor.startup(function () {
                 },
                 // currently user's students registered which classes
                 {
-                    find: function(){
+                    find: function () {
                         return EdminForce.Collections.classStudent.find({
                             accountID: this.userId
                         });
@@ -102,20 +102,80 @@ Meteor.startup(function () {
                 },
                 // all classes
                 {
-                    find: function(){
-                        return EdminForce.Collections.class.find({
-                        });
+                    find: function () {
+                        return EdminForce.Collections.class.find({});
                     }
                 },
                 // currently user's shopping cart
                 {
-                    find: function(){
+                    find: function () {
                         return EdminForce.Collections.shoppingCart.find({
                             accountID: this.userId
                         });
                     }
                 }
 
+            ]
+        }
+    });
+
+    Meteor.publishComposite("EF-Cart-Detail-By-ID", function (cartID, classID, studentID) {
+        console.log(studentID);
+        return {
+            find: function () {
+                return EdminForce.Collections.shoppingCart.find({
+                    _id: cartID
+                });
+            },
+            children: [
+                {
+                    find: function () {
+                        return EdminForce.Collections.class.find({
+                            _id: classID
+                        });
+                    },
+                    children:[
+                        {
+                            find: function () {
+                                return EdminForce.Collections.student.find({
+                                    _id: studentID
+                                });
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    });
+
+    Meteor.publishComposite("EF-ShoppingCarts-Checkout", function () {
+        return {
+            find: function () {
+                return EdminForce.Collections.shoppingCart.find({
+                    status: "pending"
+                });
+            },
+            children: [
+                {
+                    find: function () {
+                        return EdminForce.Collections.class.find({
+                        });
+                    }
+                },
+                {
+                    find: function () {
+                        return EdminForce.Collections.student.find({
+                            accountID: this.userId
+                        });
+                    }
+                },
+                {
+                    find: function () {
+                        return EdminForce.Collections.classStudent.find({
+                            accountID: this.userId
+                        });
+                    }
+                }
             ]
         }
     });
