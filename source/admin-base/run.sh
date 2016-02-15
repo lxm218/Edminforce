@@ -4,29 +4,39 @@
 
 
 
-ENV1="PACKAGE_ROOT=$PWD/../_packages_"
-ENV2="RC_DIR=$PACKAGE_ROOT/ihealth-framework-ui/library"
-ENV3="PACKAGE_DIRS=$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/both:$PACKAGE_ROOT/module"
+PACKAGE_ROOT=$PWD/../_packages_
+RC_DIR=$PACKAGE_ROOT/ihealth-framework-ui/library
+ENV="PACKAGE_DIRS=$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/both:$PACKAGE_ROOT/module"
+#echo $ENV
 
 runLocalHost(){
+
+    PORT=8000
+
+    tmp=`echo $1 |sed 's/[0-9]//g'`
+    if [ -z "${tmp}" ] && [ $1 -gt 2999 ]
+    then
+        PORT=$1
+        echo "PORT=$PORT"
+    fi
+
+
     export MONGO_URL="mongodb://127.0.0.1:27017/EdminForce"
 
     echo "---- start set env ----"
-    export ${ENV1}
-    export ${ENV2}
-    export ${ENV3}
+    export $ENV
+    echo "PACKAGE_DIRS=${PACKAGE_DIRS}"
     echo "---- set env end ----"
-    meteor --port 8000
+
+    meteor --port $PORT
 }
 
 
 deploy(){
     REMOTEURL="edminforce.meteor.com"
     echo "start deploy to ${REMOTEURL}"
-    sudo ${ENV1} ${ENV2} ${ENV3} meteor deploy ${REMOTEURL}
-    echo "PACKAGE_ROOT = ${PACKAGE_ROOT}"
-    echo "RC_DIR = ${RC_DIR}"
-    echo "PACKAGE_DIRS = ${PACKAGE_DIRS}"
+    sudo $ENV meteor deploy ${REMOTEURL}
+
     echo "---- deploy success ----"
 }
 
@@ -35,7 +45,7 @@ case "$1" in
         deploy
         ;;
     *)
-        runLocalHost
+        runLocalHost $1
         ;;
 
 esac
