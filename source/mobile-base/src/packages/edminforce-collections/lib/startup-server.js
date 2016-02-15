@@ -18,7 +18,7 @@ Meteor.startup(function () {
                     status: "pending"
                 },
                 createTime:{
-                    $lt:new Date()
+                    $lt:validCreateTime
                 }
             }, {
                 $set:{

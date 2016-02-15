@@ -132,6 +132,8 @@
                 programID: this.programID.get()
             }).fetch();
 
+            console.log("classes: ", classes);
+
             let validClasses = [];
 
             for (let i = 0; i < classes.length; i++) {
@@ -172,7 +174,10 @@
 
             // Get class register information
             let registeredStudents = EdminForce.Collections.classStudent.find({
-                classID: classInfo['_id']
+                classID: classInfo['_id'],
+                "payment.status": {
+                    $in: ['pending', 'checkouting', 'checkouted']
+                }
             }).fetch();
 
             // this class isn't available
@@ -189,10 +194,13 @@
             // this student already registered
             let existedClass = EdminForce.Collections.classStudent.find({
                 classID: classInfo["_id"],
-                studentID: student["_id"]
+                studentID: student["_id"],
+                "payment.status": {
+                    $in: ['pending', 'checkouting', 'checkouted']
+                }
             }).fetch();
 
-            console.log(existedClass);
+            console.log("classID: ", classInfo["_id"], existedClass);
 
             if (existedClass && existedClass[0]) {
                 return false;
