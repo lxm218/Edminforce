@@ -14,7 +14,7 @@ runLocalHost(){
     PORT=8000
 
     tmp=`echo $1 |sed 's/[0-9]//g'`
-    if [ -z "${tmp}" ] && [ $1 -gt 2999 ]
+    if [ -n "$1" ] && [ -z "${tmp}" ] && [ $1 -gt 2900 ]
     then
         PORT=$1
         echo "PORT=$PORT"
