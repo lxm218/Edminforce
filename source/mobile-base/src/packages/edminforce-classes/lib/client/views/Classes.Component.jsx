@@ -175,7 +175,7 @@
             // Get class register information
             let registeredStudents = EdminForce.Collections.classStudent.find({
                 classID: classInfo['_id'],
-                "payment.status": {
+                status: {
                     $in: ['pending', 'checkouting', 'checkouted']
                 }
             }).fetch();
@@ -195,7 +195,7 @@
             let existedClass = EdminForce.Collections.classStudent.find({
                 classID: classInfo["_id"],
                 studentID: student["_id"],
-                "payment.status": {
+                status: {
                     $in: ['pending', 'checkouting', 'checkouted']
                 }
             }).fetch();
@@ -271,10 +271,8 @@
                 classID: this.selectedClass["_id"],
                 programID: this.programID.get(),
                 studentID: this.studentID.get(),
-                payment: {
-                    status: "pending"
-                },
-                status: 'register'
+                status: "pending",
+                type: 'register'
             }];
 
             // first insert it to classStudent cart

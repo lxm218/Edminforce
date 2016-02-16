@@ -42,8 +42,8 @@ edminforce:account-updatephone@0.0.1
 edminforce:billings@0.0.1
 edminforce:carts-checkout@0.0.1
 edminforce:carts-detail@0.0.1
+edminforce:carts-summary@0.0.1
 edminforce:classes@0.0.1
-edminforce:classes-summary@0.0.1
 edminforce:collections@0.0.1
 edminforce:collections-seed@0.0.1
 edminforce:contact@0.0.1

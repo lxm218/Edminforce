@@ -1,5 +1,5 @@
 Package.describe({
-    name: 'edminforce:classes-summary',
+    name: 'edminforce:carts-summary',
     summary: 'Summary',
     version: '0.0.1',
     git: ''
@@ -29,7 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/ClassesSummary.Component.jsx',
+        'lib/client/views/CartsSummary.component.jsx',
         'lib/router/summary.router.jsx'
     ], ["client"]);
 

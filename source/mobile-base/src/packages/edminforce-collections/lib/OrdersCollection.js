@@ -4,7 +4,7 @@
  * @type {Mongo.Collection}
  */
 
-ClassStudentCollection = class ClassStudentCollection extends BaseCollection {
+OrdersCollection = class OrdersCollection extends BaseCollection {
 
     /**
      * Collection instance should be singleton.
@@ -13,13 +13,13 @@ ClassStudentCollection = class ClassStudentCollection extends BaseCollection {
     static _instance;
 
     constructor(name, options) {
-        if (!ClassStudentCollection._instance) {
+        if (!OrdersCollection._instance) {
             super(name, options);
             // Store this instance
-            ClassStudentCollection._instance = this;
+            OrdersCollection._instance = this;
         }
 
-        return ClassStudentCollection._instance;
+        return OrdersCollection._instance;
     }
 
     defineCollectionSchema() {
@@ -27,29 +27,22 @@ ClassStudentCollection = class ClassStudentCollection extends BaseCollection {
             accountID:{
                 type: String
             },
-            classID: {
-                type: String
-            },
-            studentID: {
-                type: String
-            },
-            programID: {
-                type: String
+            details:{
+                type:[String]   // ClassStudentID
             },
             status: {
                 type: String,
                 allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled']
             },
-            type: {
-                type: String,
-                allowedValues : ['trial', 'register', 'wait', 'makeup']
+            amount:{
+                type: Number
             },
-            orderID: {
+            couponID:{
                 type: String,
                 optional: true
             },
-            lessonDate: {
-                type: Date,
+            schoolCredit:{
+                type: Number,
                 optional: true
             },
             createTime: EdminForce.utils.schemaUtil.createTime(),

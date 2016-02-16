@@ -16,6 +16,8 @@
 
         constructor(p) {
             super(p);
+
+            this.total = 0;
         }
 
         getMeteorData() {
@@ -28,9 +30,7 @@
             }.bind(this));
 
             let carts = EdminForce.Collections.classStudent.find({
-                payment:{
-                    status: "pending"
-                }
+                status: "pending"
             }, {
                 sort: {
                     studentID: -1
@@ -84,8 +84,93 @@
             }.bind(this));
         }
 
+        //TODO Coupon
+        //TODO School Credit
+
         process() {
-            FlowRouter.go("/payment");
+
+            // when user click process
+            // 1. Insert an order, and update the status of selected book classes
+            // 2.1 Insert and update successful, jump to /payment?orderId=sfdsfsfdsfsf
+            // 2.2 Insert and update fail, stay on this page, alert user
+            console.group("Process")
+            console.log(this.data.carts);
+            console.log(this.total);
+            console.groupEnd();
+
+            let classStudentsID = [];
+            this.data.carts.forEach((value, key)=>{
+                classStudentsID.push(value['_id']);
+            });
+
+            let order = {
+                accountID: Meteor.userId(),
+                details:classStudentsID,
+                status: "checkouting",
+                amount:this.total
+            };
+
+            EdminForce.Collections.orders.insert(order, function(err, res){
+                if(err){
+                    console.error("Insert order error, error: ",err);
+                    alert("Process fail!");
+                    return
+                }else{
+
+                    let orderID = res;
+                    if(!orderID){
+                        alert("Process fail!");
+                        return;
+                    }
+
+                    console.log("orderID = ", orderID);
+
+                    FlowRouter.go("/payment?order="+orderID);
+
+                    //let now = new Date();
+                    //
+                    //let classes = EdminForce.Collections.classStudent.find({
+                    //    status: "pending",
+                    //    "_id":{
+                    //        $in: classStudentsID
+                    //    }
+                    //}).fetch()
+                    //
+                    //console.log(classes);
+
+                    // update classStudent
+                    //EdminForce.Collections.classStudent.update({
+                    //    status: "pending",
+                    //    "_id":{
+                    //        $in: classStudentsID
+                    //    }
+                    //}, {
+                    //    $set:{
+                    //        status: "checkouting",
+                    //        updateTime:now
+                    //    }
+                    //}, function(err, res){
+                    //    // if update error, remove insert order
+                    //    if(err){
+                    //        EdminForce.Collections.orders.remove({
+                    //            "_id": orderID
+                    //        }, function(err, res){
+                    //            // if still error,
+                    //            if(err){
+                    //                alert("Process fail!");
+                    //                return;
+                    //            }
+                    //            alert("Process fail!");
+                    //        })
+                    //    }else{
+                    //        // everything is correct, jump to payment page
+                    //
+                    //        FlowRouter.go("/payment?order="+orderID);
+                    //    }
+                    //});
+                }
+            });
+
         }
 
         render() {
@@ -94,7 +179,7 @@
                 padding: '10px'
             };
 
-            let total = 0;
+            this.total = 0;
             let self = this;
 
             let cartItems = this.data.carts.map(function (item, index) {
@@ -102,7 +187,7 @@
                 let studentData = _.find(this.data.students, {"_id": item.studentID}) || {};
                 let price = _.toNumber(classData.tuition.money);
 
-                total += price;
+                this.total += price;
 
                 return (
                     <TableRow key={item['_id']}>
@@ -113,6 +198,22 @@
                     </TableRow>
                 )
             }.bind(this));
+
+            let processButtonStyle = {
+            };
+
+            let attributes = {
+
+            };
+
+            if(!this.data.carts||this.data.carts.length == 0){
+                processButtonStyle = {
+                    backgroundColor: "gray",
+                    cursor:"not-allowed"
+                };
+
+                attributes.disabled= "disabled";
+            }
 
             // Fill with your UI
             return (
@@ -144,11 +245,10 @@
                         <RC.Input name="coupon" value="" label="Enter Coupon Code"/>
 
                         <RC.List>
-                            <RC.Item title="Total" subtitle={_.toString(total)}></RC.Item>
+                            <RC.Item title="Total" subtitle={_.toString(this.total)}></RC.Item>
                         </RC.List>
 
-                        <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.process}>Process
-                            Payment</RC.Button>
+                        <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark" onClick={this.process.bind(this)} >Process Payment</RC.Button>
                     </RC.Loading>
                 </RC.Div>
             );

@@ -9,6 +9,9 @@ Meteor.startup(function () {
     EdminForce.Collections.session = new SessionCollection("EF-Session");
     EdminForce.Collections.student = new StudentCollection("EF-Student");
 
+    EdminForce.Collections.orders = new OrdersCollection("EF-Orders");
+
+
     // Add user schema to Meteor.user
     Meteor.users.attachSchema(userSchema);
 });

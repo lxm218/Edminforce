@@ -22,6 +22,7 @@ Package.onUse(function(api){
         "lib/BaseCollection.js",
         "lib/ClassCollection.js",
         "lib/ClassStudentCollection.js",
+        "lib/OrdersCollection.js",
         "lib/ProgramCollection.js",
         "lib/SessionCollection.js",
         "lib/StudentCollection.js",

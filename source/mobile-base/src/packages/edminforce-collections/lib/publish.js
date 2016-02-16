@@ -142,9 +142,7 @@ Meteor.startup(function () {
         return {
             find: function () {
                 return EdminForce.Collections.classStudent.find({
-                    payment:{
-                        status: "pending"
-                    }
+                    status: "pending"
                 });
             },
             children: [
@@ -163,7 +161,7 @@ Meteor.startup(function () {
                 },
                 {
                     find: function () {
-                        return EdminForce.Collections.classStudent.find({
+                        return EdminForce.Collections.orders.find({
                             accountID: this.userId
                         });
                     }

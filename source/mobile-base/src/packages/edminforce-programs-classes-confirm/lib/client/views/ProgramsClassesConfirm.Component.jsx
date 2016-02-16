@@ -83,7 +83,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                 studentID: selectedStudents[i]._id,
                 programID: this.data.classInfo.programID,
                 lessonDate: new Date(timestamp),
-                status: "trial",
+                type: "trial",
                 createTime: new Date()
             };
 

@@ -1,18 +1,18 @@
 
 let {
-    ClassesSummary
+    CartsSummary
     } = EdminForce.Components;
 let {
     routeHandler
     } = EdminForce.utils;
 
-DefaultRoutes.route('/classes/:cartId/summary', {
+DefaultRoutes.route('/orders/summary/:orderId', {
     name: "Programs",
     action: function(p) {
         routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <ClassesSummary/>
+            bodyTmpl: <CartsSummary/>
         })
     }
 })
