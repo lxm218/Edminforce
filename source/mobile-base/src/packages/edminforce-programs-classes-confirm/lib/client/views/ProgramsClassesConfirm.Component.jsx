@@ -50,9 +50,9 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
             }
         }
 
-        console.log(programRegisterStudents);
-
-        console.log(canRegisterStudents);
+        //console.log(programRegisterStudents);
+        //
+        //console.log(canRegisterStudents);
 
         return {
             classInfo: classInfo,
@@ -83,6 +83,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                 studentID: selectedStudents[i]._id,
                 programID: this.data.classInfo.programID,
                 lessonDate: new Date(timestamp),
+                status: "checkouted",
                 type: "trial",
                 createTime: new Date()
             };
@@ -107,7 +108,6 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                 FlowRouter.go(path);
             }
         });
-
     }
 
     selectStudent(student) {
