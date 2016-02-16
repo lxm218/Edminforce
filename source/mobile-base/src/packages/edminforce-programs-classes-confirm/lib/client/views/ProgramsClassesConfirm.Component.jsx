@@ -32,7 +32,8 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
 
         let programRegisterStudents = EdminForce.Collections.classStudent.find({
             accountID: Meteor.userId(),
-            programID: classInfo.programID
+            programID: classInfo.programID,
+            type: "trial"
         }).fetch();
 
         let canRegisterStudents = [];
