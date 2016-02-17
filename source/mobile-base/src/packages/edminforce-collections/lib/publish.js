@@ -148,8 +148,7 @@ Meteor.startup(function () {
             children: [
                 {
                     find: function () {
-                        return EdminForce.Collections.class.find({
-                        });
+                        return EdminForce.Collections.class.find({});
                     }
                 },
                 {
@@ -170,25 +169,35 @@ Meteor.startup(function () {
         }
     });
 
-    Meteor.publishComposite("EF-Students", function(){
+    Meteor.publishComposite("EF-Students", function () {
         return {
-            find: function(){
-                return EdminForce.Collections.classStudent.find({
+            find: function () {
+                return EdminForce.Collections.student.find({
                     accountID: this.userId
                 });
             },
             children: [
                 {
-                    find: function(){
-                        return EdminForce.Collections.student.find({
-                            accountID: this.userId
+                    find: function () {
+                        return EdminForce.Collections.classStudent.find({
+                            accountID: this.userId,
+                            type: {
+                                $in: ['register', 'wait']
+                            },
+                            status: {
+                                $in: ["checkouted"]
+                            }
                         })
                     }
                 },
                 {
-                    find: function(){
-                        return EdminForce.Collections.class.find({
-                        })
+                    find: function () {
+                        return EdminForce.Collections.class.find({})
+                    }
+                },
+                {
+                    find: function () {
+                        return EdminForce.Collections.session.find({})
                     }
                 }
             ]

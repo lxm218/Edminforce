@@ -11,27 +11,28 @@ Meteor.startup(function () {
     // Expired the pending book classes
     SyncedCron.add({
         name: 'Expired classStudent',
-        schedule: function(parser) {
+        schedule: function (parser) {
             // Every 1 send to execute expired job
             return parser.text('every 1 seconds');
         },
-        job: function() {
+        job: function () {
             // current time
             let now = new Date();
             // valid date
-            let validCreateTime = new Date(now.getTime()-EdminForce.settings.bookClassexpiredTime);
+            let validCreateTime = new Date(now.getTime() - EdminForce.settings.bookClassexpiredTime);
             //console.log(validCreateTime);
+
             EdminForce.Collections.classStudent.update({
                 status: "pending",
-                createTime:{
-                    $lt:validCreateTime
+                createTime: {
+                    $lt: validCreateTime
                 }
             }, {
-                $set:{
-                    status:"expired",
-                    updateTime:now
+                $set: {
+                    status: "expired",
+                    updateTime: now
                 }
-            });
+            }, {multi:true});
         }
     });
 
@@ -42,18 +43,20 @@ Meteor.startup(function () {
     // In case, when user add order, but for some reason it didn't update the classStudent successful. For example, not network, browser crash. So we run it in server side to make sure the status is correct set
     SyncedCron.add({
         name: "Sync up orders and classStudent",
-        schedule: function(parser){
+        schedule: function (parser) {
             return parser.text('every 1 seconds');
         },
-        job: function(){
+        job: function () {
 
             // 1. When an order is "checkouting", make sure the status of classStudent in this order is change to "checkouting"
             let inProgressOrders = EdminForce.Collections.orders.find({
                 status: "checkouting"
             }).fetch();
 
-            inProgressOrders&&inProgressOrders.forEach(function(order, key){
-                let classStudentsID = order&&order.details;
+            inProgressOrders && inProgressOrders.forEach(function (order, key) {
+                let classStudentsID = order && order.details;
+
+                console.log(classStudentsID);
 
                 EdminForce.Collections.classStudent.update({
                     status: "pending",
@@ -61,11 +64,11 @@ Meteor.startup(function () {
                         $in: classStudentsID
                     }
                 }, {
-                    $set:{
+                    $set: {
                         status: "checkouting"
                     }
-                }, function(err, res){
-                    if(err){
+                }, {multi:true}, function (err, res) {
+                    if (err) {
                         console.error("[Error], update classStudent error: ", err);
                     }
                 });
@@ -77,8 +80,8 @@ Meteor.startup(function () {
                 status: "expired"
             }).fetch();
 
-            expiredOrders&&expiredOrders.forEach(function(order, key){
-                let classStudentsID = order&&order.details;
+            expiredOrders && expiredOrders.forEach(function (order, key) {
+                let classStudentsID = order && order.details;
 
                 EdminForce.Collections.classStudent.update({
                     status: "checkouting",
@@ -86,11 +89,11 @@ Meteor.startup(function () {
                         $in: classStudentsID
                     }
                 }, {
-                    $set:{
+                    $set: {
                         status: "pending"
                     }
-                }, function(err, res){
-                    if(err){
+                }, {multi: true}, function (err, res) {
+                    if (err) {
                         console.error("[Error], update classStudent error: ", err);
                     }
                 });
@@ -101,20 +104,22 @@ Meteor.startup(function () {
                 status: "checkouted"
             }).fetch();
 
-            checkoutedOrders&&checkoutedOrders.forEach(function(order, key){
-                let classStudentsID = order&&order.details;
+            checkoutedOrders && checkoutedOrders.forEach(function (order, key) {
+                let classStudentsID = order && order.details;
 
                 EdminForce.Collections.classStudent.update({
-                    status: "checkouting",
-                    "_id": {
+                    status:{
+                        $nin:['checkouted']
+                    },
+                    _id: {
                         $in: classStudentsID
                     }
                 }, {
-                    $set:{
+                    $set: {
                         status: "checkouted"
                     }
-                }, function(err, res){
-                    if(err){
+                }, {multi: true}, function (err, res) {
+                    if (err) {
                         console.error("[Error], update classStudent error: ", err);
                     }
                 });
@@ -125,28 +130,29 @@ Meteor.startup(function () {
     // Expired the order
     SyncedCron.add({
         name: 'Expired orders',
-        schedule: function(parser) {
+        schedule: function (parser) {
             // Every 1 send to execute expired job
             return parser.text('every 1 seconds');
         },
-        job: function() {
+        job: function () {
             // current time
             let now = new Date();
             // valid date
             let validCreateTime = new Date(now.getTime()-EdminForce.settings.paymentExpiredTime);
             //console.log(validCreateTime);
+
             EdminForce.Collections.orders.update({
                 status: "checkouting",
-                createTime:{
-                    $lt:validCreateTime
+                createTime: {
+                    $lt: validCreateTime
                 }
             }, {
-                $set:{
-                    status:"expired",
-                    updateTime:now
+                $set: {
+                    status: "expired",
+                    updateTime: now
                 }
-            }, function(err, res){
-                if(err) {
+            }, {multi: true}, function (err, res) {
+                if (err) {
                     console.error("[Error]Expired order error:", err)
                 }
             });

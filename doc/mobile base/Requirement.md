@@ -58,3 +58,19 @@ List all the available Programs
        After several day later, Kevin book this class, so after Kevin registered, this class's currently registered student number is 10, it should not be booked trail class, but Mark booked trail class before.
        
        For this conflict, need to solve by school manually.
+
+## Students 
+
+### Click menu - student
+This page shows all the students. 
+
+1. If this student has class in progress show all the class he/she has now
+2. If this student has class in waitinglist show it 
+3. If this student has completed class, show the last completed class
+4. If this student don't registered before, show student, but the middle content is empty
+
+Note: 
+1. If student has multiple class, order by day(Mon - Sun)
+
+### Click a student
+Show the detail of class. if it is currently in progress class, user can make up class.

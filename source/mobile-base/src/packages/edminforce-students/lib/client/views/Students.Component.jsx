@@ -9,14 +9,19 @@
 
         getMeteorData() {
             let handler = null;
-            let ready = false;
 
             Tracker.autorun(function () {
                 handler = Meteor.subscribe("EF-Students");
             }.bind(this));
 
             let classStudents = EdminForce.Collections.classStudent.find({
-                accountID: Meteor.userId()
+                accountID: Meteor.userId(),
+                type:{
+                    $in: ['register', 'wait']
+                },
+                status:{
+                    $in: ["checkouted"]
+                }
             }).fetch();
 
             // get current user's students
@@ -27,29 +32,69 @@
             // get all classes
             let classes = EdminForce.Collections.class.find({}).fetch();
 
-            let bookedClasses = [];
+            let sessions = EdminForce.Collections.session.find({}).fetch();
 
-            for(let i = 0; i<classStudents.length; i++){
-                let item = {};
-                let classStudent = classStudents[i];
-                let classID = classStudent.classID;
-                let studentID = classStudent.studentID;
+            let bookClasses = [];
 
-                let index = _.findIndex(classes, function(item){
-                    return item["_id"] == classID;
+            for(let i = 0; i< classStudents.length; i++){
+            //for(let i = 0; i< 0; i++){
+                let bookClass = classStudents[i];
+
+                if(!bookClass){
+                    continue;
+                }
+
+                let classID = bookClass.classID;
+                let classData = _.find(classes, function(item){
+                    return item["_id"] === classID;
                 });
 
-                let classData = classes[index];
+                if(!classData){
+                    continue;
+                }
 
-                console.log("classData: ", classData);
-
-                index = _.findIndex(students, function(item){
-                    return item["_id"] == studentID;
+                let sessionData = _.find(sessions, function(item){
+                    return item["_id"] === classData.sessionID;
                 });
 
-                let student = students[index];
+                if(!sessionData){
+                    continue;
+                }
 
-                console.log("student: ", student);
+                bookClass.className = classData.name;
+                bookClass.classStudentID = bookClass["_id"];
+
+                bookClass = _.merge(bookClass, classData, sessionData);
+
+                let now = new Date();
+
+                // currently time is between session's start and end time
+                if(now>=sessionData.startDate&&now<=sessionData.endDate){
+                    bookClass.inProgressing = true;
+                }else{
+                    bookClass.inProgressing = false;
+                }
+
+                bookClasses.push(bookClass);
+            }
+
+            //console.log(bookClasses);
+
+            let studentLists = [];
+
+            for(let i = 0; i<students.length; i++){
+                let student = students[i];
+                let studentID = student["_id"];
+
+                let bookClassesThisStudent = _.filter(bookClasses, function(item){
+                    return item.studentID = studentID;
+                });
+
+                bookClassesThisStudent = _.sortBy(bookClassesThisStudent, function(item){
+                    return !item.inProgressing;
+                });
+
+                console.log(bookClassesThisStudent);
             }
 
             return {
