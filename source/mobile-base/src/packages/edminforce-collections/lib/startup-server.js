@@ -1,5 +1,13 @@
 Meteor.startup(function () {
+    var MyLogger = function(opts) {
+      // console.log('Level', opts.level);
+      // console.log('Message', opts.message);
+      // console.log('Tag', opts.tag);
+    }
 
+    SyncedCron.config({
+      logger: MyLogger
+    });
     // Expired the pending book classes
     SyncedCron.add({
         name: 'Expired classStudent',
@@ -12,7 +20,7 @@ Meteor.startup(function () {
             let now = new Date();
             // valid date
             let validCreateTime = new Date(now.getTime()-EdminForce.settings.bookClassexpiredTime);
-            console.log(validCreateTime);
+            //console.log(validCreateTime);
             EdminForce.Collections.classStudent.update({
                 status: "pending",
                 createTime:{
@@ -126,7 +134,7 @@ Meteor.startup(function () {
             let now = new Date();
             // valid date
             let validCreateTime = new Date(now.getTime()-EdminForce.settings.paymentExpiredTime);
-            console.log(validCreateTime);
+            //console.log(validCreateTime);
             EdminForce.Collections.orders.update({
                 status: "checkouting",
                 createTime:{
