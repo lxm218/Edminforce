@@ -28,14 +28,14 @@ runLocalHost(){
     echo "PACKAGE_DIRS=${PACKAGE_DIRS}"
     echo "---- set env end ----"
 
-    meteor --port $PORT
+    meteor --settings settings-dev.json --port $PORT
 }
 
 
 deploy(){
     REMOTEURL="edminforce.meteor.com"
     echo "start deploy to ${REMOTEURL}"
-    sudo $ENV meteor deploy ${REMOTEURL}
+    sudo $ENV meteor deploy ${REMOTEURL} --settings settings-dev.json
 
     echo "---- deploy success ----"
 }
