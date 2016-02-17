@@ -150,7 +150,7 @@ KUI.Registration_index = class extends RC.CSSMeteorData{
                     YesFn : function(){
                         let mp = fn.call();
                         if(mp.status){
-                            util.goPath('/registration/success/'+mp.data);
+                            util.goPath('/registration/payment/'+mp.data);
                         }
 
                     }

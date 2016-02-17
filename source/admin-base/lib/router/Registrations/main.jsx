@@ -19,6 +19,15 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/payment/:id', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Registration | payment",
+                bodyTmpl: <KUI.Registration_payment />
+            });
+        }
+    });
+
     Route.route('/success/:id', {
         action : function(p){
             App.routeHandler(p, {
