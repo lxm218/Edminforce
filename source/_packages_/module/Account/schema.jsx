@@ -25,6 +25,9 @@ Schema.Account = {
         //defaultValue : 'admin',
         allowedValues : ['admin', 'user']
     }),
+    schoolID : KG.schema.default({
+        optional : true
+    }),
     profile: {
         type: Object,
         optional: true,

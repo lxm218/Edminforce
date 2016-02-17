@@ -49,12 +49,14 @@ KG.define('Account', class extends Base{
                 username : 'jacky@calphin.com',
                 email : 'jacky@calphin.com',
                 password : 'calphin',
+                schoolID : '1111111',
                 role : 'admin'
             },
             {
                 profile : {},
                 username : 'liyangwood@gmail.com',
                 email : 'liyangwood@gmail.com',
+                schoolID : '2222222',
                 password : 'aaaaaa',
                 role : 'admin'
             }
