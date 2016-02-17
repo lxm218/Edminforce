@@ -158,9 +158,11 @@ let Class = class extends Base{
             }).name;
             item.programName = tn;
 
-            if(item.level){
-                tn += ' '+item.level;
-            }
+            tn += ' '+item.sessionName;
+
+            //if(item.level){
+            //    tn += ' '+item.level;
+            //}
             tn += ' '+item.schedule.day+' '+item.schedule.time;
 
             item.nickName = tn;

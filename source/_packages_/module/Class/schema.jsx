@@ -6,7 +6,7 @@ Schema.const = {
     day : ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
     tuitionType : ['class', 'session'],
     status : ['Active', 'Inactive'],
-    level : ['Beginner', 'Intermediate', 'Advanced'],
+    level : ['', 'Beginner', 'Intermediate', 'Advanced'],
     genderRequire : ['All', 'Male', 'Female'],
     //length : ['30 min', '45 min', '1 hr', '1.5 hr', '2 hr']
 
