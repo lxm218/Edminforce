@@ -180,6 +180,9 @@ KUI.Family_index = class extends KUI.Page{
                 <hr/>
                 <p>Search Result</p>
                 {this.renderListTable(style)}
+                <RC.Div style={{textAlign:'right'}}>
+                    <KUI.YesButton href="/family/add" label="Add Family"></KUI.YesButton>
+                </RC.Div>
             </RC.Div>
         );
     }

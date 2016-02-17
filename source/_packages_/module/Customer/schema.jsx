@@ -22,9 +22,7 @@ Validate.Customer = {
 };
 
 Schema.Customer = {
-    name : KG.schema.default({
-        optional : true
-    }),
+    name : KG.schema.default({}),
     nickName : KG.schema.default({
         optional : true
     }),

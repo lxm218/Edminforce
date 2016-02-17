@@ -41,6 +41,17 @@ KG.define('EF-Customer', class extends Base{
 
     }
 
+    insert(data){
+        try{
+            let rs = this._db.insert(data, function(err){
+                throw err;
+            });
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.toString());
+        }
+    }
+
     updateById(data, id){
         let vd = this.validateWithSchema(data);
         if(vd !== true){
