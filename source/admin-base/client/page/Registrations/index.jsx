@@ -142,7 +142,7 @@ KUI.Registration_index = class extends KUI.Page{
         let rs = KG.get('EF-ClassStudent').insertByData(data);
         KG.result.handle(rs, {
             success : function(d){
-                util.goPath('/registration/success/'+d);
+                util.goPath('/registration/payment/'+d);
             },
             error : function(e, error){
                 util.toast.showError(error.statusText);
