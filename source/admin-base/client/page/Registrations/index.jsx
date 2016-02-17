@@ -1,8 +1,10 @@
 
-KUI.Registration_index = class extends RC.CSSMeteorData{
+KUI.Registration_index = class extends KUI.Page{
 
     constructor(p){
         super(p);
+
+        this.studentID = this.props.studentID;
 
         this.state = {
             student : null
@@ -11,11 +13,12 @@ KUI.Registration_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
-        Meteor.subscribe('EF-Class');
-        Meteor.subscribe('EF-Student');
-        Meteor.subscribe('EF-ClassStudent');
+        let x = Meteor.subscribe('EF-Class'),
+            y = Meteor.subscribe('EF-Student'),
+            z = Meteor.subscribe('EF-ClassStudent');
 
         return {
+            ready : x.ready() && y.ready() && z.ready(),
             studentList : this.getStudentData(),
             classList : this.getClassData()
         };
@@ -86,7 +89,7 @@ KUI.Registration_index = class extends RC.CSSMeteorData{
                             <RB.Row>
                                 {so?<RB.Col style={sy.col} xs={4}>{so.nickName}</RB.Col>:''}
                                 <RB.Col xs={2}>
-                                    <KUI.YesButton onClick={this.openModal.bind(this)} label="Select"></KUI.YesButton>
+                                    {this.studentID?'':<KUI.YesButton onClick={this.openModal.bind(this)} label="Select"></KUI.YesButton>}
                                 </RB.Col>
                             </RB.Row>
                         </RB.Input>
@@ -160,6 +163,10 @@ KUI.Registration_index = class extends RC.CSSMeteorData{
     }
 
     render(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
+
         return (
             <RC.Div>
 
@@ -263,7 +270,25 @@ KUI.Registration_index = class extends RC.CSSMeteorData{
         );
     }
 
+};
 
+KUI.Registration_index1 = class extends KUI.Registration_index{
+    runOnceAfterDataReady(){
+        console.log(this.studentID);
+        let studentID = this.studentID;
+        if(studentID){
+            let ss = KG.get('EF-Student').getAll({_id:studentID})[0];
+            console.log(ss);
+            this.setState({
+                student : ss
+            });
+        }
+        else{
+            this.setState({
+                student : null
+            });
+        }
+    }
 };
 
 

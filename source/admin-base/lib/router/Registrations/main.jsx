@@ -19,6 +19,17 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/index/student/:studentID', {
+        action: function (p) {
+            let studentID = FlowRouter.getParam('studentID');
+
+            App.routeHandler(p, {
+                pageTitle: "Registration | index",
+                bodyTmpl: <KUI.Registration_index1 studentID={studentID} />
+            })
+        }
+    });
+
     Route.route('/payment/:id', {
         action : function(p){
             App.routeHandler(p, {

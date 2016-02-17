@@ -109,13 +109,14 @@ KUI.Student_profile = class extends KUI.Page{
                 {this.renderClassTable()}
 
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton style={sy.ml} href="/registration" label="Register New Class"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} href={`/registration/index/student/${this.data.id}`} label="Register New Class"></KUI.YesButton>
                 </RC.Div>
 
             </RC.Div>
         );
 
     }
+
 
     renderClassTable(){
 
