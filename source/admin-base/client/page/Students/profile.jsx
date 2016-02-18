@@ -181,7 +181,8 @@ KUI.Student_profile = class extends KUI.Page{
                 <KUI.Student_comp_add ref="form" />
                 <RC.Div style={sy.rd}>
 
-                    <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
+                    <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} href={`/family/profile/${this.data.profile.accountID}`} label="Family Information"></KUI.YesButton>
                 </RC.Div>
             </RC.Div>
         );
