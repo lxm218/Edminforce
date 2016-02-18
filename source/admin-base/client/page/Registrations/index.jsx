@@ -7,6 +7,7 @@ KUI.Registration_index = class extends KUI.Page{
         this.studentID = this.props.studentID;
 
         this.state = {
+            search_student_query : {},
             student : null
         };
 
@@ -28,7 +29,8 @@ KUI.Registration_index = class extends KUI.Page{
         return KG.get('EF-Class').getAll();
     }
     getStudentData(){
-        return KG.get('EF-Student').getAll();
+        let query = this.state.search_student_query;
+        return KG.get('EF-Student').getAll(query);
     }
 
     getReactObj(){
@@ -186,12 +188,37 @@ KUI.Registration_index = class extends KUI.Page{
                        YesText="Select"
                        onYes={this.selectSS.bind(this)}
                        ref="modal" >
+                <RB.Row>
+                    <RB.Col xsOffset={2} xs={6}>
+                        <RB.Input ref="search_input" placeholder="Input student name" type="text" />
+                    </RB.Col>
+                    <RB.Col xs={2}>
+                        <KUI.YesButton onClick={this.searchStudentInModal.bind(this)} label="Search"></KUI.YesButton>
+                    </RB.Col>
+                </RB.Row>
+
                 {this.renderStundentTable()}
             </KUI.Modal>
         );
     }
 
+    searchStudentInModal(){
+        let ip = this.refs.search_input.getValue();
+        let query = {};
+        if(ip){
+            query = {
+                nickName : new RegExp(ip, 'i')
+            };
+        }
+        this.setState({
+            search_student_query:query
+        });
+    }
+
     openModal(){
+        this.setState({
+            search_student_query:{}
+        });
         this.refs.modal.show();
     }
 
