@@ -2,19 +2,28 @@ KUI.Header = KUI.Class.define('ui.Header', {
 
 
     getBeforeLogin : function(){
+        let sy = {
+            marginTop : '8px',
+            marginLeft : '15px'
+        };
 
         return <RB.Nav pullRight>
-            <RB.NavItem eventKey={2} href="/home/login">Login</RB.NavItem>
+            <KUI.NoButton style={sy} onClick={function(){}} label="Login"></KUI.NoButton>
         </RB.Nav>;
     },
     getAfterLogin : function(user){
         var style = {
             marginLeft : '10px'
         };
+        let sy = {
+            marginTop : '8px',
+            marginLeft : '15px'
+        };
 
         return <RB.Nav pullRight>
             <RB.Navbar.Text eventKey={1}>Welcome <b style={style}>{user.username}</b></RB.Navbar.Text>
-            <RB.NavItem eventKey={2} onClick={this.logout}>Logout</RB.NavItem>
+            <KUI.NoButton onClick={this.toSetting} style={sy} label="Settings"></KUI.NoButton>
+            <KUI.NoButton style={sy} onClick={this.logout} label="Logout"></KUI.NoButton>
         </RB.Nav>;
     },
 
@@ -23,6 +32,10 @@ KUI.Header = KUI.Class.define('ui.Header', {
         Meteor.logout(function(){
             util.goPath('/home/login');
         });
+
+    },
+
+    toSetting(){
 
     },
 
