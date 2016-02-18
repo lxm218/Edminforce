@@ -7,6 +7,7 @@
 PACKAGE_ROOT=$PWD/../_packages_
 RC_DIR=$PACKAGE_ROOT/ihealth-framework-ui/library
 ENV="PACKAGE_DIRS=$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/both:$PACKAGE_ROOT/module"
+MONGOURL=mongodb://127.0.0.1:27017/EdminForce
 #echo $ENV
 
 runLocalHost(){
@@ -21,7 +22,7 @@ runLocalHost(){
     fi
 
 
-    export MONGO_URL="mongodb://127.0.0.1:27017/EdminForce"
+    export MONGO_URL=$MONGOURL
 
     echo "---- start set env ----"
     export $ENV
@@ -40,9 +41,24 @@ deploy(){
     echo "---- deploy success ----"
 }
 
+aws(){
+    PORT=8000
+    ps -ef |grep meteor|grep $PORT |awk '{print $2}'|xargs sudo kill -9
+    export MONGO_URL=$MONGOURL
+    echo "---- start set env ----"
+    export $ENV
+    echo "PACKAGE_DIRS=${PACKAGE_DIRS}"
+    echo "---- set env end ----"
+
+    meteor run --port $PORT --settings settings-dev.json >nohup.log &
+}
+
 case "$1" in
     deploy)
         deploy
+        ;;
+    aws)
+        aws
         ;;
     *)
         runLocalHost $1
