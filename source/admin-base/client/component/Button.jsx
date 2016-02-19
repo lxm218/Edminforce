@@ -25,17 +25,7 @@ KUI.YesButton = KUI.Class.define('ui.YesButton', {
 }, 'Base');
 
 KUI.NoButton = KUI.Class.define('ui.NoButton', {
-    initStyle : function(){
-        return this.props.style || {};
-    },
 
-    click : function(){
-        var arg = [].slice.call(arguments);
-        if(this.props.param){
-            arg = [this.props.param].concat(arg);
-        }
-        this.props.onClick.apply(this, arg);
-    },
 
     getRender : function(style){
 
@@ -44,4 +34,4 @@ KUI.NoButton = KUI.Class.define('ui.NoButton', {
         );
     }
 
-}, 'Base');
+}, 'ui.YesButton');
