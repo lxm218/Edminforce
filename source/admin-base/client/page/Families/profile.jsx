@@ -220,7 +220,9 @@ KUI.Family_profile = class extends KUI.Page{
         const titleArray = [
             {
                 title : 'Name',
-                key : 'nickName'
+                reactDom(doc){
+                    return <RC.URL href={`/student/${doc._id}`}>{doc.nickName}</RC.URL>
+                }
             },
             {
                 title : 'Birthday',
