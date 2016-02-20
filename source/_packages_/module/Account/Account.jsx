@@ -35,11 +35,12 @@ KG.define('Account', class extends Base{
         if(Meteor.isClient){
             Meteor.subscribe('userData');
         }
+
     }
 
     addTestData(){
         //this._db.remove({});
-        if(this._db.find().count() > 0){
+        if(true || this._db.find().count() > 0){
             return;
         }
 
@@ -71,6 +72,15 @@ KG.define('Account', class extends Base{
 
     checkIsLogin(){
         return !!Meteor.user() ? Meteor.user() : false;
+    }
+
+    defineMeteorMethod(){
+        let self = this;
+        return {
+            createUser(data){
+                return Accounts.createUser(data);
+            }
+        };
     }
 
     login(opts){
@@ -111,6 +121,32 @@ KG.define('Account', class extends Base{
             }
 
 
+        });
+    }
+
+    changePassword(opts){
+        opts = _.extend({
+            oldPassword : null,
+            newPassword : null,
+            confirmPassword : null,
+            success : function(){},
+            error : function(e){
+                alert(e.reason);
+            }
+        }, opts);
+
+        if(opts.newPassword !== opts.confirmPassword){
+            opts.error(new Meteor.Error('-1', 'twice password is not equal'));
+            return false;
+        }
+
+        Accounts.changePassword(opts.oldPassword, opts.newPassword, function(err){
+            if(err){
+                opts.error(err);
+                return false;
+            }
+
+            opts.success();
         });
     }
 

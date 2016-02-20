@@ -1,14 +1,26 @@
 
-let UserProfileSchema = new SimpleSchema({
+//_id equal account _id
+let AdminUserSchema = new SimpleSchema({
     nickName : KG.schema.default(),
     email : KG.schema.default({
         regEx: SimpleSchema.RegEx.Email,
-        optional : true
+        label : 'User ID'
     }),
     title : KG.schema.default({
+        optional : true,
+        defaultValue : 'Administrator'
+    }),
+    role : KG.schema.default({
+        allowedValues: ['admin', 'teacher'],
+        defaultValue : 'teacher'
+    }),
+    status : KG.schema.default({
+        optional : true,
+        defaultValue: 'active'
+    }),
+    group : KG.schema.default({
         optional : true
     }),
-    group : KG.schema.default(),
     phone : KG.schema.default({
         optional : true
     }),
@@ -25,7 +37,9 @@ let UserProfileSchema = new SimpleSchema({
         optional : true
     }),
     gender : KG.schema.default({
-        allowedValues: ['male', 'female']
+        optional : true,
+        defaultValue : 'Male',
+        allowedValues: ['Male', 'Female']
     }),
     birthday : KG.schema.default({
         optional : true,
@@ -34,174 +48,162 @@ let UserProfileSchema = new SimpleSchema({
     employmentDate : KG.schema.default({
         optional : true,
         type : Date
-    })
+    }),
+    school : {
+        type : Object
+    },
+    'school.name' : KG.schema.default({
+        optional : true
+    }),
+    'school.email' : KG.schema.default({
+        optional : true
+    }),
+    'school.phone' : KG.schema.default({
+        optional : true
+    }),
+    'school.address' : KG.schema.default({
+        optional : true
+    }),
+    'school.city' : KG.schema.default({
+        optional : true
+    }),
+    'school.state' : KG.schema.default({
+        optional : true
+    }),
+    'school.zipcode' : KG.schema.default({
+        optional : true
+    }),
+    createTime : KG.schema.createTime(),
+    updateTime : KG.schema.updateTime()
 });
 
 let Base = KG.getClass('Base');
 let AdminUser = class extends Base{
     defineDBSchema(){
-        return {
-            userID : {
-                type : String
-            },
-            password : {
-                type : String
-            },
-            userProfile : KG.schema.default({
-                type : UserProfileSchema
-            }),
-            status : KG.schema.default({
-
-            }),
-            createTime : KG.schema.default({
-                type: Date,
-                autoValue: function(){
-                    if (this.isInsert){
-                        return new Date();
-                    }
-                }
-            })
-
-        };
+        return AdminUserSchema;
     }
 
     initEnd(){
-        var self = this;
 
-        if(Meteor.isServer){
-            Meteor.methods({
-                findUserById : self.findUserById
-            });
-        }
 
     }
 
     addTestData(){
+        //this._db.remove({});
         if(this._db.find({}).count() > 0){
             return false;
         }
+
         let data = {
-            userID : 'jacky@calphin.com',
-            password : 'calphin',
-            status : 'active',
-            userProfile : {
-                nickName : 'Jacky',
-                email : 'liyangwood@gmail.com',
-                title : '管理员',
-                group : 'admin',
-                gender : 'male'
+            email : 'admin@classforth.com',
+            password : 'admin',
+            nickName : 'ClassForth Administrator',
+            role : 'admin',
+            school : {
+                name : 'Test School',
+                email : 'test@school.com',
+                phone : '5101234567',
+                address : 'XXXX',
+                city : 'Fremont',
+                state : 'CA',
+                zipcode : '94537'
             }
         };
-        this._db.insert(data);
+        this.insert(data, function(rs){
+            console.log(rs);
+        });
 
     }
 
+    getAll(query, option){
+        let rs = this._db.find(query||{}, option||{}).fetch();
 
-    addUser(param){
-        //TODO add user
+        let result = _.map(rs, (item)=>{
+            item.schoolAddress = '';
+            if(item.school.address){
+                item.schoolAddress += item.school.address+' ';
+            }
+            if(item.school.city){
+                item.schoolAddress += item.school.city+' ';
+            }
+            if(item.school.state){
+                item.schoolAddress += item.school.state+' ';
+            }
+            if(item.school.zipcode){
+                item.schoolAddress += item.school.zipcode;
+            }
+
+            return item;
+
+        });
+
+        return result;
     }
 
-    deleteUser(opts){
-        let query = {
-            _id : opts.id
-        };
-
-        //TODO delete user
-    }
-
-    defineServerMethod(){
+    defineDepModule(){
         return {
-            findUserById : function(id){
-
-                let rs = this._db.findOne({_id:id});
-                //console.log(rs);
-                return rs;
-            }
+            Account : KG.get('Account')
         };
     }
 
-    defineClientMethod(){
-        return {
-            login : function(opts){
-                let userID = opts.userID,
-                    pwd = opts.password;
-                let one = this._db.findOne({
-                    userID : userID
-                });
+    updateById(data, id){
+        try{
+            let rs = this._db.update({_id : id}, {'$set' : data});
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.toString());
+        }
+    }
 
-                if(one){
+    insert(data, callback){
 
-                    //TODO password需要加密
-                    if(one.password === pwd){
-                        KG.user.isLogin = true;
-                        KG.user.current = one;
+        let pwd = data.password || null;
+        delete data.password;
 
-                        //TODO coypto
-                        Meteor._localStorage.setItem(KG.const.USERTOKEN, one._id);
+        let vd = this.validateWithSchema(data);
+        if(vd !== true){
+            return callback(KG.result.out(false, vd));
+        }
 
-                        return KG.result.out(true, one);
-                    }
-                    else{
-                        return KG.result.out(false, {}, '用户密码错误');
-                    }
+        if(!pwd){
+            return callback(KG.result.out(false, new Meteor.Error(-1, 'password is required')));
+        }
+
+        //create account
+        let accountData = {
+            username : data.email,
+            email : data.email,
+            password : pwd,
+            profile : {},
+            role : 'admin'
+        };
+
+        try{
+            this.module.Account.callMeteorMethod('createUser', [accountData], {
+                context : this,
+                success : function(ars){
+                    console.log(ars);
+                    data._id = ars;
+                    let rs = this._db.insert(data, function(err){
+                        throw err;
+                    });
+                    return callback(KG.result.out(true, rs));
+                },
+                error : function(err){
+                    return callback(KG.result.out(false, new Meteor.Error('-1', err.toString())));
                 }
-                else{
-                    return KG.result.out(false, {}, '用户不存在');
-                }
-            },
-            checkLogin : function(callback){
-                var self = this;
-                if(KG.user.isLogin){
-                    callback(true);
-                    return;
-                }
+            });
 
-                let token = Meteor._localStorage.getItem(KG.const.USERTOKEN);
-
-                if(!token){
-                    callback(false);
-                    return;
-                }
-
-                Meteor.call('findUserById', token, function(err, rs){
-                    console.log(err, rs);
-                    if(rs){
-                        KG.user.loginWithUser(rs);
-                        callback(true);
-                    }
-                    else{
-                        callback(false);
-                    }
-                });
-
-            },
-            logout : function(){
-                Meteor._localStorage.removeItem(KG.const.USERTOKEN);
-                KG.user.reset();
-                return true;
-            },
-
-            changePassword : function(opts){
-                let old = opts.oldPassword,
-                    userID = opts.userID,
-                    newPwd = opts.newPassword,
-                    confirmPwd = opts.newPassword2;
-
-                if(newPwd.length < 6){
-                    return KG.result.out(false, {}, '密码的长度不能小于6');
-                }
-
-                if(newPwd !== confirmPwd){
-                    return KG.result.out(false, {}, '二次输入的密码不一致');
-                }
-
-                //TODO 处理修改密码的逻辑
-                KG.result.out(true, 'comming soon');
-            }
+        }catch(e){
+            return callback(KG.result.out(false, e));
         }
 
 
+
     }
+
+
+
 
 
 };

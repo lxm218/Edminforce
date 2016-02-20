@@ -36,7 +36,7 @@ KUI.Header = KUI.Class.define('ui.Header', {
     },
 
     toSetting(){
-
+        util.goPath('/setting');
     },
 
     getRender : function(){

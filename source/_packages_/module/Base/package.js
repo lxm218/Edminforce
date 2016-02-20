@@ -23,7 +23,8 @@ Package.onUse(function(api) {
         // "standard-minifiers", // Add this after Meteor 1.2
         "react",
         "underscore",
-        "momentjs:moment"
+        "momentjs:moment",
+        "reactive-var@1.0.6"
     ];
     api.use(packages, ["client","server"]);
     api.imply(packages, ["client","server"]);
