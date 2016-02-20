@@ -118,6 +118,7 @@ let Class = class extends Base{
     }
 
 
+    //TODO change to publish meteor data method like ClassStudent
     getAll(query){
         if(Meteor.isClient){
             let s1 = Meteor.subscribe('EF-Program');
@@ -187,6 +188,10 @@ let Class = class extends Base{
     isProgramExist(programID){
         let rs = this._db.find({programID : programID}).count();
         return rs > 0;
+    }
+
+    publishMeteorData(){
+
     }
 };
 

@@ -104,8 +104,76 @@ let ClassStudent = class extends Base{
         return KG.result.out(true, rs);
     }
 
-    save(data){
+    getAll(){
+        let rs = this._db.find(query||{}, option||{}).fetch();
 
+        //return _.map(rs, (item)=>{
+        //    let classObj = this.module.class.getAll()
+        //});
+        return rs;
+    }
+
+    publishMeteorData(){
+        let me = this;
+
+        Meteor.publish('EF-ClassStudent-By-ClassID', function(classID){
+            let query = {
+                    classID : classID
+                },
+                sort = {
+                    updateTime : -1
+                };
+            //console.log(query);
+            let self = this;
+            let arr = [],
+                dbName = 'EF-ClassStudent-By-ClassID';
+            let refresher = function(){
+                _.each(arr, function(doc){
+                    self.removed(dbName, doc._id)
+                });
+                arr = me._db.find(query, {sort:sort}).fetch();
+                _.each(arr, function(doc){
+                    doc.classObj = me.module.class.getAll({_id:doc.classID})[0];
+                    doc.studentObj = me.module.student.getAll({_id:doc.studentID})[0];
+                    self.added(dbName, doc._id, doc);
+                });
+                //console.log(arr);
+            };
+            let handler = me._db.find(query, {sort:sort}).observeChanges({
+                added(id, fields){
+                    refresher();
+                },
+                changed(id, fields){
+                    refresher();
+                }
+            });
+            self.ready();
+            self.onStop(function() {
+                handler.stop();
+            });
+            return self.ready();
+        });
+    }
+
+    defineClientMethod(){
+        let tmpDB = null;
+        return {
+            subscribeFullDataByClassID : function(classID){
+                let x = Meteor.subscribe('EF-ClassStudent-By-ClassID', classID);
+                if(!tmpDB){
+                    tmpDB = new Mongo.Collection('EF-ClassStudent-By-ClassID');
+                }
+                let data = [];
+                if(x.ready()){
+                    data = tmpDB.find().fetch();
+                }
+
+                return {
+                    ready : x.ready,
+                    data : data
+                };
+            }
+        };
     }
 };
 

@@ -214,11 +214,6 @@ console.log('['+this._name+':'+methodName+' call]');
     }
 
     _publishMeteorData(){
-
-        this.publishMeteorData();
-
-    }
-    publishMeteorData(){
         Meteor.publish(this._name, (opts)=>{
             opts = _.extend({
                 query : {},
@@ -239,7 +234,11 @@ console.log('['+this._name+':'+methodName+' call]');
 
             return this._db.find(opts.query, option);
         });
+
+        this.publishMeteorData();
+
     }
+    publishMeteorData(){}
     initEnd(){}
     addTestData(){}
 

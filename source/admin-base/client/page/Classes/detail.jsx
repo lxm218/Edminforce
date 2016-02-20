@@ -23,9 +23,12 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
         let id = this.getClassId();
         let data = KG.get('EF-Class').getAll({_id : this.getClassId()})[0];
 
-
+        let y = KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId());
+console.log(y)
         return {
             ready : x.ready(),
+            classTableReady : y.ready(),
+            classTableData : y.data,
             data : data,
             id : id
         };
@@ -38,8 +41,8 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
     }
 
     render(){
-        if(!this.data.ready){
-            return null;
+        if(!this.data.ready || !this.data.data){
+            return util.renderLoading();
         }
         let data = this.data.data;
 
@@ -51,6 +54,9 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton onClick={this.update.bind(this)} label="Save Change"></KUI.YesButton>
                 </RC.Div>
+                <hr/>
+                <h3>Registration</h3>
+                {this.renderClassTable()}
             </RC.Div>
         );
     }
@@ -69,5 +75,54 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
 
             }
         });
+    }
+
+    renderClassTable(){
+        if(!this.data.classTableReady){
+            return util.renderLoading();
+        }
+
+        let titleArray = [
+            {
+                title : 'Student',
+                reactDom(doc){
+                    return <RC.URL href={`/student/${doc.studentObj._id}`}>{doc.studentObj.nickName}</RC.URL>
+                }
+            },
+            {
+                title : 'Age',
+                key : 'studentObj.age'
+            },
+            {
+                title : 'Gender',
+                key : 'studentObj.profile.gender'
+            },
+            {
+                title : 'Start Date',
+                reactDom(doc){
+                    return moment(doc.classObj.session.registrationStartDate).format(util.const.dateFormat);
+                }
+            },
+            {
+                title : 'End Date',
+                reactDom(doc){
+                    return moment(doc.classObj.session.registrationEndDate).format(util.const.dateFormat);
+                }
+            },
+            {
+                title : 'Status',
+                key : 'status'
+            }
+        ];
+
+        let list = this.data.classTableData;
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={list}
+                title={titleArray}
+                ref="table"></KUI.Table>
+        );
     }
 };
