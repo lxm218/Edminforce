@@ -46,6 +46,10 @@ Cal.CreditCard = React.createClass({
 		                    "cardCode": "999"
 		                }
 		            },
+		            "profile":{
+		            	"createProfile": false
+
+		            },
 		            "lineItems": {
 		                "lineItem": {
 		                    "itemId": "1",
@@ -72,7 +76,7 @@ Cal.CreditCard = React.createClass({
 		            // },
 		            "poNumber": "456654",
 		            "customer": {
-		                "id": "99999456654"
+		                "id": "99999456656"
 		            },
 		            "billTo": {
 		                "firstName": "Ellen",
@@ -101,18 +105,18 @@ Cal.CreditCard = React.createClass({
 		                    "settingValue": "false"
 		                }
 		            },
-		            "userFields": {
-		                "userField": [
-		                    {
-		                        "name": "MerchantDefinedFieldName1",
-		                        "value": "MerchantDefinedFieldValue1"
-		                    },
-		                    {
-		                        "name": "favorite_color",
-		                        "value": "blue"
-		                    }
-		                ]
-		            }
+		            // "userFields": {
+		            //     "userField": [
+		            //         {
+		            //             "name": "MerchantDefinedFieldName1",
+		            //             "value": "MerchantDefinedFieldValue1"
+		            //         },
+		            //         {
+		            //             "name": "favorite_color",
+		            //             "value": "blue"
+		            //         }
+		            //     ]
+		            // }
 		        }
 		    }
 		}
@@ -148,7 +152,7 @@ Cal.CreditCard = React.createClass({
 		        })
   			return
   		}
-  		expirationDate = expirationDate.slice(0,2)+expirationDate.slice(3,5)
+  		// expirationDate = expirationDate.slice(0,2)+expirationDate.slice(3,5)
 
 		paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardNumber = form.creditCardNumber
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.expirationDate = form.expirationDate
@@ -160,6 +164,7 @@ Cal.CreditCard = React.createClass({
 		paymentInfo.createTransactionRequest.transactionRequest.billTo.state = form.state
 		paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = form.zip
 	 	paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
+	 	paymentInfo.createTransactionRequest.transactionRequest.amount = "0.1"
 	 	console.log(paymentInfo.createTransactionRequest.refId)
 
 		var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -173,6 +178,7 @@ Cal.CreditCard = React.createClass({
 
 			if (response.data.messages.message[0].code == "I00001") {
 				console.log("Success")
+				// console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
 				Meteor.call('sendEmail',
             		Meteor.user().emails[0].address,
             		'Confirmation',
@@ -185,6 +191,36 @@ Cal.CreditCard = React.createClass({
 			}
 
 		})
+
+	 },
+
+	 getCustomerInfo(e){
+	 	e.preventDefault()
+	 	var customerInfoRequest = {
+		    "getCustomerProfileRequest": {
+		        "merchantAuthentication": {
+		            "name": "42ZZf53Hst",
+		            "transactionKey": "3TH6yb6KN43vf76j"
+		        },
+		        "customerProfileId": "39532821"
+    		}
+		}
+		var URL = 'https://apitest.authorize.net/xml/v1/request.api'
+		HTTP.call('POST',URL, {data: customerInfoRequest}, function(error, response){
+			debugger
+			if(!!error){
+				console.log(error)
+			}
+			if(!!response){
+				debugger
+				console.log(response)
+				payUsingProfile(response.data.profile.paymentProfiles[0])
+
+			}
+		})
+	 },
+
+	 payUsingProfile(p) {
 
 	 },
 
@@ -271,32 +307,61 @@ Cal.CreditCard = React.createClass({
       		buttonTheme += ","+this.props.theme
     	}
 
+	    // return (
+	    	
+	    // 	<RC.List className="padding">
+
+	    //         { this.data.currentUser ?
+	    //         	<div>
+	    //         		<RC.Item theme="text-wrap"> User Name: {this.data.currentUser.username}</RC.Item>
+	    //         		<RC.Item theme="text-wrap"> User Email: {this.data.currentUser.emails[0].address}</RC.Item>
+	    //         	</div> : <RC.Item theme="text-wrap"> User Not Logged In</RC.Item>
+	    //         }
+	    //         { this.data.currentUser ?
+	    //         	<RC.Button onClick={this.logOut} name="button" theme="full" buttonColor="brand">
+		   //              Log Out
+		   //          </RC.Button> :
+		   //          <RC.URL href="/login">
+		   //              <RC.Button name="button" theme="full" buttonColor="brand">
+		   //                  Log In
+		   //              </RC.Button>
+		   //          </RC.URL>
+		            
+		   //      }
+	    //         <RC.URL href="/">
+	    //             <RC.Button name="button" theme="full" buttonColor="brand">
+	    //                 Home
+	    //             </RC.Button>
+	    //         </RC.URL>
+
+	    //         <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
+	    //         	{this.printMsg()}
+	    //         	<RC.Input name="creditCardNumber" onKeyUp={this.checkCardNumber} label="Credit Card Number" theme={inputTheme} ref="cardNumber" />
+			  //       <RC.Input name="expirationDate" onKeyUp={this.checkExpirationDate} label="Expiration Date (MM/YY)"  theme={inputTheme} ref="expirationDate" />
+			  //       <RC.Input name="ccv" onKeyUp={this.checkCCV} label="CCV" theme={inputTheme} ref="ccv"/>
+			  //       <RC.Input name="cardHolderFirstName" label="Card Holder First Name" theme={inputTheme} ref="cardHolderFirstName"/>
+			  //       <RC.Input name="cardHolderLastName" label="Card Holder Last Name" theme={inputTheme} ref="cardHolderLastName"/>
+			  //       <RC.Input name="street"  label="Street Address" theme={inputTheme} ref="street"/>
+			  //       <RC.Input name="city"  label="City" theme={inputTheme} ref="city"/>
+			  //       <RC.Input name="state" label="State" theme={inputTheme} ref="state"/>
+			  //       <RC.Input name="zip" label="Zip" theme={inputTheme} ref="zip"/>
+		   //          <RC.Button name="button" theme="full" buttonColor="brand">
+		   //                  Pay Now
+		   //              </RC.Button>
+		   //      </RC.Form>
+		   //      <RC.Form onSubmit={this.getCustomerInfo}   ref="customerPayForm">
+		   //          <RC.Button name="button" theme="full" buttonColor="brand">
+		   //                  Pay Using Existed Card
+		   //              </RC.Button>
+		   //      </RC.Form>
+
+		        
+
+     //    	</RC.List>
+	    // );
 	    return (
 	    	
 	    	<RC.List className="padding">
-
-	            { this.data.currentUser ?
-	            	<div>
-	            		<RC.Item theme="text-wrap"> User Name: {this.data.currentUser.username}</RC.Item>
-	            		<RC.Item theme="text-wrap"> User Email: {this.data.currentUser.emails[0].address}</RC.Item>
-	            	</div> : <RC.Item theme="text-wrap"> User Not Logged In</RC.Item>
-	            }
-	            { this.data.currentUser ?
-	            	<RC.Button onClick={this.logOut} name="button" theme="full" buttonColor="brand">
-		                Log Out
-		            </RC.Button> :
-		            <RC.URL href="/login">
-		                <RC.Button name="button" theme="full" buttonColor="brand">
-		                    Log In
-		                </RC.Button>
-		            </RC.URL>
-		            
-		        }
-	            <RC.URL href="/">
-	                <RC.Button name="button" theme="full" buttonColor="brand">
-	                    Home
-	                </RC.Button>
-	            </RC.URL>
 
 	            <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
 	            	{this.printMsg()}
@@ -313,7 +378,6 @@ Cal.CreditCard = React.createClass({
 		                    Pay Now
 		                </RC.Button>
 		        </RC.Form>
-
         	</RC.List>
 	    );
 	 }

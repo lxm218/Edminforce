@@ -33,6 +33,23 @@ DefaultRoutes.route('/payment/CreditCard', {
     }
   })
 
+DefaultRoutes.route('/payment/ECheck', {
+  name: "payment",
+  action: function(p) {
+
+    var dynamicRoute = {
+        pageTitle: "ECheck Payment", // This is for header title
+        showGlobalNav: false,
+        headerNav: null,    
+        hideBackButton:true,
+        leftNavToggle:true
+      }
+      if (Cal["CreditCard"])
+        dynamicRoute.bodyTmpl = React.createElement(Cal["ECheck"])
+      App.routeHandler(p, dynamicRoute)
+    }
+  })
+
 DefaultRoutes.route('/payment/PaymentConfirmation', {
   name: "Payment Confirmation",
   action: function(p) {
