@@ -6,7 +6,7 @@ let {
     routeHandler
     } = EdminForce.utils;
 
-DefaultRoutes.route('/students/:studentId', {
+DefaultRoutes.route('/students/:studentID', {
     name: "Programs",
     action: function(p) {
         routeHandler(p, {

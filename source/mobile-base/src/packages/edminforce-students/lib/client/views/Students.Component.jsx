@@ -122,6 +122,7 @@
                 let inProgressClasses = [], inWaitingClasses = [], completedClasses = [];
                 for (let j = 0; j < bookClassesThisStudent.length; j++) {
                     let bookedClass = bookClassesThisStudent[j];
+                    bookedClass.studentID = studentID;
 
                     // student has in progress class
                     if (bookedClass.inProgressing) {
@@ -179,9 +180,13 @@
             if(student.className){
 
                 let params = {
-                    classStudentID: student.classStudentID
+                    studentID:student.studentID
                 };
-                let path = FlowRouter.path("/students/:classStudentID", params);
+                let query = {
+                    current: student.classStudentID,
+                    programID: student.programID
+                }
+                let path = FlowRouter.path("/students/:studentID", params, query);
                 FlowRouter.go(path);
             }
         }
@@ -222,19 +227,19 @@
                                                     </p>
                                                 </TableRowColumn>
                                                 <TableRowColumn style={{width: "60%", whiteSpace:"normal"}}>
-                                                    <div onClick={self.selectStudent.bind(self, student)}>
-                                                        <p>
+                                                    <RC.Div onClick={self.selectStudent.bind(self, student)}>
+                                                        <p style={{padding: 0}}>
                                                             {student && student.className}
                                                         </p>
 
-                                                        <p>
+                                                        <p style={{padding: 0}}>
                                                             {student && student.schedule && student.schedule.day} {student && student.schedule && student.schedule.time}
                                                         </p>
 
-                                                        <p>
+                                                        <p style={{padding: 0}}>
                                                             {student && student.createTime && "Registered on " + moment(student.createTime).format("MMM D, YYYY")}
                                                         </p>
-                                                    </div>
+                                                    </RC.Div>
                                                 </TableRowColumn>
                                                 <TableRowColumn style={{width: "15%", whiteSpace:"normal"}}>
                                                     <i onClick={self.selectStudent.bind(self, student)} className="fa fa-arrow-right" style={{display:display}}></i>

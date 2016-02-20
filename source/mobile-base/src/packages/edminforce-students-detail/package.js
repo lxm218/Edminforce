@@ -29,6 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
+        'lib/client/less/students-detail.less',
         'lib/client/views/StudentsDetail.Component.jsx',
         'lib/router/students-detail.router.jsx'
     ], ["client"]);

@@ -204,4 +204,33 @@ Meteor.startup(function () {
         }
     });
 
+    Meteor.publishComposite("EF-Students-details", function(studentID, classStudentID, programID){
+        return {
+            find: function () {
+                return EdminForce.Collections.student.find({
+                    accountID: this.userId,
+                    _id: studentID
+                });
+            },
+            children:[
+                {
+                    find: function(){
+                        return EdminForce.Collections.classStudent.find({
+                            accountID: this.userId,
+                            _id: classStudentID
+                        })
+                    }
+                },
+                {
+                    find: function(){
+                        return EdminForce.Collections.class.find({
+                            programID: programID
+                        })
+                    }
+                }
+            ]
+        }
+
+    });
+
 });
