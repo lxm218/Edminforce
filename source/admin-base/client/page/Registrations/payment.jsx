@@ -6,6 +6,8 @@ KUI.Registration_payment = class extends KUI.Page{
         this.state = {
             step : 'step1'
         };
+
+        this.total = new ReactiveVar(null);
     }
 
     getMeteorData(){
@@ -46,7 +48,7 @@ KUI.Registration_payment = class extends KUI.Page{
             ready : s2.ready() && s3.ready()
         };
     }
-
+//http://localhost:8000/registration/payment/cWckGjpfLAwpsiL6t
     baseStyles(){
         return {
             ml : {
@@ -81,6 +83,8 @@ KUI.Registration_payment = class extends KUI.Page{
                 amount : '1000'
             }
         ];
+
+        this.total.set(100);
 
         return (
             <RC.Div>
@@ -137,6 +141,7 @@ KUI.Registration_payment = class extends KUI.Page{
         );
     }
 
+
     renderStep2(){
         let dsp = {
             display : 'block'
@@ -147,11 +152,11 @@ KUI.Registration_payment = class extends KUI.Page{
         let sy = this.css.get('styles');
         return (
             <RC.Div style={dsp}>
-                <RB.Input onChange={function(){}} ref="s21" type="checkbox" label="Credit Card/Debit Card" />
-                <RB.Input onChange={function(){}} ref="s22" type="checkbox" label="Checking Account" />
-                <RB.Input onChange={function(){}} ref="s23" type="checkbox" label="Cash" />
-                <RB.Input onChange={function(){}} ref="s24" type="checkbox" label="Check" />
-                <RB.Input onChange={function(){}} ref="s25" type="checkbox" label="Gift Card" />
+                <RB.Input onChange={function(){}} ref="s21" name="cgroup" type="radio" label="Credit Card/Debit Card" />
+                {/*<RB.Input onChange={function(){}} ref="s22" type="checkbox" label="Checking Account" />*/}
+                {/*<RB.Input onChange={function(){}} ref="s23" type="checkbox" label="Cash" />*/}
+                <RB.Input onChange={function(){}} ref="s24" name="cgroup" type="radio" label="Check" />
+                {/*<RB.Input onChange={function(){}} ref="s25" type="checkbox" label="Gift Card" />*/}
                 <RC.Div style={{textAlign:'right'}}>
                     {<KUI.NoButton onClick={this.toStep1.bind(this)} label="Cancel"></KUI.NoButton>}
                     <KUI.YesButton onClick={this.toPaymentPage.bind(this)} style={sy.ml} label="Next"></KUI.YesButton>
@@ -172,7 +177,22 @@ KUI.Registration_payment = class extends KUI.Page{
     }
 
     toPaymentPage(){
-        alert('to yifan page');
+        let s21 = $(this.refs.s21.getInputDOMNode()).prop('checked'),
+            s24 = $(this.refs.s24.getInputDOMNode()).prop('checked');
+
+        Session.set('_register_class_money_total_', this.total.get());
+
+        if(s21){
+            //to credit card page
+            util.goPath('/payment/creditcard');
+        }
+        else if(s24){
+            //to echeck page
+            util.goPath('/payment/echeck');
+        }
+        else{
+            util.toast.showError('Please select the mode of payment')
+        }
     }
 
 

@@ -26,12 +26,14 @@ KUI.Session_edit = class extends KUI.Page{
     }
 
     render(){
-
+        if(!this.data.ready){
+            util.renderLoading({isReady:this.data.ready});
+        }
 
 
         return (
             <RC.Div>
-                {util.renderLoading({isReady:this.data.ready})}
+
                 <h3>Session Edit</h3>
                 <hr/>
                 {this.getAddBox()}
@@ -251,7 +253,6 @@ KUI.Session_edit = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
-        console.log(1111, this.data.ready);
         this.setDefaultValue();
     }
 

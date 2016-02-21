@@ -73,6 +73,10 @@ userSchema = new SimpleSchema({
     emergencyContact:{
         type: contact,
         optional: true
+    },
+    profile: {
+        type: contact,
+        optional: true
     }
 });
 

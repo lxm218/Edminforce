@@ -29,6 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
+        'lib/client/less/edminforce-account.less',
         'lib/client/views/Account.Component.jsx',
         'lib/router/account.router.jsx'
     ], ["client"]);
