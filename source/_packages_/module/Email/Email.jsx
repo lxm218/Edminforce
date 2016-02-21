@@ -22,7 +22,7 @@ KG.define('EF-Email', class extends Base{
             sendEmail(data){
                 data = _.extend({
                     to : 'liyangwood@sohu.com',
-                    from : 'no-reply@edminforce.com',
+                    from : 'admin@classforth.com',
                     html : '',
                     text: '',
                     subject: 'Test Subject'
@@ -72,4 +72,5 @@ KG.define('EF-Email', class extends Base{
 
 Meteor.startup(function(){
     KG.create('EF-Email');
+    KG.create('EF-EmailTemplate');
 });

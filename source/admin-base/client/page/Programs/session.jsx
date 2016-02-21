@@ -117,8 +117,6 @@ KUI.Program_session = class extends RC.CSSMeteorData{
                     <KUI.YesButton onClick={this.showAddBox.bind(this)} label="Add"></KUI.YesButton>
                 </RC.Div>
 
-                <hr />
-
                 {this.getAddBox()}
             </RC.Div>
         );
@@ -225,6 +223,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
 
         return (
             <RC.Div style={style}>
+                <hr />
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
                         <form className="form-horizontal">

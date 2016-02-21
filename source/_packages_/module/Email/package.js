@@ -16,6 +16,7 @@ Package.onUse(function(api) {
     ], ["client","server"]);
 
     api.addFiles([
+        'EmailTemplate.jsx',
         'Email.jsx'
     ], ["client","server"]);
 

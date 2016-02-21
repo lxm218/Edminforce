@@ -258,6 +258,18 @@ console.log('['+this._name+':'+methodName+' call]');
         return true;
     }
 
+    //db method
+    insert(data){
+        try{
+            let rs = this._db.insert(data, function(err){
+                if(err) throw err;
+            });
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.reason||e.toString());
+        }
+    }
+
 
 };
 
