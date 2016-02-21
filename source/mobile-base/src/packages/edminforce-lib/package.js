@@ -16,6 +16,7 @@ Package.onUse(function (api) {
         'sewdn:collection-behaviours@0.3.0',
         'less@2.5.1',
         'reactive-var@1.0.6',
+        'reactive-dict@1.1.3',
         'tap:i18n@1.7.0',
         'aldeed:collection2@2.8.0',
         'momentjs:moment@2.10.6',

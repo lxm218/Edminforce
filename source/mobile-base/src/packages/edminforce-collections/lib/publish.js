@@ -216,8 +216,7 @@ Meteor.startup(function () {
                 {
                     find: function(){
                         return EdminForce.Collections.classStudent.find({
-                            accountID: this.userId,
-                            _id: classStudentID
+                            accountID: this.userId
                         })
                     }
                 },
@@ -225,6 +224,13 @@ Meteor.startup(function () {
                     find: function(){
                         return EdminForce.Collections.class.find({
                             programID: programID
+                        })
+                    }
+                },
+                {
+                    find: function(){
+                        return EdminForce.Collections.session.find({
+
                         })
                     }
                 }

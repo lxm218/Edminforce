@@ -185,15 +185,27 @@
             let cartItems = this.data.carts.map(function (item, index) {
                 let classData = _.find(this.data.classes, {"_id": item.classID}) || {};
                 let studentData = _.find(this.data.students, {"_id": item.studentID}) || {};
-                let price = _.toNumber(classData.tuition.money);
+                console.log(classData);
+                console.log(item);
+
+                let price = 0;
+
+                if(item.type === "makeup"){
+                    price = 5;
+                }else{
+                    price = _.toNumber(classData.tuition.money);
+                }
 
                 this.total += price;
 
                 return (
                     <TableRow key={item['_id']}>
                         <TableRowColumn>{studentData.name}</TableRowColumn>
-                        <TableRowColumn>{classData.name}</TableRowColumn>
-                        <TableRowColumn>{price}</TableRowColumn>
+                        <TableRowColumn>
+                            <p>{classData.name}</p>
+                            {item.lessonDate? <p style={{padding:"0"}}>Time: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm a")}</p>: ""}
+                        </TableRowColumn>
+                        <TableRowColumn>${price}</TableRowColumn>
                         <TableRowColumn><i className="fa fa-trash" style={{"fontSize": "18px", "cursor":"pointer"}} onClick={self.deleteCartItem.bind(self, item)}></i></TableRowColumn>
                     </TableRow>
                 )
