@@ -46,13 +46,20 @@ StudentCollection = class StudentCollection extends BaseCollection {
 
             status: {
                 type: String,
-                allowedValues: ["Active", "Inactive"]
+                allowedValues: ["Active", "Inactive"],
+                defaultValue: "Active"
+            },
+
+            school: {
+                type: String,
+                optional: true
             },
 
             skillLevel: {
                 type: String,
                 optional: true
             },
+
 
             createTime: {
                 type: Date,
