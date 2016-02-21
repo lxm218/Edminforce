@@ -10,6 +10,8 @@
         TableBody
         } = MUI;
 
+    let _ = lodash;
+
     const schemaConst = {
         day: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
         weekDay: {
@@ -39,9 +41,9 @@
 
             this.state = {
                 value: "current",
-                studentStyle:{
-                    marginTop:"10px",
-                    display:"block"
+                studentStyle: {
+                    marginTop: "10px",
+                    display: "block"
                 },
                 menuStyle: {
                     display: "block"
@@ -93,17 +95,17 @@
             classData = classData && classData[0];
 
             let session = EdminForce.Collections.session.find({
-                _id: classData&&classData.sessionID
+                _id: classData && classData.sessionID
             }).fetch();
 
-            session = session&&session[0];
+            session = session && session[0];
 
             let now = new Date();
 
             let inProgressing = false;
 
             // currently time is between session's start and end time
-            if (session&&(now >= session.startDate && now <= session.endDate)) {
+            if (session && (now >= session.startDate && now <= session.endDate)) {
                 inProgressing = true;
             } else {
                 inProgressing = false;
@@ -120,17 +122,23 @@
                 registered: classStudent && classStudent.createTime,
                 inProgressing: inProgressing
             };
-            let lessons = [];
-            if(inProgressing){
+            let lessons = [], filteredLessons=[];
+            if (inProgressing) {
                 lessons = this.getAvailableTrialLessons();
+
+                let day = this.state.selectedDay;
+                filteredLessons = _.filter(lessons, function(item){
+                    return day ? item&&item.schedule&&item.schedule.day.toLowerCase() == day.toLowerCase():true;
+                });
             }
 
-            console.log(lessons);
+            //console.log(lessons);
 
             return {
                 isReady: handler.ready(),
                 current: current,
-                lessons: lessons
+                originalLessons: lessons,
+                lessons: filteredLessons
             }
         }
 
@@ -345,9 +353,9 @@
 
         clickMakeUp() {
             this.setState({
-                studentStyle:{
-                    marginTop:"10px",
-                    display:"block"
+                studentStyle: {
+                    marginTop: "10px",
+                    display: "block"
                 },
                 menuStyle: {
                     display: "none"
@@ -364,9 +372,9 @@
 
         cancelMakeUp() {
             this.setState({
-                studentStyle:{
-                    marginTop:"10px",
-                    display:"block"
+                studentStyle: {
+                    marginTop: "10px",
+                    display: "block"
                 },
                 menuStyle: {
                     display: "block"
@@ -379,6 +387,15 @@
                 },
                 lessonsStyles: []
             });
+        }
+
+        onSelectDay(day) {
+            //this.data.lessons = _.filter(this.data.originalLessons, function(item){
+            //    return item&&item.schedule&&item.schedule.day.toLowerCase() == day.toLowerCase();
+            //});
+            this.setState({
+                selectedDay: day
+            })
         }
 
         onSelectLesson(classData, index) {
@@ -414,9 +431,9 @@
                     alert("Insert Fail!");
                 } else {
                     this.setState({
-                        studentStyle:{
-                            marginTop:"10px",
-                            display:"none"
+                        studentStyle: {
+                            marginTop: "10px",
+                            display: "none"
                         },
                         menuStyle: {
                             display: "none"
@@ -461,6 +478,22 @@
         render() {
 
             let self = this;
+
+            let attributes = {
+            };
+
+            if(!this.selectedLesson){
+                processButtonStyle = {
+                    backgroundColor: "gray",
+                    cursor:"not-allowed"
+                };
+
+                attributes.disabled= "disabled";
+            }else{
+                processButtonStyle = {
+                    backgroundColor: "rgb(255, 121, 40)"
+                };
+            }
 
             // Fill with your UI
             return (
@@ -508,17 +541,40 @@
                                 </div>
                                 <div className="students-detail-menus" style={this.state.menuStyle}>
 
-                                    {this.data.current&&this.data.current.inProgressing ? <RC.Button bgColor="brand2" bgColorHover="dark"
-                                                                                                     onClick={this.clickMakeUp.bind(this)}>Make up Class</RC.Button>: <p style={{textAlign:"center"}}>You don't have in progress class, cannot make up class.</p>}
-
+                                    {this.data.current && this.data.current.inProgressing ?
+                                        <RC.Button bgColor="brand2" bgColorHover="dark"
+                                                   onClick={this.clickMakeUp.bind(this)}>Make up Class</RC.Button> :
+                                        <p style={{textAlign:"center"}}>You don't have in progress class, cannot make up
+                                            class.</p>}
 
                                 </div>
                                 <div className="students-detail-make-up">
                                     <div className="make-up-step-1" style={this.state.makeUpStep1Style}>
+                                        <div>
+                                            <p style={{marginLeft: "20px"}}>Select Day:</p>
+
+                                            <div style={{textAlign:"center"}}>
+                                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                           onClick={this.onSelectDay.bind(this, "Mon")}>Mon</RC.Button>
+                                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                           onClick={this.onSelectDay.bind(this, "Tues")}>Tues</RC.Button>
+                                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                           onClick={this.onSelectDay.bind(this, "Wed")}>Wed</RC.Button>
+                                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                           onClick={this.onSelectDay.bind(this, "Thu")}>Thu</RC.Button>
+                                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                           onClick={this.onSelectDay.bind(this, "Fri")}>Fri</RC.Button>
+                                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                           onClick={this.onSelectDay.bind(this, "Sat")}>Sat</RC.Button>
+                                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                           onClick={this.onSelectDay.bind(this, "Sun")}>Sun</RC.Button>
+                                            </div>
+
+                                        </div>
                                         { this.renderClassItes.bind(this)() }
 
                                         <div style={{margin:"0 20px"}}>
-                                            <RC.Button bgColor="brand2" bgColorHover="dark"
+                                            <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark"
                                                        onClick={this.makeupClass.bind(this)}>Continue</RC.Button>
                                             <RC.Button bgColor="brand2" bgColorHover="dark"
                                                        onClick={this.cancelMakeUp.bind(this)}>Cancel</RC.Button>
@@ -534,8 +590,10 @@
                                             <p>Please pay $5 to confirm your make up class</p>
 
                                             <p style={{padding: 0, margin:"10px 0 0 0"}}>
-                                                <span style={{display:"inline-block", paddingLeft:"20px", height: "40px", lineHeight:"40px", width:"80%", border:"1px solid gray"}}>Make up class fee</span>
-                                                <span style={{display:"inline-block", paddingLeft:"20px", height: "40px", lineHeight:"40px", width:"20%", borderBottom:"1px solid gray", borderTop:"1px solid gray", borderRight:"1px solid gray"}}>$5</span>
+                                                <span
+                                                    style={{display:"inline-block", paddingLeft:"20px", height: "40px", lineHeight:"40px", width:"80%", border:"1px solid gray"}}>Make up class fee</span>
+                                                <span
+                                                    style={{display:"inline-block", paddingLeft:"20px", height: "40px", lineHeight:"40px", width:"20%", borderBottom:"1px solid gray", borderTop:"1px solid gray", borderRight:"1px solid gray"}}>$5</span>
                                             </p>
                                         </div>
 
