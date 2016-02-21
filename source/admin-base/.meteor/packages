@@ -45,7 +45,7 @@ summernote:summernote
 
 cal:globals
 
-kg:base
+kg:base   # ediminforce module depend
 edminforce:account
 edminforce:admin-user
 edminforce:customer

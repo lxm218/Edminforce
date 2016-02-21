@@ -21,6 +21,7 @@ Package.onUse(function(api) {
 
         // Utilities
         // "standard-minifiers", // Add this after Meteor 1.2
+        "http",
         "react",
         "underscore",
         "momentjs:moment",
