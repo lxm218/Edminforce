@@ -1,13 +1,48 @@
 {
 
     // Don't forget to change `SomeName` to correct name
-    EdminForce.Components.AccountEmergency = React.createClass({
+    EdminForce.Components.AccountEmergency = class extends RC.CSSMeteorData {
+
+        constructor(p) {
+            super(p);
+        }
+
+        getMeteorData() {
+
+            let handler = null;
+
+            //let programID =
+            Tracker.autorun(function () {
+                handler = Meteor.subscribe("EF-UserData");
+            }.bind(this));
+
+            let user = Meteor.user();
+
+            return {
+                isReady: handler.ready(),
+                emergencyContact: user&&user.emergencyContact
+            }
+        }
         submitForm(e) {
             e.preventDefault();
             // TODO change password
 
-            FlowRouter.go('/account');
-        },
+            var emergencyContact = this.refs.form.getFormData();
+
+            if(emergencyContact.receive){
+                emergencyContact.receive = true;
+            }else{
+                emergencyContact.receive = false;
+            }
+
+            Meteor.call('SetEmergencyContact', Meteor.userId(), emergencyContact, function(err, result){
+                if(err){
+
+                }else{
+                    FlowRouter.go('/account');
+                }
+            });
+        }
         render() {
 
             let style = {
@@ -21,16 +56,16 @@
                     </h2>
                 </RC.VerticalAlign>
                 <RC.Form onSubmit={this.submitForm.bind(this)} ref="form">
-                    <RC.Input name="name" label="Name"/>
-                    <RC.Input name="email" label="Email"/>
-                    <RC.Input name="phone" label="Phone"/>
-                    <RC.Input name="relative" label="Relative"/>
-                    <RC.Checkbox name="receive" label="Receive Communications"/>
+                    <RC.Input name="name" value={this.data.emergencyContact&&this.data.emergencyContact.name} label="Name"/>
+                    <RC.Input name="email" value={this.data.emergencyContact&&this.data.emergencyContact.email} label="Email"/>
+                    <RC.Input name="phone" value={this.data.emergencyContact&&this.data.emergencyContact.phone} label="Phone"/>
+                    <RC.Input name="relation" value={this.data.emergencyContact&&this.data.emergencyContact.relation} label="Relative"/>
+                    <RC.Checkbox name="receive" checked={this.data.emergencyContact&&this.data.emergencyContact.receive} label="Receive Communications"/>
 
                     <RC.Button bgColor="brand2">Change Password</RC.Button>
                 </RC.Form>
             </RC.Div>
         }
-    });
+    };
 
 }

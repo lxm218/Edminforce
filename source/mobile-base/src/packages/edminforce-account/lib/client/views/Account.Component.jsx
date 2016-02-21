@@ -1,29 +1,61 @@
 {
+    let {
+        Table,
+        TableHeaderColumn,
+        TableRow,
+        TableHeader,
+        TableRowColumn,
+        TableBody
+        }=MUI;
+
+    let _ = lodash;
 
     // Don't forget to change `SomeName` to correct name
-    EdminForce.Components.Account = React.createClass({
-        changePassword(){
-          FlowRouter.go("/account/changepassword");
-        },
+    EdminForce.Components.Account = class extends RC.CSSMeteorData {
 
-        updatePhone(){
-          FlowRouter.go("/account/updatephone");
-        },
+        constructor(p) {
+            super(p);
+        }
 
-        addStudent(){
+        getMeteorData() {
+
+            let handler = null;
+
+            //let programID =
+            Tracker.autorun(function () {
+                handler = Meteor.subscribe("EF-UserData");
+            }.bind(this));
+
+            let user = Meteor.user();
+
+            return {
+                isReady: handler.ready(),
+                user: user
+            }
+        }
+
+        changePassword() {
+            FlowRouter.go("/account/changepassword");
+        }
+
+        updatePhone() {
+            FlowRouter.go("/account/updatephone");
+        }
+
+        addStudent() {
             FlowRouter.go("/account/addstudent");
-        },
+        }
 
-        updateAlternateContact(){
+        updateAlternateContact() {
             FlowRouter.go("/account/alternative");
-        },
+        }
 
-        updateEmergencyContact(){
+        updateEmergencyContact() {
             FlowRouter.go("/account/emergency");
-        },
+        }
 
 
-        render: function () {
+        render() {
 
             // Fill with your UI
             return (
@@ -35,31 +67,71 @@
                         </h1>
                     </RC.VerticalAlign>
 
-                    <RC.List>
-                        <RC.Item theme="divider" title="Name" subtitle="Yan Lin"></RC.Item>
-                        <RC.Item theme="divider" title="Email" subtitle="linyang@gmail.com"></RC.Item>
-                        <RC.Item theme="divider" title="Password">
-                            <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.changePassword}>Update</RC.Button>
-                        </RC.Item>
-                        <RC.Item theme="divider" title="Phone" subtitle="11111111111">
-                            <RC.Button bgColor="brand2" theme="inline" bgColorHover="dark" onClick={this.updatePhone}>Update</RC.Button>
-                        </RC.Item>
-                        <RC.Item theme="divider" title="Students">
-                            <RC.Button theme="inline" bgColorHover="dark">Allison Yu</RC.Button>
-                            <RC.Button theme="inline" bgColorHover="dark">Mark Wang</RC.Button>
-                            <RC.Button bgColor="brand2" theme="inline" bgColorHover="dark" onClick={this.addStudent}>+</RC.Button>
-                        </RC.Item>
-                        <RC.Item theme="divider" title="Alternative Contact" subtitle="Yan Lin">
-                            <RC.Button bgColor="brand2" theme="inline" bgColorHover="dark" onClick={this.updateAlternateContact}>Update</RC.Button>
-                        </RC.Item>
-                        <RC.Item theme="divider" title="Emergency Contact" subtitle="Yan Lin">
-                            <RC.Button bgColor="brand2" theme="inline" bgColorHover="dark" onClick={this.updateEmergencyContact}>Update</RC.Button>
-                        </RC.Item>
-                    </RC.List>
+                    <RC.Loading isReady={this.data.isReady}>
+                        <Table selectable={false} className="account-table">
+                            <TableHeader style={{display:"none"}} displaySelectAll={false} enableSelectAll={false}>
+                                <TableRow>
+                                    <TableHeaderColumn>Attribute</TableHeaderColumn>
+                                    <TableHeaderColumn>Value</TableHeaderColumn>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody displayRowCheckbox={false}>
+                                <TableRow>
+                                    <TableHeaderColumn>Name</TableHeaderColumn>
+                                    <TableHeaderColumn>{this.data.user.username}</TableHeaderColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableHeaderColumn>Email</TableHeaderColumn>
+                                    <TableHeaderColumn>{this.data.user.emails && this.data.user.emails[0] && this.data.user.emails[0].address}</TableHeaderColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableHeaderColumn>Password</TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        <span>******</span>
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.changePassword.bind(this)}>Update</RC.Button>
+                                    </TableHeaderColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableHeaderColumn>Phone</TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        <span>{this.data.user&&this.data.user.profile&&this.data.user.profile.phone}</span>
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updatePhone.bind(this)}>Update</RC.Button>
+                                    </TableHeaderColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableHeaderColumn>Students</TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        {
+                                            this.data.students&&this.data.students.map(function(student, index){
+                                                return (
+                                                    <span>{student.name}</span>
+                                                )
+                                            })
+                                        }
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.addStudent.bind(this)}>+</RC.Button>
+                                    </TableHeaderColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableHeaderColumn>Alternative Contact</TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        <span>{this.data.user&&this.data.user.alterContact&&this.data.user.alterContact.name}</span>
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updateAlternateContact.bind(this)}>Update</RC.Button>
+                                    </TableHeaderColumn>
+                                </TableRow>
+                                <TableRow>
+                                    <TableHeaderColumn>Emergency Contact</TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        <span>{this.data.user&&this.data.user.emergencyContact&&this.data.user.emergencyContact.name}</span>
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updateEmergencyContact.bind(this)}>Update</RC.Button>
+                                    </TableHeaderColumn>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </RC.Loading>
 
                 </RC.Div>
             );
         }
-    });
+    };
 
 }

@@ -32,7 +32,8 @@ Package.onUse(function(api){
 
     api.addFiles([
         "lib/publish.js",
-        "lib/startup-server.js"
+        "lib/startup-server.js",
+        "lib/methods.js"
     ], ["server"]);
 
     // TODO: DataBase i18n

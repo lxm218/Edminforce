@@ -204,7 +204,7 @@ Meteor.startup(function () {
         }
     });
 
-    Meteor.publishComposite("EF-Students-details", function(studentID, classStudentID, programID){
+    Meteor.publishComposite("EF-Students-details", function (studentID, classStudentID, programID) {
         return {
             find: function () {
                 return EdminForce.Collections.student.find({
@@ -212,31 +212,46 @@ Meteor.startup(function () {
                     _id: studentID
                 });
             },
-            children:[
+            children: [
                 {
-                    find: function(){
+                    find: function () {
                         return EdminForce.Collections.classStudent.find({
                             accountID: this.userId
                         })
                     }
                 },
                 {
-                    find: function(){
+                    find: function () {
                         return EdminForce.Collections.class.find({
                             programID: programID
                         })
                     }
                 },
                 {
-                    find: function(){
-                        return EdminForce.Collections.session.find({
-
-                        })
+                    find: function () {
+                        return EdminForce.Collections.session.find({})
                     }
                 }
             ]
         }
 
+    });
+
+    Meteor.publishComposite("EF-UserData", function () {
+        return {
+            find: function () {
+                return Meteor.users.find({_id: this.userId});
+            },
+            children:[
+                {
+                    find: function(){
+                        return EdminForce.Collections.student.find({
+                            accountID: this.userId
+                        });
+                    }
+                }
+            ]
+        }
     });
 
 });
