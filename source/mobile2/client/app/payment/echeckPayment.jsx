@@ -155,6 +155,7 @@ Cal.ECheck = React.createClass({
 		paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.routingNumber = form.routingNumber
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = form.accountNumber
 	 	paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = form.nameOnAccount
+	 	paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
 	 	paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
 	 	paymentInfo.createTransactionRequest.transactionRequest.amount = "0.1"
 
@@ -276,7 +277,9 @@ Cal.ECheck = React.createClass({
 	            	{this.printMsg()}
 	            	<RC.Input name="routingNumber" onKeyUp={this.checkRoutingNumber} label="Routing Number" theme={inputTheme} ref="routingNumber" />
 			        <RC.Input name="accountNumber" onKeyUp={this.checkAccountNumber} label="Account Number"  theme={inputTheme} ref="accountNumber" />
-			        <RC.Input name="name" onKeyUp={this.checkName} label="Name" theme={inputTheme} ref="name"/>
+			        <RC.Input name="name" onKeyUp={this.checkName} label="Check Holder Name" theme={inputTheme} ref="name"/>
+			        <RC.Input name="bankNname" onKeyUp={this.checkName} label="Bank Name" theme={inputTheme} ref="bankName"/>
+	
 		            <RC.Button name="button" theme="full" buttonColor="brand">
 		                    Pay Now
 		                </RC.Button>
