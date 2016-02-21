@@ -92,6 +92,23 @@
 
             classData = classData && classData[0];
 
+            let session = EdminForce.Collections.session.find({
+                _id: classData&&classData.sessionID
+            }).fetch();
+
+            session = session&&session[0];
+
+            let now = new Date();
+
+            let inProgressing = false;
+
+            // currently time is between session's start and end time
+            if (session&&(now >= session.startDate && now <= session.endDate)) {
+                inProgressing = true;
+            } else {
+                inProgressing = false;
+            }
+
             //console.log("classData: ", classData);
 
             let current = {
@@ -100,10 +117,13 @@
                 className: classData && classData.name,
                 classDay: classData && classData.schedule && classData.schedule.day,
                 classTime: classData && classData.schedule && classData.schedule.time,
-                registered: classStudent && classStudent.createTime
+                registered: classStudent && classStudent.createTime,
+                inProgressing: inProgressing
             };
-
-            let lessons = this.getAvailableTrialLessons();
+            let lessons = [];
+            if(inProgressing){
+                lessons = this.getAvailableTrialLessons();
+            }
 
             console.log(lessons);
 
@@ -408,6 +428,8 @@
                             display: "block"
                         }
                     });
+
+                    $(window).scrollTop(0);
                 }
             }.bind(this));
         }
@@ -485,8 +507,11 @@
                                     </Table>
                                 </div>
                                 <div className="students-detail-menus" style={this.state.menuStyle}>
-                                    <RC.Button bgColor="brand2" bgColorHover="dark"
-                                               onClick={this.clickMakeUp.bind(this)}>Make up Class</RC.Button>
+
+                                    {this.data.current&&this.data.current.inProgressing ? <RC.Button bgColor="brand2" bgColorHover="dark"
+                                                                                                     onClick={this.clickMakeUp.bind(this)}>Make up Class</RC.Button>: <p style={{textAlign:"center"}}>You don't have in progress class, cannot make up class.</p>}
+
+
                                 </div>
                                 <div className="students-detail-make-up">
                                     <div className="make-up-step-1" style={this.state.makeUpStep1Style}>
