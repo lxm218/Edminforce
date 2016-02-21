@@ -28,9 +28,14 @@
 
             let user = Meteor.user();
 
+            let students = EdminForce.Collections.student.find({
+                accountID: Meteor.userId()
+            }).fetch();
+
             return {
                 isReady: handler.ready(),
-                user: user
+                user: user,
+                students: students
             }
         }
 
@@ -104,7 +109,7 @@
                                         {
                                             this.data.students&&this.data.students.map(function(student, index){
                                                 return (
-                                                    <span>{student.name}</span>
+                                                    <span className="account-person">{student.name}</span>
                                                 )
                                             })
                                         }
@@ -114,14 +119,14 @@
                                 <TableRow>
                                     <TableHeaderColumn>Alternative Contact</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        <span>{this.data.user&&this.data.user.alterContact&&this.data.user.alterContact.name}</span>
+                                        <span className="account-person">{this.data.user&&this.data.user.alterContact&&this.data.user.alterContact.name}</span>
                                         <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updateAlternateContact.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableHeaderColumn>Emergency Contact</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        <span>{this.data.user&&this.data.user.emergencyContact&&this.data.user.emergencyContact.name}</span>
+                                        <span className="account-person">{this.data.user&&this.data.user.emergencyContact&&this.data.user.emergencyContact.name}</span>
                                         <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updateEmergencyContact.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
                                 </TableRow>

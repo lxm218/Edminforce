@@ -65,7 +65,7 @@
                     <RC.Input name="relation" value={this.data.alterContact&&this.data.alterContact.relation} label="Relative"/>
                     <RC.Checkbox name="receive" checked={this.data.alterContact&&this.data.alterContact.receive} label="Receive Communications"/>
 
-                    <RC.Button bgColor="brand2">Change Password</RC.Button>
+                    <RC.Button bgColor="brand2">Update</RC.Button>
                 </RC.Form>
             </RC.Div>
         }
