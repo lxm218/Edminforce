@@ -149,7 +149,7 @@
      * */
     function change_preference_in_cart(params){
 
-        console.log('change_preference_in_cart',params)
+        //console.log('change_preference_in_cart',params)
 
         //check 处于active状态
 

@@ -12,8 +12,8 @@ Meteor.startup(function () {
         name: 'check_if_registration_is_frozen',
         schedule: function (parser) {
 
-            return parser.text('every 10 seconds');
-            //return parser.text('every 61 minutes');
+            //return parser.text('every 10 seconds');
+            return parser.text('every 60 minutes');
 
 
         },

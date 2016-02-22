@@ -56,7 +56,12 @@ Meteor.startup(function () {
     });
 
 
-
+    //disable log in console
+    //todo redirect it to a file
+    SyncedCron.config({
+        log:false,
+        logger:function(){}
+    })
 
     SyncedCron.start()
 
