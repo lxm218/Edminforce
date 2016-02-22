@@ -23,7 +23,7 @@ Package.onUse(function(api) {
         // "standard-minifiers", // Add this after Meteor 1.2
         "http",
         "react",
-        "underscore",
+        "underscore",  //verison is 1.5.2, oldest
         "momentjs:moment",
         "reactive-var@1.0.6"
     ];
@@ -32,6 +32,8 @@ Package.onUse(function(api) {
 
 
     api.addFiles([
+        'lib/underscore.js',
+
         'KG.jsx',
         'base.jsx'
     ], ["client","server"]);

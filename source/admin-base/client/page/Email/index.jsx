@@ -5,7 +5,8 @@ KUI.Email_index = class extends KUI.Page{
         super(p);
 
         this.state = {
-            email_template_id : null
+            email_template_id : null,
+            filterQuery : {}
         };
 
         this.email_html = new ReactiveVar(null);
@@ -15,20 +16,32 @@ KUI.Email_index = class extends KUI.Page{
         return {
             AdminUser : KG.get('EF-AdminUser'),
             Email : KG.get('EF-Email'),
-            EmailTemplate : KG.get('EF-EmailTemplate')
+            EmailTemplate : KG.get('EF-EmailTemplate'),
+            Customer : KG.get('EF-Customer'),
+            Session : KG.get('EF-Session')
         };
     }
     getMeteorData(){
-        let {AdminUser, EmailTemplate} = this.defineDepModule();
+        let {AdminUser, EmailTemplate, Customer, Session} = this.defineDepModule();
 
         let x = Meteor.subscribe('EF-EmailTemplate'),
             emailTemplateList = EmailTemplate.getDB().find({}, {sort:{updateTime:-1}}).fetch();
 
         let y = Meteor.subscribe('EF-AdminUser');
 
+        let cx = Customer.subscribeByClassQuery(this.state.filterQuery);
+        console.log(cx.ready(), cx.data);
+
+        let sx = Meteor.subscribe('EF-Session');
+
         return {
             ready : x.ready() && y.ready(),
-            emailTemplateList
+            emailTemplateList,
+            filterReady : cx.ready(),
+            filterList : cx.data,
+
+            filterBoxReady : sx.ready(),
+            sessionList : Session.getDB().find().fetch()
         };
     }
 
@@ -54,20 +67,103 @@ KUI.Email_index = class extends KUI.Page{
                     <RC.URL style={sy.url} href="/email/template/add">Add Email Template</RC.URL>
                 </h3>
                 <hr/>
-                {this.renderFilterBox()}
+                {/*this.renderFilterBox()*/}
+                <hr/>
+                {/*this.renderFilterResult()*/}
+                <hr/>
+                {this.renderFilterEmail()}
 
                 {this.renderModal()}
             </RC.Div>
         );
     }
 
+    renderFilterBox(){
+        if(!this.data.filterBoxReady){
+            return util.renderLoading();
+        }
+
+        let p = {
+            session : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'session',
+                label : 'Session'
+            }
+        };
+
+        let option = {
+            session : this.data.sessionList
+        };
+
+        return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Col xs={6}>
+                        <RB.Input type="select" {... p.session}>
+                            {
+                                _.map(option.session, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.name}</option>;
+                                })
+                            }
+                        </RB.Input>
+                    </RB.Col>
+                    <RB.Col xs={6}>
+                    </RB.Col>
+
+                </RB.Row>
+                <RC.Div style={{textAlign:'right'}}>
+                    <KUI.YesButton onClick={this.search.bind(this)} label="Confirm Search"></KUI.YesButton>
+                </RC.Div>
+            </form>
+        );
+    }
+
+    search(){
+        let {session} = this.getRefs();
+
+        let query = {
+            sessionID : session.getValue()
+        };
+
+        this.setState({
+            filterQuery : query
+        });
+    }
+
+    renderFilterResult(){
+        if(!this.data.filterReady){
+            return util.renderLoading();
+        }
+
+        const titleArray = [
+            {
+                title : 'Name',
+                key : 'name'
+            },
+            {
+                title : 'Email',
+                key : 'email'
+            }
+        ];
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={this.data.filterList}
+                title={titleArray}
+                ref="table"></KUI.Table>
+        );
+    }
+
     getRefs(){
         return {
-            email_tpl : this.refs.email_tpl
+            email_tpl : this.refs.email_tpl,
+            session : this.refs.session
         };
     }
 
-    renderFilterBox(){
+    renderFilterEmail(){
 
         let p = {
             email_tpl : {

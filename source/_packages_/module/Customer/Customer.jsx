@@ -5,6 +5,7 @@ KG.define('EF-Customer', class extends Base{
         return Schema.Customer;
     }
 
+
     addTestData(){
         //this._db.remove({});
         if(this._db.find().count() > 0){
@@ -64,5 +65,113 @@ KG.define('EF-Customer', class extends Base{
         }catch(e){
             return KG.result.out(false, e, e.toString());
         }
+    }
+
+
+    defineDepModule(){
+        return {
+            Class : KG.get('EF-Class'),
+            ClassStudent : KG.get('EF-ClassStudent'),
+            Student : KG.get('EF-Student')
+        };
+    }
+
+    publishMeteorData(){
+        let me = this;
+        let m = this.defineDepModule();
+
+        let LISTBYCLASSQUERY = 'EF-Customer-BY-Class-Query',
+            LIST_ARR = [];
+
+        Meteor.publish(LISTBYCLASSQUERY, function(query={}){
+            let self = this;
+
+            query = _.extend({
+                sessionID : null,
+                classID : null,
+                level : null,
+                dayOfClass : null,
+                status : null,
+                teacher : null
+            }, query);
+            query = _.omit(query, function(val){
+                return !val;
+            });
+
+            if(query.classID){
+                query._id = query.classID;
+                delete query.classID;
+            }
+            if(query.dayOfClass){
+                query['schedule.day'] = query.dayOfClass;
+                delete query.dayOfClass;
+            }
+
+            let refresher = function(){
+                _.each(LIST_ARR, function(doc){
+                    try{
+                        self.removed(LISTBYCLASSQUERY, doc._id);
+                    }catch(e){}
+
+                });
+                let tmp = m.Class.getAll(query),
+                    tmpArr = [];
+                //console.log(tmp)
+                _.each(tmp, (doc)=>{
+                    tmpArr = tmpArr.concat(KG.DataHelper.getCustomerByClassData(doc));
+                });
+                tmpArr = _.filter(tmpArr, function(val){
+                    return !!val;
+                });
+                LIST_ARR = _.uniq(tmpArr, function(item){
+                    return item._id;
+                });
+                //console.log(LIST_ARR)
+
+                _.each(LIST_ARR, (doc)=>{
+                    self.added(LISTBYCLASSQUERY, doc._id, doc);
+                });
+            };
+
+            let handler = m.Class.getDB().find(query).observeChanges({
+                added(id, fields){
+                    refresher();
+                },
+                changed(id, fields){
+                    refresher();
+                }
+            });
+
+            self.ready();
+            self.onStop(function() {
+                handler.stop();
+            });
+            return self.ready();
+
+
+        });
+
+    }
+
+    defineClientMethod(){
+        let tmpDB = null;
+        return {
+            subscribeByClassQuery : function(query){
+                let dbName = 'EF-Customer-BY-Class-Query';
+                let x = Meteor.subscribe(dbName, query);
+                if(!tmpDB){
+                    tmpDB = new Mongo.Collection(dbName);
+                }
+                let data = [];
+                if(x.ready()){
+                    data = tmpDB.find().fetch();
+                }
+
+                return {
+                    ready : x.ready,
+                    data : data
+                };
+            }
+        };
     }
 });

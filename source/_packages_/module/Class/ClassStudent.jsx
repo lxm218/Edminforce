@@ -104,7 +104,7 @@ let ClassStudent = class extends Base{
         return KG.result.out(true, rs);
     }
 
-    getAll(){
+    getAll(query, option){
         let rs = this._db.find(query||{}, option||{}).fetch();
 
         //return _.map(rs, (item)=>{

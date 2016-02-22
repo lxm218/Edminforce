@@ -138,7 +138,7 @@ let Class = class extends Base{
         };
 
         let data = this._db.find(query, {sort : sort}).fetch();
-        _.map(data, (item)=>{
+        data = _.map(data, (item)=>{
 
             let stmp = _.find(session, (s)=>{
                 return s._id === item.sessionID;
@@ -191,7 +191,87 @@ let Class = class extends Base{
     }
 
     publishMeteorData(){
+        let self = this,
+            dbName = 'EF-Class-By-Query';
 
+        let arr = [];
+
+
+        Meteor.publish(dbName, function(query={}, option={}) {
+            let pubThis = this;
+            query = _.extend({
+                sessionID : null,
+                classID : null,
+                level : null,
+                dayOfClass : null,
+                status : null,
+                teacher : null
+            }, query);
+            query = _.omit(query, function(val){
+                return !val;
+            });
+
+            if(query.classID){
+                query._id = query.classID;
+                delete query.classID;
+            }
+            if(query.dayOfClass){
+                query['schedule.day'] = query.dayOfClass;
+                delete query.dayOfClass;
+            }
+            console.log(query);
+
+            let refresher = function(query, option){
+                _.each(arr, (doc)=>{
+                    console.log('----', doc._id);
+                    //TODO why has a error
+                    //pubThis.removed(dbName, doc._id)
+                });
+                arr = self.getAll(query);
+                _.each(arr, (doc)=>{
+
+                    pubThis.added(dbName, doc._id, doc);
+                });
+            };
+
+            let handler = self._db.find(query).observeChanges({
+                added(id, fields){
+                    refresher(query);
+                },
+                changed(id, fields){
+                    refresher.call(pubThis, query);
+                }
+            });
+
+            this.ready();
+            this.onStop(function() {
+                handler.stop();
+            });
+            return this.ready();
+
+        });
+    }
+
+    defineClientMethod(){
+        let tmpDB = null;
+        return {
+            subscribeClassByQuery : function(query){
+                let dbName = 'EF-Class-By-Query';
+                let x = Meteor.subscribe(dbName, query, {});
+                if(!tmpDB){
+                    tmpDB = new Mongo.Collection(dbName);
+                }
+                let data = [];
+                if(x.ready()){
+                    data = tmpDB.find().fetch();
+                }
+
+                return {
+                    ready : x.ready,
+                    data : data
+                };
+            }
+        };
     }
 };
 
