@@ -13,7 +13,7 @@ let TIME = [
     '08:00PM', '08:30PM'
 ];
 
-KUI.Class_comp_add = class extends RC.CSSMeteorData{
+KUI.Class_comp_add = class extends KUI.Page{
 
     getProgramData(){
 
@@ -33,16 +33,26 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
-        Meteor.subscribe('EF-Program');
-        Meteor.subscribe('EF-Session', {
+        let x1 = Meteor.subscribe('EF-Program'),
+            x2 = Meteor.subscribe('EF-Session', {
+                query : {
+                    registrationStatus : 'Yes'
+                }
+            });
+
+        let x3 = Meteor.subscribe('EF-AdminUser', {
             query : {
-                registrationStatus : 'Yes'
+                role : 'teacher'
             }
         });
 
+
+
         return {
+            ready : x1.ready() && x2.ready() && x3.ready(),
             program : this.getProgramData(),
-            session : this.getSessionData()
+            session : this.getSessionData(),
+            teacherList : KG.get('EF-AdminUser').getDB().find().fetch()
         };
     }
 
@@ -142,12 +152,17 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
             scheduleTime : TIME,
             tuitionType : KG.get('EF-Class').getDBSchema().schema('tuition.type').allowedValues,
             level : KG.get('EF-Class').getDBSchema().schema('level').allowedValues,
-            gender : KG.get('EF-Class').getDBSchema().schema('genderRequire').allowedValues
+            gender : KG.get('EF-Class').getDBSchema().schema('genderRequire').allowedValues,
+            teacher : this.data.teacherList
         };
     }
 
 
     render(){
+
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
 
         let edit = this.props.edit ? true : false;
 
@@ -284,7 +299,13 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
                                 })
                             }
                         </RB.Input>
-                        <RB.Input type="text" {... p.teacher} />
+                        <RB.Input type="select" {... p.teacher}>
+                            {
+                                _.map(option.teacher, (item, index)=>{
+                                    return <option key={index} value={item.nickName}>{item.nickName}</option>;
+                                })
+                            }
+                        </RB.Input>
 
                         <RB.Input type="select" {... p.lengthOfClass}>
                             {
@@ -371,12 +392,6 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
         );
     }
 
-    componentDidMount(){
-        super.componentDidMount();
-        if(this.props['init-data']){
-            this.setValue(this.props['init-data']);
-        }
-    }
 
     setValue(data){
         let {
@@ -403,11 +418,10 @@ KUI.Class_comp_add = class extends RC.CSSMeteorData{
         scheduleTime.getInputDOMNode().value = data.schedule.time;
     }
 
-    componentWillUpdate(np, ns){
-        super.componentWillUpdate(np, ns);
+    runOnceAfterDataReady(){
 
-        if(np['init-data'])
-            this.setValue(np['init-data']);
+        if(this.props['init-data'])
+            this.setValue(this.props['init-data']);
     }
 };
 
