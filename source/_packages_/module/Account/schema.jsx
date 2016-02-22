@@ -6,6 +6,7 @@ Schema.Account = {
     updatedAt: KG.schema.updateTime(),
     username: {
         type: String,
+        unique : false,
         optional: true
     },
     emails: {

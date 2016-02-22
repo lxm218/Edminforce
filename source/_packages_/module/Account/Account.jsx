@@ -9,6 +9,14 @@ KG.define('Account', class extends Base{
 
         Meteor.users.attachSchema(new SimpleSchema(this._schema));
 
+        if(Meteor.isServer){
+            //delete Meteor.users username index
+            //Meteor.users._dropIndex('username_1');
+            //Meteor.users._ensureIndex({username:1, role:1}, {unique:1});
+
+        }
+
+
         return Meteor.users;
     }
 
@@ -78,7 +86,30 @@ KG.define('Account', class extends Base{
         let self = this;
         return {
             createUser(data){
-                return Accounts.createUser(data);
+                try{
+                    let rs = Accounts.createUser(data);
+                }catch(e){
+                    // error=403 email is already
+                    // insert to Meteor.user directly
+                    if(false && e.error === 403){
+                        //TODO how to insert?
+                        //try{
+                        //    return Meteor.users.insert(data);
+                        //}catch(err){
+                        //    console.log(err);
+                        //    throw err;
+                        //}
+
+                    }
+                    else{
+                        throw e;
+                    }
+
+
+                }
+
+
+                return rs;
             }
         };
     }
@@ -104,7 +135,8 @@ KG.define('Account', class extends Base{
         }
 
         Meteor.loginWithPassword({
-            username : opts.username
+            username : opts.username,
+            role : 'admin'
         }, opts.password, function(err){
             if(err){
                 opts.error(err);
@@ -112,6 +144,11 @@ KG.define('Account', class extends Base{
             }
 
             if(Meteor.user()){
+
+                // status must be admin
+                if(Meteor.user().role !== 'admin'){
+
+                }
 
                 if(!opts.keepLogin){
                     Accounts._unstoreLoginToken();

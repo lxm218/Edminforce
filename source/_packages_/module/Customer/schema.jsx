@@ -22,16 +22,18 @@ Validate.Customer = {
 };
 
 Schema.Customer = {
-    name : KG.schema.default({}),
+    name : KG.schema.default({
+        label : 'Account Name'
+    }),
     nickName : KG.schema.default({
         optional : true
     }),
     email : KG.schema.default({
         regEx: SimpleSchema.RegEx.Email,
-        optional : true
+        //optional : true
     }),
     phone : KG.schema.default({
-        optional : true,
+        //optional : true,
         custom : function(){
             if(this.value && !/^[0-9]*$/g.test(this.value)){
                 return '601';
@@ -39,7 +41,7 @@ Schema.Customer = {
         }
     }),
     location : KG.schema.default({
-        optional : true
+        //optional : true
     }),
     image : KG.schema.default({
         optional : true

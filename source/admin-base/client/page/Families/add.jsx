@@ -17,14 +17,20 @@ KUI.Family_add = class extends RC.CSS{
         let param = this.refs.form.getValue();
         console.log(param);
 
-        let rs = KG.get('EF-Customer').insert(param);
-        KG.result.handle(rs, {
-            success : function(){
-                util.goPath('/family');
-            },
-            error : function(e, error){
-                util.toast.showError(error.statusText);
-            }
+        let pwd = Meteor.uuid().substring(0, 8);
+        param.password = pwd;
+        console.log(pwd);
+
+        KG.get('EF-Customer').insert(param, function(rs){
+            KG.result.handle(rs, {
+                success : function(){
+                    util.goPath('/family');
+                },
+                error : function(e){
+                    util.toast.showError(e.reason);
+                }
+            });
         });
+
     }
 };

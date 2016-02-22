@@ -42,14 +42,55 @@ KG.define('EF-Customer', class extends Base{
 
     }
 
-    insert(data){
+    insert(data, callback){
+
+        let pwd = data.password || '';
+        delete data.password;
+
+        data = _.omit(data, function(val){
+            return !val;
+        });
+
+        let vd = this.validateWithSchema(data);
+        console.log(vd);
+        if(vd !== true){
+            return callback(KG.result.out(false, vd));
+        }
+
+        if(!pwd){
+            return callback(KG.result.out(false, new Meteor.Error(-1, 'password is required')));
+        }
+
+        //create account
+        let accountData = {
+            username : data.email,
+            email : data.email,
+            password : pwd,
+            profile : {},
+            role : 'user'
+        };
+
         try{
-            let rs = this._db.insert(data, function(err){
-                throw err;
+            KG.get('Account').callMeteorMethod('createUser', [accountData], {
+                context : this,
+                success : function(ars){
+                    console.log(ars);
+                    data._id = ars;
+                    let rs = this._db.insert(data, function(err){
+                        throw err;
+                    });
+                    return callback(KG.result.out(true, rs));
+                },
+                error : function(err){
+
+                    return callback(KG.result.out(false, err));
+                }
             });
-            return KG.result.out(true, rs);
+
         }catch(e){
-            return KG.result.out(false, e, e.toString());
+
+
+            return callback(KG.result.out(false, e));
         }
     }
 
