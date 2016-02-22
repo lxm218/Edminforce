@@ -87,7 +87,7 @@ KG.define('Account', class extends Base{
         return {
             createUser(data){
                 try{
-                    let rs = Accounts.createUser(data);
+                    return Accounts.createUser(data);
                 }catch(e){
                     // error=403 email is already
                     // insert to Meteor.user directly
@@ -108,8 +108,6 @@ KG.define('Account', class extends Base{
 
                 }
 
-
-                return rs;
             }
         };
     }
