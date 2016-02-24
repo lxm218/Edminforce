@@ -27,6 +27,14 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/:id', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Coupon | Edit",
+                bodyTmpl: <KUI.Coupon_Edit />
+            });
+        }
+    });
 
 
 

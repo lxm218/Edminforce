@@ -1,10 +1,12 @@
 
 KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
 
+
     getMeteorData(){
-        Meteor.subscribe('EF-Program');
+        let x = Meteor.subscribe('EF-Program');
 
         return {
+            ready : x.ready(),
             program : KG.get('EF-Program').getDB().find({}).fetch()
         };
     }
@@ -16,6 +18,9 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
     }
 
     render(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
 
         let style = this.css.get('styles');
         const sy = {
@@ -166,6 +171,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
         date = $(date);
 
         date.find('.input-daterange').datepicker({});
+
     }
 
     getValue(){
@@ -188,6 +194,39 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
 
             validForNoBooked : $(validForNew.getInputDOMNode()).prop('checked')
         };
+    }
+
+    setValue(data){
+
+        let {
+            discount, dis_unit, description, workover,
+            forP, weekday, count, startDateJq, endDateJq,
+            validForNew
+
+            } = this.getRefs();
+        let len = data.discount.length;
+
+        dis_unit.value = data.discount.slice(len-1, len);
+        discount.value = data.discount.slice(0, -1);
+        description.getInputDOMNode().value = data.description;
+        workover.getInputDOMNode().value = data.overRequire;
+        $(weekday.getInputDOMNode()).val(data.weekdayRequire);
+        $(forP.getInputDOMNode()).val(data.useFor);
+        count.getInputDOMNode().value = data.maxCount;
+        startDateJq.datepicker('setDate', data.startDate);
+        endDateJq.datepicker('setDate', data.endDate);
+        $(validForNew.getInputDOMNode()).prop('checked', data.validForNoBooked);
+    }
+
+    setDefaultValue(data){
+        if(!this.data.ready){
+            _.delay(()=>{
+                this.setDefaultValue(data);
+            }, 200);
+        }
+        else{
+            this.setValue(data);
+        }
     }
 };
 
