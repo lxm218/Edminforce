@@ -50,7 +50,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
                 ref : 'workover',
-                label : 'Works over'
+                label : 'Minimum Transaction Amount'
             },
             forP : {
                 labelClassName : 'col-xs-3',
@@ -70,7 +70,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
                 ref : 'times',
-                label : 'Count'
+                label : 'Maximum usage per account'
             },
             validForNew : {
                 ref : 'validForNew',
