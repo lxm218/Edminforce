@@ -30,13 +30,21 @@ console.log(y)
             classTableReady : y.ready(),
             classTableData : y.data,
             data : data,
-            id : id
+            id : id,
+
+            checkCanBeRegister : KG.get('EF-Class').checkCanBeRegister(id)
         };
     }
 
     baseStyles(){
         return {
 
+        };
+    }
+
+    getDepModule(){
+        return {
+            Class : KG.get('EF-Class')
         };
     }
 
@@ -57,6 +65,7 @@ console.log(y)
                 <hr/>
                 <h3>Registration</h3>
                 {this.renderClassTable()}
+                {this.renderRegisterButton()}
             </RC.Div>
         );
     }
@@ -124,5 +133,23 @@ console.log(y)
                 title={titleArray}
                 ref="table"></KUI.Table>
         );
+    }
+
+    renderRegisterButton(){
+        let x = this.data.checkCanBeRegister;
+        if(!x.ready){
+            return null;
+        }
+
+        let flag = x.flag;
+
+        return (
+            <RC.Div style={{textAlign:'right'}}>
+                {flag?<KUI.YesButton onClick={function(){}} label="Register"></KUI.YesButton>:null}
+                {!flag?<KUI.YesButton onClick={function(){}} label="Waitlist"></KUI.YesButton>:null}
+
+            </RC.Div>
+        );
+
     }
 };
