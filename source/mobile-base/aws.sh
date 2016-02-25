@@ -11,4 +11,5 @@ ps -ef |grep meteor|grep $PORT |awk '{print $2}'|xargs sudo kill -9
 
 echo "PACKAGE_DIRS=${PACKAGE_DIRS}"
 
+cd src
 meteor run --port $PORT >nohup.log &
