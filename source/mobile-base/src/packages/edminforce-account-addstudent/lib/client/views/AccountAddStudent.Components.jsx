@@ -17,6 +17,24 @@
 
                 }
             }
+
+            this.state = {
+                status: "Active",
+                gender: "Male",
+                disabled: true
+            };
+
+            this.student = {
+                name: "",
+                accountID: Meteor.userId(),
+                profile:{
+                    birthday:null,
+                    gender:"Male"
+                },
+                status:"Active",
+                school:"",
+                note:""
+            }
         }
 
         getMeteorData() {
@@ -40,8 +58,64 @@
             }
         }
 
-        changeBirthday(value) {
-            console.log(value);
+        changeBirthday(event, date) {
+            //console.log(date);
+            this.student.profile.birthday = date;
+            this.setState({
+                disabled:this.validate()
+            })
+        }
+
+        changeName(event){
+            this.student.name = event.target.value;
+            this.setState({
+                disabled:this.validate()
+            })
+        }
+
+        changeGender(event, index, value){
+            //console.log(arguments);
+            this.setState({
+                gender: value
+            });
+            this.student.profile.gender = value;
+            this.setState({
+                disabled:this.validate()
+            })
+        }
+
+        changeStatus(event, index, value){
+            //console.log(arguments);
+            this.setState({
+                status: value
+            });
+            this.student.status = value;
+            this.setState({
+                disabled:this.validate()
+            })
+        }
+
+        changeSchool(event){
+            this.student.school = event.target.value;
+            this.setState({
+                disabled:this.validate()
+            })
+        }
+
+        changeNote(event){
+            this.student.note = event.target.value;
+            this.setState({
+                disabled:this.validate()
+            })
+        }
+
+        validate(){
+            //console.log(this.student);
+            if(this.student.name&&this.student.profile.gender&&this.student.profile.birthday&&this.student.status){
+                return false;
+            }
+
+            return true;
         }
 
         submitForm() {
@@ -55,58 +129,14 @@
                 Session.set("BookTrialClassId", null);
                 Session.set("BookTrialProgramId", null)
             } else {
-                var student = {
-                    name: "",
-                    accountID: Meteor.userId(),
-                    profile:{
-                        birthday:null,
-                        gender:""
-                    },
-                    status:"",
-                    school:"",
-                    note:""
-                };
-
-                if(this.refs.studentName.getValue()){
-                    student.name =this.refs.studentName.getValue();
-                    this.refs.studentName.setErrorText("");
-                }else{
-                    this.refs.studentName.setErrorText("Student name is required");
-                }
-
-                //if(this.refs.gender.value){
-                //    student.profile.gender =this.refs.gender.value;
-                //}else{
-                //    this.refs.gender.setErrorText("Gender is required");
-                //}
-                //
-                //if(this.refs.birthday.getValue()){
-                //    student.profile.birthday =this.refs.birthday.getValue();
-                //}else{
-                //    this.refs.birthday.setErrorText("Birthday is required");
-                //}
-                //
-                //if(this.refs.status.getValue()){
-                //    student.status=this.refs.status.getValue();
-                //}else{
-                //    this.refs.status.setErrorText("Status is required");
-                //}
-                //
-                //if(this.refs.school.getValue()){
-                //    student.school=this.refs.school.getValue();
-                //}else{
-                //    //this.refs.school.setErrorText("School is required");
-                //}
-                //
-                //if(this.refs.note.getValue()){
-                //    student.note=this.refs.note.getValue();
-                //}else{
-                //    //this.refs.school.setErrorText("School is required");
-                //}
-
-                console.log(student);
-
-                FlowRouter.go("/account");
+                console.log(this.student);
+                EdminForce.Collections.student.insert(this.student, function(err){
+                    if(err){
+                        alert("Add student error");
+                    }else{
+                        FlowRouter.go("/account");
+                    }
+                });
             }
         }
 
@@ -126,14 +156,16 @@
                         <TextField
                             floatingLabelText="Student Name"
                             fullWidth={true}
+                            onChange={this.changeName.bind(this)}
                             ref="studentName"
 
                             /><br/>
                         <SelectField
                             floatingLabelText="Gender"
-                            value={"Male"}
                             fullWidth={true}
                             ref="gender"
+                            value={this.state.gender}
+                            onChange={this.changeGender.bind(this)}
                             >
                             <MenuItem value={"Male"} primaryText="Male"/>
                             <MenuItem value={"Female"} primaryText="Female"/>
@@ -147,9 +179,10 @@
                             />
                         <SelectField
                             floatingLabelText="Status"
-                            value={"Active"}
                             fullWidth={true}
+                            value={this.state.status}
                             ref="status"
+                            onChange={this.changeStatus.bind(this)}
                             >
                             <MenuItem value={"Active"} primaryText="Active"/>
                             <MenuItem value={"Inactive"} primaryText="InActive"/>
@@ -158,11 +191,13 @@
                             floatingLabelText="School"
                             fullWidth={true}
                             ref="school"
+                            onChange={this.changeSchool.bind(this)}
                             /><br/>
                         <TextField
                             floatingLabelText="Comments"
                             fullWidth={true}
                             ref="note"
+                            onChange={this.changeNote.bind(this)}
                             /><br/>
                         <RaisedButton
                             label="Save"
@@ -171,6 +206,7 @@
                             style={{marginTop:20}}
                             onMouseUp={this.submitForm.bind(this)}
                             onTouchEnd={this.submitForm.bind(this)}
+                            disabled = {this.state.disabled}
                             />
                     </div>
 
