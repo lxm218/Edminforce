@@ -36,7 +36,7 @@ Cal.SelectDay = React.createClass({
                 options={this.props.avaiableDays}
                 value={this.props.currentDay}
                 name="day"
-                changeHandler={this.dayChange}
+                          onChange={this.dayChange}
                 label="Day"
             />
     }

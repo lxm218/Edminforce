@@ -33,7 +33,7 @@ Cal.SelectTime = React.createClass({
                 options={this.props.avaiableTimes}
                 value={this.props.currentTime}
                 name="time"
-                changeHandler={this.timeChange}
+                          onChange={this.timeChange}
                 label="Time"
             />
     }

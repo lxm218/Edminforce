@@ -24,9 +24,11 @@ Cal.Home = React.createClass({
   },
 
   componentDidMount(){
-    Tracker.autorun(function () {
+    var self=this
+    self.trackers=[]
+    self.trackers[self.trackers.length]=Tracker.autorun(function () {
 
-      var selectedSession = Session.get('selectedSession')
+      var selectedSession = Session.get('selectedSession');
       if (!selectedSession) return;
 
 
@@ -40,14 +42,35 @@ Cal.Home = React.createClass({
         {name:'Fastrack Program',value:'Fastrack',href:'/fastrack/info'},
       ])
 
+      Session.set('selectedProgram',{text:'',value:false})
 
 
     })
 
   },
+
+  componentWillUnmount(){
+    this.trackers.map(function(item){
+
+      item.stop && item.stop()
+    })
+
+  },
   sessionSelectChange(e){
     console.log(this.refs.sessionSelect.getValue(),e.target.value)
+    var sessionId =  e.target.value
+    sessionId= sessionId.trim()
+
     Session.set('selectedSession', e.target.value)
+
+
+    if(this.data.appInfo.sessionNow == sessionId){
+      Session.set('selectedSessionInfo', this.data.appInfo.sessionNowInfo)
+    }else if(this.data.appInfo.sessionRegister == sessionId){
+      Session.set('selectedSessionInfo', this.data.appInfo.sessionRegisterInfo)
+
+    }
+
 
   },
   programSelectChange(e){
@@ -153,7 +176,7 @@ Cal.Home = React.createClass({
           ref="programSelect"
           options={programOptions}
           onChange={this.programSelectChange}
-          value="" label="Program"
+          value={this.data.selectedProgram} label="Program"
         />
 
         <RC.Button bgColor="brand1" onClick={this.continue}>continue</RC.Button>
