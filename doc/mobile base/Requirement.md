@@ -20,7 +20,7 @@ List all the available Programs
 2. **Book trail class:** User can book a trail class of this program.  
 
    * It should be setted in admin, if a program set to trail true, then this button show, otherwise do need to show this button. For example, **Summer Camp** don't have Book trail
-3. **Sample Art Works**: Don't need to implement this version. Show it, but cannot click
+3. **Sample Art Works**: Don't need to implement this version. Show it(don't show in the first version), but cannot click
 4. **Photo List**: 
  
 ## Book Trail
@@ -37,9 +37,9 @@ List all the available Programs
 3. Avaiable Classes condition
   
   * Class is not full. Default.
-  * Class trail's max value not reach. Defualt value is 0
+  * Class trail's max value not reach. Defualt value is 0 
 
-  How to calculate:
+  How to calculate:(as for calcolor school, trial max is 2 for each class which is included in class max. For example, class max is 10, trial max is 2. Currently, it has 9 registred students, this class is available for trial. If it has 10 registered student, this class is not available for trial.)
   
   `Register trail student number<= Class's Max student-Class's current students number`
    
@@ -65,12 +65,16 @@ List all the available Programs
 This page shows all the students. 
 
 1. If this student has class in progress show all the class he/she has now
-2. If this student has class in waitinglist show it 
-3. If this student has completed class, show the last completed class
+2. If this student has class in waitinglist show it/if this student has new registration for next session, show it. 
+3. If this student has completed class, show the last completed class only if this student doesn't have current class or new registration/waitlist
 4. If this student don't registered before, show student, but the middle content is empty
 
 Note: 
 1. If student has multiple class, order by day(Mon - Sun)
+2. If student has new registration and current class, list new registration first.
 
-### Click a student
-Show the detail of class. if it is currently in progress class, user can make up class.
+### Click a student (change link to middle column -class)
+1. click current class, it goes to current tab which includes make up button, change class buttons, etc.
+2. click new registration class, it goes to current tab which includes change class buttons, disabled all other buttons. 
+2. Click completed class, it goes to history tab directly, disable 'current tab' for this student. 
+
