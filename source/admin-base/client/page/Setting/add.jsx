@@ -7,6 +7,10 @@ KUI.Setting_add_comp = class extends RC.CSS{
 
         this.module = this.getDepModule();
         this.formType = new ReactiveVar(this.props.type || 'edit');
+
+        this.state = {
+            showSchool : false
+        };
     }
 
     getDepModule(){
@@ -35,6 +39,9 @@ KUI.Setting_add_comp = class extends RC.CSS{
     }
 
     render(){
+
+
+
         let p = {
             name : {
                 labelClassName : 'col-xs-2',
@@ -93,6 +100,11 @@ KUI.Setting_add_comp = class extends RC.CSS{
 
         };
 
+        p.schoolClass = '';
+        if(!this.state.showSchool){
+            p.schoolClass = 'kg-hide';
+        }
+
         let option = {
             role : this.module.AdminUser.getDBSchema().schema('role').allowedValues
         };
@@ -117,8 +129,13 @@ KUI.Setting_add_comp = class extends RC.CSS{
                                 })
                             }
                         </RB.Input>
-
                         <RB.Input type="text" {... p.supervisor} />
+                    </RB.Col>
+                </RB.Row>
+
+                <RB.Row className={p.schoolClass}>
+                    <RB.Col md={12}>
+
                         <RB.Input type="text" {... p.s_name} />
                         <RB.Input type="text" {... p.s_email} />
                         <RB.Input type="text" {... p.s_phone} />
@@ -144,6 +161,12 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 </RB.Row>
             </form>
         );
+    }
+
+    showSchoolArea(){
+        this.setState({
+            showSchool : true
+        });
     }
 
     getValue(){
