@@ -114,7 +114,7 @@ Cal.HeaderNav = class extends RC.HeaderNav {
   render() {
 
     let styles = this.css.get("styles")
-    let ht = RC.Theme.size.headerNavHeight()
+    let ht = RC.headerNavHeight()
     let count = this.props.shoppingCart && this.props.shoppingCart.items && this.props.shoppingCart.items.length || 0
 
 
