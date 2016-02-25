@@ -1,5 +1,5 @@
 
-KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
+KUI.Coupon_comp_add = class extends KUI.Page{
 
 
     getMeteorData(){
@@ -35,6 +35,13 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
         };
 
         let p = {
+            couponCode : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'couponCode',
+                label : 'Coupon Code',
+                disabled : this.props.type==='edit'?true:false
+            },
             discount : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'wrapper',
@@ -90,6 +97,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
             <form className="form-horizontal">
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
+                        <RB.Input type="text" {... p.couponCode} />
                         <RB.Input {... p.discount}>
                             <RB.Row>
                                 <RB.Col xs={4}>
@@ -150,6 +158,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
         let date = this.refs.date;
 
         return {
+            couponCode : this.refs.couponCode,
             discount : this.refs.discount,
             dis_unit : this.refs.discount_unit,
             description : this.refs.description,
@@ -165,7 +174,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
         };
     }
 
-    componentDidMount(){
+    runOnceAfterDataReady(){
 
         let {date} = this.getRefs();
         date = $(date);
@@ -176,6 +185,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
 
     getValue(){
         let {
+            couponCode,
             discount, dis_unit, description, workover,
             forP, weekday, count, startDateJq, endDateJq,
             validForNew
@@ -183,6 +193,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
             } = this.getRefs();
 
         return {
+            _id : couponCode.getValue(),
             discount : discount.value + dis_unit.value,
             description : description.getValue(),
             overRequire : workover.getValue(),
@@ -199,6 +210,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
     setValue(data){
 
         let {
+            couponCode,
             discount, dis_unit, description, workover,
             forP, weekday, count, startDateJq, endDateJq,
             validForNew
@@ -206,6 +218,7 @@ KUI.Coupon_comp_add = class extends RC.CSSMeteorData{
             } = this.getRefs();
         let len = data.discount.length;
 
+        couponCode.getInputDOMNode().value = data._id;
         dis_unit.value = data.discount.slice(len-1, len);
         discount.value = data.discount.slice(0, -1);
         description.getInputDOMNode().value = data.description;
@@ -260,15 +273,17 @@ KUI.Coupon_add = class extends KUI.Page{
         let data = this.refs.form.getValue();
         console.log(data);
 
-        let rs = KG.get('EF-Coupon').save(data);
-        KG.result.handle(rs, {
-            success : function(){
-                util.dialog.alert('insert success');
-                util.goPath('/program/coupon');
-            },
-            error : function(e, error){
-                util.toast.showError(error.statusText);
-            }
+        KG.get('EF-Coupon').insertWithCallback(data, function(rs){
+            KG.result.handle(rs, {
+                success : function(){
+                    util.dialog.alert('insert success');
+                    util.goPath('/program/coupon');
+                },
+                error : function(e, error){
+                    util.toast.showError(error.statusText);
+                }
+            });
         });
+
     }
 };
