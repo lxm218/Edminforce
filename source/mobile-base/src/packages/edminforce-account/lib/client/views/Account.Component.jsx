@@ -15,6 +15,9 @@
 
         constructor(p) {
             super(p);
+            this.state = {
+                bUpdateUsername: false
+            }
         }
 
         getMeteorData() {
@@ -37,6 +40,36 @@
                 user: user,
                 students: students
             }
+        }
+
+        changeUsername() {
+            this.setState({
+                bUpdateUsername: true
+            });
+        }
+
+        saveChangeUsername() {
+
+            let username = this.refs.username.getValue();
+
+            console.log(username);
+
+            Meteor.call('UpdateUsername', Meteor.userId(), username, function(err, result){
+                if(err){
+                    console.error(err);
+                }else{
+                }
+            });
+
+            this.setState({
+                bUpdateUsername: false
+            });
+        }
+
+        cancelChangeUsername() {
+            this.setState({
+                bUpdateUsername: false
+            });
         }
 
         changePassword() {
@@ -83,7 +116,26 @@
                             <TableBody displayRowCheckbox={false}>
                                 <TableRow>
                                     <TableHeaderColumn>Name</TableHeaderColumn>
-                                    <TableHeaderColumn>{this.data.user.username}</TableHeaderColumn>
+                                    <TableHeaderColumn>
+                                        {this.state.bUpdateUsername ?
+                                            <div>
+                                                <RC.Input theme="inline" name="username" ref="username"
+                                                          value={this.data.user.username}/>
+                                                <RC.Button
+                                                    theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                    onClick={this.saveChangeUsername.bind(this)}>Save</RC.Button>
+                                                <RC.Button
+                                                    theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                    onClick={this.cancelChangeUsername.bind(this)}>Cancel</RC.Button>
+                                            </div> :
+                                            <div>
+                                                <span style={{paddingRight:"10px"}}>{this.data.user.username}</span>
+                                                <RC.Button theme="inline"
+                                                           bgColor="brand2"
+                                                           bgColorHover="dark"
+                                                           onClick={this.changeUsername.bind(this)}>Update</RC.Button>
+                                            </div>}
+                                    </TableHeaderColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableHeaderColumn>Email</TableHeaderColumn>
@@ -93,41 +145,50 @@
                                     <TableHeaderColumn>Password</TableHeaderColumn>
                                     <TableHeaderColumn>
                                         <span>******</span>
-                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.changePassword.bind(this)}>Update</RC.Button>
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                   onClick={this.changePassword.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableHeaderColumn>Phone</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        <span>{this.data.user&&this.data.user.profile&&this.data.user.profile.phone}</span>
-                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updatePhone.bind(this)}>Update</RC.Button>
+                                        <span>{this.data.user && this.data.user.profile && this.data.user.profile.phone}</span>
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                   onClick={this.updatePhone.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableHeaderColumn>Students</TableHeaderColumn>
                                     <TableHeaderColumn>
                                         {
-                                            this.data.students&&this.data.students.map(function(student, index){
+                                            this.data.students && this.data.students.map(function (student, index) {
                                                 return (
                                                     <span className="account-person">{student.name}</span>
                                                 )
                                             })
                                         }
-                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.addStudent.bind(this)}>+</RC.Button>
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                   onClick={this.addStudent.bind(this)}>+</RC.Button>
                                     </TableHeaderColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableHeaderColumn>Alternative Contact</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        <span className="account-person">{this.data.user&&this.data.user.alterContact&&this.data.user.alterContact.name}</span>
-                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updateAlternateContact.bind(this)}>Update</RC.Button>
+                                        {this.data.user && this.data.user.alterContact && this.data.user.alterContact.name ?
+                                            <span
+                                                className="account-person">this.data.user.alterContact.name</span> : ""}
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                   onClick={this.updateAlternateContact.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
                                 </TableRow>
                                 <TableRow>
                                     <TableHeaderColumn>Emergency Contact</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        <span className="account-person">{this.data.user&&this.data.user.emergencyContact&&this.data.user.emergencyContact.name}</span>
-                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updateEmergencyContact.bind(this)}>Update</RC.Button>
+                                        {this.data.user && this.data.user.emergencyContact && this.data.user.emergencyContact.name ?
+                                            <span
+                                                className="account-person">{this.data.user.emergencyContact.name}</span> : ""}
+                                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                                   onClick={this.updateEmergencyContact.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
                                 </TableRow>
                             </TableBody>

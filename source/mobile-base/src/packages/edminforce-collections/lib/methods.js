@@ -1,4 +1,12 @@
 Meteor.methods({
+    UpdateUsername: function (userId, username) {
+        console.log(userId, username);
+        Meteor.users.update(userId, {
+            $set: {
+                username: username
+            }
+        });
+    },
     SetPhone: function (userId, phone) {
         Meteor.users.update(userId, {
             $set: {
