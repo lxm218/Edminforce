@@ -49,30 +49,30 @@ let AdminUserSchema = new SimpleSchema({
         optional : true,
         type : Date
     }),
-    school : {
-        type : Object
-    },
-    'school.name' : KG.schema.default({
-        optional : true
-    }),
-    'school.email' : KG.schema.default({
-        optional : true
-    }),
-    'school.phone' : KG.schema.default({
-        optional : true
-    }),
-    'school.address' : KG.schema.default({
-        optional : true
-    }),
-    'school.city' : KG.schema.default({
-        optional : true
-    }),
-    'school.state' : KG.schema.default({
-        optional : true
-    }),
-    'school.zipcode' : KG.schema.default({
-        optional : true
-    }),
+    //school : {
+    //    type : Object
+    //},
+    //'school.name' : KG.schema.default({
+    //    optional : true
+    //}),
+    //'school.email' : KG.schema.default({
+    //    optional : true
+    //}),
+    //'school.phone' : KG.schema.default({
+    //    optional : true
+    //}),
+    //'school.address' : KG.schema.default({
+    //    optional : true
+    //}),
+    //'school.city' : KG.schema.default({
+    //    optional : true
+    //}),
+    //'school.state' : KG.schema.default({
+    //    optional : true
+    //}),
+    //'school.zipcode' : KG.schema.default({
+    //    optional : true
+    //}),
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 });
@@ -119,19 +119,7 @@ let AdminUser = class extends Base{
         let rs = this._db.find(query||{}, option||{}).fetch();
 
         let result = _.map(rs, (item)=>{
-            item.schoolAddress = '';
-            if(item.school.address){
-                item.schoolAddress += item.school.address+' ';
-            }
-            if(item.school.city){
-                item.schoolAddress += item.school.city+' ';
-            }
-            if(item.school.state){
-                item.schoolAddress += item.school.state+' ';
-            }
-            if(item.school.zipcode){
-                item.schoolAddress += item.school.zipcode;
-            }
+
 
             return item;
 
@@ -142,11 +130,20 @@ let AdminUser = class extends Base{
 
     defineDepModule(){
         return {
-            Account : KG.get('Account')
+            Account : KG.get('Account'),
+            School : KG.get('EF-School')
         };
     }
 
     updateById(data, id){
+
+        if(data.school){
+            let school = data.school;
+            delete data.school;
+
+            this.module.School.setInfo(school);
+        }
+
         try{
             let rs = this._db.update({_id : id}, {'$set' : data});
             return KG.result.out(true, rs);
