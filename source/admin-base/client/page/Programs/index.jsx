@@ -5,7 +5,9 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            showAddBox : false
+            showAddBox : false,
+            programTitle : '',
+            programDescription : ''
         };
 
     }
@@ -83,6 +85,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
     }
 
     render(){
+        let self = this;
 
         let style = this.css.get('styles');
 
@@ -94,13 +97,14 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                     width : '30%'
                 }
             },
+
             {
                 title : 'Description',
                 reactDom(item){
-                    return item._id;
+                    return decodeURIComponent(item.description)
                 },
                 style : {
-                    width : '60%'
+                    width : '50%'
                 }
             },
             {
@@ -111,11 +115,17 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                 reactDom : function(item){
                     const sy = {
                         cursor : 'pointer',
+                        marginLeft : '12px',
                         position : 'relative',
                         top : '2px'
                     };
                     const ml = {
                         marginLeft : '10px',
+                        cursor : 'pointer'
+                    };
+                    const ml1 = {
+                        position : 'relative',
+                        top : '1px',
                         cursor : 'pointer'
                     };
 
@@ -134,9 +144,20 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                         });
                     };
 
+                    let showModal = ()=>{
+                        self.setState({
+                            programTitle : item.name,
+                            programDescription : decodeURIComponent(item.description)
+                        });
+
+                        self.refs.modal.show();
+                    };
+
                     return (
                         <RC.Div style={{textAlign:'center'}}>
+                            <KUI.Icon onClick={showModal} icon="fa fa-eye" font="18px" color="#1ab394" style={ml1}></KUI.Icon>
                             <RC.URL href={`/program/edit/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
+
                             <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
                         </RC.Div>
 
@@ -170,6 +191,8 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                 </RC.Div>
 
                 {this.getAddProgram()}
+
+                {this.renderModal()}
             </RC.Div>
         );
 
@@ -224,6 +247,22 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                 ['height', ['height']]
             ]
         });
+    }
+
+    renderModal(){
+        let html = decodeURIComponent(this.state.programDescription);
+
+        return (
+            <KUI.Modal onHide={this.hideModal.bind(this)}
+                       title={this.state.programTitle}
+                       ref="modal" >
+                <div dangerouslySetInnerHTML={{__html:html}}></div>
+            </KUI.Modal>
+        );
+    }
+
+    hideModal(){
+        this.refs.modal.hide();
     }
 };
 
