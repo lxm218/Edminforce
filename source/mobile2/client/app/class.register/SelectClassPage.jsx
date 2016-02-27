@@ -274,23 +274,45 @@
                             Level: {this.data.currentLevel}
                         </RC.Item>
 
-                        <RC.Select theme="right"
-                            ref="day"
-                            options={this.data.avaiableDays}
-                            value={this.data.currentDay}
-                            name="day"
-                            onChange={this.dayChange}
-                            label="Day"
-                            />
+                        <div>
+                            Select days:
+                        </div>
+                        <Cal.SelectDayGrid
+                            avaiableDays={this.data.avaiableDays}
+                            currentDay={this.data.currentDay}
+                            name="dayGrid"
+                            changeMessage="CRSelectClassPage_DAY_CHANGE"
+                        />
 
-                        <RC.Select theme="right"
-                            ref="time"
-                            options={this.data.avaiableTimes}
-                            value={this.data.currentTime}
-                            name="time"
-                            onChange={this.timeChange}
-                            label="Time"
-                            />
+                        {
+                            //<RC.Select theme="right"
+                            //           ref="day"
+                            //           options={this.data.avaiableDays}
+                            //           value={this.data.currentDay}
+                            //           name="day"
+                            //           onChange={this.dayChange}
+                            //           label="Day"
+                            ///>
+
+                            //<RC.Select theme="right"
+                            //           ref="time"
+                            //           options={this.data.avaiableTimes}
+                            //           value={this.data.currentTime}
+                            //           name="time"
+                            //           onChange={this.timeChange}
+                            //           label="Time"
+                            ///>
+                        }
+
+                    <Cal.SelectTimeGrid
+                        avaiableTimes={this.data.avaiableTimes}
+                        currentTime={this.data.currentTime}
+                        changeMessage="CRSelectClassPage_TIME_CHANGE"
+                        name="timeGrid"
+
+                    />
+
+
                         <RC.Button name="button" type="submit" bgColor="brand1"
                                    onClick={this.formSubmit}
                                    theme="full" buttonColor="brand">
