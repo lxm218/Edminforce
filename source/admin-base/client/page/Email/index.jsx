@@ -260,13 +260,25 @@ KUI.Email_index = class extends KUI.Page{
     }
 
     sendEmail(){
-        let {AdminUser, Email} = this.defineDepModule();
+        let self = this;
+        let {AdminUser, Email, EmailTemplate} = this.defineDepModule();
+
+
         let address = [];
         let o = util.getReactJQueryObject(this.refs.table).find('input[name="sml"]');
-        console.log(o)
+
         o.each(function(){
-            if($(this).prop('checked')){
-                address.push($(this).data('email'));
+            let oo = $(this);
+            if(oo.prop('checked')){
+
+                let name = _.find(self.data.filterList, function(one){
+                    return one.email === oo.data('email');
+                }).name;
+
+                address.push({
+                    user : name,
+                    address : oo.data('email')
+                });
             }
         });
         if(address.length < 1){
@@ -274,17 +286,28 @@ KUI.Email_index = class extends KUI.Page{
             return false;
         }
 
-        Email.send({
-            to : address.join(';'),
-            html : this.email_html.get(),
-            text : this.email_html.get(),
-            subject : 'Test Email'
-        }, (flag, error)=>{
-            if(flag){
-                util.toast.alert('Send Email Success');
-                this.hideModal();
-            }
+        _.each(address, (item)=>{
+            let html = EmailTemplate.getHtml(this.state.email_template_id, item);
+
+            Email.send({
+                to : item.address,
+                html : html,
+                subject : EmailTemplate.getDB().findOne({_id:this.state.email_template_id}).name
+            }, (flag, error)=>{
+                if(flag){
+
+                }
+            });
         });
+
+
+        _.delay(()=>{
+            util.toast.alert('Send Email Success');
+            this.hideModal();
+        }, 500*address.length);
+
+
+
 
         this.setState({
             email_template_id : 'loading'
