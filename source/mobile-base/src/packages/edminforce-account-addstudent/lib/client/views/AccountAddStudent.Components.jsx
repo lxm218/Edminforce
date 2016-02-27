@@ -35,6 +35,7 @@
                 school:"",
                 note:""
             }
+            console.log("add student");
         }
 
         getMeteorData() {
@@ -139,14 +140,24 @@
 
         submitForm() {
             if (Session.get("BookTrialClassId")) {
-                let params = {
-                    programsId: Session.get("BookTrialProgramId"),
-                    classId: Session.get("BookTrialClassId")
-                }
-                let path = FlowRouter.path("/programs/:programsId/:classId/confirm", params);
-                FlowRouter.go(path);
-                Session.set("BookTrialClassId", null);
-                Session.set("BookTrialProgramId", null)
+
+                EdminForce.Collections.student.insert(this.student, function(err){
+                    if(err){
+                        alert("Add student error");
+                    }else{
+                        let params = {
+                            programID: Session.get("BookTrialProgramId"),
+                            classID: Session.get("BookTrialClassId"),
+                            timestamp: Session.get("BookTrialTimestamp")
+                        }
+                        let path = FlowRouter.path('/programs/:programID/:classID/:timestamp', params);
+                        FlowRouter.go(path);
+                        Session.set("BookTrialClassId", null);
+                        Session.set("BookTrialProgramId", null);
+                        Session.set("BookTrialTimestamp", null);
+                    }
+                });
+
             } else {
                 console.log(this.student);
                 EdminForce.Collections.student.insert(this.student, function(err){

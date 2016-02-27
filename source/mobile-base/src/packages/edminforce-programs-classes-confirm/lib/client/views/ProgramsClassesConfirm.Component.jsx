@@ -123,9 +123,13 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
     }
 
     addStudent() {
+        console.log(FlowRouter.getParam("programID"));
+        console.log(FlowRouter.getParam("classID"));
+        console.log(FlowRouter.getParam("timestamp"));
+        Session.set("BookTrialTimestamp", FlowRouter.getParam("timestamp"));
+        Session.set("BookTrialClassId", FlowRouter.getParam("classID"));
+        Session.set("BookTrialProgramId", FlowRouter.getParam("programID"));
         FlowRouter.go('/account/addstudent');
-        Session.set("BookTrialClassId", "class_11");
-        Session.set("BookTrialProgramId", "111");
     }
 
     render() {

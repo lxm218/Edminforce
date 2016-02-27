@@ -1,8 +1,8 @@
 Meteor.startup(function () {
 
     var accountsData = [
-        {_id: 'jliu@gmail.com', 'email': 'jliu@gmail.com', name: 'Alice Wu',location:'Fremont'},
-        {_id: 'jbhe@gmail.com', email: 'jbhe@gmail.com', name: 'Joe He',location:'Dublin'}
+        {_id: 'jliu@gmail.com', 'role':'teacher', 'email': 'jliu@gmail.com', name: 'Alice Wu'},
+        {_id: 'jbhe@gmail.com', 'role':'teacher', email: 'jbhe@gmail.com', name: 'Joe He'}
     ];
 
 
@@ -21,7 +21,7 @@ Meteor.startup(function () {
                     }
                 ],
                 username: item.name,
-                role: 'role1',
+                role: item.role,
 
                 //password
                 services: {
