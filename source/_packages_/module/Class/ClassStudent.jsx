@@ -1,3 +1,5 @@
+
+
 let Base = KG.getClass('Base');
 let ClassStudent = class extends Base{
     defineDBSchema(){

@@ -217,4 +217,8 @@ KG.define('EF-Customer', class extends Base{
             }
         };
     }
+
+    getRegistrationFee(){
+        return 25;
+    }
 });

@@ -263,6 +263,8 @@ KUI.Setting_addAccount = class extends RC.CSS{
     save(){
         let self = this;
         let data = this.refs.form.getValue();
+        delete data.school;
+
         console.log(data);
 
         KG.get('EF-AdminUser').insert(data, function(rs){
