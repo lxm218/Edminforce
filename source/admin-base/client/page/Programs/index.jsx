@@ -41,16 +41,16 @@ KUI.Program_index = class extends RC.CSSMeteorData{
 
         var p = {
             name : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
+                //labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-12',
                 ref : 'pname',
-                label : 'Program Name'
+                placeholder : 'Program Name'
             },
             desc : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
-                ref : 'pdesc',
-                label : 'Program Description'
+                //labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-12',
+                ref : 'pdesc'
+                //label : 'Program Description'
             }
         };
 
@@ -67,7 +67,10 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                         <form className="form-horizontal">
 
                             <RB.Input type="text" {... p.name} />
-                            <RB.Input type="textarea" {... p.desc} />
+                            <RB.Input {... p.desc} >
+                                <div ref="html"></div>
+
+                            </RB.Input>
 
                             <RC.Div style={this.css.get('styles').rd}>
                                 <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
@@ -93,7 +96,9 @@ KUI.Program_index = class extends RC.CSSMeteorData{
             },
             {
                 title : 'Description',
-                key : 'description',
+                reactDom(item){
+                    return item._id;
+                },
                 style : {
                     width : '60%'
                 }
@@ -177,7 +182,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
     }
     resetAddBox(){
         this.refs.pname.getInputDOMNode().value = '';
-        this.refs.pdesc.getInputDOMNode().value = '';
+        $(this.refs.html).summernote('code', '');
 
         this.setState({
             showAddBox : false
@@ -188,11 +193,11 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         let self = this;
 
         let name = this.refs.pname.getValue(),
-            desc = this.refs.pdesc.getValue();
+            desc = $(this.refs.html).summernote('code');
 
         let rs = KG.get('EF-Program').insert({
             name : name,
-            description : desc
+            description : encodeURIComponent(desc)
         });
 
         KG.result.handle(rs, {
@@ -200,6 +205,24 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                 alert('insert success');
                 self.resetAddBox();
             }
+        });
+    }
+
+    componentDidMount(){
+        super.componentDidMount();
+        $(this.refs.html).summernote({
+            height : 280,
+            resize : false,
+            placeholder : 'Program Description',
+            //disableDragAndDrop : false,
+            toolbar : [
+                ['style', ['bold', 'italic', 'underline', 'hr']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
         });
     }
 };
