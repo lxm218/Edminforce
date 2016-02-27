@@ -19,8 +19,8 @@
             }
 
             this.state = {
-                status: "Active",
-                gender: "Male",
+                status: "",
+                gender: "",
                 disabled: true
             };
 
@@ -29,9 +29,9 @@
                 accountID: Meteor.userId(),
                 profile:{
                     birthday:null,
-                    gender:"Male"
+                    gender:""
                 },
-                status:"Active",
+                status:"",
                 school:"",
                 note:""
             }
@@ -58,12 +58,31 @@
             }
         }
 
-        changeBirthday(event, date) {
-            //console.log(date);
-            this.student.profile.birthday = date;
-            this.setState({
-                disabled:this.validate()
-            })
+        changeBirthday(event) {
+            let birthdayStr = event.target.value;
+            //console.log(birthdayStr);
+            try{
+                let birthday = new Date(birthdayStr);
+                let regex = /^\s*[0,1]{0,1}[0-9]\/[0,1,2,3]{0,1}[0-9]\/[1,2][0,9][0-9]{2}\s*$/;
+                if(!regex.test(birthdayStr) || birthday.toString() == "Invalid Date"){
+                    this.setState({
+                        disabled:this.validate(),
+                        birthdayErrorText:"Please type correct birthday, mm/dd/yyyy"
+                    })
+                }else{
+                    this.student.profile.birthday = birthday;
+                    this.setState({
+                        disabled:this.validate(),
+                        birthdayErrorText:""
+                    })
+                }
+
+            }catch(e){
+                this.setState({
+                    disabled:this.validate(),
+                    birthdayErrorText:"Please type correct birthday, mm/dd/yyyy"
+                })
+            }
         }
 
         changeName(event){
@@ -170,13 +189,16 @@
                             <MenuItem value={"Male"} primaryText="Male"/>
                             <MenuItem value={"Female"} primaryText="Female"/>
                         </SelectField><br/>
-                        <DatePicker
+
+                        <TextField
                             floatingLabelText="Birthday"
                             hintText="mm/dd/yyyy"
-                            onChange={this.changeBirthday.bind(this)}
                             fullWidth={true}
+                            onChange={this.changeBirthday.bind(this)}
                             ref="birthday"
-                            />
+                            errorText={this.state.birthdayErrorText}
+                        /><br/>
+
                         <SelectField
                             floatingLabelText="Status"
                             fullWidth={true}
