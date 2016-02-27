@@ -240,9 +240,23 @@ Meteor.startup(function () {
     Meteor.publishComposite("EF-UserData", function () {
         return {
             find: function () {
-                return Meteor.users.find({_id: this.userId});
+                return Meteor.users.find({_id: this.userId}, {
+                    fields : {
+                        username : 1,
+                        emails : 1,
+                        role : 1,
+                        _id : 1
+                    }
+                });
             },
             children:[
+                {
+                    find : function(){
+                        return EdminForce.Collections.Customer.find({
+                            _id : this.userId
+                        })
+                    }
+                },
                 {
                     find: function(){
                         return EdminForce.Collections.student.find({
@@ -253,5 +267,6 @@ Meteor.startup(function () {
             ]
         }
     });
+
 
 });
