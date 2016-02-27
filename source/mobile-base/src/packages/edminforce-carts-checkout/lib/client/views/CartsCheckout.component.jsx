@@ -85,6 +85,9 @@
         }
 
         //TODO Coupon
+        applyCoupon(){
+
+        }
         //TODO School Credit
 
         process() {
@@ -229,7 +232,7 @@
 
             // Fill with your UI
             return (
-                <RC.Div style={style}>
+                <RC.Div style={style} className="carts-checkout">
                     <RC.VerticalAlign center={true} className="padding" height="300px">
                         <h2>
                             Registration for Winter 2016
@@ -240,7 +243,7 @@
 
                     <RC.Loading isReady={this.data.isReady}>
                         <Table selectable={false}>
-                            <TableHeader displaySelectAll={false} enableSelectAll={false}>
+                            <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
                                 <TableRow>
                                     <TableHeaderColumn>Student</TableHeaderColumn>
                                     <TableHeaderColumn>Class</TableHeaderColumn>
@@ -253,8 +256,8 @@
                             </TableBody>
                         </Table>
 
-                        <RC.Checkbox name="use_school_credit" label="Use School Credit"/>
-                        <RC.Input name="coupon" value="" label="Enter Coupon Code"/>
+                        <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon" value="" label="Enter Coupon Code"/>
+                        <RC.Button theme="inline" bgColor="brand2" onClick={this.applyCoupon.bind(this)}>Apply</RC.Button>
 
                         <RC.List>
                             <RC.Item title="Total" subtitle={_.toString(this.total)}></RC.Item>

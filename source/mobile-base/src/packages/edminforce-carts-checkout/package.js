@@ -29,6 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
+        'lib/client/less/carts-checkout.less',
         'lib/client/views/CartsCheckout.component.jsx',
         'lib/router/checkout.router.jsx'
     ], ["client"]);
