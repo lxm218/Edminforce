@@ -11,6 +11,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
     }
 
     getMeteorData() {
+
         let classID = FlowRouter.getParam("classID");
         let timestamp = FlowRouter.getParam("timestamp");
 
