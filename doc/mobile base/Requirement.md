@@ -92,7 +92,7 @@ Note: During the first week of registration (starting registration start date + 
 ## Regarding Coupon
 ### add new coupon
 1. admin user input coupon code, code itself cannot be edited after created. 
-2. discount is either $ or % (Note: coupon discount is only applied to tuition, only applied to registration fee or make up class fee)
+2. discount is either $ or % (Note: coupon discount is only applied to tuition, NOT applied to registration fee or make up class fee)
 3. description - coupon description
 4. Minimum transcation amount - if $$ in this field, coupon will only be applied when tuition meets this requirement. If blank, coupon can be applied to any tuition amount. 
 5. For program, if it's "all", means coupon can be applied to all program. If it's other program, it mean coupon will be only applied that certain program. (for example, for beginning, it means this coupon can only be applied to beginning class)
