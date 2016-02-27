@@ -88,3 +88,16 @@ This page shows registration - select student(if more than one student under thi
 Note: During the first week of registration (starting registration start date + 7 days), registration page only shows current student's current class, disable all select options, users only needs to click book button. After the first week, registration is back to normal as described above. 
 
 ### Registration more - repeat registration process 
+
+## Regarding Coupon
+### add new coupon
+1. admin user input coupon code, code itself cannot be edited after created. 
+2. discount is either $ or % (Note: coupon discount is only applied to tuition, only applied to registration fee or make up class fee)
+3. description - coupon description
+4. Minimum transcation amount - if $$ in this field, coupon will only be applied when tuition meets this requirement. If blank, coupon can be applied to any tuition amount. 
+5. For program, if it's "all", means coupon can be applied to all program. If it's other program, it mean coupon will be only applied that certain program. (for example, for beginning, it means this coupon can only be applied to beginning class)
+6. Date, if dates are shown, it means coupon can only be applied during this specified dates. If no dates selected, it means there is no date limitation for this coupon usage. 
+7. On day - if it's all, it means this coupon doesn't have days limitation. if it's Mon, it means which coupon can be only applied to classes on Mondays, etc.
+8. Max usage per account, if it's 1, means this coupon can only be used for this account once, etc. if it's blank, mean there's no limitation on this. 
+9. valid for new customer, if it's checked, this coupon will only be applied to account who haven't booked any class before. (Note: this look at account not student. for example, one account has a student who has been here for a year, not it adds another student (new student) but they cannot use this coupon as they're not new account. 
+5. 
