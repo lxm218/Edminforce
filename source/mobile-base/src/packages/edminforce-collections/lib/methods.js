@@ -8,11 +8,16 @@ Meteor.methods({
         });
     },
     SetPhone: function (userId, phone) {
-        Meteor.users.update(userId, {
-            $set: {
-                profile: {
-                    phone: phone
-                }
+        //Meteor.users.update(userId, {
+        //    $set: {
+        //        profile: {
+        //            phone: phone
+        //        }
+        //    }
+        //});
+        EdminForce.Collections.Customer.update(userId, {
+            $set : {
+                phone : phone
             }
         });
     },

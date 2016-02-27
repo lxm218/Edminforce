@@ -4,10 +4,12 @@ KUI.Setting_index = class extends KUI.Page{
         let query = {_id:Meteor.userId()};
         let x = Meteor.subscribe('EF-AdminUser', query);
 
+        let y = Meteor.subscribe('EF-School');
+
         let one = KG.get('EF-AdminUser').getAll(query)[0];
 
         return {
-            ready : x.ready(),
+            ready : x.ready() && y.ready(),
             profile : one
         };
     }
@@ -52,15 +54,16 @@ KUI.Setting_index = class extends KUI.Page{
             }
         ];
 
+        let school = KG.get('EF-School').getInfo();
         const keyList = [
             {title : 'Name', key : 'nickName'},
             {title : 'Email', key : 'email'},
             {title : 'Role', key : 'role'},
             {title : 'Phone', key : 'phone'},
-            {title : 'School Name', key : function(data){return data.school.name;}},
-            {title : 'School Email', key : function(data){return data.school.email;}},
-            {title : 'School Phone', key : function(data){return data.school.phone;}},
-            {title : 'School Address', key : function(data){return data.schoolAddress;}}
+            {title : 'School Name', key : function(data){return school.name;}},
+            {title : 'School Email', key : function(data){return school.email;}},
+            {title : 'School Phone', key : function(data){return school.phone;}},
+            {title : 'School Address', key : function(data){return school.allAddress;}}
 
         ];
 

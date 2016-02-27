@@ -20,6 +20,7 @@ Package.onUse(function(api){
 
     api.addFiles([
         "lib/BaseCollection.js",
+        "lib/CustomerCollection.jsx",
         "lib/ClassCollection.js",
         "lib/ClassStudentCollection.js",
         "lib/OrdersCollection.js",

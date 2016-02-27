@@ -1,4 +1,4 @@
-KUI.Program_edit = class extends RC.CSSMeteorData{
+KUI.Program_edit = class extends KUI.Page{
 
     getMeteorData(){
         let id = this.getProgramId();
@@ -25,21 +25,21 @@ KUI.Program_edit = class extends RC.CSSMeteorData{
 
         var p = {
             name : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
+                //labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-12',
                 ref : 'pname',
-                label : 'Program Name'
+                placeholder : 'Program Name'
             },
             desc : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
-                ref : 'pdesc',
-                label : 'Program Description'
+                //labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-12',
+                ref : 'pdesc'
+                //label : 'Program Description'
             }
         };
 
         const style = {
-            marginTop : '40px'
+            //marginTop : '40px'
         };
 
         return (
@@ -49,7 +49,10 @@ KUI.Program_edit = class extends RC.CSSMeteorData{
                         <form className="form-horizontal">
 
                             <RB.Input type="text" {... p.name} />
-                            <RB.Input type="textarea" {... p.desc} />
+                            <RB.Input {... p.desc} >
+                                <div ref="html"></div>
+
+                            </RB.Input>
 
                             <RC.Div style={{textAlign:'right'}}>
                                 <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
@@ -67,9 +70,6 @@ KUI.Program_edit = class extends RC.CSSMeteorData{
             return util.renderLoading();
         }
 
-        util.delay(()=>{
-            this.setDefaultValue();
-        }, 200);
 
         return (
             <RC.Div>
@@ -82,19 +82,19 @@ KUI.Program_edit = class extends RC.CSSMeteorData{
 
 
     setDefaultValue(){
-        let name = this.refs.pname,
-            desc = this.refs.pdesc;
+        let name = this.refs.pname;
+        let desc = this.data.data.description ? decodeURIComponent(this.data.data.description) : '';
 
         name.getInputDOMNode().value = this.data.data.name;
-        desc.getInputDOMNode().value = this.data.data.description || '';
+        $(this.refs.html).summernote('code', desc);
     }
 
     save(){
         let name = this.refs.pname,
-            desc = this.refs.pdesc;
+            desc = $(this.refs.html).summernote('code');
         let rs = KG.get('EF-Program').updateById({
             name : name.getValue(),
-            description : desc.getValue()
+            description : encodeURIComponent(desc)
         }, this.getProgramId());
 
         KG.result.handle(rs, {
@@ -103,5 +103,24 @@ KUI.Program_edit = class extends RC.CSSMeteorData{
                 util.goPath('/program');
             }
         });
+    }
+
+
+    runOnceAfterDataReady(){
+        $(this.refs.html).summernote({
+            height : 280,
+            resize : false,
+            placeholder : 'Program Description',
+            //disableDragAndDrop : false,
+            toolbar : [
+                ['style', ['bold', 'italic', 'underline', 'hr']],
+                ['font', ['strikethrough']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']]
+            ]
+        });
+        this.setDefaultValue();
     }
 };

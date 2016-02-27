@@ -1,10 +1,18 @@
-KUI.Family_add = class extends RC.CSS{
+KUI.Family_add = class extends RC.CSSMeteorData{
 
     constructor(p){
         super(p);
 
         this.state = {
             loading : false
+        };
+    }
+
+    getMeteorData(){
+        let x = Meteor.subscribe('EF-School');
+
+        return {
+            ready : x.ready()
         };
     }
 
@@ -51,11 +59,31 @@ KUI.Family_add = class extends RC.CSS{
 
     }
 
+    getRegisterConfirmEmailTemplate(data){
+        let school = KG.get('EF-School').getInfo();
+
+        let tpl = [
+            '<h3>Welcome ',data.name,'</h3>',
+            '<p>Thanks for creating an account. Your Login ID is your email and password is <b>',data.password,'</b></p>',
+            '<p>Now\'s a good time to login and change your password and also update your profile.</p>',
+            '<h4><a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+
+            '<br/><br/>',
+            '<b>',school.name,'</b>'
+        ].join('');
+
+        return tpl;
+    }
+
     sendEmailToCustomer(data, callback){
+        let school = KG.get('EF-School').getInfo();
+        let html = this.getRegisterConfirmEmailTemplate(data);
+        //console.log(html);
         KG.get('EF-Email').send({
+            from : school.email,
             to : data.email,
-            html : `<h3>Welcome ${data.name}</h3><p>Password : ${data.password}</p>`,
-            subject : 'Come from EdiminFroce'
+            html : html,
+            subject : 'Thanks for Creating an Account'
         }, function(flag, error){
 
             if(flag){

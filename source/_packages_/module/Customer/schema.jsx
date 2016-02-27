@@ -60,6 +60,19 @@ Schema.Customer = {
         optional : true
     }),
 
+    //for payment
+    schoolCredit : KG.schema.default({
+        type : Number,
+        optional : true,
+        defaultValue : 0
+    }),
+    //for payment
+    hasRegistrationFee : {
+        type : Boolean,
+        optional : true,
+        defaultValue : false
+    },
+
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };

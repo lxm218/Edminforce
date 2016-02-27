@@ -1,6 +1,8 @@
 // when meteor startup, create all collections
 Meteor.startup(function () {
 
+    EdminForce.Collections.Customer = new CustomerCollection('EF-Customer');
+
     // Initial ProgramCollection
     EdminForce.Collections.program = new ProgramCollection("EF-Program");
     EdminForce.Collections.class = new ClassCollection("EF-Class");

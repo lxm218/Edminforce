@@ -4,11 +4,12 @@ KUI.Setting_profile = class extends KUI.Page{
     getMeteorData(){
         let query = {_id:Meteor.userId()};
         let x = Meteor.subscribe('EF-AdminUser', query);
+        let y = Meteor.subscribe('EF-School');
 
         let one = KG.get('EF-AdminUser').getAll(query)[0];
 
         return {
-            ready : x.ready(),
+            ready : x.ready() && y.ready(),
             profile : one
         };
     }
@@ -41,7 +42,9 @@ KUI.Setting_profile = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
-        this.refs.form.setDefaultValue(this.data.profile);
+        let data = this.data.profile;
+        data.school = KG.get('EF-School').getInfo();
+        this.refs.form.setDefaultValue(data);
 
         if(this.data.profile.role === 'admin'){
             this.refs.form.showSchoolArea();

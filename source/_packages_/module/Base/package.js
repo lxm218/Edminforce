@@ -17,7 +17,7 @@ Package.onUse(function(api) {
         "aldeed:collection2@2.3.3",
         "matb33:collection-hooks@0.7.13",
 
-
+        "reywood:publish-composite",
 
         // Utilities
         // "standard-minifiers", // Add this after Meteor 1.2
