@@ -100,7 +100,9 @@ Cal.SelectDayGrid = class extends RC.CSS {
 
 		var currentDay= this.props.currentDay
 
-		return <RC.Div style={styles.area}>
+		return <RC.Div >
+				Select Days:
+			<RC.Div style={styles.area}>
 			{
 				days.map((item, i)=>{
 					let isSelected = currentDay == item.value
@@ -126,7 +128,7 @@ Cal.SelectDayGrid = class extends RC.CSS {
 
 				})
 			}
-
+			</RC.Div>
 		</RC.Div>
 	}
 }

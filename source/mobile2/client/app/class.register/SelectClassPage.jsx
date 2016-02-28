@@ -76,26 +76,26 @@
             });
 
         },
-        dayChange(e){
-            var value = e.target.value //this.refs.day.getValue()
-            value = parseInt(value, 10)
-
-            Dispatcher.dispatch({
-                actionType: "CRSelectClassPage_DAY_CHANGE",
-                day: value
-            });
-
-
-        },
-        timeChange(e){
-            var value = e.target.value //this.refs.time.getValue()
-            value = parseInt(value, 10)
-            Dispatcher.dispatch({
-                actionType: "CRSelectClassPage_TIME_CHANGE",
-                time: value
-            });
-
-        },
+        //dayChange(e){
+        //    var value = e.target.value //this.refs.day.getValue()
+        //    value = parseInt(value, 10)
+		//
+        //    Dispatcher.dispatch({
+        //        actionType: "CRSelectClassPage_DAY_CHANGE",
+        //        day: value
+        //    });
+		//
+		//
+        //},
+        //timeChange(e){
+        //    var value = e.target.value //this.refs.time.getValue()
+        //    value = parseInt(value, 10)
+        //    Dispatcher.dispatch({
+        //        actionType: "CRSelectClassPage_TIME_CHANGE",
+        //        time: value
+        //    });
+		//
+        //},
 
         formSubmit (e) {
             e.preventDefault()
@@ -274,9 +274,7 @@
                             Level: {this.data.currentLevel}
                         </RC.Item>
 
-                        <div>
-                            Select days:
-                        </div>
+
                         <Cal.SelectDayGrid
                             avaiableDays={this.data.avaiableDays}
                             currentDay={this.data.currentDay}

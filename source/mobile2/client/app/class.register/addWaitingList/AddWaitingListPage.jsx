@@ -187,23 +187,47 @@
                             Level: {this.data.currentLevel}
                         </RC.Item>
 
-                        <RC.Select2
-                            ref="day"
-                            options={this.data.avaiableDays}
-                            value={this.data.currentDay}
-                            name="day"
-                            changeHandler={this.dayChange}
-                            label="Day"
-                            />
 
-                        <RC.Select2
-                            ref="time"
-                            options={this.data.avaiableTimes}
-                            value={this.data.currentTime}
-                            name="time"
-                            changeHandler={this.timeChange}
-                            label="Time"
-                            />
+
+                        {
+
+                            //<RC.Select2
+                            //    ref="day"
+                            //    options={this.data.avaiableDays}
+                            //    value={this.data.currentDay}
+                            //    name="day"
+                            //    changeHandler={this.dayChange}
+                            //    label="Day"
+                            ///>
+							//
+							//
+							//
+                            //<RC.Select2
+                            //ref="time"
+                            //options={this.data.avaiableTimes}
+                            //value={this.data.currentTime}
+                            //name="time"
+                            //changeHandler={this.timeChange}
+                            //label="Time"
+                            ///>
+                        }
+
+
+                        <Cal.SelectDayGrid
+                            avaiableDays={this.data.avaiableDays}
+                            currentDay={this.data.currentDay}
+                            name="dayGrid"
+                            changeMessage="CRAddWaitingListPage_DAY_CHANGE"
+                        />
+
+
+                        <Cal.SelectTimeGrid
+                            avaiableTimes={this.data.avaiableTimes}
+                            currentTime={this.data.currentTime}
+                            changeMessage="CRAddWaitingListPage_TIME_CHANGE"
+                            name="timeGrid"
+
+                        />
 
                         {
                             this.data.currentStep == 3?

@@ -92,7 +92,7 @@ Cal.SelectTimeGrid = class extends RC.CSS {
 		var currentDay= this.props.currentTime
 
 		return <RC.Div >
-			Select times:
+			Select Times:
 
 			<RC.Div style={styles.area}>
 			{
