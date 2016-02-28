@@ -3,68 +3,113 @@
  */
 {
 
-    //'read'  'edit' mode
-    //let mode = new ReactiveVar('read')
+	//'read'  'edit' mode
+	//let mode = new ReactiveVar('read')
 
 
-    Cal.AccountSwimmerProfile = React.createClass({
+	Cal.AccountSwimmerProfile = React.createClass({
 
-        mixins: [ReactMeteorData],
-        getMeteorData() {
-
-
-            Meteor.subscribe('swimmer', this.props.swimmerId)
-            return {
-
-                swimmer: DB.Swimmers.findOne({
-                    _id: this.props.swimmerId
-                })
-            }
-        },
-
-        render() {
-
-            return <div>
-
-                {
-                    this.data.swimmer ?
-                        <RC.Form ref="myForm" onSubmit={this.formSubmit}>
+		mixins: [ReactMeteorData],
+		getMeteorData() {
 
 
-                            <RC.Input name="name" label="Name" value={this.data.swimmer.name}/>
+			Meteor.subscribe('swimmer', this.props.swimmerId)
+			return {
+
+				swimmer: DB.Swimmers.findOne({
+					_id: this.props.swimmerId
+				})
+			}
+		},
+
+		render() {
+
+			return <div>
+
+				{
+					this.data.swimmer ?
+						<RC.Form ref="myForm" onSubmit={this.formSubmit}>
 
 
-                            <RC.Select
-                                options={['male','female']}
-                                name="gender"
-                                label="Gender"
-                                value={this.data.swimmer.gender}
-                                />
+							<RC.Item className="item-text-wrap">
+								<Cal.Grid
+									flexWrap="nowrap"
+									justifyContent="space-between">
+									<Cal.GridItem>Name</Cal.GridItem>
 
-                            <RC.Input name="dob" label="DOB" value=""/>
+									<Cal.GridItem>
+										{this.data.swimmer.name}
+									</Cal.GridItem>
 
-
-                            <RC.Select
-                                options={['place1','place2']}
-                                name="location"
-                                label="Location"
-                                value={this.data.swimmer.location}
-                                />
-
-                            <RC.Select
-                                options={App.Config.classLevelsNUM}
-                                name="level"
-                                readOnly
-                                label="Level"
-                                value={this.data.swimmer.level}
-
-                                />
+								</Cal.Grid>
+							</RC.Item>
 
 
-                        </RC.Form>
-                        : <RC.Card title="No such swimmer"></RC.Card>
-                }
-            </div>
-        }
-    })
+								<RC.Select
+									style={{paddingLeft:'14px',color:'black'}}
+									theme="right"
+										   options={['male','female']}
+										   name="gender"
+										   label="Gender"
+										   value={this.data.swimmer.gender}
+								/>
+
+							<RC.Select
+								style={{paddingLeft:'14px',color:'black'}}
+
+								theme="right"
+									   options={['male','female']}
+									   name="gender"
+									   label="Gender"
+									   value={this.data.swimmer.gender}
+							/>
+
+							<RC.Input
+								style={{paddingLeft:'14px',color:'black'}}
+
+								name="dob" label="DOB" value=""/>
+
+
+
+
+							<RC.Select theme="right"
+									   style={{paddingLeft:'14px',color:'black'}}
+
+									   options={['place1','place2']}
+									   name="location"
+									   label="Location"
+									   value={this.data.swimmer.location}
+							/>
+
+							{
+								//<RC.Select
+								//    options={App.Config.classLevelsNUM}
+								//    name="level"
+								//    readOnly
+								//    label="Level"
+								//    value={this.data.swimmer.level}
+								//
+								///>
+							}
+
+							<RC.Item className="item-text-wrap">
+								<Cal.Grid
+									flexWrap="nowrap"
+									justifyContent="space-between">
+									<Cal.GridItem>Level</Cal.GridItem>
+
+									<Cal.GridItem>
+										{this.data.swimmer.level}
+									</Cal.GridItem>
+
+								</Cal.Grid>
+							</RC.Item>
+
+
+						</RC.Form>
+						: <RC.Card title="No such swimmer"></RC.Card>
+				}
+			</div>
+		}
+	})
 }

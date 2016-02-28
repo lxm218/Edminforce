@@ -30,7 +30,7 @@ KUI.Email_index = class extends KUI.Page{
         let y = Meteor.subscribe('EF-AdminUser');
 
         let cx = Customer.subscribeByClassQuery(this.state.filterQuery);
-        console.log(cx.ready(), cx.data);
+        //console.log(cx.ready(), cx.data);
 
         let sx = Meteor.subscribe('EF-Session');
 
@@ -67,9 +67,9 @@ KUI.Email_index = class extends KUI.Page{
                     <RC.URL style={sy.url} href="/email/template/add">Add Email Template</RC.URL>
                 </h3>
                 <hr/>
-                {/*this.renderFilterBox()*/}
+                {this.renderFilterBox()}
                 <hr/>
-                {/*this.renderFilterResult()*/}
+                {this.renderFilterResult()}
                 <hr/>
                 {this.renderFilterEmail()}
 
@@ -144,6 +144,19 @@ KUI.Email_index = class extends KUI.Page{
             {
                 title : 'Email',
                 key : 'email'
+            },
+            {
+                title : 'Select',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom(item){
+                    let sy = {
+                        textAlign : 'center',
+                        display : 'block'
+                    };
+                    return <label style={sy}><input type="checkbox" name="sml" data-email={item.email} /></label>
+                }
             }
         ];
 
@@ -247,21 +260,54 @@ KUI.Email_index = class extends KUI.Page{
     }
 
     sendEmail(){
-        let {AdminUser, Email} = this.defineDepModule();
-        let address = AdminUser.getAll({_id : Meteor.userId()})[0].email;
-        console.log(address);
+        let self = this;
+        let {AdminUser, Email, EmailTemplate} = this.defineDepModule();
 
-        Email.send({
-            to : address,
-            html : this.email_html.get(),
-            text : this.email_html.get(),
-            subject : 'Test Email'
-        }, (flag, error)=>{
-            if(flag){
-                util.toast.alert('Send Email Success');
-                this.hideModal();
+
+        let address = [];
+        let o = util.getReactJQueryObject(this.refs.table).find('input[name="sml"]');
+
+        o.each(function(){
+            let oo = $(this);
+            if(oo.prop('checked')){
+
+                let name = _.find(self.data.filterList, function(one){
+                    return one.email === oo.data('email');
+                }).name;
+
+                address.push({
+                    user : name,
+                    address : oo.data('email')
+                });
             }
         });
+        if(address.length < 1){
+            util.toast.showError('Please select email you want send');
+            return false;
+        }
+
+        _.each(address, (item)=>{
+            let html = EmailTemplate.getHtml(this.state.email_template_id, item);
+
+            Email.send({
+                to : item.address,
+                html : html,
+                subject : EmailTemplate.getDB().findOne({_id:this.state.email_template_id}).name
+            }, (flag, error)=>{
+                if(flag){
+
+                }
+            });
+        });
+
+
+        _.delay(()=>{
+            util.toast.alert('Send Email Success');
+            this.hideModal();
+        }, 500*address.length);
+
+
+
 
         this.setState({
             email_template_id : 'loading'

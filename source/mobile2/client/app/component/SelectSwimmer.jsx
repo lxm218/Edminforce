@@ -53,13 +53,13 @@ Cal.SelectSwimmer = React.createClass({
             </RC.Item>
 
             : <RC.Select theme="right"
-                ref="swimmer"
-                options={this.data.swimmers}
-                value={this.data.currentSwimmerValue}
-                name="swimmer"
-                changeHandler={this.swimmerChange}
-                label="Swimmer"
-            />
+                         ref="swimmer"
+                         options={this.data.swimmers}
+                         value={this.data.currentSwimmerValue}
+                         name="swimmer"
+                         onChange={this.swimmerChange}
+                         label="Swimmer"
+        />
 
 
     }

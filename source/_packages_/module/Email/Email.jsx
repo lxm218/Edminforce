@@ -8,7 +8,7 @@ KG.define('EF-Email', class extends Base{
         if(Meteor.isServer){
             this.config = {
                 apiKey: 'key-7c3f0e76ebeead059ae2869f33bf927e',
-                domain: 'sandbox93522514f03b4e25b63d3766fca0532f.mailgun.org'
+                domain: 'classforth.com'
             };
 
             this.mailgun = new Mailgun(this.config);

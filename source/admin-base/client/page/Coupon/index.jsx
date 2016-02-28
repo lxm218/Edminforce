@@ -58,7 +58,7 @@ KUI.Coupon_index = class extends KUI.Page{
                         top : '2px'
                     };
                     const ml = {
-                        //marginLeft : '10px',
+                        marginLeft : '10px',
                         cursor : 'pointer'
                     };
 
@@ -75,6 +75,7 @@ KUI.Coupon_index = class extends KUI.Page{
 
                     return (
                         <RC.Div style={{textAlign:'center'}}>
+                            <RC.URL href={`/program/coupon/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
                             <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
                         </RC.Div>
 

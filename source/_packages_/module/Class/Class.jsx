@@ -18,6 +18,12 @@ let Class = class extends Base{
 
     }
 
+    defineDepModule(){
+        return {
+            ClassStudent : KG.get('EF-ClassStudent')
+        };
+    }
+
     defineSchemaValidateMessage(){
         return Validate.Class;
     }
@@ -116,6 +122,7 @@ let Class = class extends Base{
         return rs;
 
     }
+
 
 
     //TODO change to publish meteor data method like ClassStudent
@@ -270,9 +277,40 @@ let Class = class extends Base{
                     ready : x.ready,
                     data : data
                 };
+            },
+            checkCanBeRegister(classID){
+                let m = this.defineDepModule();
+                let rs = m.ClassStudent.subscribeFullDataByClassID(classID);
+                if(!rs.ready()){
+                    return {
+                        ready : false
+                    };
+                }
+
+                let result = true;
+                let max = this._db.findOne({
+                    _id : classID
+                }).maxStudent;
+                let nn = m.ClassStudent.getDB().find({
+                    classID : classID,
+                    status : 'register'
+                }).count();
+
+                if((nn+1) > max){
+                    result = false;
+                }
+
+
+                return {
+                    ready : true,
+                    flag : result
+                };
             }
         };
     }
+
+
+
 };
 
 KG.define('EF-Class', Class);

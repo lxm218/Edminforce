@@ -33,16 +33,26 @@ deploy(){
 
 runLocal(){
   stopMongoDB
-#startMongoDB
-# export MONGO_URL=mongodb://localhost:27017/EdminForce
-  cd src
-  meteor run --port $PORT
+startMongoDB
+ export MONGO_URL=mongodb://localhost:27017/EdminForce
+#export MONGO_URL=mongodb://localhost:27017/EdminForce
+cd src
+meteor run --port $PORT
+}
+
+runForJackyTest(){
+    export MONGO_URL=mongodb://localhost:27017/EdminForce
+    cd src
+    meteor run --port 7000
 }
 
 
 case "$1" in
     deploy)
         deploy
+        ;;
+    jacky)
+        runForJackyTest
         ;;
     *)
         runLocal

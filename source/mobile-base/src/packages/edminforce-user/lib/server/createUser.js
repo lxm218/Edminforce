@@ -18,10 +18,10 @@ Accounts.onCreateUser(function(options, user) {
 
 setupUser = function(user, options) {
   var userObj;
-  var roles = options.profile ? (options.profile.roles ?  options.profile.roles: "patient") : null
+  var roles = options.role;
   userObj = {
     profile: options.profile || (options.profile = {}),
-    roles: roles
+    role: roles
   };
   _.extend(user, userObj);
   return user;

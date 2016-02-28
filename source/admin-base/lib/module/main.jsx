@@ -1,4 +1,4 @@
-
+KG.create('EF-School');
 
 KG.Account = KG.create('Account');
 

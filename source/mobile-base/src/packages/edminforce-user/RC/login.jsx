@@ -10,7 +10,7 @@ function checkPassword(str){
   return true;
 }
 EdminForce.Components.User = React.createClass({
-  mixins: [RC.Mixins.CSS],
+  mixins: [RC.Mixins.CSS, ReactMeteorData],
   displayName: "Cal.User",
 
   propTypes: {
@@ -36,6 +36,15 @@ EdminForce.Components.User = React.createClass({
       notification: null
     }
   },
+
+    getMeteorData(){
+        let x = Meteor.subscribe('EF-UserData');
+        //console.log(x.ready(), Meteor.user());
+
+        return {
+            userReady : x.ready()
+        };
+    },
 
   messageInfo(){
     return {
@@ -146,8 +155,8 @@ EdminForce.Components.User = React.createClass({
       // Attempt Log In
       let self = this
       this.setState({ waiting: true })
-      Meteor.loginWithPassword( form.username, form.password, function(err){
-
+      console.log(form)
+      Meteor.loginWithPassword(form.username, form.password, function(err){
         if (!err){
           if (form.keepName == '1') {
             Cookie.set('username', form.username)
@@ -155,6 +164,20 @@ EdminForce.Components.User = React.createClass({
             Cookie.remove('username')
           }
           self.resetForm()
+
+
+            //check role
+            if(Meteor.user().role !== 'user'){
+                Meteor.logout(function(){
+                    self.setState({
+                        msg: 'User not found',
+                        buttonActive: false,
+                        waiting: false
+                    })
+                });
+
+                return;
+            }
         }
 
         let passedMsg = err && err.error
@@ -209,13 +232,23 @@ EdminForce.Components.User = React.createClass({
       // Create User
       Accounts.createUser({
         email: form.email,
-        password: form.pw
+        password: form.pw,
+          role : 'user'
       }, function(err) {
         if (!err){
-          Meteor.call('SetOptIn', Meteor.userId(), form.OptIn == "on" ? true : false, function(error, res){
-            console.log(error)
-            err = error;
-          })
+            // add data to Customer DB
+            let xs = EdminForce.Collections.Customer.insert({
+                name : form.email,
+                email : form.email,
+                _id : Meteor.user()._id
+            });
+            console.log(xs);
+
+
+          //Meteor.call('SetOptIn', Meteor.userId(), form.OptIn == "on" ? true : false, function(error, res){
+          //  console.log(error)
+          //  err = error;
+          //})
           self.resetForm()
         }
 

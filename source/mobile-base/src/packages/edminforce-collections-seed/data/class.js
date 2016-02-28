@@ -288,7 +288,7 @@ Meteor.startup(function () {
     }
 
     if (collection.find({}).count() === 0) {
-        resetData()
+        //resetData()
     }
 
 });

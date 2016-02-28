@@ -4,10 +4,12 @@ KUI.Registration_payment = class extends KUI.Page{
         super(p);
 
         this.state = {
-            step : 'step1'
+            step : 'step1',
+
+            schoolCredit : false
         };
 
-        this.total = new ReactiveVar(null);
+        this.total = new ReactiveVar(0);
     }
 
     getMeteorData(){
@@ -39,13 +41,24 @@ KUI.Registration_payment = class extends KUI.Page{
             }
         });
 
+        let student = {};
+        let s4 = null;
+        if(s3.ready()){
+            student = KG.get('EF-Student').getDB().findOne();
+            s4 = Meteor.subscribe('EF-Customer', {
+                query : {
+                    _id : student.accountID
+                }
+            });
+        }
+
 
         return {
             id : id,
             data : one,
             'class' : KG.get('EF-Class').getAll()[0],
-            student : KG.get('EF-Student').getDB().findOne(),
-            ready : s2.ready() && s3.ready()
+            student : student,
+            ready : s2.ready() && s3.ready() && s4.ready()
         };
     }
 //http://localhost:8000/registration/payment/cWckGjpfLAwpsiL6t
@@ -57,34 +70,67 @@ KUI.Registration_payment = class extends KUI.Page{
         };
     }
 
+    getDepModule(){
+        return {
+            Customer : KG.get('EF-Customer')
+        };
+    }
+
     render(){
         if(!this.data.ready || !this.data.class){
             return util.renderLoading();
         }
 
+        let m = this.getDepModule();
+
+        let customer = m.Customer.getAll()[0],
+            registrationFee = customer.hasRegistrationFee ? customer.hasRegistrationFee*m.Customer.getRegistrationFee():10;
         let student = this.data.student,
             cls = this.data.class,
             one = this.data.data;
+
+        let C = {
+            credit : customer.schoolCredit || 0,
+            classFee : cls.tuition.type==='class'?cls.tuition.money*cls.numberOfClass : cls.tuition.money,
+            registrationFee : registrationFee
+        };
+
+        let total = C.classFee;
+
+
         let list = [
             {
                 item : cls.nickName,
-                amount : cls.tuition.type==='class'?cls.tuition.money*cls.numberOfClass : cls.tuition.money
-            },
-            {
-                item : 'Credit',
-                amount : '-$20'
-            },
-            {
-                item : 'New student discount',
-                amount : '$10'
-            },
-            {
-                item : 'Total',
-                amount : '1000'
+                amount : '$'+C.classFee
             }
         ];
 
-        this.total.set(100);
+        //school credit
+        if(this.state.schoolCredit){
+            list.push({
+                item : 'Credit',
+                amount : C.credit>0?('-$'+C.credit):0
+            });
+
+            total = total - C.credit;
+        }
+
+        if(C.registrationFee > 0){
+            list.push({
+                item : 'Registration Fee',
+                amount : '$'+C.registrationFee
+            });
+
+            total = total + C.registrationFee;
+        }
+
+
+        this.total.set(total);
+        list.push({
+            item : 'Total',
+            amount : '$'+total
+        });
+
 
         return (
             <RC.Div>
@@ -131,14 +177,20 @@ KUI.Registration_payment = class extends KUI.Page{
         let sy = this.css.get('styles');
         return (
             <RC.Div style={dsp}>
-                <RB.Input onChange={function(){}} ref="s11" type="checkbox" label="Apply Club Credit" />
-                <RB.Input onChange={function(){}} ref="s12" type="checkbox" label="New Customer Coupon" />
+                <RB.Input onChange={this.checkSchoolCredit.bind(this)} ref="s11" type="checkbox" label="Apply school credit" />
+                {/*<RB.Input onChange={function(){}} ref="s12" type="checkbox" label="New Customer Coupon" />*/}
                 <RC.Div style={{textAlign:'right'}}>
                     {/*<KUI.NoButton onClick={} label="Cancel"></KUI.NoButton>*/}
                     <KUI.YesButton onClick={this.toStep2.bind(this)} style={sy.ml} label="Next"></KUI.YesButton>
                 </RC.Div>
             </RC.Div>
         );
+    }
+    checkSchoolCredit(e){
+        let b = $(e.target).prop('checked');
+        this.setState({
+            schoolCredit:b
+        });
     }
 
 

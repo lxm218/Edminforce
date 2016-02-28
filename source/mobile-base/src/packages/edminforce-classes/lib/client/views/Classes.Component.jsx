@@ -175,6 +175,9 @@
             // Get class register information
             let registeredStudents = EdminForce.Collections.classStudent.find({
                 classID: classInfo['_id'],
+                type: {
+                    $in:['register']
+                },
                 status: {
                     $in: ['pending', 'checkouting', 'checkouted']
                 }
@@ -195,6 +198,9 @@
             let existedClass = EdminForce.Collections.classStudent.find({
                 classID: classInfo["_id"],
                 studentID: student["_id"],
+                type: {
+                    $in:['register']
+                },
                 status: {
                     $in: ['pending', 'checkouting', 'checkouted']
                 }

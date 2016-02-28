@@ -29,7 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
-        'lib/client/views/ProgramsClassesSummary.Component.jsx',
+        'lib/client/views/ProgramsClassesSummary.component.jsx',
         'lib/router/programs-classes-summary.router.jsx'
     ], ["client"]);
 

@@ -79,10 +79,11 @@ KG.schema = {
 
 KG.result = {
     out : function(flag, data, text){
+
         return {
             status : flag,
             data : data,
-            statusText : text || ''
+            statusText : data.reason || text || ''
         };
     },
     handle : function(rs, opts){

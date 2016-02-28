@@ -1,10 +1,23 @@
 Meteor.methods({
-    SetPhone: function (userId, phone) {
+    UpdateUsername: function (userId, username) {
+        console.log(userId, username);
         Meteor.users.update(userId, {
             $set: {
-                profile: {
-                    phone: phone
-                }
+                username: username
+            }
+        });
+    },
+    SetPhone: function (userId, phone) {
+        //Meteor.users.update(userId, {
+        //    $set: {
+        //        profile: {
+        //            phone: phone
+        //        }
+        //    }
+        //});
+        EdminForce.Collections.Customer.update(userId, {
+            $set : {
+                phone : phone
             }
         });
     },
@@ -23,5 +36,16 @@ Meteor.methods({
                 emergencyContact: eContact
             }
         });
+    },
+
+    GetCouponInfoByID: function(id){
+        let coupon = EdminForce.Collections.coupon.find({
+            _id: id
+        }).fetch();
+        console.log(coupon);
+        return coupon;
+    },
+    UseCoupon: function(){
+
     }
 });

@@ -26,118 +26,195 @@ Cal.AccountManagement = React.createClass({
 
             <RC.List>
                 <RC.Item className="item-text-wrap">
-                    <div className="row">
-                        <div className="col">
-                            User Name
-                        </div>
-                        <div className="col">
+
+                    <Cal.Grid
+                        flexWrap="nowrap"
+                        justifyContent="space-between"
+                    >
+                        <Cal.GridItem
+                            flexGrow="0"
+                            flexShrink="0"
+                            flexBasis="25%"
+                            maxWidth="25%"
+                        >User Name</Cal.GridItem>
+                        <Cal.GridItem
+
+                        >
                             {this.data.currentUser.username
                                 ? this.data.currentUser.username : 'User Name Not Set'}
-                        </div>
-                        <div className="col">
+                        </Cal.GridItem>
 
+                        <Cal.GridItem
+
+                        >
                             <a className="button button-block" href="/account/resetUserName">
                                 Change
                             </a>
-                        </div>
-                    </div>
+                        </Cal.GridItem>
+
+                    </Cal.Grid>
+
+
                 </RC.Item>
 
                 <RC.Item className="item-text-wrap">
-                    <div className="row">
-                        <div className="col">
-                            Email
-                        </div>
+                    <Cal.Grid
+                        flexWrap="nowrap"
+                        justifyContent="space-between"
+                    >
+                        <Cal.GridItem
+                            flexGrow="0"
+                            flexShrink="0"
+                            flexBasis="25%"
+                            maxWidth="25%"
+                        >Email</Cal.GridItem>
 
-                        <div className="col">
+                        <Cal.GridItem
+
+                        >
                             {this.data.currentUser ?
                                 this.data.currentUser.emails[0].address : ''}
-                        </div>
-                    </div>
+                        </Cal.GridItem>
+
+                        <Cal.GridItem></Cal.GridItem>
+
+                    </Cal.Grid>
+
                 </RC.Item>
 
                 <RC.Item className="item-text-wrap">
-                    <div className="row">
-                        <div className="col">
-                            Password
-                        </div>
-                        <div className="col">
-                        </div>
-                        <div className="col">
+
+                    <Cal.Grid
+                        flexWrap="nowrap"
+                        justifyContent="space-between"
+                    >
+                        <Cal.GridItem
+                            flexGrow="0"
+                            flexShrink="0"
+                            flexBasis="25%"
+                            maxWidth="25%"
+                        >Password</Cal.GridItem>
+
+                        <Cal.GridItem>
+
+                        </Cal.GridItem>
+                        <Cal.GridItem>
                             <a className="button button-block" href="/account/resetPassword">
                                 Change
                             </a>
-                        </div>
-                    </div>
+                        </Cal.GridItem>
+
+                    </Cal.Grid>
+
                 </RC.Item>
 
                 <RC.Item className="item-text-wrap">
-                    <div className="row">
-                        <div className="col">
-                            Emergency Contact
-                        </div>
-                        <div className="col">
+
+                    <Cal.Grid
+                        flexWrap="nowrap"
+                        justifyContent="space-between"
+                    >
+                        <Cal.GridItem
+                            flexGrow="0"
+                            flexShrink="0"
+                            flexBasis="25%"
+                            maxWidth="25%"
+                        >Emergency Contact</Cal.GridItem>
+
+                        <Cal.GridItem>
                             {this.data.currentUser.emergencyContact
                                 ? this.data.currentUser.emergencyContact.name : 'Emergency Contact Not Set'}
-                        </div>
-
-                        <div className="col">
+                        </Cal.GridItem>
+                        <Cal.GridItem>
                             <a className="button button-block" href="/account/emergencyContact">
                                 Update
                             </a>
-                        </div>
+                        </Cal.GridItem>
 
-                    </div>
+                    </Cal.Grid>
+
                 </RC.Item>
 
                 <RC.Item className="item-text-wrap">
-                    <div className="row">
-                        <div className="col">
-                            Alternate Contact
-                        </div>
-                        <div className="col">
+                    <Cal.Grid
+                        flexWrap="nowrap"
+                        justifyContent="space-between"
+                    >
+                        <Cal.GridItem
+                            flexGrow="0"
+                            flexShrink="0"
+                            flexBasis="25%"
+                            maxWidth="25%"
+                        >Alternate Contact</Cal.GridItem>
+
+                        <Cal.GridItem>
                             {this.data.currentUser.alterContact
                                 ? this.data.currentUser.alterContact.name : 'Alternate Contact Not Set'}
-                        </div>
-
-                        <div className="col">
-                            <a className="button button-block" href="/account/alternateContact">
+                        </Cal.GridItem>
+                        <Cal.GridItem>
+                            <a className="button button-block" href="/account/emergencyContact">
                                 Update
                             </a>
-                        </div>
-                    </div>
+                        </Cal.GridItem>
+
+                    </Cal.Grid>
+
+
                 </RC.Item>
 
                 <RC.Item className="item-text-wrap">
-
-                    <div className="row">
-                        <div className="col">
+                    <Cal.Grid
+                        flexWrap="nowrap"
+                        justifyContent="space-between"
+                        alignContent="flex-start"
+                        alignItems="center"
+                    >
+                        <Cal.GridItem
+                            flexGrow="0"
+                            flexShrink="0"
+                            flexBasis="25%"
+                            maxWidth="25%"
+                        >
                             Swimmers
-                        </div>
-                        <div className="col">
+                        </Cal.GridItem>
+
+
+                        <Cal.GridItem
+                            flexGrow="0"
+                            flexShrink="0"
+                            flexBasis="50%"
+                            maxWidth="50%"
+                        >
                             <p>
                                 {
                                     this.data.swimmers.map(function (swimmer) {
 
                                         let href = '/account/SwimmerProfile/' + swimmer._id;
 
-                                        return <a key={swimmer._id}
-                                                  className="button button-block button-small"
-                                                  href={href}>
-                                            {swimmer.name}
-                                        </a>
+                                        return <RC.URL href={href}>
+                                            <RC.Button key={swimmer._id}
+                                                       >
+                                                {swimmer.name}
+                                            </RC.Button>
+                                            </RC.URL>
+
 
                                     })
 
                                 }
                             </p>
+
+
+                        </Cal.GridItem>
+                        <Cal.GridItem>
                             <p>
                                 <a className="button button-block"
                                    href="/account/AddSwimmer">Add</a>
                             </p>
+                        </Cal.GridItem>
 
-                        </div>
-                    </div>
+
+                    </Cal.Grid>
 
                 </RC.Item>
 

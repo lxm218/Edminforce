@@ -35,14 +35,14 @@ Dependency.add('Cal.Main.Store',new function(){
         if(sessionNow == sessionRegister){
             Session.set('selectableSessions',[appInfo.sessionNowInfo])
 
-            Session.set('selectedSessionInfo',appInfo.sessionNowInfo)
-            Session.set('selectedSession',appInfo.sessionNow)
+            //Session.set('selectedSessionInfo',appInfo.sessionNowInfo)
+            //Session.set('selectedSession',appInfo.sessionNow)
 
         }else{
             Session.set('selectableSessions',[appInfo.sessionRegisterInfo,appInfo.sessionNowInfo])
 
-            Session.set('selectedSessionInfo',appInfo.sessionRegisterInfo)
-            Session.set('selectedSession',appInfo.sessionRegister)
+            //Session.set('selectedSessionInfo',appInfo.sessionRegisterInfo)
+            //Session.set('selectedSession',appInfo.sessionRegister)
 
 
         }

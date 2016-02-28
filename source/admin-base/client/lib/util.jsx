@@ -24,6 +24,12 @@ _.extend(util, {
             <div className="sk-bounce2"></div>
             <div className="sk-bounce3"></div>
         </div>;
+    },
+    getReactDomNode : function(reactObj){
+        return ReactDOM.findDOMNode(reactObj);
+    },
+    getReactJQueryObject : function(reactObj){
+        return $(util.getReactDomNode(reactObj));
     }
 });
 

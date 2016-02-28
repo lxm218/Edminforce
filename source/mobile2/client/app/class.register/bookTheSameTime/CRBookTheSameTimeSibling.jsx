@@ -77,13 +77,13 @@
                         Level: {this.props.currentLevel}
                     </RC.Item>
 
-                    <Cal.SelectDay
+                    <Cal.SelectDayGrid
                         avaiableDays={this.props.avaiableDays}
                         currentDay={this.props.currentDay}
                         changeMessage="BookTheSameTime_DAY_CHANGE"
 
                         />
-                    <Cal.SelectTime
+                    <Cal.SelectTimeGrid
                         avaiableTimes={this.props.avaiableTimes}
                         currentTime={this.props.currentTime}
                         changeMessage="BookTheSameTime_TIME_CHANGE"

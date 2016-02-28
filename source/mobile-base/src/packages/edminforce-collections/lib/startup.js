@@ -1,6 +1,8 @@
 // when meteor startup, create all collections
 Meteor.startup(function () {
 
+    EdminForce.Collections.Customer = new CustomerCollection('EF-Customer');
+
     // Initial ProgramCollection
     EdminForce.Collections.program = new ProgramCollection("EF-Program");
     EdminForce.Collections.class = new ClassCollection("EF-Class");
@@ -10,6 +12,9 @@ Meteor.startup(function () {
     EdminForce.Collections.student = new StudentCollection("EF-Student");
 
     EdminForce.Collections.orders = new OrdersCollection("EF-Orders");
+
+    EdminForce.Collections.coupon = new CouponCollection("EF-Coupon");
+    EdminForce.Collections.customerCoupon = new CustomerCouponCollection("EF-CustomerCoupon");
 
 
     // Add user schema to Meteor.user

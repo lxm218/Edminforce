@@ -6,7 +6,9 @@ Schema.Coupon = {
     _id : KG.schema.default({}),
     discount : KG.schema.default(),
     maxCount : KG.schema.default({
-        type : Number
+        type : Number,
+        defaultValue : 0,
+        optional : true
     }),
     description : KG.schema.default({
         optional : true

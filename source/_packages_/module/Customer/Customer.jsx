@@ -16,12 +16,14 @@ KG.define('EF-Customer', class extends Base{
             {
                 name : 'Jacky Lee',
                 email : 'liyangwood@gmail.com',
-                phone : '1122334455'
+                phone : '1122334455',
+                location : 'AAAA'
             },
             {
                 name : 'Ying Zhang',
                 email : 'xxx@xxx.xxx',
-                phone : '5108897763'
+                phone : '5108897763',
+                location : 'BBBB'
             }
         ];
 
@@ -214,5 +216,9 @@ KG.define('EF-Customer', class extends Base{
                 };
             }
         };
+    }
+
+    getRegistrationFee(){
+        return 25;
     }
 });

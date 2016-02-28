@@ -19,7 +19,7 @@ Package.onUse(function(api) {
     ], 'client');
 
     api.addFiles([
-        'lib/both/schemaUtil.js',
+        'lib/both/SchemaUtil.js',
         'lib/both/utils.jsx'
     ], ["client", "server"]);
 });

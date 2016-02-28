@@ -11,6 +11,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
     }
 
     getMeteorData() {
+
         let classID = FlowRouter.getParam("classID");
         let timestamp = FlowRouter.getParam("timestamp");
 
@@ -123,14 +124,29 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
     }
 
     addStudent() {
+        console.log(FlowRouter.getParam("programID"));
+        console.log(FlowRouter.getParam("classID"));
+        console.log(FlowRouter.getParam("timestamp"));
+        Session.set("BookTrialTimestamp", FlowRouter.getParam("timestamp"));
+        Session.set("BookTrialClassId", FlowRouter.getParam("classID"));
+        Session.set("BookTrialProgramId", FlowRouter.getParam("programID"));
         FlowRouter.go('/account/addstudent');
-        Session.set("BookTrialClassId", "class_11");
-        Session.set("BookTrialProgramId", "111");
     }
 
     render() {
         let timestamp = FlowRouter.getParam("timestamp") * 1;
         let self = this;
+
+        let studentItems = this.data.students.map( (item, index) =>
+            <RC.Checkbox key={item._id} label={item.name} style={index === this.data.students.length-1 ? {borderBottom:'none'}:null} onClick={self.selectStudent.bind(self, item)}/> );
+        if (this.data.students.length === 0) {
+            studentItems.push(
+                <RC.Button bgColor="brand2" key='_add_button_' theme="inline" onClick={this.addStudent}>
+                    <$translate label="addStudent"/>
+                </RC.Button>
+            );
+        }
+
         // Fill with your UI
         return (
             <RC.Div style={{padding:"10px"}}>
@@ -142,21 +158,10 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                     </RC.VerticalAlign>
                     <RC.List>
                         <RC.Item title={TAPi18n.__("student")}>
-                            {
-                                this.data.students.map(function (item) {
-                                    return (
-                                        <RC.Checkbox key={item._id} label={item.name}
-                                                     onClick={self.selectStudent.bind(self, item)}/>
-                                    )
-                                })
-                            }
-
-                            <RC.Button bgColor="brand2" theme="inline" onClick={this.addStudent}>
-                                <$translate label="addStudent"/>
-                            </RC.Button>
+                            {studentItems}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("className")}>
-                            {this.data.classInfo.name}
+                            {this.data.classInfo.programID}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("date")}>
                             {moment(new Date(timestamp)).format("dddd, MMMM Do YYYY, h:mm a")}

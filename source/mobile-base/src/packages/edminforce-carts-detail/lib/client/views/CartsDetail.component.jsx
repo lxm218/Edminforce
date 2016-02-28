@@ -81,7 +81,7 @@
 
             // Fill with your UI
             return (
-                <RC.Div style={style}>
+                <RC.Div style={style} className="carts-detail">
                     <RC.VerticalAlign center={true} className="padding" height="300px">
                         <h2>
                             Registration for Winter 2016
@@ -93,7 +93,7 @@
                         <p>You booked this class for {this.data.studentData && this.data.studentData.name}</p>
 
                         <Table selectable={false}>
-                            <TableHeader displaySelectAll={false} enableSelectAll={false}>
+                            <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
                                 <TableRow>
                                     <TableHeaderColumn>Student</TableHeaderColumn>
                                     <TableHeaderColumn>Class</TableHeaderColumn>
