@@ -156,13 +156,7 @@ EdminForce.Components.User = React.createClass({
       let self = this
       this.setState({ waiting: true })
       console.log(form)
-      Meteor.loginWithPassword({
-        username : form.username
-      } , form.password, function(err){
-
-
-
-
+      Meteor.loginWithPassword(form.username, form.password, function(err){
         if (!err){
           if (form.keepName == '1') {
             Cookie.set('username', form.username)
