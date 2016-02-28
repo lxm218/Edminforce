@@ -41,6 +41,10 @@ OrdersCollection = class OrdersCollection extends BaseCollection {
                 type: String,
                 optional: true
             },
+            customerCouponID: {
+                type: String,
+                optional: true
+            },
             schoolCredit:{
                 type: Number,
                 optional: true

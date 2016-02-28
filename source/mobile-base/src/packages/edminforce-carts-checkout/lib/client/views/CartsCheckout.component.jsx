@@ -192,12 +192,16 @@
                     // step 4, make sure user use it less or equal to Maximum usage per account
                     //===========================
                     // Get this coupon used information
+                    // currently, except 'expired', other we assume this coupon is used. So this means if a coupon is 'checkouting', we also think it is used. After pay successful, then it will change to 'checkouted', otherwise it will expired
                     let usedCoupons = EdminForce.Collections.customerCoupon.find({
                         customerID: Meteor.userId(),
-                        couponID: coupon["_id"]
+                        couponID: coupon["_id"],
+                        status:{
+                            $nin:['expired']
+                        }
                     }).fetch();
                     // This coupon used more than Maximum usage
-                    if (Number(coupon.maxCount) && usedCoupons.length > Number(coupon.usedCoupons)) {
+                    if (Number(coupon.maxCount) && usedCoupons.length >= Number(coupon.maxCount)) {
                         bValidCoupon = false;
                         alert("This coupon can only be used " + coupon.maxCount + " times");
                         return;
@@ -271,6 +275,25 @@
 
         }
 
+        insertOrder(order){
+            EdminForce.Collections.orders.insert(order, function (err, res) {
+                if (err) {
+                    console.error("Insert order error, error: ", err);
+                    alert("Process fail!");
+                    return
+                } else {
+
+                    let orderID = res;
+                    if (!orderID) {
+                        alert("Process fail!");
+                        return;
+                    }
+
+                    FlowRouter.go("/payment?order=" + orderID);
+                }
+            });
+        }
+
         //TODO School Credit
 
         process() {
@@ -296,67 +319,30 @@
                 amount: this.total
             };
 
-            EdminForce.Collections.orders.insert(order, function (err, res) {
-                if (err) {
-                    console.error("Insert order error, error: ", err);
-                    alert("Process fail!");
-                    return
-                } else {
+            if(this.coupon){
+                order.couponID = this.coupon["_id"];
 
-                    let orderID = res;
-                    if (!orderID) {
-                        alert("Process fail!");
-                        return;
+                // if this order used coupon need to insert a record to customerCoupon collection
+                let customerCoupon = {
+                    customerID: Meteor.userId(),
+                    couponID: this.coupon['_id'],
+                    status: "checkouting",
+                    isValid: true
+                };
+
+                EdminForce.Collections.customerCoupon.insert(customerCoupon, function(err, id){
+                    if(err){
+                        alert("Something wrong on server side, please try it again");
+                    }else{
+                        console.log(id);
+                        order.customerCouponID = id;
+                        this.insertOrder(order);
                     }
+                }.bind(this));
 
-                    console.log("orderID = ", orderID);
-
-                    FlowRouter.go("/payment?order=" + orderID);
-
-                    //let now = new Date();
-                    //
-                    //let classes = EdminForce.Collections.classStudent.find({
-                    //    status: "pending",
-                    //    "_id":{
-                    //        $in: classStudentsID
-                    //    }
-                    //}).fetch()
-                    //
-                    //console.log(classes);
-
-                    // update classStudent
-                    //EdminForce.Collections.classStudent.update({
-                    //    status: "pending",
-                    //    "_id":{
-                    //        $in: classStudentsID
-                    //    }
-                    //}, {
-                    //    $set:{
-                    //        status: "checkouting",
-                    //        updateTime:now
-                    //    }
-                    //}, function(err, res){
-                    //    // if update error, remove insert order
-                    //    if(err){
-                    //        EdminForce.Collections.orders.remove({
-                    //            "_id": orderID
-                    //        }, function(err, res){
-                    //            // if still error,
-                    //            if(err){
-                    //                alert("Process fail!");
-                    //                return;
-                    //            }
-                    //            alert("Process fail!");
-                    //        })
-                    //    }else{
-                    //        // everything is correct, jump to payment page
-                    //
-                    //        FlowRouter.go("/payment?order="+orderID);
-                    //    }
-                    //});
-                }
-            });
-
+            }else{
+                this.insertOrder(order);
+            }
         }
 
         calculatePrice() {
