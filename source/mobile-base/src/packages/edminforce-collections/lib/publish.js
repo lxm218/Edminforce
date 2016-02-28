@@ -1,6 +1,6 @@
 Meteor.startup(function () {
     // Get all program list
-    Meteor.publish("EF-Program", ()=> {
+    Meteor.publish("EF-Program", function () {
         return EdminForce.Collections.program.find({});
     });
 

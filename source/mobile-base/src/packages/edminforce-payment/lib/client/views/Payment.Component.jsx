@@ -1,18 +1,20 @@
 {
 
     // Don't forget to change `SomeName` to correct name
-  EdminForce.Components.Payment = class extends RC.CSSMeteorData {
+  EdminForce.Components.Payment = React.createClass ({
+
+    mixins: [RC.Mixins.Theme],
+    mixins: [ReactMeteorData],
         
     getMeteorData() {
-            let handler = null;
-            Tracker.autorun(function () {
-                handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
-            }.bind(this));
-
+            let handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
+            let list = EdminForce.Collections.orders.find().fetch();
+            let ready = handler.ready()
             return {
-                isReady:handler.ready()
+                isReady:ready,
+                list: list
             }
-    }
+    },
 
     getInitialState() {
       return {
@@ -22,9 +24,9 @@
         notification: null,
         orderId:null,
       }
-    }
+    },
 
-   postPayment(e){
+  postPayment(e){
 
     // To do: get the charging amount from database
     // To do: change the referece id
@@ -133,10 +135,9 @@
 
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
-    o=EdminForce.Collections.orders.find({"_id":orderID}).fetch()
-    paymentInfo.createTransactionRequest.transactionRequest.amount = o.amount.toString()
-    console.log(paymentInfo.createTransactionRequest.refId)
-
+    let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
+    paymentInfo.createTransactionRequest.transactionRequest.amount = String(o[0].amount)
+    console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
       if(!!error){
@@ -149,17 +150,15 @@
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
         // console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
-        Meteor.call('sendEmail',
-                Meteor.user().emails[0].address,
-                'Confirmation',
-                'Thank you for your order.');
-
-
+        // Meteor.call('sendEmail',
+        //         Meteor.user().emails[0].address,
+        //         'Confirmation',
+        //         'Thank you for your order.');
         EdminForce.Collections.orders.update({
-            "_id":this.state.orderId
+            "_id":self.state.orderId
           }, {
             $set:{
-              "_id": this.state.orderId,
+              "_id": self.state.orderId,
               status:"checkouted"
             }
           }, function(err, res){
@@ -168,7 +167,7 @@
                }else{
                    console.log("[Info] Pay successful");
                    let params = {
-                       orderId: this.state.orderId
+                       orderId: self.state.orderId
                    };
                    let path = FlowRouter.path("/orders/summary/:orderId", params);
                    FlowRouter.go(path);
@@ -181,33 +180,33 @@
       }
     })
 
-   }
+   },
 
-  getCustomerInfo(e){
-    e.preventDefault()
-    var customerInfoRequest = {
-        "getCustomerProfileRequest": {
-            "merchantAuthentication": {
-                "name": "42ZZf53Hst",
-                "transactionKey": "3TH6yb6KN43vf76j"
-            },
-            "customerProfileId": "39532821"
-        }
-    }
-    var URL = 'https://apitest.authorize.net/xml/v1/request.api'
-    HTTP.call('POST',URL, {data: customerInfoRequest}, function(error, response){
-      debugger
-      if(!!error){
-        console.log(error)
-      }
-      if(!!response){
-        debugger
-        console.log(response)
-        payUsingProfile(response.data.profile.paymentProfiles[0])
+  // getCustomerInfo(e){
+  //   e.preventDefault()
+  //   var customerInfoRequest = {
+  //       "getCustomerProfileRequest": {
+  //           "merchantAuthentication": {
+  //               "name": "42ZZf53Hst",
+  //               "transactionKey": "3TH6yb6KN43vf76j"
+  //           },
+  //           "customerProfileId": "39532821"
+  //       }
+  //   }
+  //   var URL = 'https://apitest.authorize.net/xml/v1/request.api'
+  //   HTTP.call('POST',URL, {data: customerInfoRequest}, function(error, response){
+  //     debugger
+  //     if(!!error){
+  //       console.log(error)
+  //     }
+  //     if(!!response){
+  //       debugger
+  //       console.log(response)
+  //       payUsingProfile(response.data.profile.paymentProfiles[0])
 
-      }
-    })
-   }
+  //     }
+  //   })
+  //  }
 
   printMsg(){
       console.log("printMsg is called", this.state.msg)
@@ -225,7 +224,7 @@
         }
       </div>
 
-    }
+    },
 
     checkCardNumber(e){
       var ccv = this.refs.paymentForm.getFormData().ccv
@@ -236,7 +235,7 @@
               msg: "Credit Card Length Error"
             })
       }
-    }
+    },
 
     checkExpirationDate(e){
       var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
@@ -255,7 +254,7 @@
               msg: message
             })
       }
-    }
+    },
 
     checkCCV(e){
       var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
@@ -280,7 +279,7 @@
               msg: message
             })
       }
-    }
+    },
 
  
 
@@ -312,7 +311,7 @@
         </RC.List>
       );
     }
-  };
+  });
 }
 
 

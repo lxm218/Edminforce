@@ -17,9 +17,6 @@
                     createTime: -1
                 }
             }).fetch();
-
-            console.log(list);
-
             return {
                 list: list,
                 isReady: programSub.ready()
