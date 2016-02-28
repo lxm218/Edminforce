@@ -52,14 +52,19 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
             }
         }
 
-        //console.log(programRegisterStudents);
+        let programSub = Meteor.subscribe('EF-Program');
+        let program = EdminForce.Collections.program.find({_id:classInfo.programID}).fetch();
+        program = program && program.length > 0 ? program[0] : {};
+
+            //console.log(programRegisterStudents);
         //
         //console.log(canRegisterStudents);
 
         return {
+            program,
             classInfo: classInfo,
             students: canRegisterStudents,
-            isReady: classByClassIDHandler.ready()
+            isReady: classByClassIDHandler.ready() && programSub.ready()
         };
     }
 
@@ -161,7 +166,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                             {studentItems}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("className")}>
-                            {this.data.classInfo.programID}
+                            {this.data.program.name}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("date")}>
                             {moment(new Date(timestamp)).format("dddd, MMMM Do YYYY, h:mm a")}
