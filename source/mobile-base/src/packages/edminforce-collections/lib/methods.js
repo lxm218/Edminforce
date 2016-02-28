@@ -36,5 +36,16 @@ Meteor.methods({
                 emergencyContact: eContact
             }
         });
+    },
+
+    GetCouponInfoByID: function(id){
+        let coupon = EdminForce.Collections.coupon.find({
+            _id: id
+        }).fetch();
+        console.log(coupon);
+        return coupon;
+    },
+    UseCoupon: function(){
+
     }
 });

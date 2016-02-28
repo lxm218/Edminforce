@@ -13,8 +13,8 @@ Meteor.startup(function () {
 
     EdminForce.Collections.orders = new OrdersCollection("EF-Orders");
 
-    EdminForce.Collections.coupon = new OrdersCollection("EF-Coupon");
-    EdminForce.Collections.customerCoupon = new OrdersCollection("EF-CustomerCoupon");
+    EdminForce.Collections.coupon = new CouponCollection("EF-Coupon");
+    EdminForce.Collections.customerCoupon = new CustomerCouponCollection("EF-CustomerCoupon");
 
 
     // Add user schema to Meteor.user
