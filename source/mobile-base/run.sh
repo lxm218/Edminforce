@@ -33,8 +33,8 @@ deploy(){
 
 runLocal(){
   stopMongoDB
-  startMongoDB
-  export MONGO_URL=mongodb://localhost:27017/EdminForce
+#startMongoDB
+# export MONGO_URL=mongodb://localhost:27017/EdminForce
   cd src
   meteor run --port $PORT
 }
