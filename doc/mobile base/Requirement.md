@@ -88,6 +88,8 @@ This page shows registration - select student(if more than one student under thi
 Note: During the first week of registration (starting registration start date + 7 days), registration page only shows current student's current class, disable all select options, users only needs to click book button. After the first week, registration is back to normal as described above. 
 
 ### Registration more - repeat registration process 
+### Regarding tuition
+tuition is set up $ per class. When user register, the system needs to calculate how many class in this session (take blockout days out), and multiply tution per class. when register during the session, the system needs to calucate how many class left in this session then calculate the tuition. 
 
 ## Regarding Coupon
 ### add new coupon
