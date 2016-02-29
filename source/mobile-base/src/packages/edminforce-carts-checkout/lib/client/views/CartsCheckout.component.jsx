@@ -100,6 +100,23 @@
             }.bind(this));
         }
 
+        isNewUser(){
+            let newUser = true;
+            let bookedClasses = EdminForce.Collections.classStudent.find({
+                accountID: Meteor.userId(),
+                type: "register",
+                status: "checkouted"
+            }).fetch();
+
+            // this user booked class before
+            if(bookedClasses&&bookedClasses.length){
+                newUser = false;
+            }
+            console.log("isNewUser");
+            return newUser;
+
+        }
+
         //TODO Coupon
         applyCoupon() {
 
@@ -158,18 +175,7 @@
                     // booked class means:
                     // a. type: register
                     // b. status: checkouted
-                    let bNoneBooked = false;
-                    let bookedClasses = EdminForce.Collections.classStudent.find({
-                        accountID: Meteor.userId(),
-                        type: "register",
-                        status: "checkouted"
-                    }).fetch();
-
-                    if (bookedClasses.length === 0) {
-                        bNoneBooked = true;
-                    } else {
-                        bNoneBooked = false;
-                    }
+                    let bNoneBooked = this.isNewUser();
 
                     // coupon not valid for none booked user, but currently user is none booked
                     if (!coupon.validForNoBooked && bNoneBooked) {
@@ -393,6 +399,11 @@
                 )
             }.bind(this));
 
+            // new family first time register class, add $25 registration fee into payment. one family only pay this fee once, no matter how many students under this account.
+            if(this.isNewUser()){
+                this.total += 25;
+            }
+
             this.originalAmount = this.total;
 
             if (this.coupon) {
@@ -479,6 +490,13 @@
                             <span style={col1Style}>Total</span>
                             <span style={col2Style}>{"$" + _.toString(this.total)}</span>
                         </div>
+                        {
+                            this.isNewUser()?
+                                <div>
+                                    <span style={col1Style}>Registration Fee</span>
+                                    <span style={col2Style}>{"$25.00"}</span>
+                                </div>: ""
+                        }
                         {this.discount ?
                             <div>
                                 <span style={col1Style}>Total Save</span>
