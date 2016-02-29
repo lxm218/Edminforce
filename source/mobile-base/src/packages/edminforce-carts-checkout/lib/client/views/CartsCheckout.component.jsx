@@ -100,6 +100,23 @@
             }.bind(this));
         }
 
+        isNewUser(){
+            let newUser = true;
+            let bookedClasses = EdminForce.Collections.classStudent.find({
+                accountID: Meteor.userId(),
+                type: "register",
+                status: "checkouted"
+            }).fetch();
+
+            // this user booked class before
+            if(bookedClasses&&bookedClasses.length){
+                newUser = false;
+            }
+            console.log("isNewUser");
+            return newUser;
+
+        }
+
         //TODO Coupon
         applyCoupon() {
 
@@ -158,18 +175,7 @@
                     // booked class means:
                     // a. type: register
                     // b. status: checkouted
-                    let bNoneBooked = false;
-                    let bookedClasses = EdminForce.Collections.classStudent.find({
-                        accountID: Meteor.userId(),
-                        type: "register",
-                        status: "checkouted"
-                    }).fetch();
-
-                    if (bookedClasses.length === 0) {
-                        bNoneBooked = true;
-                    } else {
-                        bNoneBooked = false;
-                    }
+                    let bNoneBooked = this.isNewUser();
 
                     // coupon not valid for none booked user, but currently user is none booked
                     if (!coupon.validForNoBooked && bNoneBooked) {
@@ -192,12 +198,16 @@
                     // step 4, make sure user use it less or equal to Maximum usage per account
                     //===========================
                     // Get this coupon used information
+                    // currently, except 'expired', other we assume this coupon is used. So this means if a coupon is 'checkouting', we also think it is used. After pay successful, then it will change to 'checkouted', otherwise it will expired
                     let usedCoupons = EdminForce.Collections.customerCoupon.find({
                         customerID: Meteor.userId(),
-                        couponID: coupon["_id"]
+                        couponID: coupon["_id"],
+                        status:{
+                            $nin:['expired']
+                        }
                     }).fetch();
                     // This coupon used more than Maximum usage
-                    if (Number(coupon.maxCount) && usedCoupons.length > Number(coupon.usedCoupons)) {
+                    if (Number(coupon.maxCount) && usedCoupons.length >= Number(coupon.maxCount)) {
                         bValidCoupon = false;
                         alert("This coupon can only be used " + coupon.maxCount + " times");
                         return;
@@ -271,6 +281,25 @@
 
         }
 
+        insertOrder(order){
+            EdminForce.Collections.orders.insert(order, function (err, res) {
+                if (err) {
+                    console.error("Insert order error, error: ", err);
+                    alert("Process fail!");
+                    return
+                } else {
+
+                    let orderID = res;
+                    if (!orderID) {
+                        alert("Process fail!");
+                        return;
+                    }
+
+                    FlowRouter.go("/payment?order=" + orderID);
+                }
+            });
+        }
+
         //TODO School Credit
 
         process() {
@@ -296,67 +325,30 @@
                 amount: this.total
             };
 
-            EdminForce.Collections.orders.insert(order, function (err, res) {
-                if (err) {
-                    console.error("Insert order error, error: ", err);
-                    alert("Process fail!");
-                    return
-                } else {
+            if(this.coupon){
+                order.couponID = this.coupon["_id"];
 
-                    let orderID = res;
-                    if (!orderID) {
-                        alert("Process fail!");
-                        return;
+                // if this order used coupon need to insert a record to customerCoupon collection
+                let customerCoupon = {
+                    customerID: Meteor.userId(),
+                    couponID: this.coupon['_id'],
+                    status: "checkouting",
+                    isValid: true
+                };
+
+                EdminForce.Collections.customerCoupon.insert(customerCoupon, function(err, id){
+                    if(err){
+                        alert("Something wrong on server side, please try it again");
+                    }else{
+                        console.log(id);
+                        order.customerCouponID = id;
+                        this.insertOrder(order);
                     }
+                }.bind(this));
 
-                    console.log("orderID = ", orderID);
-
-                    FlowRouter.go("/payment?order=" + orderID);
-
-                    //let now = new Date();
-                    //
-                    //let classes = EdminForce.Collections.classStudent.find({
-                    //    status: "pending",
-                    //    "_id":{
-                    //        $in: classStudentsID
-                    //    }
-                    //}).fetch()
-                    //
-                    //console.log(classes);
-
-                    // update classStudent
-                    //EdminForce.Collections.classStudent.update({
-                    //    status: "pending",
-                    //    "_id":{
-                    //        $in: classStudentsID
-                    //    }
-                    //}, {
-                    //    $set:{
-                    //        status: "checkouting",
-                    //        updateTime:now
-                    //    }
-                    //}, function(err, res){
-                    //    // if update error, remove insert order
-                    //    if(err){
-                    //        EdminForce.Collections.orders.remove({
-                    //            "_id": orderID
-                    //        }, function(err, res){
-                    //            // if still error,
-                    //            if(err){
-                    //                alert("Process fail!");
-                    //                return;
-                    //            }
-                    //            alert("Process fail!");
-                    //        })
-                    //    }else{
-                    //        // everything is correct, jump to payment page
-                    //
-                    //        FlowRouter.go("/payment?order="+orderID);
-                    //    }
-                    //});
-                }
-            });
-
+            }else{
+                this.insertOrder(order);
+            }
         }
 
         calculatePrice() {
@@ -406,6 +398,11 @@
                     </TableRow>
                 )
             }.bind(this));
+
+            // new family first time register class, add $25 registration fee into payment. one family only pay this fee once, no matter how many students under this account.
+            if(this.isNewUser()){
+                this.total += 25;
+            }
 
             this.originalAmount = this.total;
 
@@ -493,6 +490,13 @@
                             <span style={col1Style}>Total</span>
                             <span style={col2Style}>{"$" + _.toString(this.total)}</span>
                         </div>
+                        {
+                            this.isNewUser()?
+                                <div>
+                                    <span style={col1Style}>Registration Fee</span>
+                                    <span style={col2Style}>{"$25.00"}</span>
+                                </div>: ""
+                        }
                         {this.discount ?
                             <div>
                                 <span style={col1Style}>Total Save</span>

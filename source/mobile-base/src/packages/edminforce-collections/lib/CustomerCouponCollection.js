@@ -35,8 +35,7 @@ CustomerCouponCollection = class CustomerCouponCollection extends BaseCollection
             status : {
                 type : String,
                 optional : false,
-                //allowedValues : ['valid', 'success', 'fail']
-                defaultValue : 'valid'
+                allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled']
             },
             isValid : {
                 type : Boolean,

@@ -231,6 +231,7 @@ EdminForce.Components.User = React.createClass({
       }
       // Create User
       Accounts.createUser({
+        username: form.email,
         email: form.email,
         password: form.pw,
           role : 'user'
