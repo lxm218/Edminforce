@@ -7,13 +7,13 @@
     mixins: [ReactMeteorData],
         
     getMeteorData() {
+            let orderID = FlowRouter.getQueryParam("order");
             let handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
-            let list = EdminForce.Collections.orders.find().fetch();
+            let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
             let ready = handler.ready()
-            debugger
             return {
                 isReady:ready,
-                list: list
+                order: o
             }
     },
 
@@ -265,6 +265,10 @@
       
       return (
         <RC.List className="padding">
+          <RC.Loading isReady={this.data.isReady}>
+              <span className="totalAmount">Total Amount is: {this.data.order[0].amount}</span>
+              <br/>
+              <br/>
               <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
                 {this.printMsg()}
                 <RC.Input name="routingNumber" onKeyUp={this.checkRoutingNumber} label="Routing Number" theme={inputTheme} ref="routingNumber" />
@@ -275,6 +279,7 @@
                   Pay Now
               </RC.Button>
             </RC.Form>
+            </RC.Loading>
         </RC.List>
       );
     }

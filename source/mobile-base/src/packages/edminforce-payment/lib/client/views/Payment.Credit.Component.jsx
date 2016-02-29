@@ -5,12 +5,13 @@
     mixins: [ReactMeteorData],
         
     getMeteorData() {
+            let orderID = FlowRouter.getQueryParam("order");
             let handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
-            let list = EdminForce.Collections.orders.find().fetch();
+            let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
             let ready = handler.ready()
             return {
                 isReady:ready,
-                list: list
+                order: o
             }
     },
 
@@ -134,7 +135,9 @@
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
-    paymentInfo.createTransactionRequest.transactionRequest.amount = String(o[0].amount)
+    let amt = o[0].amount+0
+    amt = amt * 1.03
+    paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
@@ -157,6 +160,7 @@
           }, {
             $set:{
               "_id": self.state.orderId,
+              amount:amt,
               status:"checkouted"
             }
           }, function(err, res){
@@ -198,7 +202,7 @@
 
     },
 
-    checkCardNumber(e){
+    checkCardNumber(){
       var ccv = this.refs.paymentForm.getFormData().ccv
       var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
       var expirationDate = this.refs.paymentForm.getFormData().expirationDate
@@ -253,7 +257,13 @@
       }
     },
 
- 
+    calculateTotal(e){
+      let orderID = FlowRouter.getQueryParam("order");
+      let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
+      var amt = o[0].amount+0
+      amt = amt * 1.03
+      return amt
+    },
 
   render() {
     var inputTheme = "small-label"
@@ -265,6 +275,10 @@
       
       return (
         <RC.List className="padding">
+        <RC.Loading isReady={this.data.isReady}>
+              <span className="totalAmount">Total Amount is: {this.calculateTotal()}</span>
+              <br/>
+              <br/>
               <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
                 {this.printMsg()}
               <RC.Input name="creditCardNumber" onKeyUp={this.checkCardNumber} label="Credit Card Number" theme={inputTheme} ref="cardNumber" />
@@ -280,6 +294,7 @@
                   Pay Now
               </RC.Button>
             </RC.Form>
+            </RC.Loading>
         </RC.List>
       );
     }
