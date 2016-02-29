@@ -234,7 +234,7 @@ EdminForce.Components.User = React.createClass({
         username: form.email,
         email: form.email,
         password: form.pw,
-          role : 'user'
+        role : 'user'
       }, function(err) {
         if (!err){
             // add data to Customer DB
@@ -259,6 +259,13 @@ EdminForce.Components.User = React.createClass({
 
         if (_.isFunction(self.props.registerCallback))
           self.props.registerCallback()
+
+        if (!err){
+          Meteor.call('sendEmail',
+                form.email,
+                'Confirmation',
+                'Thank you for your registering.');
+        }
 
         if(!err){
           Dispatcher.dispatch({
