@@ -58,7 +58,7 @@ EdminForce.Components.User = React.createClass({
    * Handler
    * @ @ @ @
    */
-      checkButtonState(e){
+    checkButtonState(e){
     switch (this.state.action){
       case "login":
         var form = this.refs.loginForm.getFormData()
@@ -145,13 +145,13 @@ EdminForce.Components.User = React.createClass({
     return
   },
 
-  getRegisterConfirmEmailTemplate(){
+  getRegisterConfirmEmailTemplate(data){
         let school={
           "name" : "California Art Academy"
         }
 
         let tpl = [
-            '<h3>Welcome</h3>',
+            '<h3>Welcome ',data.name,'</h3>',
             '<p>Thanks for creating an account. Your login ID is your email.</p>',
             '<p>Now\'s a good time to login and change your password and also update your profile.</p>',
             '<h4><a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
@@ -248,8 +248,9 @@ EdminForce.Components.User = React.createClass({
         return
       }
       // Create User
+      let uName = form.fName + ' '+ form.lName
       Accounts.createUser({
-        username: form.email,
+        username: uName,
         email: form.email,
         password: form.pw,
         role : 'user'
@@ -280,7 +281,11 @@ EdminForce.Components.User = React.createClass({
 
         if (!err){
           // let school = KG.get('EF-School').getInfo();
-          let html = self.getRegisterConfirmEmailTemplate();
+          debugger
+          let data = {
+            "name": form.fName 
+          }
+          let html = self.getRegisterConfirmEmailTemplate(data);
           Meteor.call('sendEmailHtml',
                   form.email,
                   'Thanks for Creating an Account',
@@ -435,6 +440,8 @@ EdminForce.Components.User = React.createClass({
         //<div>Create an Account</div>
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
+          <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fNameail" value="" />
+          <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" value="" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" value="" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />
