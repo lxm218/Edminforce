@@ -150,10 +150,10 @@
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
         // console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
-        // Meteor.call('sendEmail',
-        //         Meteor.user().emails[0].address,
-        //         'Confirmation',
-        //         'Thank you for your order.');
+        Meteor.call('sendEmail',
+                Meteor.user().emails[0].address,
+                'Confirmation',
+                'Thank you for your order.');
         EdminForce.Collections.orders.update({
             "_id":self.state.orderId
           }, {
