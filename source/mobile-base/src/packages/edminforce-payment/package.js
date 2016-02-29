@@ -30,6 +30,8 @@ Package.onUse(function(api){
     // Don't forget to add your jsx file
     api.addFiles([
         'lib/client/views/Payment.Component.jsx',
+        'lib/client/views/Payment.Credit.Component.jsx',
+        'lib/client/views/Payment.ECheck.Component.jsx',
         'lib/router/payment.router.jsx'
     ], ["client"]);
 
