@@ -145,6 +145,24 @@ EdminForce.Components.User = React.createClass({
     return
   },
 
+  getRegisterConfirmEmailTemplate(){
+        let school={
+          "name" : "California Art Academy"
+        }
+
+        let tpl = [
+            '<h3>Welcome</h3>',
+            '<p>Thanks for creating an account. Your login ID is your email.</p>',
+            '<p>Now\'s a good time to login and change your password and also update your profile.</p>',
+            '<h4><a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+
+            '<br/><br/>',
+            '<b>',school.name,'</b>'
+        ].join('');
+
+        return tpl;
+    },
+
   login(e){
     e.preventDefault()
     if (this.state.msg && this.state.msg.length != 0) return null
@@ -261,10 +279,12 @@ EdminForce.Components.User = React.createClass({
           self.props.registerCallback()
 
         if (!err){
-          Meteor.call('sendEmail',
-                form.email,
-                'Confirmation',
-                'Thank you for your registering.');
+          // let school = KG.get('EF-School').getInfo();
+          let html = self.getRegisterConfirmEmailTemplate();
+          Meteor.call('sendEmailHtml',
+                  form.email,
+                  'Thanks for Creating an Account',
+                  html);
         }
 
         if(!err){
@@ -286,6 +306,8 @@ EdminForce.Components.User = React.createClass({
         waiting: false,
       })
   },
+
+
 
   reset(e){
     e.preventDefault()
