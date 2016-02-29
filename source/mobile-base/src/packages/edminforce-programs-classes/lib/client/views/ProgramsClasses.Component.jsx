@@ -259,6 +259,7 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
             FlowRouter.go('/login');
             Session.set("BookTrialClassId", item._id);
             Session.set("BookTrialProgramId", programID);
+            Session.set("BookTrialTimestamp", item.lessonDate.getTime());
         }
     }
 

@@ -6,6 +6,23 @@ Dependency.add('auth.store', new function () {
 
     var self = this;
 
+    function postLoginAction() {
+        if(Session.get("BookTrialClassId")){
+            let params = {
+                programsId: Session.get("BookTrialProgramId"),
+                classId: Session.get("BookTrialClassId"),
+                timestamp: Session.get("BookTrialTimestamp")
+            }
+            let path = FlowRouter.path("/programs/:programsId/:classId/:timestamp", params);
+            FlowRouter.go(path);
+            Session.set("BookTrialClassId", null);
+            Session.set("BookTrialProgramId", null);
+            Session.set("BookTrialTimestamp", null);
+        }else{
+            FlowRouter.go('/account')
+        }
+    }
+
     self.tokenId = Dispatcher.register(function (payload) {
         switch (payload.actionType) {
             case "AUTH_LOGOUT":{
@@ -21,18 +38,7 @@ Dependency.add('auth.store', new function () {
             case "AUTH_REGISTER_SUCCESS":{
                 FlowRouter.LastRoute
                 FlowRouter.LastRoute=[];
-                if(Session.get("BookTrialClassId")){
-                    let params = {
-                        programsId: Session.get("BookTrialProgramId"),
-                        classId: Session.get("BookTrialClassId")
-                    }
-                    let path = FlowRouter.path("/programs/:programsId/:classId/confirm", params);
-                    FlowRouter.go(path);
-                    Session.set("BookTrialClassId", null);
-                    Session.set("BookTrialProgramId", null)
-                }else{
-                    FlowRouter.go('/account')
-                }
+                postLoginAction();
 
                 break;
             }
@@ -43,19 +49,7 @@ Dependency.add('auth.store', new function () {
                 break;
             }
             case "AUTH_LOGIN_SUCCESS":{
-                if(Session.get("BookTrialClassId")){
-                    let params = {
-                        programsId: Session.get("BookTrialProgramId"),
-                        classId: Session.get("BookTrialClassId")
-                    }
-                    let path = FlowRouter.path("/programs/:programsId/:classId/confirm", params);
-                    FlowRouter.go(path);
-                    Session.set("BookTrialClassId", null);
-                    Session.set("BookTrialProgramId", null)
-                }else{
-                    FlowRouter.go('/account')
-                }
-
+                postLoginAction();
                 break;
             }
         }
