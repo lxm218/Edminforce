@@ -15,11 +15,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         let classID = FlowRouter.getParam("classID");
         let timestamp = FlowRouter.getParam("timestamp");
 
-        let classByClassIDHandler;
-
-        Tracker.autorun(function () {
-            classByClassIDHandler = Meteor.subscribe('EF-Class-By-ClassID', classID);
-        });
+        let classByClassIDHandler = Meteor.subscribe('EF-Class-By-ClassID', classID);
 
         let classInfo = EdminForce.Collections.class.find({
             _id: classID
@@ -117,6 +113,10 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         });
     }
 
+    registration() {
+        FlowRouter.go("/classes");
+    }
+
     selectStudent(student) {
         this.selectedStudents || (this.selectedStudents = {});
         if (this.selectedStudents[student._id]) {
@@ -152,6 +152,14 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
             );
         }
 
+        let confirmButton = this.data.students.length === 0 ?
+            (<RC.Button bgColor="brand2" onClick={self.registration.bind(self)}>
+                <$translate label="registration"/>
+            </RC.Button>) :
+            (<RC.Button bgColor="brand2" onClick={self.confirm.bind(self)}>
+                <$translate label="confirm"/>
+            </RC.Button>);
+
         // Fill with your UI
         return (
             <RC.Div style={{padding:"10px"}}>
@@ -173,9 +181,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                         </RC.Item>
                         
                     </RC.List>
-                    <RC.Button bgColor="brand2" onClick={self.confirm.bind(self)}>
-                        <$translate label="confirm"/>
-                    </RC.Button>
+                    {confirmButton}
                 </RC.Loading>
             </RC.Div>
         );
