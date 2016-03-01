@@ -22,7 +22,7 @@ KG.define('EF-Email', class extends Base{
             sendEmail(data){
                 data = _.extend({
                     to : 'liyangwood@sohu.com',
-                    from : 'admin@classforth.com',
+                    from : 'LiYang<admin@classforth.com>',
                     html : '',
                     text: '',
                     subject: 'Test Subject'
