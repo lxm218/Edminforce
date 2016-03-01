@@ -16,7 +16,7 @@
             return (
                 <RC.Body>
                     <RC.HeaderNav nav={this.props.headerNav} title={this.props.title}
-                                  useMiniNav={!!this.props.headerNav}>
+                        useMiniNav={!Meteor.user() || !!this.props.headerNav}>
                         <RC.URL href="/">Home</RC.URL>
                         <RC.URL href="/account">My Account</RC.URL>
                         <RC.URL href="/students">Students</RC.URL>

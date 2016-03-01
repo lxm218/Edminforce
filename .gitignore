@@ -4,3 +4,6 @@
 node_modules
 source/admin-base/client/css/.sass-cache
 source/mobile-base/data
+source/admin-base/run.sh
+
+*.sh

@@ -48,6 +48,8 @@ List all the available Programs by this order: Begining, Intermediate, Advanced,
    if `Class's trail Max student number` not 0,  `Register trial student number<=Class's trail Max student number`
    
    Then this day is available
+   
+   In addition, system needs to see if this student is qualified for this class (min/max age or gender).
   
   ***Note***
   
@@ -84,6 +86,8 @@ Note:
 ## Registration
 ### Click menu - registration
 This page shows registration - select student(if more than one student under this account), select program, select day (show 7 days of week for selection, once user click one day, available time will show up under TIME part), select time. 
+
+System needs to see if this student is qualified for this class (min/max age or gender).
 
 Note: During the first week of registration (starting registration start date + 7 days), registration page only shows current student's current class, disable all select options, users only needs to click book button. After the first week, registration is back to normal as described above. 
 
