@@ -242,7 +242,7 @@ let Class = class extends Base{
 
             let refresher = function(query, option){
                 _.each(arr, (doc)=>{
-                    console.log('----', doc._id);
+                    //console.log('----', doc._id);
                     //TODO why has a error
                     //pubThis.removed(dbName, doc._id)
                 });
@@ -346,7 +346,7 @@ let Class = class extends Base{
                 }).maxStudent;
                 let nn = m.ClassStudent.getDB().find({
                     classID : classID,
-                    status : 'register'
+                    type : 'register'
                 }).count();
 
                 if((nn+1) > max){
