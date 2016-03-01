@@ -283,6 +283,47 @@ let Class = class extends Base{
                 let data = [];
                 if(x.ready()){
                     data = tmpDB.find().fetch();
+
+                    let program = KG.get('EF-Program').getDB().find().fetch(),
+                        session = KG.get('EF-Session').getDB().find().fetch();
+                    data = _.map(data, (item)=>{
+
+                        try{
+                            let stmp = _.find(session, (s)=>{
+                                return s._id === item.sessionID;
+                            });
+
+                            item.sessionName = stmp.name;
+                            item.session = stmp;
+
+
+                            if(true || !item.numberOfClass){
+                                item.numberOfClass = this.calculateNumberOfClass(item, stmp);
+
+                                //TODO
+                                item.leftOfClass = this.calculateNumberOfClass(item, stmp, true);
+                            }
+
+
+                            //nickName
+                            let tn = _.find(program, (p)=>{
+                                return p._id === item.programID;
+                            }).name;
+                            item.programName = tn;
+
+                            tn += ' '+item.sessionName;
+
+                            //if(item.level){
+                            //    tn += ' '+item.level;
+                            //}
+                            tn += ' '+item.schedule.day+' '+item.schedule.time;
+
+                            item.nickName = tn;
+                        }catch(e){}
+
+                        return item;
+
+                    });
                 }
 
                 return {
