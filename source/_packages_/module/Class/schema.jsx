@@ -100,6 +100,7 @@ Schema.Class = {
     maxAgeRequire : KG.schema.default({
         type : Number,
         optional : true,
+        defaultValue : 100,
         label : 'Maximum Age',
         custom : function(){
             let min = this.field('minAgeRequire');
