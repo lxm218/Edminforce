@@ -94,19 +94,19 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                 title : 'Programs',
                 key : 'name',
                 style : {
-                    width : '30%'
+                    width : '70%'
                 }
             },
 
-            {
-                title : 'Description',
-                reactDom(item){
-                    return decodeURIComponent(item.description)
-                },
-                style : {
-                    width : '50%'
-                }
-            },
+            //{
+            //    title : 'Description',
+            //    reactDom(item){
+            //        return decodeURIComponent(item.description)
+            //    },
+            //    style : {
+            //        width : '50%'
+            //    }
+            //},
             {
                 title : 'Action',
                 style : {

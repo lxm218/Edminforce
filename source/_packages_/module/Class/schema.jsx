@@ -100,6 +100,7 @@ Schema.Class = {
     maxAgeRequire : KG.schema.default({
         type : Number,
         optional : true,
+        defaultValue : 100,
         label : 'Maximum Age',
         custom : function(){
             let min = this.field('minAgeRequire');
@@ -145,22 +146,26 @@ Validate.ClassStudent = {
 Schema.ClassStudent = {
     classID : KG.schema.default(),
     studentID : KG.schema.default(),
-    status : KG.schema.default({
-        allowedValues : Schema.const.registrationStatus,
+    type : KG.schema.default({
+        allowedValues : ['trail', 'register', 'wait', 'makeup'],
         custom : function(){
 
             return KG.get('EF-ClassStudent').validateSchemaStatus({
-                status : this.value,
+                type : this.value,
                 classID : this.field('classID').value,
                 studentID : this.field('studentID').value
             });
 
         }
     }),
-    payment : {
-        type : new SimpleSchema(Schema.ClassStudentPayment),
+    status : KG.schema.default({
+        allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled'],
+        optional : true,
+        defaultValue : 'pending'
+    }),
+    orderID : KG.schema.default({
         optional : true
-    },
+    }),
     lessonDate : {
         type : Date,
         optional : true

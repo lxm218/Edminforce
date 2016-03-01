@@ -84,14 +84,14 @@ KUI.Registration_payment = class extends KUI.Page{
         let m = this.getDepModule();
 
         let customer = m.Customer.getAll()[0],
-            registrationFee = customer.hasRegistrationFee ? customer.hasRegistrationFee*m.Customer.getRegistrationFee():10;
+            registrationFee = customer.hasRegistrationFee ? customer.hasRegistrationFee*m.Customer.getRegistrationFee():0;
         let student = this.data.student,
             cls = this.data.class,
             one = this.data.data;
 
         let C = {
             credit : customer.schoolCredit || 0,
-            classFee : cls.tuition.type==='class'?cls.tuition.money*cls.numberOfClass : cls.tuition.money,
+            classFee : cls.tuition.type==='class'?cls.tuition.money*cls.leftOfClass : cls.tuition.money,
             registrationFee : registrationFee
         };
 
@@ -205,9 +205,9 @@ KUI.Registration_payment = class extends KUI.Page{
         return (
             <RC.Div style={dsp}>
                 <RB.Input onChange={function(){}} ref="s21" name="cgroup" type="radio" label="Credit Card/Debit Card" />
-                {/*<RB.Input onChange={function(){}} ref="s22" type="checkbox" label="Checking Account" />*/}
-                {/*<RB.Input onChange={function(){}} ref="s23" type="checkbox" label="Cash" />*/}
-                <RB.Input onChange={function(){}} ref="s24" name="cgroup" type="radio" label="Check" />
+                <RB.Input onChange={function(){}} ref="s24" name="cgroup" type="radio" label="E-Check" />
+                {<RB.Input onChange={function(){}} ref="s22" type="checkbox" label="Cash" />}
+                {<RB.Input onChange={function(){}} ref="s23" type="checkbox" label="Check" />}
                 {/*<RB.Input onChange={function(){}} ref="s25" type="checkbox" label="Gift Card" />*/}
                 <RC.Div style={{textAlign:'right'}}>
                     {<KUI.NoButton onClick={this.toStep1.bind(this)} label="Cancel"></KUI.NoButton>}
@@ -230,21 +230,72 @@ KUI.Registration_payment = class extends KUI.Page{
 
     toPaymentPage(){
         let s21 = $(this.refs.s21.getInputDOMNode()).prop('checked'),
-            s24 = $(this.refs.s24.getInputDOMNode()).prop('checked');
+            s24 = $(this.refs.s24.getInputDOMNode()).prop('checked'),
+            s22 = $(this.refs.s22.getInputDOMNode()).prop('checked'),
+            s23 = $(this.refs.s23.getInputDOMNode()).prop('checked');
 
         Session.set('_register_class_money_total_', this.total.get());
 
+        let path = null,
+            flag = true;
+        let orderData = {
+            accountID : this.data.student.accountID,
+            studentID : this.data.student._id,
+            details : [this.data.id],
+            amount : this.total.get(),
+            paymentTotal : '$'+this.total.get()
+        };
+
         if(s21){
-            //to credit card page
-            util.goPath('/payment/creditcard');
+            path = '/payment/creditcard';
+            orderData.paymentType = 'credit card';
+            orderData.status = 'waiting';
         }
         else if(s24){
-            //to echeck page
-            util.goPath('/payment/echeck');
+            path = '/payment/echeck';
+            orderData.paymentType = 'echeck';
+            orderData.status = 'waiting';
+        }
+        else if(s22){
+            path = '/registration/success/'+this.data.id;
+            orderData.paymentType = 'cash';
+            orderData.status = 'success';
+        }
+        else if(s23){
+            path = '/registration/success/'+this.data.id;
+            orderData.paymentType = 'check';
+            orderData.status = 'success';
         }
         else{
+            flag = false;
             util.toast.showError('Please select the mode of payment')
         }
+
+        if(flag){
+            this.changeCustomerRegistrationFee();
+
+            let orderRs = KG.get('EF-Order').insert(orderData);
+            KG.result.handle(orderRs, {
+                success : function(id){
+                    util.goPath(path);
+                }
+            });
+        }
+    }
+
+
+    changeCustomerRegistrationFee(){
+
+        //TODO
+
+        let self = this,
+            cid = self.data.student.accountID;
+        //change customer registration fee
+        KG.get('EF-Customer').callMeteorMethod('changeRegistrationFeeStatusById', [cid], {
+            context : self,
+            success : function(){},
+            error : function(){}
+        });
     }
 
 

@@ -30,7 +30,7 @@ let ClassStudent = class extends Base{
         let one = this._db.findOne({
             classID : param.classID,
             studentID : param.studentID,
-            status : {'$in':['register', 'wait']}
+            type : {'$in':['register', 'wait']}
         });
 
         return !!one;
@@ -42,7 +42,7 @@ let ClassStudent = class extends Base{
         }).maxStudent;
         let nn = this._db.find({
             classID : data.classID,
-            status : 'register'
+            type : 'register'
         }).count();
 
         if((nn+1) > max){
@@ -62,7 +62,7 @@ let ClassStudent = class extends Base{
 
         let SA = ['register', 'wait'];
 
-        if(_.contains(SA, doc.status)){
+        if(_.contains(SA, doc.type)){
             //check record is exist
             rs = this.checkRecord(doc);
             if(rs){
@@ -81,7 +81,7 @@ let ClassStudent = class extends Base{
     }
 
     insertByData(data){
-        data.status = 'register';
+        data.type = 'register';
 
         let vd = this.validateWithSchema(data);
         if(vd !== true){
@@ -92,7 +92,7 @@ let ClassStudent = class extends Base{
         let flag = this.checkCanBeRegister(data);
 
         let resultFn = function(){
-            data.status = 'wait';
+            data.type = 'wait';
             let f = this._db.insert(data);
             return KG.result.out(true, f);
         };
@@ -100,6 +100,7 @@ let ClassStudent = class extends Base{
         if(!flag){
             return KG.result.out(true, resultFn.bind(this), '');
         }
+
 
 
         let rs = this._db.insert(data);

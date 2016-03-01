@@ -35,7 +35,8 @@ Package.onUse(function(api) {
         'lib/underscore.js',
 
         'KG.jsx',
-        'base.jsx'
+        'base.jsx',
+        'util.jsx'
     ], ["client","server"]);
 
 

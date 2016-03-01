@@ -35,6 +35,7 @@ edminforce:coupon@0.0.1
 edminforce:customer@0.0.1
 edminforce:datahelper@0.0.1
 edminforce:email@0.0.1
+edminforce:order@0.0.1
 edminforce:student@0.0.1
 ejson@1.0.7
 email@1.0.8
