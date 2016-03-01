@@ -34,10 +34,10 @@
     let self = this
     var paymentInfo = {
       "createTransactionRequest": {
-        "merchantAuthentication": {
-            "name": "42ZZf53Hst",
-            "transactionKey": "3TH6yb6KN43vf76j"
-        },
+            "merchantAuthentication": {
+                "name": "42ZZf53Hst",
+                "transactionKey": "3TH6yb6KN43vf76j"
+            },
             "refId": "123461",
             "transactionRequest": {
                 "transactionType": "authCaptureTransaction",
@@ -121,6 +121,8 @@
     }
       // expirationDate = expirationDate.slice(0,2)+expirationDate.slice(3,5)
 
+    let orderID = FlowRouter.getQueryParam("order");
+
     paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardNumber = form.creditCardNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.expirationDate = form.expirationDate
     paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardCode = form.ccv
@@ -130,9 +132,10 @@
     paymentInfo.createTransactionRequest.transactionRequest.billTo.city = form.city
     paymentInfo.createTransactionRequest.transactionRequest.billTo.state = form.state
     paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = form.zip
-    paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
+    paymentInfo.createTransactionRequest.refId = String(orderID)
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
 
-    let orderID = FlowRouter.getQueryParam("order");
+    
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     let amt = o[0].amount+0
@@ -151,16 +154,24 @@
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
         // console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
-        Meteor.call('sendEmail',
+        Meteor.call('sendEmailText',
                 Meteor.user().emails[0].address,
                 'Confirmation',
-                'Thank you for your order.');
+                'Thank you for your order.',
+                function(err, res){
+                  if(!!err){
+                    console.log(err)
+                  }
+                  if(!!res){
+                    console.log(res)
+                  }
+                });
         EdminForce.Collections.orders.update({
             "_id":self.state.orderId
           }, {
             $set:{
               "_id": self.state.orderId,
-              amount:amt,
+              paymentTotal:String(amt),
               status:"checkouted"
             }
           }, function(err, res){
@@ -260,7 +271,11 @@
     calculateTotal(e){
       let orderID = FlowRouter.getQueryParam("order");
       let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
-      var amt = o[0].amount+0
+      var amt = 0
+      if (typeof o[0] === "undefined") {
+        return amt
+      }
+      amt = o[0].amount+0
       amt = amt * 1.03
       return amt
     },

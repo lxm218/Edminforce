@@ -48,7 +48,7 @@ Meteor.methods({
     UseCoupon: function(){
 
     },
-    sendEmail:function (to, subject, text) {
+    sendEmailText:function (to, subject, text) {
         check([to, subject, text], [String]);
 
         // Let other method calls from the same client start running,

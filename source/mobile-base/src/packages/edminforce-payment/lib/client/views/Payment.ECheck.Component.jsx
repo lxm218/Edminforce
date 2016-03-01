@@ -129,7 +129,8 @@
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = form.accountNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = form.nameOnAccount
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
-    paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
+    paymentInfo.createTransactionRequest.refId = String(orderID)
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
 
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
@@ -148,7 +149,7 @@
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
         // console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
-        Meteor.call('sendEmail',
+        Meteor.call('sendEmailText',
                 Meteor.user().emails[0].address,
                 'Confirmation',
                 'Thank you for your order.');
@@ -157,6 +158,7 @@
           }, {
             $set:{
               "_id": self.state.orderId,
+              paymentTotal:String(amt),
               status:"checkouted"
             }
           }, function(err, res){
