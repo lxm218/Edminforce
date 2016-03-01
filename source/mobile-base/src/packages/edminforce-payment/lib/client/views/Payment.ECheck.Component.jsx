@@ -28,10 +28,6 @@
     },
 
   postPayment(e){
-
-    // To do: get the charging amount from database
-    // To do: change the referece id
-
     e.preventDefault()
     let self = this
     var paymentInfo = {
@@ -91,39 +87,37 @@
         }
     }
 
-    // if (this.state.msg) return null
-
     let form = this.refs.paymentForm.getFormData()
 
     console.log(form.routingNumber)
     console.log(form.accountNumber)
     console.log(form.nameOnAccount)
-    // console.log(form.bankNname)
 
+    var routingNumber = form.routingNumber
+    var accountNumber = form.accountNumber
+    var nameOnAccount = form.nameOnAccount
+    var message = []
+    if(routingNumber.length != 9){
+      message.push("Routing Number Length Error; ")
+    }
 
-    // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-    // var ccv = this.refs.paymentForm.getFormData().ccv
-    // var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-    // var message = []
-    // if(cardNumber.length != 16){
-    //   message.push("Credit Card Length Error; ")
-    // }
+    if (accountNumber.length != 12){
+      message.push("Account Number Length Error; ")
+    }
+    if (nameOnAccount.length == 0) {
+      message.push("Name Cannot Be Empty; ")
+    }
+    if (message.length != 0) {
+      this.setState({
+        msg: message
+      })
+      return
+    } else {
+      this.setState({
+        msg: null
+      })
+    }
 
-    // var patt = /[0-9]{2}\/[0-9]{2}/
-
-
-    // if (!patt.test(expirationDate)){
-    //   message.push("Expiration Date Format Format Error; ")
-    // }
-    // if (ccv.length > 4){
-    //   message.push("CCV Format Error;")
-    // }
-    // if (message.length != 0) {
-    //   this.setState({
-    //     msg: message
-    //   })
-    //   return
-    // }
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
@@ -198,59 +192,63 @@
 
     },
 
-    checkCardNumber(e){
-      // var ccv = this.refs.paymentForm.getFormData().ccv
-      // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-      // var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-      // if (cardNumber.length > 16){
-      //   this.setState({
-      //         msg: "Credit Card Length Error"
-      //       })
-      // }
+    checkRoutingNumber(e){
+      let form = this.refs.paymentForm.getFormData()
+      var routingNumber = form.routingNumber
+      var accountNumber = form.accountNumber
+      var nameOnAccount = form.nameOnAccount
+      if (routingNumber.length > 9){
+        this.setState({
+              msg: "Routing Number Length Error"
+            })
+      }
     },
 
-    checkExpirationDate(e){
-      // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-      // var ccv = this.refs.paymentForm.getFormData().ccv
-      // var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-      // var message = []
-      // if(cardNumber.length != 16){
-      //   message.push("Credit Card Length Error; ")
-      // }
+    checkAccountNumber(e){
+      let form = this.refs.paymentForm.getFormData()
+      var routingNumber = form.routingNumber
+      var accountNumber = form.accountNumber
+      var nameOnAccount = form.nameOnAccount
+      var message = []
+      if(routingNumber.length != 9){
+        message.push("Routing Number Length Error; ")
+      }
 
-      // if (expirationDate.length > 5){
-      //   message.push("Expiration Date Format Format Error; ")
-      // }
-      // if (message.length != 0) {
-      //   this.setState({
-      //         msg: message
-      //       })
-      // }
+      if (accountNumber.length > 12){
+        message.push("Account Number Length Error; ")
+      }
+      if (message.length != 0) {
+        this.setState({
+              msg: message
+        })
+      }
     },
 
-    checkCCV(e){
-      // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-      // var ccv = this.refs.paymentForm.getFormData().ccv
-      // var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-      // var message = []
-      // if(cardNumber.length != 16){
-      //   message.push("Credit Card Length Error; ")
-      // }
+    checkName(e){
+      let form = this.refs.paymentForm.getFormData()
+      var routingNumber = form.routingNumber
+      var accountNumber = form.accountNumber
+      var nameOnAccount = form.nameOnAccount
+      var message = []
+      if(routingNumber.length != 9){
+        message.push("Routing Number Length Error; ")
+      }
 
-      // var patt = /[0-9]{2}\/[0-9]{2}/
-
-
-      // if (!patt.test(expirationDate)){
-      //   message.push("Expiration Date Format Format Error; ")
-      // }
-      // if (ccv.length > 4){
-      //   message.push("CCV Format Error;")
-      // }
-      // if (message.length != 0) {
-      //   this.setState({
-      //         msg: message
-      //       })
-      // }
+      if (accountNumber.length != 12){
+        message.push("Account Number Length Error; ")
+      }
+      if (nameOnAccount.length == 0) {
+        message.push("Name Cannot Be Empty; ")
+      }
+      if (message.length != 0) {
+        this.setState({
+              msg: message
+        })
+      } else {
+        this.setState({
+              msg: null
+        })
+      }
     },
 
     calculateTotal(e){
@@ -263,9 +261,6 @@
       amt = o[0].amount+0
       return amt
     },
-
- 
-                // <RC.Input name="bankNname" onKeyUp={this.checkName} label="Bank Name" theme={inputTheme} ref="bankName"/> 
 
   render() {
     var inputTheme = "small-label"
