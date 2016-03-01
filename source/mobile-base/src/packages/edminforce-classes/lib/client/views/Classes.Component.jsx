@@ -268,7 +268,7 @@
 
             // you must select a class
             if (!this.selectedClass) {
-                alert("Please select a class!");
+                alert("Sorry, no class available in this program.");
                 return;
             }
 
