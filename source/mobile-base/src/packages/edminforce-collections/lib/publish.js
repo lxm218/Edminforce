@@ -275,5 +275,55 @@ Meteor.startup(function () {
         }
     });
 
+    // Returns all students for a given user, as well as class info
+    // for each student. This is used for the "StudentList" page in mobile app
+    Meteor.publishComposite("EFStudentsWithClasses", function() {
+        const userId = this.userId;
+        return {
+            // all students of the logged-in user
+            find () {
+                return EdminForce.Collections.student.find({accountID: userId});
+            },
+
+            children: [
+                {
+                    // registered classes for each student (not started, in-session, or completed )
+                    find (student) {
+                        return EdminForce.Collections.classStudent.find({
+                            studentID: student._id,
+                            type: {
+                                $in: ['register']
+                            },
+                            status: {
+                                $in: ['checkouted']
+                            }
+                        })
+                    },
+                    children: [
+                        {
+                            // class info
+                            find(studentClass) {
+                                return EdminForce.Collections.class.find({_id:studentClass.classID})
+                            },
+                            children: [
+                                {
+                                    // session info for the class
+                                    find(classDoc) {
+                                        return EdminForce.Collections.session.find({_id:classDoc.sessionID})
+                                    }
+                                },
+                                {
+                                    // program info for the class
+                                    find(classDoc) {
+                                        return EdminForce.Collections.program.find({_id:classDoc.programID})
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    });
 
 });
