@@ -62,7 +62,7 @@
                     <RC.Input name="name" value={this.data.alterContact&&this.data.alterContact.name} label="Name"/>
                     <RC.Input name="email" value={this.data.alterContact&&this.data.alterContact.email} label="Email"/>
                     <RC.Input name="phone" value={this.data.alterContact&&this.data.alterContact.phone} label="Phone"/>
-                    <RC.Input name="relation" value={this.data.alterContact&&this.data.alterContact.relation} label="Relative"/>
+                    <RC.Input name="relation" value={this.data.alterContact&&this.data.alterContact.relation} label="Relation"/>
                     <RC.Checkbox name="receive" checked={this.data.alterContact&&this.data.alterContact.receive} label="Receive Communications"/>
 
                     <RC.Button bgColor="brand2">Update</RC.Button>
