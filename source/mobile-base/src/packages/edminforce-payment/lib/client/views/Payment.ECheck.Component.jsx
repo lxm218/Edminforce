@@ -98,7 +98,7 @@
     console.log(form.routingNumber)
     console.log(form.accountNumber)
     console.log(form.nameOnAccount)
-    console.log(form.bankNname)
+    // console.log(form.bankNname)
 
 
     // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
@@ -124,17 +124,15 @@
     //   })
     //   return
     // }
-
+    let orderID = FlowRouter.getQueryParam("order");
+    this.setState({orderId: orderID})
+    let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.routingNumber = form.routingNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = form.accountNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = form.nameOnAccount
     // paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
     paymentInfo.createTransactionRequest.refId = String(orderID)
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
-
-    let orderID = FlowRouter.getQueryParam("order");
-    this.setState({orderId: orderID})
-    let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     paymentInfo.createTransactionRequest.transactionRequest.amount = String(o[0].amount)
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -158,7 +156,7 @@
           }, {
             $set:{
               "_id": self.state.orderId,
-              paymentTotal:String(amt),
+              paymentTotal:String(o[0].amount),
               status:"checkouted"
             }
           }, function(err, res){
@@ -255,6 +253,17 @@
       // }
     },
 
+    calculateTotal(e){
+      let orderID = FlowRouter.getQueryParam("order");
+      let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
+      var amt = 0
+      if (typeof o[0] === "undefined") {
+        return amt
+      }
+      amt = o[0].amount+0
+      return amt
+    },
+
  
                 // <RC.Input name="bankNname" onKeyUp={this.checkName} label="Bank Name" theme={inputTheme} ref="bankName"/> 
 
@@ -269,14 +278,14 @@
       return (
         <RC.List className="padding">
           <RC.Loading isReady={this.data.isReady}>
-              <span className="totalAmount">Total Amount is: {this.data.order[0].amount}</span>
+              <span className="totalAmount">Total Amount is: {this.calculateTotal()}</span>
               <br/>
               <br/>
               <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
                 {this.printMsg()}
                 <RC.Input name="routingNumber" onKeyUp={this.checkRoutingNumber} label="Routing Number" theme={inputTheme} ref="routingNumber" />
                 <RC.Input name="accountNumber" onKeyUp={this.checkAccountNumber} label="Account Number"  theme={inputTheme} ref="accountNumber" />
-                <RC.Input name="name" onKeyUp={this.checkName} label="Check Holder Name" theme={inputTheme} ref="name"/>
+                <RC.Input name="nameOnAccount" onKeyUp={this.checkName} label="Check Holder Name" theme={inputTheme} ref="nameOnAccount"/>
               <RC.Button name="button" theme="full" buttonColor="brand">
                   Pay Now
               </RC.Button>
