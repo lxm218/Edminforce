@@ -91,7 +91,7 @@ KUI.Registration_payment = class extends KUI.Page{
 
         let C = {
             credit : customer.schoolCredit || 0,
-            classFee : cls.tuition.type==='class'?cls.tuition.money*cls.numberOfClass : cls.tuition.money,
+            classFee : cls.tuition.type==='class'?cls.tuition.money*cls.leftOfClass : cls.tuition.money,
             registrationFee : registrationFee
         };
 

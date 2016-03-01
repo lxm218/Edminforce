@@ -90,11 +90,19 @@ let Class = class extends Base{
     * return number of class
     * @param - data
     *        - session
+    *        - flag : if true, calcalte number from now to session ending
     * @return numberOfClass
     * */
-    calculateNumberOfClass(data, session){
+    calculateNumberOfClass(data, session, flag){
         let start = moment(session.startDate),
             end = moment(session.endDate);
+
+        if(flag){
+            let now = moment(new Date());
+            if(now.isAfter(start, 'day')){
+                start = now;
+            }
+        }
 
         let day = this.getDBSchema().schema('schedule.day').allowedValues;
         day = _.indexOf(day, data.schedule.day);
@@ -122,6 +130,7 @@ let Class = class extends Base{
         return rs;
 
     }
+
 
 
 
@@ -157,6 +166,9 @@ let Class = class extends Base{
 
             if(true || !item.numberOfClass){
                 item.numberOfClass = this.calculateNumberOfClass(item, stmp);
+
+                //TODO
+                item.leftOfClass = this.calculateNumberOfClass(item, stmp, true);
             }
 
 
