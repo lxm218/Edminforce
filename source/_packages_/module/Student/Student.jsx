@@ -71,11 +71,17 @@ let Student = class extends Base{
                 item.accountName = tmp.name;
             }
 
+            item.nickName = item.nickName || item.name || '';
+
             return item;
         });
     }
 
     insert(data){
+
+        if(data.nickName){
+            data.name = data.nickName;
+        }
 
         try{
             let rs = this._db.insert(data, function(err){
