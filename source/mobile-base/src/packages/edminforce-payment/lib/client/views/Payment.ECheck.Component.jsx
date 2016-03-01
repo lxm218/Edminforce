@@ -128,7 +128,7 @@
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.routingNumber = form.routingNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = form.accountNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = form.nameOnAccount
-    paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
+    // paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
     paymentInfo.createTransactionRequest.refId = String(orderID)
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
 
@@ -256,6 +256,7 @@
     },
 
  
+                // <RC.Input name="bankNname" onKeyUp={this.checkName} label="Bank Name" theme={inputTheme} ref="bankName"/> 
 
   render() {
     var inputTheme = "small-label"
@@ -276,7 +277,6 @@
                 <RC.Input name="routingNumber" onKeyUp={this.checkRoutingNumber} label="Routing Number" theme={inputTheme} ref="routingNumber" />
                 <RC.Input name="accountNumber" onKeyUp={this.checkAccountNumber} label="Account Number"  theme={inputTheme} ref="accountNumber" />
                 <RC.Input name="name" onKeyUp={this.checkName} label="Check Holder Name" theme={inputTheme} ref="name"/>
-                <RC.Input name="bankNname" onKeyUp={this.checkName} label="Bank Name" theme={inputTheme} ref="bankName"/> 
               <RC.Button name="button" theme="full" buttonColor="brand">
                   Pay Now
               </RC.Button>
