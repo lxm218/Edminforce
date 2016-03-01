@@ -102,6 +102,7 @@ let ClassStudent = class extends Base{
         }
 
 
+
         let rs = this._db.insert(data);
         return KG.result.out(true, rs);
     }

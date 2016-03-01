@@ -111,6 +111,7 @@ KG.define('EF-Customer', class extends Base{
     }
 
 
+
     defineDepModule(){
         return {
             Class : KG.get('EF-Class'),
@@ -220,5 +221,21 @@ KG.define('EF-Customer', class extends Base{
 
     getRegistrationFee(){
         return 25;
+    }
+
+    defineMeteorMethod(){
+        return {
+            changeRegistrationFeeStatusById(id){
+                let one = this._db.findOne({_id:id});
+                if(one){
+                    let data = {
+                        hasRegistrationFee : false
+                    };
+
+                    let rs = this._db.update({_id : id}, {'$set' : data});
+                    return rs;
+                }
+            }
+        };
     }
 });

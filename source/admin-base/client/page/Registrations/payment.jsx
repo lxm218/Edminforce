@@ -84,7 +84,7 @@ KUI.Registration_payment = class extends KUI.Page{
         let m = this.getDepModule();
 
         let customer = m.Customer.getAll()[0],
-            registrationFee = customer.hasRegistrationFee ? customer.hasRegistrationFee*m.Customer.getRegistrationFee():10;
+            registrationFee = customer.hasRegistrationFee ? customer.hasRegistrationFee*m.Customer.getRegistrationFee():0;
         let student = this.data.student,
             cls = this.data.class,
             one = this.data.data;
@@ -235,16 +235,33 @@ KUI.Registration_payment = class extends KUI.Page{
         Session.set('_register_class_money_total_', this.total.get());
 
         if(s21){
+            this.changeCustomerRegistrationFee();
             //to credit card page
             util.goPath('/payment/creditcard');
         }
         else if(s24){
+            this.changeCustomerRegistrationFee();
             //to echeck page
             util.goPath('/payment/echeck');
         }
         else{
             util.toast.showError('Please select the mode of payment')
         }
+    }
+
+
+    changeCustomerRegistrationFee(){
+
+        //TODO
+
+        let self = this,
+            cid = self.data.student.accountID;
+        //change customer registration fee
+        KG.get('EF-Customer').callMeteorMethod('changeRegistrationFeeStatusById', [cid], {
+            context : self,
+            success : function(){},
+            error : function(){}
+        });
     }
 
 

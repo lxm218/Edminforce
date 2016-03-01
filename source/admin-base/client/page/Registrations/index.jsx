@@ -124,6 +124,7 @@ KUI.Registration_index = class extends KUI.Page{
         });
     }
     save(){
+        let self = this;
 
         let {student, lesson} = this.getReactObj();
         if(!this.state.student){
@@ -144,7 +145,11 @@ KUI.Registration_index = class extends KUI.Page{
         let rs = KG.get('EF-ClassStudent').insertByData(data);
         KG.result.handle(rs, {
             success : function(d){
-                util.goPath('/registration/payment/'+d);
+
+                _.delay(function(){
+                    util.goPath('/registration/payment/'+d);
+                }, 500);
+
             },
             error : function(e, error){
                 util.toast.showError(error.statusText);

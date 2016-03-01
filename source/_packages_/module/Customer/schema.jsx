@@ -70,7 +70,7 @@ Schema.Customer = {
     hasRegistrationFee : {
         type : Boolean,
         optional : true,
-        defaultValue : false
+        defaultValue : true
     },
 
     createTime : KG.schema.createTime(),
