@@ -275,14 +275,19 @@ Meteor.startup(function () {
         }
     });
 
-    // Returns all students for a given user, as well as class info
-    // for each student. This is used for the "StudentList" page in mobile app
-    Meteor.publishComposite("EFStudentsWithClasses", function() {
+    // A composite publish that returns all (or optionally filtered by a single studentID)
+    // students for the currently logged-in user.
+    // For each student, returns all classes, sessions, programs.
+    Meteor.publishComposite("EFStudentsWithClasses", function(studentID) {
         const userId = this.userId;
         return {
             // all students of the logged-in user
             find () {
-                return EdminForce.Collections.student.find({accountID: userId});
+                let query = {
+                    accountID: userId
+                }
+                studentID && (query.studentID = studentID);
+                return EdminForce.Collections.student.find(query);
             },
 
             children: [

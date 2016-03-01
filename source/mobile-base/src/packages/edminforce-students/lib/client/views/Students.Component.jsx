@@ -20,183 +20,26 @@
             return {
                 isReady: Meteor.subscribe("EFStudentsWithClasses").ready()
             }
-/*
-            let handler = null;
-
-            Tracker.autorun(function () {
-                handler = Meteor.subscribe("EF-Students");
-            }.bind(this));
-
-            let classStudents = EdminForce.Collections.classStudent.find({
-                accountID: Meteor.userId(),
-                type: {
-                    $in: ['register', 'wait']
-                },
-                status: {
-                    $in: ["checkouted"]
-                }
-            }).fetch();
-
-            // get current user's students
-            let students = EdminForce.Collections.student.find({
-                accountID: Meteor.userId()
-            }).fetch();
-
-            // get all classes
-            let classes = EdminForce.Collections.class.find({}).fetch();
-
-            let sessions = EdminForce.Collections.session.find({}).fetch();
-
-            let bookClasses = [];
-
-            // Merge all information together
-            for (let i = 0; i < classStudents.length; i++) {
-                //for(let i = 0; i< 0; i++){
-                let bookClass = classStudents[i];
-
-                if (!bookClass) {
-                    continue;
-                }
-
-                let classID = bookClass.classID;
-                let classData = _.find(classes, function (item) {
-                    return item["_id"] === classID;
-                });
-
-                if (!classData) {
-                    continue;
-                }
-
-                let sessionData = _.find(sessions, function (item) {
-                    return item["_id"] === classData.sessionID;
-                });
-
-                if (!sessionData) {
-                    continue;
-                }
-
-                let studentData = _.find(students, function (item) {
-                    return item["_id"] === bookClass.studentID;
-                });
-
-                if (!studentData) {
-                    continue;
-                }
-
-                bookClass.className = classData.name;
-                bookClass.classStudentID = bookClass["_id"];
-                bookClass.studentName = studentData.name;
-                bookClass.schedule = classData.schedule;
-                bookClass.classType = classData.type;
-
-                let now = new Date();
-
-                // currently time is between session's start and end time
-                if (now >= sessionData.startDate && now <= sessionData.endDate) {
-                    bookClass.inProgressing = true;
-                } else {
-                    bookClass.inProgressing = false;
-                }
-
-                bookClasses.push(bookClass);
-            }
-
-            //console.log(bookClasses);
-
-            let studentLists = [];
-
-            // generate student list
-            for (let i = 0; i < students.length; i++) {
-
-                // this is the rules, after discuss with Lan Ma
-                // 1. If this student has class in progress show all the class he/she has now
-                // 2. If this student has class in waitinglist show it
-                // 3. If this student has completed class, show the last completed class
-                // 4. If this student don't registered before, show student, but the middle content is empty
-
-                let student = students[i];
-                let studentID = student["_id"];
-
-                let bookClassesThisStudent = _.filter(bookClasses, function (item) {
-                    return item.studentID == studentID;
-                });
-
-                console.log(bookClassesThisStudent);
-
-                let inProgress = false, inWaiting = false, hasCompleted = false;
-                let inProgressClasses = [], inWaitingClasses = [], completedClasses = [];
-                for (let j = 0; j < bookClassesThisStudent.length; j++) {
-                    let bookedClass = bookClassesThisStudent[j];
-                    bookedClass.studentID = studentID;
-
-                    // student has in progress class
-                    if (bookedClass.inProgressing) {
-                        console.log("=====inProgress");
-                        inProgress = true;
-                        bookedClass.name = student.name;
-                        inProgressClasses.push(bookedClass);
-                    } else if (bookedClass.classType === 'wait') {
-                        // don't has in progress class, but has class in waiting list
-                        inWaiting = true;
-                        if (!inProgress) {
-                            console.log("=====wait");
-                            bookedClass.name = student.name;
-                            inWaitingClasses.push(bookedClass);
-                        }
-                    } else {
-                        // don't has in progress class, don't has waiting class, but has class before
-                        if (!inWaiting && !inProgress) {
-                            console.log("=====completed");
-                            hasCompleted = true;
-                            bookedClass.name = student.name;
-                            completedClasses.push(bookedClass);
-                        }
-                    }
-                }
-
-                // User don't have class
-                if (inProgress) {
-                    studentLists = studentLists.concat(inProgressClasses);
-                } else if (inWaiting) {
-                    studentLists = studentLists.concat(inWaitingClasses);
-                } else if (hasCompleted) {
-                    studentLists = studentLists.concat(completedClasses);
-                } else {
-                    let studentData = {
-                        name: student.name
-                    }
-                    studentLists.push(studentData);
-                }
-                ;
-
-                //console.log(bookClassesThisStudent);
-                //studentLists = studentLists.concat(bookClassesThisStudent);
-            }
-
-            return {
-                isReady: handler.ready(),
-                students: studentLists
-            }*/
         }
 
-        selectStudent(student) {
+        selectStudent(student, studentClass) {
 
             // it has class
-            if(student.className){
+            if(student && studentClass){
 
                 let params = {
-                    studentID:student.studentID
+                    studentID:student._id
                 };
                 let query = {
-                    current: student.classStudentID,
-                    programID: student.programID
+                    current: studentClass._id,
+                    programID: studentClass.programID
                 }
                 let path = FlowRouter.path("/students/:studentID", params, query);
                 FlowRouter.go(path);
             }
         }
 
-        createStudentList() {
+        createStudentListWithClasses() {
             if (!this.data.isReady) return [];
 
             // students
@@ -244,6 +87,7 @@
                     completedClasses.length > 1 &&
                     (completedClasses = _.sortBy(completedClasses, (c) => { return -c.session.endDate.getTime() }));
 
+                    completedClasses[0].completed = true;
                     student.classes.push(completedClasses[0]);
                 }
 
@@ -254,12 +98,12 @@
         render() {
 
             let self = this;
-            let students = this.createStudentList();
+            let students = this.createStudentListWithClasses();
 
             let studentElements = students.map( (student) => {
                 // class records for this student
                 let classElements = student.classes.map( (sc, index) => (
-                        <RC.Div key={sc._id} onClick={self.selectStudent.bind(self, student)}>
+                        <RC.Div key={sc._id} onClick={self.selectStudent.bind(self, student,sc)}>
                             <p style={{padding: 0, paddingTop: index == 0 ? 8 : 0}}>
                                     {sc.program.name}
                             </p>
@@ -267,7 +111,7 @@
                                     {sc.class.schedule && sc.class.schedule.day} {sc.class.schedule && sc.class.schedule.time}
                             </p>
                             <p style={{padding: 0, paddingBottom: 8 }}>
-                                    {sc.createTime && "Registered on " + moment(sc.createTime).format("MMM D, YYYY")}
+                                    {sc.completed ? "Completed" : (sc.createTime && "Registered on " + moment(sc.createTime).format("MMM D, YYYY"))}
                             </p>
                         </RC.Div>
                     ))
