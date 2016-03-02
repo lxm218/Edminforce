@@ -5,7 +5,7 @@ let Student = class extends Base{
     }
     addTestData(){
         //this._db.remove({});
-        if(this._db.find({}).count() > 0){
+        if(true || this._db.find({}).count() > 0){
             return false;
         }
         let data = [
