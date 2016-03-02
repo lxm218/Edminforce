@@ -31,6 +31,7 @@ Schema.Student = {
         label : 'Student Name'
     }),
     name : KG.schema.default({
+        optional : true,
         label : 'Student Name'
     }),
     profile : {
