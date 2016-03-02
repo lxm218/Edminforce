@@ -1,0 +1,15 @@
+<head>
+  <title>cvs</title>
+</head>
+<body>
+  <h1>Welcome to CSV loader!</h1>
+  {{> upload}}
+</body>
+<template name="upload">
+  <h4 class="page-header">Upload a CSV, unfixed structure.</h4>
+  {{#unless uploading}}
+    <input type="file" name="upload_CSV">
+  {{else}}
+    <p><i class="fa fa-spin fa-refresh"></i> Uploading files...</p>
+  {{/unless}}
+</template>
