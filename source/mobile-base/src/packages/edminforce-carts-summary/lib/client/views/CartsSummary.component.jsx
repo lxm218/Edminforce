@@ -13,7 +13,7 @@
                     </p>
 
                     <p>
-                        Please sign new student <a href="/Waiver_and_Release_from_Liability.pdf">waiver form</a> before the first class.
+                        Please sign new student <a download="Waiver.pdf"  href="/Waiver_and_Release_from_Liability.pdf">waiver form</a> before the first class.
                     </p>
 
                 </RC.Div>
