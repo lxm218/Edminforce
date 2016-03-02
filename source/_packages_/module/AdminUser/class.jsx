@@ -98,16 +98,7 @@ let AdminUser = class extends Base{
             email : 'admin@classforth.com',
             password : 'admin',
             nickName : 'ClassForth Administrator',
-            role : 'admin',
-            school : {
-                name : 'Test School',
-                email : 'test@school.com',
-                phone : '5101234567',
-                address : 'XXXX',
-                city : 'Fremont',
-                state : 'CA',
-                zipcode : '94537'
-            }
+            role : 'admin'
         };
         this.insert(data, function(rs){
             console.log(rs);
