@@ -297,7 +297,7 @@ Meteor.startup(function () {
                         return EdminForce.Collections.classStudent.find({
                             studentID: student._id,
                             type: {
-                                $in: ['register']
+                                $in: ['register', 'trial']
                             },
                             status: {
                                 $in: ['checkouted']
