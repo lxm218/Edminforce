@@ -52,6 +52,8 @@ util.dialog = {
     }
 };
 
+util.email = KG.util.email;
+
 
 let MSGALL = {};
 util.message = {

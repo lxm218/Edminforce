@@ -30,6 +30,9 @@ Schema.Student = {
     nickName : KG.schema.default({
         label : 'Student Name'
     }),
+    name : KG.schema.default({
+        label : 'Student Name'
+    }),
     profile : {
         type : new SimpleSchema(Schema.StudentProfile)
     },

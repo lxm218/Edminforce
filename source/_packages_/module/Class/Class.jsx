@@ -90,11 +90,19 @@ let Class = class extends Base{
     * return number of class
     * @param - data
     *        - session
+    *        - flag : if true, calcalte number from now to session ending
     * @return numberOfClass
     * */
-    calculateNumberOfClass(data, session){
+    calculateNumberOfClass(data, session, flag){
         let start = moment(session.startDate),
             end = moment(session.endDate);
+
+        if(flag){
+            let now = moment(new Date());
+            if(now.isAfter(start, 'day')){
+                start = now;
+            }
+        }
 
         let day = this.getDBSchema().schema('schedule.day').allowedValues;
         day = _.indexOf(day, data.schedule.day);
@@ -122,6 +130,7 @@ let Class = class extends Base{
         return rs;
 
     }
+
 
 
 
@@ -157,6 +166,9 @@ let Class = class extends Base{
 
             if(true || !item.numberOfClass){
                 item.numberOfClass = this.calculateNumberOfClass(item, stmp);
+
+                //TODO
+                item.leftOfClass = this.calculateNumberOfClass(item, stmp, true);
             }
 
 
@@ -230,7 +242,7 @@ let Class = class extends Base{
 
             let refresher = function(query, option){
                 _.each(arr, (doc)=>{
-                    console.log('----', doc._id);
+                    //console.log('----', doc._id);
                     //TODO why has a error
                     //pubThis.removed(dbName, doc._id)
                 });
@@ -271,6 +283,47 @@ let Class = class extends Base{
                 let data = [];
                 if(x.ready()){
                     data = tmpDB.find().fetch();
+
+                    let program = KG.get('EF-Program').getDB().find().fetch(),
+                        session = KG.get('EF-Session').getDB().find().fetch();
+                    data = _.map(data, (item)=>{
+
+                        try{
+                            let stmp = _.find(session, (s)=>{
+                                return s._id === item.sessionID;
+                            });
+
+                            item.sessionName = stmp.name;
+                            item.session = stmp;
+
+
+                            if(true || !item.numberOfClass){
+                                item.numberOfClass = this.calculateNumberOfClass(item, stmp);
+
+                                //TODO
+                                item.leftOfClass = this.calculateNumberOfClass(item, stmp, true);
+                            }
+
+
+                            //nickName
+                            let tn = _.find(program, (p)=>{
+                                return p._id === item.programID;
+                            }).name;
+                            item.programName = tn;
+
+                            tn += ' '+item.sessionName;
+
+                            //if(item.level){
+                            //    tn += ' '+item.level;
+                            //}
+                            tn += ' '+item.schedule.day+' '+item.schedule.time;
+
+                            item.nickName = tn;
+                        }catch(e){}
+
+                        return item;
+
+                    });
                 }
 
                 return {
@@ -293,7 +346,7 @@ let Class = class extends Base{
                 }).maxStudent;
                 let nn = m.ClassStudent.getDB().find({
                     classID : classID,
-                    status : 'register'
+                    type : 'register'
                 }).count();
 
                 if((nn+1) > max){

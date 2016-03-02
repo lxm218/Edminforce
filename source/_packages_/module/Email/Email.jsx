@@ -20,9 +20,13 @@ KG.define('EF-Email', class extends Base{
         let self = this;
         return {
             sendEmail(data){
+
+                let from = 'contact@classforth.com',
+                    domain = KG.util.email.getDomain(from);
+
                 data = _.extend({
                     to : 'liyangwood@sohu.com',
-                    from : 'admin@classforth.com',
+                    from : `${domain}<${from}>`,
                     html : '',
                     text: '',
                     subject: 'Test Subject'

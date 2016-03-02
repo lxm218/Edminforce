@@ -275,5 +275,60 @@ Meteor.startup(function () {
         }
     });
 
+    // A composite publish that returns all (or optionally filtered by a single studentID)
+    // students for the currently logged-in user.
+    // For each student, returns all classes, sessions, programs.
+    Meteor.publishComposite("EFStudentsWithClasses", function(studentID) {
+        const userId = this.userId;
+        return {
+            // all students of the logged-in user
+            find () {
+                let query = {
+                    accountID: userId
+                }
+                studentID && (query.studentID = studentID);
+                return EdminForce.Collections.student.find(query);
+            },
+
+            children: [
+                {
+                    // registered classes for each student (not started, in-session, or completed )
+                    find (student) {
+                        return EdminForce.Collections.classStudent.find({
+                            studentID: student._id,
+                            type: {
+                                $in: ['register']
+                            },
+                            status: {
+                                $in: ['checkouted']
+                            }
+                        })
+                    },
+                    children: [
+                        {
+                            // class info
+                            find(studentClass) {
+                                return EdminForce.Collections.class.find({_id:studentClass.classID})
+                            },
+                            children: [
+                                {
+                                    // session info for the class
+                                    find(classDoc) {
+                                        return EdminForce.Collections.session.find({_id:classDoc.sessionID})
+                                    }
+                                },
+                                {
+                                    // program info for the class
+                                    find(classDoc) {
+                                        return EdminForce.Collections.program.find({_id:classDoc.programID})
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    });
 
 });

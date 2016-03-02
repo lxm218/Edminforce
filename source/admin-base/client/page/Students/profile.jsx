@@ -139,7 +139,7 @@ KUI.Student_profile = class extends KUI.Page{
             },
             {
                 title : 'Status',
-                key : 'status'
+                key : 'type'
             }
         ];
 
