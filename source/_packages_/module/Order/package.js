@@ -20,7 +20,7 @@ Package.onUse(function(api) {
     ], ["client","server"]);
 
     api.addFiles([
-
+        'lib/payment.method.jsx'
     ], ["server"]);
 
 

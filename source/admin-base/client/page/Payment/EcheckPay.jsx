@@ -1,284 +1,107 @@
-let themes = ["overlay-light","overlay-dark"]
-KUI.Payment_ECheckPay = React.createClass({
-    mixins: [ReactMeteorData],
-
+KUI.Payment_ECheckPay = class extends KUI.Page{
     getMeteorData() {
+        let orderID = FlowRouter.getParam('orderID');
+        let x = Meteor.subscribe('EF-Order', {
+            query : {
+                _id : orderID
+            }
+        });
         return {
-            currentUser: Meteor.user()
+            ready : x.ready(),
+            data : KG.get('EF-Order').getDB().findOne(),
+            orderID : orderID
         };
-    },
+    }
 
-
-    getInitialState() {
-        return {
-            buttonActive: false,
-            waiting: false,
-            msg: null,
-            notification: null
-        }
-    },
-
-    postPayment(e){
-
-        // To do: get the charging amount from database
-        // To do: change the referece id
-
-        e.preventDefault()
-        let self = this
-        var paymentInfo = {
-            "createTransactionRequest": {
-                "merchantAuthentication": {
-                    "name": "42ZZf53Hst",
-                    "transactionKey": "3TH6yb6KN43vf76j"
-                },
-                "refId": "123461",
-                "transactionRequest": {
-                    "transactionType": "authCaptureTransaction",
-                    "amount": "5",
-                    "payment": {
-                        "bankAccount": {
-                            "accountType": "checking",
-                            "routingNumber": "125000024",
-                            "accountNumber": "12345678",
-                            "nameOnAccount": "John Doe"
-                        }
-                    },
-
-                    "lineItems": {
-                        "lineItem": {
-                            "itemId": "1",
-                            "name": "vase",
-                            "description": "Cannes logo",
-                            "quantity": "1",
-                            "unitPrice": "0.02"
-                        }
-                    },
-                    // "tax": {
-                    //     "amount": "4.26",
-                    //     "name": "level2 tax name",
-                    //     "description": "level2 tax"
-                    // },
-                    // "duty": {
-                    //     "amount": "8.55",
-                    //     "name": "duty name",
-                    //     "description": "duty description"
-                    // },
-                    // "shipping": {
-                    //     "amount": "4.26",
-                    //     "name": "level2 tax name",
-                    //     "description": "level2 tax"
-                    // },
-                    "poNumber": "456654",
-                    "customer": {
-                        "id": "99999456656"
-                    },
-                    "billTo": {
-                        "firstName": "Ellen",
-                        "lastName": "Johnson",
-                        "company": "Souveniropolis",
-                        "address": "14 Main Street",
-                        "city": "Pecan Springs",
-                        "state": "TX",
-                        "zip": "44628",
-                        "country": "USA"
-                    },
-                    // "shipTo": {
-                    //     "firstName": "China",
-                    //     "lastName": "Bayles",
-                    //     "company": "Thyme for Tea",
-                    //     "address": "12 Main Street",
-                    //     "city": "Pecan Springs",
-                    //     "state": "TX",
-                    //     "zip": "44628",
-                    //     "country": "USA"
-                    // },
-                    "customerIP": "192.168.1.1",
-                    "transactionSettings": {
-                        "setting": {
-                            "settingName": "testRequest",
-                            "settingValue": "false"
-                        }
-                    },
-                    // "userFields": {
-                    //     "userField": [
-                    //         {
-                    //             "name": "MerchantDefinedFieldName1",
-                    //             "value": "MerchantDefinedFieldValue1"
-                    //         },
-                    //         {
-                    //             "name": "favorite_color",
-                    //             "value": "blue"
-                    //         }
-                    //     ]
-                    // }
-                }
+    renderForm(){
+        let p = {
+            routing : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                label : 'Routing Number',
+                ref : 'routing'
+            },
+            account : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'account',
+                label : 'Account Number'
+            },
+            name : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'name',
+                label : 'Name'
             }
-        }
+        };
 
-        // if (this.state.msg) return null
-
-        let form = this.refs.paymentForm.getFormData()
-
-        // console.log(form.creditCardNumber)
-        // console.log(form.expirationDate)
-        // console.log(form.ccv)
-
-        // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-        // 		var ccv = this.refs.paymentForm.getFormData().ccv
-        // 		var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-        // 		var message = []
-        // if(cardNumber.length != 16){
-        // 	message.push("Credit Card Length Error; ")
-        // }
-
-        // var patt = /[0-9]{2}\/[0-9]{2}/
-
-
-        // if (!patt.test(expirationDate)){
-        // 	message.push("Expiration Date Format Format Error; ")
-        // }
-        // if (ccv.length > 4){
-        // 	message.push("CCV Format Error;")
-        // }
-        // if (message.length != 0) {
-        // 	this.setState({
-        //         msg: message
-        //       })
-        // 	return
-        // }
-        // expirationDate = expirationDate.slice(0,2)+expirationDate.slice(3,5)
-
-        paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.routingNumber = form.routingNumber
-        paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = form.accountNumber
-        paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = form.nameOnAccount
-        paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
-        paymentInfo.createTransactionRequest.transactionRequest.amount = "0.1"
-
-        var URL = 'https://apitest.authorize.net/xml/v1/request.api'
-        HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
-            if(!!error){
-                console.log(error)
-            }
-            if(!!response){
-                console.log(response)
-            }
-
-            if (response.data.messages.message[0].code == "I00001") {
-                // debugger
-                console.log("Success");
-                alert('pay success');
-
-            } else{
-                self.setState({
-                    msg: "The transaction was unsuccessful."
-                })
-            }
-
-        })
-
-    },
-
-    printMsg(){
-        console.log("printMsg is called", this.state.msg)
-
-        let currentMessages = this.state.msg ? [this.state.msg] : []
-        return <div>
-            {
-                currentMessages.map(function(m,n){
-                    return <div className="center" key={n}>
-                        <div className="bigger inline-block invis-70 red">
-                            {_.isString(m) ? <p>{m}</p> : m}
-                        </div>
-                    </div>
-                })
-            }
-        </div>
-
-    },
-
-    checkCardNumber(e){
-        // var ccv = this.refs.paymentForm.getFormData().ccv
-        // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-        // var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-        // if (cardNumber.length > 16){
-        // 	this.setState({
-        //         msg: "Credit Card Length Error"
-        //       })
-        // }
-    },
-
-    checkExpirationDate(e){
-        // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-        // var ccv = this.refs.paymentForm.getFormData().ccv
-        // var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-        // var message = []
-        // if(cardNumber.length != 16){
-        // 	message.push("Credit Card Length Error; ")
-        // }
-
-        // if (expirationDate.length > 5){
-        // 	message.push("Expiration Date Format Format Error; ")
-        // }
-        // if (message.length != 0) {
-        // 	this.setState({
-        //         msg: message
-        //       })
-        // }
-    },
-
-    checkName(e){
-        // var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
-        // var ccv = this.refs.paymentForm.getFormData().ccv
-        // var expirationDate = this.refs.paymentForm.getFormData().expirationDate
-        // var message = []
-        // if(cardNumber.length != 16){
-        // 	message.push("Credit Card Length Error; ")
-        // }
-
-        // var patt = /[0-9]{2}\/[0-9]{2}/
-
-
-        // if (!patt.test(expirationDate)){
-        // 	message.push("Expiration Date Format Format Error; ")
-        // }
-        // if (ccv.length > 4){
-        // 	message.push("CCV Format Error;")
-        // }
-        // if (message.length != 0) {
-        // 	this.setState({
-        //         msg: message
-        //       })
-        // }
-
-    },
-
-
-    render() {
-        var inputTheme = "small-label"
-        var buttonTheme = "full"
-        if (_.contains(["overlay-light","overlay-dark"], this.props.theme)) {
-            inputTheme += ","+this.props.theme
-            buttonTheme += ","+this.props.theme
-        }
-
-        let total = Session.get('_register_class_money_total_');
         return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Col md={12} mdOffset={0}>
+                        <RB.Input type="text" {... p.routing} />
+                        <RB.Input type="text" {... p.account} />
+                        <RB.Input type="text" {... p.name} />
 
-            <RC.List className="padding">
-                <RC.Div>Total Money : ${total}</RC.Div>
-                <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
-                    {this.printMsg()}
-                    <RC.Input name="routingNumber" onKeyUp={this.checkRoutingNumber} label="Routing Number" theme={inputTheme} ref="routingNumber" />
-                    <RC.Input name="accountNumber" onKeyUp={this.checkAccountNumber} label="Account Number"  theme={inputTheme} ref="accountNumber" />
-                    <RC.Input name="name" onKeyUp={this.checkName} label="Name" theme={inputTheme} ref="name"/>
-                    <RC.Button name="button" theme="full" buttonColor="brand">
-                        Pay Now
-                    </RC.Button>
-                </RC.Form>
-
-
-
-            </RC.List>
+                    </RB.Col>
+                </RB.Row>
+            </form>
         );
     }
-})
+
+    render(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
+
+        let total = this.data.data.amount;
+        return (
+            <RC.Div>
+                <h3 style={{textAlign:'right'}}>Credit Card | Total : {this.data.data.paymentTotal}</h3>
+                <hr/>
+                {this.renderForm()}
+                <RC.Div style={{textAlign:'right'}}>
+                    <KUI.YesButton ref="btn" onClick={this.pay.bind(this)} label="Pay Now"></KUI.YesButton>
+                </RC.Div>
+            </RC.Div>
+        );
+    }
+
+    pay(){
+        let json = this.data.data;
+        let data = this.getFormValue();
+        console.log(data);
+
+        this.refs.btn.loading(true);
+        Meteor.call('postPaymentByECheck', data, (error, rs)=>{
+            this.refs.btn.loading(false);
+            if(error){
+                util.toast.showError(error.reason);
+                return;
+            }
+            util.toast.alert('Pay Success');
+
+            //update order db
+            let nd = {
+                status : 'success'
+            };
+            KG.get('EF-Order').updateById(nd, this.data.orderID);
+
+            _.delay(function(){
+                util.goPath('/registration/success/'+json.details[0]);
+            }, 100);
+        });
+    }
+
+    getFormValue(){
+        let data = {
+            routingNumber : this.refs.routing.getValue(),
+            accountNumber : this.refs.account.getValue(),
+            nameOnAccount : this.refs.name.getValue(),
+            order : this.data.orderID,
+            id : this.data.data.accountID,
+            amount : this.data.data.amount
+        };
+        return data;
+    }
+};

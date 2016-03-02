@@ -10,7 +10,7 @@ if(Meteor.isClient){
         }]
     });
 
-    Route.route('/creditcard', {
+    Route.route('/creditcard/:orderID', {
         action: function (p) {
             App.routeHandler(p, {
                 pageTitle: "Payment | Credit Card",
@@ -19,7 +19,7 @@ if(Meteor.isClient){
         }
     });
 
-    Route.route('/echeck', {
+    Route.route('/echeck/:orderID', {
         action: function (p) {
             App.routeHandler(p, {
                 pageTitle: "Payment | ECheck",

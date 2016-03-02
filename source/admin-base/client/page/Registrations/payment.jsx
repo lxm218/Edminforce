@@ -277,6 +277,9 @@ KUI.Registration_payment = class extends KUI.Page{
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {
                 success : function(id){
+                    if(s21||s24){
+                        path += '/'+id;
+                    }
                     util.goPath(path);
                 }
             });
