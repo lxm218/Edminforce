@@ -101,8 +101,8 @@
       message.push("Routing Number Length Error; ")
     }
 
-    if (accountNumber.length != 12){
-      message.push("Account Number Length Error; ")
+    if (accountNumber.length == 0){
+      message.push("Account Number Cannot Be Empty; ")
     }
     if (nameOnAccount.length == 0) {
       message.push("Name Cannot Be Empty; ")
@@ -214,9 +214,6 @@
         message.push("Routing Number Length Error; ")
       }
 
-      if (accountNumber.length > 12){
-        message.push("Account Number Length Error; ")
-      }
       if (message.length != 0) {
         this.setState({
               msg: message
@@ -234,8 +231,8 @@
         message.push("Routing Number Length Error; ")
       }
 
-      if (accountNumber.length != 12){
-        message.push("Account Number Length Error; ")
+      if (accountNumber.length == 0){
+        message.push("Account Number Cannot Be Empty; ")
       }
       if (nameOnAccount.length == 0) {
         message.push("Name Cannot Be Empty; ")
