@@ -153,7 +153,7 @@ EdminForce.Components.User = React.createClass({
         let tpl = [
             '<h3>Welcome ',data.name,'</h3>',
             '<p>Thanks for creating an account. Your login ID is your email.</p>',
-            '<p>Now\'s a good time to login and change your password and also update your profile.</p>',
+            '<p>Now\'s a good time to login and update your profile.</p>',
             '<h4><a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
 
             '<br/><br/>',
