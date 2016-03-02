@@ -36,7 +36,7 @@ let Class = class extends Base{
 
         data.numberOfClass = parseInt(data.numberOfClass||0, 10);
         data.minAgeRequire = parseInt(data.minAgeRequire||0, 10);
-        data.maxAgeRequire = parseInt(data.maxAgeRequire||0, 10);
+        data.maxAgeRequire = parseInt(data.maxAgeRequire||100, 10);
         data.maxStudent = parseInt(data.maxStudent||0, 10);
         data.minStudent = parseInt(data.minStudent||0, 10);
         data.trialStudent = parseInt(data.trialStudent||0, 10);
