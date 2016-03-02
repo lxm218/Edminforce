@@ -147,7 +147,7 @@ EdminForce.Components.User = React.createClass({
 
   getRegisterConfirmEmailTemplate(data){
         let school={
-          "name" : "California Art Academy"
+          "name" : "CalColor Academy"
         }
 
         let tpl = [
