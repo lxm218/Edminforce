@@ -87,8 +87,15 @@ Schema.Class = {
     }),
     trialStudent : KG.schema.default({
         defaultValue : 0,
+        optional : true,
         type : Number,
         label : 'Trial Student'
+    }),
+    makeupStudent : KG.schema.default({
+        defaultValue : 0,
+        optional : true,
+        type : Number,
+        label : 'Makeup Student'
     }),
 
     minAgeRequire : KG.schema.default({

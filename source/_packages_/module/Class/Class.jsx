@@ -40,6 +40,7 @@ let Class = class extends Base{
         data.maxStudent = parseInt(data.maxStudent||0, 10);
         data.minStudent = parseInt(data.minStudent||0, 10);
         data.trialStudent = parseInt(data.trialStudent||0, 10);
+        data.makeupStudent = parseInt(data.makeupStudent||0, 10);
 
 
         return data;

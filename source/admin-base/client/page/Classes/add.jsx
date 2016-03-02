@@ -76,14 +76,17 @@ KUI.Class_comp_add = class extends KUI.Page{
             tuitionMoney : this.refs.tuitionMoney,
             tuitionType : this.refs.tuitionType,
             scheduleDay : this.refs.scheduleDay,
-            scheduleTime : this.refs.scheduleTime
+            scheduleTime : this.refs.scheduleTime,
+
+            makeup : this.refs.makeupStudent
         };
     }
 
     getValue(){
         let {
             name, program, session, status, teacher, len, number, maxAge, minAge,
-            level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime
+            level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime,
+            makeup
             } = this.getReactObj();
 
         let data = {
@@ -101,6 +104,7 @@ KUI.Class_comp_add = class extends KUI.Page{
             trialStudent : trial.getValue(),
             minStudent : min.getValue(),
             maxStudent : max.getValue(),
+            makeupStudent : makeup.getValue(),
             tuition : {
                 type : tuitionType.getValue(),
                 money : tuitionMoney.getValue()
@@ -120,7 +124,8 @@ KUI.Class_comp_add = class extends KUI.Page{
     reset(){
         let {
             name, program, session, status, teacher, len, number, maxAge, minAge,
-            level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime
+            level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime,
+            makeup
             } = this.getReactObj();
         let opt = this.getSelectOption();
         program.getInputDOMNode().value = opt.program[0]._id;
@@ -140,6 +145,7 @@ KUI.Class_comp_add = class extends KUI.Page{
         tuitionType.getInputDOMNode().value = opt.tuitionType[0];
         scheduleDay.getInputDOMNode().value = opt.scheduleDay[0];
         scheduleTime.getInputDOMNode().value = opt.scheduleTime[0];
+        makeup.getInputDOMNode().value = '';
     }
 
     getSelectOption(){
@@ -281,6 +287,12 @@ KUI.Class_comp_add = class extends KUI.Page{
                 wrapperClassName : 'col-xs-8',
                 ref : 'trialStudent',
                 label : 'Trial Maximum'
+            },
+            makeupStudent : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'makeupStudent',
+                label : 'Makeup Maximum'
             }
 
         };
@@ -384,6 +396,7 @@ KUI.Class_comp_add = class extends KUI.Page{
                         <RB.Input type="text" {... p.maxStudent} />
 
                         <RB.Input type="text" {... p.trialStudent} />
+                        <RB.Input type="text" {... p.makeupStudent} />
 
 
                     </RB.Col>
@@ -396,7 +409,8 @@ KUI.Class_comp_add = class extends KUI.Page{
     setValue(data){
         let {
             name, program, session, status, teacher, len, number, maxAge, minAge,
-            level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime
+            level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime,
+            makeup
             } = this.getReactObj();
         name.getInputDOMNode().value = data.nickName;
         program.getInputDOMNode().value = data.programID;
@@ -416,6 +430,7 @@ KUI.Class_comp_add = class extends KUI.Page{
         tuitionType.getInputDOMNode().value = data.tuition.type;
         scheduleDay.getInputDOMNode().value = data.schedule.day;
         scheduleTime.getInputDOMNode().value = data.schedule.time;
+        makeup.getInputDOMNode().value = data.makeupStudent || '';
     }
 
     runOnceAfterDataReady(){
