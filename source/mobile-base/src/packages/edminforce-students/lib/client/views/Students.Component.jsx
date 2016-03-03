@@ -22,7 +22,7 @@
             }
         }
 
-        selectStudent(student, studentClass) {
+        selectClass(student, studentClass) {
 
             // it has class
             if(student && studentClass){
@@ -37,6 +37,14 @@
                 let path = FlowRouter.path("/students/:studentID", params, query);
                 FlowRouter.go(path);
             }
+        }
+
+        selectStudent(student) {
+            // update student
+            if (!student) return;
+
+            let path = FlowRouter.path("/account/addstudent",null,{studentID:student._id});
+            FlowRouter.go(path);
         }
 
         createStudentListWithClasses() {
@@ -103,7 +111,7 @@
             let studentElements = students.map( (student) => {
                 // class records for this student
                 let classElements = student.classes.map( (sc, index) => (
-                        <RC.Div key={sc._id} onClick={self.selectStudent.bind(self, student,sc)}>
+                        <RC.Div key={sc._id} onClick={self.selectClass.bind(self, student,sc)}>
                             <p style={{padding: 0, paddingTop: index == 0 ? 8 : 0}}>
                                     {sc.program.name}
                             </p>
