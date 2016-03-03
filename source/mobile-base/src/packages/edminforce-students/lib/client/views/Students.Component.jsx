@@ -113,13 +113,13 @@
                 let classElements = student.classes.map( (sc, index) => (
                         <RC.Div key={sc._id} onClick={self.selectClass.bind(self, student,sc)}>
                             <p style={{padding: 0, paddingTop: index == 0 ? 8 : 0}}>
-                                    {sc.program.name}
+                                {sc.program.name}
                             </p>
                             <p style={{padding: 0}}>
-                                    {sc.class.schedule && sc.class.schedule.day} {sc.class.schedule && sc.class.schedule.time}
+                                {sc.session.name} {sc.class.schedule && sc.class.schedule.day} {sc.class.schedule && sc.class.schedule.time}
                             </p>
                             <p style={{padding: 0, paddingBottom: 8 }}>
-                                    {sc.completed ? "Completed" : (sc.createTime && "Registered on " + moment(sc.createTime).format("MMM D, YYYY"))}
+                                {sc.completed ? "Completed" : (sc.createTime && "Registered on " + moment(sc.createTime).format("MMM D, YYYY"))}
                             </p>
                         </RC.Div>
                     ))
