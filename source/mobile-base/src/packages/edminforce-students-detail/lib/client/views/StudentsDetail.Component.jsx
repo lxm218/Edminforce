@@ -474,10 +474,16 @@
                 let currentClass = EdminForce.Collections.classStudent.find({_id:classStudentID}).fetch();
                 currentClass = currentClass && currentClass[0];
                 if (currentClass) {
-                    currentClass.program = _.find(programs, {_id: currentClass.programID});
                     currentClass.class = _.find(classes, {_id: currentClass.classID});
-                    currentClass.class && (currentClass.session = _.find(sessions, {_id: currentClass.class.sessionID}));
-                    currentClass.started = (currentClass.session && currentClass.session.startDate.getTime() < currentTime);
+                    if (currentClass.class) {
+                        currentClass.program = _.find(programs, {_id: currentClass.class.programID});
+                        currentClass.session = _.find(sessions, {_id: currentClass.class.sessionID});
+
+                        if (!currentClass.programID)
+                            currentClass.programID = currentClass.class.programID;
+
+                        currentClass.started = (currentClass.session && currentClass.session.startDate.getTime() < currentTime);
+                    }
                 }
                 student.currentClass = currentClass;
             }
@@ -487,9 +493,13 @@
             studentClasses.forEach((studentClass) => {
                 if (studentClass.type !== 'trial') {
                     // find class session & program
-                    studentClass.program = _.find(programs, {_id: studentClass.programID});
                     studentClass.class = _.find(classes, {_id: studentClass.classID});
-                    studentClass.class && (studentClass.session = _.find(sessions, {_id: studentClass.class.sessionID}));
+                    if (studentClass.class) {
+                        studentClass.program = _.find(programs, {_id: studentClass.class.programID});
+                        studentClass.session = _.find(sessions, {_id: studentClass.class.sessionID});
+                        if (!studentClass.programID)
+                            studentClass.programID = studentClass.class.programID;
+                    }
 
                     if (studentClass.program && studentClass.class && studentClass.session) {
                         if (studentClass.session.endDate.getTime() < currentTime)

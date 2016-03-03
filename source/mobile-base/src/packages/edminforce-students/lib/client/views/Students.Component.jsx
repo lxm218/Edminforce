@@ -69,11 +69,14 @@
                 let currentClasses = [];
                 let completedClasses = [];
                 studentClasses.forEach((studentClass) => {
-                    if (studentClass.type === 'register' || studentClass.status === 'checkouted') {
                         // find class session & program
-                        studentClass.program = _.find(programs, {_id: studentClass.programID});
                         studentClass.class = _.find(classes, {_id: studentClass.classID});
-                        studentClass.class && (studentClass.session = _.find(sessions, {_id: studentClass.class.sessionID}));
+                        if (studentClass.class && studentClass.class.status == 'Active') {
+                            studentClass.program = _.find(programs, {_id: studentClass.class.programID});
+                            studentClass.session = _.find(sessions, {_id: studentClass.class.sessionID});
+                            if (!studentClass.programID)
+                                studentClass.programID = studentClass.class.programID;
+                        }
 
                         if (studentClass.program && studentClass.class && studentClass.session) {
                             if (studentClass.session.endDate.getTime() < currentTime)
@@ -81,7 +84,6 @@
                             else
                                 currentClasses.push(studentClass);
                         }
-                    }
                 });
 
                 // only show current classes, if there is any
