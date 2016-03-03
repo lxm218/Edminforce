@@ -24,7 +24,7 @@ Meteor.startup(function () {
                     }
                 },
                 {
-                    find: function () {
+                    find: function (cls) {
                         return EdminForce.Collections.classStudent.find({classID:cls._id}, {
                             sort: {
                                 startDate: -1

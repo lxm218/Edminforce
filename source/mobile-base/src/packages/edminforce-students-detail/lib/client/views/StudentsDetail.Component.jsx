@@ -315,11 +315,21 @@
         }
 
         renderClassItes() {
+            if (this.data.lessons.length == 0)
+                return (
+                    <RC.Div><p style={{textAlign:"center", padding: 0, paddingBottom: 8, paddingTop: 8}}>No class available for make up</p></RC.Div>
+                )
+
             let lesseonsFilteredByDay = this.data.lessons;
             if (this.state.selectedDay) {
                 lesseonsFilteredByDay = _.filter(this.data.lessons, (item) => {
                     return item.schedule && item.schedule.day.toLowerCase() == this.state.selectedDay.toLowerCase();
                 });
+
+                if (lesseonsFilteredByDay.length == 0)
+                    return (
+                        <RC.Div><p style={{textAlign:"center", padding: 0, paddingBottom: 8, paddingTop: 8}}>No class available on selected day</p></RC.Div>
+                    )
             }
 
             let lessons = lesseonsFilteredByDay.map(function (item, index) {
