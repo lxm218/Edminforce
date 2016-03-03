@@ -32,7 +32,8 @@
                 };
                 let query = {
                     current: studentClass._id,
-                    programID: studentClass.programID
+                    programID: studentClass.programID,
+                    completed: !!studentClass.completed
                 }
                 let path = FlowRouter.path("/students/:studentID", params, query);
                 FlowRouter.go(path);

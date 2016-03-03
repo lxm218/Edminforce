@@ -10,7 +10,8 @@ Meteor.startup(function () {
                 find: function () {
                     //console.log(programID);
                     return EdminForce.Collections.class.find({
-                        programID: programID
+                        programID: programID,
+                        status: 'Active'
                     });
                 },
                 children: [{
@@ -22,15 +23,15 @@ Meteor.startup(function () {
                         });
                     }
                 },
-                    {
-                        find: function () {
-                            return EdminForce.Collections.classStudent.find({}, {
-                                sort: {
-                                    startDate: -1
-                                }
-                            });
-                        }
-                    }]
+                {
+                    find: function () {
+                        return EdminForce.Collections.classStudent.find({classID:cls._id}, {
+                            sort: {
+                                startDate: -1
+                            }
+                        });
+                    }
+                }]
             }
         }
     );
@@ -286,7 +287,7 @@ Meteor.startup(function () {
                 let query = {
                     accountID: userId
                 }
-                studentID && (query.studentID = studentID);
+                studentID && (query._id = studentID);
                 return EdminForce.Collections.student.find(query);
             },
 
