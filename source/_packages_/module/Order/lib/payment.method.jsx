@@ -225,7 +225,8 @@ Meteor.methods({
             id : form.id
         });
         data.createTransactionRequest.refId = form.order;
-        data.createTransactionRequest.transactionRequest.amount = (parseInt(form.amount, 10)*1.03).toString();
+        //data.createTransactionRequest.transactionRequest.amount = (parseInt(form.amount, 10)*1.03).toString();
+        data.createTransactionRequest.transactionRequest.amount = form.amount.toString();
 
 
         let result = HTTP.call('POST', config.requestUrl, {data: data});

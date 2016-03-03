@@ -3,6 +3,11 @@ RC.MQ = {};
 
 KUI.Payment_CreditCardPay = class extends KUI.Page{
 
+    constructor(p){
+        super(p);
+        this.total = 0;
+    }
+
 
     getMeteorData() {
         let orderID = FlowRouter.getParam('orderID');
@@ -11,9 +16,10 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
                 _id : orderID
             }
         });
+        let data = KG.get('EF-Order').getDB().findOne();
         return {
             ready : x.ready(),
-            data : KG.get('EF-Order').getDB().findOne(),
+            data : data,
             orderID : orderID
         };
     }
@@ -26,10 +32,20 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             return util.renderLoading();
         }
 
-        let total = this.data.data.amount;
+        let data = this.data.data,
+            poundage = parseFloat(data.poundage||0) || 0,
+            total = data.paymentTotal.replace(/\$/g, '');
+        this.total = total;
         return (
             <RC.Div>
-                <h3 style={{textAlign:'right'}}>Credit Card | Total : {this.data.data.paymentTotal}</h3>
+                <h3 style={{textAlign:'right'}}>
+                    Credit Card | Total : ${total}
+                </h3>
+                {poundage>0?
+                    <p style={{textAlign:'right'}}>Poundage : {poundage*100}%</p>
+                    :
+                    null
+                }
                 <hr/>
                 {this.renderForm()}
                 <RC.Div style={{textAlign:'right'}}>
@@ -78,7 +94,7 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             city : this.refs.city.getValue(),
             state : this.refs.state.getValue(),
             zip : this.refs.zip.getValue(),
-            amount : this.data.data.amount
+            amount : this.total
         };
         return data;
     }

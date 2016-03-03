@@ -4,6 +4,17 @@ if(!App.debug && Meteor.isClient){
     console.log = function(){};
 }
 
+App.config = {
+    AppName : 'Edminforce Admin',
+
+    poundage : {
+        credit : 0.03,
+        echeck : 0,
+        cash : 0,
+        check : 0
+    }
+
+};
 
 
 

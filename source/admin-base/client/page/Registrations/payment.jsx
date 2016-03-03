@@ -242,29 +242,32 @@ KUI.Registration_payment = class extends KUI.Page{
             accountID : this.data.student.accountID,
             studentID : this.data.student._id,
             details : [this.data.id],
-            amount : this.total.get(),
-            paymentTotal : '$'+this.total.get()
+            amount : this.total.get()
         };
 
         if(s21){
             path = '/payment/creditcard';
             orderData.paymentType = 'credit card';
             orderData.status = 'waiting';
+            orderData.poundage = App.config.poundage.credit;
         }
         else if(s24){
             path = '/payment/echeck';
             orderData.paymentType = 'echeck';
             orderData.status = 'waiting';
+            orderData.poundage = App.config.poundage.echeck;
         }
         else if(s22){
             path = '/registration/success/'+this.data.id;
             orderData.paymentType = 'cash';
             orderData.status = 'success';
+            orderData.poundage = App.config.poundage.cash;
         }
         else if(s23){
             path = '/registration/success/'+this.data.id;
             orderData.paymentType = 'check';
             orderData.status = 'success';
+            orderData.poundage = App.config.poundage.check;
         }
         else{
             flag = false;
@@ -274,6 +277,11 @@ KUI.Registration_payment = class extends KUI.Page{
         if(flag){
             this.changeCustomerRegistrationFee();
 
+
+            let total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
+            total = total.toFixed(3);
+            orderData.poundage = orderData.poundage.toString();
+            orderData.paymentTotal = total.toString();
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {
                 success : function(id){

@@ -20,6 +20,11 @@ Schema.Order = {
         type: String,
         optional: true
     },
+    poundage : {
+        type : String,
+        optional : true,
+        defaultValue : '0'
+    },
     couponID:{
         type: String,
         optional: true

@@ -1,4 +1,10 @@
 KUI.Payment_ECheckPay = class extends KUI.Page{
+    constructor(p){
+        super(p);
+        this.total = 0;
+    }
+
+
     getMeteorData() {
         let orderID = FlowRouter.getParam('orderID');
         let x = Meteor.subscribe('EF-Order', {
@@ -6,9 +12,10 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                 _id : orderID
             }
         });
+        let data = KG.get('EF-Order').getDB().findOne();
         return {
             ready : x.ready(),
-            data : KG.get('EF-Order').getDB().findOne(),
+            data : data,
             orderID : orderID
         };
     }
@@ -54,10 +61,21 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
             return util.renderLoading();
         }
 
-        let total = this.data.data.amount;
+        let data = this.data.data,
+            poundage = parseFloat(data.poundage||0) || 0,
+            total = data.paymentTotal.replace(/\$/g, '');
+        this.total = total;
+
         return (
             <RC.Div>
-                <h3 style={{textAlign:'right'}}>Credit Card | Total : {this.data.data.paymentTotal}</h3>
+                <h3 style={{textAlign:'right'}}>
+                    Credit Card | Total : ${total}
+                </h3>
+                {poundage>0?
+                    <p style={{textAlign:'right'}}>Poundage : {poundage*100}%</p>
+                    :
+                    null
+                }
                 <hr/>
                 {this.renderForm()}
                 <RC.Div style={{textAlign:'right'}}>
@@ -100,7 +118,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
             nameOnAccount : this.refs.name.getValue(),
             order : this.data.orderID,
             id : this.data.data.accountID,
-            amount : this.data.data.amount
+            amount : this.total
         };
         return data;
     }
