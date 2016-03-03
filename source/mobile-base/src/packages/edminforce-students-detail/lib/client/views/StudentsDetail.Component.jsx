@@ -167,27 +167,25 @@
                 // 1. class's status isn't Active
                 //console.log(item.status);
                 //console.log(schemaConst.status[0]);
-
                 if (lodash.lowerCase(item.status) !== lodash.lowerCase(schemaConst.status[0])) {
                     continue;
                 }
 
-                //TODO: confirm if make up is limited by total number or not
-                //// get regular register students number
-                //let numRegularRegisterStudents = EdminForce.Collections.classStudent.find({
-                //        classID: item._id,
-                //        status: schemaConst.registrationStatus[1]       // register
-                //    }, {
-                //        sort: {
-                //            lessonDate: 1
-                //        }
-                //    }).count();
-                //
-                //// if trial student is 0, and class already full, then skip this class
-                //if (item.maxStudent === numRegularRegisterStudents) {
-                //    //console.log("[info]class is full, and not all trial");
-                //    continue;
-                //}
+                // get regular register students number
+                let numRegularRegisterStudents = EdminForce.Collections.classStudent.find({
+                        classID: item._id,
+                        status: schemaConst.registrationStatus[1]       // register
+                    }, {
+                        sort: {
+                            lessonDate: 1
+                        }
+                    }).count();
+
+                // if trial student is 0, and class already full, then skip this class
+                if (numRegularRegisterStudents >= item.maxStudent) {
+                    //console.log("[info]class is full, and not all trial");
+                    continue;
+                }
 
                 let classSession = EdminForce.Collections.session.find({
                         _id: item.sessionID
@@ -213,15 +211,21 @@
 
                 // how many available lesson to show
                 for (let j = 0; j < displayWeekNumber; j++) {
-
-                    let makeupNumber = EdminForce.Collections.classStudent.find({
+                    // check the total students for the class date, including make up, trial and regular
+                    let makeupAndTrialNumber = EdminForce.Collections.classStudent.find({
                             classID: item.classID,
-                            lessonDate: moment(classDate).toDate(),
-                            type: schemaConst.registrationStatus[3]
+                            lessonDate: moment(classDate).toDate()
                         }).count();
 
-                    // most of case should just equal
-                    // no trial available for this date
+                    if (makeupAndTrialNumber + numRegularRegisterStudents >= item.maxStudent)
+                        continue;
+
+                    // check to make sure total makeup students is less than the limit
+                    let makeupNumber = EdminForce.Collections.classStudent.find({
+                        classID: item.classID,
+                        lessonDate: moment(classDate).toDate(),
+                        type: schemaConst.registrationStatus[3]
+                    }).count();
                     if (makeupNumber >= schemaConst.maxMakeupStudentsPerClass) {
                         continue;
                     }
