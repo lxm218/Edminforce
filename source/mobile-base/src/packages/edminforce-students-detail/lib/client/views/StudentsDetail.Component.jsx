@@ -41,6 +41,7 @@
             this.studentID = FlowRouter.getParam("studentID");
             this.classID = FlowRouter.getQueryParam("classID");
             this.programID = FlowRouter.getQueryParam("programID");
+            this.programName = FlowRouter.getQueryParam("programName");
             this.studentDOB = FlowRouter.getQueryParam("dob");
             this.studentDOB && (this.studentDOB = new Date(parseInt(this.studentDOB)));
             this.studentGender = FlowRouter.getQueryParam("gender");
@@ -236,6 +237,8 @@
                     // available lesson
                     lesson.key = btoa(lesson._id + ":" + j);
                     lesson.lessonDate = moment(classDate).toDate();
+
+                    lesson.name = this.programName + ' ' + classSession.name + ' ' + lesson.schedule.day + ' ' + lesson.schedule.time;
 
                     availableLessons.push(lesson);
 
@@ -527,6 +530,7 @@
             let query = {
                 classID: this.data.student.currentClass.classID,
                 programID: this.data.student.currentClass.programID,
+                programName: this.data.student.currentClass.program.name,
                 dob: this.data.student.profile && this.data.student.profile.birthday.getTime(),
                 gender: this.data.student.profile && this.data.student.profile.gender,
                 name: this.data.student.name
@@ -569,21 +573,21 @@
                                         <TableRowColumn
                                             style={{width: "40%", whiteSpace:"normal"}}>
                                             <p>
-                                                        {this.data.student.name}
+                                                {this.data.student.name}
                                             </p>
                                         </TableRowColumn>
                                         <TableRowColumn
                                             style={{width: "60%", whiteSpace:"normal"}}>
                                             <p style={{padding: 0}}>
-                                                        {this.data.student.currentClass.program.name}
+                                                {this.data.student.currentClass.program.name}
                                             </p>
 
                                             <p style={{padding: 0}}>
-                                                        {this.data.student.currentClass.class.schedule.day} {this.data.student.currentClass.class.schedule.time}
+                                                {this.data.student.currentClass.session && this.data.student.currentClass.session.name} {this.data.student.currentClass.class.schedule.day} {this.data.student.currentClass.class.schedule.time}
                                             </p>
 
                                             <p style={{padding: 0}}>
-                                                        {"Registered on " + moment(this.data.student.currentClass.createTime).format("MMM D, YYYY")}
+                                                {"Registered on " + moment(this.data.student.currentClass.createTime).format("MMM D, YYYY")}
                                             </p>
                                         </TableRowColumn>
                                     </TableRow>
