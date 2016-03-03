@@ -25,7 +25,7 @@
         selectClass(student, studentClass) {
 
             // it has class
-            if(student && studentClass){
+            if(student && studentClass && studentClass.type !== 'trial'){
 
                 let params = {
                     studentID:student._id
@@ -108,6 +108,7 @@
             let self = this;
             let students = this.createStudentListWithClasses();
 
+            let currentTime = new Date().getTime();
             let studentElements = students.map( (student) => {
                 // class records for this student
                 let classElements = student.classes.map( (sc, index) => (
@@ -118,6 +119,15 @@
                             <p style={{padding: 0}}>
                                 {sc.session.name} {sc.class.schedule && sc.class.schedule.day} {sc.class.schedule && sc.class.schedule.time}
                             </p>
+                            {
+                                !sc.completed && (
+                                    <p style={{padding: 0}}>
+                                        {
+                                            sc.type === "trial" ? "Trial" : (sc.session.startDate.getTime()<currentTime ? "Current":"New Registration")
+                                        }
+                                    </p>
+                                )
+                            }
                             <p style={{padding: 0, paddingBottom: 8 }}>
                                 {sc.completed ? "Completed" : (sc.createTime && "Registered on " + moment(sc.createTime).format("MMM D, YYYY"))}
                             </p>
