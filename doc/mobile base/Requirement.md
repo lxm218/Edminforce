@@ -88,6 +88,7 @@ Note:
 2. student can only make up same type of class (e.g. begining class student can only make up beginning class, etc)
 3. when student wants to make up a class, system needs to show available class which has space (number of students hasn't reached max register number. for example, one class's max registeration is 8, currently has 7 registered with one trial on Mar 7 class. Therefore, this class on Mar 7 is not available for make up. If this class only has 7 registered student without any trial or other make up, this class has one spot available for make up). number of make up for each class cannot excess max make-up. 
 4. student needs to pay $5 for make up class each time. coupon cannot be applied to this fee. Admin input make up class fee when they set up a class. 
+5. when admin set up class, he needs to input make up class fee field. if it's 0, payment process should be skipped. 
 
 
 ## Registration
