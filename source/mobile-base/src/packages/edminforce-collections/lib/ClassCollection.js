@@ -170,4 +170,60 @@ ClassCollection = class ClassCollection extends BaseCollection {
             }
         }
     }
+
+    /*
+     * return number of class
+     * @param - data
+     *        - session
+     *        - flag : if true, calcalte number from now to session ending
+     * @return numberOfClass
+     * */
+    calculateNumberOfClass(data, session, flag){
+        let start = moment(session.startDate),
+            end = moment(session.endDate);
+
+        if(flag){
+            let now = moment(new Date());
+            if(now.isAfter(start, 'day')){
+                start = now;
+            }
+        }
+
+        let day = this.getDBSchema().schema('schedule.day').allowedValues;
+        day = _.indexOf(day, data.schedule.day);
+
+        let format = 'YYYYMMDD';
+
+        let rs = 0,
+            cur = start;
+
+        let blockDay = _.map(session.blockOutDay || [], (item)=>{
+            return moment(item).format(format);
+        });
+
+        while(end.isAfter(cur, 'day')){
+            if(cur.day() === day){
+                if(_.indexOf(blockDay, cur.format(format)) < 0){
+                    rs++;
+                }
+
+            }
+
+            cur = cur.add(1, 'd');
+        }
+
+        return rs;
+    }
+
+    /*
+     * return class registration fee
+     * @param - classData
+     *        - session
+     * @return class registration fee
+     * */
+    calculateRegistrationFee(classData, session) {
+        return classData.tuition.type==='class'?
+                classData.tuition.money * this.calculateNumberOfClass(classData,session,true) :
+                classData.tuition.money
+    }
 }

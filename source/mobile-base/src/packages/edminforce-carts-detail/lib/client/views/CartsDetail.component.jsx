@@ -13,52 +13,13 @@
     EdminForce.Components.CartsDetail = class extends RC.CSSMeteorData {
         constructor(p) {
             super(p);
-
-            this.cartID = new ReactiveVar(FlowRouter.getParam("cartId"));
-            this.classID = new ReactiveVar(null);
-            this.studentID = new ReactiveVar(null);
-
+            this.cartID = FlowRouter.getParam("cartId");
         }
 
         getMeteorData() {
-            let handler = null;
-            let ready = false;
-
-            //let programID =
-            Tracker.autorun(function () {
-                handler = Meteor.subscribe("EF-Cart-Detail-By-ID", this.cartID.get(), this.classID.get(), this.studentID.get());
-            }.bind(this));
-
-            let cart = EdminForce.Collections.classStudent.find({
-                _id: this.cartID.get()
-            }).fetch();
-
-            cart = cart && cart[0];
-
-            this.classID.set(cart && cart.classID);
-            this.studentID.set(cart && cart.studentID);
-
-            let classData = EdminForce.Collections.class.find({
-                _id: this.classID.get()
-            }).fetch();
-
-            let studentData = EdminForce.Collections.student.find({
-                _id: this.studentID.get()
-            }).fetch();
-
-            console.log(handler.ready());
-
-            // Temp solve, don't know why if book class from classes page, the handler.ready() always false
-            if(studentData && studentData[0]){
-                ready = true;
-            }
-
             return {
-                classData: classData && classData[0],
-                studentData: studentData && studentData[0],
-                isReady: ready
+                isReady: Meteor.subscribe("EF-Cart-Detail-By-ID", this.cartID).ready() && Meteor.subscribe("EFCurrentCustomer").ready()
             }
-
         }
 
         registerMore() {
@@ -70,10 +31,49 @@
             FlowRouter.go(path);
         }
 
-        render() {
+        getUIData() {
+            // the two subscriptions return data from the following mongo collections:
+            // studentClass, student, class, session, customer, orders
+            let studentClass = EdminForce.Collections.classStudent.find({_id:this.cartID}).fetch();
+            studentClass = studentClass && studentClass[0];
+            if (!studentClass) return null;
 
-            //console.log(this.data.studentData.name);
-            console.log(this.data.classData);
+            let classData = EdminForce.Collections.class.find({_id:studentClass.classID}).fetch();
+            classData = classData && classData[0];
+            if (!classData) return null;
+
+            let session = EdminForce.Collections.session.find({_id:classData.sessionID}).fetch();
+            session = session && session[0];
+            if (!session) return null;
+
+            let student = EdminForce.Collections.student.find({_id:studentClass.studentID}).fetch();
+            student = student && student[0];
+
+            //let customer = EdminForce.Collections.Customer.find({_id: Meteor.userId}).fetch();
+            //customer = customer && customer[0];
+
+            let orderCount = EdminForce.Collections.orders.find({accountID:Meteor.userId(),status:'success'}).count();
+
+            return {
+                classData,
+                studentData: student,
+                registrationFee: orderCount == 0 ? 25 : 0,
+                classFee: EdminForce.Collections.class.calculateRegistrationFee(classData,session)
+            }
+        }
+
+        render() {
+            if (!this.data.isReady)
+                return (
+                    <RC.Loading isReady={this.data.isReady}></RC.Loading>
+                )
+
+            let uiData = this.getUIData();
+            if (!uiData)
+                return (
+                    <div>An error has occurred</div>
+                )
+
 
             let style = {
                 padding: '10px'
@@ -84,13 +84,13 @@
                 <RC.Div style={style} className="carts-detail">
                     <RC.VerticalAlign center={true} className="padding" height="300px">
                         <h2>
-                            Registration for Winter 2016
+                            Registration Summary
                         </h2>
                     </RC.VerticalAlign>
 
                     <RC.Loading isReady={this.data.isReady}>
 
-                        <p>You booked this class for {this.data.studentData && this.data.studentData.name}</p>
+                        <p>You booked this class for {uiData.studentData && uiData.studentData.name}</p>
 
                         <Table selectable={false}>
                             <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
@@ -102,15 +102,22 @@
                             </TableHeader>
                             <TableBody displayRowCheckbox={false}>
                                 <TableRow>
-                                    <TableRowColumn>{this.data.studentData && this.data.studentData.name}</TableRowColumn>
-                                    <TableRowColumn>{this.data.classData && this.data.classData.name}</TableRowColumn>
-                                    <TableRowColumn>{this.data.classData && this.data.classData.tuition.money}</TableRowColumn>
+                                    <TableRowColumn>{uiData.studentData && uiData.studentData.name}</TableRowColumn>
+                                    <TableRowColumn>{uiData.classData && uiData.classData.name}</TableRowColumn>
+                                    <TableRowColumn>{'$' + uiData.classFee}</TableRowColumn>
                                 </TableRow>
+                                {
+                                    uiData.registrationFee > 0 && (
+                                        <TableRow>
+                                            <TableRowColumn colSpan="2">Registration Fee:</TableRowColumn>
+                                            <TableRowColumn>{'$' + uiData.registrationFee}</TableRowColumn>
+                                        </TableRow>
+                                    )
+                                }
                             </TableBody>
                         </Table>
 
-                        <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.registerMore}>Register
-                            More</RC.Button>
+                        <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.registerMore}>Register More</RC.Button>
                         <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.checkout}>Check Out</RC.Button>
                     </RC.Loading>
                 </RC.Div>

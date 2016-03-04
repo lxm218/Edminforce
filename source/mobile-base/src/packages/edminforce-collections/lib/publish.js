@@ -112,8 +112,7 @@ Meteor.startup(function () {
         }
     });
 
-    Meteor.publishComposite("EF-Cart-Detail-By-ID", function (cartID, classID, studentID) {
-        console.log(studentID);
+    Meteor.publishComposite("EF-Cart-Detail-By-ID", function (cartID /*, classID, studentID*/) {
         return {
             find: function () {
                 return EdminForce.Collections.classStudent.find({
@@ -122,16 +121,25 @@ Meteor.startup(function () {
             },
             children: [
                 {
-                    find: function () {
+                    find: function (clsStudent) {
                         return EdminForce.Collections.class.find({
-                            _id: classID
+                            _id: clsStudent.classID
                         });
-                    }
+                    },
+                    children: [
+                        {
+                            find: function (cls) {
+                                return EdminForce.Collections.session.find({
+                                    _id: cls.sessionID
+                                });
+                            }
+                        }
+                    ]
                 },
                 {
-                    find: function () {
+                    find: function (cls) {
                         return EdminForce.Collections.student.find({
-                            _id: studentID
+                            _id: cls.studentID
                         });
                     }
                 }
@@ -148,14 +156,14 @@ Meteor.startup(function () {
             },
             children: [
                 {
-                    find: function () {
-                        return EdminForce.Collections.class.find({});
+                    find: function (clsStudent) {
+                        return EdminForce.Collections.class.find({_id:clsStudent.classID});
                     }
                 },
                 {
-                    find: function () {
+                    find: function (clsStudent) {
                         return EdminForce.Collections.student.find({
-                            accountID: this.userId
+                            _id: clsStudent.studentID
                         });
                     }
                 },
@@ -332,4 +340,30 @@ Meteor.startup(function () {
         }
     });
 
+    // Publishes the current customer, and if there is any successful payment record that is used
+    // as a flag for customer.hasRegistrationFee. Since registration fee is only charged once for new customer.
+    Meteor.publishComposite("EFCurrentCustomer",function(){
+        return {
+            find() {
+                return EdminForce.Collections.Customer.find({_id: this.userId});
+            },
+
+            children: [
+                {
+                    find(customer) {
+                        return EdminForce.Collections.orders.find(
+                            {
+                                accountID: customer._id,
+                                status:'success'
+                            },
+                            {
+                                fields:{accountID:1,status:1},
+                                limit:1
+                            });
+                    }
+                }
+            ]
+        }
+
+    });
 });
