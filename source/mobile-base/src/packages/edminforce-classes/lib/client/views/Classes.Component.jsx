@@ -22,9 +22,13 @@
             this.classes = new ReactiveVar(null);
             this.programs = new ReactiveVar(null);
             this.students = new ReactiveVar(null);
+            this.sessions = new ReactiveVar(null);
 
             // selected programID
             this.programID = new ReactiveVar(null);
+
+            // selected sessionID
+            this.sessionID = new ReactiveVar(null);
 
             // selected StudentID
             this.studentID = new ReactiveVar(null);
@@ -53,6 +57,8 @@
 
             this.getClasses();
 
+            this.getSessions();
+
             return {
                 isReady: handler.ready()
             }
@@ -72,6 +78,22 @@
             // If this.programID didn't selected, default select first one
             if (!this.programID.get()) {
                 this.programID.set(programs[0] && programs[0]["_id"]);
+            }
+        }
+
+        getSessions() {
+            let sessions = EdminForce.Collections.session.find({endDate:{$gt:new Date()}}).fetch();
+
+            for (let i = 0; i < sessions.length; i++) {
+                sessions[i].value = sessions[i]["_id"];
+                sessions[i].label = sessions[i].name;
+            }
+
+            this.sessions.set(sessions);
+
+            // If this.sessionID didn't selected, default select first one
+            if (!this.sessionID.get()) {
+                this.sessionID.set(sessions[0] && sessions[0]["_id"]);
             }
         }
 
@@ -129,7 +151,8 @@
             // 2. If currently class has minage, maxage, need to check selected student (TODO)
 
             let classes = EdminForce.Collections.class.find({
-                programID: this.programID.get()
+                programID: this.programID.get(),
+                sessionID: this.sessionID.get()
             }).fetch();
 
             console.log("classes: ", classes);
@@ -249,6 +272,10 @@
             this.programID.set(event.target.value);
         }
 
+        onSelectSession(event) {
+            this.sessionID.set(event.target.value);
+        }
+
         onSelectClass(item, index) {
 
             this.selectedClass = item;
@@ -338,6 +365,10 @@
                         <RC.Select options={this.programs.get()} value={this.programID}
                                    label={TAPi18n.__("ef_classes_program")} labelColor="brand1"
                                    onChange={this.onSelectProgram.bind(this)}/>
+                        <RC.Select options={this.sessions.get()} value={this.sessionID}
+                            label="Session" labelColor="brand1"
+                            onChange={this.onSelectSession.bind(this)}/>
+
                         {
                             classItems
                         }

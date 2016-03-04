@@ -45,12 +45,15 @@
             let session = EdminForce.Collections.session.find({_id:classData.sessionID}).fetch();
             session = session && session[0];
             if (!session) return null;
+            classData.session = session;
+
+            let program = EdminForce.Collections.program.find({_id:classData.programID}).fetch();
+            program = program && program[0];
+            if (!program) return null;
+            classData.program = program;
 
             let student = EdminForce.Collections.student.find({_id:studentClass.studentID}).fetch();
             student = student && student[0];
-
-            //let customer = EdminForce.Collections.Customer.find({_id: Meteor.userId}).fetch();
-            //customer = customer && customer[0];
 
             let orderCount = EdminForce.Collections.orders.find({accountID:Meteor.userId(),status:'success'}).count();
 
@@ -103,7 +106,7 @@
                             <TableBody displayRowCheckbox={false}>
                                 <TableRow>
                                     <TableRowColumn>{uiData.studentData && uiData.studentData.name}</TableRowColumn>
-                                    <TableRowColumn>{uiData.classData && uiData.classData.name}</TableRowColumn>
+                                    <TableRowColumn>{uiData.classData.program.name} {uiData.classData.session.name} {uiData.classData.schedule && uiData.classData.schedule.day} {uiData.classData.schedule && uiData.classData.schedule.time}</TableRowColumn>
                                     <TableRowColumn>{'$' + uiData.classFee}</TableRowColumn>
                                 </TableRow>
                                 {

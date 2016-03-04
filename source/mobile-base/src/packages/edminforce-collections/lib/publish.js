@@ -106,8 +106,14 @@ Meteor.startup(function () {
                     find: function () {
                         return EdminForce.Collections.class.find({});
                     }
-                }
+                },
 
+                // all sessions
+                {
+                    find: function () {
+                        return EdminForce.Collections.session.find({});
+                    }
+                }
             ]
         }
     });
@@ -131,6 +137,13 @@ Meteor.startup(function () {
                             find: function (cls) {
                                 return EdminForce.Collections.session.find({
                                     _id: cls.sessionID
+                                });
+                            }
+                        },
+                        {
+                            find: function (cls) {
+                                return EdminForce.Collections.program.find({
+                                    _id: cls.programID
                                 });
                             }
                         }
