@@ -121,6 +121,12 @@ Schema.Class = {
         defaultValue : 'All'
     }),
 
+    makeupClassFee : KG.schema.default({
+        type : Number,
+        optional : true,
+        defaultValue : 0
+    }),
+
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };
