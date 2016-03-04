@@ -65,7 +65,7 @@ KUI.Registration_success = class extends KUI.Page{
         return (
             <RC.Div>
                 <h2 style={sy.mb}>Registration is successful for:</h2>
-                <p>Student : {sd.nickName}</p>
+                <p>Student : {sd.name || sd.nickName}</p>
                 <p>Class : {cd.nickName}</p>
                 <p>Teacher : {cd.teacher}</p>
 

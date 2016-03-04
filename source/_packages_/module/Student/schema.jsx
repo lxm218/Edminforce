@@ -28,10 +28,11 @@ Schema.Student = {
     accountID : KG.schema.default(),
     //accountName : KG.schema.default(),
     nickName : KG.schema.default({
+        optional : true,
         label : 'Student Name'
     }),
     name : KG.schema.default({
-        optional : true,
+        //optional : true,
         label : 'Student Name'
     }),
     profile : {

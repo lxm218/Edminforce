@@ -13,6 +13,7 @@ let Student = class extends Base{
                 accountID : 'test AccountID',
                 accountName : 'test AccountName',
                 nickName : 'Emma',
+                name : 'Emma',
                 profile : {
                     birthday : moment('20010101', 'YYYYMMDD').toDate(),
                     gender : 'Female'
@@ -23,6 +24,7 @@ let Student = class extends Base{
                 accountID : 'test AccountID',
                 accountName : 'test AccountName',
                 nickName : 'Sherry',
+                name : 'Sherry',
                 profile : {
                     birthday : moment('20071030', 'YYYYMMDD').toDate(),
                     gender : 'Female'
@@ -33,6 +35,7 @@ let Student = class extends Base{
                 accountID : 'test AccountID',
                 accountName : 'test AccountName',
                 nickName : 'Tom1',
+                name : 'Tom1',
                 profile : {
                     birthday : moment('19901111', 'YYYYMMDD').toDate(),
                     gender : 'Male'
