@@ -117,6 +117,19 @@ ClassCollection = class ClassCollection extends BaseCollection {
                 label : 'Trial Student'
             },
 
+            makeupStudent :{
+                defaultValue : 0,
+                optional : true,
+                type : Number,
+                label : 'Makeup Student'
+            },
+
+            makeupClassFee : {
+                type : Number,
+                optional : true,
+                defaultValue : 0
+            },
+
             minAgeRequire : {
                 type : Number,
                 defaultValue : 0,
