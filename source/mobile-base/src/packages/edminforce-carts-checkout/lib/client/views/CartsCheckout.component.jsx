@@ -81,11 +81,16 @@
 
             let orderCount = EdminForce.Collections.orders.find({accountID:Meteor.userId(),status:'success'}).count();
 
+            let programs = EdminForce.Collections.program.find({}).fetch();
+            let sessions = EdminForce.Collections.session.find({}).fetch();
+
             return {
                 carts: carts,
                 students: filteredStudents,
                 classes: filteredClasses,
-                isNewUser: orderCount == 0
+                isNewUser: orderCount == 0,
+                programs,
+                sessions
             }
         }
 
@@ -372,6 +377,8 @@
             let cartItems = this.data.carts.map(function (item, index) {
                 let classData = _.find(this.data.classes, {"_id": item.classID}) || {};
                 let studentData = _.find(this.data.students, {"_id": item.studentID}) || {};
+                let programData = _.find(this.data.programs, {_id:classData.programID});
+                let sessionData = _.find(this.data.sessions, {_id:classData.sessionID});
 
                 let price = 0;
                 if (item.type === "makeup") {
@@ -387,7 +394,7 @@
                     <TableRow key={item['_id']}>
                         <TableRowColumn>{studentData.name}</TableRowColumn>
                         <TableRowColumn>
-                            <p>{classData.name}</p>
+                            <p>{programData && programData.name} {sessionData && sessionData.name} {classData.schedule && classData.schedule.day} {classData.schedule && classData.schedule.time}</p>
                             {item.lessonDate ? <p style={{padding:"0"}}>
                                 Time: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm a")}</p> : ""}
                         </TableRowColumn>

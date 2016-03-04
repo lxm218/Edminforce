@@ -177,6 +177,13 @@ Meteor.startup(function () {
                             find: function(cls) {
                                 return EdminForce.Collections.session.find({_id:cls.sessionID});
                             }
+                        },
+                        {
+                            find: function (cls) {
+                                return EdminForce.Collections.program.find({
+                                    _id: cls.programID
+                                });
+                            }
                         }
                     ]
                 },
