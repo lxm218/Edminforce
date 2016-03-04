@@ -60,7 +60,7 @@
                     <RC.Input name="email" value={this.data.emergencyContact&&this.data.emergencyContact.email} label="Email"/>
                     <RC.Input name="phone" value={this.data.emergencyContact&&this.data.emergencyContact.phone} label="Phone"/>
                     <RC.Input name="relation" value={this.data.emergencyContact&&this.data.emergencyContact.relation} label="Relation"/>
-                    <RC.Checkbox name="receive" checked={this.data.emergencyContact&&this.data.emergencyContact.receive} label="Receive Communications"/>
+                    
 
                     <RC.Button bgColor="brand2">Update</RC.Button>
                 </RC.Form>
