@@ -84,13 +84,13 @@
                 <RC.Div style={style} className="carts-detail">
                     <RC.VerticalAlign center={true} className="padding" height="300px">
                         <h2>
-                            Registration for Winter 2016
+                            Registration Summary
                         </h2>
                     </RC.VerticalAlign>
 
                     <RC.Loading isReady={this.data.isReady}>
 
-                        <p>You booked this class for {this.data.studentData && this.data.studentData.name}</p>
+                      
 
                         <Table selectable={false}>
                             <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>

@@ -14,7 +14,7 @@
                         </h2>
                     </RC.VerticalAlign>
                     <RC.Div>
-                        <p>You've book trial class successful.</p>
+                        <p>You've booked a trial class successfully.</p>
                         <p>Contact us if you have more questions:</p>
                         <p>Email: <a href="mailto: calcoloracademy@gmail.com">calcoloracademy@gmail.com</a></p>
 
