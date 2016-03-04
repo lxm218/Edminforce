@@ -189,7 +189,7 @@ ClassCollection = class ClassCollection extends BaseCollection {
             }
         }
 
-        let day = this.getDBSchema().schema('schedule.day').allowedValues;
+        let day = this.getSchema().schema('schedule.day').allowedValues;
         day = _.indexOf(day, data.schedule.day);
 
         let format = 'YYYYMMDD';
