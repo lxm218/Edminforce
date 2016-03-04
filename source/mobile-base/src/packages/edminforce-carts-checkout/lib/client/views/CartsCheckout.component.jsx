@@ -36,14 +36,14 @@
         }
 
         getMeteorData() {
+            let ready = Meteor.subscribe("EF-ShoppingCarts-Checkout").ready() && Meteor.subscribe("EFCurrentCustomer").ready();
+            let data = {
+                isReady:ready
+            }
+            return ready ? _.merge(data, this.getUIData()) : data;
+        }
 
-            let handler = null;
-
-            //let programID =
-            Tracker.autorun(function () {
-                handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
-            }.bind(this));
-
+        getUIData() {
             let carts = EdminForce.Collections.classStudent.find({
                 accountID: Meteor.userId(),
                 status: "pending"
@@ -61,6 +61,8 @@
             for (let i = 0; i < carts.length; i++) {
                 for (let j = 0; j < classes.length; j++) {
                     if (classes[j]["_id"] == carts[i].classID) {
+                        let session = EdminForce.Collections.session.find({_id:classes[j].sessionID}).fetch();
+                        classes[j].session = session && session[0];
                         filteredClasses.push(classes[j]);
                         break;
                     }
@@ -77,11 +79,13 @@
                 }
             }
 
+            let orderCount = EdminForce.Collections.orders.find({accountID:Meteor.userId(),status:'success'}).count();
+
             return {
-                isReady: true,
                 carts: carts,
                 students: filteredStudents,
-                classes: filteredClasses
+                classes: filteredClasses,
+                isNewUser: orderCount == 0
             }
         }
 
@@ -101,20 +105,7 @@
         }
 
         isNewUser(){
-            let newUser = true;
-            let bookedClasses = EdminForce.Collections.classStudent.find({
-                accountID: Meteor.userId(),
-                type: "register",
-                status: "checkouted"
-            }).fetch();
-
-            // this user booked class before
-            if(bookedClasses&&bookedClasses.length){
-                newUser = false;
-            }
-            console.log("isNewUser");
-            return newUser;
-
+            return this.data.isNewUser;
         }
 
         //TODO Coupon
@@ -357,6 +348,17 @@
 
         render() {
 
+            if (!this.data.isReady)
+                return (
+                    <RC.Loading isReady={this.data.isReady}></RC.Loading>
+                )
+
+            let uiData = this.getUIData();
+            if (!uiData)
+                return (
+                    <div>An error has occurred</div>
+                )
+
             let style = {
                 padding: '10px'
             };
@@ -370,16 +372,13 @@
             let cartItems = this.data.carts.map(function (item, index) {
                 let classData = _.find(this.data.classes, {"_id": item.classID}) || {};
                 let studentData = _.find(this.data.students, {"_id": item.studentID}) || {};
-                //console.log(classData);
-                //console.log(item);
 
                 let price = 0;
-                // TODO Calculate price need to update, currently just summary them together
                 if (item.type === "makeup") {
-                    price = 5;
+                    price = classData.makeupClassFee || 5;
                     this.hasMakeupClass = true;
                 } else {
-                    price = _.toNumber(classData.tuition.money);
+                    price = EdminForce.Collections.class.calculateRegistrationFee(classData,classData.session)
                 }
 
                 this.total += price;

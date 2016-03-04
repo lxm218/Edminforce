@@ -222,8 +222,7 @@ ClassCollection = class ClassCollection extends BaseCollection {
      * @return class registration fee
      * */
     calculateRegistrationFee(classData, session) {
-        return classData.tuition.type==='class'?
-                classData.tuition.money * this.calculateNumberOfClass(classData,session,true) :
-                classData.tuition.money
+        let tuition = lodash.toNumber(classData.tuition.money);
+        return classData.tuition.type==='class'? tuition * this.calculateNumberOfClass(classData,session,true) : tuition
     }
 }

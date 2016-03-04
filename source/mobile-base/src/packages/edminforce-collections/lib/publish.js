@@ -158,7 +158,14 @@ Meteor.startup(function () {
                 {
                     find: function (clsStudent) {
                         return EdminForce.Collections.class.find({_id:clsStudent.classID});
-                    }
+                    },
+                    children: [
+                        {
+                            find: function(cls) {
+                                return EdminForce.Collections.session.find({_id:cls.sessionID});
+                            }
+                        }
+                    ]
                 },
                 {
                     find: function (clsStudent) {
