@@ -1,5 +1,5 @@
 
-KUI.Registration_success = class extends RC.CSSMeteorData{
+KUI.Registration_success = class extends KUI.Page{
 
     getMeteorData(){
         let id = FlowRouter.current().params.id;
@@ -65,7 +65,7 @@ KUI.Registration_success = class extends RC.CSSMeteorData{
         return (
             <RC.Div>
                 <h2 style={sy.mb}>Registration is successful for:</h2>
-                <p>Student : {sd.nickName}</p>
+                <p>Student : {sd.name || sd.nickName}</p>
                 <p>Class : {cd.nickName}</p>
                 <p>Teacher : {cd.teacher}</p>
 
@@ -81,6 +81,10 @@ KUI.Registration_success = class extends RC.CSSMeteorData{
 
     comming(){
         alert('comming soon');
+    }
+
+    runOnceAfterDataReady(){
+        KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.id);
     }
 
 };

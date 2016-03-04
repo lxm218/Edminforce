@@ -104,7 +104,7 @@ KUI.Student_comp_add = class extends RC.CSS{
         let {name, gender, birthday, status, note, school} = this.getRefs();
 
         let sd = {
-            nickName : name.getValue(),
+            name : name.getValue(),
             status : status.getValue(),
             profile : {
                 birthday : moment(birthday.getValue(), util.const.dateFormat).toDate(),
@@ -128,7 +128,7 @@ KUI.Student_comp_add = class extends RC.CSS{
         let {name, gender, birthday, status, school, note} = this.getRefs();
 
         school.getInputDOMNode().value = data.profile.school || '';
-        name.getInputDOMNode().value = data.nickName;
+        name.getInputDOMNode().value = data.name || data.nickName;
         gender.getInputDOMNode().value = data.profile.gender;
         $(birthday.getInputDOMNode()).datepicker('setDate', data.profile.birthday);
         status.getInputDOMNode().value = data.status;

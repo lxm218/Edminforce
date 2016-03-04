@@ -212,7 +212,7 @@ KUI.Registration_index = class extends KUI.Page{
         let query = {};
         if(ip){
             query = {
-                nickName : new RegExp(ip, 'i')
+                name : new RegExp(ip, 'i')
             };
         }
         this.setState({

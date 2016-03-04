@@ -460,11 +460,11 @@
                 <RC.Div style={style} className="carts-checkout">
                     <RC.VerticalAlign center={true} className="padding" height="300px">
                         <h2>
-                            Registration for Winter 2016
+                            Checkout Summary
                         </h2>
                     </RC.VerticalAlign>
 
-                    <p>You booked classes</p>
+
 
                     <RC.Loading isReady={this.data.isReady}>
                         <Table selectable={false}>
@@ -481,15 +481,8 @@
                             </TableBody>
                         </Table>
 
-                        <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon"
-                                  value="" label="Coupon Code"/>
-                        <RC.Button {... attributes} style={processButtonStyle} theme="inline" bgColor="brand2"
-                                                    onClick={this.applyCoupon.bind(this)}>Apply</RC.Button>
 
-                        <div>
-                            <span style={col1Style}>Total</span>
-                            <span style={col2Style}>{"$" + _.toString(this.total)}</span>
-                        </div>
+
                         {
                             this.isNewUser()?
                                 <div>
@@ -502,6 +495,17 @@
                                 <span style={col1Style}>Total Save</span>
                                 <span style={col2Style}>{"$" + _.toString(this.discount)}</span>
                             </div> : ""}
+
+                            <div>
+                                <span style={col1Style}>Total</span>
+                                <span style={col2Style}>{"$" + _.toString(this.total)}</span>
+                            </div>
+
+                            <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon"
+                                      value="" label="Coupon Code"/>
+                            <RC.Button {... attributes} style={processButtonStyle} theme="inline" bgColor="brand2"
+                                                        onClick={this.applyCoupon.bind(this)}>Apply</RC.Button>
+
 
 
                         <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark"

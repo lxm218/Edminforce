@@ -41,6 +41,7 @@ let Class = class extends Base{
         data.minStudent = parseInt(data.minStudent||0, 10);
         data.trialStudent = parseInt(data.trialStudent||0, 10);
         data.makeupStudent = parseInt(data.makeupStudent||0, 10);
+        data.makeupClassFee = parseInt(data.makeupClassFee||0, 10);
 
 
         return data;

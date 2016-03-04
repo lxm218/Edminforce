@@ -90,7 +90,7 @@
 
                     <RC.Loading isReady={this.data.isReady}>
 
-                        <p>You booked this class for {uiData.studentData && uiData.studentData.name}</p>
+                      
 
                         <Table selectable={false}>
                             <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>

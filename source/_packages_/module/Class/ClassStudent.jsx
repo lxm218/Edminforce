@@ -80,6 +80,14 @@ let ClassStudent = class extends Base{
         return rs;
     }
 
+    updateStatus(status, id){
+        try{
+            let data = {status : status};
+            this._db.update({_id : id}, {'$set' : data});
+
+        }catch(e){}
+    }
+
     insertByData(data){
         data.type = 'register';
 
