@@ -56,6 +56,11 @@ SessionCollection = class SessionCollection extends BaseCollection {
                         return new Date();
                     }
                 }
+            },
+            updateTime: EdminForce.utils.schemaUtil.updateTime(),
+            blockOutDay : {
+                type : [Date],
+                optional : true
             }
         }
     }
