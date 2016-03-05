@@ -38,7 +38,8 @@
             this.selectedClass = null;
 
             this.state = {
-                styles: []
+                styles: [],
+                weekDay: null
             };
         }
 
@@ -149,13 +150,14 @@
             // Available Class Condition
             // 1. based on select program
             // 2. If currently class has minage, maxage, need to check selected student (TODO)
-
             let classes = EdminForce.Collections.class.find({
                 programID: this.programID.get(),
                 sessionID: this.sessionID.get()
             }).fetch();
 
-            console.log("classes: ", classes);
+            if (this.state.weekDay) {
+                classes = _.filter(classes, (c) => { return c.schedule && c.schedule.day == this.state.weekDay })
+            }
 
             let validClasses = [];
 
@@ -291,6 +293,12 @@
             });
         }
 
+        onSelectDay(day) {
+            this.setState({
+                weekDay: day
+            })
+        }
+
         book() {
 
             // you must select a class
@@ -368,14 +376,29 @@
                         <RC.Select options={this.sessions.get()} value={this.sessionID}
                             label="Session" labelColor="brand1"
                             onChange={this.onSelectSession.bind(this)}/>
-
+                        <RC.Div>
+                            <span style={{marginLeft: "6",color:"#0082ec"}}>Select Day:</span>
+                            <div style={{textAlign:"center"}}>
+                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                    onClick={this.onSelectDay.bind(this, "Mon")}>Mon</RC.Button>
+                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                    onClick={this.onSelectDay.bind(this, "Tues")}>Tues</RC.Button>
+                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                    onClick={this.onSelectDay.bind(this, "Wed")}>Wed</RC.Button>
+                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                    onClick={this.onSelectDay.bind(this, "Thu")}>Thu</RC.Button>
+                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                    onClick={this.onSelectDay.bind(this, "Fri")}>Fri</RC.Button>
+                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                    onClick={this.onSelectDay.bind(this, "Sat")}>Sat</RC.Button>
+                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                    onClick={this.onSelectDay.bind(this, "Sun")}>Sun</RC.Button>
+                            </div>
+                        </RC.Div>
                         {
                             classItems
                         }
-
-
-                        <RC.Button bgColor="brand2" bgColorHover="dark"
-                                   onClick={self.book.bind(self)}>{TAPi18n.__("ef_classes_book")}</RC.Button>
+                        <RC.Button bgColor="brand2" bgColorHover="dark" onClick={self.book.bind(self)}>{TAPi18n.__("ef_classes_book")}</RC.Button>
                     </RC.Loading>
                 </RC.Div>
             );
