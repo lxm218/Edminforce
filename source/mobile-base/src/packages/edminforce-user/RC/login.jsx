@@ -281,7 +281,6 @@ EdminForce.Components.User = React.createClass({
 
         if (!err){
           // let school = KG.get('EF-School').getInfo();
-          debugger
           let data = {
             "name": form.fName
           }
