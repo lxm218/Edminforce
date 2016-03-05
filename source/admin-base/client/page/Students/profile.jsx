@@ -137,10 +137,10 @@ KUI.Student_profile = class extends KUI.Page{
                 title : 'Session',
                 key : 'session'
             },
-            {
-                title : 'Type',
-                key : 'type'
-            },
+            //{
+            //    title : 'Type',
+            //    key : 'type'
+            //},
             {
                 title : 'Status',
                 key : 'status'
