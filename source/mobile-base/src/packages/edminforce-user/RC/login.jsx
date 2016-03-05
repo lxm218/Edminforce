@@ -152,8 +152,8 @@ EdminForce.Components.User = React.createClass({
 
         let tpl = [
             '<h3>Welcome ',data.name,'</h3>',
-            '<p>Thanks for creating an account. Your login ID is your email.</p>',
-            '<p>Now\'s a good time to login and update your profile.</p>',
+            '<p>Thank for creating an account. Your login ID is your email.</p>',
+            '<p>Now it is a good time to login and update your profile.</p>',
             '<h4><a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
 
             '<br/><br/>',
@@ -283,7 +283,7 @@ EdminForce.Components.User = React.createClass({
           // let school = KG.get('EF-School').getInfo();
           debugger
           let data = {
-            "name": form.fName 
+            "name": form.fName
           }
           let html = self.getRegisterConfirmEmailTemplate(data);
           Meteor.call('sendEmailHtml',
