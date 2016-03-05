@@ -466,6 +466,27 @@
                 attributes.disabled = "disabled";
             }
 
+            this.isNewUser() && cartItems.push((
+                    <TableRow key="_registrationfee_">
+                        <TableRowColumn colSpan="2"><span style={col1Style}>Registration Fee</span></TableRowColumn>
+                        <TableRowColumn colSpan="2"><span style={col2Style}>$25</span></TableRowColumn>
+                    </TableRow>
+                ));
+
+            this.discount && cartItems.push((
+                    <TableRow key="_discount_">
+                        <TableRowColumn colSpan="2"><span style={col1Style}>Total Save</span></TableRowColumn>
+                        <TableRowColumn colSpan="2"><span style={col2Style}>{"$" + _.toString(this.discount)}</span></TableRowColumn>
+                    </TableRow>
+                ));
+
+            cartItems.push((
+                    <TableRow key="_grandTotal_">
+                        <TableRowColumn colSpan="2"><span style={col1Style}>Total</span></TableRowColumn>
+                        <TableRowColumn colSpan="2"><span style={col2Style}>{"$" + _.toString(this.total)}</span></TableRowColumn>
+                    </TableRow>
+            ));
+
             // Fill with your UI
             return (
                 <RC.Div style={style} className="carts-checkout">
@@ -491,36 +512,9 @@
                                 {cartItems}
                             </TableBody>
                         </Table>
-
-
-
-                        {
-                            this.isNewUser()?
-                                <div>
-                                    <span style={col1Style}>Registration Fee</span>
-                                    <span style={col2Style}>{"$25.00"}</span>
-                                </div>: ""
-                        }
-                        {this.discount ?
-                            <div>
-                                <span style={col1Style}>Total Save</span>
-                                <span style={col2Style}>{"$" + _.toString(this.discount)}</span>
-                            </div> : ""}
-
-                            <div>
-                                <span style={col1Style}>Total</span>
-                                <span style={col2Style}>{"$" + _.toString(this.total)}</span>
-                            </div>
-
-                            <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon"
-                                      value="" label="Coupon Code"/>
-                            <RC.Button {... attributes} style={processButtonStyle} theme="inline" bgColor="brand2"
-                                                        onClick={this.applyCoupon.bind(this)}>Apply</RC.Button>
-
-
-
-                        <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark"
-                                                    onClick={this.process.bind(this)}>Process Payment</RC.Button>
+                        <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon" value="" label="" placeholder="Enter Coupon Code"/>
+                        <RC.Button {... attributes} style={processButtonStyle} theme="inline" bgColor="brand2" onClick={this.applyCoupon.bind(this)}>Apply</RC.Button>
+                        <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark" onClick={this.process.bind(this)}>Process Payment</RC.Button>
                     </RC.Loading>
                 </RC.Div>
             );
