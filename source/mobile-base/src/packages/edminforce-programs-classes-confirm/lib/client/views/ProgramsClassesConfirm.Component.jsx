@@ -1,4 +1,8 @@
 let _ = lodash;
+let {
+    RadioButton,
+    RadioButtonGroup
+    } = MUI;
 
 // Don't forget to change `SomeName` to correct name
 EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
@@ -8,6 +12,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         this.state = {
             msg: null
         }
+
     }
 
     getMeteorData() {
@@ -49,10 +54,10 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         }
 
         let programSub = Meteor.subscribe('EF-Program');
-        let program = EdminForce.Collections.program.find({_id:classInfo.programID}).fetch();
+        let program = EdminForce.Collections.program.find({_id: classInfo.programID}).fetch();
         program = program && program.length > 0 ? program[0] : {};
 
-            //console.log(programRegisterStudents);
+        //console.log(programRegisterStudents);
         //
         //console.log(canRegisterStudents);
 
@@ -117,7 +122,12 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         FlowRouter.go("/classes");
     }
 
-    selectStudent(student) {
+    selectStudent(event, studentId) {
+
+        let student = _.find(this.data.students, function(item){
+            return item._id = studentId;
+        });
+
         this.selectedStudents || (this.selectedStudents = {});
         if (this.selectedStudents[student._id]) {
             delete this.selectedStudents[student._id];
@@ -141,16 +151,20 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
     render() {
         let timestamp = FlowRouter.getParam("timestamp") * 1;
         let self = this;
-
-        let studentItems = this.data.students.map( (item, index) =>
-            <RC.Checkbox key={item._id} label={item.name} style={index === this.data.students.length-1 ? {borderBottom:'none'}:null} onClick={self.selectStudent.bind(self, item)}/> );
-        if (this.data.students.length === 0) {
-            studentItems.push(
-                <RC.Button bgColor="brand2" key='_add_button_' theme="inline" onClick={this.addStudent}>
-                    <$translate label="addStudent"/>
-                </RC.Button>
-            );
-        }
+        let studentItems = this.data.students.map((item, index) =>
+            <RadioButton value={item._id}
+                         key={item._id}
+                         label={item.name}
+                         style={index === this.data.students.length-1 ? {borderBottom:'none'}:null}
+            />
+        );
+        //if (this.data.students.length === 0) {
+        //    studentItems.push(
+        //    <RC.Button bgColor="brand2" key='_add_button_' theme="inline" onClick={this.addStudent}>
+        //        <$translate label="addStudent"/>
+        //    </RC.Button>
+        //    );
+        //}
 
         let confirmButton = this.data.students.length === 0 ?
             (<RC.Button bgColor="brand2" onClick={self.registration.bind(self)}>
@@ -171,7 +185,13 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                     </RC.VerticalAlign>
                     <RC.List>
                         <RC.Item title={TAPi18n.__("student")}>
-                            {studentItems}
+                            <RadioButtonGroup name="selectStudent" onChange={this.selectStudent.bind(this)}>
+                                {studentItems}
+                            </RadioButtonGroup>
+                            {this.data.students.length === 0 ?
+                                <RC.Button bgColor="brand2" key='_add_button_' theme="inline" onClick={this.addStudent}>
+                                    <$translate label="addStudent"/>
+                                </RC.Button> : ""}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("className")}>
                             {this.data.program.name}
@@ -179,7 +199,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                         <RC.Item title={TAPi18n.__("date")}>
                             {moment(new Date(timestamp)).format("dddd, MMMM Do YYYY, h:mm a")}
                         </RC.Item>
-                        
+
                     </RC.List>
                     {confirmButton}
                 </RC.Loading>
