@@ -151,7 +151,7 @@
             $set:{
               "_id": self.state.orderId,
               paymentTotal:String(o[0].amount),
-              status:"checkouted"
+              status:"success"
             }
           }, function(err, res){
                if(err) {
