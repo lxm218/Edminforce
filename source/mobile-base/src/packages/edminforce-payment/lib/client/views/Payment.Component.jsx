@@ -13,12 +13,14 @@
 
         payWithCreditCard(){
             let orderID = FlowRouter.getQueryParam("order");
-            FlowRouter.go("/paymentCredit?order=" + orderID);
+            let makeupOnly = FlowRouter.getQueryParam("makeupOnly");
+            FlowRouter.go("/paymentCredit?order=" + orderID  + "&makeupOnly=" + makeupOnly);
         }
 
         payWithCheck(){
             let orderID = FlowRouter.getQueryParam("order");
-            FlowRouter.go("/paymentECheck?order=" + orderID);
+            let makeupOnly = FlowRouter.getQueryParam("makeupOnly");
+            FlowRouter.go("/paymentECheck?order=" + orderID + "&makeupOnly=" + makeupOnly);
         }
 
         render () {

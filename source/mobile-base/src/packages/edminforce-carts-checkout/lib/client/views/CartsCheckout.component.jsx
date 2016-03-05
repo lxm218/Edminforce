@@ -29,6 +29,8 @@
             //
             this.hasMakeupClass = false;
 
+            this.makeupOnly = true;
+
             this.state = {
                 refresh: new Date().getTime()
             }
@@ -278,6 +280,7 @@
         }
 
         insertOrder(order){
+            let makeupOnlyFlag = this.makeupOnly;
             EdminForce.Collections.orders.insert(order, function (err, res) {
                 if (err) {
                     console.error("Insert order error, error: ", err);
@@ -291,7 +294,7 @@
                         return;
                     }
 
-                    FlowRouter.go("/payment?order=" + orderID);
+                    FlowRouter.go("/payment?order=" + orderID + "&makeupOnly=" + makeupOnlyFlag);
                 }
             });
         }
@@ -381,11 +384,13 @@
                 let sessionData = _.find(this.data.sessions, {_id:classData.sessionID});
 
                 let price = 0;
+                this.makeupOnly = true;
                 if (item.type === "makeup") {
                     price = classData.makeupClassFee || 5;
                     this.hasMakeupClass = true;
                 } else {
                     price = EdminForce.Collections.class.calculateRegistrationFee(classData,classData.session)
+                    this.makeupOnly = false;
                 }
 
                 this.total += price;

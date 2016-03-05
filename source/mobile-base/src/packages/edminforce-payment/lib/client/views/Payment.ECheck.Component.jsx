@@ -161,7 +161,7 @@
                    let params = {
                        orderId: self.state.orderId
                    };
-                   let path = FlowRouter.path("/orders/summary/:orderId", params);
+                   let path = FlowRouter.path("/orders/summary/:orderId",params,{makeupOnly:FlowRouter.getQueryParam("makeupOnly")});
                    FlowRouter.go(path);
                }
             });
