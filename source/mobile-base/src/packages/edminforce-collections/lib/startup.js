@@ -5,7 +5,17 @@ Meteor.startup(function () {
 
     // Initial ProgramCollection
     EdminForce.Collections.program = new ProgramCollection("EF-Program");
-    EdminForce.Collections.class = new ClassCollection("EF-Class");
+    EdminForce.Collections.class = new ClassCollection("EF-Class", {
+        transform: function(doc){
+            //console.log("class", doc);
+            if(Meteor.isServer){
+                let name = EdminForce.utils.getClassName(doc);
+                //console.log("class name: ", name);
+                doc.name = name;
+            }
+            return doc;
+        }
+    });
     EdminForce.Collections.classStudent = new ClassStudentCollection("EF-ClassStudent");
 
     EdminForce.Collections.session = new SessionCollection("EF-Session");

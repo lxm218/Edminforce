@@ -139,9 +139,9 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
     }
 
     addStudent() {
-        console.log(FlowRouter.getParam("programID"));
-        console.log(FlowRouter.getParam("classID"));
-        console.log(FlowRouter.getParam("timestamp"));
+        //console.log(FlowRouter.getParam("programID"));
+        //console.log(FlowRouter.getParam("classID"));
+        //console.log(FlowRouter.getParam("timestamp"));
         Session.set("BookTrialTimestamp", FlowRouter.getParam("timestamp"));
         Session.set("BookTrialClassId", FlowRouter.getParam("classID"));
         Session.set("BookTrialProgramId", FlowRouter.getParam("programID"));
@@ -194,7 +194,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                                 </RC.Button> : ""}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("className")}>
-                            {this.data.program.name}
+                            {this.data.classInfo.name}
                         </RC.Item>
                         <RC.Item title={TAPi18n.__("date")}>
                             {moment(new Date(timestamp)).format("dddd, MMMM Do YYYY, h:mm a")}
