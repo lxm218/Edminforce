@@ -6,7 +6,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            list : null
+            query : {}
         };
     }
 
@@ -41,8 +41,8 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         Meteor.subscribe('EF-Program');
         Meteor.subscribe('EF-Session');
 
-
-        let list = KG.get('EF-Class').getAll();
+        let query = this.state.query;
+        let list = KG.get('EF-Class').getAll(query);
 
         return {
             list : list
@@ -55,7 +55,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
         let sy = this.css.get('styles');
 
-        let list = this.state.list || this.data.list;
+        let list = this.data.list;
         _.map(list, (item)=>{
             let s = item.schedule;
             item.scheduleAll = `${s.day} ${s.time}`;
@@ -266,10 +266,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         }
         //console.log(query);
 
-        let list = KG.get('EF-Class').getAll(query);
-        this.data.list = list;
+
         this.setState({
-            list : list
+            query : query
         });
     }
 };
