@@ -279,7 +279,7 @@ KUI.Registration_payment = class extends KUI.Page{
 
 
             let total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
-            total = total.toFixed(3);
+            total = total.toFixed(2);
             orderData.poundage = orderData.poundage.toString();
             orderData.paymentTotal = total.toString();
             let orderRs = KG.get('EF-Order').insert(orderData);
