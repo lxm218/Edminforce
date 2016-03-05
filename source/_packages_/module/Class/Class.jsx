@@ -133,6 +133,46 @@ let Class = class extends Base{
 
     }
 
+    getClassLessonDate(data, session){
+        session = session || data.session;
+        let start = moment(session.startDate),
+            end = moment(session.endDate);
+
+
+        let now = moment(new Date());
+        if(now.isAfter(start, 'day')){
+            start = now;
+        }
+
+        let day = this.getDBSchema().schema('schedule.day').allowedValues;
+        day = _.indexOf(day, data.schedule.day);
+
+        let format = 'YYYYMMDD';
+
+        let rs = [],
+            cur = start;
+
+        let blockDay = _.map(session.blockOutDay || [], (item)=>{
+            return moment(item).format(format);
+        });
+
+        while(end.isAfter(cur, 'day')){
+            if(cur.day() === day){
+                if(_.indexOf(blockDay, cur.format(format)) < 0){
+
+                    //clone a date object
+                    let date = moment(cur).toDate();
+                    rs.push(date);
+                }
+
+            }
+
+            cur = cur.add(1, 'd');
+        }
+
+        return rs;
+    }
+
 
 
 
@@ -276,8 +316,10 @@ let Class = class extends Base{
     defineClientMethod(){
         let tmpDB = null;
         return {
+
             subscribeClassByQuery : function(query){
                 let dbName = 'EF-Class-By-Query';
+
                 let x = Meteor.subscribe(dbName, query, {});
                 if(!tmpDB){
                     tmpDB = new Mongo.Collection(dbName);
@@ -328,11 +370,51 @@ let Class = class extends Base{
                     });
                 }
 
+
+
                 return {
                     ready : x.ready,
                     data : data
                 };
             },
+
+            getClassByDateAndQuery(date, query){
+
+                if(!date){
+                    return {
+                        ready : function(){return true;},
+                        data : []
+                    };
+                }
+
+                let self = this,
+                    format = 'YYYYMMDD';
+                let x = this.subscribeClassByQuery(query||{});
+                if(!x.ready()){
+                    return x;
+                }
+
+                let list = x.data;
+                let rs = [];
+                _.each(list, (item)=>{
+                    let lessonDate = self.getClassLessonDate(item);
+                    console.log(lessonDate)
+                    let index = _.findIndex(lessonDate, function(one){
+                        console.log(moment(one).format(format), moment(date).format(format))
+                        return moment(one).format(format) === moment(date).format(format);
+                    });
+                    if(index !== -1){
+                        item.lessonDate = date;
+                        rs.push(item);
+                    }
+                });
+
+                return {
+                    ready : x.ready,
+                    data : rs
+                };
+            },
+
             checkCanBeRegister(classID){
                 let m = this.defineDepModule();
                 let rs = m.ClassStudent.subscribeFullDataByClassID(classID);
@@ -362,6 +444,16 @@ let Class = class extends Base{
                 };
             }
         };
+    }
+
+    /*
+    * trail class
+    * @param
+    *       param.classID
+    *       param.date
+    * */
+    trailClass(param){
+
     }
 
 

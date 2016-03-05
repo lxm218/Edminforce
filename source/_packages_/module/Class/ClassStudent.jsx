@@ -186,6 +186,7 @@ let ClassStudent = class extends Base{
             }
         };
     }
+
 };
 
 KG.define('EF-ClassStudent', ClassStudent);
