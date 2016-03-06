@@ -183,16 +183,36 @@
             e.returnValue = message;
             return message;
         },
+
+
+        getCardView(){
+
+
+            //let swimmers = this.data.swimmers.map(function (v, i) {
+            //    return {text: v['name'], value: v._id}
+            //})
+
+            let swimmer = this.data.selectedClasses.get('swimmer')
+            let class1 = this.data.selectedClasses.get('class1')
+            let class2 = this.data.selectedClasses.get('class2')
+            let class3 = this.data.selectedClasses.get('class3')
+
+            return <Cal.SelectedClassInfoCard
+              swimmer={swimmer}
+              selectedClasses={{'class1':class1,'class2':class2,'class3':class3}}
+            />
+
+        },
         render() {
 
             let swimmers = this.data.swimmers.map(function (v, i) {
                 return {text: v['name'], value: v._id}
             })
 
-            let swimmer = this.data.selectedClasses.get('swimmer')
-            let class1 = this.data.selectedClasses.get('class1')
-            let class2 = this.data.selectedClasses.get('class2')
-            let class3 = this.data.selectedClasses.get('class3')
+            //let swimmer = this.data.selectedClasses.get('swimmer')
+            //let class1 = this.data.selectedClasses.get('class1')
+            //let class2 = this.data.selectedClasses.get('class2')
+            //let class3 = this.data.selectedClasses.get('class3')
 
 
             //let currentSwimmerValue = this.data.currentSwimmer
@@ -205,51 +225,9 @@
             //
 
             return <div>
-                <RC.Card key={Math.random()} className="padding">
-                    <RC.Item theme="body">
 
-                    <h4 className="brand">Register for spring 2015</h4>
 
-                    {/*swimmer && swimmer.name*/}
-
-                    {
-                        class1?<div className="row">
-                            <div className="col">
-                                Preference 1
-                            </div>
-                            <div className="col">
-                                {class1.name}
-                            </div>
-
-                        </div>:''
-
-                    }
-
-                    {
-                        class2?<div className="row">
-                            <div className="col">
-                                Preference 2
-                            </div>
-                            <div className="col">
-                                {class2 && class2.name}
-                            </div>
-
-                        </div>:''
-                    }
-                    {
-                        class3?<div className="row">
-                            <div className="col">
-                                Preference 3
-                            </div>
-                            <div className="col ">
-                                {class3 && class3.name}
-                            </div>
-
-                        </div>:''
-                    }
-                    </RC.Item>
-
-                </RC.Card>
+                {this.getCardView()}
 
                 <RC.Form ref="myForm" key={Math.random()} onSubmit={this.formSubmit} theme="padding">
 
