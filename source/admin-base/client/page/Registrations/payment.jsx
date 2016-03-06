@@ -206,8 +206,8 @@ KUI.Registration_payment = class extends KUI.Page{
             <RC.Div style={dsp}>
                 <RB.Input onChange={function(){}} ref="s21" name="cgroup" type="radio" label="Credit Card/Debit Card" />
                 <RB.Input onChange={function(){}} ref="s24" name="cgroup" type="radio" label="E-Check" />
-                {<RB.Input onChange={function(){}} ref="s22" type="checkbox" label="Cash" />}
-                {<RB.Input onChange={function(){}} ref="s23" type="checkbox" label="Check" />}
+                {<RB.Input onChange={function(){}} ref="s22" name="cgroup" type="radio" label="Cash" />}
+                {<RB.Input onChange={function(){}} ref="s23" name="cgroup" type="radio" label="Check" />}
                 {/*<RB.Input onChange={function(){}} ref="s25" type="checkbox" label="Gift Card" />*/}
                 <RC.Div style={{textAlign:'right'}}>
                     {<KUI.NoButton onClick={this.toStep1.bind(this)} label="Cancel"></KUI.NoButton>}

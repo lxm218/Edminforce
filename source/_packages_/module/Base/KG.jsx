@@ -83,7 +83,7 @@ KG.result = {
         return {
             status : flag,
             data : data,
-            statusText : data.reason || text || ''
+            statusText : text || data.reason || ''
         };
     },
     handle : function(rs, opts){

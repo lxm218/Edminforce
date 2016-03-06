@@ -68,14 +68,16 @@ let ClassStudent = class extends Base{
             if(rs){
                 return '610';
             }
+
+            if(so.age > co.maxAgeRequire){
+                return '601';
+            }
+            if(so.age < co.minAgeRequire){
+                return '602';
+            }
         }
 
-        if(so.age > co.maxAgeRequire){
-            return '601';
-        }
-        if(so.age < co.minAgeRequire){
-            return '602';
-        }
+
 
         return rs;
     }

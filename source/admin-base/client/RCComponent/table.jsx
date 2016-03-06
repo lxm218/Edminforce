@@ -63,7 +63,7 @@ KUI.Table = class extends RC.CSS{
                             // if one.reactDom exist
                             if(one.reactDom){
                                 if(_.isFunction(one.reactDom)){
-                                    return <td key={i}>{one.reactDom(item)}</td>;
+                                    return <td key={i}>{one.reactDom(item, index)}</td>;
                                 }
                                 else{
                                     return <td key={i}>{one.reactDom}</td>;

@@ -133,8 +133,11 @@ console.log(date, query);
 			},
 			{
 				title : 'action',
-				reactDom(doc){
-					return <RC.Div style={{textAlign:'center'}}><input type="checkbox" /></RC.Div>;
+				style : {
+					textAlign : 'center'
+				},
+				reactDom(doc, index){
+					return <RC.Div style={{textAlign:'center'}}><input value={index} type="radio" name="trail_table" /></RC.Div>;
 				}
 			}
 		];
@@ -147,6 +150,27 @@ console.log(date, query);
 				ref="table"></KUI.Table>
 		);
 	}
+
+	getSelectValue(){
+		let rd = util.getReactJQueryObject(this.refs.table).find('input[type="radio"]');
+		let i = null;
+		rd.each(function(){
+			if($(this).prop('checked')){
+				i = $(this).val();
+				return false;
+			}
+		});
+
+		if(i){
+			return {
+				classID : this.data.classList[i]._id,
+				date : this.state.query.date
+			};
+		}
+
+		return null;
+
+	}
 };
 
 
@@ -155,7 +179,8 @@ KUI.Student_TrailClass = class extends KUI.Page{
 		return {
 			Student : KG.get('EF-Student'),
 			Class : KG.get('EF-Class'),
-			Program : KG.get('EF-Program')
+			Program : KG.get('EF-Program'),
+			ClassStudent : KG.get('EF-ClassStudent')
 		};
 	}
 
@@ -164,6 +189,9 @@ KUI.Student_TrailClass = class extends KUI.Page{
 		let studentID = FlowRouter.getParam('studentID'),
 			x = Meteor.subscribe('EF-Student', {
 				query : {_id : studentID}
+			}),
+			x1 = Meteor.subscribe('EF-ClassStudent', {
+				query : {studentID : studentID}
 			});
 		return {
 			ready : x.ready(),
@@ -184,6 +212,9 @@ KUI.Student_TrailClass = class extends KUI.Page{
 				<FilterBox ref="filter" />
 				<hr/>
 				<ResultTable ref="result" />
+				<RC.Div style={{textAlign:'right'}}>
+					<KUI.YesButton onClick={this.trail.bind(this)} label="Trail Class"></KUI.YesButton>
+				</RC.Div>
 			</RC.Div>
 		);
 	}
@@ -194,6 +225,59 @@ KUI.Student_TrailClass = class extends KUI.Page{
 			this.refs.result.setState({
 				query : param.query
 			});
+		});
+	}
+
+	trail(){
+		let self = this;
+		let m = this.getDepModule();
+		let data = this.refs.result.getSelectValue();
+
+		if(!data){
+			util.toast.showError('You must select a class to trail');
+			return false;
+		}
+
+		data.studentID = this.data.student._id;
+
+		m.Class.callMeteorMethod('checkStudentCanBeTrailClass', [data], {
+			context : this,
+			success : function(json){
+				KG.result.handle(json, {
+					success : function(){
+						self.insertTailData(data);
+					},
+					error : function(e){
+						util.toast.showError(e.reason);
+					}
+				});
+			}
+		});
+	}
+
+	insertTailData(json){
+		let data = {
+			classID : json.classID,
+			studentID : json.studentID,
+			lessonDate : json.date,
+			type : 'trail',
+			status : 'checkouted'
+		};
+
+		console.log(data);
+		let rs = this.module.ClassStudent.insert(data);
+		console.log(rs);
+		KG.result.handle(rs, {
+			success : function(cid){
+				//TODO how to pay?
+				console.log(cid);
+				util.toast.alert('Trail Class Success');
+				util.goPath('/student/'+data.studentID);
+			},
+			error : function(e, error){
+				console.log(e);
+				util.toast.showError(error.statusText);
+			}
 		});
 	}
 

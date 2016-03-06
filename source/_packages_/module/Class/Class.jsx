@@ -242,6 +242,72 @@ let Class = class extends Base{
                 //run in server
                 let rs = self._db.find({programID : programID}).count();
                 return rs > 0;
+            },
+            checkStudentCanBeTrailClass(opts){
+                let SUCCESSSTATUS = ['pending', 'checkouting', 'checkouted'];
+
+                let {classID, studentID, date} = opts;
+
+                let m = self.defineDepModule();
+                let query = {
+                    studentID : studentID,
+                    classID : classID,
+                    type : 'register',
+                    status : {'$in' : SUCCESSSTATUS}
+                };
+                let one = m.ClassStudent.getDB().findOne(query);
+                if(one){
+                    return KG.result.out(false, new Meteor.Error('-601', 'already register, can not trail'));
+                }
+
+                query = {
+                    studentID : studentID,
+                    classID : classID,
+                    type : 'trail',
+                    status : {'$in' : SUCCESSSTATUS},
+                    lessonDate : date
+                };
+                let z1 = m.ClassStudent.getDB().find(query).count();
+                if(z1 > 0){
+                    return KG.result.out(false, new Meteor.Error('-602', 'already trail'));
+                }
+
+                let co = self._db.findOne({_id : classID}),
+                    n = m.ClassStudent.getDB().find({
+                        classID : classID,
+                        type : 'register',
+                        status : {'$in' : SUCCESSSTATUS}
+                    }).count(),
+                    n1 = m.ClassStudent.getDB().find({
+                        classID : classID,
+                        type : 'trail',
+                        lessonDate : date,
+                        status : {'$in' : SUCCESSSTATUS}
+                    }).count();
+                if((co.maxStudent||0) <= (n+n1)){
+                    return KG.result.out(false, new Meteor.Error('-603', 'class is full'));
+                }
+                if((co.trialStudent||0) <= n1){
+                    return KG.result.out(false, new Meteor.Error('-604', 'class trail is full'));
+                }
+
+                //check student trail other class with same programID
+                let classList = self._db.find({
+                    programID : co.programID
+                }).fetch();
+
+                n1 = m.ClassStudent.getDB().find({
+                    studentID : studentID,
+                    classID : {'$in' : _.map(classList, (o)=>{return o._id;})},
+                    type : 'trail',
+                    status : {'$in' : SUCCESSSTATUS}
+                }).count();
+                if(n1 > 0){
+                    return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
+                }
+
+                return KG.result.out(true, 'ok');
+
             }
         };
     }

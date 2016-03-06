@@ -3,8 +3,6 @@
 KUI.Student_profile = class extends KUI.Page{
     constructor(p){
         super(p);
-
-
     }
 
     baseStyles(){
@@ -36,6 +34,7 @@ KUI.Student_profile = class extends KUI.Page{
             });
 
         }
+        //return {ready : false};
 
         //find from ClassStudent
         let s1 = Meteor.subscribe('EF-ClassStudent', {
@@ -59,7 +58,9 @@ KUI.Student_profile = class extends KUI.Page{
 
         });
 
-
+        if(cs.length>0 && _.size(classData) < 1){
+            return {ready : false};
+        }
         return {
             id,
             ready : sub.ready(),
@@ -107,9 +108,15 @@ KUI.Student_profile = class extends KUI.Page{
                 <hr />
                 <h3>Class History</h3>
                 {this.renderClassTable()}
-
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton style={sy.ml} href={`/registration/index/student/${this.data.id}`} label="Register New Class"></KUI.YesButton>
+                </RC.Div>
+
+                <hr/>
+                <h3>Trail / Makeup Class</h3>
+                {this.renderTrailOrMakeupClassTable()}
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} href={`/student/trailclass/${this.data.id}`} label="Trail Class"></KUI.YesButton>
                 </RC.Div>
 
             </RC.Div>
@@ -120,7 +127,7 @@ KUI.Student_profile = class extends KUI.Page{
 
     renderClassTable(){
 
-        if(this.data.classStudentData.length > 0 && _.keys(this.data.classData).length < 1){
+        if(!this.data.ready){
             return util.renderLoading();
         }
 
@@ -147,13 +154,17 @@ KUI.Student_profile = class extends KUI.Page{
             }
         ];
 
-        let json = _.map(this.data.classStudentData, (item)=>{
+        let json = [];
+        _.each(this.data.classStudentData, (item)=>{
+            if(item.type !== 'register' && item.type !== 'wait'){
+                return true;
+            }
             let cls = this.data.classData[item.classID];
             item.class = cls.nickName;
             item.teacher = cls.teacher;
             item.session = cls.sessionName;
 
-            return item;
+            json.push(item);
         });
 
         return (
@@ -216,6 +227,58 @@ KUI.Student_profile = class extends KUI.Page{
         console.log(data);
         this.refs.form.setDefaultValue(data);
 
+    }
+
+    renderTrailOrMakeupClassTable(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
+
+        const titleArray = [
+            {
+                title : 'Class',
+                key : 'class'
+            },
+            {
+                title : 'Teacher',
+                key : 'teacher'
+            },
+            {
+                title : 'Session',
+                key : 'session'
+            },
+            {
+                title : 'Lesson Date',
+                reactDom(doc){
+                    return moment(doc.lessonDate).format(util.const.dateFormat);
+                }
+            },
+            {
+                title : 'Status',
+                key : 'status'
+            }
+        ];
+
+        let json = [];
+        _.each(this.data.classStudentData, (item)=>{
+            if(item.type !== 'trail' && item.type !== 'makeup'){
+                return true;
+            }
+            let cls = this.data.classData[item.classID];
+            item.class = cls.nickName;
+            item.teacher = cls.teacher;
+            item.session = cls.sessionName;
+
+            json.push(item);
+        });
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={json}
+                title={titleArray}
+                ref="table"></KUI.Table>
+        );
     }
 
 
