@@ -476,7 +476,7 @@
             this.discount && cartItems.push((
                     <TableRow key="_discount_">
                         <TableRowColumn colSpan="2"><span style={col1Style}>Total Save</span></TableRowColumn>
-                        <TableRowColumn colSpan="2"><span style={col2Style}>{"$" + _.toString(this.discount)}</span></TableRowColumn>
+                        <TableRowColumn colSpan="2"><span style={col2Style}>{"-$" + _.toString(this.discount)}</span></TableRowColumn>
                     </TableRow>
                 ));
 
