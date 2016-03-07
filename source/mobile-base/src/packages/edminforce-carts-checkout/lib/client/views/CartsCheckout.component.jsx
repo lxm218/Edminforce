@@ -376,6 +376,7 @@
             this.discount = 0;
             this.hasMakeupClass = false;
             let self = this;
+            let totalDiscountable = 0;
 
             let cartItems = this.data.carts.map(function (item, index) {
                 let classData = _.find(this.data.classes, {"_id": item.classID}) || {};
@@ -389,7 +390,8 @@
                     price = classData.makeupClassFee || 5;
                     this.hasMakeupClass = true;
                 } else {
-                    price = EdminForce.Collections.class.calculateRegistrationFee(classData,classData.session)
+                    price = EdminForce.Collections.class.calculateRegistrationFee(classData,classData.session);
+                    totalDiscountable += price;
                     this.makeupOnly = false;
                 }
 
@@ -428,15 +430,10 @@
 
                     if (unit == "$") {
                         this.discount = value;
-                        this.total = this.originalAmount - this.discount;
                     } else if (unit == '%') {
-                        this.discount = this.originalAmount * value / 100;
-                        this.total = this.originalAmount - this.discount;
+                        this.discount = totalDiscountable * value / 100;
                     }
-
-                    console.log("discount: ", this.discount);
-                    console.log("origian: ", this.originalAmount);
-                    console.log("totoal: ", this.total);
+                    this.total = this.originalAmount - this.discount;
                 }
             }
 
