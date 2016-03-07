@@ -211,6 +211,17 @@
         whetherClassAvailable(classInfo) {
             let bAvailable = true;
 
+            // check if the current date is within registration date range
+            let session = EdminForce.Collections.session.find({_id:classInfo.sessionID}).fetch();
+            session = session && session[0];
+            let currentDate = new Date();
+
+            // skip classes that don't have valid registration start & end date
+            if (!session || !session.registrationStartDate || !session.registrationEndDate)
+                return false;
+            if (currentDate < session.registrationStartDate || currentDate > session.registrationEndDate)
+                return false;
+
             let students = this.students.get();
 
             let student = null;
