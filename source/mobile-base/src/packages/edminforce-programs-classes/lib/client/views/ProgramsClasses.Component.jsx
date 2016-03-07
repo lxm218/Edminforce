@@ -266,6 +266,12 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
     render() {
         let self = this;
         // Fill with your UI
+        let col = {
+            display: "inline-block",
+            float: "left",
+            width: "50%",
+            padding: 0
+        };
         return (
             <div>
                 <RC.List>
@@ -276,9 +282,12 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
                                     <RC.Item key={item.key} theme="divider"
                                              onClick={self.bookClass.bind(self, item)}>
                                         <h3>{item.name}</h3>
+                                        <div>
+                                            <p style={col}>Day: {moment(item.lessonDate).format("MMMM Do YYYY")}</p>
+                                            <p style={col}>Length: {item.length}</p>
+                                            <p>Teacher: {item.teacher}</p>
+                                        </div>
 
-                                        <p>Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm a")}</p>
-                                        <p>Length: {item.length}</p>
                                     </RC.Item>
                                 )
                             })
