@@ -37,6 +37,10 @@
 
             this.selectedClass = null;
 
+            // special handling for first registration week
+            this.firstRegistrationWeek = false;
+            this.studentCurrentClasses = []
+
             this.state = {
                 styles: [],
                 weekDay: null
@@ -45,12 +49,7 @@
 
         getMeteorData() {
 
-            let handler = null;
-
-            //let programID =
-            Tracker.autorun(function () {
-                handler = Meteor.subscribe("EF-Classes-For-Register");
-            });
+            let handler = Meteor.subscribe("EF-Classes-For-Register");
 
             this.getPrograms();
 
@@ -60,10 +59,38 @@
 
             this.getSessions();
 
+            this.checkFirstRegistrationWeek();
+
             return {
                 isReady: handler.ready()
             }
         }
+
+        checkFirstRegistrationWeek() {
+            // check if it's the first week of the selected session
+            let selectedSession = EdminForce.Collections.session.find({_id:this.sessionID.get()}).fetch();
+            selectedSession = selectedSession && selectedSession[0];
+            this.firstRegistrationWeek = false;
+            if (selectedSession) {
+                let currentDate = new Date();
+                this.firstRegistrationWeekEndDate = moment(selectedSession.registrationStartDate).add(7,"d").toDate();
+                this.firstRegistrationWeek = (currentDate >= selectedSession.registrationStartDate && currentDate <= this.firstRegistrationWeekEndDate);
+            }
+
+            this.studentCurrentClasses = [];
+            let selectedStudentID = this.studentID.get();
+            if (this.firstRegistrationWeek && selectedStudentID) {
+                let studentClasses = EdminForce.Collections.classStudent.find({studentID:selectedStudentID, type:'register', status:'checkouted'}).fetch();
+                let classIDs = studentClasses.map( (sc) => sc.classID );
+                let currentClasses = EdminForce.Collections.class.find({_id: {$in:classIDs}}).fetch();
+                this.studentCurrentClasses = currentClasses.map((c) => ({
+                            programID: c.programID,
+                            schedule: c.schedule
+                    }));
+            }
+        }
+
+
 
         getPrograms() {
             let programs = EdminForce.Collections.program.find({}).fetch();
@@ -299,11 +326,20 @@
             })
         }
 
+        firstWeekRegistrationAlertMessage() {
+            return "Registration is only available for current students before " + moment(this.firstRegistrationWeekEndDate).format("MMM D, YYYY");
+        }
+
         book() {
 
             // you must select a class
             if (!this.selectedClass) {
                 alert("Sorry, no class available in this program.");
+                return;
+            }
+
+            if (!this.eligibleForFirstRegistrationWeek(this.selectedClass)) {
+                alert(this.firstWeekRegistrationAlertMessage());
                 return;
             }
 
@@ -333,6 +369,14 @@
             }.bind(this));
         }
 
+        eligibleForFirstRegistrationWeek(classData) {
+            return !this.firstRegistrationWeek || _.find(this.studentCurrentClasses,(c) => {
+                    return c.programID === classData.programID &&
+                        c.schedule.day === classData.schedule.day &&
+                        c.schedule.time === classData.schedule.time
+                } );
+        }
+
         render() {
 
             let session = TAPi18n.__("ef_classes_" + moment().quarter().toString());
@@ -341,9 +385,10 @@
 
             let self = this;
 
+            let firstWeekInfoMsg = this.firstWeekRegistrationAlertMessage();
             let classItems = this.classes.get().map(function (item, index) {
-
                 let style = self.state.styles[index] ? self.state.styles[index] : {};
+                let eligibleForFirstWeekRegistration = self.eligibleForFirstRegistrationWeek(item);
 
                 return (
                     <RC.Item key={item['_id']} theme="divider"
@@ -355,6 +400,11 @@
                         <p><strong>Time:</strong> {item.schedule.time}</p>
 
                         <p><strong>Length:</strong> {item.length}</p>
+
+                        {
+                            (!eligibleForFirstWeekRegistration) && (<p>{firstWeekInfoMsg}</p>)
+                        }
+
                     </RC.Item>
                 )
             });
@@ -398,7 +448,7 @@
                         {
                             classItems
                         }
-                        <RC.Button bgColor="brand2" bgColorHover="dark" onClick={self.book.bind(self)}>{TAPi18n.__("ef_classes_book")}</RC.Button>
+                        <RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)}>{TAPi18n.__("ef_classes_book")}</RC.Button>
                     </RC.Loading>
                 </RC.Div>
             );

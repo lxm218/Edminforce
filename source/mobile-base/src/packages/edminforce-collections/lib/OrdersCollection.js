@@ -32,7 +32,7 @@ OrdersCollection = class OrdersCollection extends BaseCollection {
             },
             status: {
                 type: String,
-                allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled']
+                allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled', 'success']
             },
             amount:{
                 type: Number
