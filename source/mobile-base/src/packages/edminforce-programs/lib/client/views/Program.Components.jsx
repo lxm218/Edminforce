@@ -8,6 +8,15 @@
 
         constructor(p) {
             super(p);
+            this.state = {
+                collapse:true
+            }
+        }
+
+        collapseAll(id){
+            this.setState({
+                collapse:id
+            });
         }
 
         getMeteorData() {
@@ -31,8 +40,8 @@
                     <RC.Loading isReady={this.data.isReady}>
                         {
                             this.data.list.map(function (program) {
-                                return <ProgramsCollapse key={program._id} program={program}/>
-                            })
+                                return <ProgramsCollapse key={program._id} program={program} collapse={this.state.collapse} collapseAll={this.collapseAll.bind(this)}/>
+                            }.bind(this))
                         }
                     </RC.Loading>
                 </RC.Div>
