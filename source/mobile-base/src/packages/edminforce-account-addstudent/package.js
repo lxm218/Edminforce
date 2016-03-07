@@ -29,6 +29,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
+        'lib/client/views/AccountStudentForm.component.jsx',
         'lib/client/views/AccountAddStudent.Components.jsx',
         'lib/router/account-addstudent.router.jsx'
     ], ["client"]);

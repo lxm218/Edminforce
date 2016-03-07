@@ -23,16 +23,16 @@ Meteor.methods({
     },
     SetAlternateContact: function (userId, aContact) {
         console.log(userId, aContact);
-        Meteor.users.update(userId, {
-            $set: {
-                alterContact: aContact
+        EdminForce.Collections.Customer.update(userId, {
+            $set : {
+                alternativeContact: aContact
             }
         });
     },
     SetEmergencyContact: function (userId, eContact) {
         console.log(userId, eContact);
-        Meteor.users.update(userId, {
-            $set: {
+        EdminForce.Collections.Customer.update(userId, {
+            $set : {
                 emergencyContact: eContact
             }
         });

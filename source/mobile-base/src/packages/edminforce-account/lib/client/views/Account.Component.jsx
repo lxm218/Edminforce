@@ -30,15 +30,25 @@
             }.bind(this));
 
             let user = Meteor.user();
+            let customer = EdminForce.Collections.Customer.find({
+                _id : Meteor.userId()
+            }).fetch();
+
+            if(_.isArray(customer)){
+                customer = customer[0];
+            }
 
             let students = EdminForce.Collections.student.find({
                 accountID: Meteor.userId()
             }).fetch();
 
+            console.log(customer);
+
             return {
                 isReady: handler.ready(),
                 user: user,
-                students: students
+                students: students,
+                customer: customer
             }
         }
 
@@ -82,6 +92,10 @@
 
         addStudent() {
             FlowRouter.go("/account/addstudent");
+        }
+
+        updateStudent(studentID){
+            FlowRouter.go("/account/addstudent?studentID="+studentID);
         }
 
         updateAlternateContact() {
@@ -152,7 +166,7 @@
                                 <TableRow>
                                     <TableHeaderColumn>Phone</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        <span>{this.data.user && this.data.user.profile && this.data.user.profile.phone}</span>
+                                        <span>{this.data.customer && this.data.customer.phone}</span>
                                         <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
                                                    onClick={this.updatePhone.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
@@ -163,9 +177,9 @@
                                         {
                                             this.data.students && this.data.students.map(function (student, index) {
                                                 return (
-                                                    <span className="account-person">{student.name}</span>
+                                                    <span key={student._id} className="account-person" onClick={this.updateStudent.bind(this, student._id)}>{student.name}</span>
                                                 )
-                                            })
+                                            }.bind(this))
                                         }
                                         <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
                                                    onClick={this.addStudent.bind(this)}>+</RC.Button>
@@ -174,9 +188,9 @@
                                 <TableRow>
                                     <TableHeaderColumn>Alternative Contact</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        {this.data.user && this.data.user.alterContact && this.data.user.alterContact.name ?
+                                        {this.data.customer && this.data.customer.alternativeContact && this.data.customer.alternativeContact.name ?
                                             <span
-                                                className="account-person">this.data.user.alterContact.name</span> : ""}
+                                                className="account-person">{this.data.customer.alternativeContact.name}</span> : ""}
                                         <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
                                                    onClick={this.updateAlternateContact.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>
@@ -184,9 +198,9 @@
                                 <TableRow>
                                     <TableHeaderColumn>Emergency Contact</TableHeaderColumn>
                                     <TableHeaderColumn>
-                                        {this.data.user && this.data.user.emergencyContact && this.data.user.emergencyContact.name ?
+                                        {this.data.customer && this.data.customer.emergencyContact && this.data.customer.emergencyContact.name ?
                                             <span
-                                                className="account-person">{this.data.user.emergencyContact.name}</span> : ""}
+                                                className="account-person">{this.data.customer.emergencyContact.name}</span> : ""}
                                         <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
                                                    onClick={this.updateEmergencyContact.bind(this)}>Update</RC.Button>
                                     </TableHeaderColumn>

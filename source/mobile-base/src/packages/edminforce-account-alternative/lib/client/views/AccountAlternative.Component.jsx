@@ -1,4 +1,9 @@
 {
+    let _ = lodash;
+
+    let {
+        Checkbox
+        } = MUI;
 
     // Don't forget to change `SomeName` to correct name
     EdminForce.Components.AccountAlternative = class extends RC.CSSMeteorData {
@@ -16,11 +21,19 @@
                 handler = Meteor.subscribe("EF-UserData");
             }.bind(this));
 
-            let user = Meteor.user();
+            let user = EdminForce.Collections.Customer.find({
+                _id : Meteor.userId()
+            }).fetch();
+
+            if(_.isArray(user)){
+                user = user[0];
+            }
+
+            console.log(user&&user.alternativeContact);
 
             return {
                 isReady: handler.ready(),
-                alterContact: user&&user.alterContact
+                alterContact: user&&user.alternativeContact
             }
         }
         submitForm(e) {
@@ -52,6 +65,13 @@
                 padding: '10px'
             };
 
+            let checked = false;
+
+            if(this.data.alterContact&&this.data.alterContact.receive.toString() === 'true'){
+                checked = true;
+            }
+
+            console.log(checked);
             return <RC.Div style={style}>
                 <RC.VerticalAlign center={true} className="padding" height="300px">
                     <h2>
@@ -63,8 +83,7 @@
                     <RC.Input name="email" value={this.data.alterContact&&this.data.alterContact.email} label="Email"/>
                     <RC.Input name="phone" value={this.data.alterContact&&this.data.alterContact.phone} label="Phone"/>
                     <RC.Input name="relation" value={this.data.alterContact&&this.data.alterContact.relation} label="Relation"/>
-                    <RC.Checkbox name="receive" checked={this.data.alterContact&&this.data.alterContact.receive} label="Receive Communications"/>
-
+                    {checked ? <RC.Checkbox name="receive" checked label="Receive Communications"/>:<RC.Checkbox name="receive" label="Receive Communications"/>}
                     <RC.Button bgColor="brand2">Update</RC.Button>
                 </RC.Form>
             </RC.Div>

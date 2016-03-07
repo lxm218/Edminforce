@@ -16,7 +16,13 @@
                 handler = Meteor.subscribe("EF-UserData");
             }.bind(this));
 
-            let user = Meteor.user();
+            let user = EdminForce.Collections.Customer.find({
+                _id : Meteor.userId()
+            }).fetch();
+
+            if(_.isArray(user)){
+                user = user[0];
+            }
 
             return {
                 isReady: handler.ready(),

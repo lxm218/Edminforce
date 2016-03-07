@@ -26,19 +26,27 @@ CustomerCollection = class extends BaseCollection {
         let Schema = {};
 
         Schema.Contact = {
-            name : {
-                optional : true,
-                type : String
+            name: {
+                type: String,
+                optional: true
             },
-            phone : {
-                optional : true,
-                label : 'Contact Phone',
-                //custom : function(){
-                //    if(this.value && !/^[0-9]*$/g.test(this.value)){
-                //        return '601';
-                //    }
-                //},
-                type : String
+            email: {
+                type: String,
+                regEx: SimpleSchema.RegEx.Email,
+                optional: true
+            },
+            phone: {
+                type: String,
+                optional: true
+            },
+            relation: {
+                type: String,
+                optional: true
+            },
+            receive: {
+                type: Boolean,
+                optional: true,
+                defaultValue: false
             }
         };
 
@@ -54,15 +62,9 @@ CustomerCollection = class extends BaseCollection {
             email : {
                 regEx: SimpleSchema.RegEx.Email,
                 type : String
-                //optional : true
             },
             phone : {
                 optional : true,
-                //custom : function(){
-                //    if(this.value && !/^[0-9]*$/g.test(this.value)){
-                //        return '601';
-                //    }
-                //}
                 type : String
             },
             location : {
