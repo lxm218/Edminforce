@@ -307,9 +307,9 @@
                         <h3>{item.name}</h3>
 
                         <p>
-                        Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm a")}</p>
+                        Day: {moment(item.lessonDate).format("MMMM Do YYYY")}</p>
 
-                        <p>Length: {item.length}</p>
+                        <p>Teacher: {item.teacher}</p>
                     </RC.Item>
                 )
             }.bind(this))

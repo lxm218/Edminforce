@@ -390,14 +390,14 @@
                 let style = self.state.styles[index] ? self.state.styles[index] : {};
                 let eligibleForFirstWeekRegistration = self.eligibleForFirstRegistrationWeek(item);
 
+                console.log(item);
+
                 return (
                     <RC.Item key={item['_id']} theme="divider"
                              onClick={self.onSelectClass.bind(self, item, index)} style={style}>
                         <h3>{item.name}</h3>
 
-                        <p><strong>Day:</strong> {item.schedule.day}</p>
-
-                        <p><strong>Time:</strong> {item.schedule.time}</p>
+                        <p><strong>Teacher:</strong> {item.teacher}</p>
 
                         <p><strong>Length:</strong> {item.length}</p>
 
