@@ -99,16 +99,14 @@ Meteor.startup(function () {
                         return EdminForce.Collections.classStudent.find({
                             studentID: student._id
                         });
-                    },
+                    }
+                },
 
-                    children: [
-                        // all classes
-                        {
-                            find: function (classStudent) {
-                                return EdminForce.Collections.class.find({_id:classStudent.classID});
-                            }
-                        },
-                    ]
+                // all active classes
+                {
+                    find: function () {
+                        return EdminForce.Collections.class.find({status: 'Active'});
+                    }
                 },
 
                 // all sessions
