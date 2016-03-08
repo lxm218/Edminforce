@@ -41,7 +41,9 @@ Meteor.startup(function () {
         return "Password Reset" ;
     };
     Accounts.emailTemplates.resetPassword.text = function (user, url) {
-        url = url.replace('#/', '');
+        var index = url.search('#/');
+        var link = url.slice(index+2);
+        url = "http://classforth.com/"+link;
         return " To reset your password, simply click the link below:\n\n"
            + url;
     };
