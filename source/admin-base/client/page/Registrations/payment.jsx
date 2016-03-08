@@ -117,14 +117,6 @@ KUI.Registration_payment = class extends KUI.Page{
             total = total - C.credit;
         }
 
-        if(this.state.coupon){
-            list.push({
-                item : 'Coupon',
-                amount : this.state.coupon.discount
-            });
-
-        }
-
         if(C.registrationFee > 0){
             list.push({
                 item : 'Registration Fee',
@@ -135,14 +127,22 @@ KUI.Registration_payment = class extends KUI.Page{
         }
 
         if(this.state.coupon){
+            let tmp = total;
+
+
             total = m.Coupon.calculateDiscountResult(this.state.coupon.discount, total);
+            console.log(tmp, total);
+            list.push({
+                item : 'Coupon',
+                amount : '-$'+(tmp-total).toFixed(2)
+            });
         }
 
 
         this.total.set(total);
         list.push({
             item : 'Total',
-            amount : '$'+total
+            amount : '$'+total.toFixed(2)
         });
 
 

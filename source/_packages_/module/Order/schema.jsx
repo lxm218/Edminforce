@@ -14,7 +14,8 @@ Schema.Order = {
         allowedValues : ['waiting', 'success', 'fail']
     },
     amount:{
-        type: Number
+        type: Number,
+        decimal : true
     },
     paymentTotal:{
         type: String,
