@@ -1,0 +1,830 @@
+[
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Wed",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_rachel_wednesday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Wed",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_amanda_wednesday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Tue",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_rachel_tuesday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_cynthia_saturday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_rachel_saturday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Thu",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_cynthia_thursday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Thu",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_robbie_thursday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_amanda_sunday_12_00"
+  },
+  {
+    "programID": "beginning",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "beginning_winter_2016_rachel_sunday_12_00"
+  },
+  {
+    "programID": "digital",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Kit",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "digital_winter_2016_kit_saturday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Wed",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_eli_wednesday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Wed",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_amanda_wednesday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Wed",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_rachel_wednesday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Tue",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_rachel_tuesday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Fri",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_robbie_friday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Fri",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_amanda_friday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Fri",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_eli_friday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_eli_saturday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Mei",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_mei_saturday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_cynthia_saturday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Thu",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_cynthia_thursday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Thu",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_robbie_thursday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_eli_sunday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_amanda_sunday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_robbie_sunday_12_00"
+  },
+  {
+    "programID": "intermediate",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "intermediate_winter_2016_rachel_sunday_12_00"
+  },
+  {
+    "programID": "pre_advanced",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Wed",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_12_00"
+  },
+  {
+    "programID": "pre_advanced",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Fri",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_12_00"
+  },
+  {
+    "programID": "pre_advanced",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_advanced_winter_2016_eli_saturday_12_00"
+  },
+  {
+    "programID": "pre_advanced",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Mei",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_advanced_winter_2016_mei_saturday_12_00"
+  },
+  {
+    "programID": "pre_advanced",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_advanced_winter_2016_cynthia_saturday_12_00"
+  },
+  {
+    "programID": "pre_advanced",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_advanced_winter_2016_eli_sunday_12_00"
+  },
+  {
+    "programID": "pre_advanced",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_12_00"
+  },
+  {
+    "programID": "pre_ap_ap",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Wed",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_12_00"
+  },
+  {
+    "programID": "pre_ap_ap",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sat",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_ap_ap_winter_2016_eli_saturday_12_00"
+  },
+  {
+    "programID": "pre_ap_ap",
+    "sessionID": "winter_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sun",
+      "time": "12:00"
+    },
+    "tuition": {
+      "type": "total",
+      "money": "100"
+    },
+    "maxStudent": 10,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "genderRequire": "All",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_12_00"
+  }
+]
