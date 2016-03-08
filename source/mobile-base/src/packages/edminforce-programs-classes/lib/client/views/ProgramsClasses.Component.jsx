@@ -20,7 +20,15 @@ const schemaConst = {
 
 EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
 
-    getMeteorData() {
+        constructor(p) {
+            super(p);
+
+            this.state = {
+                selectedDay: null
+            }
+        }
+
+        getMeteorData() {
         let programID = FlowRouter.getParam("programID");
         let classProgramIDHandler;
         Tracker.autorun(function () {
@@ -263,22 +271,59 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
         }
     }
 
+    onSelectDay(day) {
+        this.setState({selectedDay:day});
+    }
+
     render() {
         let self = this;
         // Fill with your UI
+        let col = {
+            display: "inline-block",
+            float: "left",
+            width: "50%",
+            padding: 0
+        };
+
+        let lessons = this.data.lessons || [];
+        this.state.selectedDay && (lessons = _.filter(lessons,(lesson) => lesson.schedule && lesson.schedule.day === this.state.selectedDay));
+
         return (
             <div>
+                <RC.Div>
+                    <div style={{textAlign:"center"}}>
+                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                            onClick={this.onSelectDay.bind(this, "Mon")}>Mon</RC.Button>
+                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                            onClick={this.onSelectDay.bind(this, "Tues")}>Tues</RC.Button>
+                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                            onClick={this.onSelectDay.bind(this, "Wed")}>Wed</RC.Button>
+                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                            onClick={this.onSelectDay.bind(this, "Thu")}>Thu</RC.Button>
+                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                            onClick={this.onSelectDay.bind(this, "Fri")}>Fri</RC.Button>
+                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                            onClick={this.onSelectDay.bind(this, "Sat")}>Sat</RC.Button>
+                        <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                            onClick={this.onSelectDay.bind(this, "Sun")}>Sun</RC.Button>
+                    </div>
+                </RC.Div>
                 <RC.List>
                     <RC.Loading isReady={this.data.isReady}>
                         {
-                            this.data.lessons.map(function (item) {
+                            lessons.map(function (item) {
                                 return (
                                     <RC.Item key={item.key} theme="divider"
                                              onClick={self.bookClass.bind(self, item)}>
                                         <h3>{item.name}</h3>
+                                        <div>
+                                            <br/>
+                                            <p style={col}>Day: {moment(item.lessonDate).format("MMMM Do YYYY")}</p>
+                                            <p style={col}>Length: {item.length}</p>
+                                            <br/>
+                                            <p>Teacher: {item.teacher}</p>
+                                        </div>
 
-                                        <p>Day: {moment(item.lessonDate).format("dddd, MMMM Do YYYY, h:mm a")}</p>
-                                        <p>Length: {item.length}</p>
                                     </RC.Item>
                                 )
                             })

@@ -30,6 +30,7 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
+        'lib/client/less/edminforce-programs.less',
         'lib/client/views/ProgramCollapse.component.jsx',
         'lib/client/views/Program.Components.jsx',
         'lib/router/programs.router.jsx'
