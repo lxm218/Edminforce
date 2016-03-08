@@ -26,43 +26,54 @@ var adminUser = {
     "updateTime": new Date(1456611427057)
 };
 
-var custom = {
-    "name": "Jacky Lee",
-    "email": "liyangwood@gmail.com",
-    "phone": "1122334455",
-    "location": "AAAA",
-    "status": "Active",
-    "createTime": new Date(1456611427084),
-    "updateTime": new Date(1456611427084)
+var user = {
+    emails: [
+        {
+            address: "",
+            verified: false
+        }
+    ],
+    username: '',
+    role: "user",
+
+    //password
+    services: {
+        "password": {//calphin
+            "bcrypt": "$2a$10$JxR7RAR6uHArlUx0CowVxO1nPUZIWSuS4Qxp/Cm9LNC73KzjQzjSm"
+        }
+    }
+};
+
+var customer = {
+    "name": "",
+    "email": "",
+    "phone": "",
+    "location": "Fremont",
+    "status": "Active"
 };
 
 var classStudent = {
-  "accountID": "Q8zZYCD7akpa3rZd2",
-  "classID": "ANoA44LgW8A29kZzZ",
-  "programID": "QgQXmuw8FhpR6msCY",
-  "studentID": "c68EsNeTLZEGixi7S",
-  "status": "expired",
-  "type": "register",
-  "createTime": new Date(1457213310316),
-  "updateTime": new Date(1457214210644)
-}
+  "accountID": "",
+  "classID": "",
+  "programID": "",
+  "studentID": "",
+  "status": "checkouted",
+  "type": "register"
+};
 
 var school = {
     "name": "Class Forth",
-    "email": "contract@classforth.com",
-    "createTime": new Date(1456626672724)
+    "email": "contract@classforth.com"
 };
 
 var student = {
-    "name": "tim",
-    "accountID": "Q8zZYCD7akpa3rZd2",
+    "name": "",
+    "accountID": "",
     "profile": {
         "gender": "Male",
-        "birthday": new Date("2000-02-02T00:00:00-0800")
+        "birthday": ""
     },
-    "status": "Active",
-    "createTime": new Date(1457325873990),
-    "updateTime": new Date(1457326265568)
+    "status": "Active"
 };
 
 var session = {
@@ -169,6 +180,19 @@ function getClassID(programName, sessionName, teacher, day, startTime){
     return _.snakeCase(id);
 }
 
+function getUserID(name){
+    return _.snakeCase(name);
+}
+
+function getStudentID(userID, name){
+    return _.snakeCase(userID+"_"+name);
+}
+
+function getPhoneNumber(phone){
+    phone = phone.toString();
+    return phone.replace(/[^\d]*/g, function(){return ''})
+}
+
 function insertToArray(array, data){
     // Make sure don't have duplicate data
 
@@ -181,9 +205,7 @@ function insertToArray(array, data){
     }
 }
 
-
-
-excel('data/cca/cca-class1.xlsx', function (err, datas) {
+excel('data/cca/cca-class.xlsx', function (err, datas) {
 //excel('data/example-of-class.xlsx', function (err, datas) {
     if (err) throw err;
 
@@ -197,7 +219,7 @@ excel('data/cca/cca-class1.xlsx', function (err, datas) {
     for(let i=1; i<datas.length; i++){
         let data = datas[i];
 
-        console.log(data);
+        //console.log(data);
 
         // Generate programs
         let nProgram = _.cloneDeep(program);
@@ -238,5 +260,55 @@ excel('data/cca/cca-class1.xlsx', function (err, datas) {
     jsonfile.writeFile('output/sessions.json', sessions, {spaces: 2}, function (err) {
         console.error(err);
     });
+
+});
+
+excel('data/cca/cca-student.xlsx', function(err, datas){
+    if (err) throw err;
+
+    let classStudents = [];
+    let accounts = [];
+    let customers = [];
+    let students = [];
+
+    for(let i=2; i<datas.length; i++){
+        let data = datas[i];
+        if(i ==2){
+            console.log(data);
+        }
+
+        let nUser = _.cloneDeep(user);
+        nUser._id = getUserID(data[7]);
+        nUser.emails[0].address = data[7];
+        nUser.username = data[7];
+        insertToArray(accounts, nUser);
+
+        let nCustomer = _.cloneDeep(customer);
+        nCustomer._id = getUserID(data[7]);
+        nCustomer.name = "";
+        nCustomer.email = data[7];
+        nCustomer.phone = getPhoneNumber(data[4]);
+        insertToArray(customers, nCustomer);
+
+        let nStudent = _.cloneDeep(student);
+        nStudent._id = getStudentID(nUser._id, data[1]);
+        nStudent.name = data[1];
+        nStudent.accountID = nUser._id;
+        nStudent.profile.gender = data[2];
+        nStudent.profile.birthday = new Date(data[3]);
+        insertToArray(students, nStudent);
+
+    }
+
+    jsonfile.writeFile('output/accounts.json', accounts, {spaces: 2}, function (err) {
+        console.error(err);
+    });
+    jsonfile.writeFile('output/customers.json', customers, {spaces: 2}, function (err) {
+        console.error(err);
+    });
+    jsonfile.writeFile('output/students.json', students, {spaces: 2}, function (err) {
+        console.error(err);
+    });
+
 
 });
