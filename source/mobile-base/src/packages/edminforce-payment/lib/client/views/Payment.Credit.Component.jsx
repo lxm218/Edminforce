@@ -25,6 +25,8 @@
       }
     },
 
+
+
   postPayment(e){
 
     // To do: get the charging amount from database
@@ -135,6 +137,8 @@
     paymentInfo.createTransactionRequest.refId = String(orderID)
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
 
+    var data = this.prepareConfirmationEmail()
+    let html = this.getPaymentConfirmEmailTemplate(data);
     
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
@@ -154,18 +158,18 @@
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
         // console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
-        Meteor.call('sendEmailText',
-                Meteor.user().emails[0].address,
-                'Confirmation',
-                'Thank you for your order.',
-                function(err, res){
-                  if(!!err){
-                    console.log(err)
-                  }
-                  if(!!res){
-                    console.log(res)
-                  }
-                });
+
+        Meteor.call('sendEmailHtml',
+                  Meteor.user().emails[0].address,
+                  'Thanks for Making Payment',
+                  html, 
+                  function (error, result) { 
+                    if (!!error){
+                      console.log(error)
+                    }
+                    if (!!response){
+                      console.log(response)
+                    } } );
         EdminForce.Collections.orders.update({
             "_id":self.state.orderId
           }, {
@@ -244,6 +248,8 @@
       }
     },
 
+
+
     checkCCV(e){
       var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
       var ccv = this.refs.paymentForm.getFormData().ccv
@@ -280,6 +286,94 @@
       amt = amt * 1.03
       return amt
     },
+
+    prepareConfirmationEmail(){
+      var o = this.data.order[0]
+      var classes = this.getAllClasses(o.details)
+      var registrationFee = o.registrationFee
+      var couponDiscount = o.discount
+      if (typeof registrationFee == "undefined"){
+        registrationFee = 0
+      }
+      if (typeof couponDiscount == "undefined"){
+        couponDiscount = 0
+      }
+      return {
+        "amount": o.amount,
+        "classes": classes,
+        "registrationFee" : registrationFee,
+        "couponDiscount": couponDiscount
+      }
+    },
+
+
+    getAllClasses(classStudentIDs){
+      var classIDs = []
+      var classes = {} 
+      for (var i = 0; i < classStudentIDs.length; i++) {
+        var c = EdminForce.Collections.classStudent.find({
+          _id: classStudentIDs[i]
+        }, {}
+        ).fetch();
+        classIDs.push(c[0].classID);
+      }
+      for (var i = 0; i < classIDs.length; i++) {
+        var c = EdminForce.Collections.class.find({
+          _id: classIDs[i]
+        }, {}
+        ).fetch();
+        classes[c[0].name] = c[0].tuition.money
+      }
+      return classes
+    },
+
+    getPaymentConfirmEmailTemplate(data){
+      debugger
+        let school={
+          "name" : "CalColor Academy"
+        }
+        let tpl = [
+            '<h3>Hello</h3>',
+            '<p>Thank for making the payment.</p>',
+            '<table>',
+        ].join('')
+        var classes = data.classes
+        for (var name in classes){
+          var line = [
+              '<tr>',
+                '<td>',name,'</td>',
+                '<td>',classes[name],'</td>',
+              '</tr>',
+          ].join('')
+          tpl = tpl + line
+        }
+        tpl = tpl + [
+              '<tr>',
+                '<td>Discount</td>',
+                '<td>',data.couponDiscount,'</td>',
+              '</tr>',
+              '<tr>',
+                '<td>Registration</td>',
+                '<td>',data.registrationFee,'</td>',
+              '</tr>',
+              '<tr>',
+                '<td>Total</td>',
+                '<td>',data.amount,'</td>',
+              '</tr>',
+
+            '</table>',
+
+            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+
+            '<br/><br/>',
+            '<b>',school.name,'</b>'
+        ].join('')
+         return tpl
+
+        
+    },
+
+
 
   render() {
     var inputTheme = "small-label"

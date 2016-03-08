@@ -324,8 +324,16 @@
                 amount: this.total
             };
 
+            if(this.isNewUser()){
+                order.registrationFee = 25;
+            } else {
+                order.registrationFee = 0;
+            }
+
+
             if(this.coupon){
                 order.couponID = this.coupon["_id"];
+                order.discount = this.discount;
 
                 // if this order used coupon need to insert a record to customerCoupon collection
                 let customerCoupon = {
@@ -353,6 +361,7 @@
         calculatePrice() {
 
         }
+
 
         render() {
 

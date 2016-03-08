@@ -104,9 +104,9 @@
             return <RC.Div style={style}>
                 <RC.Form onSubmit={this.submitForm.bind(this)} onKeyUp={this.checkButtonState.bind(this)} ref="changePasswordForm">
                     {this.printMsg()}
-                    <RC.Input name="oldPw" label="Current Password"/>
-                    <RC.Input name="pw" label="New Password"/>
-                    <RC.Input name="pwRepeat" label="Repeat Password"/>
+                    <RC.Input name="oldPw" type="password" label="Current Password"/>
+                    <RC.Input name="pw" type="password" label="New Password"/>
+                    <RC.Input name="pwRepeat" type="password" label="Repeat Password"/>
                     <RC.Button bgColor="brand2" disabled={this.state.waiting} active={this.state.buttonActive}>
                         {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow"/> : "Change Password"}
                     </RC.Button>
