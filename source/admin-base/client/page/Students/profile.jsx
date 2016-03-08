@@ -131,6 +131,8 @@ KUI.Student_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
+        let self = this;
+
         const titleArray = [
             {
                 title : 'Class',
@@ -153,6 +155,27 @@ KUI.Student_profile = class extends KUI.Page{
                 //key : 'status'
                 reactDom(doc){
                     return doc.status==='checkouted'?'success':doc.status;
+                }
+            },
+            {
+                title : 'Action',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom(doc){
+                    let sy = {
+                        lineHeight : '24px',
+                        height : '24px',
+                        fontSize : '12px',
+                        padding : '0 12px'
+                    };
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+                            {/*<KUI.NoButton style={sy} href={`/student/changeclass/${doc._id}`}
+                             label="Change"></KUI.NoButton>*/}
+                        </RC.Div>
+                    );
                 }
             }
         ];
