@@ -494,7 +494,10 @@
                         <RC.Select options={this.students} value={this.studentID}
                             label={TAPi18n.__("ef_classes_students")} labelColor="brand1"
                             onChange={this.onSelectStudent.bind(this)}/>
-                            {renderBody}
+                        {
+                            this.classes.length > 0 && (<RC.Div style={{"padding": "20px"}}><p>You're renewing this class:</p></RC.Div>)
+                        }
+                        {renderBody}
                         {
                             this.classes.length > 0 && (<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)}>Confirm</RC.Button>)
                         }
