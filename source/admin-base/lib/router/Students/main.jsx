@@ -49,6 +49,16 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/changeclass/:classstudentID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | Change Class",
+                bodyTmpl: <KUI.Student_ChangeClass />
+            });
+
+        }
+    });
+
 
 
 

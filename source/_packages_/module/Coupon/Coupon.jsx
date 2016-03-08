@@ -11,7 +11,7 @@ KG.define('EF-Coupon', class extends Base{
     }
 
     defineMeteorMethod(){
-        let m = this.getDepModule();
+
 
         return {
             checkRecordById(id){
@@ -19,6 +19,8 @@ KG.define('EF-Coupon', class extends Base{
             },
 
             checkCouponCodeValidByCustomerID(opts){
+                let m = this.getDepModule();
+
                 opts = _.extend({
                     accountID : null,
                     couponCode : null,
@@ -48,7 +50,7 @@ KG.define('EF-Coupon', class extends Base{
                 }
 
                 if(forNewUser){
-                    var order = m.Order.getDB.findOne({
+                    var order = m.Order.getDB().findOne({
                         accountID : opts.accountID,
                         customerCouponID : opts.couponCode
                     });
