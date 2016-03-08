@@ -6,7 +6,8 @@ KUI.Registration_payment = class extends KUI.Page{
         this.state = {
             step : 'step1',
 
-            schoolCredit : false
+            schoolCredit : false,
+            coupon : false
         };
 
         this.total = new ReactiveVar(0);
@@ -72,7 +73,8 @@ KUI.Registration_payment = class extends KUI.Page{
 
     getDepModule(){
         return {
-            Customer : KG.get('EF-Customer')
+            Customer : KG.get('EF-Customer'),
+            Coupon : KG.get('EF-Coupon')
         };
     }
 
@@ -113,6 +115,13 @@ KUI.Registration_payment = class extends KUI.Page{
             });
 
             total = total - C.credit;
+        }
+
+        if(this.state.coupon){
+            list.push({
+                item : 'Coupon',
+                amount : this.state.coupon.discount
+            });
         }
 
         if(C.registrationFee > 0){
@@ -174,9 +183,24 @@ KUI.Registration_payment = class extends KUI.Page{
         if(this.state.step !== 'step1'){
             dsp.display = 'none';
         }
+
         let sy = this.css.get('styles');
         return (
             <RC.Div style={dsp}>
+                <RB.Input wrapperClassName="">
+                    {this.state.coupon?
+                        null:
+                        <RB.Row>
+                            <RB.Col xs={8}>
+                                <input ref="cpcode" placeholder="Enter Coupon Code" type="text" className="form-control" />
+                            </RB.Col>
+                            <RB.Col xs={4}>
+                                <button type="button" onClick={this.applyCouponCode.bind(this)} className="btn btn-w-m btn-primary">Apply</button>
+                            </RB.Col>
+                        </RB.Row>
+                    }
+                </RB.Input>
+
                 <RB.Input onChange={this.checkSchoolCredit.bind(this)} ref="s11" type="checkbox" label="Apply school credit" />
                 {/*<RB.Input onChange={function(){}} ref="s12" type="checkbox" label="New Customer Coupon" />*/}
                 <RC.Div style={{textAlign:'right'}}>
@@ -190,6 +214,43 @@ KUI.Registration_payment = class extends KUI.Page{
         let b = $(e.target).prop('checked');
         this.setState({
             schoolCredit:b
+        });
+    }
+
+    applyCouponCode(){
+        let self = this;
+        let m = this.getDepModule();
+
+        let code = util.getReactJQueryObject(this.refs.cpcode).val();
+        if(!code){
+            util.toast.showError('Please enter coupon code');
+            return;
+        }
+
+        //check coupon code
+        let param = {
+            accountID : this.data.student.accountID,
+            couponCode : code,
+            overRequire : this.total.get(),
+            programID : this.data.class.programID,
+            weekdayRequire : this.data.class.schedule.day
+        };
+        console.log(param);
+        m.Coupon.callMeteorMethod('checkCouponCodeValidByCustomerID', [param], {
+            context : this,
+            success : function(rs){
+                KG.result.handle(rs, {
+                    success : function(d){
+                        console.log(d);
+                        self.setState({
+                            coupon : d
+                        });
+                    },
+                    error : function(err){
+                        util.toast.showError(err.reason);
+                    }
+                });
+            }
         });
     }
 

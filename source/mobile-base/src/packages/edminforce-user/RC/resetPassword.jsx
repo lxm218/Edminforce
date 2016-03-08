@@ -34,13 +34,13 @@ EdminForce.Components.ResetPasswordEmail = React.createClass({
 		let form = this.refs.resetForm.getFormData()
 
 		if (form.pw == form.pwRepeat) {
-			if (!checkPassword(form.pw)) {
-				this.setState({
-					msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers.",
-					waiting: false
-				})
-				return
-			};
+			// if (!checkPassword(form.pw)) {
+			// 	this.setState({
+			// 		msg: "Password shoud have at least 8 characters, containing Capital Letts AND Numbers.",
+			// 		waiting: false
+			// 	})
+			// 	return
+			// };
 			// Reset Account Password using token
 			this.setState({ waiting: true })
 			Accounts.resetPassword(
