@@ -119,9 +119,9 @@ function am_pm_to_hours(time) {
     var minutes = Number(time.match(/:(\d+)/)[1]);
     var AMPM = time.match(/([ampm]*)$/)[1];
 
-    console.log(AMPM);
-    console.log(hours);
-    console.log(minutes);
+    //console.log(AMPM);
+    //console.log(hours);
+    //console.log(minutes);
 
     // If AMPM exist
     if(AMPM){
@@ -173,8 +173,6 @@ function insertToArray(array, data){
     // Make sure don't have duplicate data
 
     let item = _.find(array, function(item){
-        console.log(item);
-        console.log(data);
         return item._id == data._id;
     });
 
@@ -185,7 +183,7 @@ function insertToArray(array, data){
 
 
 
-excel('data/cca/cca-class.xlsx', function (err, datas) {
+excel('data/cca/cca-class1.xlsx', function (err, datas) {
 //excel('data/example-of-class.xlsx', function (err, datas) {
     if (err) throw err;
 
@@ -221,11 +219,10 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
         nClass.length = data[5];
         nClass.teacher = data[2];
         nClass.schedule.day = data[3];
-        //nClass.schedule.time = data[4];
-        nClass.schedule.time = "12:00";
+        nClass.schedule.time = data[4];
         nClass.tuition.type = "total";
         nClass.tuition.money = "100";
-        nClass._id = getClassID(data[0], data[1], data[2], data[3], "12:00");
+        nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
         insertToArray(classes, nClass);
 
     }
