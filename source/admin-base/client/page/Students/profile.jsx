@@ -150,13 +150,19 @@ KUI.Student_profile = class extends KUI.Page{
             //},
             {
                 title : 'Status',
-                key : 'status'
+                //key : 'status'
+                reactDom(doc){
+                    return doc.status==='checkouted'?'success':doc.status;
+                }
             }
         ];
 
         let json = [];
         _.each(this.data.classStudentData, (item)=>{
             if(item.type !== 'register' && item.type !== 'wait'){
+                return true;
+            }
+            if(item.status !== 'checkouted'){
                 return true;
             }
             let cls = this.data.classData[item.classID];
