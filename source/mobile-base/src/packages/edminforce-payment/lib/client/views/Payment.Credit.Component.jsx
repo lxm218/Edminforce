@@ -328,7 +328,6 @@
     },
 
     getPaymentConfirmEmailTemplate(data){
-      debugger
         let school={
           "name" : "CalColor Academy"
         }
