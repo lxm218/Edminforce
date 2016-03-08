@@ -19,33 +19,38 @@
         constructor(p) {
             super(p);
 
-            this.classes = new ReactiveVar(null);
-            this.programs = new ReactiveVar(null);
-            this.students = new ReactiveVar(null);
-            this.sessions = new ReactiveVar(null);
+            this.classes = [];
+            this.programs = [];
+            this.students = [];
+            this.sessions = [];
 
             // selected programID
-            this.programID = new ReactiveVar(null);
+            this.programID = null;
 
             // selected sessionID
-            this.sessionID = new ReactiveVar(null);
+            this.sessionID = null;
 
             // selected StudentID
-            this.studentID = new ReactiveVar(null);
+            this.studentID = null;
 
-            this.classID = new ReactiveVar(null);
+            this.classID = null;
 
-            this.selectedClass = null;
+            this.selectedClasses = [];
 
             // special handling for first registration week
-            this.firstRegistrationWeek = false;
+            this.firstRegistrationWeekSession = null;
             this.studentCurrentClasses = [];
+            this.firstRegistrationWeekAlert;
 
             this.selectedClassStyle = { backgroundColor: "#e0e0e0" }
 
             this.state = {
                 styles: [],
-                weekDay: null
+                weekDay: null,
+
+                studentID: null,
+                programID: null,
+                sessionID: null
             };
         }
 
@@ -53,46 +58,30 @@
 
             let handler = Meteor.subscribe("EF-Classes-For-Register");
 
-            this.checkFirstRegistrationWeek();
+            if (handler.ready()) {
+                this.getStudents();
 
-            this.getPrograms();
+                this.getSessions();
 
-            this.getStudents();
+                this.getPrograms();
 
-            this.getClasses();
-
-            this.getSessions();
+                this.getClasses();
+            }
 
             return {
                 isReady: handler.ready()
             }
         }
 
-        checkFirstRegistrationWeek() {
-            // check if it's the first week of the selected session
-            let selectedSession = EdminForce.Collections.session.find({_id:this.sessionID.get()}).fetch();
-            selectedSession = selectedSession && selectedSession[0];
-            this.firstRegistrationWeek = false;
-            if (selectedSession) {
-                let currentDate = new Date();
-                let firstRegistrationWeekEndDate = moment(selectedSession.registrationStartDate).add(7,"d").toDate();
-                this.firstRegistrationWeek = (currentDate >= selectedSession.registrationStartDate && currentDate <= firstRegistrationWeekEndDate);
-            }
-
-            this.studentCurrentClasses = [];
-            let selectedStudentID = this.studentID.get();
-            if (this.firstRegistrationWeek && selectedStudentID) {
-                let studentClasses = EdminForce.Collections.classStudent.find({studentID:selectedStudentID, type:'register', status:'checkouted'}).fetch();
-                let classIDs = studentClasses.map( (sc) => sc.classID );
-                let currentClasses = EdminForce.Collections.class.find({_id: {$in:classIDs}}).fetch();
-                this.studentCurrentClasses = currentClasses.map((c) => ({
-                            programID: c.programID,
-                            schedule: c.schedule
-                    }));
+        setSelectedID(idName, idOptions) {
+            this[idName] = null;
+            if (idOptions.length >0) {
+                if (this.state[idName] && _.find(idOptions, {_id:this.state[idName]}))
+                    this[idName] = this.state[idName];
+                else
+                    this[idName] = idOptions[0]._id;
             }
         }
-
-
 
         getPrograms() {
             let programs = EdminForce.Collections.program.find({}).fetch();
@@ -102,13 +91,8 @@
                 programs[i].label = programs[i].name;
             }
 
-
-            this.programs.set(programs);
-
-            // If this.programID didn't selected, default select first one
-            if (!this.programID.get()) {
-                this.programID.set(programs[0] && programs[0]["_id"]);
-            }
+            this.programs = programs;
+            this.setSelectedID('programID',programs);
         }
 
         getSessions() {
@@ -120,11 +104,33 @@
                 sessions[i].label = sessions[i].name;
             }
 
-            this.sessions.set(sessions);
+            this.sessions = sessions;
 
-            // If this.sessionID didn't selected, default select first one
-            if (!this.sessionID.get()) {
-                this.sessionID.set(sessions[0] && sessions[0]["_id"]);
+            // check if current date is within the first registration week of any session
+            this.firstRegistrationWeekSession = _.find(this.sessions, (s) => {
+                return (currentDate >= s.registrationStartDate && currentDate <= moment(s.registrationStartDate).add(7,"d").toDate());
+            });
+            // for the case of first week registration, we need to get current classes of the selected student
+            // so we can find out which classes are available for first week registration.
+            this.studentCurrentClasses = [];
+            if (this.firstRegistrationWeekSession && this.studentID) {
+                let studentClasses = EdminForce.Collections.classStudent.find({studentID:this.studentID, type:'register', status:'checkouted'}).fetch();
+                let classIDs = studentClasses.map( (sc) => sc.classID );
+                // we may need to filter out history classes that are finished long time ago.
+                let currentClasses = EdminForce.Collections.class.find({_id: {$in:classIDs}}).fetch();
+                this.studentCurrentClasses = currentClasses.map((c) => ({
+                    programID: c.programID,
+                    sessionID: c.sessionID,
+                    schedule: c.schedule
+                }));
+            }
+
+            if (this.firstRegistrationWeekSession) {
+                this.sessionID = this.firstRegistrationWeekSession._id;
+                this.state.weekDay = null;
+            }
+            else {
+                this.setSelectedID('sessionID', sessions);
             }
         }
 
@@ -136,7 +142,7 @@
             // discuss with Ma Lan, she said same student can register multiple class in same program
             /*
              let registeredStudents = EdminForce.Collections.classStudent.find({
-             programID: this.programID.get()
+             programID: this.programID
              }).fetch();
 
              let validStudents = [];
@@ -167,30 +173,41 @@
                 student.label = student.name;
             }
 
-            if (!this.studentID.get()) {
-                this.studentID.set(students[0] && students[0]['_id']);
-            }
+            this.students = students;
+            this.setSelectedID('studentID', students);
+        }
 
-            this.students.set(students);
+        eligibleForFirstRegistrationWeek(classData) {
+            return _.find(this.studentCurrentClasses,(c) => {
+                    return c.programID === classData.programID &&
+                        c.schedule.day === classData.schedule.day &&
+                        c.schedule.time === classData.schedule.time
+                });
         }
 
         getClasses() {
-
             // Available Class Condition
-            // 1. based on select program
-            // 2. If currently class has minage, maxage, need to check selected student (TODO)
-            let classes = EdminForce.Collections.class.find({
-                programID: this.programID.get(),
-                sessionID: this.sessionID.get()
-            }).fetch();
+            this.firstRegistrationWeekAlert = false;
+            let classes
+            if (this.firstRegistrationWeekSession) {
+                // for first week registration, program list is hidden, so we are not filtering by program
+                classes = EdminForce.Collections.class.find({
+                    sessionID: this.sessionID
+                }).fetch();
+
+                let numClasses = classes.length;
+                numClasses > 0 && (classes = _.filter(classes, (c) => this.eligibleForFirstRegistrationWeek(c)));
+                this.firstRegistrationWeekAlert = (numClasses != classes.length);
+            }
+            else {
+                classes = EdminForce.Collections.class.find({
+                    programID: this.programID,
+                    sessionID: this.sessionID
+                }).fetch();
+            }
 
             if (this.state.weekDay) {
                 classes = _.filter(classes, (c) => { return c.schedule && c.schedule.day == this.state.weekDay })
-            }
-
-            // filter for first week registration
-            if (this.firstRegistrationWeek) {
-                classes = _.filter(classes, (c) => this.eligibleForFirstRegistrationWeek(c));
             }
 
             let validClasses = [];
@@ -204,7 +221,7 @@
                 }
             }
 
-            this.classes.set(validClasses);
+            this.classes = validClasses;
         }
 
         /**
@@ -216,21 +233,6 @@
          * @returns {boolean}
          */
         whetherClassAvailable(classInfo) {
-            let bAvailable = true;
-
-            let students = this.students.get();
-
-            let student = null;
-            // find selected student information
-            for (let i = 0; i < students.length; i++) {
-                // if id is same, then this is the student we want to find
-                if (students[i]['_id'] == this.studentID.get()) {
-                    student = students[i];
-                    break;
-                }
-            }
-
-
             // Get class register information
             let registeredStudents = EdminForce.Collections.classStudent.find({
                 classID: classInfo['_id'],
@@ -244,9 +246,11 @@
 
             // this class isn't available
             if (classInfo.maxStudent <= registeredStudents.length) {
-                bAvailable = false;
                 return false;
             }
+
+            // find selected student information
+            let student = _.find(this.students, {_id:this.studentID});
 
             if (!student) {
                 return true;
@@ -270,7 +274,6 @@
 
             // class required gender isn't same with student's
             if (classInfo.genderRequire && (classInfo.genderRequire.toLowerCase() !== 'all') && (classInfo.genderRequire.toLowerCase() !== student.profile.gender.toLowerCase())) {
-                bAvailable = false;
                 return false;
             }
 
@@ -279,35 +282,40 @@
 
             // if class has min age, and currently student's age less than min age
             if (classInfo.minAgeRequire && classInfo.minAgeRequire > age) {
-                bAvailable = false;
                 return false;
             }
 
             // if class has max age, and currently student's age bigger than max age
             if (classInfo.maxAgeRequire && classInfo.maxAgeRequire < age) {
-                bAvailable = false;
                 return false;
             }
 
-            return bAvailable;
+            return true;
         }
 
         onSelectStudent(event) {
-            this.studentID.set(event.target.value);
+            this.selectedClasses = [];
+            this.setState({
+                studentID:event.target.value
+            })
         }
 
         onSelectProgram(event) {
-            this.programID.set(event.target.value);
+            this.selectedClasses = [];
+            this.setState({
+                programID:event.target.value
+            })
         }
 
         onSelectSession(event) {
-            this.sessionID.set(event.target.value);
+            this.selectedClasses = [];
+            this.setState({
+                sessionID: event.target.value
+            })
         }
 
         onSelectClass(item, index) {
-
-            this.selectedClass = item;
-            this.classID.set(this.selectedClass["_id"]);
+            this.selectedClasses = [item];
 
             let styles = [];
             styles[index] = this.selectedClassStyle;
@@ -326,19 +334,19 @@
         book() {
 
             // you must select a class
-            if (!this.selectedClass) {
+            if (this.selectedClasses.length == 0) {
                 alert("Sorry, no class available in this program.");
                 return;
             }
 
-            let insertData = [{
+            let insertData = this.selectedClasses.map( (c) => ({
                 accountID: Meteor.userId(),
-                classID: this.selectedClass["_id"],
-                programID: this.programID.get(),
-                studentID: this.studentID.get(),
+                classID: c["_id"],
+                programID: c.programID,
+                studentID: this.studentID,
                 status: "pending",
                 type: 'register'
-            }];
+            }));
 
             // first insert it to classStudent cart
             EdminForce.Collections.classStudent.batchInsert(insertData, function (err, res) {
@@ -357,15 +365,7 @@
             }.bind(this));
         }
 
-        eligibleForFirstRegistrationWeek(classData) {
-            return !this.firstRegistrationWeek || _.find(this.studentCurrentClasses,(c) => {
-                    return c.programID === classData.programID &&
-                        c.schedule.day === classData.schedule.day &&
-                        c.schedule.time === classData.schedule.time
-                } );
-        }
-
-        render() {
+        renderRegularRegistration() {
 
             let session = TAPi18n.__("ef_classes_" + moment().quarter().toString());
             let year = moment().year();
@@ -373,11 +373,8 @@
 
             let self = this;
 
-            let classItems = this.classes.get().map(function (item, index) {
+            let classItems = this.classes.map(function (item, index) {
                 let style = self.state.styles[index] ? self.state.styles[index] : {};
-                if (self.firstRegistrationWeek && index == 0)
-                    style = self.selectedClassStyle;
-
                 return (
                     <RC.Item key={item['_id']} theme="divider"
                              onClick={self.onSelectClass.bind(self, item, index)} style={style}>
@@ -390,37 +387,19 @@
                 )
             });
 
-            if (this.firstRegistrationWeek) {
-                if (classItems.length == 0) {
-                    classItems.push((
-                        <RC.Item key="_firstWeekAlert_">
-                            <p>
-                                <b>Alert: First week registration is limited for current student with same class only. Please come back next week!</b>
-                            </p>
-                        </RC.Item>
-                    ));
-                    this.selectedClass = null;
-                }
-                else {
-                    this.selectedClass = this.classes.get()[0];
-                }
-            }
-
             return (
                 <RC.Div style={{"padding": "20px"}}>
                     <RC.Loading isReady={this.data.isReady}>
                         <RC.VerticalAlign center={true} className="padding" height="300px">
-                            <h2>
-                                {title}
-                            </h2>
+                            <h2>{title}</h2>
                         </RC.VerticalAlign>
-                        <RC.Select options={this.students.get()} value={this.studentID}
+                        <RC.Select options={this.students} value={this.studentID}
                                    label={TAPi18n.__("ef_classes_students")} labelColor="brand1"
                                    onChange={this.onSelectStudent.bind(this)}/>
-                        <RC.Select options={this.programs.get()} value={this.programID}
+                        <RC.Select options={this.programs} value={this.programID}
                                    label={TAPi18n.__("ef_classes_program")} labelColor="brand1"
                                    onChange={this.onSelectProgram.bind(this)}/>
-                        <RC.Select options={this.sessions.get()} value={this.sessionID}
+                        <RC.Select options={this.sessions} value={this.sessionID}
                             label="Session" labelColor="brand1"
                             onChange={this.onSelectSession.bind(this)}/>
                         <RC.Div>
@@ -451,6 +430,82 @@
             );
         }
 
+        onTableRowSelection(selectedRowIndice) {
+            this.selectedClasses = selectedRowIndice.map( (idx) => this.classes[idx] );
+        }
+
+        renderFirstWeekRegistration() {
+            let session = TAPi18n.__("ef_classes_" + moment().quarter().toString());
+            let year = moment().year();
+            let title = TAPi18n.__("ef_classes_title", {"session": session, "year": year});
+
+            let self = this;
+            let renderBody;
+            if (this.classes.length > 0) {
+                //selected by default
+                this.selectedClasses = this.classes;
+                let classItems = this.classes.map(function (item, index) {
+                    return (
+                        <TableRow key={item._id} selected={true}>
+                            <TableRowColumn style={{width: "100%", whiteSpace:"normal"}}>
+                                <h3>{item.name}</h3>
+                                <p><strong>Teacher:</strong> {item.teacher}</p>
+                                <p><strong>Length:</strong> {item.length}</p>
+                            </TableRowColumn>
+                        </TableRow>
+                    )
+                });
+
+                renderBody = (
+                    <Table selectable={true} multiSelectable={true} onRowSelection={self.onTableRowSelection.bind(self)}>
+                        <TableHeader displaySelectAll={false} enableSelectAll={false}
+                            style={{display:"none"}}>
+                            <TableRow>
+                                <TableHeaderColumn>Class</TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody displayRowCheckbox={true} deselectOnClickaway={false}>
+                            {classItems}
+                        </TableBody>
+                    </Table>
+                )
+            }
+            else {
+                if (this.firstRegistrationWeekAlert)
+                    renderBody = (
+                        <RC.Div style={{"padding": "20px"}}>
+                            <p><b>The first week registration only opens to current students to renew the same classes they're currently taking. Please come back next week for registration.</b></p>
+                        </RC.Div>
+                    )
+                else
+                    renderBody = (
+                        <RC.Div style={{"padding": "20px"}}>
+                            <p><b>No class available for registration.</b></p>
+                        </RC.Div>
+                    )
+            }
+
+            return (
+                <RC.Div style={{"padding": "20px"}}>
+                    <RC.Loading isReady={this.data.isReady}>
+                        <RC.VerticalAlign center={true} className="padding" height="300px">
+                            <h2>{title}</h2>
+                        </RC.VerticalAlign>
+                        <RC.Select options={this.students} value={this.studentID}
+                            label={TAPi18n.__("ef_classes_students")} labelColor="brand1"
+                            onChange={this.onSelectStudent.bind(this)}/>
+                            {renderBody}
+                        {
+                            this.classes.length > 0 && (<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)}>Confirm</RC.Button>)
+                        }
+                    </RC.Loading>
+                </RC.Div>
+            );
+        }
+
+        render() {
+            return this.firstRegistrationWeekSession ? this.renderFirstWeekRegistration() : this.renderRegularRegistration();
+        }
     };
 
 }
