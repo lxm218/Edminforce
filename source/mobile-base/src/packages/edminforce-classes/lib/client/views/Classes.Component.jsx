@@ -39,7 +39,9 @@
 
             // special handling for first registration week
             this.firstRegistrationWeek = false;
-            this.studentCurrentClasses = []
+            this.studentCurrentClasses = [];
+
+            this.selectedClassStyle = { backgroundColor: "#e0e0e0" }
 
             this.state = {
                 styles: [],
@@ -51,6 +53,8 @@
 
             let handler = Meteor.subscribe("EF-Classes-For-Register");
 
+            this.checkFirstRegistrationWeek();
+
             this.getPrograms();
 
             this.getStudents();
@@ -58,8 +62,6 @@
             this.getClasses();
 
             this.getSessions();
-
-            this.checkFirstRegistrationWeek();
 
             return {
                 isReady: handler.ready()
@@ -73,8 +75,8 @@
             this.firstRegistrationWeek = false;
             if (selectedSession) {
                 let currentDate = new Date();
-                this.firstRegistrationWeekEndDate = moment(selectedSession.registrationStartDate).add(7,"d").toDate();
-                this.firstRegistrationWeek = (currentDate >= selectedSession.registrationStartDate && currentDate <= this.firstRegistrationWeekEndDate);
+                let firstRegistrationWeekEndDate = moment(selectedSession.registrationStartDate).add(7,"d").toDate();
+                this.firstRegistrationWeek = (currentDate >= selectedSession.registrationStartDate && currentDate <= firstRegistrationWeekEndDate);
             }
 
             this.studentCurrentClasses = [];
@@ -110,7 +112,8 @@
         }
 
         getSessions() {
-            let sessions = EdminForce.Collections.session.find({endDate:{$gt:new Date()}}).fetch();
+            let currentDate = new Date();
+            let sessions = EdminForce.Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
 
             for (let i = 0; i < sessions.length; i++) {
                 sessions[i].value = sessions[i]["_id"];
@@ -126,7 +129,6 @@
         }
 
         getStudents() {
-            //console.log("getStudent, time: ", new Date().getTime());
             let students = EdminForce.Collections.student.find({
                 accountID: Meteor.userId()
             }).fetch();
@@ -186,6 +188,11 @@
                 classes = _.filter(classes, (c) => { return c.schedule && c.schedule.day == this.state.weekDay })
             }
 
+            // filter for first week registration
+            if (this.firstRegistrationWeek) {
+                classes = _.filter(classes, (c) => this.eligibleForFirstRegistrationWeek(c));
+            }
+
             let validClasses = [];
 
             for (let i = 0; i < classes.length; i++) {
@@ -210,17 +217,6 @@
          */
         whetherClassAvailable(classInfo) {
             let bAvailable = true;
-
-            // check if the current date is within registration date range
-            let session = EdminForce.Collections.session.find({_id:classInfo.sessionID}).fetch();
-            session = session && session[0];
-            let currentDate = new Date();
-
-            // skip classes that don't have valid registration start & end date
-            if (!session || !session.registrationStartDate || !session.registrationEndDate)
-                return false;
-            if (currentDate < session.registrationStartDate || currentDate > session.registrationEndDate)
-                return false;
 
             let students = this.students.get();
 
@@ -248,7 +244,6 @@
 
             // this class isn't available
             if (classInfo.maxStudent <= registeredStudents.length) {
-                //console.log("[Info]Class already full");
                 bAvailable = false;
                 return false;
             }
@@ -269,34 +264,27 @@
                 }
             }).fetch();
 
-            console.log("classID: ", classInfo["_id"], existedClass);
-
             if (existedClass && existedClass[0]) {
                 return false;
             }
 
             // class required gender isn't same with student's
             if (classInfo.genderRequire && (classInfo.genderRequire.toLowerCase() !== 'all') && (classInfo.genderRequire.toLowerCase() !== student.profile.gender.toLowerCase())) {
-                //console.log("[Info]gender didn't meet requirement");
                 bAvailable = false;
                 return false;
             }
-
-            //console.log(student);
 
             // Get currently student's birthday
             let age = EdminForce.utils.calcAge(student.profile.birthday);
 
             // if class has min age, and currently student's age less than min age
             if (classInfo.minAgeRequire && classInfo.minAgeRequire > age) {
-                //console.log("[Info]min age:", classInfo.minAgeRequire, "studnet's age: ", age);
                 bAvailable = false;
                 return false;
             }
 
             // if class has max age, and currently student's age bigger than max age
             if (classInfo.maxAgeRequire && classInfo.maxAgeRequire < age) {
-                //console.log("[Info]max age:", classInfo.maxAgeRequire, "studnet's age: ", age);
                 bAvailable = false;
                 return false;
             }
@@ -322,9 +310,7 @@
             this.classID.set(this.selectedClass["_id"]);
 
             let styles = [];
-            styles[index] = {
-                backgroundColor: "#e0e0e0"
-            };
+            styles[index] = this.selectedClassStyle;
 
             this.setState({
                 styles: styles
@@ -337,20 +323,11 @@
             })
         }
 
-        firstWeekRegistrationAlertMessage() {
-            return "Registration is only available for current students before " + moment(this.firstRegistrationWeekEndDate).format("MMM D, YYYY");
-        }
-
         book() {
 
             // you must select a class
             if (!this.selectedClass) {
                 alert("Sorry, no class available in this program.");
-                return;
-            }
-
-            if (!this.eligibleForFirstRegistrationWeek(this.selectedClass)) {
-                alert(this.firstWeekRegistrationAlertMessage());
                 return;
             }
 
@@ -396,12 +373,10 @@
 
             let self = this;
 
-            let firstWeekInfoMsg = this.firstWeekRegistrationAlertMessage();
             let classItems = this.classes.get().map(function (item, index) {
                 let style = self.state.styles[index] ? self.state.styles[index] : {};
-                let eligibleForFirstWeekRegistration = self.eligibleForFirstRegistrationWeek(item);
-
-                console.log(item);
+                if (self.firstRegistrationWeek && index == 0)
+                    style = self.selectedClassStyle;
 
                 return (
                     <RC.Item key={item['_id']} theme="divider"
@@ -411,14 +386,25 @@
                         <p><strong>Teacher:</strong> {item.teacher}</p>
 
                         <p><strong>Length:</strong> {item.length}</p>
-
-                        {
-                            (!eligibleForFirstWeekRegistration) && (<p>{firstWeekInfoMsg}</p>)
-                        }
-
                     </RC.Item>
                 )
             });
+
+            if (this.firstRegistrationWeek) {
+                if (classItems.length == 0) {
+                    classItems.push((
+                        <RC.Item key="_firstWeekAlert_">
+                            <p>
+                                <b>Alert: First week registration is limited for current student with same class only. Please come back next week!</b>
+                            </p>
+                        </RC.Item>
+                    ));
+                    this.selectedClass = null;
+                }
+                else {
+                    this.selectedClass = this.classes.get()[0];
+                }
+            }
 
             return (
                 <RC.Div style={{"padding": "20px"}}>
