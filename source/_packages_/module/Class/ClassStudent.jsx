@@ -89,6 +89,13 @@ let ClassStudent = class extends Base{
 
         }catch(e){}
     }
+    updateOrderID(orderID, id){
+        try{
+            let data = {orderID : orderID};
+            this._db.update({_id : id}, {'$set' : data});
+
+        }catch(e){}
+    }
 
     insertByData(data){
         data.type = 'register';

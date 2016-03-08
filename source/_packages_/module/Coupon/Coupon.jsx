@@ -114,4 +114,32 @@ KG.define('EF-Coupon', class extends Base{
             return KG.result.out(false, e, e.reason);
         }
     }
+
+    calculateDiscountResult(discount, num){
+        let reg = /^([0-9]+)([%/\$]{1})$/,
+            match = discount.match(reg);
+        let n = match[1],
+            unit = match[2];
+        let rs = num;
+        if(unit === '$'){
+            rs = num - n;
+        }
+        else if(unit === '%'){
+            rs = num-(num*(n/100));
+        }
+        if(rs < 0){
+            rs = 0;
+        }
+
+        return rs;
+    }
+
+    useOnce(couponId){
+        this._db.update({_id : couponId}, {
+            '$inc' : {maxCount : -1}
+        });
+        let n = this._db.findOne({_id:couponId}).maxCount;
+        console.log(n);
+        return n;
+    }
 });

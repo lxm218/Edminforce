@@ -18,6 +18,35 @@ KUI.Registration_success = class extends KUI.Page{
             };
         }
 
+        //TODO
+        //if(one.status === 'checkouted'){
+        //    return {
+        //        ready : true,
+        //        invalid : true
+        //    }
+        //}
+
+        let x1 = Meteor.subscribe('EF-Order', {
+            query : {_id : one.orderID}
+        });
+        if(!x1.ready()){
+            return {
+                ready : false
+            };
+        }
+        let order = KG.get('EF-Order').getDB().findOne(),
+            coupon = order.customerCouponID || order.couponID || '';
+
+        if(coupon){
+            let x2 = Meteor.subscribe('EF-Coupon', {
+                query : {_id : coupon}
+            });
+            if(!x2.ready()){
+                return {ready : false};
+            }
+        }
+
+
 
         let s2 = Meteor.subscribe('EF-Class', {
             query : {
@@ -36,7 +65,8 @@ KUI.Registration_success = class extends KUI.Page{
             data : one,
             'class' : KG.get('EF-Class').getAll()[0],
             student : KG.get('EF-Student').getDB().findOne(),
-            ready : s2.ready() && s3.ready()
+            ready : s2.ready() && s3.ready(),
+            coupon : coupon
         };
 
     }
@@ -45,6 +75,10 @@ KUI.Registration_success = class extends KUI.Page{
 
         if(!this.data.ready){
             return <RC.Loading isReady={false} />;
+        }
+
+        if(this.data.invalid){
+            return <RC.Div><h3>This registration is invalid.</h3></RC.Div>;
         }
 
         let sd = this.data.student || {},
@@ -85,6 +119,10 @@ KUI.Registration_success = class extends KUI.Page{
 
     runOnceAfterDataReady(){
         KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.id);
+
+        if(this.data.coupon){
+            KG.get('EF-Coupon').useOnce(this.data.coupon);
+        }
     }
 
 };

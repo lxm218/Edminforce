@@ -122,6 +122,7 @@ KUI.Registration_payment = class extends KUI.Page{
                 item : 'Coupon',
                 amount : this.state.coupon.discount
             });
+
         }
 
         if(C.registrationFee > 0){
@@ -131,6 +132,10 @@ KUI.Registration_payment = class extends KUI.Page{
             });
 
             total = total + C.registrationFee;
+        }
+
+        if(this.state.coupon){
+            total = m.Coupon.calculateDiscountResult(this.state.coupon.discount, total);
         }
 
 
@@ -290,6 +295,7 @@ KUI.Registration_payment = class extends KUI.Page{
     }
 
     toPaymentPage(){
+        let self = this;
         let s21 = $(this.refs.s21.getInputDOMNode()).prop('checked'),
             s24 = $(this.refs.s24.getInputDOMNode()).prop('checked'),
             s22 = $(this.refs.s22.getInputDOMNode()).prop('checked'),
@@ -305,6 +311,15 @@ KUI.Registration_payment = class extends KUI.Page{
             details : [this.data.id],
             amount : this.total.get()
         };
+        if(this.state.coupon){
+            let cid = this.state.coupon._id;
+            if(this.state.coupon.validForNoBooked){
+                orderData.customerCouponID = cid;
+            }
+            else{
+                orderData.couponID = cid;
+            }
+        }
 
         if(s21){
             path = '/payment/creditcard';
@@ -343,9 +358,12 @@ KUI.Registration_payment = class extends KUI.Page{
             total = total.toFixed(2);
             orderData.poundage = orderData.poundage.toString();
             orderData.paymentTotal = total.toString();
+
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {
                 success : function(id){
+                    KG.get('EF-ClassStudent').updateOrderID(id, self.data.id);
+
                     if(s21||s24){
                         path += '/'+id;
                     }
