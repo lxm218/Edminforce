@@ -95,17 +95,21 @@ Meteor.startup(function () {
                 },
                 // currently user's students registered which classes
                 {
-                    find: function () {
+                    find: function (student) {
                         return EdminForce.Collections.classStudent.find({
-                            accountID: this.userId
+                            accountID: this.userId,
+                            studentID: student._id
                         });
-                    }
-                },
-                // all classes
-                {
-                    find: function () {
-                        return EdminForce.Collections.class.find({});
-                    }
+                    },
+
+                    children: [
+                        // all classes
+                        {
+                            find: function (classStudent) {
+                                return EdminForce.Collections.class.find({_id:classStudent.classID});
+                            }
+                        },
+                    ]
                 },
 
                 // all sessions

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Beginning",
+    "description": "",
+    "availableTrial": true,
+    "_id": "beginning"
+  },
+  {
+    "name": "Digital",
+    "description": "",
+    "availableTrial": true,
+    "_id": "digital"
+  },
+  {
+    "name": "Intermediate",
+    "description": "",
+    "availableTrial": true,
+    "_id": "intermediate"
+  },
+  {
+    "name": "Pre/ Advanced",
+    "description": "",
+    "availableTrial": true,
+    "_id": "pre_advanced"
+  },
+  {
+    "name": "Pre-AP/ AP",
+    "description": "",
+    "availableTrial": true,
+    "_id": "pre_ap_ap"
+  }
+]
