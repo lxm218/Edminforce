@@ -65,6 +65,16 @@ Meteor.methods({
           text: text
         });
     },
+    CheckEmail:function(email){
+        console.log(email);
+        if (Accounts.findUserByEmail(email)) {
+          console.log("Email Found");
+          return true;
+        } else {
+          console.log("Email Not Found");
+          return false;
+        } 
+    },
     sendEmailHtml:function (to, subject, html) {
         check([to, subject, html], [String]);
 
