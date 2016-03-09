@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Winter 2016",
+    "startDate": "2016-04-01T04:00:00.000Z",
+    "endDate": "2016-06-30T04:00:00.000Z",
+    "registrationStartDate": "2016-02-01T05:00:00.000Z",
+    "registrationStatus": "Yes",
+    "blockOutDay": [
+      "2016-03-31T04:00:00.000Z"
+    ],
+    "registrationEndDate": "2016-06-30T04:00:00.000Z",
+    "createTime": "2016-02-27T22:24:06.902Z",
+    "updateTime": "2016-02-27T22:24:06.902Z",
+    "_id": "winter_2016"
+  }
+]

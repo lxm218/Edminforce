@@ -1,0 +1,3305 @@
+[
+  {
+    "accountID": "sarwatamina_gmail_com",
+    "classID": "beginnig_winter_2016_rachel_tuesday_15_45",
+    "programID": "beginnig",
+    "studentID": "sarwatamina_gmail_com_sana_tiwary",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginnig_winter_2016_rachel_tuesday_15_45_sarwatamina_gmail_com_sana_tiwary"
+  },
+  {
+    "accountID": "shaily_mishra_hotmail_com",
+    "classID": "beginnig_winter_2016_rachel_tuesday_15_45",
+    "programID": "beginnig",
+    "studentID": "shaily_mishra_hotmail_com_nandika_trivedi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginnig_winter_2016_rachel_tuesday_15_45_shaily_mishra_hotmail_com_nandika_trivedi"
+  },
+  {
+    "accountID": "anushamba_gmail_com",
+    "classID": "beginnig_winter_2016_rachel_tuesday_15_45",
+    "programID": "beginnig",
+    "studentID": "anushamba_gmail_com_saketh_elumalai",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginnig_winter_2016_rachel_tuesday_15_45_anushamba_gmail_com_saketh_elumalai"
+  },
+  {
+    "accountID": "zhen_v_zeng_gmail_com",
+    "classID": "beginnig_winter_2016_rachel_tuesday_15_45",
+    "programID": "beginnig",
+    "studentID": "zhen_v_zeng_gmail_com_patrick_sun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginnig_winter_2016_rachel_tuesday_15_45_zhen_v_zeng_gmail_com_patrick_sun"
+  },
+  {
+    "accountID": "ruchsaxena_gmail_com",
+    "classID": "beginnig_winter_2016_rachel_tuesday_15_45",
+    "programID": "beginnig",
+    "studentID": "ruchsaxena_gmail_com_rishi_saxena",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginnig_winter_2016_rachel_tuesday_15_45_ruchsaxena_gmail_com_rishi_saxena"
+  },
+  {
+    "accountID": "caofeng_0509_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_tuesday_17_00",
+    "programID": "intermediate",
+    "studentID": "caofeng_0509_yahoo_com_jessica_cao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_tuesday_17_00_caofeng_0509_yahoo_com_jessica_cao"
+  },
+  {
+    "accountID": "zhangruyun_hotmail_com",
+    "classID": "intermediate_winter_2016_rachel_tuesday_17_00",
+    "programID": "intermediate",
+    "studentID": "zhangruyun_hotmail_com_jingjing_lei",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_tuesday_17_00_zhangruyun_hotmail_com_jingjing_lei"
+  },
+  {
+    "accountID": "xiaodou_12_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_tuesday_17_00",
+    "programID": "intermediate",
+    "studentID": "xiaodou_12_yahoo_com_spencer_lin",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_tuesday_17_00_xiaodou_12_yahoo_com_spencer_lin"
+  },
+  {
+    "accountID": "prabhakar_k_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_tuesday_17_00",
+    "programID": "intermediate",
+    "studentID": "prabhakar_k_yahoo_com_navita_prabhakar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_tuesday_17_00_prabhakar_k_yahoo_com_navita_prabhakar"
+  },
+  {
+    "accountID": "gulania_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_tuesday_17_00",
+    "programID": "intermediate",
+    "studentID": "gulania_gmail_com_shaurya_gulani",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_tuesday_17_00_gulania_gmail_com_shaurya_gulani"
+  },
+  {
+    "accountID": "anand_sethuraman_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_tuesday_17_00",
+    "programID": "intermediate",
+    "studentID": "anand_sethuraman_yahoo_com_advika_anand",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_tuesday_17_00_anand_sethuraman_yahoo_com_advika_anand"
+  },
+  {
+    "accountID": "luomaggie_gmail_com",
+    "classID": "winter_2016_null",
+    "programID": "",
+    "studentID": "luomaggie_gmail_com_aaron_he",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "winter_2016_null_luomaggie_gmail_com_aaron_he"
+  },
+  {
+    "accountID": "jennyqw_gmail_com",
+    "classID": "beginning_winter_2016_rachel_wednesday_15_30",
+    "programID": "beginning",
+    "studentID": "jennyqw_gmail_com_ella_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_wednesday_15_30_jennyqw_gmail_com_ella_zhang"
+  },
+  {
+    "accountID": "xuting_412_hotmail_com",
+    "classID": "beginning_winter_2016_rachel_wednesday_15_30",
+    "programID": "beginning",
+    "studentID": "xuting_412_hotmail_com_ethan_wu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_wednesday_15_30_xuting_412_hotmail_com_ethan_wu"
+  },
+  {
+    "accountID": "cuijuan_gmail_com",
+    "classID": "beginning_winter_2016_rachel_wednesday_15_30",
+    "programID": "beginning",
+    "studentID": "cuijuan_gmail_com_eric_song",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_wednesday_15_30_cuijuan_gmail_com_eric_song"
+  },
+  {
+    "accountID": "shen_xf_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_wednesday_15_30",
+    "programID": "beginning",
+    "studentID": "shen_xf_yahoo_com_sophia_shen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_wednesday_15_30_shen_xf_yahoo_com_sophia_shen"
+  },
+  {
+    "accountID": "liuwei_1_gmail_com",
+    "classID": "beginning_winter_2016_rachel_wednesday_15_30",
+    "programID": "beginning",
+    "studentID": "liuwei_1_gmail_com_anya_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_wednesday_15_30_liuwei_1_gmail_com_anya_wang"
+  },
+  {
+    "accountID": "gracehsieh_111_hotmail_com",
+    "classID": "beginning_winter_2016_rachel_wednesday_15_30",
+    "programID": "beginning",
+    "studentID": "gracehsieh_111_hotmail_com_ian_chen_2",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_wednesday_15_30_gracehsieh_111_hotmail_com_ian_chen_2"
+  },
+  {
+    "accountID": "fergusonk_esuhsd_org",
+    "classID": "beginning_winter_2016_rachel_wednesday_15_30",
+    "programID": "beginning",
+    "studentID": "fergusonk_esuhsd_org_kaiden_ferguson",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_wednesday_15_30_fergusonk_esuhsd_org_kaiden_ferguson"
+  },
+  {
+    "accountID": "skshopping_gmail_com",
+    "classID": "beginning_winter_2016_amanda_wednesday_17_15",
+    "programID": "beginning",
+    "studentID": "skshopping_gmail_com_aria_devasia",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_wednesday_17_15_skshopping_gmail_com_aria_devasia"
+  },
+  {
+    "accountID": "vivian_tseng_yj_yahoo_com_tw",
+    "classID": "beginning_winter_2016_amanda_wednesday_17_15",
+    "programID": "beginning",
+    "studentID": "vivian_tseng_yj_yahoo_com_tw_sophia_sung",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_wednesday_17_15_vivian_tseng_yj_yahoo_com_tw_sophia_sung"
+  },
+  {
+    "accountID": "tdsolanki_gmail_com",
+    "classID": "beginning_winter_2016_amanda_wednesday_17_15",
+    "programID": "beginning",
+    "studentID": "tdsolanki_gmail_com_aanya_solanki",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_wednesday_17_15_tdsolanki_gmail_com_aanya_solanki"
+  },
+  {
+    "accountID": "mssunilkumar_yahoo_com",
+    "classID": "beginning_winter_2016_amanda_wednesday_17_15",
+    "programID": "beginning",
+    "studentID": "mssunilkumar_yahoo_com_eesha_matham",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_wednesday_17_15_mssunilkumar_yahoo_com_eesha_matham"
+  },
+  {
+    "accountID": "archana_munnungi_gmail_com",
+    "classID": "beginning_winter_2016_amanda_wednesday_17_15",
+    "programID": "beginning",
+    "studentID": "archana_munnungi_gmail_com_jyotsna_munnungi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_wednesday_17_15_archana_munnungi_gmail_com_jyotsna_munnungi"
+  },
+  {
+    "accountID": "mtv_2721_yahoo_com",
+    "classID": "beginning_winter_2016_amanda_wednesday_17_15",
+    "programID": "beginning",
+    "studentID": "mtv_2721_yahoo_com_ellah_gong",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_wednesday_17_15_mtv_2721_yahoo_com_ellah_gong"
+  },
+  {
+    "accountID": "cuijuan_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "cuijuan_gmail_com_owen_song",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_wednesday_15_30_cuijuan_gmail_com_owen_song"
+  },
+  {
+    "accountID": "jennyqw_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "jennyqw_gmail_com_joshua_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_wednesday_15_30_jennyqw_gmail_com_joshua_zhang"
+  },
+  {
+    "accountID": "spinlucyhou_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "spinlucyhou_gmail_com_kathy_feng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_wednesday_15_30_spinlucyhou_gmail_com_kathy_feng"
+  },
+  {
+    "accountID": "cathy_yue_2000_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "cathy_yue_2000_yahoo_com_kiana_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_wednesday_15_30_cathy_yue_2000_yahoo_com_kiana_yang"
+  },
+  {
+    "accountID": "shanthee_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "shanthee_gmail_com_krish_kamal",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_wednesday_15_30_shanthee_gmail_com_krish_kamal"
+  },
+  {
+    "accountID": "toralskale_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "toralskale_yahoo_com_sayali_kale",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_wednesday_15_30_toralskale_yahoo_com_sayali_kale"
+  },
+  {
+    "accountID": "liuwei_1_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "liuwei_1_gmail_com_emma_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_wednesday_15_30_liuwei_1_gmail_com_emma_wang"
+  },
+  {
+    "accountID": "jdkora_gmail_com",
+    "classID": "intermediate_winter_2016_wednesday_15_30",
+    "programID": "intermediate",
+    "studentID": "jdkora_gmail_com_spandana_myneni",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_wednesday_15_30_jdkora_gmail_com_spandana_myneni"
+  },
+  {
+    "accountID": "jennychen_71_hotmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "jennychen_71_hotmail_com_ada_quan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_jennychen_71_hotmail_com_ada_quan"
+  },
+  {
+    "accountID": "lilyli_200678_gmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "lilyli_200678_gmail_com_sophie_chen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_lilyli_200678_gmail_com_sophie_chen"
+  },
+  {
+    "accountID": "ch_yan_70_hotmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "ch_yan_70_hotmail_com_mandy_sun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_ch_yan_70_hotmail_com_mandy_sun"
+  },
+  {
+    "accountID": "kakoli_roy_gmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "kakoli_roy_gmail_com_tara_roy",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_kakoli_roy_gmail_com_tara_roy"
+  },
+  {
+    "accountID": "ch_yan_70_hotmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "ch_yan_70_hotmail_com_andy_sun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_ch_yan_70_hotmail_com_andy_sun"
+  },
+  {
+    "accountID": "reibo_586_li_gmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "reibo_586_li_gmail_com_ryan_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_reibo_586_li_gmail_com_ryan_li"
+  },
+  {
+    "accountID": "gbqxr_126_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "gbqxr_126_com_kate_gu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_gbqxr_126_com_kate_gu"
+  },
+  {
+    "accountID": "eunsun_gmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "eunsun_gmail_com_allison_choi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_eunsun_gmail_com_allison_choi"
+  },
+  {
+    "accountID": "amruta_pradeep_gmail_com",
+    "classID": "intermediate_winter_2016_eli_wednesday_15_00",
+    "programID": "intermediate",
+    "studentID": "amruta_pradeep_gmail_com_ira_kulkarni",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_wednesday_15_00_amruta_pradeep_gmail_com_ira_kulkarni"
+  },
+  {
+    "accountID": "n_4_nimisha_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "n_4_nimisha_yahoo_com_anika_kanhere",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_n_4_nimisha_yahoo_com_anika_kanhere"
+  },
+  {
+    "accountID": "sasaleilei_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "sasaleilei_gmail_com_arista_zhu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_sasaleilei_gmail_com_arista_zhu"
+  },
+  {
+    "accountID": "southli_66_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "southli_66_gmail_com_jessica_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_southli_66_gmail_com_jessica_li"
+  },
+  {
+    "accountID": "qiangy_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "qiangy_gmail_com_tiger_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_qiangy_gmail_com_tiger_yang"
+  },
+  {
+    "accountID": "aliciajia_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "aliciajia_gmail_com_ashley_chung",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_aliciajia_gmail_com_ashley_chung"
+  },
+  {
+    "accountID": "shah_lisa_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "shah_lisa_yahoo_com_aashi_shah",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_shah_lisa_yahoo_com_aashi_shah"
+  },
+  {
+    "accountID": "xinghongying_hotmail_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "xinghongying_hotmail_com_chengqi_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_xinghongying_hotmail_com_chengqi_li"
+  },
+  {
+    "accountID": "ina_kea_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_wednesday_16_45",
+    "programID": "pre_advanced",
+    "studentID": "ina_kea_gmail_com_skomantas_kupciunas",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_wednesday_16_45_ina_kea_gmail_com_skomantas_kupciunas"
+  },
+  {
+    "accountID": "jeffbzhao_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "jeffbzhao_yahoo_com_fiona_zhao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_jeffbzhao_yahoo_com_fiona_zhao"
+  },
+  {
+    "accountID": "zrongr_hotmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "zrongr_hotmail_com_christine_han",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_zrongr_hotmail_com_christine_han"
+  },
+  {
+    "accountID": "mjagannath_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "mjagannath_yahoo_com_nisha_jagannath",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_mjagannath_yahoo_com_nisha_jagannath"
+  },
+  {
+    "accountID": "gunjan_22_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "gunjan_22_yahoo_com_ishita_saxena",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_gunjan_22_yahoo_com_ishita_saxena"
+  },
+  {
+    "accountID": "muskadvani_hotmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "muskadvani_hotmail_com_esha_advani",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_muskadvani_hotmail_com_esha_advani"
+  },
+  {
+    "accountID": "jhnguyen_99_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "jhnguyen_99_yahoo_com_michelle_tran",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_jhnguyen_99_yahoo_com_michelle_tran"
+  },
+  {
+    "accountID": "kathrineliu_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "kathrineliu_yahoo_com_midori_monosoff",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_kathrineliu_yahoo_com_midori_monosoff"
+  },
+  {
+    "accountID": "eshankys_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_wednesday_18_30",
+    "programID": "pre_ap_ap",
+    "studentID": "eshankys_yahoo_com_shivani",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30_eshankys_yahoo_com_shivani"
+  },
+  {
+    "accountID": "nkimjj_hotmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "nkimjj_hotmail_com_kai_hu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_nkimjj_hotmail_com_kai_hu"
+  },
+  {
+    "accountID": "nkimjj_hotmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "nkimjj_hotmail_com_joshua_hu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_nkimjj_hotmail_com_joshua_hu"
+  },
+  {
+    "accountID": "maggie_xiang_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "maggie_xiang_gmail_com_ian_chen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_maggie_xiang_gmail_com_ian_chen"
+  },
+  {
+    "accountID": "michelle_liu_04_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "michelle_liu_04_gmail_com_daniel_zhu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_michelle_liu_04_gmail_com_daniel_zhu"
+  },
+  {
+    "accountID": "nancy_8313_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "nancy_8313_gmail_com_matthew_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_nancy_8313_gmail_com_matthew_wang"
+  },
+  {
+    "accountID": "suyuinus_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "suyuinus_gmail_com_suheng_tan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_suyuinus_gmail_com_suheng_tan"
+  },
+  {
+    "accountID": "kuntaldaftary_hotmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "kuntaldaftary_hotmail_com_aarav_daftary",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_kuntaldaftary_hotmail_com_aarav_daftary"
+  },
+  {
+    "accountID": "serenadun_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_thursday_15_45",
+    "programID": "beginning",
+    "studentID": "serenadun_gmail_com_davian_dun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_thursday_15_45_serenadun_gmail_com_davian_dun"
+  },
+  {
+    "accountID": "meenalmujumdar_gmail_com",
+    "classID": "beginning_winter_2016_robbie_thursday_17_30",
+    "programID": "beginning",
+    "studentID": "meenalmujumdar_gmail_com_anika_mujumdar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_thursday_17_30_meenalmujumdar_gmail_com_anika_mujumdar"
+  },
+  {
+    "accountID": "azhujia_gmail_com",
+    "classID": "beginning_winter_2016_robbie_thursday_17_30",
+    "programID": "beginning",
+    "studentID": "azhujia_gmail_com_vanessa_xu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_thursday_17_30_azhujia_gmail_com_vanessa_xu"
+  },
+  {
+    "accountID": "anita_herbert_yahoo_com",
+    "classID": "beginning_winter_2016_robbie_thursday_17_30",
+    "programID": "beginning",
+    "studentID": "anita_herbert_yahoo_com_arielle_george",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_thursday_17_30_anita_herbert_yahoo_com_arielle_george"
+  },
+  {
+    "accountID": "psathiya_gmail_com",
+    "classID": "beginning_winter_2016_robbie_thursday_17_30",
+    "programID": "beginning",
+    "studentID": "psathiya_gmail_com_anupraya_sathiyanarayanan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_thursday_17_30_psathiya_gmail_com_anupraya_sathiyanarayanan"
+  },
+  {
+    "accountID": "eve_wang_hotmail_com",
+    "classID": "beginning_winter_2016_robbie_thursday_17_30",
+    "programID": "beginning",
+    "studentID": "eve_wang_hotmail_com_ava_shu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_thursday_17_30_eve_wang_hotmail_com_ava_shu"
+  },
+  {
+    "accountID": "hitikak_yahoo_com",
+    "classID": "beginning_winter_2016_robbie_thursday_17_30",
+    "programID": "beginning",
+    "studentID": "hitikak_yahoo_com_ishita_raj",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_thursday_17_30_hitikak_yahoo_com_ishita_raj"
+  },
+  {
+    "accountID": "shen_xf_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "shen_xf_yahoo_com_cindy_shen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_shen_xf_yahoo_com_cindy_shen"
+  },
+  {
+    "accountID": "yajingzhang_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "yajingzhang_yahoo_com_ava_pedersen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_yajingzhang_yahoo_com_ava_pedersen"
+  },
+  {
+    "accountID": "hetalp_us_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "hetalp_us_yahoo_com_aarna_patel",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_hetalp_us_yahoo_com_aarna_patel"
+  },
+  {
+    "accountID": "michelle_liu_04_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "michelle_liu_04_gmail_com_michael_zhu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_michelle_liu_04_gmail_com_michael_zhu"
+  },
+  {
+    "accountID": "lavanya_medari_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "lavanya_medari_gmail_com_samvel_abram",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_lavanya_medari_gmail_com_samvel_abram"
+  },
+  {
+    "accountID": "kuntaldaftary_hotmail_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "kuntaldaftary_hotmail_com_aanika_daftary",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_kuntaldaftary_hotmail_com_aanika_daftary"
+  },
+  {
+    "accountID": "amyliu_32_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "amyliu_32_gmail_com_jessie_luo",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_amyliu_32_gmail_com_jessie_luo"
+  },
+  {
+    "accountID": "rashmi_tarhalkar_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_thursday_15_45",
+    "programID": "intermediate",
+    "studentID": "rashmi_tarhalkar_gmail_com_aayush_tarhalkar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_thursday_15_45_rashmi_tarhalkar_gmail_com_aayush_tarhalkar"
+  },
+  {
+    "accountID": "linwu_1016_yahoo_com",
+    "classID": "intermediate_winter_2016_cynthia_thursday_17_00",
+    "programID": "intermediate",
+    "studentID": "linwu_1016_yahoo_com_alaina_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_thursday_17_00_linwu_1016_yahoo_com_alaina_liu"
+  },
+  {
+    "accountID": "hellovishal_gmail_com",
+    "classID": "intermediate_winter_2016_cynthia_thursday_17_00",
+    "programID": "intermediate",
+    "studentID": "hellovishal_gmail_com_riya_agrawal",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_thursday_17_00_hellovishal_gmail_com_riya_agrawal"
+  },
+  {
+    "accountID": "azhujia_gmail_com",
+    "classID": "intermediate_winter_2016_cynthia_thursday_17_00",
+    "programID": "intermediate",
+    "studentID": "azhujia_gmail_com_kerry_xu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_thursday_17_00_azhujia_gmail_com_kerry_xu"
+  },
+  {
+    "accountID": "nskale_gmail_com",
+    "classID": "beginning_winter_2016_robbie_friday_17_30",
+    "programID": "beginning",
+    "studentID": "nskale_gmail_com_isha_kale",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_friday_17_30_nskale_gmail_com_isha_kale"
+  },
+  {
+    "accountID": "baowengao_gmail_com",
+    "classID": "beginning_winter_2016_robbie_friday_17_30",
+    "programID": "beginning",
+    "studentID": "baowengao_gmail_com_baolyn_lau",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_friday_17_30_baowengao_gmail_com_baolyn_lau"
+  },
+  {
+    "accountID": "mjspka_gmail_com",
+    "classID": "beginning_winter_2016_robbie_friday_17_30",
+    "programID": "beginning",
+    "studentID": "mjspka_gmail_com_sahithi_malla",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_friday_17_30_mjspka_gmail_com_sahithi_malla"
+  },
+  {
+    "accountID": "sreevallich_gmail_com",
+    "classID": "beginning_winter_2016_robbie_friday_17_30",
+    "programID": "beginning",
+    "studentID": "sreevallich_gmail_com_katthir_ravichandran",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_robbie_friday_17_30_sreevallich_gmail_com_katthir_ravichandran"
+  },
+  {
+    "accountID": "juju_130_chen_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "juju_130_chen_gmail_com_jeremy_chen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_friday_15_45_juju_130_chen_gmail_com_jeremy_chen"
+  },
+  {
+    "accountID": "brenda_then_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "brenda_then_yahoo_com_joseph_zhao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_friday_15_45_brenda_then_yahoo_com_joseph_zhao"
+  },
+  {
+    "accountID": "brenda_then_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "brenda_then_yahoo_com_clara_zhao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_friday_15_45_brenda_then_yahoo_com_clara_zhao"
+  },
+  {
+    "accountID": "weyfenchen_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "weyfenchen_gmail_com_eshaine_sun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_friday_15_45_weyfenchen_gmail_com_eshaine_sun"
+  },
+  {
+    "accountID": "hitikak_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "hitikak_yahoo_com_arshiya_raj",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_friday_15_45_hitikak_yahoo_com_arshiya_raj"
+  },
+  {
+    "accountID": "jessica_zh_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "jessica_zh_gmail_com_joshua_huang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_friday_15_45_jessica_zh_gmail_com_joshua_huang"
+  },
+  {
+    "accountID": "nikhiladp_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "nikhiladp_gmail_com_avani_dharashivkar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_friday_15_45_nikhiladp_gmail_com_avani_dharashivkar"
+  },
+  {
+    "accountID": "zhujingjing_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "zhujingjing_gmail_com_michael_qu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_15_45_zhujingjing_gmail_com_michael_qu"
+  },
+  {
+    "accountID": "kavikumarsep_2_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "kavikumarsep_2_gmail_com_sarvesh_kumar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_15_45_kavikumarsep_2_gmail_com_sarvesh_kumar"
+  },
+  {
+    "accountID": "zhuhuiyu_hotmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "zhuhuiyu_hotmail_com_nathan_bao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_15_45_zhuhuiyu_hotmail_com_nathan_bao"
+  },
+  {
+    "accountID": "ushraddha_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "ushraddha_yahoo_com_mohika_pandey",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_15_45_ushraddha_yahoo_com_mohika_pandey"
+  },
+  {
+    "accountID": "yingyan_yy_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "yingyan_yy_gmail_com_chelsea_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_15_45_yingyan_yy_gmail_com_chelsea_wang"
+  },
+  {
+    "accountID": "weijanice_hotmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "weijanice_hotmail_com_kayden_tse",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_15_45_weijanice_hotmail_com_kayden_tse"
+  },
+  {
+    "accountID": "oycaro_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_15_45",
+    "programID": "intermediate",
+    "studentID": "oycaro_gmail_com_noey_ycaro",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_15_45_oycaro_gmail_com_noey_ycaro"
+  },
+  {
+    "accountID": "jji_visa_com",
+    "classID": "intermediate_winter_2016_amanda_friday_17_30",
+    "programID": "intermediate",
+    "studentID": "jji_visa_com_wesley_ren",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_17_30_jji_visa_com_wesley_ren"
+  },
+  {
+    "accountID": "lizhang_1_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_17_30",
+    "programID": "intermediate",
+    "studentID": "lizhang_1_gmail_com_william_xie",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_17_30_lizhang_1_gmail_com_william_xie"
+  },
+  {
+    "accountID": "jjing_yu_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_friday_17_30",
+    "programID": "intermediate",
+    "studentID": "jjing_yu_yahoo_com_emily_ding",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_17_30_jjing_yu_yahoo_com_emily_ding"
+  },
+  {
+    "accountID": "yzsummer_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_friday_17_30",
+    "programID": "intermediate",
+    "studentID": "yzsummer_yahoo_com_carolyn_hom",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_17_30_yzsummer_yahoo_com_carolyn_hom"
+  },
+  {
+    "accountID": "iriswang_2005_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_friday_17_30",
+    "programID": "intermediate",
+    "studentID": "iriswang_2005_yahoo_com_jaden_du",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_17_30_iriswang_2005_yahoo_com_jaden_du"
+  },
+  {
+    "accountID": "yping_1_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_friday_17_30",
+    "programID": "intermediate",
+    "studentID": "yping_1_yahoo_com_yvonne_yun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_17_30_yping_1_yahoo_com_yvonne_yun"
+  },
+  {
+    "accountID": "koudai_2002_hotmail_com",
+    "classID": "intermediate_winter_2016_amanda_friday_17_30",
+    "programID": "intermediate",
+    "studentID": "koudai_2002_hotmail_com_sarah_hu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_friday_17_30_koudai_2002_hotmail_com_sarah_hu"
+  },
+  {
+    "accountID": "jinghai_yin_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "jinghai_yin_gmail_com_eric_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_jinghai_yin_gmail_com_eric_li"
+  },
+  {
+    "accountID": "zhujingjing_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "zhujingjing_gmail_com_benjamin_qu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_zhujingjing_gmail_com_benjamin_qu"
+  },
+  {
+    "accountID": "lifang_2000_yahoo_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "lifang_2000_yahoo_com_jenny_hou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_lifang_2000_yahoo_com_jenny_hou"
+  },
+  {
+    "accountID": "shobanakirthi_comcast_net",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "shobanakirthi_comcast_net_vishali_vallioor",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_shobanakirthi_comcast_net_vishali_vallioor"
+  },
+  {
+    "accountID": "ritzbansal_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "ritzbansal_gmail_com_tavishi_bansal",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_ritzbansal_gmail_com_tavishi_bansal"
+  },
+  {
+    "accountID": "duyan_2002_hotmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "duyan_2002_hotmail_com_alex_he",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_duyan_2002_hotmail_com_alex_he"
+  },
+  {
+    "accountID": "masamitsu_comcast_net",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "masamitsu_comcast_net_tabitha_masamit",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_masamitsu_comcast_net_tabitha_masamit"
+  },
+  {
+    "accountID": "warmspringsnow_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "warmspringsnow_gmail_com_michelle_fan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_warmspringsnow_gmail_com_michelle_fan"
+  },
+  {
+    "accountID": "sofichoi_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_15_45",
+    "programID": "pre_advanced",
+    "studentID": "sofichoi_gmail_com_arielle_choi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_15_45_sofichoi_gmail_com_arielle_choi"
+  },
+  {
+    "accountID": "joannemiao_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_17_30",
+    "programID": "pre_advanced",
+    "studentID": "joannemiao_gmail_com_sharon_miao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_17_30_joannemiao_gmail_com_sharon_miao"
+  },
+  {
+    "accountID": "lmjmdfs_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_17_30",
+    "programID": "pre_advanced",
+    "studentID": "lmjmdfs_gmail_com_farrah_lin",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_17_30_lmjmdfs_gmail_com_farrah_lin"
+  },
+  {
+    "accountID": "linxia_21_yahoo_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_17_30",
+    "programID": "pre_advanced",
+    "studentID": "linxia_21_yahoo_com_melissa_jin",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_17_30_linxia_21_yahoo_com_melissa_jin"
+  },
+  {
+    "accountID": "jji_visa_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_17_30",
+    "programID": "pre_advanced",
+    "studentID": "jji_visa_com_sophia_ren",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_17_30_jji_visa_com_sophia_ren"
+  },
+  {
+    "accountID": "ina_kea_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_17_30",
+    "programID": "pre_advanced",
+    "studentID": "ina_kea_gmail_com_kalmintas_kupciunas",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_17_30_ina_kea_gmail_com_kalmintas_kupciunas"
+  },
+  {
+    "accountID": "mrunal_rs_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_17_30",
+    "programID": "pre_advanced",
+    "studentID": "mrunal_rs_gmail_com_reeya_dharmadhikari",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_17_30_mrunal_rs_gmail_com_reeya_dharmadhikari"
+  },
+  {
+    "accountID": "jzhang_007_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_friday_17_30",
+    "programID": "pre_advanced",
+    "studentID": "jzhang_007_gmail_com_alan_zhou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_friday_17_30_jzhang_007_gmail_com_alan_zhou"
+  },
+  {
+    "accountID": "fangfangsun_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_09_00",
+    "programID": "beginning",
+    "studentID": "fangfangsun_gmail_com_evan_cao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_09_00_fangfangsun_gmail_com_evan_cao"
+  },
+  {
+    "accountID": "tracy_chai_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_09_00",
+    "programID": "beginning",
+    "studentID": "tracy_chai_gmail_com_irene_lu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_09_00_tracy_chai_gmail_com_irene_lu"
+  },
+  {
+    "accountID": "kchoo_128_yahoo_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_09_00",
+    "programID": "beginning",
+    "studentID": "kchoo_128_yahoo_com_sofia_choo",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_09_00_kchoo_128_yahoo_com_sofia_choo"
+  },
+  {
+    "accountID": "carolshi_79_yahoo_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_09_00",
+    "programID": "beginning",
+    "studentID": "carolshi_79_yahoo_com_serena_xiao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_09_00_carolshi_79_yahoo_com_serena_xiao"
+  },
+  {
+    "accountID": "songyueming_hotmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_09_00",
+    "programID": "beginning",
+    "studentID": "songyueming_hotmail_com_ryan_xiao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_09_00_songyueming_hotmail_com_ryan_xiao"
+  },
+  {
+    "accountID": "ray_siah_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_09_00",
+    "programID": "beginning",
+    "studentID": "ray_siah_gmail_com_kayla_siah",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_09_00_ray_siah_gmail_com_kayla_siah"
+  },
+  {
+    "accountID": "monika_singla_1_yahoo_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_09_00",
+    "programID": "beginning",
+    "studentID": "monika_singla_1_yahoo_com_mahi_kumar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_09_00_monika_singla_1_yahoo_com_mahi_kumar"
+  },
+  {
+    "accountID": "bguo_2_hotmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "bguo_2_hotmail_com_charles_guo",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_bguo_2_hotmail_com_charles_guo"
+  },
+  {
+    "accountID": "qifengqiao_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "qifengqiao_gmail_com_james_qiao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_qifengqiao_gmail_com_james_qiao"
+  },
+  {
+    "accountID": "zhangwxuan_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "zhangwxuan_gmail_com_emma_xia",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_zhangwxuan_gmail_com_emma_xia"
+  },
+  {
+    "accountID": "sumanbhutra_yahoo_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "sumanbhutra_yahoo_com_geetika_maheshwari",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_sumanbhutra_yahoo_com_geetika_maheshwari"
+  },
+  {
+    "accountID": "wjuansong_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "wjuansong_gmail_com_bradley_cai",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_wjuansong_gmail_com_bradley_cai"
+  },
+  {
+    "accountID": "vv_1122_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "vv_1122_gmail_com_nicole_xiong",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_vv_1122_gmail_com_nicole_xiong"
+  },
+  {
+    "accountID": "jessica_deng_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "jessica_deng_gmail_com_caitlin_hou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_jessica_deng_gmail_com_caitlin_hou"
+  },
+  {
+    "accountID": "jessica_deng_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_10_15",
+    "programID": "beginning",
+    "studentID": "jessica_deng_gmail_com_alva_hou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_10_15_jessica_deng_gmail_com_alva_hou"
+  },
+  {
+    "accountID": "huang_yc_hotmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_11_30",
+    "programID": "beginning",
+    "studentID": "huang_yc_hotmail_com_coral_huang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_11_30_huang_yc_hotmail_com_coral_huang"
+  },
+  {
+    "accountID": "fsmic_yahoo_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_11_30",
+    "programID": "beginning",
+    "studentID": "fsmic_yahoo_com_kevin_ma",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_11_30_fsmic_yahoo_com_kevin_ma"
+  },
+  {
+    "accountID": "futaian_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_11_30",
+    "programID": "beginning",
+    "studentID": "futaian_gmail_com_ethan_an",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_11_30_futaian_gmail_com_ethan_an"
+  },
+  {
+    "accountID": "mailbandaru_gmail_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_11_30",
+    "programID": "beginning",
+    "studentID": "mailbandaru_gmail_com_hasika_bandaru",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_11_30_mailbandaru_gmail_com_hasika_bandaru"
+  },
+  {
+    "accountID": "crystalprc_yahoo_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_11_30",
+    "programID": "beginning",
+    "studentID": "crystalprc_yahoo_com_leah_le",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_11_30_crystalprc_yahoo_com_leah_le"
+  },
+  {
+    "accountID": "shaqing_yahoo_com",
+    "classID": "beginning_winter_2016_cynthia_satruday_11_30",
+    "programID": "beginning",
+    "studentID": "shaqing_yahoo_com_amelia_chase",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_cynthia_satruday_11_30_shaqing_yahoo_com_amelia_chase"
+  },
+  {
+    "accountID": "pinxianl_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_satruday_13_30",
+    "programID": "beginning",
+    "studentID": "pinxianl_yahoo_com_ailsa_chan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_13_30_pinxianl_yahoo_com_ailsa_chan"
+  },
+  {
+    "accountID": "chrys_grace_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_13_30",
+    "programID": "beginning",
+    "studentID": "chrys_grace_gmail_com_tanya_mark",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_13_30_chrys_grace_gmail_com_tanya_mark"
+  },
+  {
+    "accountID": "xiaocanyang_hotmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_13_30",
+    "programID": "beginning",
+    "studentID": "xiaocanyang_hotmail_com_ellie_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_13_30_xiaocanyang_hotmail_com_ellie_yang"
+  },
+  {
+    "accountID": "aseemm_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_13_30",
+    "programID": "beginning",
+    "studentID": "aseemm_gmail_com_arushi_maheshwari",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_13_30_aseemm_gmail_com_arushi_maheshwari"
+  },
+  {
+    "accountID": "shrirangatv_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_13_30",
+    "programID": "beginning",
+    "studentID": "shrirangatv_gmail_com_rajat_naik",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_13_30_shrirangatv_gmail_com_rajat_naik"
+  },
+  {
+    "accountID": "akila_lakia_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_13_30",
+    "programID": "beginning",
+    "studentID": "akila_lakia_gmail_com_nikil_sriram",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_13_30_akila_lakia_gmail_com_nikil_sriram"
+  },
+  {
+    "accountID": "zoelin_2011_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_13_30",
+    "programID": "beginning",
+    "studentID": "zoelin_2011_gmail_com_vivian_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_13_30_zoelin_2011_gmail_com_vivian_liu"
+  },
+  {
+    "accountID": "simikmathew_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_14_45",
+    "programID": "beginning",
+    "studentID": "simikmathew_gmail_com_norah_nikhil",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_14_45_simikmathew_gmail_com_norah_nikhil"
+  },
+  {
+    "accountID": "lindahua_73_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_14_45",
+    "programID": "beginning",
+    "studentID": "lindahua_73_gmail_com_helen_tao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_14_45_lindahua_73_gmail_com_helen_tao"
+  },
+  {
+    "accountID": "xufangc_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_satruday_14_45",
+    "programID": "beginning",
+    "studentID": "xufangc_yahoo_com_allen_huang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_14_45_xufangc_yahoo_com_allen_huang"
+  },
+  {
+    "accountID": "khonsou_su_hotmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_14_45",
+    "programID": "beginning",
+    "studentID": "khonsou_su_hotmail_com_viola_han",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_14_45_khonsou_su_hotmail_com_viola_han"
+  },
+  {
+    "accountID": "srividhya_sheaas_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_14_45",
+    "programID": "beginning",
+    "studentID": "srividhya_sheaas_gmail_com_hasini_deepak",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_14_45_srividhya_sheaas_gmail_com_hasini_deepak"
+  },
+  {
+    "accountID": "paul_aoun_gmail_com",
+    "classID": "beginning_winter_2016_rachel_satruday_16_00",
+    "programID": "beginning",
+    "studentID": "paul_aoun_gmail_com_patrick_aoun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_satruday_16_00_paul_aoun_gmail_com_patrick_aoun"
+  },
+  {
+    "accountID": "duyan_2002_hotmail_com",
+    "classID": "sibling_winter_2016_rachel_satruday_16_00",
+    "programID": "sibling",
+    "studentID": "duyan_2002_hotmail_com_max_he",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "sibling_winter_2016_rachel_satruday_16_00_duyan_2002_hotmail_com_max_he"
+  },
+  {
+    "accountID": "tangge_gmail_com",
+    "classID": "sibling_winter_2016_rachel_satruday_16_00",
+    "programID": "sibling",
+    "studentID": "tangge_gmail_com_sophie_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "sibling_winter_2016_rachel_satruday_16_00_tangge_gmail_com_sophie_zhang"
+  },
+  {
+    "accountID": "kathywang_68_yahoo_com",
+    "classID": "sibling_winter_2016_rachel_satruday_16_00",
+    "programID": "sibling",
+    "studentID": "kathywang_68_yahoo_com_adela_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "sibling_winter_2016_rachel_satruday_16_00_kathywang_68_yahoo_com_adela_zhang"
+  },
+  {
+    "accountID": "helenxiangliu_yahoo_com",
+    "classID": "sibling_winter_2016_rachel_satruday_16_00",
+    "programID": "sibling",
+    "studentID": "helenxiangliu_yahoo_com_megan_hu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "sibling_winter_2016_rachel_satruday_16_00_helenxiangliu_yahoo_com_megan_hu"
+  },
+  {
+    "accountID": "helenxiangliu_yahoo_com",
+    "classID": "sibling_winter_2016_rachel_satruday_16_00",
+    "programID": "sibling",
+    "studentID": "helenxiangliu_yahoo_com_maggie_hu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "sibling_winter_2016_rachel_satruday_16_00_helenxiangliu_yahoo_com_maggie_hu"
+  },
+  {
+    "accountID": "libing_wang_gmail_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "libing_wang_gmail_com_annie_yu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_libing_wang_gmail_com_annie_yu"
+  },
+  {
+    "accountID": "hwu_67_yahoo_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "hwu_67_yahoo_com_isabelle_wu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_hwu_67_yahoo_com_isabelle_wu"
+  },
+  {
+    "accountID": "yfguan_9814_gmail_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "yfguan_9814_gmail_com_janet_guan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_yfguan_9814_gmail_com_janet_guan"
+  },
+  {
+    "accountID": "hollyh_88_gmail_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "hollyh_88_gmail_com_joshua_han",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_hollyh_88_gmail_com_joshua_han"
+  },
+  {
+    "accountID": "xulili_0522_yahoo_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "xulili_0522_yahoo_com_hannah_bi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_xulili_0522_yahoo_com_hannah_bi"
+  },
+  {
+    "accountID": "binghua_chai_gmail_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "binghua_chai_gmail_com_kevin_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_binghua_chai_gmail_com_kevin_liu"
+  },
+  {
+    "accountID": "amritak_24_yahoo_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "amritak_24_yahoo_com_uma_raina",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_amritak_24_yahoo_com_uma_raina"
+  },
+  {
+    "accountID": "xuting_412_hotmail_com",
+    "classID": "intermediate_winter_2016_eli_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "xuting_412_hotmail_com_justin_wu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_satruday_09_00_xuting_412_hotmail_com_justin_wu"
+  },
+  {
+    "accountID": "fairsea_8_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "fairsea_8_gmail_com_maxwell_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_fairsea_8_gmail_com_maxwell_zhang"
+  },
+  {
+    "accountID": "fmcchow_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "fmcchow_yahoo_com_justin_chow",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_fmcchow_yahoo_com_justin_chow"
+  },
+  {
+    "accountID": "wei_vicky_yang_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "wei_vicky_yang_gmail_com_caroline_yan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_wei_vicky_yang_gmail_com_caroline_yan"
+  },
+  {
+    "accountID": "margtse_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "margtse_yahoo_com_abigail_yee",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_margtse_yahoo_com_abigail_yee"
+  },
+  {
+    "accountID": "leizwang_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "leizwang_yahoo_com_terry_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_leizwang_yahoo_com_terry_wang"
+  },
+  {
+    "accountID": "kellytdinh_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "kellytdinh_yahoo_com_josephine_sun",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_kellytdinh_yahoo_com_josephine_sun"
+  },
+  {
+    "accountID": "tracy_chai_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "tracy_chai_gmail_com_ivy_lu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_tracy_chai_gmail_com_ivy_lu"
+  },
+  {
+    "accountID": "shanshan_song_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_09_00",
+    "programID": "intermediate",
+    "studentID": "shanshan_song_gmail_com_andrew_zeng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_09_00_shanshan_song_gmail_com_andrew_zeng"
+  },
+  {
+    "accountID": "mengling_ufl_gmail_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "mengling_ufl_gmail_com_connie_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_mengling_ufl_gmail_com_connie_li"
+  },
+  {
+    "accountID": "jingma_70_gmail_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "jingma_70_gmail_com_claribel_chen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_jingma_70_gmail_com_claribel_chen"
+  },
+  {
+    "accountID": "pinxianl_yahoo_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "pinxianl_yahoo_com_fiona_chan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_pinxianl_yahoo_com_fiona_chan"
+  },
+  {
+    "accountID": "yu_a_2000_yahoo_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "yu_a_2000_yahoo_com_jayden_wong",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_yu_a_2000_yahoo_com_jayden_wong"
+  },
+  {
+    "accountID": "clearasu_gmail_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "clearasu_gmail_com_chloe_tang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_clearasu_gmail_com_chloe_tang"
+  },
+  {
+    "accountID": "xiaocanyang_hotmail_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "xiaocanyang_hotmail_com_derek_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_xiaocanyang_hotmail_com_derek_yang"
+  },
+  {
+    "accountID": "butter_3344_gmail_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "butter_3344_gmail_com_yike_chen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_butter_3344_gmail_com_yike_chen"
+  },
+  {
+    "accountID": "sriram_x_ramanan_gmail_com",
+    "classID": "intermediate_winter_2016_cynthia_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "sriram_x_ramanan_gmail_com_srithika_sriram",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_cynthia_satruday_13_30_sriram_x_ramanan_gmail_com_srithika_sriram"
+  },
+  {
+    "accountID": "jasmineye_2008_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "jasmineye_2008_gmail_com_lynn_shen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_jasmineye_2008_gmail_com_lynn_shen"
+  },
+  {
+    "accountID": "dongli_zeng_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "dongli_zeng_gmail_com_vanessa_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_dongli_zeng_gmail_com_vanessa_wang"
+  },
+  {
+    "accountID": "hp_1910_hotmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "hp_1910_hotmail_com_vanessa_lee",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_hp_1910_hotmail_com_vanessa_lee"
+  },
+  {
+    "accountID": "yueefeng_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "yueefeng_gmail_com_carolyn_bai",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_yueefeng_gmail_com_carolyn_bai"
+  },
+  {
+    "accountID": "qzpeng_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "qzpeng_gmail_com_sophia_peng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_qzpeng_gmail_com_sophia_peng"
+  },
+  {
+    "accountID": "chriss_xiang_sina_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "chriss_xiang_sina_com_alan_xie",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_chriss_xiang_sina_com_alan_xie"
+  },
+  {
+    "accountID": "liuxh_28_hotmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "liuxh_28_hotmail_com_vivian_wu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_liuxh_28_hotmail_com_vivian_wu"
+  },
+  {
+    "accountID": "fpeng_01_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_13_30",
+    "programID": "intermediate",
+    "studentID": "fpeng_01_gmail_com_andrae_wan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_13_30_fpeng_01_gmail_com_andrae_wan"
+  },
+  {
+    "accountID": "frances_321_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_15_15",
+    "programID": "intermediate",
+    "studentID": "frances_321_yahoo_com_kathryn_liang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_15_15_frances_321_yahoo_com_kathryn_liang"
+  },
+  {
+    "accountID": "frances_321_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_15_15",
+    "programID": "intermediate",
+    "studentID": "frances_321_yahoo_com_kristine_liang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_15_15_frances_321_yahoo_com_kristine_liang"
+  },
+  {
+    "accountID": "bsangi_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_15_15",
+    "programID": "intermediate",
+    "studentID": "bsangi_gmail_com_ritisha_chakrabarty",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_15_15_bsangi_gmail_com_ritisha_chakrabarty"
+  },
+  {
+    "accountID": "allan_cisco_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_15_15",
+    "programID": "intermediate",
+    "studentID": "allan_cisco_yahoo_com_allyson_yu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_15_15_allan_cisco_yahoo_com_allyson_yu"
+  },
+  {
+    "accountID": "sreevallich_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_15_15",
+    "programID": "intermediate",
+    "studentID": "sreevallich_gmail_com_meghaa_ravichandran",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_15_15_sreevallich_gmail_com_meghaa_ravichandran"
+  },
+  {
+    "accountID": "vqin_3000_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "vqin_3000_gmail_com_kelly_jia",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_vqin_3000_gmail_com_kelly_jia"
+  },
+  {
+    "accountID": "jjjjune_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "jjjjune_yahoo_com_janice_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_jjjjune_yahoo_com_janice_wang"
+  },
+  {
+    "accountID": "bulma_133_hotmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "bulma_133_hotmail_com_dora_gao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_bulma_133_hotmail_com_dora_gao"
+  },
+  {
+    "accountID": "lidan_yu_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "lidan_yu_gmail_com_bridget_liang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_lidan_yu_gmail_com_bridget_liang"
+  },
+  {
+    "accountID": "rzhangnj_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "rzhangnj_yahoo_com_alex_zhao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_rzhangnj_yahoo_com_alex_zhao"
+  },
+  {
+    "accountID": "joycezh_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "joycezh_gmail_com_duan_duan_zheng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_joycezh_gmail_com_duan_duan_zheng"
+  },
+  {
+    "accountID": "qun_shen_2001_yahoo_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "qun_shen_2001_yahoo_com_kevin_xu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_qun_shen_2001_yahoo_com_kevin_xu"
+  },
+  {
+    "accountID": "lianglisa_78_gmail_com",
+    "classID": "intermediate_winter_2016_mei_satruday_17_00",
+    "programID": "intermediate",
+    "studentID": "lianglisa_78_gmail_com_lisa_qian",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_mei_satruday_17_00_lianglisa_78_gmail_com_lisa_qian"
+  },
+  {
+    "accountID": "wangll_2_k_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "wangll_2_k_yahoo_com_arushi_mallick",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_wangll_2_k_yahoo_com_arushi_mallick"
+  },
+  {
+    "accountID": "sanjits_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "sanjits_gmail_com_gurnoor_dang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_sanjits_gmail_com_gurnoor_dang"
+  },
+  {
+    "accountID": "nanzhao_688_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "nanzhao_688_gmail_com_justin_yao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_nanzhao_688_gmail_com_justin_yao"
+  },
+  {
+    "accountID": "lidan_yu_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "lidan_yu_gmail_com_sebastian_liang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_lidan_yu_gmail_com_sebastian_liang"
+  },
+  {
+    "accountID": "ztyaner_11_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "ztyaner_11_gmail_com_evan_chen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_ztyaner_11_gmail_com_evan_chen"
+  },
+  {
+    "accountID": "jjjjune_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "jjjjune_yahoo_com_serena_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_jjjjune_yahoo_com_serena_wang"
+  },
+  {
+    "accountID": "lili_jolly_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "lili_jolly_gmail_com_sophie_qi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_lili_jolly_gmail_com_sophie_qi"
+  },
+  {
+    "accountID": "cuiyan_1_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "cuiyan_1_gmail_com_siqi_feng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_cuiyan_1_gmail_com_siqi_feng"
+  },
+  {
+    "accountID": "jayo_5678_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "jayo_5678_yahoo_com_able_liang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_jayo_5678_yahoo_com_able_liang"
+  },
+  {
+    "accountID": "sv_620_hotmail_com",
+    "classID": "intermediate_winter_2016_rachel_satruday_17_15",
+    "programID": "intermediate",
+    "studentID": "sv_620_hotmail_com_sophie_chai",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_satruday_17_15_sv_620_hotmail_com_sophie_chai"
+  },
+  {
+    "accountID": "lin_bong_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "lin_bong_gmail_com_miranda_bong",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_satruday_10_45_lin_bong_gmail_com_miranda_bong"
+  },
+  {
+    "accountID": "jianpu_1999_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "jianpu_1999_yahoo_com_anna_xiao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_satruday_10_45_jianpu_1999_yahoo_com_anna_xiao"
+  },
+  {
+    "accountID": "sam_liyun_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "sam_liyun_gmail_com_alan_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_satruday_10_45_sam_liyun_gmail_com_alan_li"
+  },
+  {
+    "accountID": "moutrio_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "moutrio_gmail_com_satabdiya_roy",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_satruday_10_45_moutrio_gmail_com_satabdiya_roy"
+  },
+  {
+    "accountID": "moutrio_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "moutrio_gmail_com_shaunak_roy",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_satruday_10_45_moutrio_gmail_com_shaunak_roy"
+  },
+  {
+    "accountID": "business_me_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "business_me_yahoo_com_angela_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_satruday_10_45_business_me_yahoo_com_angela_zhang"
+  },
+  {
+    "accountID": "wei_vicky_yang_gmail_com",
+    "classID": "pre_advanced_winter_2016_mei_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "wei_vicky_yang_gmail_com_eric_yan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_mei_satruday_10_45_wei_vicky_yang_gmail_com_eric_yan"
+  },
+  {
+    "accountID": "sli_96_yahoo_com",
+    "classID": "pre_advanced_winter_2016_mei_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "sli_96_yahoo_com_julia_zhan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_mei_satruday_10_45_sli_96_yahoo_com_julia_zhan"
+  },
+  {
+    "accountID": "sli_96_yahoo_com",
+    "classID": "pre_advanced_winter_2016_mei_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "sli_96_yahoo_com_william_zhan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_mei_satruday_10_45_sli_96_yahoo_com_william_zhan"
+  },
+  {
+    "accountID": "mrsmoreno_3213_gmail_com",
+    "classID": "pre_advanced_winter_2016_mei_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "mrsmoreno_3213_gmail_com_marquis_hall",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_mei_satruday_10_45_mrsmoreno_3213_gmail_com_marquis_hall"
+  },
+  {
+    "accountID": "wu_daisy_yahoo_com",
+    "classID": "pre_advanced_winter_2016_mei_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "wu_daisy_yahoo_com_ileen_fan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_mei_satruday_10_45_wu_daisy_yahoo_com_ileen_fan"
+  },
+  {
+    "accountID": "mrudulapolavarapu_gmail_com",
+    "classID": "pre_advanced_winter_2016_mei_satruday_10_45",
+    "programID": "pre_advanced",
+    "studentID": "mrudulapolavarapu_gmail_com_savan_bollu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_mei_satruday_10_45_mrudulapolavarapu_gmail_com_savan_bollu"
+  },
+  {
+    "accountID": "shirley_1005_hotmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_satruday_15_15",
+    "programID": "pre_advanced",
+    "studentID": "shirley_1005_hotmail_com_jason_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_satruday_15_15_shirley_1005_hotmail_com_jason_wang"
+  },
+  {
+    "accountID": "tangge_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_satruday_15_15",
+    "programID": "pre_advanced",
+    "studentID": "tangge_gmail_com_eric_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_satruday_15_15_tangge_gmail_com_eric_zhang"
+  },
+  {
+    "accountID": "shiandlu_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_satruday_15_15",
+    "programID": "pre_advanced",
+    "studentID": "shiandlu_gmail_com_ruth",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_satruday_15_15_shiandlu_gmail_com_ruth"
+  },
+  {
+    "accountID": "shiandlu_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_satruday_15_15",
+    "programID": "pre_advanced",
+    "studentID": "shiandlu_gmail_com_rachel",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_satruday_15_15_shiandlu_gmail_com_rachel"
+  },
+  {
+    "accountID": "zhuxiaoyun_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_satruday_15_15",
+    "programID": "pre_advanced",
+    "studentID": "zhuxiaoyun_gmail_com_alice_zhu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_satruday_15_15_zhuxiaoyun_gmail_com_alice_zhu"
+  },
+  {
+    "accountID": "srividya_raghuraman_05_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_satruday_15_15",
+    "programID": "pre_advanced",
+    "studentID": "srividya_raghuraman_05_gmail_com_shweta_raghuram",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_satruday_15_15_srividya_raghuraman_05_gmail_com_shweta_raghuram"
+  },
+  {
+    "accountID": "sakunthala_78_gmail_com",
+    "classID": "pre_advanced_winter_2016_cynthia_satruday_15_15",
+    "programID": "pre_advanced",
+    "studentID": "sakunthala_78_gmail_com_nihal_sundarraj",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_cynthia_satruday_15_15_sakunthala_78_gmail_com_nihal_sundarraj"
+  },
+  {
+    "accountID": "xiaoyiliu_0219_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "xiaoyiliu_0219_gmail_com_alice_hu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_xiaoyiliu_0219_gmail_com_alice_hu"
+  },
+  {
+    "accountID": "annashi_8_hotmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "annashi_8_hotmail_com_christina_chi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_annashi_8_hotmail_com_christina_chi"
+  },
+  {
+    "accountID": "rohini_raghunathan_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "rohini_raghunathan_gmail_com_twisha_kurlagunda",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_rohini_raghunathan_gmail_com_twisha_kurlagunda"
+  },
+  {
+    "accountID": "charu_mittal_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "charu_mittal_gmail_com_saniya_jain",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_charu_mittal_gmail_com_saniya_jain"
+  },
+  {
+    "accountID": "arati_damle_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "arati_damle_yahoo_com_nidhi_damle",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_arati_damle_yahoo_com_nidhi_damle"
+  },
+  {
+    "accountID": "yanling_121314_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "yanling_121314_gmail_com_maylynn_tsai",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_yanling_121314_gmail_com_maylynn_tsai"
+  },
+  {
+    "accountID": "tinayuko_88_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "tinayuko_88_yahoo_com_mandy_ko",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_tinayuko_88_yahoo_com_mandy_ko"
+  },
+  {
+    "accountID": "lirui_box_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "lirui_box_yahoo_com_grace_guo",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_lirui_box_yahoo_com_grace_guo"
+  },
+  {
+    "accountID": "warmspringsnow_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_13_30",
+    "programID": "pre_ap_ap",
+    "studentID": "warmspringsnow_gmail_com_sherry_fan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_13_30_warmspringsnow_gmail_com_sherry_fan"
+  },
+  {
+    "accountID": "kathywang_68_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "kathywang_68_yahoo_com_ani_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_kathywang_68_yahoo_com_ani_zhang"
+  },
+  {
+    "accountID": "cici_831_hotmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "cici_831_hotmail_com_goldie_jin",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_cici_831_hotmail_com_goldie_jin"
+  },
+  {
+    "accountID": "srividya_raghuraman_05_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "srividya_raghuraman_05_gmail_com_abhiram_raghuram",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_srividya_raghuraman_05_gmail_com_abhiram_raghuram"
+  },
+  {
+    "accountID": "suman_sudhir_hotmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "suman_sudhir_hotmail_com_sama_srinivas",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_suman_sudhir_hotmail_com_sama_srinivas"
+  },
+  {
+    "accountID": "jzzou_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "jzzou_yahoo_com_michelle_deng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_jzzou_yahoo_com_michelle_deng"
+  },
+  {
+    "accountID": "ruchira_agarwal_21_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "ruchira_agarwal_21_gmail_com_anya_agarwal",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_ruchira_agarwal_21_gmail_com_anya_agarwal"
+  },
+  {
+    "accountID": "jenniferdeng_76_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "jenniferdeng_76_gmail_com_jennifer_deng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_jenniferdeng_76_gmail_com_jennifer_deng"
+  },
+  {
+    "accountID": "xiaobinzhu_2007_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_satruday_15_45",
+    "programID": "pre_ap_ap",
+    "studentID": "xiaobinzhu_2007_gmail_com_joey_zhu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_satruday_15_45_xiaobinzhu_2007_gmail_com_joey_zhu"
+  },
+  {
+    "accountID": "lilyli_200678_gmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "lilyli_200678_gmail_com_sophie_chen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_lilyli_200678_gmail_com_sophie_chen"
+  },
+  {
+    "accountID": "rekhaprodduturi_gmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "rekhaprodduturi_gmail_com_aryan_prodduturi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_rekhaprodduturi_gmail_com_aryan_prodduturi"
+  },
+  {
+    "accountID": "sam_liyun_gmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "sam_liyun_gmail_com_alan_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_sam_liyun_gmail_com_alan_li"
+  },
+  {
+    "accountID": "sofichoi_gmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "sofichoi_gmail_com_arielle_choi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_sofichoi_gmail_com_arielle_choi"
+  },
+  {
+    "accountID": "fanglinzhang_hotmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "fanglinzhang_hotmail_com_eric_zhou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_fanglinzhang_hotmail_com_eric_zhou"
+  },
+  {
+    "accountID": "zrongr_hotmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "zrongr_hotmail_com_christine_han",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_zrongr_hotmail_com_christine_han"
+  },
+  {
+    "accountID": "gdjiawen_2011_gmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "gdjiawen_2011_gmail_com_anji_zhou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_gdjiawen_2011_gmail_com_anji_zhou"
+  },
+  {
+    "accountID": "ruchira_agarwal_21_gmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "ruchira_agarwal_21_gmail_com_anya_agarwal",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_ruchira_agarwal_21_gmail_com_anya_agarwal"
+  },
+  {
+    "accountID": "htzzht_hotmail_com",
+    "classID": "digital_winter_2016_kit_satruday_18_00",
+    "programID": "digital",
+    "studentID": "htzzht_hotmail_com_kevin_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "digital_winter_2016_kit_satruday_18_00_htzzht_hotmail_com_kevin_zhang"
+  },
+  {
+    "accountID": "yingying_99_gmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_09_00",
+    "programID": "beginning",
+    "studentID": "yingying_99_gmail_com_lydia_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_09_00_yingying_99_gmail_com_lydia_liu"
+  },
+  {
+    "accountID": "brianwang_hotmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_09_00",
+    "programID": "beginning",
+    "studentID": "brianwang_hotmail_com_daniel_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_09_00_brianwang_hotmail_com_daniel_wang"
+  },
+  {
+    "accountID": "xqchen_81_hotmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_09_00",
+    "programID": "beginning",
+    "studentID": "xqchen_81_hotmail_com_brian_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_09_00_xqchen_81_hotmail_com_brian_zhang"
+  },
+  {
+    "accountID": "selhui_yahoo_com",
+    "classID": "beginning_winter_2016_amanda_sunday_09_00",
+    "programID": "beginning",
+    "studentID": "selhui_yahoo_com_lutecia_lam",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_09_00_selhui_yahoo_com_lutecia_lam"
+  },
+  {
+    "accountID": "lindenbear_gmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_09_00",
+    "programID": "beginning",
+    "studentID": "lindenbear_gmail_com_ansel_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_09_00_lindenbear_gmail_com_ansel_wang"
+  },
+  {
+    "accountID": "diana_yu_gmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_09_00",
+    "programID": "beginning",
+    "studentID": "diana_yu_gmail_com_steven_svihovec",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_09_00_diana_yu_gmail_com_steven_svihovec"
+  },
+  {
+    "accountID": "jenfzh_gmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_09_00",
+    "programID": "beginning",
+    "studentID": "jenfzh_gmail_com_sophia_luo",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_09_00_jenfzh_gmail_com_sophia_luo"
+  },
+  {
+    "accountID": "taipingyoung_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_10_15",
+    "programID": "beginning",
+    "studentID": "taipingyoung_gmail_com_eric_huang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_10_15_taipingyoung_gmail_com_eric_huang"
+  },
+  {
+    "accountID": "cao_roath_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_10_15",
+    "programID": "beginning",
+    "studentID": "cao_roath_gmail_com_tristan_roath",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_10_15_cao_roath_gmail_com_tristan_roath"
+  },
+  {
+    "accountID": "cxj_9613_hotmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_10_15",
+    "programID": "beginning",
+    "studentID": "cxj_9613_hotmail_com_stella_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_10_15_cxj_9613_hotmail_com_stella_yang"
+  },
+  {
+    "accountID": "juanranfeng_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_sunday_10_15",
+    "programID": "beginning",
+    "studentID": "juanranfeng_yahoo_com_kevin_jin",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_10_15_juanranfeng_yahoo_com_kevin_jin"
+  },
+  {
+    "accountID": "kothari_preeti_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_sunday_10_15",
+    "programID": "beginning",
+    "studentID": "kothari_preeti_yahoo_com_annaya_baphna",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_10_15_kothari_preeti_yahoo_com_annaya_baphna"
+  },
+  {
+    "accountID": "nayyarfamily_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_10_15",
+    "programID": "beginning",
+    "studentID": "nayyarfamily_gmail_com_anjali_nayyar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_10_15_nayyarfamily_gmail_com_anjali_nayyar"
+  },
+  {
+    "accountID": "lagisetty_pallavi_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_sunday_11_30",
+    "programID": "beginning",
+    "studentID": "lagisetty_pallavi_yahoo_com_laasya_sambu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_11_30_lagisetty_pallavi_yahoo_com_laasya_sambu"
+  },
+  {
+    "accountID": "raghu_munaswamy_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_11_30",
+    "programID": "beginning",
+    "studentID": "raghu_munaswamy_gmail_com_ashwath_raghu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_11_30_raghu_munaswamy_gmail_com_ashwath_raghu"
+  },
+  {
+    "accountID": "mazenakos_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_11_30",
+    "programID": "beginning",
+    "studentID": "mazenakos_gmail_com_celine_almaqablah",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_11_30_mazenakos_gmail_com_celine_almaqablah"
+  },
+  {
+    "accountID": "hakimhussien_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_11_30",
+    "programID": "beginning",
+    "studentID": "hakimhussien_gmail_com_malek_alhussien",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_11_30_hakimhussien_gmail_com_malek_alhussien"
+  },
+  {
+    "accountID": "haoyan_msn_com",
+    "classID": "beginning_winter_2016_rachel_sunday_13_30",
+    "programID": "beginning",
+    "studentID": "haoyan_msn_com_phillip_lu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_13_30_haoyan_msn_com_phillip_lu"
+  },
+  {
+    "accountID": "mayk_yu_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_13_30",
+    "programID": "beginning",
+    "studentID": "mayk_yu_gmail_com_silas_ip",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_13_30_mayk_yu_gmail_com_silas_ip"
+  },
+  {
+    "accountID": "wsway_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_sunday_13_30",
+    "programID": "beginning",
+    "studentID": "wsway_yahoo_com_sarina_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_13_30_wsway_yahoo_com_sarina_wang"
+  },
+  {
+    "accountID": "zxyanz_jia_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_13_30",
+    "programID": "beginning",
+    "studentID": "zxyanz_jia_gmail_com_robert_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_13_30_zxyanz_jia_gmail_com_robert_yang"
+  },
+  {
+    "accountID": "wiknut_yahoo_com",
+    "classID": "beginning_winter_2016_amanda_sunday_14_45",
+    "programID": "beginning",
+    "studentID": "wiknut_yahoo_com_jessica_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_14_45_wiknut_yahoo_com_jessica_wang"
+  },
+  {
+    "accountID": "wuyin_79_gmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_14_45",
+    "programID": "beginning",
+    "studentID": "wuyin_79_gmail_com_angela_fu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_14_45_wuyin_79_gmail_com_angela_fu"
+  },
+  {
+    "accountID": "hannahxjin_gmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_14_45",
+    "programID": "beginning",
+    "studentID": "hannahxjin_gmail_com_kira_hao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_14_45_hannahxjin_gmail_com_kira_hao"
+  },
+  {
+    "accountID": "rakhi_i_hotmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_14_45",
+    "programID": "beginning",
+    "studentID": "rakhi_i_hotmail_com_shiv_singh",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_14_45_rakhi_i_hotmail_com_shiv_singh"
+  },
+  {
+    "accountID": "zoe_7670_hotmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_14_45",
+    "programID": "beginning",
+    "studentID": "zoe_7670_hotmail_com_helio_shen",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_14_45_zoe_7670_hotmail_com_helio_shen"
+  },
+  {
+    "accountID": "haitaoww_gmail_com",
+    "classID": "beginning_winter_2016_amanda_sunday_14_45",
+    "programID": "beginning",
+    "studentID": "haitaoww_gmail_com_kiana_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_amanda_sunday_14_45_haitaoww_gmail_com_kiana_zhang"
+  },
+  {
+    "accountID": "lemaochen_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_16_30",
+    "programID": "beginning",
+    "studentID": "lemaochen_gmail_com_ella_dong",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_16_30_lemaochen_gmail_com_ella_dong"
+  },
+  {
+    "accountID": "qxuelei_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_16_30",
+    "programID": "beginning",
+    "studentID": "qxuelei_gmail_com_joanna_yu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_16_30_qxuelei_gmail_com_joanna_yu"
+  },
+  {
+    "accountID": "saimbb_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_16_30",
+    "programID": "beginning",
+    "studentID": "saimbb_gmail_com_michael_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_16_30_saimbb_gmail_com_michael_liu"
+  },
+  {
+    "accountID": "jialinyu_08_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_16_30",
+    "programID": "beginning",
+    "studentID": "jialinyu_08_gmail_com_frank_xia",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_16_30_jialinyu_08_gmail_com_frank_xia"
+  },
+  {
+    "accountID": "dvibha_gmail_com",
+    "classID": "beginning_winter_2016_rachel_sunday_16_30",
+    "programID": "beginning",
+    "studentID": "dvibha_gmail_com_riya_pande",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_16_30_dvibha_gmail_com_riya_pande"
+  },
+  {
+    "accountID": "phi_tran_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_sunday_16_30",
+    "programID": "beginning",
+    "studentID": "phi_tran_yahoo_com_sophie_tran",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_16_30_phi_tran_yahoo_com_sophie_tran"
+  },
+  {
+    "accountID": "anurikasaran_yahoo_com",
+    "classID": "beginning_winter_2016_rachel_sunday_16_30",
+    "programID": "beginning",
+    "studentID": "anurikasaran_yahoo_com_aivana_bhatnagar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "beginning_winter_2016_rachel_sunday_16_30_anurikasaran_yahoo_com_aivana_bhatnagar"
+  },
+  {
+    "accountID": "gongrb_hotmail_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "gongrb_hotmail_com_yulong_gong",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_gongrb_hotmail_com_yulong_gong"
+  },
+  {
+    "accountID": "nehajalan_us_gmail_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "nehajalan_us_gmail_com_ishita_jalan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_nehajalan_us_gmail_com_ishita_jalan"
+  },
+  {
+    "accountID": "selhui_yahoo_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "selhui_yahoo_com_bretton_lam",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_selhui_yahoo_com_bretton_lam"
+  },
+  {
+    "accountID": "yingying_99_gmail_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "yingying_99_gmail_com_lucas_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_yingying_99_gmail_com_lucas_liu"
+  },
+  {
+    "accountID": "wgchan_do_yahoo_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "wgchan_do_yahoo_com_kaydence_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_wgchan_do_yahoo_com_kaydence_liu"
+  },
+  {
+    "accountID": "diana_yu_gmail_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "diana_yu_gmail_com_sara_svihovec",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_diana_yu_gmail_com_sara_svihovec"
+  },
+  {
+    "accountID": "jielanchen_yahoo_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "jielanchen_yahoo_com_xilang_lin",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_jielanchen_yahoo_com_xilang_lin"
+  },
+  {
+    "accountID": "jenfzh_gmail_com",
+    "classID": "intermediate_winter_2016_eli_sunday_08_45",
+    "programID": "intermediate",
+    "studentID": "jenfzh_gmail_com_francis_luo",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_eli_sunday_08_45_jenfzh_gmail_com_francis_luo"
+  },
+  {
+    "accountID": "fanglinzhang_hotmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "fanglinzhang_hotmail_com_kelly_zhou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_fanglinzhang_hotmail_com_kelly_zhou"
+  },
+  {
+    "accountID": "tonyw_01_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "tonyw_01_yahoo_com_michelle_wan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_tonyw_01_yahoo_com_michelle_wan"
+  },
+  {
+    "accountID": "yakyao_smth_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "yakyao_smth_gmail_com_satina_guo",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_yakyao_smth_gmail_com_satina_guo"
+  },
+  {
+    "accountID": "como_3649_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "como_3649_gmail_com_lillian_ma",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_como_3649_gmail_com_lillian_ma"
+  },
+  {
+    "accountID": "qingfen_qiao_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "qingfen_qiao_yahoo_com_alisa_liao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_qingfen_qiao_yahoo_com_alisa_liao"
+  },
+  {
+    "accountID": "varadero_1223_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "varadero_1223_gmail_com_jiaheng_huang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_varadero_1223_gmail_com_jiaheng_huang"
+  },
+  {
+    "accountID": "azurelan_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "azurelan_yahoo_com_brandon_lan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_azurelan_yahoo_com_brandon_lan"
+  },
+  {
+    "accountID": "taipingyoung_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "taipingyoung_gmail_com_emily_huang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_taipingyoung_gmail_com_emily_huang"
+  },
+  {
+    "accountID": "samplecheck_ben_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_10_30",
+    "programID": "intermediate",
+    "studentID": "samplecheck_ben_yahoo_com_natalie_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_10_30_samplecheck_ben_yahoo_com_natalie_zhang"
+  },
+  {
+    "accountID": "lideng_2011_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_13_30",
+    "programID": "intermediate",
+    "studentID": "lideng_2011_gmail_com_emily_deng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_13_30_lideng_2011_gmail_com_emily_deng"
+  },
+  {
+    "accountID": "feilong_xu_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_13_30",
+    "programID": "intermediate",
+    "studentID": "feilong_xu_gmail_com_sarah_xu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_13_30_feilong_xu_gmail_com_sarah_xu"
+  },
+  {
+    "accountID": "ammalee_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_13_30",
+    "programID": "intermediate",
+    "studentID": "ammalee_yahoo_com_nivrith_raman",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_13_30_ammalee_yahoo_com_nivrith_raman"
+  },
+  {
+    "accountID": "zhanglouise_yahoo_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_13_30",
+    "programID": "intermediate",
+    "studentID": "zhanglouise_yahoo_com_william_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_13_30_zhanglouise_yahoo_com_william_yang"
+  },
+  {
+    "accountID": "josiechou_hotmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_13_30",
+    "programID": "intermediate",
+    "studentID": "josiechou_hotmail_com_serena_ho",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_13_30_josiechou_hotmail_com_serena_ho"
+  },
+  {
+    "accountID": "jing_belinda_zhang_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_13_30",
+    "programID": "intermediate",
+    "studentID": "jing_belinda_zhang_gmail_com_grace_yao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_13_30_jing_belinda_zhang_gmail_com_grace_yao"
+  },
+  {
+    "accountID": "jing_belinda_zhang_gmail_com",
+    "classID": "intermediate_winter_2016_amanda_sunday_13_30",
+    "programID": "intermediate",
+    "studentID": "jing_belinda_zhang_gmail_com_faith_yao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_amanda_sunday_13_30_jing_belinda_zhang_gmail_com_faith_yao"
+  },
+  {
+    "accountID": "fenghellen_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_sunday_13_00",
+    "programID": "intermediate",
+    "studentID": "fenghellen_yahoo_com_alex_duan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_sunday_13_00_fenghellen_yahoo_com_alex_duan"
+  },
+  {
+    "accountID": "yuhei_hayashi_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_sunday_13_00",
+    "programID": "intermediate",
+    "studentID": "yuhei_hayashi_gmail_com_yui_hayashi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_sunday_13_00_yuhei_hayashi_gmail_com_yui_hayashi"
+  },
+  {
+    "accountID": "johngina_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_sunday_13_00",
+    "programID": "intermediate",
+    "studentID": "johngina_gmail_com_joseph_han",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_sunday_13_00_johngina_gmail_com_joseph_han"
+  },
+  {
+    "accountID": "wsway_yahoo_com",
+    "classID": "intermediate_winter_2016_robbie_sunday_13_00",
+    "programID": "intermediate",
+    "studentID": "wsway_yahoo_com_stella_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_sunday_13_00_wsway_yahoo_com_stella_wang"
+  },
+  {
+    "accountID": "josiechou_hotmail_com",
+    "classID": "intermediate_winter_2016_robbie_sunday_13_00",
+    "programID": "intermediate",
+    "studentID": "josiechou_hotmail_com_ryan_ho",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_sunday_13_00_josiechou_hotmail_com_ryan_ho"
+  },
+  {
+    "accountID": "johngina_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_sunday_13_00",
+    "programID": "intermediate",
+    "studentID": "johngina_gmail_com_mary_han",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_sunday_13_00_johngina_gmail_com_mary_han"
+  },
+  {
+    "accountID": "alicamteuzi_gmail_com",
+    "classID": "intermediate_winter_2016_robbie_sunday_13_00",
+    "programID": "intermediate",
+    "studentID": "alicamteuzi_gmail_com_hassan_mteuzi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_robbie_sunday_13_00_alicamteuzi_gmail_com_hassan_mteuzi"
+  },
+  {
+    "accountID": "luanyuhuachina_gmail_com",
+    "classID": "come_on_1_15_winter_2016_robbie_sunday_13_00",
+    "programID": "come_on_1_15",
+    "studentID": "luanyuhuachina_gmail_com_fei_fei_liu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "come_on_1_15_winter_2016_robbie_sunday_13_00_luanyuhuachina_gmail_com_fei_fei_liu"
+  },
+  {
+    "accountID": "ylavalanche_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_sunday_14_45",
+    "programID": "intermediate",
+    "studentID": "ylavalanche_yahoo_com_jonathan_li",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_sunday_14_45_ylavalanche_yahoo_com_jonathan_li"
+  },
+  {
+    "accountID": "nanda_4_ucla_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_sunday_14_45",
+    "programID": "intermediate",
+    "studentID": "nanda_4_ucla_yahoo_com_naomi_kai",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_sunday_14_45_nanda_4_ucla_yahoo_com_naomi_kai"
+  },
+  {
+    "accountID": "shyamvarma_09_yahoo_com",
+    "classID": "intermediate_winter_2016_rachel_sunday_14_45",
+    "programID": "intermediate",
+    "studentID": "shyamvarma_09_yahoo_com_rahul_kalidindi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_sunday_14_45_shyamvarma_09_yahoo_com_rahul_kalidindi"
+  },
+  {
+    "accountID": "aarthy_vijendran_gmail_com",
+    "classID": "intermediate_winter_2016_rachel_sunday_14_45",
+    "programID": "intermediate",
+    "studentID": "aarthy_vijendran_gmail_com_ananya_nagaraju",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_sunday_14_45_aarthy_vijendran_gmail_com_ananya_nagaraju"
+  },
+  {
+    "accountID": "rakhi_i_hotmail_com",
+    "classID": "intermediate_winter_2016_rachel_sunday_14_45",
+    "programID": "intermediate",
+    "studentID": "rakhi_i_hotmail_com_siya_singh",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "intermediate_winter_2016_rachel_sunday_14_45_rakhi_i_hotmail_com_siya_singh"
+  },
+  {
+    "accountID": "fanglinzhang_hotmail_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "fanglinzhang_hotmail_com_eric_zhou",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_fanglinzhang_hotmail_com_eric_zhou"
+  },
+  {
+    "accountID": "ushuihui_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "ushuihui_gmail_com_william_zhang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_ushuihui_gmail_com_william_zhang"
+  },
+  {
+    "accountID": "ywwang_01_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "ywwang_01_yahoo_com_catherine_wang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_ywwang_01_yahoo_com_catherine_wang"
+  },
+  {
+    "accountID": "jeanqw_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "jeanqw_yahoo_com_caton_zhu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_jeanqw_yahoo_com_caton_zhu"
+  },
+  {
+    "accountID": "kllbabydd_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "kllbabydd_yahoo_com_jada_loc",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_kllbabydd_yahoo_com_jada_loc"
+  },
+  {
+    "accountID": "varadero_1223_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "varadero_1223_gmail_com_jia_hui_huang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_varadero_1223_gmail_com_jia_hui_huang"
+  },
+  {
+    "accountID": "azurelan_yahoo_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "azurelan_yahoo_com_emily_lan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_azurelan_yahoo_com_emily_lan"
+  },
+  {
+    "accountID": "nayyarfamily_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "nayyarfamily_gmail_com_akash_nayyar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_nayyarfamily_gmail_com_akash_nayyar"
+  },
+  {
+    "accountID": "rekhaprodduturi_gmail_com",
+    "classID": "pre_advanced_winter_2016_eli_sunday_10_30",
+    "programID": "pre_advanced",
+    "studentID": "rekhaprodduturi_gmail_com_aryan_prodduturi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_eli_sunday_10_30_rekhaprodduturi_gmail_com_aryan_prodduturi"
+  },
+  {
+    "accountID": "lulily_gmail_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "lulily_gmail_com_lisa_feng",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_lulily_gmail_com_lisa_feng"
+  },
+  {
+    "accountID": "rajkashikar_gmail_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "rajkashikar_gmail_com_kashikar",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_rajkashikar_gmail_com_kashikar"
+  },
+  {
+    "accountID": "salima_noorali_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "salima_noorali_com_moiz_noorali",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_salima_noorali_com_moiz_noorali"
+  },
+  {
+    "accountID": "jennyw_778_gmail_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "jennyw_778_gmail_com_grace_jin",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_jennyw_778_gmail_com_grace_jin"
+  },
+  {
+    "accountID": "582803441_qq_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "582803441_qq_com_luyu_yang",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_582803441_qq_com_luyu_yang"
+  },
+  {
+    "accountID": "bsis_hotmail_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "bsis_hotmail_com_pratistha_sisodia",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_bsis_hotmail_com_pratistha_sisodia"
+  },
+  {
+    "accountID": "anand_sethuraman_yahoo_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "anand_sethuraman_yahoo_com_ananya_anand",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_anand_sethuraman_yahoo_com_ananya_anand"
+  },
+  {
+    "accountID": "vsirsikar_gmail_com",
+    "classID": "pre_advanced_winter_2016_robbie_sunday_14_45",
+    "programID": "pre_advanced",
+    "studentID": "vsirsikar_gmail_com_ameyaa_wagh",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_advanced_winter_2016_robbie_sunday_14_45_vsirsikar_gmail_com_ameyaa_wagh"
+  },
+  {
+    "accountID": "haoyan_msn_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "haoyan_msn_com_grace_lu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_haoyan_msn_com_grace_lu"
+  },
+  {
+    "accountID": "feilong_xu_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "feilong_xu_gmail_com_jerry_xu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_feilong_xu_gmail_com_jerry_xu"
+  },
+  {
+    "accountID": "xxflj_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "xxflj_yahoo_com_margaret_xi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_xxflj_yahoo_com_margaret_xi"
+  },
+  {
+    "accountID": "xxflj_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "xxflj_yahoo_com_andrew_xi",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_xxflj_yahoo_com_andrew_xi"
+  },
+  {
+    "accountID": "helenli_2012_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "helenli_2012_yahoo_com_kevin_cui",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_helenli_2012_yahoo_com_kevin_cui"
+  },
+  {
+    "accountID": "sara_xu_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "sara_xu_gmail_com_kevin_xu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_sara_xu_gmail_com_kevin_xu"
+  },
+  {
+    "accountID": "sirikoppu_gmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "sirikoppu_gmail_com_usha_namburu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_sirikoppu_gmail_com_usha_namburu"
+  },
+  {
+    "accountID": "jeanqw_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_13_00",
+    "programID": "pre_ap_ap",
+    "studentID": "jeanqw_yahoo_com_alvin_zhu",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00_jeanqw_yahoo_com_alvin_zhu"
+  },
+  {
+    "accountID": "dkongmike_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_15_15",
+    "programID": "pre_ap_ap",
+    "studentID": "dkongmike_yahoo_com_michael_cao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15_dkongmike_yahoo_com_michael_cao"
+  },
+  {
+    "accountID": "qingfen_qiao_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_15_15",
+    "programID": "pre_ap_ap",
+    "studentID": "qingfen_qiao_yahoo_com_sarah_liao",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15_qingfen_qiao_yahoo_com_sarah_liao"
+  },
+  {
+    "accountID": "hhu_1_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_15_15",
+    "programID": "pre_ap_ap",
+    "studentID": "hhu_1_yahoo_com_angela_xuan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15_hhu_1_yahoo_com_angela_xuan"
+  },
+  {
+    "accountID": "hhu_1_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_15_15",
+    "programID": "pre_ap_ap",
+    "studentID": "hhu_1_yahoo_com_christine_xuan",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15_hhu_1_yahoo_com_christine_xuan"
+  },
+  {
+    "accountID": "vivianho_168_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_15_15",
+    "programID": "pre_ap_ap",
+    "studentID": "vivianho_168_yahoo_com_ian_ho",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15_vivianho_168_yahoo_com_ian_ho"
+  },
+  {
+    "accountID": "wenhui_jia_hotmail_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_15_15",
+    "programID": "pre_ap_ap",
+    "studentID": "wenhui_jia_hotmail_com_andrea_jia",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15_wenhui_jia_hotmail_com_andrea_jia"
+  },
+  {
+    "accountID": "mhafra_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_eli_sunday_15_15",
+    "programID": "pre_ap_ap",
+    "studentID": "mhafra_yahoo_com_afra_ung",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15_mhafra_yahoo_com_afra_ung"
+  },
+  {
+    "accountID": "vanisreet_yahoo_com",
+    "classID": "pre_ap_ap_winter_2016_sunday_null",
+    "programID": "pre_ap_ap",
+    "studentID": "vanisreet_yahoo_com_tejasvika_mukundh",
+    "status": "checkouted",
+    "type": "register",
+    "_id": "pre_ap_ap_winter_2016_sunday_null_vanisreet_yahoo_com_tejasvika_mukundh"
+  }
+]

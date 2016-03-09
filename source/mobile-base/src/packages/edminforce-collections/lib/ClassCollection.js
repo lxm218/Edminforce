@@ -25,7 +25,8 @@ ClassCollection = class ClassCollection extends BaseCollection {
     defineCollectionSchema() {
         return {
             name: {
-                type: String
+                type: String,
+                optional: true
             },
             programID: {
                 type: String,
@@ -61,7 +62,7 @@ ClassCollection = class ClassCollection extends BaseCollection {
                 type: new SimpleSchema({
                     day: {
                         type: String,
-                        allowedValues: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
+                        allowedValues: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
                         optional: false
                     },
                     time: {
