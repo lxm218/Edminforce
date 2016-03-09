@@ -90,10 +90,29 @@ CustomerCollection = class extends BaseCollection {
                 type : String
             },
 
+            hasRegistrationFee : {
+                type : Boolean,
+                optional : true,
+                defaultValue : true
+            },
+
             createTime: EdminForce.utils.schemaUtil.createTime(),
             updateTime: EdminForce.utils.schemaUtil.updateTime()
         };
 
         return Schema.Customer;
+    }
+
+    updateRegistrationFeeFlagAfterPayment() {
+        EdminForce.Collections.Customer.update(
+            {
+                _id: Meteor.userId(),
+            },
+            {
+                $set: {
+                    hasRegistrationFee: false
+                }
+            }
+        )
     }
 }

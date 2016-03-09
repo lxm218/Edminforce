@@ -140,7 +140,7 @@
 
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
-        // console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
+        EdminForce.Collections.Customer.updateRegistrationFeeFlagAfterPayment();
         Meteor.call('sendEmailText',
                 Meteor.user().emails[0].address,
                 'Confirmation',
