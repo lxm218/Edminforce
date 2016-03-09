@@ -292,6 +292,8 @@
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
+      var processFee = o.amount * 0.03
+      var total = o.amount * 1.03
       if (typeof registrationFee == "undefined"){
         registrationFee = 0
       }
@@ -302,7 +304,9 @@
         "amount": o.amount,
         "classes": classes,
         "registrationFee" : registrationFee,
-        "couponDiscount": couponDiscount
+        "couponDiscount": couponDiscount,
+        "processFee": processFee,
+        "total": total
       }
     },
 
@@ -322,7 +326,7 @@
           _id: classIDs[i]
         }, {}
         ).fetch();
-        classes[c[0].name] = c[0].tuition.money
+        classes[c[0].name] = c[0].tuition.money * c[0].numberOfClass
       }
       return classes
     },
@@ -334,30 +338,40 @@
         let tpl = [
             '<h3>Hello</h3>',
             '<p>Thank for making the payment.</p>',
-            '<table>',
+            '<table border=\"1\">',
         ].join('')
         var classes = data.classes
         for (var name in classes){
           var line = [
               '<tr>',
                 '<td>',name,'</td>',
-                '<td>',classes[name],'</td>',
+                '<td>$',classes[name],'</td>',
               '</tr>',
           ].join('')
           tpl = tpl + line
         }
-        tpl = tpl + [
+        if (data.couponDiscount != 0){
+          tpl = tpl + [
               '<tr>',
                 '<td>Discount</td>',
-                '<td>',data.couponDiscount,'</td>',
-              '</tr>',
+                '<td>$',data.couponDiscount,'</td>',
+              '</tr>',].join('')
+        }
+        if (data.registrationFee != 0){
+          tpl = tpl + [
               '<tr>',
                 '<td>Registration</td>',
-                '<td>',data.registrationFee,'</td>',
+                '<td>$',data.registrationFee,'</td>',
+              '</tr>',].join('')
+        }
+        tpl = tpl + [
+              '<tr>',
+                '<td>Credit Process Fee</td>',
+                '<td>$',data.processFee,'</td>',
               '</tr>',
               '<tr>',
-                '<td>Total</td>',
-                '<td>',data.amount,'</td>',
+                '<td>Class Total</td>',
+                '<td>$',data.total,'</td>',
               '</tr>',
 
             '</table>',
