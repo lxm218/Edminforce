@@ -48,7 +48,7 @@ Meteor.startup(function () {
     }
 
     if (EdminForce.Collections.program.find({}).count() === 0) {
-        //resetData()
+        // resetData()
     }
 
 });
