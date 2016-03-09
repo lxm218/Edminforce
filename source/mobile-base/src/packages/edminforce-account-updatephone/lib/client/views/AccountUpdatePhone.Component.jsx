@@ -9,18 +9,15 @@
 
         getMeteorData() {
 
-            let handler = null;
-
-            //let programID =
-            Tracker.autorun(function () {
-                handler = Meteor.subscribe("EF-UserData");
-            }.bind(this));
-
-            let user = Meteor.user();
+            let handler = Meteor.subscribe("EF-UserData");
+            let customer = EdminForce.Collections.Customer.find({
+                _id : Meteor.userId()
+            }).fetch();
+            customer = customer && customer[0];
 
             return {
                 isReady: handler.ready(),
-                user: user
+                user: customer
             }
         }
 
@@ -47,7 +44,7 @@
 
             return <RC.Div style={style}>
                 <RC.Form onSubmit={this.submitForm.bind(this)} ref="form">
-                    <RC.Input name="phone" value={this.data.user&&this.data.user.profile&&this.data.user.profile.phone} label="New Phone Number"/>
+                    <RC.Input name="phone" value={this.data.user&&this.data.user.phone&&this.data.user.phone} label="New Phone Number"/>
                     <RC.Button bgColor="brand2">Update</RC.Button>
                 </RC.Form>
             </RC.Div>
