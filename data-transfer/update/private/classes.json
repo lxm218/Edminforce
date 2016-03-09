@@ -8,7 +8,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Wed",
-      "time": "15:30"
+      "time": "03:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -31,7 +31,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Wed",
-      "time": "17:15"
+      "time": "05:15 pm"
     },
     "tuition": {
       "type": "total",
@@ -54,7 +54,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Tue",
-      "time": "15:45"
+      "time": "03:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -77,7 +77,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "9:00"
+      "time": "09:00 am"
     },
     "tuition": {
       "type": "total",
@@ -100,7 +100,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "10:15"
+      "time": "10:15 am"
     },
     "tuition": {
       "type": "total",
@@ -123,7 +123,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "11:30"
+      "time": "11:30 am"
     },
     "tuition": {
       "type": "total",
@@ -146,7 +146,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "13:30"
+      "time": "01:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -169,7 +169,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "14:45"
+      "time": "02:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -192,7 +192,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "16:00"
+      "time": "04:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -215,7 +215,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "17:15"
+      "time": "05:15 pm"
     },
     "tuition": {
       "type": "total",
@@ -238,7 +238,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Thu",
-      "time": "15:45"
+      "time": "03:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -261,7 +261,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Thu",
-      "time": "17:30"
+      "time": "05:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -284,7 +284,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "9:00"
+      "time": "09:00 am"
     },
     "tuition": {
       "type": "total",
@@ -307,7 +307,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "10:15"
+      "time": "10:15 am"
     },
     "tuition": {
       "type": "total",
@@ -330,7 +330,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "11:30"
+      "time": "11:30 am"
     },
     "tuition": {
       "type": "total",
@@ -353,7 +353,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "13:30"
+      "time": "01:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -376,7 +376,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "14:45"
+      "time": "02:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -399,7 +399,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "16:30"
+      "time": "04:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -422,7 +422,7 @@
     "teacher": "Kit",
     "schedule": {
       "day": "Sat",
-      "time": "18:00"
+      "time": "06:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -445,7 +445,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Wed",
-      "time": "15:00"
+      "time": "03:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -468,7 +468,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Wed",
-      "time": "15:30"
+      "time": "03:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -491,7 +491,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Wed",
-      "time": "16:45"
+      "time": "04:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -514,7 +514,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Tue",
-      "time": "17:00"
+      "time": "05:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -537,7 +537,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Fri",
-      "time": "15:45"
+      "time": "03:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -560,7 +560,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Fri",
-      "time": "15:45"
+      "time": "03:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -583,7 +583,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Fri",
-      "time": "17:30"
+      "time": "05:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -606,7 +606,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "9:00"
+      "time": "09:00 am"
     },
     "tuition": {
       "type": "total",
@@ -629,7 +629,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "9:00"
+      "time": "09:00 am"
     },
     "tuition": {
       "type": "total",
@@ -652,7 +652,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "13:30"
+      "time": "01:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -675,7 +675,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "13:30"
+      "time": "01:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -698,7 +698,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "15:15"
+      "time": "03:15 pm"
     },
     "tuition": {
       "type": "total",
@@ -721,7 +721,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "17:00"
+      "time": "05:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -744,7 +744,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Thu",
-      "time": "17:00"
+      "time": "05:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -767,7 +767,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Thu",
-      "time": "15:45"
+      "time": "03:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -790,7 +790,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "8:45"
+      "time": "08:45 am"
     },
     "tuition": {
       "type": "total",
@@ -813,7 +813,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "10:30"
+      "time": "10:30 am"
     },
     "tuition": {
       "type": "total",
@@ -836,7 +836,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "13:00"
+      "time": "01:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -859,7 +859,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Sun",
-      "time": "13:00"
+      "time": "01:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -882,7 +882,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "14:45"
+      "time": "02:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -905,7 +905,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Wed",
-      "time": "16:45"
+      "time": "04:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -928,7 +928,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Fri",
-      "time": "15:45"
+      "time": "03:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -951,7 +951,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Fri",
-      "time": "17:30"
+      "time": "05:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -974,7 +974,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "10:45"
+      "time": "10:45 am"
     },
     "tuition": {
       "type": "total",
@@ -997,7 +997,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "10:45"
+      "time": "10:45 am"
     },
     "tuition": {
       "type": "total",
@@ -1020,7 +1020,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "15:15"
+      "time": "03:15 pm"
     },
     "tuition": {
       "type": "total",
@@ -1043,7 +1043,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "10:30"
+      "time": "10:30 am"
     },
     "tuition": {
       "type": "total",
@@ -1066,7 +1066,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Sun",
-      "time": "14:45"
+      "time": "02:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -1089,7 +1089,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Wed",
-      "time": "18:30"
+      "time": "06:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -1112,7 +1112,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "13:30"
+      "time": "01:30 pm"
     },
     "tuition": {
       "type": "total",
@@ -1135,7 +1135,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "15:45"
+      "time": "03:45 pm"
     },
     "tuition": {
       "type": "total",
@@ -1158,7 +1158,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "13:00"
+      "time": "01:00 pm"
     },
     "tuition": {
       "type": "total",
@@ -1181,7 +1181,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "15:15"
+      "time": "03:15 pm"
     },
     "tuition": {
       "type": "total",

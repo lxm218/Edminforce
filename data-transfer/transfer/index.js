@@ -154,6 +154,33 @@ function am_pm_to_hours(time) {
     return (sHours +':'+sMinutes);
 }
 
+function hours_am_pm(time) {
+    if(!time){
+        console.error("time not exist");
+        return null;
+    }
+    var hours = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM = time.match(/([ampm]*)$/)[1];
+    if(AMPM){
+        return time;
+    }
+    var sHours = hours.toString();
+    var sMinutes = minutes.toString();
+    if(hours>12){
+        sHours = (hours-12).toString();
+    }
+
+    if (hours < 10||(hours-12)>0) sHours = "0" + sHours;
+    if (minutes < 10) sMinutes = "0" + sMinutes;
+
+    if (hours < 12) {
+        return sHours + ':' + sMinutes + ' am';
+    } else {
+        return sHours+ ':' + sMinutes + ' pm';
+    }
+}
+
 function transferDay(day){
     var dayMap = {
         "mon": "monday",
@@ -249,7 +276,7 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
         nClass.length = data[5];
         nClass.teacher = data[2];
         nClass.schedule.day = data[3];
-        nClass.schedule.time = data[4];
+        nClass.schedule.time = hours_am_pm(data[4]);
         nClass.tuition.type = "total";
         nClass.tuition.money = "100";
         nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
