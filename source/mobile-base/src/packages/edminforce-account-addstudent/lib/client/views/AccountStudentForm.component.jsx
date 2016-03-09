@@ -19,7 +19,6 @@
                 accountID: Meteor.userId(),
                 birthday:null,
                 gender:"",
-                status:"",
                 school:"",
                 note:""
             };
@@ -70,12 +69,6 @@
             });
         }
 
-        changeStatus(event, index, value){
-            this.setState({
-                status: value
-            });
-        }
-
         changeSchool(event){
             this.setState({
                 school: event.target.value
@@ -90,7 +83,7 @@
 
         validate(){
             console.log(this.state);
-            if(this.state.name&&this.state.gender&&this.state.birthday&&this.state.status){
+            if(this.state.name&&this.state.gender&&this.state.birthday){
                 return false;
             }
 
@@ -140,25 +133,17 @@
                             errorText={this.state.birthdayErrorText}
                         /><br/>
 
-                        <SelectField
-                            floatingLabelText="Status"
-                            fullWidth={true}
-                            value={this.state.status}
-                            ref="status"
-                            onChange={this.changeStatus.bind(this)}
-                        >
-                            <MenuItem value={"Active"} primaryText="Active"/>
-                            <MenuItem value={"Inactive"} primaryText="InActive"/>
-                        </SelectField><br/>
                         <TextField
                             floatingLabelText="School"
                             fullWidth={true}
+                            value={this.state.school}
                             ref="school"
                             onChange={this.changeSchool.bind(this)}
                         /><br/>
                         <TextField
                             floatingLabelText="Comments"
                             fullWidth={true}
+                            value={this.state.note}
                             ref="note"
                             onChange={this.changeNote.bind(this)}
                         /><br/>
