@@ -33,17 +33,26 @@
             }
         }
 
+        isValidDate(dateStr) {
+            let dateObj = new Date(dateStr);
+            let regex = /^\s*[0,1]{0,1}[0-9]\/[0,1,2,3]{0,1}[0-9]\/[1,2][0,9][0-9]{2}\s*$/;
+            if(!regex.test(dateStr) || dateObj.toString() == "Invalid Date")
+                return false;
+            else
+                return true;
+        }
+
         changeBirthday(event) {
             let birthdayStr = event.target.value;
             //console.log(birthdayStr);
             try{
-                let birthday = new Date(birthdayStr);
-                let regex = /^\s*[0,1]{0,1}[0-9]\/[0,1,2,3]{0,1}[0-9]\/[1,2][0,9][0-9]{2}\s*$/;
-                if(!regex.test(birthdayStr) || birthday.toString() == "Invalid Date"){
+                if (!this.isValidDate(birthdayStr)) {
                     this.setState({
+                        birthday: birthdayStr,
                         birthdayErrorText:"Please type correct birthday, mm/dd/yyyy"
                     });
                 }else{
+                    let birthday = new Date(birthdayStr);
                     this.setState({
                         birthdayErrorText: "",
                         birthday: moment(birthday).format("MM/DD/YYYY")
@@ -52,6 +61,7 @@
 
             }catch(e){
                 this.setState({
+                    birthday: birthdayStr,
                     birthdayErrorText:"Please type correct birthday, mm/dd/yyyy"
                 });
             }
@@ -83,7 +93,7 @@
 
         validate(){
             console.log(this.state);
-            if(this.state.name&&this.state.gender&&this.state.birthday){
+            if(this.state.name && this.state.gender && this.isValidDate(this.state.birthday)){
                 return false;
             }
 
