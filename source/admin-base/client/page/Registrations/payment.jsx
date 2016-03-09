@@ -107,6 +107,18 @@ KUI.Registration_payment = class extends KUI.Page{
             }
         ];
 
+        if(this.state.coupon){
+            let tmp = total;
+
+
+            total = m.Coupon.calculateDiscountResult(this.state.coupon.discount, total);
+            console.log(tmp, total);
+            list.push({
+                item : 'Coupon',
+                amount : '-$'+(tmp-total).toFixed(2)
+            });
+        }
+
         //school credit
         if(this.state.schoolCredit){
             list.push({
@@ -126,17 +138,7 @@ KUI.Registration_payment = class extends KUI.Page{
             total = total + C.registrationFee;
         }
 
-        if(this.state.coupon){
-            let tmp = total;
 
-
-            total = m.Coupon.calculateDiscountResult(this.state.coupon.discount, total);
-            console.log(tmp, total);
-            list.push({
-                item : 'Coupon',
-                amount : '-$'+(tmp-total).toFixed(2)
-            });
-        }
 
 
         this.total.set(total);
