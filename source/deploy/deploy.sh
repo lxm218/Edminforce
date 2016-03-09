@@ -15,7 +15,7 @@ deployMobileBase(){
 	# git clean -d -fx;
 	echo "---- connect to mobile-base server ----";
 	CMD="cd Edminforce;git reset --hard;git pull;cd source/mobile-base;source aws.sh;"
-	echo "${CMD}"
+	#echo "${CMD}"
 	ssh -i "edminforce.pem" ubuntu@ec2-52-10-176-99.us-west-2.compute.amazonaws.com "${CMD}"
 	sudo chmod 777 edminforce.pem;
 }
