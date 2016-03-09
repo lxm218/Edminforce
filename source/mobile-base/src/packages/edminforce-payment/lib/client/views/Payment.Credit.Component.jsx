@@ -143,7 +143,8 @@
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     let amt = o[0].amount+0
-    amt = Math.ceil(amt * 1.03)
+    amt = amt * 1.03
+    amt = amt.toFixed(2)
     paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -282,7 +283,8 @@
         return amt
       }
       amt = o[0].amount+0
-      amt = Math.ceil(amt * 1.03)
+      amt = amt * 1.03
+      amt = amt.toFixed()
       return amt
     },
 
@@ -291,7 +293,8 @@
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
-      var total = Math.ceil(o.amount * 1.03)
+      var total = o.amount * 1.03
+      total = total.toFixed()
       var processFee = total - o.amount
       if (typeof registrationFee == "undefined"){
         registrationFee = 0
