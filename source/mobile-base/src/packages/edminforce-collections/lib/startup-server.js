@@ -117,7 +117,7 @@ Meteor.startup(function () {
 
             // 3. When an order is "checkouted", make sure we change the status of classStudent from "checkouting" to "checkouted"
             let checkoutedOrders = EdminForce.Collections.orders.find({
-                status: "checkouted"
+                status: {$in:["checkouted","success"]}
             }).fetch();
 
             checkoutedOrders && checkoutedOrders.forEach(function (order, key) {
@@ -209,7 +209,7 @@ Meteor.startup(function () {
                 let beUsedInOrder = EdminForce.Collections.orders.find({
                     customerCouponID: customerCoupon["_id"],
                     status: {
-                        $in: ["checkouting", "checkouted"]
+                        $in: ["checkouting", "checkouted","success"]
                     }
                 }).fetch();
 

@@ -56,10 +56,10 @@ Meteor.startup(function () {
                     })
                 }
             }, {
-                find: function () {
+                find: function (classData) {
                     //console.log(this.userId);
                     return EdminForce.Collections.classStudent.find({
-                        accountID: this.userId
+                        classID: classData._id
                     }, {
                         sort: {
                             lessonDate: 1
