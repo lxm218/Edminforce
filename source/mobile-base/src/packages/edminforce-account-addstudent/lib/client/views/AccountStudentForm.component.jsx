@@ -19,7 +19,6 @@
                 accountID: Meteor.userId(),
                 birthday:null,
                 gender:"",
-                status:"",
                 school:"",
                 note:""
             };
@@ -34,17 +33,26 @@
             }
         }
 
+        isValidDate(dateStr) {
+            let dateObj = new Date(dateStr);
+            let regex = /^\s*[0,1]{0,1}[0-9]\/[0,1,2,3]{0,1}[0-9]\/[1,2][0,9][0-9]{2}\s*$/;
+            if(!regex.test(dateStr) || dateObj.toString() == "Invalid Date")
+                return false;
+            else
+                return true;
+        }
+
         changeBirthday(event) {
             let birthdayStr = event.target.value;
             //console.log(birthdayStr);
             try{
-                let birthday = new Date(birthdayStr);
-                let regex = /^\s*[0,1]{0,1}[0-9]\/[0,1,2,3]{0,1}[0-9]\/[1,2][0,9][0-9]{2}\s*$/;
-                if(!regex.test(birthdayStr) || birthday.toString() == "Invalid Date"){
+                if (!this.isValidDate(birthdayStr)) {
                     this.setState({
+                        birthday: birthdayStr,
                         birthdayErrorText:"Please type correct birthday, mm/dd/yyyy"
                     });
                 }else{
+                    let birthday = new Date(birthdayStr);
                     this.setState({
                         birthdayErrorText: "",
                         birthday: moment(birthday).format("MM/DD/YYYY")
@@ -53,6 +61,7 @@
 
             }catch(e){
                 this.setState({
+                    birthday: birthdayStr,
                     birthdayErrorText:"Please type correct birthday, mm/dd/yyyy"
                 });
             }
@@ -70,12 +79,6 @@
             });
         }
 
-        changeStatus(event, index, value){
-            this.setState({
-                status: value
-            });
-        }
-
         changeSchool(event){
             this.setState({
                 school: event.target.value
@@ -90,7 +93,7 @@
 
         validate(){
             console.log(this.state);
-            if(this.state.name&&this.state.gender&&this.state.birthday&&this.state.status){
+            if(this.state.name && this.state.gender && this.isValidDate(this.state.birthday)){
                 return false;
             }
 
@@ -140,25 +143,17 @@
                             errorText={this.state.birthdayErrorText}
                         /><br/>
 
-                        <SelectField
-                            floatingLabelText="Status"
-                            fullWidth={true}
-                            value={this.state.status}
-                            ref="status"
-                            onChange={this.changeStatus.bind(this)}
-                        >
-                            <MenuItem value={"Active"} primaryText="Active"/>
-                            <MenuItem value={"Inactive"} primaryText="InActive"/>
-                        </SelectField><br/>
                         <TextField
                             floatingLabelText="School"
                             fullWidth={true}
+                            value={this.state.school}
                             ref="school"
                             onChange={this.changeSchool.bind(this)}
                         /><br/>
                         <TextField
                             floatingLabelText="Comments"
                             fullWidth={true}
+                            value={this.state.note}
                             ref="note"
                             onChange={this.changeNote.bind(this)}
                         /><br/>

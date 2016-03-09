@@ -61,7 +61,6 @@
                     gender:data.gender,
                     birthday:new Date(data.birthday)
                 },
-                status:data.status,
                 school:data.school,
                 note:data.note
             };
@@ -89,6 +88,7 @@
                     }
                 });
             }else{
+                student.status = 'Active';
                 EdminForce.Collections.student.insert(student, function(err){
                     if(err){
                         alert("Add student error");

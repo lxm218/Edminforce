@@ -22,9 +22,7 @@ var adminUser = {
     },
     "title": "Administrator",
     "status": "active",
-    "gender": "Male",
-    "createTime": new Date(1456611427057),
-    "updateTime": new Date(1456611427057)
+    "gender": "Male"
 };
 
 var user = {
@@ -39,8 +37,8 @@ var user = {
 
     //password
     services: {
-        "password": {//calphin
-            "bcrypt": "$2a$10$JxR7RAR6uHArlUx0CowVxO1nPUZIWSuS4Qxp/Cm9LNC73KzjQzjSm"
+        "password": {//classforth
+            "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
         }
     }
 };
@@ -86,9 +84,7 @@ var session = {
     "blockOutDay": [
         new Date("2016-03-30T21:00:00-0700")
     ],
-    "registrationEndDate": new Date("2016-06-29T21:00:00-0700"),
-    "createTime": new Date(1456611846902),
-    "updateTime": new Date(1456611846902)
+    "registrationEndDate": new Date("2016-06-29T21:00:00-0700")
 };
 
 var program = {
@@ -134,9 +130,9 @@ function am_pm_to_hours(time) {
     var minutes = Number(time.match(/:(\d+)/)[1]);
     var AMPM = time.match(/([ampm]*)$/)[1];
 
-    console.log(AMPM);
-    console.log(hours);
-    console.log(minutes);
+    //console.log(AMPM);
+    //console.log(hours);
+    //console.log(minutes);
 
     // If AMPM exist
     if(AMPM){
@@ -285,15 +281,21 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
     }
 
     jsonfile.writeFile(outPutFolder+'/programs.json', programs, {spaces: 2}, function (err) {
-        console.error(err);
+        if(err){
+            console.error(err);
+        }
     });
 
     jsonfile.writeFile(outPutFolder+'/classes.json', classes, {spaces: 2}, function (err) {
-        console.error(err);
+        if(err){
+            console.error(err);
+        }
     });
 
     jsonfile.writeFile(outPutFolder+'/sessions.json', sessions, {spaces: 2}, function (err) {
-        console.error(err);
+        if(err){
+            console.error(err);
+        }
     });
 
 });
@@ -308,9 +310,6 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
 
     for(let i=2; i<datas.length; i++){
         let data = datas[i];
-        if(i ==2){
-            console.log(data);
-        }
 
         if(!data[7]||!data[1]){
             continue;
@@ -348,15 +347,23 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
     }
 
     jsonfile.writeFile(outPutFolder+'/accounts.json', accounts, {spaces: 2}, function (err) {
-        console.error(err);
+        if(err){
+            console.error(err);
+        }
     });
     jsonfile.writeFile(outPutFolder+'/customers.json', customers, {spaces: 2}, function (err) {
-        console.error(err);
+        if(err){
+            console.error(err);
+        }
     });
     jsonfile.writeFile(outPutFolder+'/students.json', students, {spaces: 2}, function (err) {
-        console.error(err);
+        if(err){
+            console.error(err);
+        }
     });
     jsonfile.writeFile(outPutFolder+'/classStudents.json', classStudents, {spaces: 2}, function (err) {
-        console.error(err);
+        if(err){
+            console.error(err);
+        }
     });
 });
