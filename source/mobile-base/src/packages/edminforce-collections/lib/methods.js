@@ -77,6 +77,7 @@ Meteor.methods({
     },
     sendEmailHtml:function (to, subject, html) {
         check([to, subject, html], [String]);
+        console.log(to);
 
         // Let other method calls from the same client start running,
         // without waiting for the email sending to complete.

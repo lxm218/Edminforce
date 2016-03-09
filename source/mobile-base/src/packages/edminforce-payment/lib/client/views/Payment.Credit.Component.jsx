@@ -143,7 +143,7 @@
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     let amt = o[0].amount+0
-    amt = amt * 1.03
+    amt = Math.ceil(amt * 1.03)
     paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -157,8 +157,6 @@
 
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
-        // console.log(response.data.profileResponse.customerPaymentProfileIdList[0])
-
         Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
                   'Thanks for Making Payment',
@@ -186,6 +184,7 @@
                    let params = {
                        orderId: self.state.orderId
                    };
+
 
                    let path = FlowRouter.path("/orders/summary/:orderId",params,{makeupOnly:FlowRouter.getQueryParam("makeupOnly")});
                    FlowRouter.go(path);
@@ -283,7 +282,7 @@
         return amt
       }
       amt = o[0].amount+0
-      amt = amt * 1.03
+      amt = Math.ceil(amt * 1.03)
       return amt
     },
 
@@ -292,8 +291,8 @@
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
-      var processFee = o.amount * 0.03
-      var total = o.amount * 1.03
+      var total = Math.ceil(o.amount * 1.03)
+      var processFee = total - o.amount
       if (typeof registrationFee == "undefined"){
         registrationFee = 0
       }
@@ -312,23 +311,27 @@
 
 
     getAllClasses(classStudentIDs){
-      var classIDs = []
-      var classes = {} 
+      var res = {}
       for (var i = 0; i < classStudentIDs.length; i++) {
         var c = EdminForce.Collections.classStudent.find({
           _id: classStudentIDs[i]
         }, {}
         ).fetch();
-        classIDs.push(c[0].classID);
-      }
-      for (var i = 0; i < classIDs.length; i++) {
-        var c = EdminForce.Collections.class.find({
-          _id: classIDs[i]
+        var student = EdminForce.Collections.student.find({
+          _id: c[0].studentID
         }, {}
         ).fetch();
-        classes[c[0].name] = c[0].tuition.money * c[0].numberOfClass
+        if (res[student[0].name] == undefined){
+          res[student[0].name] = {}
+        }
+        var doc = res[student[0].name]
+        var classes = EdminForce.Collections.class.find({
+          _id: c[0].classID
+        }, {}
+        ).fetch();
+        doc[classes[0].name] = classes[0].tuition.money * classes[0].numberOfClass
       }
-      return classes
+      return res
     },
 
     getPaymentConfirmEmailTemplate(data){
@@ -341,36 +344,58 @@
             '<table border=\"1\">',
         ].join('')
         var classes = data.classes
-        for (var name in classes){
-          var line = [
-              '<tr>',
-                '<td>',name,'</td>',
-                '<td>$',classes[name],'</td>',
-              '</tr>',
-          ].join('')
-          tpl = tpl + line
+
+        for (var studentName in classes){
+          var count = 0
+          var l = ""
+          var chosenClass = classes[studentName]
+          for (var name in chosenClass){
+            if(count != 0){
+              var line = [
+                  '<tr>',
+                    '<td>',name,'</td>',
+                    '<td>$',chosenClass[name],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            } else {
+              var line = [
+                    '<td>',name,'</td>',
+                    '<td>$',chosenClass[name],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            }
+            count ++
+          }
+          var fCol = [
+                '<tr>',
+                  '<td rowspan=',count,'>',studentName,'</td>',
+            ].join('')
+            tpl = tpl + fCol + l
         }
+
         if (data.couponDiscount != 0){
           tpl = tpl + [
               '<tr>',
-                '<td>Discount</td>',
+                '<td colspan=\"2\">Discount</td>',
                 '<td>$',data.couponDiscount,'</td>',
               '</tr>',].join('')
         }
         if (data.registrationFee != 0){
           tpl = tpl + [
               '<tr>',
-                '<td>Registration</td>',
+                '<td colspan=\"2\">Registration</td>',
                 '<td>$',data.registrationFee,'</td>',
               '</tr>',].join('')
         }
         tpl = tpl + [
               '<tr>',
-                '<td>Credit Process Fee</td>',
+                '<td colspan=\"2\">Credit Process Fee</td>',
                 '<td>$',data.processFee,'</td>',
               '</tr>',
               '<tr>',
-                '<td>Class Total</td>',
+                '<td colspan=\"2\">Class Total</td>',
                 '<td>$',data.total,'</td>',
               '</tr>',
 
@@ -385,8 +410,6 @@
 
         
     },
-
-
 
   render() {
     var inputTheme = "small-label"
