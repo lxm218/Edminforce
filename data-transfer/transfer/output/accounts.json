@@ -194,22 +194,6 @@
   {
     "emails": [
       {
-        "address": "",
-        "verified": false
-      }
-    ],
-    "username": "",
-    "role": "user",
-    "services": {
-      "password": {
-        "bcrypt": "$2a$10$JxR7RAR6uHArlUx0CowVxO1nPUZIWSuS4Qxp/Cm9LNC73KzjQzjSm"
-      }
-    },
-    "_id": ""
-  },
-  {
-    "emails": [
-      {
         "address": "jennyqw@gmail.com",
         "verified": false
       }

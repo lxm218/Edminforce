@@ -1,31 +1,31 @@
 [
   {
     "name": "Beginning",
-    "description": "",
+    "description": "Need to add",
     "availableTrial": true,
     "_id": "beginning"
   },
   {
     "name": "Digital",
-    "description": "",
+    "description": "Need to add",
     "availableTrial": true,
     "_id": "digital"
   },
   {
     "name": "Intermediate",
-    "description": "",
+    "description": "Need to add",
     "availableTrial": true,
     "_id": "intermediate"
   },
   {
     "name": "Pre/ Advanced",
-    "description": "",
+    "description": "Need to add",
     "availableTrial": true,
     "_id": "pre_advanced"
   },
   {
     "name": "Pre-AP/ AP",
-    "description": "",
+    "description": "Need to add",
     "availableTrial": true,
     "_id": "pre_ap_ap"
   }

@@ -5,6 +5,7 @@ let jsonfile = require('jsonfile');
 let fs = require('fs');
 let Q = require('q');
 let _ = require('lodash');
+let outPutFolder = "../update/private";
 
 var adminUser = {
     "email": "admin@classforth.com",
@@ -92,7 +93,7 @@ var session = {
 
 var program = {
     name:"",
-    description: '',
+    description: 'Need to add',
     availableTrial: true
 };
 
@@ -125,14 +126,17 @@ var classData = {
 
 
 function am_pm_to_hours(time) {
-
+    if(!time){
+        console.error("time not exist");
+        return null;
+    }
     var hours = Number(time.match(/^(\d+)/)[1]);
     var minutes = Number(time.match(/:(\d+)/)[1]);
     var AMPM = time.match(/([ampm]*)$/)[1];
 
-    //console.log(AMPM);
-    //console.log(hours);
-    //console.log(minutes);
+    console.log(AMPM);
+    console.log(hours);
+    console.log(minutes);
 
     // If AMPM exist
     if(AMPM){
@@ -193,6 +197,10 @@ function getPhoneNumber(phone){
     return phone.replace(/[^\d]*/g, function(){return ''})
 }
 
+function getClassStudentID(classID, studentID){
+    return _.snakeCase(classID+"_"+studentID);
+}
+
 function insertToArray(array, data){
     // Make sure don't have duplicate data
 
@@ -249,15 +257,15 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
 
     }
 
-    jsonfile.writeFile('output/programs.json', programs, {spaces: 2}, function (err) {
+    jsonfile.writeFile(outPutFolder+'/programs.json', programs, {spaces: 2}, function (err) {
         console.error(err);
     });
 
-    jsonfile.writeFile('output/classes.json', classes, {spaces: 2}, function (err) {
+    jsonfile.writeFile(outPutFolder+'/classes.json', classes, {spaces: 2}, function (err) {
         console.error(err);
     });
 
-    jsonfile.writeFile('output/sessions.json', sessions, {spaces: 2}, function (err) {
+    jsonfile.writeFile(outPutFolder+'/sessions.json', sessions, {spaces: 2}, function (err) {
         console.error(err);
     });
 
@@ -277,6 +285,10 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
             console.log(data);
         }
 
+        if(!data[7]||!data[1]){
+            continue;
+        }
+
         let nUser = _.cloneDeep(user);
         nUser._id = getUserID(data[7]);
         nUser.emails[0].address = data[7];
@@ -285,7 +297,7 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
 
         let nCustomer = _.cloneDeep(customer);
         nCustomer._id = getUserID(data[7]);
-        nCustomer.name = "";
+        nCustomer.name = data[7];
         nCustomer.email = data[7];
         nCustomer.phone = getPhoneNumber(data[4]);
         insertToArray(customers, nCustomer);
@@ -294,21 +306,30 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
         nStudent._id = getStudentID(nUser._id, data[1]);
         nStudent.name = data[1];
         nStudent.accountID = nUser._id;
-        nStudent.profile.gender = data[2];
-        nStudent.profile.birthday = new Date(data[3]);
+        nStudent.profile.gender = _.capitalize(data[2]);
+        nStudent.profile.birthday = data[3]?new Date(data[3]):new Date();
         insertToArray(students, nStudent);
+
+        let nClassStudent = _.cloneDeep(classStudent);
+        nClassStudent.accountID = nUser._id;
+        nClassStudent.classID = getClassID(data[9], data[10], data[11], data[12], data[13]);
+        nClassStudent.programID = getProgramID(data[9]);
+        nClassStudent.studentID = nStudent._id;
+        nClassStudent._id=getClassStudentID(nClassStudent.classID,nClassStudent.studentID);
+        insertToArray(classStudents, nClassStudent);
 
     }
 
-    jsonfile.writeFile('output/accounts.json', accounts, {spaces: 2}, function (err) {
+    jsonfile.writeFile(outPutFolder+'/accounts.json', accounts, {spaces: 2}, function (err) {
         console.error(err);
     });
-    jsonfile.writeFile('output/customers.json', customers, {spaces: 2}, function (err) {
+    jsonfile.writeFile(outPutFolder+'/customers.json', customers, {spaces: 2}, function (err) {
         console.error(err);
     });
-    jsonfile.writeFile('output/students.json', students, {spaces: 2}, function (err) {
+    jsonfile.writeFile(outPutFolder+'/students.json', students, {spaces: 2}, function (err) {
         console.error(err);
     });
-
-
+    jsonfile.writeFile(outPutFolder+'/classStudents.json', classStudents, {spaces: 2}, function (err) {
+        console.error(err);
+    });
 });
