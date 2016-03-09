@@ -30,7 +30,8 @@ let ClassStudent = class extends Base{
         let one = this._db.findOne({
             classID : param.classID,
             studentID : param.studentID,
-            type : {'$in':['register', 'wait']}
+            type : {'$in':['register', 'wait']},
+            status : 'checkouted'
         });
 
         return !!one;

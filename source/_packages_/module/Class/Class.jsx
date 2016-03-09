@@ -496,7 +496,8 @@ let Class = class extends Base{
                 }).maxStudent;
                 let nn = m.ClassStudent.getDB().find({
                     classID : classID,
-                    type : 'register'
+                    type : 'register',
+                    status : 'checkouted'
                 }).count();
 
                 if((nn+1) > max){
