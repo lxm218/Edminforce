@@ -28,10 +28,35 @@ if (Meteor.isServer) {
         Meteor.users.insert(item);
       });
 
+      Meteor.users.insert({
+        email : 'admin@classforth.com',
+        password : 'admin',
+        nickName : 'ClassForth Administrator',
+        role : 'admin'
+      });
+
       customer.remove({});
       customersData.forEach(function (item, i, a) {
         customer.insert(item);
       });
+
+      //customer.insert({
+      //  "email": "admin@classforth.com",
+      //  "nickName": "ClassForth Administrator",
+      //  "role": "admin",
+      //  "school": {
+      //    "name": "Test School",
+      //    "email": "test@school.com",
+      //    "phone": "5101234567",
+      //    "address": "XXXX",
+      //    "city": "Fremont",
+      //    "state": "CA",
+      //    "zipcode": "94537"
+      //  },
+      //  "title": "Administrator",
+      //  "status": "active",
+      //  "gender": "Male"
+      //});
 
       program.remove({});
       programsData.forEach(function (item, i, a) {
