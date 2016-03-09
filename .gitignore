@@ -4,5 +4,5 @@
 node_modules
 source/admin-base/client/css/.sass-cache
 source/mobile-base/data
-
+source/_packages_/ihealth-framework-ui
 
