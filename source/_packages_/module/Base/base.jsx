@@ -218,7 +218,7 @@ console.log('['+this._name+':'+methodName+' call]');
             opts = _.extend({
                 query : {},
                 sort : {},
-                pageSize : 100,
+                pageSize : 999,
                 pageNum : 1,
                 field : null
             }, opts||{});
