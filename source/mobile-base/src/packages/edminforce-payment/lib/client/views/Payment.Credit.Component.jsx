@@ -105,6 +105,11 @@
     if(cardNumber.length != 16){
       message.push("Credit Card Length Error; ")
     }
+    if (cardNumber.length > 2){
+        if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
+          message.push("American Express Is Not Supported; ")
+        }     
+      }
 
     var patt = /[0-9]{2}\/[0-9]{2}/
 
@@ -224,9 +229,20 @@
       var ccv = this.refs.paymentForm.getFormData().ccv
       var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
       var expirationDate = this.refs.paymentForm.getFormData().expirationDate
+      var message = []
       if (cardNumber.length > 16){
+        message.push("Credit Card Length Error; ")
+      }
+
+      if (cardNumber.length > 2){
+        if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
+          message.push("American Express Is Not Supported; ")
+        }     
+      }
+
+      if (message.length != 0) {
         this.setState({
-              msg: "Credit Card Length Error"
+              msg: message
             })
       }
     },
@@ -238,6 +254,11 @@
       var message = []
       if(cardNumber.length != 16){
         message.push("Credit Card Length Error; ")
+      }
+      if (cardNumber.length > 2){
+        if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
+          message.push("American Express Is Not Supported; ")
+        }     
       }
 
       if (expirationDate.length > 5){
@@ -259,6 +280,11 @@
       var message = []
       if(cardNumber.length != 16){
         message.push("Credit Card Length Error; ")
+      }
+      if (cardNumber.length > 2){
+        if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
+          message.push("American Express Is Not Supported; ")
+        }     
       }
 
       var patt = /[0-9]{2}\/[0-9]{2}/
