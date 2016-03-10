@@ -77,7 +77,7 @@ ClassCollection = class ClassCollection extends BaseCollection {
                 type: new SimpleSchema({
                     type : {
                         type: String,
-                        allowedValues : ['each', 'total']
+                        allowedValues : ['class', 'session']
                     },
                     money : {
                         type: String,

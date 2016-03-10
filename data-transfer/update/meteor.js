@@ -10,6 +10,7 @@ if (Meteor.isServer) {
 
     let session = EdminForce.Collections.session;
     let student = EdminForce.Collections.student;
+    let adminUserCollection = new Mongo.Collection("EF-AdminUser");
 
 
     var accountsData = JSON.parse(Assets.getText('accounts.json'));
@@ -19,6 +20,7 @@ if (Meteor.isServer) {
     let programsData = JSON.parse(Assets.getText('programs.json'));
     let sessionsData = JSON.parse(Assets.getText('sessions.json'));
     let studentsData = JSON.parse(Assets.getText('students.json'));
+    let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
 
 
     function resetData() {
@@ -67,30 +69,10 @@ if (Meteor.isServer) {
         classCollection.insert(item);
       });
 
-      let adminCustomer = {
-        "name": "admin@classforth.com",
-        "email": "admin@classforth.com",
-        "phone": "",
-        "status": "Active",
-        "nickName" : 'ClassForth Administrator',
-        "_id": "admin_classforth_com"
-      }
-
-      let data = {
-        "_id": "admin_classforth_com",
-        email : 'admin@classforth.com',
-        password : 'admin',
-        nickName : 'ClassForth Administrator',
-        role : 'admin'
-      };
-
-      let adminUserCollection = new Mongo.Collection("EF-AdminUser");
-      adminUserCollection.insert(data, function(err){
-        if(err){
-          console.error(err);
-        }
-      })
-
+      adminUserCollection.remove({});
+      adminUsers.forEach(function (item, i, a) {
+        adminUserCollection.insert(item);
+      });
 
     }
 

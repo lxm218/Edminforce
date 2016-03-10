@@ -4,10 +4,11 @@ Schema = {};
 Schema.StudentProfile = {
     birthday : KG.schema.default({
         type : Date,
-        optional : true
+        optional: true
     }),
     gender : KG.schema.default({
-        allowedValues: ['Male', 'Female']
+        allowedValues: ['Male', 'Female'],
+        optional: true
     })
 
 };

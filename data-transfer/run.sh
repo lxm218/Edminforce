@@ -8,8 +8,8 @@ PORT=4000
 
 # local db
 export MONGO_URL=mongodb://localhost:27017/EdminForce
-# online db
-#export MONGO_URL=mongodb://aws-us-east-1-portal.2.dblayer.com:11119/admin
+# Prod DB
+#export MONGO_URL=mongodb://admin.classforth.com:27017/EdminForce
 
 #=====================
 #transfer data

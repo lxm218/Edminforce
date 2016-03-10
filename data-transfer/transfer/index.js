@@ -7,33 +7,52 @@ let Q = require('q');
 let _ = require('lodash');
 let outPutFolder = "../update/private";
 
-let adminUser = {
-    "_id": "admin_classforth_com",
-    emails: [
-        {
-            address: "admin@classforth.com",
-            verified: false
-        }
-    ],
-    "nickName" : 'ClassForth Administrator',
-    username: 'admin@classforth.com',
-    role: "admin",
-
-    //password
-    services: {
+let admin = {
+    "services": {
         "password": {//admin
             "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
         }
-    }
+    },
+    "username": "admin@classforth.com",
+    "emails": [
+        {
+            "address": "admin@classforth.com",
+            "verified": false
+        }
+    ],
+    "role": "admin"
 };
 
-let adminCustomer = {
-    "name": "admin@classforth.com",
-    "email": "admin@classforth.com",
-    "phone": "",
-    "status": "Active",
-    "nickName" : 'ClassForth Administrator',
-    "_id": "admin_classforth_com"
+let adminUser = {
+    "_id": "admin_classforth_com",
+    email : 'admin@classforth.com',
+    password : 'admin',
+    nickName : 'ClassForth Administrator',
+    role : 'admin'
+};
+
+let teacherUser = {
+    "services": {
+        "password": {//admin
+            "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+        }
+    },
+    "username": "",
+    "emails": [
+        {
+            "address": "",
+            "verified": false
+        }
+    ],
+    "role": "admin"
+};
+
+let tacherAdminUser = {
+    "nickName": "",
+    "email": "",
+    "role": "teacher",
+    "supervisor": "teacher",
+    "title": "Administrator"
 };
 
 var user = {
@@ -118,7 +137,7 @@ var classData = {
     },
 
     tuition: {
-        type: "",
+        type: "class",
         money: ""
     },
     maxStudent: 10,
@@ -222,6 +241,10 @@ function getUserID(name){
     return _.snakeCase(name);
 }
 
+function getTeacherID(email){
+    return _.snakeCase(email);
+}
+
 function getStudentID(userID, name){
     return _.snakeCase(userID+"_"+name);
 }
@@ -246,6 +269,16 @@ function insertToArray(array, data){
         array.push(data);
     }
 }
+
+let programPrices = {
+
+};
+programPrices[getProgramID("Beginning")] = 25;
+programPrices[getProgramID("Intermediate")] = 30;
+programPrices[getProgramID("Pre/Advanced")] = 30;
+programPrices[getProgramID("Pre-AP/AP")] = 40;
+programPrices[getProgramID("Digital")] = 40;
+
 
 excel('data/cca/cca-class.xlsx', function (err, datas) {
 //excel('data/example-of-class.xlsx', function (err, datas) {
@@ -284,8 +317,7 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
         nClass.teacher = data[2];
         nClass.schedule.day = data[3];
         nClass.schedule.time = hours_am_pm(data[4]);
-        nClass.tuition.type = "total";
-        nClass.tuition.money = "100";
+        nClass.tuition.money = programPrices[nProgram._id];
         nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
         insertToArray(classes, nClass);
 
@@ -318,13 +350,31 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
     let accounts = [];
     let customers = [];
     let students = [];
+    let adminUsers = [];
+
+    // Add admin
+    accounts.push(admin);
+    adminUsers.push(adminUser);
 
     for(let i=2; i<datas.length; i++){
         let data = datas[i];
 
-        if(!data[7]||!data[1]){
+        if(!data[7]){
             continue;
         }
+
+        let nTeacherUser = _.cloneDeep(teacherUser);
+        nTeacherUser.emails[0].address = _.camelCase(data[11])+"@classforth.com";
+        nTeacherUser.username = nTeacherUser.emails[0].address;
+        nTeacherUser._id = getTeacherID(nTeacherUser.emails[0].address);
+        insertToArray(accounts, nTeacherUser);
+
+        let nTacherAdminUser = _.cloneDeep(tacherAdminUser);
+        nTacherAdminUser.nickName = data[11];
+        nTacherAdminUser.email = _.camelCase(data[11])+"@classforth.com";
+        nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
+        insertToArray(adminUsers, nTacherAdminUser);
+
 
         let nUser = _.cloneDeep(user);
         nUser._id = getUserID(data[7]);
@@ -341,10 +391,14 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
 
         let nStudent = _.cloneDeep(student);
         nStudent._id = getStudentID(nUser._id, data[1]);
-        nStudent.name = data[1];
+        nStudent.name = data[1]||data[7];
         nStudent.accountID = nUser._id;
-        nStudent.profile.gender = _.capitalize(data[2]);
-        nStudent.profile.birthday = data[3]?new Date(data[3]):new Date();
+        if(data[2]){
+            nStudent.profile.gender = _.capitalize(data[2]);
+        }
+        if(data[3]){
+            nStudent.profile.birthday = new Date(data[3]);
+        }
         insertToArray(students, nStudent);
 
         let nClassStudent = _.cloneDeep(classStudent);
@@ -357,10 +411,13 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
 
     }
 
-    accounts.push(adminUser);
-    //customers.push(adminCustomer);
 
     jsonfile.writeFile(outPutFolder+'/accounts.json', accounts, {spaces: 2}, function (err) {
+        if(err){
+            console.error(err);
+        }
+    });
+    jsonfile.writeFile(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2}, function (err) {
         if(err){
             console.error(err);
         }
