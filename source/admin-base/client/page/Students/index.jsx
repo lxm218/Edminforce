@@ -202,7 +202,7 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         //TODO input to Student module
         let query = {};
         if(sname.getValue()){
-            query.nickName = new RegExp(sname.getValue(), 'i');
+            query.name = new RegExp(sname.getValue(), 'i');
         }
         if(sa.getValue){
             query.status = sa.getValue();
