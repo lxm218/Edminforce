@@ -176,7 +176,7 @@
                     let bNoneBooked = this.isNewUser();
 
                     // coupon not valid for none booked user, but currently user is none booked
-                    if (!coupon.validForNoBooked && bNoneBooked) {
+                    if (coupon.validForNoBooked && !bNoneBooked) {
                         bValidCoupon = false;
                         alert("This coupon only for the user who booked class before!");
                         return;
