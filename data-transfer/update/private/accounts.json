@@ -1,5 +1,36 @@
 [
   {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "admin@classforth.com",
+    "emails": [
+      {
+        "address": "admin@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "rachel@classforth.com",
+    "emails": [
+      {
+        "address": "rachel@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "rachel_classforth_com"
+  },
+  {
     "emails": [
       {
         "address": "sarwatamina@gmail.com",
@@ -178,22 +209,6 @@
   {
     "emails": [
       {
-        "address": "luomaggie@gmail.com",
-        "verified": false
-      }
-    ],
-    "username": "luomaggie@gmail.com",
-    "role": "user",
-    "services": {
-      "password": {
-        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
-      }
-    },
-    "_id": "luomaggie_gmail_com"
-  },
-  {
-    "emails": [
-      {
         "address": "jennyqw@gmail.com",
         "verified": false
       }
@@ -302,6 +317,22 @@
       }
     },
     "_id": "fergusonk_esuhsd_org"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "amanda@classforth.com",
+    "emails": [
+      {
+        "address": "amanda@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "amanda_classforth_com"
   },
   {
     "emails": [
@@ -464,20 +495,20 @@
     "_id": "toralskale_yahoo_com"
   },
   {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "eli@classforth.com",
     "emails": [
       {
-        "address": "jdkora@gmail.com",
+        "address": "eli@classforth.com",
         "verified": false
       }
     ],
-    "username": "jdkora@gmail.com",
-    "role": "user",
-    "services": {
-      "password": {
-        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
-      }
-    },
-    "_id": "jdkora_gmail_com"
+    "role": "admin",
+    "_id": "eli_classforth_com"
   },
   {
     "emails": [
@@ -864,6 +895,22 @@
     "_id": "eshankys_yahoo_com"
   },
   {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "cynthia@classforth.com",
+    "emails": [
+      {
+        "address": "cynthia@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "cynthia_classforth_com"
+  },
+  {
     "emails": [
       {
         "address": "nkimjj@hotmail.com",
@@ -974,6 +1021,22 @@
       }
     },
     "_id": "serenadun_gmail_com"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "robbie@classforth.com",
+    "emails": [
+      {
+        "address": "robbie@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "robbie_classforth_com"
   },
   {
     "emails": [
@@ -2194,6 +2257,22 @@
   {
     "emails": [
       {
+        "address": "fpeng01@gmail.com",
+        "verified": false
+      }
+    ],
+    "username": "fpeng01@gmail.com",
+    "role": "user",
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
+      }
+    },
+    "_id": "fpeng_01_gmail_com"
+  },
+  {
+    "emails": [
+      {
         "address": "simikmathew@gmail.com",
         "verified": false
       }
@@ -2270,6 +2349,22 @@
       }
     },
     "_id": "srividhya_sheaas_gmail_com"
+  },
+  {
+    "emails": [
+      {
+        "address": "Hanbo6616@hotmail.com",
+        "verified": false
+      }
+    ],
+    "username": "Hanbo6616@hotmail.com",
+    "role": "user",
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
+      }
+    },
+    "_id": "hanbo_6616_hotmail_com"
   },
   {
     "emails": [
@@ -2446,6 +2541,22 @@
       }
     },
     "_id": "amritak_24_yahoo_com"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "mei@classforth.com",
+    "emails": [
+      {
+        "address": "mei@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "mei_classforth_com"
   },
   {
     "emails": [
@@ -2766,22 +2877,6 @@
       }
     },
     "_id": "liuxh_28_hotmail_com"
-  },
-  {
-    "emails": [
-      {
-        "address": "fpeng01@gmail.com",
-        "verified": false
-      }
-    ],
-    "username": "fpeng01@gmail.com",
-    "role": "user",
-    "services": {
-      "password": {
-        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
-      }
-    },
-    "_id": "fpeng_01_gmail_com"
   },
   {
     "emails": [
@@ -3534,6 +3629,22 @@
       }
     },
     "_id": "xiaobinzhu_2007_gmail_com"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "kit@classforth.com",
+    "emails": [
+      {
+        "address": "kit@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "kit_classforth_com"
   },
   {
     "emails": [
@@ -4878,38 +4989,5 @@
       }
     },
     "_id": "mhafra_yahoo_com"
-  },
-  {
-    "emails": [
-      {
-        "address": "vanisreet@yahoo.com",
-        "verified": false
-      }
-    ],
-    "username": "vanisreet@yahoo.com",
-    "role": "user",
-    "services": {
-      "password": {
-        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
-      }
-    },
-    "_id": "vanisreet_yahoo_com"
-  },
-  {
-    "_id": "admin_classforth_com",
-    "emails": [
-      {
-        "address": "admin@classforth.com",
-        "verified": false
-      }
-    ],
-    "nickName": "ClassForth Administrator",
-    "username": "admin@classforth.com",
-    "role": "admin",
-    "services": {
-      "password": {
-        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
-      }
-    }
   }
 ]

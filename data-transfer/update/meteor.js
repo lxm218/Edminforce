@@ -10,6 +10,7 @@ if (Meteor.isServer) {
 
     let session = EdminForce.Collections.session;
     let student = EdminForce.Collections.student;
+    let adminUserCollection = new Mongo.Collection("EF-AdminUser");
 
 
     var accountsData = JSON.parse(Assets.getText('accounts.json'));
@@ -19,12 +20,95 @@ if (Meteor.isServer) {
     let programsData = JSON.parse(Assets.getText('programs.json'));
     let sessionsData = JSON.parse(Assets.getText('sessions.json'));
     let studentsData = JSON.parse(Assets.getText('students.json'));
+    let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
+
+
+
+    var delay = 500;
+    function insertData(name, data, db, check, callback){
+      check = check || function(d){
+            return d;
+          };
+      db.remove({});
+      console.log('---- '+ name + ' is start ----');
+      var len = data.length;
+
+      var loop = function(x){
+        if(x<len){
+          var td = check(data[x]);
+
+          if(td){
+            console.log(td);
+            db.insert(td);
+          }
+
+          Meteor.setTimeout(function(){
+            var t = x+1;
+            loop(t);
+          }, delay);
+
+        }
+        else{
+          callback();
+        }
+      };
+
+      loop(0);
+    }
+
+    var F = {
+      program : function(){
+        insertData('Program', programsData, program, null, F.session);
+      },
+      session : function(){
+        insertData('Session', sessionsData, session, null, F.account);
+      },
+      account : function(){
+        insertData('Account', accountsData, Meteor.users, null, F.customer);
+      },
+      customer : function(){
+        insertData('Customer', customersData, customer, null, F.adminuser);
+      },
+      adminuser : function(){
+        insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
+      },
+      classes : function(){
+        insertData('Class', classesData, classCollection, null, F.student);
+      },
+      student : function(){
+        insertData('Student', studentsData, student, function(item){
+          if (!item || !item.profile || !item.profile.gender) {
+            return null;
+          }
+          return item;
+        }, F.classstudent);
+      },
+      classstudent : function(){
+        insertData('ClassStudent', classStudentsData, classStudent, function(item){
+          if (!item.accountID || !item.classID || !item.programID || !item.studentID) {
+            return null;
+          }
+          return item;
+        }, function(){});
+      }
+    };
+
+    F.program();
 
 
     function resetData() {
 
+
+
+      program.remove({});
+      programsData.forEach(function (item, i, a) {
+        console.log(item);
+        program.insert(item);
+      });
+
       Meteor.users.remove({});
       accountsData.forEach(function (item, i, a) {
+        console.log(item);
         Meteor.users.insert(item);
       });
 
@@ -33,12 +117,8 @@ if (Meteor.isServer) {
         customer.insert(item);
       });
 
-      program.remove({});
-      programsData.forEach(function (item, i, a) {
-        program.insert(item);
-      });
-
       classStudent.remove({});
+
       classStudentsData.forEach(function (item, i, a) {
         if (!item.accountID || !item.classID || !item.programID || !item.studentID) {
 
@@ -55,7 +135,8 @@ if (Meteor.isServer) {
 
       student.remove({});
       studentsData.forEach(function (item, i, a) {
-        if (!item || !item.profile || !item.profile.gender || !item.profile.birthday) {
+        //if (!item || !item.profile || !item.profile.gender || !item.profile.birthday) {
+        if (!item || !item.profile || !item.profile.gender) {
 
         } else {
           student.insert(item);
@@ -67,34 +148,14 @@ if (Meteor.isServer) {
         classCollection.insert(item);
       });
 
-      let adminCustomer = {
-        "name": "admin@classforth.com",
-        "email": "admin@classforth.com",
-        "phone": "",
-        "status": "Active",
-        "nickName" : 'ClassForth Administrator',
-        "_id": "admin_classforth_com"
-      }
-
-      let data = {
-        "_id": "admin_classforth_com",
-        email : 'admin@classforth.com',
-        password : 'admin',
-        nickName : 'ClassForth Administrator',
-        role : 'admin'
-      };
-
-      let adminUserCollection = new Mongo.Collection("EF-AdminUser");
-      adminUserCollection.insert(data, function(err){
-        if(err){
-          console.error(err);
-        }
-      })
-
+      adminUserCollection.remove({});
+      adminUsers.forEach(function (item, i, a) {
+        adminUserCollection.insert(item);
+      });
 
     }
 
-    resetData();
+    //resetData();
 
   });
 }

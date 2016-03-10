@@ -35,11 +35,13 @@ StudentCollection = class StudentCollection extends BaseCollection {
             profile: {
                 type: new SimpleSchema({
                     birthday: {
-                        type: Date
+                        type: Date,
+                        optional: true
                     },
                     gender: {
                         type: String,
-                        allowedValues: ["Male", "Female"]
+                        allowedValues: ["Male", "Female"],
+                        optional: true
                     }
                 })
             },

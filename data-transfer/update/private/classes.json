@@ -11,8 +11,8 @@
       "time": "03:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -34,8 +34,8 @@
       "time": "05:15 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -57,8 +57,8 @@
       "time": "03:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -80,8 +80,8 @@
       "time": "09:00 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -103,8 +103,8 @@
       "time": "10:15 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -126,8 +126,8 @@
       "time": "11:30 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -149,8 +149,8 @@
       "time": "01:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -172,8 +172,8 @@
       "time": "02:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -195,8 +195,8 @@
       "time": "04:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -218,8 +218,8 @@
       "time": "05:15 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -241,8 +241,8 @@
       "time": "03:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -264,8 +264,8 @@
       "time": "05:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -287,8 +287,8 @@
       "time": "09:00 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -310,8 +310,8 @@
       "time": "10:15 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -333,8 +333,8 @@
       "time": "11:30 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -356,8 +356,8 @@
       "time": "01:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -379,8 +379,8 @@
       "time": "02:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -402,8 +402,8 @@
       "time": "04:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 25
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -425,8 +425,8 @@
       "time": "06:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 40
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -448,8 +448,8 @@
       "time": "03:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -471,8 +471,8 @@
       "time": "03:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -494,8 +494,8 @@
       "time": "04:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -517,8 +517,8 @@
       "time": "05:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -540,8 +540,8 @@
       "time": "03:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -563,8 +563,8 @@
       "time": "03:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -586,8 +586,8 @@
       "time": "05:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -609,8 +609,8 @@
       "time": "09:00 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -632,8 +632,8 @@
       "time": "09:00 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -655,8 +655,8 @@
       "time": "01:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -678,8 +678,8 @@
       "time": "01:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -701,8 +701,8 @@
       "time": "03:15 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -724,8 +724,8 @@
       "time": "05:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -747,8 +747,8 @@
       "time": "05:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -770,8 +770,8 @@
       "time": "03:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -793,8 +793,8 @@
       "time": "08:45 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -816,8 +816,8 @@
       "time": "10:30 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -839,8 +839,8 @@
       "time": "01:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -862,8 +862,8 @@
       "time": "01:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -885,8 +885,8 @@
       "time": "02:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -908,8 +908,8 @@
       "time": "04:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -931,8 +931,8 @@
       "time": "03:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -954,8 +954,8 @@
       "time": "05:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -977,8 +977,8 @@
       "time": "10:45 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1000,8 +1000,8 @@
       "time": "10:45 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1023,8 +1023,8 @@
       "time": "03:15 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1046,8 +1046,8 @@
       "time": "10:30 am"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1069,8 +1069,8 @@
       "time": "02:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 30
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1092,8 +1092,8 @@
       "time": "06:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 40
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1115,8 +1115,8 @@
       "time": "01:30 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 40
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1138,8 +1138,8 @@
       "time": "03:45 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 40
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1161,8 +1161,8 @@
       "time": "01:00 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 40
     },
     "maxStudent": 10,
     "minStudent": 0,
@@ -1184,8 +1184,8 @@
       "time": "03:15 pm"
     },
     "tuition": {
-      "type": "total",
-      "money": "100"
+      "type": "class",
+      "money": 40
     },
     "maxStudent": 10,
     "minStudent": 0,
