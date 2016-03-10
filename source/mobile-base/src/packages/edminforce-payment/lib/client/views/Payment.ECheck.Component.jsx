@@ -65,16 +65,16 @@
                 "customer": {
                     "id": "99999456656"
                 },
-                "billTo": {
-                    "firstName": "Ellen",
-                    "lastName": "Johnson",
-                    "company": "Souveniropolis",
-                    "address": "14 Main Street",
-                    "city": "Pecan Springs",
-                    "state": "TX",
-                    "zip": "44628",
-                    "country": "USA"
-                },
+                // "billTo": {
+                //     "firstName": "Ellen",
+                //     "lastName": "Johnson",
+                //     "company": "Souveniropolis",
+                //     "address": "14 Main Street",
+                //     "city": "Pecan Springs",
+                //     "state": "TX",
+                //     "zip": "44628",
+                //     "country": "USA"
+                // },
                 
                 "customerIP": "192.168.1.1",
                 "transactionSettings": {
@@ -119,6 +119,7 @@
     }
     var data = this.prepareConfirmationEmail()
     let html = this.getPaymentConfirmEmailTemplate(data);
+    debugger
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
@@ -270,6 +271,7 @@
     },
 
     prepareConfirmationEmail(){
+      debugger
       var o = this.data.order[0]
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
@@ -299,6 +301,7 @@
     getAllClasses(classStudentIDs){
       var res = {}
       for (var i = 0; i < classStudentIDs.length; i++) {
+        debugger
         var c = EdminForce.Collections.classStudent.find({
           _id: classStudentIDs[i]
         }, {}
@@ -321,6 +324,7 @@
     },
 
     getPaymentConfirmEmailTemplate(data){
+      debugger
         let school={
           "name" : "CalColor Academy"
         }

@@ -144,7 +144,7 @@
 
     var data = this.prepareConfirmationEmail()
     let html = this.getPaymentConfirmEmailTemplate(data);
-    
+    debugger
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     let amt = Number(o[0].amount) * 1.03
@@ -315,6 +315,7 @@
     },
 
     prepareConfirmationEmail(){
+      debugger
       var o = this.data.order[0]
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
@@ -344,6 +345,7 @@
     getAllClasses(classStudentIDs){
       var res = {}
       for (var i = 0; i < classStudentIDs.length; i++) {
+        debugger
         var c = EdminForce.Collections.classStudent.find({
           _id: classStudentIDs[i]
         }, {}
@@ -366,6 +368,7 @@
     },
 
     getPaymentConfirmEmailTemplate(data){
+      debugger
         let school={
           "name" : "CalColor Academy"
         }
