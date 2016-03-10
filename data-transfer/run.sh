@@ -7,17 +7,17 @@ export PACKAGE_DIRS=$MOBILE_BASE_PACKAGES:$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobil
 PORT=4000
 
 # local db
-export MONGO_URL=mongodb://localhost:27017/EdminForce
+#export MONGO_URL=mongodb://localhost:27017/EdminForce
 # Prod DB
-#export MONGO_URL=mongodb://admin.classforth.com:27017/EdminForce
+export MONGO_URL=mongodb://admin.classforth.com:27017/EdminForce
 
 #=====================
 #transfer data
 cd transfer
 #Step 1: install node packages
-npm install
+#npm install
 #Step 2: start transfer process
-node index.js
+#node index.js
 
 #=====================
 #Update MongoDB
