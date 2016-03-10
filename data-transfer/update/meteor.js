@@ -77,6 +77,16 @@ if (Meteor.isServer) {
       },
       student : function(){
         insertData('Student', studentsData, student, function(item){
+          if(!item.profile){
+            item.profile = {};
+          }
+          if(!item.profile.birthday){
+            item.profile.birthday = new Date(1970);
+          }
+          if(!item.profile.gender){
+            item.profile.gender = 'Male';
+          }
+
           if (!item || !item.profile || !item.profile.gender) {
             return null;
           }
