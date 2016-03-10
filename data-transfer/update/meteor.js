@@ -57,7 +57,8 @@ if (Meteor.isServer) {
 
       student.remove({});
       studentsData.forEach(function (item, i, a) {
-        if (!item || !item.profile || !item.profile.gender || !item.profile.birthday) {
+        //if (!item || !item.profile || !item.profile.gender || !item.profile.birthday) {
+        if (!item || !item.profile || !item.profile.gender) {
 
         } else {
           student.insert(item);
