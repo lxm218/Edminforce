@@ -205,7 +205,7 @@ console.log('['+this._name+':'+methodName+' call]');
 
         if(Meteor.isServer){
             Meteor.startup(function(){
-                self.addTestData.call(self);
+                //self.addTestData.call(self);
 
                 self._publishMeteorData.call(self);
             });
