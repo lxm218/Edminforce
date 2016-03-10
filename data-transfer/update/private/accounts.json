@@ -4894,5 +4894,22 @@
       }
     },
     "_id": "vanisreet_yahoo_com"
+  },
+  {
+    "_id": "admin_classforth_com",
+    "emails": [
+      {
+        "address": "admin@classforth.com",
+        "verified": false
+      }
+    ],
+    "nickName": "ClassForth Administrator",
+    "username": "admin@classforth.com",
+    "role": "admin",
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    }
   }
 ]

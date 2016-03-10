@@ -3,33 +3,6 @@ if (Meteor.isServer) {
 
   Meteor.startup(function () {
 
-    let adminUser = {
-      "_id": "admin_classforth.com",
-      emails: [
-        {
-          address: "admin@classforth.com",
-          verified: false
-        }
-      ],
-      username: 'admin@classforth.com',
-      role: "admin",
-
-      //password
-      services: {
-        "password": {//admin
-          "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
-        }
-      }
-    };
-
-    let adminCustomer = {
-      "name": "admin@classforth.com",
-      "email": "admin@classforth.com",
-      "phone": "",
-      "status": "Active",
-      "_id": "admin_classforth.com"
-    };
-
     let classCollection = EdminForce.Collections.class;
     let customer = EdminForce.Collections.Customer;
     let program = EdminForce.Collections.program;
@@ -55,14 +28,10 @@ if (Meteor.isServer) {
         Meteor.users.insert(item);
       });
 
-      Meteor.users.insert(adminUser);
-
       customer.remove({});
       customersData.forEach(function (item, i, a) {
         customer.insert(item);
       });
-
-      customer.insert(adminCustomer);
 
       program.remove({});
       programsData.forEach(function (item, i, a) {
@@ -97,6 +66,30 @@ if (Meteor.isServer) {
       classesData.forEach(function (item, i, a) {
         classCollection.insert(item);
       });
+
+      let adminCustomer = {
+        "name": "admin@classforth.com",
+        "email": "admin@classforth.com",
+        "phone": "",
+        "status": "Active",
+        "nickName" : 'ClassForth Administrator',
+        "_id": "admin_classforth_com"
+      }
+
+      let data = {
+        "_id": "admin_classforth_com",
+        email : 'admin@classforth.com',
+        password : 'admin',
+        nickName : 'ClassForth Administrator',
+        role : 'admin'
+      };
+
+      let adminUserCollection = new Mongo.Collection("EF-AdminUser");
+      adminUserCollection.insert(data, function(err){
+        if(err){
+          console.error(err);
+        }
+      })
 
 
     }

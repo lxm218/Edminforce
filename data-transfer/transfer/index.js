@@ -7,22 +7,33 @@ let Q = require('q');
 let _ = require('lodash');
 let outPutFolder = "../update/private";
 
-var adminUser = {
+let adminUser = {
+    "_id": "admin_classforth_com",
+    emails: [
+        {
+            address: "admin@classforth.com",
+            verified: false
+        }
+    ],
+    "nickName" : 'ClassForth Administrator',
+    username: 'admin@classforth.com',
+    role: "admin",
+
+    //password
+    services: {
+        "password": {//admin
+            "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+        }
+    }
+};
+
+let adminCustomer = {
+    "name": "admin@classforth.com",
     "email": "admin@classforth.com",
-    "nickName": "ClassForth Administrator",
-    "role": "admin",
-    "school": {
-        "name": "Test School",
-        "email": "test@school.com",
-        "phone": "5101234567",
-        "address": "XXXX",
-        "city": "Fremont",
-        "state": "CA",
-        "zipcode": "94537"
-    },
-    "title": "Administrator",
-    "status": "active",
-    "gender": "Male"
+    "phone": "",
+    "status": "Active",
+    "nickName" : 'ClassForth Administrator',
+    "_id": "admin_classforth_com"
 };
 
 var user = {
@@ -186,7 +197,7 @@ function transferDay(day){
         "fri": "friday",
         "sat": "saturday",
         "sun": "sunday"
-    }
+    };
     if(day.toString().length == 3){
         day = dayMap[day.toLowerCase()];
     }
@@ -345,6 +356,9 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
         insertToArray(classStudents, nClassStudent);
 
     }
+
+    accounts.push(adminUser);
+    //customers.push(adminCustomer);
 
     jsonfile.writeFile(outPutFolder+'/accounts.json', accounts, {spaces: 2}, function (err) {
         if(err){
