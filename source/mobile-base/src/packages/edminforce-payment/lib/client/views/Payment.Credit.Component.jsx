@@ -286,7 +286,7 @@
       }
       amt = o[0].amount+0
       amt = amt * 1.03
-      amt = amt.toFixed()
+      amt = amt.toFixed(2)
       return amt
     },
 
@@ -296,7 +296,7 @@
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
       var total = o.amount * 1.03
-      total = total.toFixed()
+      total = total.toFixed(2)
       var processFee = total - o.amount
       if (typeof registrationFee == "undefined"){
         registrationFee = 0

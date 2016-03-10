@@ -117,7 +117,8 @@
         msg: null
       })
     }
-
+    var data = this.prepareConfirmationEmail()
+    let html = this.getPaymentConfirmEmailTemplate(data);
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
@@ -127,7 +128,8 @@
     // paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
     paymentInfo.createTransactionRequest.refId = String(orderID)
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
-    paymentInfo.createTransactionRequest.transactionRequest.amount = String(o[0].amount)
+    var amt = o[0].amount + 0.5
+    paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
@@ -141,16 +143,23 @@
       if (response.data.messages.message[0].code == "I00001") {
         console.log("Success")
         EdminForce.Collections.Customer.updateRegistrationFeeFlagAfterPayment();
-        Meteor.call('sendEmailText',
-                Meteor.user().emails[0].address,
-                'Confirmation',
-                'Thank you for your order.');
+        Meteor.call('sendEmailHtml',
+                  Meteor.user().emails[0].address,
+                  'Thanks for Making Payment',
+                  html, 
+                  function (error, result) { 
+                    if (!!error){
+                      console.log(error)
+                    }
+                    if (!!response){
+                      console.log(response)
+                    } } );
         EdminForce.Collections.orders.update({
             "_id":self.state.orderId
           }, {
             $set:{
               "_id": self.state.orderId,
-              paymentTotal:String(o[0].amount),
+              paymentTotal:amt,
               status:"success"
             }
           }, function(err, res){
@@ -255,8 +264,135 @@
       if (typeof o[0] === "undefined") {
         return amt
       }
-      amt = o[0].amount+0
+      amt = o[0].amount + 0.5
+      amt = amt.toFixed(2)
       return amt
+    },
+
+    prepareConfirmationEmail(){
+      var o = this.data.order[0]
+      var classes = this.getAllClasses(o.details)
+      var registrationFee = o.registrationFee
+      var couponDiscount = o.discount
+      var total = o.amount + 0.5
+      total = total.toFixed(2)
+      var processFee = total - o.amount
+      if (typeof registrationFee == "undefined"){
+        registrationFee = 0
+      }
+      if (typeof couponDiscount == "undefined"){
+        couponDiscount = 0
+      }
+      return {
+        "amount": o.amount,
+        "classes": classes,
+        "registrationFee" : registrationFee,
+        "couponDiscount": couponDiscount,
+        "processFee": processFee,
+        "total": total
+      }
+    },
+
+
+    getAllClasses(classStudentIDs){
+      var res = {}
+      for (var i = 0; i < classStudentIDs.length; i++) {
+        var c = EdminForce.Collections.classStudent.find({
+          _id: classStudentIDs[i]
+        }, {}
+        ).fetch();
+        var student = EdminForce.Collections.student.find({
+          _id: c[0].studentID
+        }, {}
+        ).fetch();
+        if (res[student[0].name] == undefined){
+          res[student[0].name] = {}
+        }
+        var doc = res[student[0].name]
+        var classes = EdminForce.Collections.class.find({
+          _id: c[0].classID
+        }, {}
+        ).fetch();
+        doc[classes[0].name] = classes[0].tuition.money * classes[0].numberOfClass
+      }
+      return res
+    },
+
+    getPaymentConfirmEmailTemplate(data){
+        let school={
+          "name" : "CalColor Academy"
+        }
+        let tpl = [
+            '<h3>Hello</h3>',
+            '<p>Thank for making the payment.</p>',
+            '<table border=\"1\">',
+        ].join('')
+        var classes = data.classes
+
+        for (var studentName in classes){
+          var count = 0
+          var l = ""
+          var chosenClass = classes[studentName]
+          for (var name in chosenClass){
+            if(count != 0){
+              var line = [
+                  '<tr>',
+                    '<td>',name,'</td>',
+                    '<td>$',chosenClass[name],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            } else {
+              var line = [
+                    '<td>',name,'</td>',
+                    '<td>$',chosenClass[name],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            }
+            count ++
+          }
+          var fCol = [
+                '<tr>',
+                  '<td rowspan=',count,'>',studentName,'</td>',
+            ].join('')
+            tpl = tpl + fCol + l
+        }
+
+        if (data.couponDiscount != 0){
+          tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"2\">Discount</td>',
+                '<td>$',data.couponDiscount,'</td>',
+              '</tr>',].join('')
+        }
+        if (data.registrationFee != 0){
+          tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"2\">Registration</td>',
+                '<td>$',data.registrationFee,'</td>',
+              '</tr>',].join('')
+        }
+        tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"2\">ECheck Process Fee</td>',
+                '<td>$',data.processFee,'</td>',
+              '</tr>',
+              '<tr>',
+                '<td colspan=\"2\">Class Total</td>',
+                '<td>$',data.total,'</td>',
+              '</tr>',
+
+            '</table>',
+
+            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+
+            '<br/><br/>',
+            '<b>',school.name,'</b>'
+        ].join('')
+         return tpl
+
+        
     },
 
   render() {
