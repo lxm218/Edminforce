@@ -379,7 +379,7 @@
                 '<td>$',data.processFee,'</td>',
               '</tr>',
               '<tr>',
-                '<td colspan=\"2\">Class Total</td>',
+                '<td colspan=\"2\">Total</td>',
                 '<td>$',data.total,'</td>',
               '</tr>',
 
