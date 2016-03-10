@@ -147,8 +147,7 @@
     
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
-    let amt = o[0].amount+0
-    amt = amt * 1.03
+    let amt = Number(o[0].amount) * 1.03
     amt = amt.toFixed(2)
     paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
     console.log(paymentInfo)
@@ -310,8 +309,7 @@
       if (typeof o[0] === "undefined") {
         return amt
       }
-      amt = o[0].amount+0
-      amt = amt * 1.03
+      amt = Number(o[0].amount) * 1.03
       amt = amt.toFixed(2)
       return amt
     },
@@ -321,9 +319,11 @@
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
-      var total = o.amount * 1.03
+      var amt = Number(o.amount) 
+      var total = amt * 1.03
       total = total.toFixed(2)
-      var processFee = total - o.amount
+      var processFee = total - amt
+      processFee = processFee.toFixed(2)
       if (typeof registrationFee == "undefined"){
         registrationFee = 0
       }
@@ -331,7 +331,7 @@
         couponDiscount = 0
       }
       return {
-        "amount": o.amount,
+        "amount": amt,
         "classes": classes,
         "registrationFee" : registrationFee,
         "couponDiscount": couponDiscount,

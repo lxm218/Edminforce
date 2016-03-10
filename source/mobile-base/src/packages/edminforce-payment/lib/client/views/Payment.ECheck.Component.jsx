@@ -128,7 +128,7 @@
     // paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
     paymentInfo.createTransactionRequest.refId = String(orderID)
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
-    var amt = o[0].amount + 0.5
+    var amt = Number(o[0].amount) + 0.5
     paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -264,7 +264,7 @@
       if (typeof o[0] === "undefined") {
         return amt
       }
-      amt = o[0].amount + 0.5
+      amt = Number(o[0].amount) + 0.5
       amt = amt.toFixed(2)
       return amt
     },
@@ -274,9 +274,11 @@
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
-      var total = o.amount + 0.5
+      var amt = Number(o.amount)
+      var total = amt + 0.5
       total = total.toFixed(2)
-      var processFee = total - o.amount
+      var processFee = total - amt
+      processFee = processFee.toFixed(2)
       if (typeof registrationFee == "undefined"){
         registrationFee = 0
       }
@@ -284,7 +286,7 @@
         couponDiscount = 0
       }
       return {
-        "amount": o.amount,
+        "amount": amt,
         "classes": classes,
         "registrationFee" : registrationFee,
         "couponDiscount": couponDiscount,
