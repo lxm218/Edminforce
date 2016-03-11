@@ -357,10 +357,11 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
     accounts.push(admin);
     adminUsers.push(adminUser);
 
-    for(let i=2; i<datas.length; i++){
+    for(var i=2; i<datas.length; i++){
         let data = datas[i];
 
         if(!data[7]){
+            console.log("Canceled data, ", data);
             continue;
         }
 
@@ -396,9 +397,14 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
         nStudent.accountID = nUser._id;
         if(data[2]){
             nStudent.profile.gender = _.capitalize(data[2]);
+        }else{// Add default value
+            nStudent.profile.gender = "Male";
         }
+
         if(data[3]){
             nStudent.profile.birthday = new Date(data[3]);
+        }else{// Add default value
+            nStudent.profile.birthday = new Date("1900/1/1");
         }
         insertToArray(students, nStudent);
 

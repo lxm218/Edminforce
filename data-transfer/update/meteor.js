@@ -28,7 +28,7 @@ if (Meteor.isServer) {
             return d;
           };
       db.remove({});
-      console.log('---- '+ name + ' is start ----');
+      //console.log('---- '+ name + ' is start ----');
       var len = data.length;
 
       var loop = function(x){
@@ -36,7 +36,7 @@ if (Meteor.isServer) {
           var td = check(data[x]);
 
           if(td){
-            console.log(td);
+            //console.log(td);
             db.insert(td);
           }
 
@@ -54,7 +54,7 @@ if (Meteor.isServer) {
       loop(0);
     }
 
-    function importToProduction(){
+    function importDatas(){
       var F = {
         program : function(){
           insertData('Program', programsData, program, null, F.session);
@@ -80,7 +80,7 @@ if (Meteor.isServer) {
               item.profile = {};
             }
             if(!item.profile.birthday){
-              item.profile.birthday = new Date(1970);
+              item.profile.birthday = new Date(1900);
             }
             if(!item.profile.gender){
               item.profile.gender = 'Male';
@@ -105,70 +105,15 @@ if (Meteor.isServer) {
       F.program();
     }
 
-    function importToLocal() {
-      program.remove({});
-      programsData.forEach(function (item, i, a) {
-        //console.log(item);
-        program.insert(item);
-      });
 
-      Meteor.users.remove({});
-      accountsData.forEach(function (item, i, a) {
-        //console.log(item);
-        Meteor.users.insert(item);
-      });
-
-      customer.remove({});
-      customersData.forEach(function (item, i, a) {
-        customer.insert(item);
-      });
-
-      classStudent.remove({});
-
-      classStudentsData.forEach(function (item, i, a) {
-        if (!item.accountID || !item.classID || !item.programID || !item.studentID) {
-
-        } else {
-          classStudent.insert(item);
-        }
-      });
-
-
-      session.remove({});
-      sessionsData.forEach(function (item, i, a) {
-        session.insert(item);
-      });
-
-      student.remove({});
-      studentsData.forEach(function (item, i, a) {
-        //if (!item || !item.profile || !item.profile.gender || !item.profile.birthday) {
-        if (!item || !item.profile || !item.profile.gender) {
-
-        } else {
-          student.insert(item);
-        }
-      });
-
-      classCollection.remove({});
-      classesData.forEach(function (item, i, a) {
-        classCollection.insert(item);
-      });
-
-      adminUserCollection.remove({});
-      adminUsers.forEach(function (item, i, a) {
-        adminUserCollection.insert(item);
-      });
-
-    }
-
-    let url = process.env.MONGO_URL||"";
+    let url = process.env.MONGO_URL;
     if(url){
       // It is on localhost, don't need to use slow mode
       if(url.search("localhost")!==-1||url.search("127.0.0.1")!==-1){
-        importToLocal();
+        delay = 0;
       }else{ // otherwise it is production mode
-        importToProduction();
       }
+      importDatas();
     }
 
   });
