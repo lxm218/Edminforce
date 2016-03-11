@@ -59,12 +59,12 @@ KG.define('EF-Coupon', class extends Base{
                         return KG.result.out(false, new Meteor.Error('-1', `Coupon code already used`));
                     }
 
-                    one = m.ClassStudent.getDB().find({
+                    let ctp = m.ClassStudent.getDB().find({
                         accountID : opts.accountID,
                         type : 'register',
                         status : {'$in' : ['checkouted', 'checkouting']}
                     }).count();
-                    if(one > 0){
+                    if(ctp > 0){
                         return KG.result.out(false, new Meteor.Error('-1', 'Coupon code can not used because Customer' +
                             ' booked class before'));
                     }

@@ -89,8 +89,9 @@ KUI.Family_add = class extends RC.CSSMeteorData{
         }, function(flag, error){
 
             if(flag){
-                callback();
+
             }
+            callback();
 
         })
     }
