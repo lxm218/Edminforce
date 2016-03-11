@@ -95,10 +95,8 @@ Meteor.startup(function () {
                 },
                 // currently user's students registered which classes
                 {
-                    find: function (student) {
-                        return EdminForce.Collections.classStudent.find({
-                            studentID: student._id
-                        });
+                    find: function () {
+                        return EdminForce.Collections.classStudent.find();
                     }
                 },
 
