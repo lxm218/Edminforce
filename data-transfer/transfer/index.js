@@ -31,6 +31,19 @@ let adminUser = {
     role : 'admin'
 };
 
+let spring_2016_session = {
+    "_id": getSessionID("Spring 2016"),
+    "name": "Spring 2016",
+    "startDate": new Date("2016-04-05"),
+    "endDate": new Date("2016-06-12"),
+    "registrationStartDate": new Date("2016-03-14"),
+    "registrationStatus": "Yes",
+    "blockOutDay": [
+        new Date("2016-05-23")
+    ],
+    "registrationEndDate": new Date("2016-06-11")
+};
+
 let teacherUser = {
     "services": {
         "password": {//admin
@@ -116,6 +129,7 @@ var session = {
     ],
     "registrationEndDate": new Date("2016-06-29T21:00:00-0700")
 };
+
 
 var program = {
     name:"",
@@ -291,6 +305,8 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
     let classes = [];
     let sessions = [];
 
+    insertToArray(sessions, spring_2016_session);
+
     // the first item is title, so skip first item
     for(let i=1; i<datas.length; i++){
         let data = datas[i];
@@ -321,6 +337,12 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
         nClass.tuition.money = programPrices[nProgram._id];
         nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
         insertToArray(classes, nClass);
+
+        // Add all class for Spring 2016
+        let spring2016Class = _.cloneDeep(nClass);
+        spring2016Class._id = getClassID(data[0], spring_2016_session.name, data[2], data[3], data[4]);
+        spring2016Class.sessionID = spring_2016_session._id;
+        insertToArray(classes, spring2016Class);
 
     }
 
@@ -445,3 +467,4 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
         }
     });
 });
+
