@@ -11,6 +11,7 @@ deployAdminBase(){
     sudo mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
+    echo "link : http://staging.admin.classforth.com/home";
 }
 
 deployMobileBase(){
@@ -31,6 +32,7 @@ deployToAdminProduction(){
 	sudo mup setup;
 	sudo ${ADMIN_ENV} mup deploy;
 	cd ../;
+	echo "link : http://admin.classforth.com/home";
 }
 
 case "$1" in
