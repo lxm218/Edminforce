@@ -8,7 +8,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Wed",
-      "time": "03:30 pm"
+      "time": "03:30PM"
     },
     "tuition": {
       "type": "class",
@@ -16,9 +16,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_wednesday_15_30"
   },
@@ -31,7 +33,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Wed",
-      "time": "05:15 pm"
+      "time": "05:15PM"
     },
     "tuition": {
       "type": "class",
@@ -39,9 +41,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_amanda_wednesday_17_15"
   },
@@ -54,7 +58,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Tue",
-      "time": "03:45 pm"
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -62,9 +66,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_tuesday_15_45"
   },
@@ -77,7 +83,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "09:00 am"
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
@@ -85,9 +91,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_cynthia_saturday_09_00"
   },
@@ -100,7 +108,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "10:15 am"
+      "time": "10:15AM"
     },
     "tuition": {
       "type": "class",
@@ -108,9 +116,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_cynthia_saturday_10_15"
   },
@@ -123,7 +133,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "11:30 am"
+      "time": "11:30AM"
     },
     "tuition": {
       "type": "class",
@@ -131,9 +141,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_cynthia_saturday_11_30"
   },
@@ -146,7 +158,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "01:30 pm"
+      "time": "01:30PM"
     },
     "tuition": {
       "type": "class",
@@ -154,9 +166,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_saturday_13_30"
   },
@@ -169,7 +183,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "02:45 pm"
+      "time": "02:45PM"
     },
     "tuition": {
       "type": "class",
@@ -177,9 +191,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_saturday_14_45"
   },
@@ -192,7 +208,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "04:00 pm"
+      "time": "04:00PM"
     },
     "tuition": {
       "type": "class",
@@ -200,9 +216,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_saturday_16_00"
   },
@@ -215,7 +233,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sat",
-      "time": "05:15 pm"
+      "time": "05:15PM"
     },
     "tuition": {
       "type": "class",
@@ -223,9 +241,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_saturday_17_15"
   },
@@ -238,7 +258,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Thu",
-      "time": "03:45 pm"
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -246,9 +266,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_cynthia_thursday_15_45"
   },
@@ -261,7 +283,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Thu",
-      "time": "05:30 pm"
+      "time": "05:30PM"
     },
     "tuition": {
       "type": "class",
@@ -269,9 +291,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_robbie_thursday_17_30"
   },
@@ -284,7 +308,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "09:00 am"
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
@@ -292,9 +316,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_amanda_sunday_09_00"
   },
@@ -307,7 +333,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "10:15 am"
+      "time": "10:15AM"
     },
     "tuition": {
       "type": "class",
@@ -315,9 +341,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_sunday_10_15"
   },
@@ -330,7 +358,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "11:30 am"
+      "time": "11:30AM"
     },
     "tuition": {
       "type": "class",
@@ -338,9 +366,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_sunday_11_30"
   },
@@ -353,7 +383,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "01:30 pm"
+      "time": "01:30PM"
     },
     "tuition": {
       "type": "class",
@@ -361,9 +391,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_sunday_13_30"
   },
@@ -376,7 +408,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "02:45 pm"
+      "time": "02:45PM"
     },
     "tuition": {
       "type": "class",
@@ -384,9 +416,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_amanda_sunday_14_45"
   },
@@ -399,7 +433,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "04:30 pm"
+      "time": "04:30PM"
     },
     "tuition": {
       "type": "class",
@@ -407,9 +441,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "beginning_winter_2016_rachel_sunday_16_30"
   },
@@ -422,7 +458,7 @@
     "teacher": "Kit",
     "schedule": {
       "day": "Sat",
-      "time": "06:00 pm"
+      "time": "06:00PM"
     },
     "tuition": {
       "type": "class",
@@ -430,9 +466,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "digital_winter_2016_kit_saturday_18_00"
   },
@@ -445,7 +483,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Wed",
-      "time": "03:00 pm"
+      "time": "03:00PM"
     },
     "tuition": {
       "type": "class",
@@ -453,9 +491,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_eli_wednesday_15_00"
   },
@@ -468,7 +508,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Wed",
-      "time": "03:30 pm"
+      "time": "03:30PM"
     },
     "tuition": {
       "type": "class",
@@ -476,9 +516,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_amanda_wednesday_15_30"
   },
@@ -491,7 +533,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Wed",
-      "time": "04:45 pm"
+      "time": "04:45PM"
     },
     "tuition": {
       "type": "class",
@@ -499,9 +541,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_rachel_wednesday_16_45"
   },
@@ -514,7 +558,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Tue",
-      "time": "05:00 pm"
+      "time": "05:00PM"
     },
     "tuition": {
       "type": "class",
@@ -522,9 +566,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_rachel_tuesday_17_00"
   },
@@ -537,7 +583,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Fri",
-      "time": "03:45 pm"
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -545,9 +591,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_robbie_friday_15_45"
   },
@@ -560,7 +608,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Fri",
-      "time": "03:45 pm"
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -568,9 +616,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_amanda_friday_15_45"
   },
@@ -583,7 +633,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Fri",
-      "time": "05:30 pm"
+      "time": "05:30PM"
     },
     "tuition": {
       "type": "class",
@@ -591,9 +641,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_eli_friday_17_30"
   },
@@ -606,7 +658,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "09:00 am"
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
@@ -614,9 +666,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_eli_saturday_09_00"
   },
@@ -629,7 +683,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "09:00 am"
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
@@ -637,9 +691,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_mei_saturday_09_00"
   },
@@ -652,7 +708,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "01:30 pm"
+      "time": "01:30PM"
     },
     "tuition": {
       "type": "class",
@@ -660,9 +716,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_cynthia_saturday_13_30"
   },
@@ -675,7 +733,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "01:30 pm"
+      "time": "01:30PM"
     },
     "tuition": {
       "type": "class",
@@ -683,9 +741,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_mei_saturday_13_30"
   },
@@ -698,7 +758,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "03:15 pm"
+      "time": "03:15PM"
     },
     "tuition": {
       "type": "class",
@@ -706,9 +766,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_mei_saturday_15_15"
   },
@@ -721,7 +783,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "05:00 pm"
+      "time": "05:00PM"
     },
     "tuition": {
       "type": "class",
@@ -729,9 +791,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_mei_saturday_17_00"
   },
@@ -744,7 +808,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Thu",
-      "time": "05:00 pm"
+      "time": "05:00PM"
     },
     "tuition": {
       "type": "class",
@@ -752,9 +816,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_cynthia_thursday_17_00"
   },
@@ -767,7 +833,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Thu",
-      "time": "03:45 pm"
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -775,9 +841,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_robbie_thursday_15_45"
   },
@@ -790,7 +858,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "08:45 am"
+      "time": "08:45AM"
     },
     "tuition": {
       "type": "class",
@@ -798,9 +866,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_eli_sunday_08_45"
   },
@@ -813,7 +883,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "10:30 am"
+      "time": "10:30AM"
     },
     "tuition": {
       "type": "class",
@@ -821,9 +891,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_amanda_sunday_10_30"
   },
@@ -836,7 +908,7 @@
     "teacher": "Amanda",
     "schedule": {
       "day": "Sun",
-      "time": "01:00 pm"
+      "time": "01:00PM"
     },
     "tuition": {
       "type": "class",
@@ -844,9 +916,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_amanda_sunday_13_00"
   },
@@ -859,7 +933,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Sun",
-      "time": "01:00 pm"
+      "time": "01:00PM"
     },
     "tuition": {
       "type": "class",
@@ -867,9 +941,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_robbie_sunday_13_00"
   },
@@ -882,7 +958,7 @@
     "teacher": "Rachel",
     "schedule": {
       "day": "Sun",
-      "time": "02:45 pm"
+      "time": "02:45PM"
     },
     "tuition": {
       "type": "class",
@@ -890,9 +966,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "intermediate_winter_2016_rachel_sunday_14_45"
   },
@@ -905,7 +983,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Wed",
-      "time": "04:45 pm"
+      "time": "04:45PM"
     },
     "tuition": {
       "type": "class",
@@ -913,9 +991,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_eli_wednesday_16_45"
   },
@@ -928,7 +1008,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Fri",
-      "time": "03:45 pm"
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -936,9 +1016,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_cynthia_friday_15_45"
   },
@@ -951,7 +1033,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Fri",
-      "time": "05:30 pm"
+      "time": "05:30PM"
     },
     "tuition": {
       "type": "class",
@@ -959,9 +1041,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_cynthia_friday_17_30"
   },
@@ -974,7 +1058,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "10:45 am"
+      "time": "10:45AM"
     },
     "tuition": {
       "type": "class",
@@ -982,9 +1066,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_eli_saturday_10_45"
   },
@@ -997,7 +1083,7 @@
     "teacher": "Mei",
     "schedule": {
       "day": "Sat",
-      "time": "10:45 am"
+      "time": "10:45AM"
     },
     "tuition": {
       "type": "class",
@@ -1005,9 +1091,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_mei_saturday_10_45"
   },
@@ -1020,7 +1108,7 @@
     "teacher": "Cynthia",
     "schedule": {
       "day": "Sat",
-      "time": "03:15 pm"
+      "time": "03:15PM"
     },
     "tuition": {
       "type": "class",
@@ -1028,9 +1116,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_cynthia_saturday_15_15"
   },
@@ -1043,7 +1133,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "10:30 am"
+      "time": "10:30AM"
     },
     "tuition": {
       "type": "class",
@@ -1051,9 +1141,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_eli_sunday_10_30"
   },
@@ -1066,7 +1158,7 @@
     "teacher": "Robbie",
     "schedule": {
       "day": "Sun",
-      "time": "02:45 pm"
+      "time": "02:45PM"
     },
     "tuition": {
       "type": "class",
@@ -1074,9 +1166,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_advanced_winter_2016_robbie_sunday_14_45"
   },
@@ -1089,7 +1183,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Wed",
-      "time": "06:30 pm"
+      "time": "06:30PM"
     },
     "tuition": {
       "type": "class",
@@ -1097,9 +1191,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30"
   },
@@ -1112,7 +1208,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "01:30 pm"
+      "time": "01:30PM"
     },
     "tuition": {
       "type": "class",
@@ -1120,9 +1216,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_ap_ap_winter_2016_eli_saturday_13_30"
   },
@@ -1135,7 +1233,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sat",
-      "time": "03:45 pm"
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -1143,9 +1241,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_ap_ap_winter_2016_eli_saturday_15_45"
   },
@@ -1158,7 +1258,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "01:00 pm"
+      "time": "01:00PM"
     },
     "tuition": {
       "type": "class",
@@ -1166,9 +1266,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00"
   },
@@ -1181,7 +1283,7 @@
     "teacher": "Eli",
     "schedule": {
       "day": "Sun",
-      "time": "03:15 pm"
+      "time": "03:15PM"
     },
     "tuition": {
       "type": "class",
@@ -1189,9 +1291,11 @@
     },
     "maxStudent": 10,
     "minStudent": 0,
-    "trialStudent": 0,
+    "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
+    "makeupStudent": 2,
+    "makeupClassFee": 5,
     "genderRequire": "All",
     "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15"
   }

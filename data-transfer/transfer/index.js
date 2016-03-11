@@ -130,23 +130,21 @@ var classData = {
     length: "",
     levels: [],
     teacher: "",
-
     schedule: {
         day: '',
         time: ""
     },
-
     tuition: {
         type: "class",
         money: ""
     },
     maxStudent: 10,
-
     minStudent: 0,
-    trialStudent: 0,
-
+    trialStudent: 2,
     minAgeRequire: 0,
     maxAgeRequire: 100,
+    makeupStudent: 2,
+    makeupClassFee: 5,
     genderRequire: "All"
 };
 
@@ -180,7 +178,10 @@ function am_pm_to_hours(time) {
     return (sHours +':'+sMinutes);
 }
 
-function hours_am_pm(time) {
+function hours_am_pm(time, split) {
+    if(!split){
+        split="";
+    }
     if(!time){
         console.error("time not exist");
         return null;
@@ -201,9 +202,9 @@ function hours_am_pm(time) {
     if (minutes < 10) sMinutes = "0" + sMinutes;
 
     if (hours < 12) {
-        return sHours + ':' + sMinutes + ' am';
+        return sHours + ':' + sMinutes + split +'AM';
     } else {
-        return sHours+ ':' + sMinutes + ' pm';
+        return sHours+ ':' + sMinutes + split +'PM';
     }
 }
 
