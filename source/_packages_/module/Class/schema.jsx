@@ -49,6 +49,7 @@ Schema.Class = {
     length : KG.schema.default(),
     level : KG.schema.default({
         allowedValues : Schema.const.level,
+        optional : true,
         defaultValue : 'Beginner'
     }),
     teacher : KG.schema.default({}),
