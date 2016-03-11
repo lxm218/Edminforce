@@ -356,7 +356,13 @@ KUI.Registration_payment = class extends KUI.Page{
             this.changeCustomerRegistrationFee();
 
 
-            let total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
+            let total = 0;
+            if(s24){
+                total = parseFloat(this.total.get())+(parseFloat(orderData.poundage||0));
+            }
+            else{
+                total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
+            }
             total = total.toFixed(2);
             orderData.poundage = orderData.poundage.toString();
             orderData.paymentTotal = total.toString();

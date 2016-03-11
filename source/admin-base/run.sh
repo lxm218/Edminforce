@@ -29,7 +29,7 @@ runLocalHost(){
     echo "PACKAGE_DIRS=${PACKAGE_DIRS}"
     echo "---- set env end ----"
 
-    meteor --settings settings-dev.json --port $PORT --production
+    meteor --settings settings-dev.json --port $PORT
 }
 
 

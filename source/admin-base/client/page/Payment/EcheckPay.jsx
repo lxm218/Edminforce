@@ -72,7 +72,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                     E-Check | Total : ${total}
                 </h3>
                 {poundage>0?
-                    <p style={{textAlign:'right'}}>Poundage : {poundage*100}%</p>
+                    <p style={{textAlign:'right'}}>Poundage : {poundage}</p>
                     :
                     null
                 }
