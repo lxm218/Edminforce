@@ -160,6 +160,9 @@ Validate.ClassStudent = {
 Schema.ClassStudent = {
     classID : KG.schema.default(),
     studentID : KG.schema.default(),
+    accountID : KG.schema.default({
+        optional : true
+    }),
     type : KG.schema.default({
         allowedValues : ['trail', 'register', 'wait', 'makeup'],
         custom : function(){

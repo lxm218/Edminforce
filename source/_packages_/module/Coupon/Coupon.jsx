@@ -6,7 +6,8 @@ KG.define('EF-Coupon', class extends Base{
 
     getDepModule(){
         return {
-            Order : KG.get('EF-Order')
+            Order : KG.get('EF-Order'),
+            ClassStudent : KG.get('EF-ClassStudent')
         };
     }
 
@@ -58,6 +59,16 @@ KG.define('EF-Coupon', class extends Base{
                         return KG.result.out(false, new Meteor.Error('-1', `Coupon code already used`));
                     }
 
+                    one = m.ClassStudent.getDB().find({
+                        accountID : opts.accountID,
+                        type : 'register',
+                        status : {'$in' : ['checkouted', 'checkouting']}
+                    }).count();
+                    if(one > 0){
+                        return KG.result.out(false, new Meteor.Error('-1', 'Coupon code can not used because Customer' +
+                            ' booked class before'));
+                    }
+
                 }
                 else{
                     if(count < 1){
@@ -69,6 +80,8 @@ KG.define('EF-Coupon', class extends Base{
                 if(d.isBefore(moment(one.startDate), 'd') || d.isAfter(moment(one.endDate), 'd')){
                     return KG.result.out(false, new Meteor.Error('date error', 'Coupon code is invalid'));
                 }
+
+
 
                 return KG.result.out(true, one);
             }
