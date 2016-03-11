@@ -117,9 +117,9 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                 };
                 Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Thanks for Making Payment',
-                  html, 
-                  function (error, result) { 
+                  'Thank for Booking Trial Class!',
+                  html,
+                  function (error, result) {
                     if (!!error){
                       console.log(error)
                     }
@@ -159,8 +159,8 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
           "name" : "CalColor Academy"
         }
         let tpl = [
-            '<h3>Hello</h3>',
-            '<p>Thank for booking trial class. The following courses are successfully booked</p>',
+            '<h4>Hello,</h4>',
+            '<p>Thank for booking trial class. The following course is successfully booked.</p>',
             '<table border=\"1\">',
         ].join('')
 
@@ -191,17 +191,17 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
             ].join('')
             tpl = tpl + fCol + l
         }
-        
+
         tpl = tpl + [
 
             '</table>',
 
-            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+          //  '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
 
             '<br/><br/>',
             '<b>',school.name,'</b>'
         ].join('')
-         return tpl        
+         return tpl
     }
 
     registration() {
