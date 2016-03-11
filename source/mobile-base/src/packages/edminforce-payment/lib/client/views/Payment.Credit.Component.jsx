@@ -172,8 +172,8 @@
                     if (!!error){
                       console.log(error)
                     }
-                    if (!!response){
-                      console.log(response)
+                    if (!!result){
+                      console.log(result)
                     } } );
         EdminForce.Collections.orders.update({
             "_id":self.state.orderId

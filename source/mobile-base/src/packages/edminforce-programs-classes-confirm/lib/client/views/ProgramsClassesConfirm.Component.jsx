@@ -99,6 +99,9 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
             insertData.push(data);
         }
 
+        var emailData = this.getAllClasses(insertData)
+        var html = this.getPaymentConfirmEmailTemplate(emailData)
+
         let self = this;
 
         var moreIds = EdminForce.Collections.classStudent.batchInsert(insertData, function (err, res) {
@@ -112,10 +115,93 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                     classId: self.data.classInfo._id,
                     timestamp: timestamp
                 };
+                Meteor.call('sendEmailHtml',
+                  Meteor.user().emails[0].address,
+                  'Thanks for Making Payment',
+                  html, 
+                  function (error, result) { 
+                    if (!!error){
+                      console.log(error)
+                    }
+                    if (!!result){
+                      console.log(result)
+                    } } );
                 let path = FlowRouter.path("/programs/:programId/:classId/:timestamp/summary", params);
                 FlowRouter.go(path);
             }
         });
+    }
+
+
+
+
+    getAllClasses(data){
+      var res = {}
+      for (var i = 0; i < data.length; i++) {
+        var student = EdminForce.Collections.student.find({
+          _id: data[i].studentID
+        }, {}
+        ).fetch();
+        if (res[student[0].name] == undefined){
+          res[student[0].name] = {}
+        }
+        var doc = res[student[0].name]
+        var classes = EdminForce.Collections.class.findOne({
+          _id: data[i].classID
+        })
+        doc[classes.name] = 0
+      }
+      return res
+    }
+
+    getPaymentConfirmEmailTemplate(data){
+        let school={
+          "name" : "CalColor Academy"
+        }
+        let tpl = [
+            '<h3>Hello</h3>',
+            '<p>Thank for booking trial class. The following courses are successfully booked</p>',
+            '<table border=\"1\">',
+        ].join('')
+
+        for (var studentName in data){
+          var count = 0
+          var l = ""
+          var chosenClass = data[studentName]
+          for (var name in chosenClass){
+            if(count != 0){
+              var line = [
+                  '<tr>',
+                    '<td>',name,'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            } else {
+              var line = [
+                    '<td>',name,'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            }
+            count ++
+          }
+          var fCol = [
+                '<tr>',
+                  '<td rowspan=',count,'>',studentName,'</td>',
+            ].join('')
+            tpl = tpl + fCol + l
+        }
+        
+        tpl = tpl + [
+
+            '</table>',
+
+            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+
+            '<br/><br/>',
+            '<b>',school.name,'</b>'
+        ].join('')
+         return tpl        
     }
 
     registration() {
