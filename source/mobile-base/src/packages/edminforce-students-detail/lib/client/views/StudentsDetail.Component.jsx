@@ -116,7 +116,7 @@
                 classDate.date = date.date();
                 //classDate
             } else {                                  // For this version, didn't let use to select today's trial class
-                let date = moment(today).toDate();
+                let date = moment(today);
                 classDate.year = date.year();
                 classDate.month = date.month();
                 classDate.date = date.date();
