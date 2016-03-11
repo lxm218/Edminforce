@@ -119,7 +119,6 @@
     }
     var data = this.prepareConfirmationEmail()
     let html = this.getPaymentConfirmEmailTemplate(data);
-    debugger
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
@@ -271,7 +270,6 @@
     },
 
     prepareConfirmationEmail(){
-      debugger
       var o = this.data.order[0]
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
@@ -301,7 +299,6 @@
     getAllClasses(classStudentIDs){
       var res = {}
       for (var i = 0; i < classStudentIDs.length; i++) {
-        debugger
         var c = EdminForce.Collections.classStudent.find({
           _id: classStudentIDs[i]
         }, {}
@@ -318,13 +315,16 @@
           _id: c[0].classID
         }, {}
         ).fetch();
-        doc[classes[0].name] = classes[0].tuition.money * classes[0].numberOfClass
+        var session = EdminForce.Collections.session.findOne({
+          _id: classes[0].sessionID
+        })
+        var numberOfClass = EdminForce.Collections.class.calculateNumberOfClass(classes[0], session, true);
+        doc[classes[0].name] = classes[0].tuition.money * numberOfClass
       }
       return res
     },
 
     getPaymentConfirmEmailTemplate(data){
-      debugger
         let school={
           "name" : "CalColor Academy"
         }

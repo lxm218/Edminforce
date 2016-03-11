@@ -362,13 +362,16 @@
           _id: c[0].classID
         }, {}
         ).fetch();
-        doc[classes[0].name] = classes[0].tuition.money * classes[0].numberOfClass
+        var session = EdminForce.Collections.session.findOne({
+          _id: classes[0].sessionID
+        })
+        var numberOfClass = EdminForce.Collections.class.calculateNumberOfClass(classes[0], session, true);
+        doc[classes[0].name] = classes[0].tuition.money * numberOfClass
       }
       return res
     },
 
     getPaymentConfirmEmailTemplate(data){
-      debugger
         let school={
           "name" : "CalColor Academy"
         }
