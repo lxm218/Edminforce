@@ -58,7 +58,7 @@ EdminForce.Components.User = React.createClass({
    * Handler
    * @ @ @ @
    */
-    checkButtonState(e){
+  checkButtonState(e){
     switch (this.state.action){
       case "login":
         var form = this.refs.loginForm.getFormData()
@@ -224,13 +224,21 @@ EdminForce.Components.User = React.createClass({
 
   register(e){
     e.preventDefault()
-    if (this.state.msg && this.state.msg.length != 0) return null
-
     let self = this
     let form = this.refs.registerForm.getFormData()
 
+    var message = this.state.msg ? this.state.msg : []
+
+    if (form.term == '1'){
+        var index = message.indexOf(this.messageInfo()['termError'])
+        if (index != -1) {
+          message = message.slice(0, index) + message.slice(index + 1, message.length)
+        }
+    }
+
+    if (message && message.length != 0) return null
+
     if (form.term != '1') {
-      var message = this.state.message ? this.state.msg : []
       message.push(this.messageInfo()['termError'])
       this.setState({
         msg: message,
@@ -409,6 +417,8 @@ EdminForce.Components.User = React.createClass({
       }
     </RC.Animate>
   },
+
+
 
   renderForm(){
     var inputTheme = "small-label"
