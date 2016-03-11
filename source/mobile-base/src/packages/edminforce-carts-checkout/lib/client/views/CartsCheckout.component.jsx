@@ -148,7 +148,7 @@
                     //===========================
                     if (this.hasMakeupClass) {
                         bValidCoupon = false;
-                        alert("This coupon cannot use together with make up class.");
+                        alert("Coupon Can't be Applied to Make Up Class Fee");
                         return;
                     }
 
@@ -162,7 +162,7 @@
                     // current time is not in the start and end range
                     if (currentTime < couponStartTime || currentTime > couponEndTime) {
                         bValidCoupon = false;
-                        alert("This coupon isn't in valid time");
+                        alert("Invalid Coupon");
                         return;
                     }
 
@@ -176,9 +176,9 @@
                     let bNoneBooked = this.isNewUser();
 
                     // coupon not valid for none booked user, but currently user is none booked
-                    if (!coupon.validForNoBooked && bNoneBooked) {
+                    if (coupon.validForNoBooked && !bNoneBooked) {
                         bValidCoupon = false;
-                        alert("This coupon only for the user who booked class before!");
+                        alert("This Coupon is Only Valid for New Customers!");
                         return;
                     }
 
