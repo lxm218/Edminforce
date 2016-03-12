@@ -67,6 +67,7 @@ if (Meteor.isServer) {
         },
         customer : function(){
           insertData('Customer', customersData, customer, null, F.adminuser);
+          customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
         },
         adminuser : function(){
           insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
