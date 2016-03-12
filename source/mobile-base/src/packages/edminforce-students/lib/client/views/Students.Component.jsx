@@ -62,7 +62,7 @@
             return students.map( (student) => {
                 student.classes = [];
 
-                let studentClasses =  EdminForce.Collections.classStudent.find({studentID: student._id}).fetch();
+                let studentClasses =  EdminForce.Collections.classStudent.find({studentID: student._id, type: {$in: ['register', 'trial']}}).fetch();
 
                 // separate all classes into current & completed
                 let currentTime = new Date().getTime();

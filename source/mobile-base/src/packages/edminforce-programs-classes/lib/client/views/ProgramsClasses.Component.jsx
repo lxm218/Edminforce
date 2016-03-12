@@ -69,47 +69,28 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
 
         // find all available lessons for each class
         for (let i = 0; i < classes.length; i++) {
-            //if(classes.max)
             let item = classes[i];
+
+            // trialStudent === 0 means trial is not allowed
+            if (item.trialStudent === 0) continue;
 
             // Following condition, skip this class
             // 1. class's status isn't Active
-            //console.log(item.status);
-            //console.log(schemaConst.status[0]);
-
             if (lodash.lowerCase(item.status) !== lodash.lowerCase(schemaConst.status[0])) {
                 continue;
             }
 
-            // get regular register students number
-            let regularRegisterStudents = EdminForce.Collections.classStudent.find({
+            // get number of regular student registrations
+            let numRegularStudents = EdminForce.Collections.classStudent.find({
                     classID: item._id,
-                    status: schemaConst.registrationStatus[1]       // register
-                }, {
-                    sort: {
-                        lessonDate: 1
-                    }
-                }).fetch() || [];
+                    status: {$in:['pending', 'checkouting', 'checkouted']},
+                    type: schemaConst.registrationStatus[1]       // register
+                }).count();
 
-            // Get the student who register
-            let trialRegisterStudents = EdminForce.Collections.classStudent.find({
-                    classID: item._id,
-                    status: schemaConst.registrationStatus[0]       // trial
-
-                }, {
-                    sort: {
-                        lessonDate: 1
-                    }
-                }).fetch() || [];
-
-            // if trial student is 0, and class already full, then skip this class
-            if (item.trialStudent == 0 && (item.maxStudent === regularRegisterStudents.length)) {
-                console.log("[info]class is full, and not all trial");
+            // check if the class is fully booked by regular students
+            if (numRegularStudents >= item.maxStudent)
                 continue;
-            }
 
-
-            let availableNumber = item.maxStudent - regularRegisterStudents.length + item.trialStudent;
             let classSession = EdminForce.Collections.session.find({
                     _id: item.sessionID
                 }, {
@@ -117,9 +98,7 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
                         startDate: 1
                     }
                 }).fetch() || [];
-
             classSession = classSession[0];
-
 
             // cannot find class relative session, then skip this class
             if (!classSession) {
@@ -127,34 +106,25 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
                 continue;
             }
 
-            console.log(item);
-            console.log(classSession);
-
             let classDate = this.getClassDate(item.schedule.day, item.schedule.time);
 
             if (!classDate) {
                 continue;
             }
 
-            console.log("[info] classDate: ", classDate);
-
             // how many available lesson to show
             for (let j = 0; j < displayWeekNumber; j++) {
-
                 let trialNumber = EdminForce.Collections.classStudent.find({
                         classID: item.classID,
-                        lessonDate: moment(classDate).toDate()
-                    }, {
-                        sort: {
-                            startDate: 1
-                        }
-                    }).fetch() || [];
+                        lessonDate: moment(classDate).toDate(),
+                        type: 'trial'
+                    }).count();
 
-                // most of case should just equal
-                // no trial available for this date
-                if (trialNumber >= availableNumber) {
-                    continue;
-                }
+                // trial + regular <= maxStudent
+                if (trialNumber + numRegularStudents>= item.maxStudent) continue;
+
+                // check against maxTrialStudent, null means no limit
+                if (item.trialStudent && trialNumber >= item.trialStudent) continue;
 
                 // first clone it
                 let lesson = lodash.cloneDeep(item);

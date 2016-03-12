@@ -151,6 +151,9 @@
                 //if(classes.max)
                 let item = classes[i];
 
+                // makeupStudent === 0 means make up is not allowed
+                if (item.makeupStudent === 0) continue;
+
                 // skip current class
                 if (item._id == this.classID) continue;
 
@@ -172,19 +175,19 @@
                     continue;
                 }
 
-                // get regular register students number
+                // get number of regular registered students
                 let numRegularRegisterStudents = EdminForce.Collections.classStudent.find({
                         classID: item._id,
-                        status: schemaConst.registrationStatus[1]       // register
+                        status: {$in:['pending', 'checkouting', 'checkouted']},
+                        type: schemaConst.registrationStatus[1]       // register
                     }, {
                         sort: {
                             lessonDate: 1
                         }
                     }).count();
 
-                // if trial student is 0, and class already full, then skip this class
+                // check if the class is fully booked
                 if (numRegularRegisterStudents >= item.maxStudent) {
-                    //console.log("[info]class is full, and not all trial");
                     continue;
                 }
 
@@ -227,7 +230,9 @@
                         lessonDate: moment(classDate).toDate(),
                         type: schemaConst.registrationStatus[3]
                     }).count();
-                    if (makeupNumber >= schemaConst.maxMakeupStudentsPerClass) {
+
+                    //makeupStudent == null means unlimited
+                    if (item.makeupStudent && makeupNumber >= item.makeupStudent) {
                         continue;
                     }
 
