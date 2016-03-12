@@ -352,7 +352,7 @@ Cal.User = React.createClass({
           <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" />
           <RC.Checkbox  style={{borderBottom:'none'}} name="keepName" ref="keepName" value={1} label="Remember My User Name"/>
 
-          <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
+          <RC.Button name="button" bgColor="brand1" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Log In"}
           </RC.Button>
         </RC.Form>
@@ -368,7 +368,7 @@ Cal.User = React.createClass({
           <RC.Checkbox className="cal-checkbox" name="term" ref="term" value={1}
                        label="Yes，I accpet Privacy Policy and Terms of Use."/>
 
-          <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
+          <RC.Button name="button" bgColor="brand1" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
 
@@ -380,7 +380,7 @@ Cal.User = React.createClass({
           <RC.Form onSubmit={this.reset} onKeyUp={this.checkButtonState} ref="resetForm">
             {this.printMsg()}
             <RC.Input name="email" label="E-Mail Address" theme={inputTheme} ref="email" value="" />
-            <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
+            <RC.Button name="button" bgColor="brand1" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
               {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Send Password Reset E-mail"}
             </RC.Button>
           </RC.Form>
