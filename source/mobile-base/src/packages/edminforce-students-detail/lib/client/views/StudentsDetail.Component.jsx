@@ -215,6 +215,10 @@
 
                 // how many available lesson to show
                 for (let j = 0; j < displayWeekNumber; j++) {
+
+                    let lessonDate = moment(classDate).toDate();
+                    if (lessonDate < classSession.startDate || lessonDate > classSession.endDate) continue;
+
                     // check the total students for the class date, including make up, trial and regular
                     let makeupAndTrialNumber = EdminForce.Collections.classStudent.find({
                             classID: item.classID,
@@ -241,7 +245,7 @@
 
                     // available lesson
                     lesson.key = btoa(lesson._id + ":" + j);
-                    lesson.lessonDate = moment(classDate).toDate();
+                    lesson.lessonDate = lessonDate;
 
                     lesson.name = this.programName + ' ' + classSession.name + ' ' + lesson.schedule.day + ' ' + lesson.schedule.time;
 
