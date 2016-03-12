@@ -20,6 +20,9 @@
             Meteor.subscribe("classes");
             Meteor.subscribe("activeShoppingCart");
 
+            Meteor.subscribe('accountWithSwimmersAndClasses');
+            //Meteor.subscribe("classes");
+
 
             var data = {
                 account: Meteor.users.find().fetch(),
