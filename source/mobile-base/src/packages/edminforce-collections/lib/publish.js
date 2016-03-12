@@ -366,30 +366,9 @@ Meteor.startup(function () {
         }
     });
 
-    // Publishes the current customer, and if there is any successful payment record that is used
-    // as a flag for customer.hasRegistrationFee. Since registration fee is only charged once for new customer.
-    Meteor.publishComposite("EFCurrentCustomer",function(){
-        return {
-            find() {
-                return EdminForce.Collections.Customer.find({_id: this.userId});
-            },
-
-            children: [
-                {
-                    find(customer) {
-                        return EdminForce.Collections.orders.find(
-                            {
-                                accountID: customer._id,
-                                status:'success'
-                            },
-                            {
-                                fields:{accountID:1,status:1},
-                                limit:1
-                            });
-                    }
-                }
-            ]
-        }
-
+    // Publishes the current customer
+    Meteor.publish("EFCurrentCustomer", function () {
+        return EdminForce.Collections.Customer.find({_id: this.userId});
     });
+
 });

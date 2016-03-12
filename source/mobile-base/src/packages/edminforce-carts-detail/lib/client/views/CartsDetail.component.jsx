@@ -55,12 +55,13 @@
             let student = EdminForce.Collections.student.find({_id:studentClass.studentID}).fetch();
             student = student && student[0];
 
-            let orderCount = EdminForce.Collections.orders.find({accountID:Meteor.userId(),status:'success'}).count();
+            let customer = EdminForce.Collections.Customer.find({_id:Meteor.userId()}).fetch();
+            customer = customer && customer[0];
 
             return {
                 classData,
                 studentData: student,
-                registrationFee: orderCount == 0 ? 25 : 0,
+                registrationFee: (customer && !customer.hasRegistrationFee) ? 0 : 25,
                 classFee: EdminForce.Collections.class.calculateRegistrationFee(classData,session)
             }
         }
