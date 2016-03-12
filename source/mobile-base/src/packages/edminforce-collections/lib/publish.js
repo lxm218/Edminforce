@@ -59,7 +59,7 @@ Meteor.startup(function () {
                 find: function (classData) {
                     //console.log(this.userId);
                     return EdminForce.Collections.classStudent.find({
-                        classID: classData._id
+                        accountID: this.userId
                     }, {
                         sort: {
                             lessonDate: 1
