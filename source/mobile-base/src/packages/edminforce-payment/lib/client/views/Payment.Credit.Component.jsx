@@ -3,7 +3,7 @@
 
     mixins: [RC.Mixins.Theme],
     mixins: [ReactMeteorData],
-        
+
     getMeteorData() {
             let orderID = FlowRouter.getQueryParam("order");
             let handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
@@ -78,7 +78,7 @@
                     "zip": "44628",
                     "country": "USA"
                 },
-                
+
                 "customerIP": "192.168.1.1",
                 "transactionSettings": {
                     "setting": {
@@ -108,7 +108,7 @@
     if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
     var patt = /[0-9]{2}\/[0-9]{2}/
@@ -166,9 +166,9 @@
 
         Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Thanks for Making Payment',
-                  html, 
-                  function (error, result) { 
+                  'Registration Confirmation',
+                  html,
+                  function (error, result) {
                     if (!!error){
                       console.log(error)
                     }
@@ -236,7 +236,7 @@
       if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
       if (message.length != 0) {
@@ -257,7 +257,7 @@
       if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
       if (expirationDate.length > 5){
@@ -283,7 +283,7 @@
       if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
       var patt = /[0-9]{2}\/[0-9]{2}/
@@ -320,7 +320,7 @@
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
-      var amt = Number(o.amount) 
+      var amt = Number(o.amount)
       var total = amt * 1.03
       total = total.toFixed(2)
       var processFee = total - amt
@@ -376,8 +376,8 @@
           "name" : "CalColor Academy"
         }
         let tpl = [
-            '<h3>Hello</h3>',
-            '<p>Thank for making the payment.</p>',
+            '<h3>Hello,</h3>',
+            '<p>This is your registration detail: </p>',
             '<table border=\"1\">',
         ].join('')
         var classes = data.classes
@@ -415,8 +415,8 @@
         if (data.couponDiscount != 0){
           tpl = tpl + [
               '<tr>',
-                '<td colspan=\"2\">Discount</td>',
-                '<td>$',data.couponDiscount,'</td>',
+                '<td colspan=\"2\">Coupon Discount</td>',
+                '<td>-$',data.couponDiscount,'</td>',
               '</tr>',].join('')
         }
         if (data.registrationFee != 0){
@@ -445,7 +445,7 @@
         ].join('')
          return tpl
 
-        
+
     },
 
   render() {
@@ -455,7 +455,7 @@
           inputTheme += ","+this.props.theme
           buttonTheme += ","+this.props.theme
       }
-      
+
       return (
         <RC.List className="padding">
         <RC.Loading isReady={this.data.isReady}>

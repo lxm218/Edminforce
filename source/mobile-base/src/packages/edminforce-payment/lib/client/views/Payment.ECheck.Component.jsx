@@ -5,7 +5,7 @@
 
     mixins: [RC.Mixins.Theme],
     mixins: [ReactMeteorData],
-        
+
     getMeteorData() {
             let orderID = FlowRouter.getQueryParam("order");
             let handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
@@ -75,7 +75,7 @@
                 //     "zip": "44628",
                 //     "country": "USA"
                 // },
-                
+
                 "customerIP": "192.168.1.1",
                 "transactionSettings": {
                     "setting": {
@@ -145,9 +145,9 @@
         EdminForce.Collections.Customer.updateRegistrationFeeFlagAfterPayment();
         Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Thanks for Making Payment',
-                  html, 
-                  function (error, result) { 
+                  'Registration Confirmation',
+                  html,
+                  function (error, result) {
                     if (!!error){
                       console.log(error)
                     }
@@ -329,8 +329,8 @@
           "name" : "CalColor Academy"
         }
         let tpl = [
-            '<h3>Hello</h3>',
-            '<p>Thank for making the payment.</p>',
+            '<h3>Hello,</h3>',
+            '<p>This is your registration detail: </p>',
             '<table border=\"1\">',
         ].join('')
         var classes = data.classes
@@ -368,8 +368,8 @@
         if (data.couponDiscount != 0){
           tpl = tpl + [
               '<tr>',
-                '<td colspan=\"2\">Discount</td>',
-                '<td>$',data.couponDiscount,'</td>',
+                '<td colspan=\"2\">Coupon Discount</td>',
+                '<td>-$',data.couponDiscount,'</td>',
               '</tr>',].join('')
         }
         if (data.registrationFee != 0){
@@ -398,7 +398,7 @@
         ].join('')
          return tpl
 
-        
+
     },
 
   render() {
@@ -408,7 +408,7 @@
           inputTheme += ","+this.props.theme
           buttonTheme += ","+this.props.theme
       }
-      
+
       return (
         <RC.List className="padding">
           <RC.Loading isReady={this.data.isReady}>
