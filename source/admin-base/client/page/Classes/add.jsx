@@ -201,13 +201,15 @@ KUI.Class_comp_add = class extends KUI.Page{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'program',
-                label : 'Program'
+                label : 'Program',
+                disabled : edit
             },
             session : {
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'session',
-                label : 'Session'
+                label : 'Session',
+                disabled : edit
             },
             status : {
                 labelClassName : 'col-xs-4',
@@ -253,13 +255,15 @@ KUI.Class_comp_add = class extends KUI.Page{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleDay',
-                label : 'Schedule'
+                label : 'Schedule',
+                disabled : edit
             },
             scheduleTime : {
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleTime',
-                label : ' '
+                label : ' ',
+                disabled : edit
             },
             tuitionMoney : {
                 labelClassName : 'col-xs-4',

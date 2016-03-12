@@ -30,12 +30,7 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
 
         getMeteorData() {
         let programID = FlowRouter.getParam("programID");
-        let classProgramIDHandler;
-        Tracker.autorun(function () {
-            classProgramIDHandler = Meteor.subscribe('EF-Class-programID', programID);
-        });
-
-
+        let classProgramIDHandler = Meteor.subscribe('EF-Class-programID', programID);
         return {
             lessons: this.getAvailableTrialLessons(),
             isReady: classProgramIDHandler.ready()
@@ -114,6 +109,10 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
 
             // how many available lesson to show
             for (let j = 0; j < displayWeekNumber; j++) {
+
+                let lessonDate = moment(classDate).toDate();
+                if (lessonDate < classSession.startDate || lessonDate > classSession.endDate) continue;
+
                 let trialNumber = EdminForce.Collections.classStudent.find({
                         classID: item.classID,
                         lessonDate: moment(classDate).toDate(),
@@ -131,7 +130,7 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
 
                 // available lesson
                 lesson.key = btoa(lesson._id + ":" + j);
-                lesson.lessonDate = moment(classDate).toDate();
+                lesson.lessonDate = lessonDate;
 
                 availableLessons.push(lesson);
 

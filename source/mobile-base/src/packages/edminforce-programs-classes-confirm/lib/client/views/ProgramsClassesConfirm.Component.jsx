@@ -32,25 +32,21 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
 
         classInfo = classInfo && classInfo[0] || {};
 
-        let programRegisterStudents = EdminForce.Collections.classStudent.find({
-            accountID: Meteor.userId(),
-            programID: classInfo.programID,
-            type: "trial"
-        }).fetch();
-
         let canRegisterStudents = [];
 
         for (let i = 0; i < students.length; i++) {
-            let find = false;
-            for (let j = 0; j < programRegisterStudents.length; j++) {
-                if (students[i]._id == programRegisterStudents[j].studentID) {        // find it
-                    find = true;
-                    break;
-                }
-            }
-            if (!find) {
-                canRegisterStudents.push(students[i]);
-            }
+
+            // check if a student already had a trial of the program, or if the student ever registered the class
+            let nTrialHistory = EdminForce.Collections.classStudent.find({
+                programID: classInfo.programID,
+                studentID: students[i]._id,
+                type: {$in:['trial','register']},
+                status: {$in:['pending', 'checkouting', 'checkouted']}
+            }).count();
+
+            if (nTrialHistory > 0) continue;
+
+            canRegisterStudents.push(students[i]);
         }
 
         let programSub = Meteor.subscribe('EF-Program');

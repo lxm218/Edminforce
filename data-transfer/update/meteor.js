@@ -36,7 +36,7 @@ if (Meteor.isServer) {
           var td = check(data[x]);
 
           if(td){
-            //console.log(td);
+            console.log(td);
             db.insert(td);
           }
 
@@ -113,6 +113,7 @@ if (Meteor.isServer) {
         delay = 0;
       }else{ // otherwise it is production mode
       }
+      console.log('delay: ', delay);
       importDatas();
     }
 
