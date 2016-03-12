@@ -117,7 +117,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                 };
                 Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Thank for Booking Trial Class!',
+                  'Thank for a Booking Trial Class!',
                   html,
                   function (error, result) {
                     if (!!error){
@@ -149,7 +149,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         var classes = EdminForce.Collections.class.findOne({
           _id: data[i].classID
         })
-        doc[classes.name] = 0
+        doc[classes.name] = data[i].lessonDate
       }
       return res
     }
@@ -162,6 +162,11 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
             '<h4>Hello,</h4>',
             '<p>Thank for booking trial class. The following course is successfully booked.</p>',
             '<table border=\"1\">',
+            '<tr>',
+                '<td>Name</td>',
+                '<td>Class</td>',
+                '<td>Date</td>',
+            '</tr>'
         ].join('')
 
         for (var studentName in data){
@@ -173,12 +178,14 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
               var line = [
                   '<tr>',
                     '<td>',name,'</td>',
+                    '<td>',chosenClass[name],'</td>',
                   '</tr>',
               ].join('')
               l = l + line
             } else {
               var line = [
                     '<td>',name,'</td>',
+                    '<td>',chosenClass[name],'</td>',
                   '</tr>',
               ].join('')
               l = l + line

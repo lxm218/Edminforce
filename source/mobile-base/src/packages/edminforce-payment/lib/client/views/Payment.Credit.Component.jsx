@@ -3,7 +3,7 @@
 
     mixins: [RC.Mixins.Theme],
     mixins: [ReactMeteorData],
-        
+
     getMeteorData() {
             let orderID = FlowRouter.getQueryParam("order");
             let handler = Meteor.subscribe("EF-ShoppingCarts-Checkout");
@@ -78,7 +78,7 @@
                     "zip": "44628",
                     "country": "USA"
                 },
-                
+
                 "customerIP": "192.168.1.1",
                 "transactionSettings": {
                     "setting": {
@@ -108,7 +108,7 @@
     if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
     var patt = /[0-9]{2}\/[0-9]{2}/
@@ -150,6 +150,9 @@
     let amt = Number(o[0].amount) * 1.03
     amt = amt.toFixed(2)
     paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
+
+    // TO ADD: Pay MAKEUPCLASS
+
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
@@ -166,9 +169,9 @@
 
         Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Thanks for Making Payment',
-                  html, 
-                  function (error, result) { 
+                  'Registration Confirmation',
+                  html,
+                  function (error, result) {
                     if (!!error){
                       console.log(error)
                     }
@@ -236,7 +239,7 @@
       if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
       if (message.length != 0) {
@@ -257,7 +260,7 @@
       if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
       if (expirationDate.length > 5){
@@ -283,7 +286,7 @@
       if (cardNumber.length > 2){
         if (cardNumber[0] == '3' && (cardNumber[1] == '4' || cardNumber[1] == '7')){
           message.push("American Express Is Not Supported; ")
-        }     
+        }
       }
 
       var patt = /[0-9]{2}\/[0-9]{2}/
@@ -320,7 +323,7 @@
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
-      var amt = Number(o.amount) 
+      var amt = Number(o.amount)
       var total = amt * 1.03
       total = total.toFixed(2)
       var processFee = total - amt
@@ -376,8 +379,8 @@
           "name" : "CalColor Academy"
         }
         let tpl = [
-            '<h3>Hello</h3>',
-            '<p>Thank for making the payment.</p>',
+            '<h3>Hello,</h3>',
+            '<p>This is your registration detail: </p>',
             '<table border=\"1\">',
         ].join('')
         var classes = data.classes
@@ -415,8 +418,8 @@
         if (data.couponDiscount != 0){
           tpl = tpl + [
               '<tr>',
-                '<td colspan=\"2\">Discount</td>',
-                '<td>$',data.couponDiscount,'</td>',
+                '<td colspan=\"2\">Coupon Discount</td>',
+                '<td>-$',data.couponDiscount,'</td>',
               '</tr>',].join('')
         }
         if (data.registrationFee != 0){
@@ -444,8 +447,138 @@
             '<b>',school.name,'</b>'
         ].join('')
          return tpl
+    },
 
-        
+    prepareMakeUpEmail(){
+      debugger
+      var o = this.data.order[0]
+      var classes = this.getMakeUpClasses(o.details)
+      var registrationFee = o.registrationFee
+      var couponDiscount = o.discount
+      var amt = Number(o.amount)
+      var total = amt * 1.03
+      total = total.toFixed(2)
+      var processFee = total - amt
+      processFee = processFee.toFixed(2)
+      if (typeof registrationFee == "undefined"){
+        registrationFee = 0
+      }
+      if (typeof couponDiscount == "undefined"){
+        couponDiscount = 0
+      }
+      return {
+        "amount": amt,
+        "classes": classes,
+        "registrationFee" : registrationFee,
+        "couponDiscount": couponDiscount,
+        "processFee": processFee,
+        "total": total
+      }
+    },
+
+    getMakeUpClasses(classStudentIDs){
+      var res = {}
+      for (var i = 0; i < classStudentIDs.length; i++) {
+        debugger
+        var c = EdminForce.Collections.classStudent.find({
+          _id: classStudentIDs[i]
+        }, {}
+        ).fetch();
+        var student = EdminForce.Collections.student.find({
+          _id: c[0].studentID
+        }, {}
+        ).fetch();
+        if (res[student[0].name] == undefined){
+          res[student[0].name] = {}
+        }
+        var doc = res[student[0].name]
+        var classes = EdminForce.Collections.class.find({
+          _id: c[0].classID
+        }, {}
+        ).fetch();
+        doc[classes[0].name] = c[0].lessonDate.toString()
+      }
+      return res
+    },
+
+    getMakeUpConfirmEmailTemplate(data){
+        let school={
+          "name" : "CalColor Academy"
+        }
+        let tpl = [
+            '<h3>Hello,</h3>',
+            '<p>This is your registration detail: </p>',
+            '<table border=\"1\">',
+            '<tr>',
+                '<td>Name</td>',
+                '<td>Class</td>',
+                '<td>Date</td>',
+            '</tr>'
+        ].join('')
+        var classes = data.classes
+
+        for (var studentName in classes){
+          var count = 0
+          var l = ""
+          var chosenClass = classes[studentName]
+          for (var name in chosenClass){
+            if(count != 0){
+              var line = [
+                  '<tr>',
+                    '<td>',name,'</td>',
+                    '<td>$',chosenClass[name],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            } else {
+              var line = [
+                    '<td>',name,'</td>',
+                    '<td>$',chosenClass[name],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            }
+            count ++
+          }
+          var fCol = [
+                '<tr>',
+                  '<td rowspan=',count,'>',studentName,'</td>',
+            ].join('')
+            tpl = tpl + fCol + l
+        }
+
+        if (data.couponDiscount != 0){
+          tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"2\">Coupon Discount</td>',
+                '<td>-$',data.couponDiscount,'</td>',
+              '</tr>',].join('')
+        }
+        if (data.registrationFee != 0){
+          tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"2\">Registration</td>',
+                '<td>$',data.registrationFee,'</td>',
+              '</tr>',].join('')
+        }
+        tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"2\">Credit Process Fee</td>',
+                '<td>$',data.processFee,'</td>',
+              '</tr>',
+              '<tr>',
+                '<td colspan=\"2\">Total</td>',
+                '<td>$',data.total,'</td>',
+              '</tr>',
+
+            '</table>',
+
+            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+
+            '<br/><br/>',
+            '<b>',school.name,'</b>'
+        ].join('')
+         return tpl
     },
 
   render() {
@@ -455,7 +588,7 @@
           inputTheme += ","+this.props.theme
           buttonTheme += ","+this.props.theme
       }
-      
+
       return (
         <RC.List className="padding">
         <RC.Loading isReady={this.data.isReady}>
