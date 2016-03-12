@@ -36,32 +36,19 @@ List all the available Programs by this order: Begining, Intermediate, Advanced,
   ![Calendar List](./calendar-list.jpg)
 
 2. Just show the next 2 week avaialbe classes
-3. Avaiable Classes condition
+3. One student can only trial one program once.
+4. If student already registered class of the program, he/she cannot book trial for this program.
+5. Avaiable Classes condition
   
-  * Class is not full. Default.
-  * Class trial's max value not reach. Defualt value is 0 
+  * Class is not fullly booked.
+  * number of trial+ number of register <= max student
+  * number of trial<= max trial
+  * max trial null means no limiation; 0 means trial not allowed. 
 
   How to calculate:(as for calcolor school, trial max is 2 for each class which is included in class max. For example, class max is 10, trial max is 2. Currently, it has 9 registred students, this class is available for trial. If it has 10 registered student, this class is not available for trial.)
   
-  `Register trial student number<= Class's Max student-Class's current students number`
-   
-   if `Class's trail Max student number` not 0,  `Register trial student number<=Class's trail Max student number`
-   
-   Then this day is available
-   
-   In addition, system needs to see if this student is qualified for this class (min/max age or gender).
   
-  ***Note***
-  
-  * Case 1
-  
-       **Painting Beginning Class** max student number is 10, max trial student number is 0, currently registered student number is 9. 
-       
-       Now Mark book a trail for this class.
-       
-       After several day later, Kevin book this class, so after Kevin registered, this class's currently registered student number is 10, it should not be booked trail class, but Mark booked trail class before.
-       
-       For this conflict, need to solve by school manually.
+
 
 ## Students 
 
@@ -85,8 +72,9 @@ Note:
 
 ### make up class logic:
 1. student can make up class only his/her class is during the session. 
-2. student can only make up same type of class (e.g. begining class student can only make up beginning class, etc)
+2. student can only make up same type of class (e.g. begining class student can only make up beginning class, etc) but don't show the same class for make up. 
 3. when student wants to make up a class, system needs to show available class which has space (number of students hasn't reached max register number. for example, one class's max registeration is 8, currently has 7 registered with one trial on Mar 7 class. Therefore, this class on Mar 7 is not available for make up. If this class only has 7 registered student without any trial or other make up, this class has one spot available for make up). number of make up for each class cannot excess max make-up. 
+note: class is available for make up when number of make up+number of trial+number of registered<=max student
 4. student needs to pay $5 for make up class each time. coupon cannot be applied to this fee. Admin input make up class fee when they set up a class. 
 5. when admin set up class, he needs to input make up class fee field. if it's 0, payment process should be skipped. 
 
