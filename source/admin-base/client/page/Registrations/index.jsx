@@ -137,9 +137,12 @@ KUI.Registration_index = class extends KUI.Page{
             return false;
         }
 
+        let classData = _.find(this.data.classList,{_id:lesson.getValue()});
+
         let data = {
             studentID : this.state.student._id,
             accountID : this.state.student.accountID,
+            programID: classData.programID,
             classID : lesson.getValue()
         };
 
