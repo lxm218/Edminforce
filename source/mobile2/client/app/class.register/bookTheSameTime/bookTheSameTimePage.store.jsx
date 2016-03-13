@@ -10,8 +10,8 @@
     //});
 
     //subscribes
-    Meteor.subscribe('accountWithSwimmersAndClasses');
-    Meteor.subscribe("classes");
+    //Meteor.subscribe('accountWithSwimmersAndClasses');
+    //Meteor.subscribe("classes");
 
 
     Dependency.add('classRegister.bookTheSameTimePage.store', new function () {

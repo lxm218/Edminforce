@@ -242,15 +242,31 @@
                                     label="Swimmer"
                                     />
 
-                                : <RC.Item uiColor="brand1">
-                                    Swimmer: {this.data.currentSwimmer && this.data.currentSwimmer.name}
-                                </RC.Item>
+                                : <RC.Div uiColor="brand1" style={{
+                            display:"flex",
+                            justifyContent:"space-between",
+                            paddingRight:30
+                        }}>
+                                <span>Swimmer:</span>
+                                <span>
+                                    {this.data.currentSwimmer && this.data.currentSwimmer.name}
+                                </span>
+                            </RC.Div>
+
+
+
+
                         }
 
 
-                        <RC.Item uiColor="brand1">
-                            Level: {this.data.currentLevel}
-                        </RC.Item>
+                        <RC.Div uiColor="brand1" style={{
+                            display:"flex",
+                            justifyContent:"space-between",
+                            paddingRight:30
+                        }}>
+                            <span>Level:</span>
+                            <span>{this.data.currentLevel}</span>
+                        </RC.Div>
 
 
                         <Cal.SelectDayGrid

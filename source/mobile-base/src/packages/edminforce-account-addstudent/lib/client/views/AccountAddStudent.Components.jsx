@@ -128,8 +128,7 @@
                             primary={true}
                             fullWidth={true}
                             style={{marginTop:20}}
-                            onMouseUp={this.submitForm.bind(this)}
-                            onTouchEnd={this.submitForm.bind(this)}
+                            onTouchTap={this.submitForm.bind(this)}
                             disabled = {this.state.disabled}
                         />
                     </div>

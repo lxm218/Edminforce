@@ -163,6 +163,9 @@ Schema.ClassStudent = {
     accountID : KG.schema.default({
         optional : true
     }),
+    programID : KG.schema.default({
+        optional : true
+    }),
     type : KG.schema.default({
         allowedValues : ['trail', 'register', 'wait', 'makeup'],
         custom : function(){

@@ -78,18 +78,18 @@ Cal.CRRegBillingDetailCard = React.createClass({
                 {
                     items.map(function (item, index, all) {
 
-                        return <div className="row" key={index}>
-                            <div className="col">{item.swimmer.name}</div>
-                            <div className="col">{item.class1.name}</div>
-                            <div className="col">{item.class1.price}</div>
+                        return <Cal.Grid justifyContent="space-between" key={index}>
+                            <Cal.GridItem >{item.swimmer.name}</Cal.GridItem>
+                            <Cal.GridItem >{item.class1.name}</Cal.GridItem>
+                            <Cal.GridItem >{item.class1.price}</Cal.GridItem>
                             {
                                 !item.isBookTheSameTime ?
-                                    <div className="col" onClick={self.delete.bind(self,item)}>Delete</div>
-                                    : <div className="col"></div>
+                                    <Cal.GridItem  onClick={self.delete.bind(self,item)}>Delete</Cal.GridItem>
+                                    : <Cal.GridItem ></Cal.GridItem>
 
                             }
 
-                        </div>
+                        </Cal.Grid>
                     })
 
 
@@ -98,24 +98,40 @@ Cal.CRRegBillingDetailCard = React.createClass({
                 {
                     oweAnnualFeeSwimmers.map(function(swimmer, index, all){
 
-                        return <div   className="row" key={index}>
-                            <div className="col">{swimmer.name}</div>
-                            <div className="col">Annual Fee</div>
-                            <div className="col">25</div>
-                            <div className="col"></div>
+                        return <Cal.Grid justifyContent="space-between" key={index}>
+                                <Cal.GridItem>
+                                    {swimmer.name}
+                                </Cal.GridItem>
+                                <Cal.GridItem>
+                                    Annual Fee
+                                </Cal.GridItem>
+                                <Cal.GridItem>
+                                    25
+                                </Cal.GridItem>
+                                <Cal.GridItem>
+                                </Cal.GridItem>
 
-                        </div>
+                            </Cal.Grid>
 
                     })
 
                 }
 
-                <div className="row">
-                    <div className="col">All :</div>
-                    <div className="col"></div>
-                    <div className="col">{all}</div>
-                    <div className="col"></div>
-                </div>
+                <Cal.Grid justifyContent="space-between">
+                    <Cal.GridItem>
+                        All :
+                    </Cal.GridItem>
+                    <Cal.GridItem>
+
+                    </Cal.GridItem>
+                    <Cal.GridItem>
+                        {all}
+                    </Cal.GridItem>
+                    <Cal.GridItem>
+
+                    </Cal.GridItem>
+
+                </Cal.Grid>
 
             </div>
         )
@@ -131,7 +147,7 @@ Cal.CRRegBillingDetailCard = React.createClass({
         )
 
 
-        return <div className="padding">
+        return <div style={{padding:10}}>
 
             {
                 this.props.view == 'view2'? view2:view1

@@ -10,7 +10,9 @@ Cal.SelectedClassInfoCard = class extends RC.CSS{
     baseStyles(np,ns) {
 
         return{
+            area:{
 
+            }
         }
     }
     render () {
@@ -25,8 +27,20 @@ Cal.SelectedClassInfoCard = class extends RC.CSS{
 
         let showSwimmer = this.props.showSwimmer
 
-        return <RC.Card  className="padding">
-            <h4 className="brand">{title}</h4>
+        return <RC.Div  style={{
+            position: "relative",
+            overflow: "hidden",
+            margin: 10,
+            padding: 10,
+            boxShadow: "0 0 3px rgba(0,0,0,.15)",
+            backgroundColor: this.color.get("hex"),
+            color: this.color.get("textColor"),
+
+        }}>
+            <h4 className="brand" style={{
+                textAlign:"center",
+                padding:0
+            }}>{title}</h4>
 
             {
                 showSwimmer && swimmer ?
@@ -80,7 +94,7 @@ Cal.SelectedClassInfoCard = class extends RC.CSS{
                 </Cal.Grid>:''
             }
 
-        </RC.Card>
+        </RC.Div>
     }
 
 }

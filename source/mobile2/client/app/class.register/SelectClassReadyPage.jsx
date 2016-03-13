@@ -105,70 +105,85 @@
 
 
             return <div>
-                <RC.List theme="inset">
-                    <RC.Item theme="body">
-                        <h2 className="brand">Register for spring 2015</h2>
+                    <RC.Div style={{
+                        position: "relative",
+                        overflow: "hidden",
+                        margin: 10,
+                        padding: 10,
+                        boxShadow: "0 0 3px rgba(0,0,0,.15)",
+                        backgroundColor: "#fff",
+                        color: "#000",
+
+                    }}>
+                        <h2 className="brand"
+                            style={{
+                                textAlign:"center",
+                                padding:0,
+                                marginBottom:5
+                            }}
+                        >Register for spring 2015</h2>
+
                         {
-                            swimmer ? <div className="row">
-                                <div className="col">
+                            swimmer ? <Cal.Grid justifyContent="space-between">
+                                <Cal.GridItem>
                                     Swimmer:
-                                </div>
-                                <div className="col">
+                                </Cal.GridItem>
+                                <Cal.GridItem>
                                     {swimmer.name}
-                                </div>
-                            </div> : ''
+                                </Cal.GridItem>
+
+                            </Cal.Grid> : ''
                         }
 
 
                         {
-                            class1 ? <div className="row">
-                                <div className="col">
+                            class1 ? <Cal.Grid justifyContent="space-between"
+                                               alignItems="center"
+                            >
+                                <Cal.GridItem >
                                     Preference 1
-                                </div>
-                                <div className="col">
+                                </Cal.GridItem>
+                                <Cal.GridItem >
                                     {class1.name}
-                                </div>
-                                <div className="col col-20">
-                                    <button className="button button-clear"
-                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,1)}>Edit
-                                    </button>
-                                </div>
-
-                            </div> : ''
+                                </Cal.GridItem>
+                                <Cal.GridItem >
+                                    <RC.Button  theme="inline" bgColor="brand1"
+                                            onClick={self.goToEdit.bind(self,swimmer._id,class1._id,1)}>Edit
+                                    </RC.Button>
+                                </Cal.GridItem>
+                            </Cal.Grid> : ''
 
                         }
                         {
-                            class2 ? <div className="row">
-                                <div className="col">
+                            class2 ? <Cal.Grid justifyContent="space-between" alignItems="center">
+                                <Cal.GridItem >
                                     Preference 2
-                                </div>
-                                <div className="col">
+                                </Cal.GridItem>
+                                <Cal.GridItem >
                                     {class2.name}
-                                </div>
-                                <div className="col col-20">
-                                    <button className="button button-clear"
-                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,2)}>Edit
-                                    </button>
-                                </div>
-
-                            </div> : ''
+                                </Cal.GridItem>
+                                <Cal.GridItem >
+                                    <RC.Button  theme="inline" bgColor="brand1"
+                                            onClick={self.goToEdit.bind(self,swimmer._id,class1._id,2)}>Edit
+                                    </RC.Button>
+                                </Cal.GridItem>
+                            </Cal.Grid> : ''
 
                         }
                         {
-                            class3 ? <div className="row">
-                                <div className="col">
+                            class3 ? <Cal.Grid justifyContent="space-between" alignItems="center">
+                                <Cal.GridItem >
                                     Preference 3
-                                </div>
-                                <div className="col">
+                                </Cal.GridItem>
+                                <Cal.GridItem >
                                     {class3.name}
-                                </div>
-                                <div className="col col-20">
-                                    <button className="button button-clear"
-                                            onClick={this.goToEdit.bind(self,swimmer._id,class1._id,3)}>Edit
-                                    </button>
-                                </div>
-
-                            </div> : ''
+                                </Cal.GridItem>
+                                <Cal.GridItem >
+                                    <RC.Button theme="inline" bgColor="brand1"
+                                            onClick={self.goToEdit.bind(self,swimmer._id,class1._id,3)}>Edit
+                                    </RC.Button>
+                                </Cal.GridItem>
+                            </Cal.Grid> : ''
 
                         }
                         <div>
@@ -181,8 +196,10 @@
                                 />
                         </div>
 
-                    </RC.Item>
+                    </RC.Div>
 
+
+                <RC.Div style={{padding:10}}>
 
                     <RC.URL href="/classRegister/SelectClass">
                         <RC.Button name="button" type="submit" bgColor="brand1"
@@ -200,8 +217,10 @@
                         </RC.Button>
 
                     </RC.URL>
+                </RC.Div>
 
-                </RC.List>
+
+
             </div>
         }
     })

@@ -36,7 +36,7 @@ if (Meteor.isServer) {
           var td = check(data[x]);
 
           if(td){
-            //console.log(td);
+            console.log(td);
             db.insert(td);
           }
 
@@ -67,6 +67,7 @@ if (Meteor.isServer) {
         },
         customer : function(){
           insertData('Customer', customersData, customer, null, F.adminuser);
+          customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
         },
         adminuser : function(){
           insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
@@ -113,6 +114,7 @@ if (Meteor.isServer) {
         delay = 0;
       }else{ // otherwise it is production mode
       }
+      console.log('delay: ', delay);
       importDatas();
     }
 

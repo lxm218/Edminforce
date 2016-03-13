@@ -81,7 +81,8 @@
                 }
             }
 
-            let orderCount = EdminForce.Collections.orders.find({accountID:Meteor.userId(),status:'success'}).count();
+            let customer = EdminForce.Collections.Customer.find({_id:Meteor.userId()}).fetch();
+            customer = customer && customer[0];
 
             let programs = EdminForce.Collections.program.find({}).fetch();
             let sessions = EdminForce.Collections.session.find({}).fetch();
@@ -90,7 +91,7 @@
                 carts: carts,
                 students: filteredStudents,
                 classes: filteredClasses,
-                isNewUser: orderCount == 0,
+                isNewUser: !customer || customer.hasRegistrationFee,
                 programs,
                 sessions
             }
