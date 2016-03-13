@@ -117,8 +117,8 @@
         msg: null
       })
     }
-    var data = this.prepareConfirmationEmail()
-    let html = this.getPaymentConfirmEmailTemplate(data);
+
+    var email = this.prepareEmail()
     let orderID = FlowRouter.getQueryParam("order");
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
@@ -145,8 +145,8 @@
         EdminForce.Collections.Customer.updateRegistrationFeeFlagAfterPayment();
         Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Registration Confirmation',
-                  html,
+                  email.subject,
+                  email.content,
                   function (error, result) {
                     if (!!error){
                       console.log(error)
@@ -397,9 +397,175 @@
             '<b>',school.name,'</b>'
         ].join('')
          return tpl
-
-
     },
+
+    prepareEmail(){
+      var o = this.data.order[0]
+      var c = EdminForce.Collections.classStudent.findOne({
+          _id: o.details[0]
+        })
+      if (c.type != "register") {
+        var data = this.prepareMakeUpEmail()
+        let html = this.getMakeUpConfirmEmailTemplate(data);
+        return {
+          "content": html,
+          "subject": "Make Up Class Booking Confirmation"
+        }
+
+      } else {
+        var data = this.prepareConfirmationEmail()
+        let html = this.getPaymentConfirmEmailTemplate(data);
+        return {
+          "content": html,
+          "subject": "Registration Confirmation"
+        }
+      }
+    },
+
+    prepareMakeUpEmail(){
+      var o = this.data.order[0]
+      var classes = this.getMakeUpClasses(o.details)
+      var registrationFee = o.registrationFee
+      var couponDiscount = o.discount
+      var amt = Number(o.amount)
+      var total = amt + 0.5
+      total = total.toFixed(2)
+      var processFee = total - amt
+      processFee = processFee.toFixed(2)
+      if (typeof registrationFee == "undefined"){
+        registrationFee = 0
+      }
+      if (typeof couponDiscount == "undefined"){
+        couponDiscount = 0
+      }
+      return {
+        "amount": amt,
+        "classes": classes,
+        "registrationFee" : registrationFee,
+        "couponDiscount": couponDiscount,
+        "processFee": processFee,
+        "total": total
+      }
+    },
+
+    getMakeUpClasses(classStudentIDs){
+      var res = {}
+      for (var i = 0; i < classStudentIDs.length; i++) {
+        var c = EdminForce.Collections.classStudent.find({
+          _id: classStudentIDs[i]
+        }, {}
+        ).fetch();
+        var student = EdminForce.Collections.student.find({
+          _id: c[0].studentID
+        }, {}
+        ).fetch();
+        if (res[student[0].name] == undefined){
+          res[student[0].name] = {}
+        }
+        var doc = res[student[0].name]
+        var classes = EdminForce.Collections.class.find({
+          _id: c[0].classID
+        }, {}
+        ).fetch();
+        doc[classes[0].name] = [classes[0].makeupClassFee, this.formatDate(c[0].lessonDate)]
+      }
+      return res
+    },
+
+    getMakeUpConfirmEmailTemplate(data){
+        let school={
+          "name" : "CalColor Academy"
+        }
+        let tpl = [
+            '<h3>Hello,</h3>',
+            '<p>This is your Make Up Class detail: </p>',
+            '<table border=\"1\">',
+            '<tr>',
+                '<td>Name</td>',
+                '<td>Class</td>',
+                '<td>Date</td>',
+                '<td>Fee</td>',
+            '</tr>'
+        ].join('')
+        var classes = data.classes
+
+        for (var studentName in classes){
+          var count = 0
+          var l = ""
+          var chosenClass = classes[studentName]
+          for (var name in chosenClass){
+            if(count != 0){
+              var line = [
+                  '<tr>',
+                    '<td>',name,'</td>',
+                    '<td>',chosenClass[name][1],'</td>',
+                    '<td>$',chosenClass[name][0],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            } else {
+              var line = [
+                    '<td>',name,'</td>',
+                    '<td>',chosenClass[name][1],'</td>',
+                    '<td>$',chosenClass[name][0],'</td>',
+                  '</tr>',
+              ].join('')
+              l = l + line
+            }
+            count ++
+          }
+          var fCol = [
+                '<tr>',
+                  '<td rowspan=',count,'>',studentName,'</td>',
+            ].join('')
+            tpl = tpl + fCol + l
+        }
+
+        if (data.couponDiscount != 0){
+          tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"3\">Coupon Discount</td>',
+                '<td>-$',data.couponDiscount,'</td>',
+              '</tr>',].join('')
+        }
+        if (data.registrationFee != 0){
+          tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"3\">Registration</td>',
+                '<td>$',data.registrationFee,'</td>',
+              '</tr>',].join('')
+        }
+        tpl = tpl + [
+              '<tr>',
+                '<td colspan=\"3\">Credit Process Fee</td>',
+                '<td>$',data.processFee,'</td>',
+              '</tr>',
+              '<tr>',
+                '<td colspan=\"3\">Total</td>',
+                '<td>$',data.total,'</td>',
+              '</tr>',
+
+            '</table>',
+
+            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+
+            '<br/><br/>',
+            '<b>',school.name,'</b>'
+        ].join('')
+         return tpl
+    },
+
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  },
 
   render() {
     var inputTheme = "small-label"

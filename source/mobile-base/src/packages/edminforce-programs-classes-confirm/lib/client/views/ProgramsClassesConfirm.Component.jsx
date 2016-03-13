@@ -117,7 +117,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
                 };
                 Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Thank for a Booking Trial Class!',
+                  'Trial Class Booking Confirmation',
                   html,
                   function (error, result) {
                     if (!!error){

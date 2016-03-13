@@ -142,16 +142,12 @@
     paymentInfo.createTransactionRequest.refId = String(orderID)
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
 
-    var data = this.prepareConfirmationEmail()
-    let html = this.getPaymentConfirmEmailTemplate(data);
-    debugger
     this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     let amt = Number(o[0].amount) * 1.03
     amt = amt.toFixed(2)
     paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
-
-    // TO ADD: Pay MAKEUPCLASS
+    var email = this.prepareEmail()
 
     console.log(paymentInfo)
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -169,8 +165,8 @@
 
         Meteor.call('sendEmailHtml',
                   Meteor.user().emails[0].address,
-                  'Registration Confirmation',
-                  html,
+                  email.subject,
+                  email.content,
                   function (error, result) {
                     if (!!error){
                       console.log(error)
@@ -273,6 +269,8 @@
       }
     },
 
+    
+
 
 
     checkCCV(e){
@@ -317,8 +315,30 @@
       return amt
     },
 
+    prepareEmail(){
+      var o = this.data.order[0]
+      var c = EdminForce.Collections.classStudent.findOne({
+          _id: o.details[0]
+        })
+      if (c.type != "register") {
+        var data = this.prepareMakeUpEmail()
+        let html = this.getMakeUpConfirmEmailTemplate(data);
+        return {
+          "content": html,
+          "subject": "Make Up Class Booking Confirmation"
+        }
+
+      } else {
+        var data = this.prepareConfirmationEmail()
+        let html = this.getPaymentConfirmEmailTemplate(data);
+        return {
+          "content": html,
+          "subject": "Registration Confirmation"
+        }
+      }
+    },
+
     prepareConfirmationEmail(){
-      debugger
       var o = this.data.order[0]
       var classes = this.getAllClasses(o.details)
       var registrationFee = o.registrationFee
@@ -348,7 +368,6 @@
     getAllClasses(classStudentIDs){
       var res = {}
       for (var i = 0; i < classStudentIDs.length; i++) {
-        debugger
         var c = EdminForce.Collections.classStudent.find({
           _id: classStudentIDs[i]
         }, {}
@@ -450,8 +469,8 @@
     },
 
     prepareMakeUpEmail(){
-      debugger
       var o = this.data.order[0]
+
       var classes = this.getMakeUpClasses(o.details)
       var registrationFee = o.registrationFee
       var couponDiscount = o.discount
@@ -479,7 +498,6 @@
     getMakeUpClasses(classStudentIDs){
       var res = {}
       for (var i = 0; i < classStudentIDs.length; i++) {
-        debugger
         var c = EdminForce.Collections.classStudent.find({
           _id: classStudentIDs[i]
         }, {}
@@ -496,7 +514,7 @@
           _id: c[0].classID
         }, {}
         ).fetch();
-        doc[classes[0].name] = c[0].lessonDate.toString()
+        doc[classes[0].name] = [classes[0].makeupClassFee, this.formatDate(c[0].lessonDate)]
       }
       return res
     },
@@ -507,12 +525,13 @@
         }
         let tpl = [
             '<h3>Hello,</h3>',
-            '<p>This is your registration detail: </p>',
+            '<p>This is your Make Up Class detail: </p>',
             '<table border=\"1\">',
             '<tr>',
                 '<td>Name</td>',
                 '<td>Class</td>',
                 '<td>Date</td>',
+                '<td>Fee</td>',
             '</tr>'
         ].join('')
         var classes = data.classes
@@ -526,14 +545,16 @@
               var line = [
                   '<tr>',
                     '<td>',name,'</td>',
-                    '<td>$',chosenClass[name],'</td>',
+                    '<td>',chosenClass[name][1],'</td>',
+                    '<td>$',chosenClass[name][0],'</td>',
                   '</tr>',
               ].join('')
               l = l + line
             } else {
               var line = [
                     '<td>',name,'</td>',
-                    '<td>$',chosenClass[name],'</td>',
+                    '<td>',chosenClass[name][1],'</td>',
+                    '<td>$',chosenClass[name][0],'</td>',
                   '</tr>',
               ].join('')
               l = l + line
@@ -550,24 +571,24 @@
         if (data.couponDiscount != 0){
           tpl = tpl + [
               '<tr>',
-                '<td colspan=\"2\">Coupon Discount</td>',
+                '<td colspan=\"3\">Coupon Discount</td>',
                 '<td>-$',data.couponDiscount,'</td>',
               '</tr>',].join('')
         }
         if (data.registrationFee != 0){
           tpl = tpl + [
               '<tr>',
-                '<td colspan=\"2\">Registration</td>',
+                '<td colspan=\"3\">Registration</td>',
                 '<td>$',data.registrationFee,'</td>',
               '</tr>',].join('')
         }
         tpl = tpl + [
               '<tr>',
-                '<td colspan=\"2\">Credit Process Fee</td>',
+                '<td colspan=\"3\">Credit Process Fee</td>',
                 '<td>$',data.processFee,'</td>',
               '</tr>',
               '<tr>',
-                '<td colspan=\"2\">Total</td>',
+                '<td colspan=\"3\">Total</td>',
                 '<td>$',data.total,'</td>',
               '</tr>',
 
@@ -580,6 +601,18 @@
         ].join('')
          return tpl
     },
+
+  formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+  },
 
   render() {
     var inputTheme = "small-label"
