@@ -7,9 +7,11 @@ export PACKAGE_DIRS=$MOBILE_BASE_PACKAGES:$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobil
 PORT=4000
 
 # local db
-export MONGO_URL=mongodb://localhost:27017/EdminForce
+#export MONGO_URL=mongodb://localhost:27017/EdminForce
 # Prod DB
 #export MONGO_URL=mongodb://admin.classforth.com:27017/EdminForce
+# Calcolor Prod DB
+export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
 
 #=====================
 #transfer data
