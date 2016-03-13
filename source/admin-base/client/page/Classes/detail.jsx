@@ -120,7 +120,10 @@ console.log(y)
             },
             {
                 title : 'Status',
-                key : 'status'
+                //key : 'status'
+                reactDom(doc){
+                    return doc.status==='checkouted'?'success':doc.status;
+                }
             }
         ];
 
