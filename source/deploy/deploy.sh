@@ -8,20 +8,21 @@ deployAdminBase(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-staging;
-    sudo mup setup;
+    # sudo mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
     echo "link : http://staging.admin.classforth.com/home";
 }
 
 deployMobileBase(){
-	# git clean -d -fx;
-	sudo chmod 400 edminforce.pem;
-	echo "---- connect to mobile-base server ----";
-	CMD="cd Edminforce;git reset --hard;git pull;cd source/mobile-base;source aws.sh;"
-	#echo "${CMD}"
-	ssh -i "edminforce.pem" ubuntu@ec2-52-36-230-108.us-west-2.compute.amazonaws.com "${CMD}"
-	sudo chmod 777 edminforce.pem;
+	echo "---- start to deploy EF Mobile Production ----";
+    . ./ENV.inc
+    echo ${MOBILE_ENV};
+    cd mobile-production;
+    # sudo mup setup;
+    sudo ${MOBILE_ENV} mup deploy;
+    cd ../;
+    echo "link : http://www.classforth.com";
 }
 
 deployToAdminProduction(){
@@ -29,7 +30,7 @@ deployToAdminProduction(){
 	. ./ENV.inc
 	echo ${ADMIN_ENV};
 	cd admin-production;
-	sudo mup setup;
+	# sudo mup setup;
 	sudo ${ADMIN_ENV} mup deploy;
 	cd ../;
 	echo "link : http://admin.classforth.com/home";
@@ -42,11 +43,14 @@ case "$1" in
 	mobile)
 		deployMobileBase
 		;;
+	mobile-production)
+        deployMobileBase
+        ;;
 	admin-production)
 		deployToAdminProduction
 		;;
     *)
-        echo "usage {admin|mobile}"
+        echo "usage {admin|mobile|admin-production|mobile-production}"
         ;;
 
 esac
