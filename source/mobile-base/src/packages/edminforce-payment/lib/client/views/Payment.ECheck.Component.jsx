@@ -160,6 +160,7 @@
             $set:{
               "_id": self.state.orderId,
               paymentTotal:amt,
+              paymentMethod:"echeck",
               status:"success"
             }
           }, function(err, res){

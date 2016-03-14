@@ -180,6 +180,7 @@
             $set:{
               "_id": self.state.orderId,
               paymentTotal:String(amt),
+              paymentMethod:"creditCard",
               status:"success"
             }
           }, function(err, res){

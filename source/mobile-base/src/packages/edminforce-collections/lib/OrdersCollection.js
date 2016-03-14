@@ -41,12 +41,17 @@ OrdersCollection = class OrdersCollection extends BaseCollection {
                 type: Number,
                 optional: true
             },
-            discount:{
+            discount:{          // the discounts coming from coupon
                 type: Number,
                 optional: true
             },
-            paymentTotal:{
+            paymentTotal:{      // actual total payment, including process fee (like when using a credit card)
                 type: String,
+                optional: true
+            },
+            paymentMethod:{
+                type: String,
+                allowedValues : ['creditCard', 'echeck'],
                 optional: true
             },
             couponID:{
