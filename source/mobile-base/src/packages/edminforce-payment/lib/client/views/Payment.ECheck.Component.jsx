@@ -23,7 +23,6 @@
         waiting: false,
         msg: null,
         notification: null,
-        orderId:null,
       }
     },
 
@@ -120,27 +119,19 @@
 
     var email = this.prepareEmail()
     let orderID = FlowRouter.getQueryParam("order");
-    this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
-    paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.routingNumber = form.routingNumber
-    paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = form.accountNumber
-    paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = form.nameOnAccount
-    // paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.bankName = form.bankNname
-    paymentInfo.createTransactionRequest.refId = String(orderID)
-    paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
     var amt = Number(o[0].amount) + 0.5
-    paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
-    console.log(paymentInfo)
-    var URL = 'https://apitest.authorize.net/xml/v1/request.api'
-    HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
-      if(!!error){
-        console.log(error)
-      }
-      if(!!response){
-        console.log(response)
-      }
+    form.orderID = orderID
+    form.userID = Meteor.userId()
+    form.amt = String(amt)
 
-      if (response.data.messages.message[0].code == "I00001") {
+    Meteor.call('payECheck', form, function (error, response) {
+      if (!!error){
+        self.setState({
+             msg: "Connection Failure. Payment cannot be posted."
+           })
+      } 
+      else if (response && response.data.messages.message[0].code == "I00001") {
         console.log("Success")
         EdminForce.Collections.Customer.updateRegistrationFeeFlagAfterPayment();
         Meteor.call('sendEmailHtml',
@@ -155,10 +146,10 @@
                       console.log(result)
                     } } );
         EdminForce.Collections.orders.update({
-            "_id":self.state.orderId
+            "_id":orderID
           }, {
             $set:{
-              "_id": self.state.orderId,
+              "_id": orderID,
               paymentTotal:amt,
               paymentMethod:"echeck",
               status:"success"
@@ -169,13 +160,14 @@
                }else{
                    console.log("[Info] Pay successful");
                    let params = {
-                       orderId: self.state.orderId
+                       orderId: orderID
                    };
                    let path = FlowRouter.path("/orders/summary/:orderId",params,{makeupOnly:FlowRouter.getQueryParam("makeupOnly")});
                    FlowRouter.go(path);
                }
             });
-      } else{
+      }
+      else{
         self.setState({
             msg: "The transaction was unsuccessful."
         })

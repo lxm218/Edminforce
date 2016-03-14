@@ -20,8 +20,7 @@
         buttonActive: false,
         waiting: false,
         msg: null,
-        notification: null,
-        orderId:null,
+        notification: null
       }
     },
 
@@ -29,75 +28,12 @@
 
   postPayment(e){
 
-    // To do: get the charging amount from database
-    // To do: change the referece id
-
     e.preventDefault()
     let self = this
-    var paymentInfo = {
-      "createTransactionRequest": {
-            "merchantAuthentication": {
-                "name": "42ZZf53Hst",
-                "transactionKey": "3TH6yb6KN43vf76j"
-            },
-            "refId": "123461",
-            "transactionRequest": {
-                "transactionType": "authCaptureTransaction",
-                "amount": "5",
-                "payment": {
-                    "creditCard": {
-                        "cardNumber": "5424000000000015",
-                        "expirationDate": "1220",
-                        "cardCode": "999"
-                    }
-                },
-                "profile":{
-                  "createProfile": false
 
-                },
-                "lineItems": {
-                    "lineItem": {
-                        "itemId": "1",
-                        "name": "vase",
-                        "description": "Cannes logo",
-                        "quantity": "1",
-                        "unitPrice": "0.02"
-                    }
-                },
-                "poNumber": "456654",
-                "customer": {
-                    "id": "99999456656"
-                },
-                "billTo": {
-                    "firstName": "Ellen",
-                    "lastName": "Johnson",
-                    "company": "Souveniropolis",
-                    "address": "14 Main Street",
-                    "city": "Pecan Springs",
-                    "state": "TX",
-                    "zip": "44628",
-                    "country": "USA"
-                },
+    var form = this.refs.paymentForm.getFormData()
 
-                "customerIP": "192.168.1.1",
-                "transactionSettings": {
-                    "setting": {
-                        "settingName": "testRequest",
-                        "settingValue": "false"
-                    }
-                },
-            }
-        }
-    }
-
-    // if (this.state.msg) return null
-
-    let form = this.refs.paymentForm.getFormData()
-
-    console.log(form.creditCardNumber)
-    console.log(form.expirationDate)
-    console.log(form.ccv)
-
+    // Format Checking
     var cardNumber = this.refs.paymentForm.getFormData().creditCardNumber
     var ccv = this.refs.paymentForm.getFormData().ccv
     var expirationDate = this.refs.paymentForm.getFormData().expirationDate
@@ -110,10 +46,7 @@
           message.push("American Express Is Not Supported; ")
         }
       }
-
     var patt = /[0-9]{2}\/[0-9]{2}/
-
-
     if (!patt.test(expirationDate)){
       message.push("Expiration Date Format Format Error; ")
     }
@@ -126,40 +59,27 @@
       })
       return
     }
-      // expirationDate = expirationDate.slice(0,2)+expirationDate.slice(3,5)
+    
+    // Prepare Confirmation Email
+    var email = this.prepareEmail()
 
+    // Prepare Payment Data
     let orderID = FlowRouter.getQueryParam("order");
-
-    paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardNumber = form.creditCardNumber
-    paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.expirationDate = form.expirationDate
-    paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardCode = form.ccv
-    paymentInfo.createTransactionRequest.transactionRequest.billTo.firstName = form.cardHolderFirstName
-    paymentInfo.createTransactionRequest.transactionRequest.billTo.lastName = form.cardHolderLastName
-    paymentInfo.createTransactionRequest.transactionRequest.billTo.address = form.street
-    paymentInfo.createTransactionRequest.transactionRequest.billTo.city = form.city
-    paymentInfo.createTransactionRequest.transactionRequest.billTo.state = form.state
-    paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = form.zip
-    paymentInfo.createTransactionRequest.refId = String(orderID)
-    paymentInfo.createTransactionRequest.transactionRequest.customer.id = Meteor.userId()
-
-    this.setState({orderId: orderID})
     let o = EdminForce.Collections.orders.find({"_id":orderID}).fetch()
     let amt = Number(o[0].amount) * 1.03
     amt = amt.toFixed(2)
-    paymentInfo.createTransactionRequest.transactionRequest.amount = String(amt)
-    var email = this.prepareEmail()
+    form.orderID = orderID
+    form.userID = Meteor.userId()
+    form.amt = amt
 
-    console.log(paymentInfo)
-    var URL = 'https://apitest.authorize.net/xml/v1/request.api'
-    HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
-      if(!!error){
-        console.log(error)
-      }
-      if(!!response){
-        console.log(response)
-      }
-
-      if (response.data.messages.message[0].code == "I00001") {
+    Meteor.call('payCreditCard', form, function (error, response) {
+      if (!!error){
+        self.setState({
+             msg: "Connection Failure. Payment cannot be posted"
+           })
+      } 
+      else if (response && response.data.messages.message[0].code == "I00001"){
+        // Payment is successful
         console.log("Success")
         EdminForce.Collections.Customer.updateRegistrationFeeFlagAfterPayment();
 
@@ -174,11 +94,13 @@
                     if (!!result){
                       console.log(result)
                     } } );
+
+        // Update Database
         EdminForce.Collections.orders.update({
-            "_id":self.state.orderId
+            "_id":orderID
           }, {
             $set:{
-              "_id": self.state.orderId,
+              "_id": orderID,
               paymentTotal:String(amt),
               paymentMethod:"creditCard",
               status:"success"
@@ -189,7 +111,7 @@
                }else{
                    console.log("[Info] Pay successful");
                    let params = {
-                       orderId: self.state.orderId
+                       orderId: orderID
                    };
 
 
@@ -197,13 +119,13 @@
                    FlowRouter.go(path);
                }
             });
-      } else{
-        self.setState({
-            msg: "The transaction was unsuccessful."
-        })
       }
-    })
-
+      else {
+        self.setState({
+             msg: "The transaction was unsuccessful."
+           })
+      }
+    } );
    },
 
   printMsg(){
