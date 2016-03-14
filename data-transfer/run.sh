@@ -10,8 +10,10 @@ PORT=4000
 #export MONGO_URL=mongodb://localhost:27017/EdminForce
 # Prod DB
 #export MONGO_URL=mongodb://admin.classforth.com:27017/EdminForce
+# Calcolor Stag DB
+export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
 # Calcolor Prod DB
-export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
+#export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
 
 #=====================
 #transfer data

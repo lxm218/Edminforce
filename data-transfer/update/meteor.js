@@ -21,7 +21,7 @@ if (Meteor.isServer) {
     let studentsData = JSON.parse(Assets.getText('students.json'));
     let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
 
-    var delay = 500;
+    var delay = 10;
 
     function insertData(name, data, db, check, callback){
       check = check || function(d){
