@@ -128,8 +128,17 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         });
     }
 
+    formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
 
+    return [year, month, day].join('-');
+  }
 
     getAllClasses(data){
       var res = {}
@@ -174,14 +183,14 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
               var line = [
                   '<tr>',
                     '<td>',name,'</td>',
-                    '<td>',chosenClass[name],'</td>',
+                    '<td>',this.formatDate(chosenClass[name]),'</td>',
                   '</tr>',
               ].join('')
               l = l + line
             } else {
               var line = [
                     '<td>',name,'</td>',
-                    '<td>',chosenClass[name],'</td>',
+                    '<td>',this.formatDate(chosenClass[name]),'</td>',
                   '</tr>',
               ].join('')
               l = l + line
@@ -196,11 +205,7 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         }
 
         tpl = tpl + [
-
             '</table>',
-
-          //  '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
-
             '<br/><br/>',
             '<b>',school.name,'</b>'
         ].join('')
@@ -223,8 +228,6 @@ EdminForce.Components.ProgramsClassesConfirm = class extends RC.CSSMeteorData {
         } else {
             this.selectedStudents[student._id] = student;
         }
-
-        //console.log(this.selectedStudents);
     }
 
     addStudent() {
