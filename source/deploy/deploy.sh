@@ -9,6 +9,7 @@ deployAdminBase(){
     echo ${ADMIN_ENV};
     cd admin-staging;
     # sudo mup setup;
+    sudo ${MOBILE_ENV} mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
     echo "link : http://staging.admin.classforth.com/home";
@@ -18,8 +19,21 @@ deployMobileBase(){
 	echo "---- start to deploy EF Mobile Production ----";
     . ./ENV.inc
     echo ${MOBILE_ENV};
+    cd mobile-staging;
+    # sudo mup setup;
+    sudo ${MOBILE_ENV} mup setup;
+    sudo ${MOBILE_ENV} mup deploy;
+    cd ../;
+    echo "link : http://www.classforth.com";
+}
+
+deployMobileBaseProduction(){
+	echo "---- start to deploy EF Mobile Production ----";
+    . ./ENV.inc
+    echo ${MOBILE_ENV};
     cd mobile-production;
     # sudo mup setup;
+    sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
     echo "link : http://www.classforth.com";
@@ -31,21 +45,22 @@ deployToAdminProduction(){
 	echo ${ADMIN_ENV};
 	cd admin-production;
 	# sudo mup setup;
+	sudo ${MOBILE_ENV} mup setup;
 	sudo ${ADMIN_ENV} mup deploy;
 	cd ../;
 	echo "link : http://admin.classforth.com/home";
 }
 
 case "$1" in
-    admin)
-        deployAdminBase
-        ;;
+  admin)
+    deployAdminBase
+    ;;
 	mobile)
 		deployMobileBase
 		;;
 	mobile-production)
-        deployMobileBase
-        ;;
+    deployMobileBaseProduction
+    ;;
 	admin-production)
 		deployToAdminProduction
 		;;

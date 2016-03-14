@@ -2,12 +2,12 @@
   // Server authentication info
   "servers": [
     {
-      "host": "ec2-52-10-176-99.us-west-2.compute.amazonaws.com",
+      "host": "ec2-54-193-66-244.us-west-1.compute.amazonaws.com",
       "username": "ubuntu",
       //"password": "password",
       // or pem file (ssh based authentication)
       // WARNING: Keys protected by a passphrase are not supported
-      "pem": "../edminforce.pem",
+      "pem": "../CalColor.pem",
       // Also, for non-standard ssh port use this
       //"sshOptions": { "port" : 22 },
       // server specific environment variables
@@ -24,7 +24,7 @@
   "nodeVersion": "0.10.40",
 
   // Application name (no spaces).
-  "appName": "EdminforceAdmin",
+  "appName": "CalColorAdminStaging",
 
   // Location of app (local directory). This can reference '~' as the users home directory.
   // i.e., "app": "~/Meteor/my-app",
@@ -34,9 +34,9 @@
   // Configure environment
   // ROOT_URL must be set to your correct domain (https or http)
   "env": {
-    "MONGO_URL" : "mongodb://172.31.19.151:27017/EdminForce",
-    "PORT" : 8000,
-    "ROOT_URL": "http://staging.admin.classforth.com"
+    "MONGO_URL" : "mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true",
+    "PORT" : 80,
+    "ROOT_URL": "http://sadmin.calcolor.classforth.com"
   },
 
   // Meteor Up checks if the app comes online just after the deployment.
