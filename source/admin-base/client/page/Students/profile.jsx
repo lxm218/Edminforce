@@ -172,8 +172,8 @@ KUI.Student_profile = class extends KUI.Page{
 
                     return (
                         <RC.Div style={{textAlign:'center'}}>
-                            {/*<KUI.NoButton style={sy} href={`/student/changeclass/${doc._id}`}
-                             label="Change"></KUI.NoButton>*/}
+                            {<KUI.NoButton style={sy} href={`/student/changeclass/${doc._id}`}
+                             label="Change"></KUI.NoButton>}
                         </RC.Div>
                     );
                 }

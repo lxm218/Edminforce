@@ -18,10 +18,8 @@ let Class = class extends Base{
 
     }
 
-    defineDepModule(){
-        return {
-            ClassStudent : KG.get('EF-ClassStudent')
-        };
+    getDepModule(){
+        return KG.DataHelper.getDepModule();
     }
 
     defineSchemaValidateMessage(){
@@ -248,7 +246,7 @@ let Class = class extends Base{
 
                 let {classID, studentID, date} = opts;
 
-                let m = self.defineDepModule();
+                let m = self.getDepModule();
                 let query = {
                     studentID : studentID,
                     classID : classID,
@@ -308,6 +306,44 @@ let Class = class extends Base{
 
                 return KG.result.out(true, 'ok');
 
+            },
+            checkCanBeRegister(classID){
+                let m = this.getDepModule();
+
+                let result = true;
+                let max = this._db.findOne({
+                    _id : classID
+                }).maxStudent;
+                let nn = m.ClassStudent.getDB().find({
+                    classID : classID,
+                    type : 'register',
+                    status : 'checkouted'
+                }).count();
+
+                if((nn+1) > max){
+                    result = false;
+                }
+
+
+                return result;
+            },
+
+            changeClassForReady(opts){
+                let m = KG.DataHelper.getDepModule();
+                let fromClassID = opts.fromClassID,
+                    toClassID = opts.toClassID,
+                    studentID = opts.studentID;
+
+                let fromClass = this.getAll({_id : fromClassID})[0],
+                    toClass = this.getAll({_id : toClassID})[0];
+
+                let fromTuition = fromClass.tuition.type === 'class' ? fromClass.leftOfClass*fromClass.tuition.money : fromClass.tuition.money,
+                    toTuition = toClass.tuition.type === 'class' ? toClass.leftOfClass*toClass.tuition.money : toClass.tuition.money;
+                let rs = {
+                    tuitionDifferent : toTuition - fromTuition
+                };
+
+                return rs;
             }
         };
     }
@@ -482,7 +518,7 @@ let Class = class extends Base{
             },
 
             checkCanBeRegister(classID){
-                let m = this.defineDepModule();
+                let m = this.getDepModule();
                 let rs = m.ClassStudent.subscribeFullDataByClassID(classID);
                 if(!rs.ready()){
                     return {
