@@ -340,10 +340,36 @@ let Class = class extends Base{
                 let fromTuition = fromClass.tuition.type === 'class' ? fromClass.leftOfClass*fromClass.tuition.money : fromClass.tuition.money,
                     toTuition = toClass.tuition.type === 'class' ? toClass.leftOfClass*toClass.tuition.money : toClass.tuition.money;
                 let rs = {
-                    tuitionDifferent : toTuition - fromTuition
+                    tuitionDifferent : toTuition - fromTuition,
+                    fromClass : fromClass,
+                    toClass : toClass
                 };
 
                 return rs;
+            },
+
+            changeClass(opts){
+                let m = KG.DataHelper.getDepModule();
+                let ClassStudentID = opts.ClassStudentID,
+                    toClassID = opts.toClassID,
+                    studentID = opts.studentID;
+
+                let student = m.Student.getDB().findOne({_id : studentID});
+
+                let toClass = this.getAll({_id : toClassID})[0];
+                console.log(m, student, toClass);
+                let data = {
+                    //studentID : studentID,
+                    //accountID : student.accountID,
+                    programID : toClass.programID,
+                    classID : toClassID
+                };
+
+                return m.ClassStudent.getDB().update({
+                    _id : ClassStudentID
+                }, {
+                    '$set' : data
+                });
             }
         };
     }
