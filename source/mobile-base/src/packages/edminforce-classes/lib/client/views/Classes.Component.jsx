@@ -335,6 +335,7 @@
 
 
         onSelectDay(day) {
+            this.selectedClasses = [];
             this.setState({
                 weekDay: day
             })
