@@ -13,7 +13,7 @@
     let _ = lodash;
 
     const schemaConst = {
-        day: ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
+        day: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         weekDay: {
             "mon": 1,
             "tues": 2,
@@ -399,7 +399,7 @@
                                                 <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
                                                     onClick={this.onSelectDay.bind(this, "Mon")}>Mon</RC.Button>
                                                 <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                                    onClick={this.onSelectDay.bind(this, "Tues")}>Tues</RC.Button>
+                                                    onClick={this.onSelectDay.bind(this, "Tue")}>Tue</RC.Button>
                                                 <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
                                                     onClick={this.onSelectDay.bind(this, "Wed")}>Wed</RC.Button>
                                                 <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"

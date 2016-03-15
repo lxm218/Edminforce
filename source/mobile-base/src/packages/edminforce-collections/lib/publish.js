@@ -95,8 +95,8 @@ Meteor.startup(function () {
                 },
                 // currently user's students registered which classes
                 {
-                    find: function () {
-                        return EdminForce.Collections.classStudent.find();
+                    find: function (student) {
+                        return EdminForce.Collections.classStudent.find({studentID:student._id});
                     }
                 },
 
@@ -117,18 +117,20 @@ Meteor.startup(function () {
         }
     });
 
-    Meteor.publishComposite("EF-Cart-Detail-By-ID", function (cartID /*, classID, studentID*/) {
+    Meteor.publishComposite("EF-Cart-Detail-By-ID", function (cartIDs /*, classID, studentID*/) {
+
         return {
             find: function () {
                 return EdminForce.Collections.classStudent.find({
-                    _id: cartID
+                    _id: {$in:cartIDs}
                 });
             },
             children: [
                 {
                     find: function (clsStudent) {
                         return EdminForce.Collections.class.find({
-                            _id: clsStudent.classID
+                            _id: clsStudent.classID,
+                            status: 'Active'
                         });
                     },
                     children: [

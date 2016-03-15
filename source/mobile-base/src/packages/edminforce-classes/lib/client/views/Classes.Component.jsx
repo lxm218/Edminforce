@@ -38,7 +38,7 @@
             this.selectedClasses = [];
 
             // special handling for first registration week
-            this.firstRegistrationWeekSession = null;
+            this.firstRegistrationWeekSession = false;
             this.studentCurrentClasses = [];
             this.firstRegistrationWeekAlert;
 
@@ -52,6 +52,12 @@
                 programID: null,
                 sessionID: null
             };
+
+            this.routeChange = false;
+        }
+
+        shouldComponentUpdate() {
+            return !this.routeChange;
         }
 
         getMeteorData() {
@@ -106,10 +112,12 @@
 
             this.sessions = sessions;
 
-            // check if current date is within the first registration week of any session
-            this.firstRegistrationWeekSession = _.find(this.sessions, (s) => {
-                return (currentDate >= s.registrationStartDate && currentDate <= moment(s.registrationStartDate).add(7,"d").toDate());
-            });
+            this.setSelectedID('sessionID', sessions);
+
+            let selectedSession = _.find(this.sessions, {_id:this.sessionID});
+
+            this.firstRegistrationWeekSession = (currentDate >= selectedSession.registrationStartDate && currentDate <= moment(selectedSession.registrationStartDate).add(7,"d").toDate());
+
             // for the case of first week registration, we need to get current classes of the selected student
             // so we can find out which classes are available for first week registration.
             this.studentCurrentClasses = [];
@@ -123,14 +131,6 @@
                     sessionID: c.sessionID,
                     schedule: c.schedule
                 }));
-            }
-
-            if (this.firstRegistrationWeekSession) {
-                this.sessionID = this.firstRegistrationWeekSession._id;
-                this.state.weekDay = null;
-            }
-            else {
-                this.setSelectedID('sessionID', sessions);
             }
         }
 
@@ -221,7 +221,7 @@
                 }).fetch();
             }
 
-            if (this.state.weekDay) {
+            if (this.state.weekDay && !this.firstRegistrationWeekSession) {
                 classes = _.filter(classes, (c) => { return c.schedule && c.schedule.day == this.state.weekDay })
             }
 
@@ -329,16 +329,10 @@
             })
         }
 
-        onSelectClass(item, index) {
-            this.selectedClasses = [item];
-
-            let styles = [];
-            styles[index] = this.selectedClassStyle;
-
-            this.setState({
-                styles: styles
-            });
+        onTableRowSelection(selectedRowIndice) {
+            this.selectedClasses = selectedRowIndice.map( (idx) => this.classes[idx] );
         }
+
 
         onSelectDay(day) {
             this.setState({
@@ -353,6 +347,8 @@
                 alert("Sorry, no class available in this program.");
                 return;
             }
+
+            this.routeChange = true;
 
             let insertData = this.selectedClasses.map( (c) => ({
                 accountID: Meteor.userId(),
@@ -370,7 +366,7 @@
                 } else {
 
                     let params = {
-                        cartId: res[0]
+                        cartId: res.join()
                     };
 
                     let path = FlowRouter.path("/carts/detail/:cartId", params);
@@ -380,88 +376,19 @@
             }.bind(this));
         }
 
-        renderRegularRegistration() {
-
+        render() {
             let session = TAPi18n.__("ef_classes_" + moment().quarter().toString());
             let year = moment().year();
             let title = TAPi18n.__("ef_classes_title", {"session": session, "year": year});
 
             let self = this;
-
-            let classItems = this.classes.map(function (item, index) {
-                let style = self.state.styles[index] ? self.state.styles[index] : {};
-                return (
-                    <RC.Item key={item['_id']} theme="divider"
-                             onClick={self.onSelectClass.bind(self, item, index)} style={style}>
-                        <h3>{item.name}</h3>
-
-                        <p><strong>Teacher:</strong> {item.teacher}</p>
-
-                        <p><strong>Length:</strong> {item.length}</p>
-                    </RC.Item>
-                )
-            });
-
-            return (
-                <RC.Div style={{"padding": "20px"}}>
-                    <RC.Loading isReady={this.data.isReady}>
-                        <RC.VerticalAlign center={true} className="padding" height="300px">
-                            <h2>{title}</h2>
-                        </RC.VerticalAlign>
-                        <RC.Select options={this.students} value={this.studentID}
-                                   label={TAPi18n.__("ef_classes_students")} labelColor="brand1"
-                                   onChange={this.onSelectStudent.bind(this)}/>
-                        <RC.Select options={this.programs} value={this.programID}
-                                   label={TAPi18n.__("ef_classes_program")} labelColor="brand1"
-                                   onChange={this.onSelectProgram.bind(this)}/>
-                        <RC.Select options={this.sessions} value={this.sessionID}
-                            label="Session" labelColor="brand1"
-                            onChange={this.onSelectSession.bind(this)}/>
-                        <RC.Div>
-                            <span style={{marginLeft: "6",color:"#0082ec"}}>Select Day:</span>
-                            <div style={{textAlign:"center"}}>
-                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                    onClick={this.onSelectDay.bind(this, "Mon")}>Mon</RC.Button>
-                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                    onClick={this.onSelectDay.bind(this, "Tues")}>Tues</RC.Button>
-                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                    onClick={this.onSelectDay.bind(this, "Wed")}>Wed</RC.Button>
-                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                    onClick={this.onSelectDay.bind(this, "Thu")}>Thu</RC.Button>
-                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                    onClick={this.onSelectDay.bind(this, "Fri")}>Fri</RC.Button>
-                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                    onClick={this.onSelectDay.bind(this, "Sat")}>Sat</RC.Button>
-                                <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
-                                    onClick={this.onSelectDay.bind(this, "Sun")}>Sun</RC.Button>
-                            </div>
-                        </RC.Div>
-                        {
-                            classItems
-                        }
-                        <RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)}>{TAPi18n.__("ef_classes_book")}</RC.Button>
-                    </RC.Loading>
-                </RC.Div>
-            );
-        }
-
-        onTableRowSelection(selectedRowIndice) {
-            this.selectedClasses = selectedRowIndice.map( (idx) => this.classes[idx] );
-        }
-
-        renderFirstWeekRegistration() {
-            let session = TAPi18n.__("ef_classes_" + moment().quarter().toString());
-            let year = moment().year();
-            let title = TAPi18n.__("ef_classes_title", {"session": session, "year": year});
-
-            let self = this;
-            let renderBody;
+            let classTable;
             if (this.classes.length > 0) {
                 //selected by default
-                this.selectedClasses = this.classes;
+                this.firstRegistrationWeekSession && (this.selectedClasses = this.classes);
                 let classItems = this.classes.map(function (item, index) {
                     return (
-                        <TableRow key={item._id} selected={true}>
+                        <TableRow key={item._id} selected={!!_.find(self.selectedClasses, {_id:item._id})}>
                             <TableRowColumn style={{width: "100%", whiteSpace:"normal"}}>
                                 <h3>{item.name}</h3>
                                 <p><strong>Teacher:</strong> {item.teacher}</p>
@@ -471,8 +398,8 @@
                     )
                 });
 
-                renderBody = (
-                    <Table selectable={true} multiSelectable={true} onRowSelection={self.onTableRowSelection.bind(self)}>
+                classTable = (
+                    <Table selectable={true} multiSelectable={true} onRowSelection={self.onTableRowSelection.bind(self)} key="classTbl">
                         <TableHeader displaySelectAll={false} enableSelectAll={false}
                             style={{display:"none"}}>
                             <TableRow>
@@ -487,43 +414,86 @@
             }
             else {
                 if (this.firstRegistrationWeekAlert)
-                    renderBody = (
-                        <RC.Div style={{"padding": "20px"}}>
+                    classTable = (
+                        <RC.Div style={{"padding": "20px"}} key="priorityAlert">
                             <p><b>The first week registration only opens to current students to renew the same classes they're currently taking. Please come back next week for registration.</b></p>
                         </RC.Div>
                     )
                 else
-                    renderBody = (
-                        <RC.Div style={{"padding": "20px"}}>
-                            <p><b>No class available for registration.</b></p>
+                    classTable = (
+                        <RC.Div style={{"padding": "20px"}} key="noClssMsg">
+                            <p><b>No class found for your selection.</b></p>
                         </RC.Div>
                     )
+            }
+
+            let renderBodyElements = [];
+
+            if (this.firstRegistrationWeekSession) {
+                this.classes.length > 0 && renderBodyElements.push(
+                    (<RC.Div style={{"padding": "20px"}} key="renewMsg"><p>You're renewing the following classes:</p></RC.Div>)
+                );
+
+                renderBodyElements.push(classTable);
+
+                renderBodyElements.push(
+                    (<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">Confirm</RC.Button>)
+                );
+            }
+            else {
+                // program selection is only available in regular registration
+                renderBodyElements.push((
+                    <RC.Select options={this.programs} value={this.programID}
+                        label={TAPi18n.__("ef_classes_program")} labelColor="brand1"
+                        onChange={this.onSelectProgram.bind(this)} key="programList"/>
+                ));
+
+                // week day filter
+                renderBodyElements.push(
+                    (<RC.Div key="dayFilter">
+                        <span style={{marginLeft: "6",color:"#0082ec"}}>Select Day:</span>
+                        <div style={{textAlign:"center"}}>
+                            <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                onClick={this.onSelectDay.bind(this, "Mon")}>Mon</RC.Button>
+                            <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                onClick={this.onSelectDay.bind(this, "Tue")}>Tue</RC.Button>
+                            <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                onClick={this.onSelectDay.bind(this, "Wed")}>Wed</RC.Button>
+                            <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                onClick={this.onSelectDay.bind(this, "Thu")}>Thu</RC.Button>
+                            <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                onClick={this.onSelectDay.bind(this, "Fri")}>Fri</RC.Button>
+                            <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                onClick={this.onSelectDay.bind(this, "Sat")}>Sat</RC.Button>
+                            <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark"
+                                onClick={this.onSelectDay.bind(this, "Sun")}>Sun</RC.Button>
+                        </div>
+                    </RC.Div>)
+                );
+
+                renderBodyElements.push(classTable);
+
+                renderBodyElements.push(
+                    (<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">{TAPi18n.__("ef_classes_book")}</RC.Button>)
+                );
             }
 
             return (
                 <RC.Div style={{"padding": "20px"}}>
                     <RC.Loading isReady={this.data.isReady}>
-                        <RC.VerticalAlign center={true} className="padding" height="300px">
+                        <RC.VerticalAlign center={true} className="padding" height="300px" key="title">
                             <h2>{title}</h2>
                         </RC.VerticalAlign>
-                        <RC.Select options={this.students} value={this.studentID}
+                        <RC.Select options={this.students} value={this.studentID} key="studentList"
                             label={TAPi18n.__("ef_classes_students")} labelColor="brand1"
                             onChange={this.onSelectStudent.bind(this)}/>
-                        {
-                            this.classes.length > 0 && (<RC.Div style={{"padding": "20px"}}><p>You're renewing this class:</p></RC.Div>)
-                        }
-                        {renderBody}
-                        {
-                            this.classes.length > 0 && (<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)}>Confirm</RC.Button>)
-                        }
+                        <RC.Select options={this.sessions} value={this.sessionID} key="sessionList"
+                            label="Session" labelColor="brand1"
+                            onChange={this.onSelectSession.bind(this)}/>
+                        {renderBodyElements}
                     </RC.Loading>
                 </RC.Div>
             );
         }
-
-        render() {
-            return this.firstRegistrationWeekSession ? this.renderFirstWeekRegistration() : this.renderRegularRegistration();
-        }
     };
-
 }
