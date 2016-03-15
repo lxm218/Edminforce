@@ -475,9 +475,8 @@
 
                 renderBodyElements.push(classTable);
 
-                //(<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">{TAPi18n.__("ef_classes_book")}</RC.Button>)
                 renderBodyElements.push(
-                    (<input type="button" bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">{TAPi18n.__("ef_classes_book")}</input>)
+                    (<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">{TAPi18n.__("ef_classes_book")}</RC.Button>)
                 );
             }
 
