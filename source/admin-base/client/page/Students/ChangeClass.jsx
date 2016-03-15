@@ -198,7 +198,9 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		let csData = this.module.ClassStudent.getAll()[0];
 
 		let sx = Meteor.subscribe('EF-Student', {
-			_id : csData.studentID
+			query : {
+				_id : csData.studentID
+			}
 		});
 		let cx = Meteor.subscribe('EF-Class', {
 			query : {
@@ -216,6 +218,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 
 		return {
 			ready : sx.ready() && cx.ready(),
+			id : csID,
 			classData : cxData,
 			student : this.module.Student.getAll()[0]
 		};
@@ -279,6 +282,9 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			this.refs.result.setState({
 				query : param.query
 			});
+			this.setState({
+				changeResult : null
+			});
 		});
 	}
 
@@ -316,12 +322,9 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 
 		this.module.Class.callMeteorMethod('changeClassForReady', [data], {
 			success : function(rs){
-				let tuition = rs.tuitionDifferent;
 
 				self.setState({
-					changeResult : {
-						tuition : tuition
-					}
+					changeResult : rs
 				});
 			}
 		});
@@ -332,20 +335,62 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			return null;
 		}
 
+		if(this.state.changeResult === 'loading'){
+			return util.renderLoading();
+		}
+
 		let h,
-			d = this.state.changeResult;
-		if (d.tuition > 0) {
-			h = <p>You need pay more ${d.tuition}<KUI.YesButton label="Pay" /></p>
+			d = this.state.changeResult,
+			tuition = d.tuitionDifferent;
+
+		let titleArray = [
+			{
+				title : 'Item',
+				key : 'key'
+			},
+			{
+				title : 'Amount',
+				key : 'value'
+			}
+		],
+			list = [{key : 'Tuition Difference', value : tuition}];
+		let table = <KUI.Table
+			style={{}}
+			list={list}
+			title={titleArray}
+			ref=""></KUI.Table>;
+
+		if (tuition > 0) {
+			h = <p>You need pay more ${tuition}<KUI.YesButton label="Pay" /></p>;
 		}
 		else{
-			h = <p>You will be refund ${Math.abs(d.tuition)}<KUI.YesButton label="Refund" /></p>
+			h = <RC.Div style={{textAlign:'right'}}>
+				<KUI.YesButton onClick={this.refundChangeClass.bind(this)} label="Refund"></KUI.YesButton>
+			</RC.Div>;
 		}
 
 		return (
 			<RC.Div>
 				<hr/>
+				<p>{this.data.student.name} : {d.fromClass.nickName} Change To {d.toClass.nickName}</p>
+				{table}
 				{h}
 			</RC.Div>
 		);
 	}
+	refundChangeClass(){
+		let data = {
+			ClassStudentID : this.data.id,
+			toClassID : this.state.changeResult.toClass._id,
+			studentID : this.data.student._id
+		};
+		this.module.Class.callMeteorMethod('changeClass', [data], {
+			success : function(rs){
+				if(rs){
+					util.goPath('/student/'+data.studentID);
+				}
+			}
+		});
+	}
+
 };
