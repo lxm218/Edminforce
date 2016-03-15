@@ -219,6 +219,13 @@
                     let lessonDate = moment(classDate).toDate();
                     if (lessonDate < classSession.startDate || lessonDate > classSession.endDate) continue;
 
+                    // check block out day
+                    if (_.find(classSession.blockOutDay, (bd) => {
+                            return bd.getDate() == lessonDate.getDate() &&
+                                bd.getMonth() == lessonDate.getMonth() &&
+                                bd.getFullYear() == lessonDate.getFullYear() } ))
+                        continue;
+
                     // check the total students for the class date, including make up, trial and regular
                     let makeupAndTrialNumber = EdminForce.Collections.classStudent.find({
                             classID: item.classID,

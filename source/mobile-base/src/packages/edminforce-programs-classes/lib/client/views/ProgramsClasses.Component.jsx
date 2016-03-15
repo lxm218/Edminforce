@@ -113,6 +113,13 @@ EdminForce.Components.ProgramsClasses = class extends RC.CSSMeteorData {
                 let lessonDate = moment(classDate).toDate();
                 if (lessonDate < classSession.startDate || lessonDate > classSession.endDate) continue;
 
+                // check block out day
+                if (_.find(classSession.blockOutDay, (bd) => {
+                        return bd.getDate() == lessonDate.getDate() &&
+                            bd.getMonth() == lessonDate.getMonth() &&
+                            bd.getFullYear() == lessonDate.getFullYear() } ))
+                    continue;
+
                 let trialNumber = EdminForce.Collections.classStudent.find({
                         classID: item.classID,
                         lessonDate: moment(classDate).toDate(),
