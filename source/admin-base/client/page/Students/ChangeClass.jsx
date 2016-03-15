@@ -31,7 +31,7 @@ let FilterBox = class extends KUI.Page{
 			}
 		};
 
-		let week_option = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
+		let week_option = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 		return (
 			<form className="form-horizontal">

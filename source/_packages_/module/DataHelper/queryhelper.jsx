@@ -79,7 +79,7 @@ KG.define('EF-DataHelper', class extends Base{
                     min = date.hour(0).minute(0).second(0).clone(),
                     max = date.hour(23).minute(59).second(59).clone();
 
-                week = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'][week];
+                week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][week];
                 let query = {
                     'schedule.day' : week
                 };

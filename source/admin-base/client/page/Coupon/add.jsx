@@ -89,7 +89,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
 
         let option = {
             program : this.data.program,
-            weekday : ['all', 'Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat']
+            weekday : ['all', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
         };
 
 

@@ -29,7 +29,7 @@ Schema.Coupon = {
     }),
     weekdayRequire : KG.schema.default({
         defaultValue : ['all'],
-        //allowedValues : ['all', 'Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'],
+        //allowedValues : ['all', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         type : [String]
     }),
     validForNoBooked : {
