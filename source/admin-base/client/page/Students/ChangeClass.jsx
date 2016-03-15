@@ -2,15 +2,8 @@ let MSG = 'EF-Student-ChangeClass-msg';
 
 let FilterBox = class extends KUI.Page{
 
-	getDepModule(){
-		return {
-			Student : KG.get('EF-Student'),
-			Class : KG.get('EF-Class'),
-			Program : KG.get('EF-Program')
-		};
-	}
 	getMeteorData(){
-		this.module = this.getDepModule();
+		this.module = KG.DataHelper.getDepModule();
 
 		let x = Meteor.subscribe('EF-Program');
 		return {
@@ -33,34 +26,45 @@ let FilterBox = class extends KUI.Page{
 			date : {
 				labelClassName : 'col-xs-3',
 				wrapperClassName : 'col-xs-6',
-				ref : 'date',
-				label : 'Select Date'
+				ref : 'week',
+				label : 'Select Weekday'
 			}
 		};
+
+		let week_option = ['Sun', 'Mon', 'Tues', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 		return (
 			<form className="form-horizontal">
 				<RB.Row>
 					<RB.Col md={12}>
-						<RB.Input onChange={this.search.bind(this)} type="select" {... p.program}>
+						<RB.Input onChange={function(){}} type="select" {... p.program}>
 							{
 								_.map(this.data.programList, (item, index)=>{
 									return <option key={index} value={item._id}>{item.name}</option>;
 								})
 							}
 						</RB.Input>
-						<RB.Input type="text" {... p.date} />
+						<RB.Input onChange={function(){}} type="select" {... p.date}>
+							{
+								_.map(week_option, (item, index)=>{
+									return <option key={index} value={item}>{item}</option>;
+								})
+							}
+						</RB.Input>
 
+						<RC.Div style={{textAlign:'right'}}>
+							<KUI.YesButton onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
+						</RC.Div>
 					</RB.Col>
 				</RB.Row>
 			</form>
 		);
 	}
 	search(){
-		let {program, date} = this.getRefs();
+		let {program, week} = this.getRefs();
 		let query = {
 			programID : program.getValue(),
-			date : $(date.getInputDOMNode()).datepicker('getDate')
+			dayOfClass : week.getValue()
 		};
 		console.log(query)
 		util.message.publish(MSG, {
@@ -71,13 +75,8 @@ let FilterBox = class extends KUI.Page{
 	getRefs(){
 		return {
 			program : this.refs.program,
-			date : this.refs.date
+			week : this.refs.week
 		};
-	}
-	runOnceAfterDataReady(){
-		let {date} = this.getRefs();
-		$(date.getInputDOMNode()).datepicker({});
-		$(date.getInputDOMNode()).bind('hide', this.search.bind(this));
 	}
 };
 
@@ -86,25 +85,24 @@ let ResultTable = class extends KUI.Page{
 		super(p);
 
 		this.state = {
-			query : {}
+			query : null
 		};
 	}
-	getDepModule(){
-		return {
-			Student : KG.get('EF-Student'),
-			Class : KG.get('EF-Class'),
-			Program : KG.get('EF-Program')
-		};
-	}
+
 	getMeteorData(){
-		this.module = this.getDepModule();
+		this.module = KG.DataHelper.getDepModule();
+
+		if(!this.state.query){
+			return {
+				ready : true,
+				classList : []
+			};
+		}
 
 		let query = _.clone(this.state.query);
 
-		let date = query.date || '';
-		delete query.date;
-		console.log(date, query);
-		let x2 = this.module.Class.getClassByDateAndQuery(date, query);
+
+		let x2 = this.module.Class.subscribeClassByQuery(query);
 		console.log(x2);
 		return {
 			ready : x2.ready(),
@@ -118,14 +116,15 @@ let ResultTable = class extends KUI.Page{
 		}
 		console.log(this.data.classList);
 
+
 		const titleArray = [
 			{
 				title : 'Name',
 				key : 'nickName'
 			},
 			{
-				title : 'Trail Number',
-				key : 'trialStudent'
+				title : 'Teacher',
+				key : 'teacher'
 			},
 			{
 				title : 'Time',
@@ -137,7 +136,7 @@ let ResultTable = class extends KUI.Page{
 					textAlign : 'center'
 				},
 				reactDom(doc, index){
-					return <RC.Div style={{textAlign:'center'}}><input value={index} type="radio" name="trail_table" /></RC.Div>;
+					return <RC.Div style={{textAlign:'center'}}><input value={index} type="radio" name="change_class" /></RC.Div>;
 				}
 			}
 		];
@@ -163,8 +162,7 @@ let ResultTable = class extends KUI.Page{
 
 		if(i){
 			return {
-				classID : this.data.classList[i]._id,
-				date : this.state.query.date
+				classID : this.data.classList[i]._id
 			};
 		}
 
@@ -175,17 +173,17 @@ let ResultTable = class extends KUI.Page{
 
 
 KUI.Student_ChangeClass = class extends KUI.Page{
-	getDepModule(){
-		return {
-			Student : KG.get('EF-Student'),
-			Class : KG.get('EF-Class'),
-			Program : KG.get('EF-Program'),
-			ClassStudent : KG.get('EF-ClassStudent')
+
+	constructor(p){
+		super(p);
+
+		this.state = {
+			changeResult : null
 		};
 	}
 
 	getMeteorData(){
-		this.module = this.getDepModule();
+		this.module = KG.DataHelper.getDepModule();
 		let csID = FlowRouter.getParam('classstudentID'),
 			x = Meteor.subscribe('EF-ClassStudent', {
 				query : {
@@ -202,14 +200,23 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		let sx = Meteor.subscribe('EF-Student', {
 			_id : csData.studentID
 		});
-		let cx = this.module.Class.subscribeClassByQuery({
-			classID : csData.classID
+		let cx = Meteor.subscribe('EF-Class', {
+			query : {
+				_id : csData.classID
+			}
 		});
 
+		let cxData = this.module.Class.getAll({
+			_id : csData.classID
+		})[0];
+
+		if(!cxData){
+			return {ready : false};
+		}
 
 		return {
 			ready : sx.ready() && cx.ready(),
-			classData : cx.data,
+			classData : cxData,
 			student : this.module.Student.getAll()[0]
 		};
 	}
@@ -229,8 +236,9 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 				<hr/>
 				<ResultTable ref="result" />
 				<RC.Div style={{textAlign:'right'}}>
-					<KUI.YesButton onClick={this.trail.bind(this)} label="Trail Class"></KUI.YesButton>
+					<KUI.YesButton onClick={this.changeClass.bind(this)} label="Change Class"></KUI.YesButton>
 				</RC.Div>
+				{this.renderChangeClass()}
 			</RC.Div>
 		);
 	}
@@ -259,7 +267,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		return (
 			<KUI.Table
 				style={{}}
-				list={this.data.classData}
+				list={[this.data.classData]}
 				title={titleArray}
 				ref="table"></KUI.Table>
 		);
@@ -274,57 +282,70 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		});
 	}
 
-	trail(){
+	changeClass(){
 		let self = this;
-		let m = this.getDepModule();
+		let m = this.module;
 		let data = this.refs.result.getSelectValue();
 
 		if(!data){
-			util.toast.showError('You must select a class to trail');
+			util.toast.showError('You must select a class to change');
 			return false;
 		}
 
-		data.studentID = this.data.student._id;
+		//data.studentID = this.data.student._id;
 
-		m.Class.callMeteorMethod('checkStudentCanBeTrailClass', [data], {
-			context : this,
-			success : function(json){
-				KG.result.handle(json, {
-					success : function(){
-						self.insertTailData(data);
-					},
-					error : function(e){
-						util.toast.showError(e.reason);
+		m.Class.callMeteorMethod('checkCanBeRegister', [data.classID], {
+			success : function(flag){
+				if(flag){
+					self.calculateTuitionDifferent(data.classID);
+				}
+				else{
+					util.toast.showError('This class can not be register');
+				}
+			}
+		});
+	}
+
+	calculateTuitionDifferent(toClassID){
+		var self = this;
+		let data = {
+			fromClassID : this.data.classData._id,
+			toClassID : toClassID,
+			studentID : this.data.student._id
+		};
+
+		this.module.Class.callMeteorMethod('changeClassForReady', [data], {
+			success : function(rs){
+				let tuition = rs.tuitionDifferent;
+
+				self.setState({
+					changeResult : {
+						tuition : tuition
 					}
 				});
 			}
 		});
 	}
 
-	insertTailData(json){
-		let data = {
-			classID : json.classID,
-			studentID : json.studentID,
-			lessonDate : json.date,
-			type : 'trail',
-			status : 'checkouted'
-		};
+	renderChangeClass() {
+		if (!this.state.changeResult) {
+			return null;
+		}
 
-		console.log(data);
-		let rs = this.module.ClassStudent.insert(data);
-		console.log(rs);
-		KG.result.handle(rs, {
-			success : function(cid){
-				//TODO how to pay?
-				console.log(cid);
-				util.toast.alert('Trail Class Success');
-				util.goPath('/student/'+data.studentID);
-			},
-			error : function(e, error){
-				console.log(e);
-				util.toast.showError(error.statusText);
-			}
-		});
+		let h,
+			d = this.state.changeResult;
+		if (d.tuition > 0) {
+			h = <p>You need pay more ${d.tuition}<KUI.YesButton label="Pay" /></p>
+		}
+		else{
+			h = <p>You will be refund ${Math.abs(d.tuition)}<KUI.YesButton label="Refund" /></p>
+		}
+
+		return (
+			<RC.Div>
+				<hr/>
+				{h}
+			</RC.Div>
+		);
 	}
-
 };
