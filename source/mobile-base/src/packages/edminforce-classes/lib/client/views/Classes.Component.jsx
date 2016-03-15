@@ -196,6 +196,7 @@
             return _.find(this.studentCurrentClasses,(c) => {
                     return c.programID === classData.programID &&
                         c.schedule.day === classData.schedule.day &&
+                        c.teacher === classData.teacher &&
                         this.compareTime(c.schedule.time,classData.schedule.time)
                 });
         }
@@ -474,8 +475,9 @@
 
                 renderBodyElements.push(classTable);
 
+                //(<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">{TAPi18n.__("ef_classes_book")}</RC.Button>)
                 renderBodyElements.push(
-                    (<RC.Button bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">{TAPi18n.__("ef_classes_book")}</RC.Button>)
+                    (<input type="button" bgColor="brand2" bgColorHover="dark" isActive={false} onClick={self.book.bind(self)} key="bookBtn">{TAPi18n.__("ef_classes_book")}</input>)
                 );
             }
 
