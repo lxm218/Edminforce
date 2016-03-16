@@ -24,7 +24,7 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
         let data = KG.get('EF-Class').getAll({_id : this.getClassId()})[0];
 
         let y = KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId());
-console.log(y)
+
         return {
             ready : x.ready(),
             classTableReady : y.ready(),
@@ -127,7 +127,10 @@ console.log(y)
             }
         ];
 
-        let list = this.data.classTableData;
+        let list = _.filter(this.data.classTableData, (item)=>{
+            return item.status === 'checkouted';
+        });
+
 
         return (
             <KUI.Table
