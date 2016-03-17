@@ -394,12 +394,16 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 	refundChangeClass(){
 		let cca = $(this.refs.cca.getInputDOMNode()).prop('checked'),
 			ccb = $(this.refs.ccb.getInputDOMNode()).prop('checked');
-		let sc = false;
+		let sc = 'cash';
 		if(ccb){
-			sc = true;
+			sc = 'school credit';
 		}
 
-
+		this.changeToNewClass({
+			paymentType : sc
+		}, function(nid, json){
+			util.goPath('/student/'+json.studentID);
+		});
 	}
 
 	payNow(){
@@ -407,7 +411,6 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		console.log(way);
 		if(way === 'cash' || way === 'check'){
 			this.changeToNewClass({
-				amount : this.state.changeResult.tuitionDifferent,
 				paymentType : way
 			}, function(nid, json){
 				util.goPath('/student/'+json.studentID);
@@ -424,7 +427,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			ClassStudentID : this.data.id,
 			toClassID : this.state.changeResult.toClass._id,
 			studentID : this.data.student._id,
-			amount : opts.amount,
+			amount : this.state.changeResult.tuitionDifferent,
 			paymentType : opts.paymentType
 		};
 		this.module.Class.callMeteorMethod('changeClass', [data], {

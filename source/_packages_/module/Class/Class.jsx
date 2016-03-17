@@ -398,7 +398,11 @@ let Class = class extends Base{
                 let orderID = m.Order.getDB().insert(orderData);
                 m.ClassStudent.updateOrderID(orderID, newClassStudentID);
 
-
+                if(paymentType === 'school credit'){
+                    m.Customer.getDB().update({_id : student.accountID}, {
+                        '$inc' : {schoolCredit : Math.abs(amount)}
+                    });
+                }
 
                 return newClassStudentID;
             }

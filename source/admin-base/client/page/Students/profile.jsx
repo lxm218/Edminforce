@@ -189,6 +189,7 @@ KUI.Student_profile = class extends KUI.Page{
                 return true;
             }
             let cls = this.data.classData[item.classID];
+            if(!cls) return true;
             item.class = cls.nickName;
             item.teacher = cls.teacher;
             item.session = cls.sessionName;
