@@ -7,7 +7,12 @@ Schema.Order = {
         type:[String]   // ClassStudentID
     },
     paymentType : KG.schema.default({
-        allowedValues : ['credit card', 'echeck', 'check', 'cash']
+        allowedValues : ['credit card', 'echeck', 'check', 'cash', 'school credit']
+    }),
+    type : KG.schema.default({
+        allowedValues : ['register class', 'change class', 'cancel class'],
+        optional : true,
+        defaultValue : 'register class'
     }),
     status: {
         type: String,

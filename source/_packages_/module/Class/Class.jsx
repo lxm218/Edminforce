@@ -354,22 +354,53 @@ let Class = class extends Base{
                     toClassID = opts.toClassID,
                     studentID = opts.studentID;
 
+                let amount = opts.amount,
+                    paymentType = opts.paymentType;
+
                 let student = m.Student.getDB().findOne({_id : studentID});
 
                 let toClass = this.getAll({_id : toClassID})[0];
                 console.log(m, student, toClass);
+
+                //cancel from class
+                m.ClassStudent.updateStatus('canceled', ClassStudentID);
+                //register new class
                 let data = {
-                    //studentID : studentID,
-                    //accountID : student.accountID,
+                    classID : toClassID,
+                    studentID : studentID,
+                    accountID : student.accountID,
                     programID : toClass.programID,
-                    classID : toClassID
+                    type : 'register'
                 };
 
-                return m.ClassStudent.getDB().update({
-                    _id : ClassStudentID
-                }, {
-                    '$set' : data
-                });
+                let orderStatus;
+                if(paymentType !== 'credit card' && paymentType !== 'echeck'){
+                    data.status = 'checkouted';
+                    orderStatus = 'success';
+                }
+                else{
+                    data.status = 'checkouting';
+                    orderStatus = 'wait';
+                }
+                let newClassStudentID = m.ClassStudent.getDB().insert(data);
+
+                //insert order
+                let orderData = {
+                    accountID : student.accountID,
+                    studentID : studentID,
+                    details : [ClassStudentID, newClassStudentID],
+                    paymentType : paymentType,
+                    type : 'change class',
+                    status : orderStatus,
+                    amount : amount,
+                    paymentTotal : amount.toString()
+                };
+                let orderID = m.Order.getDB().insert(orderData);
+                m.ClassStudent.updateOrderID(orderID, newClassStudentID);
+
+
+
+                return newClassStudentID;
             }
         };
     }

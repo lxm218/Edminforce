@@ -361,12 +361,25 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			ref=""></KUI.Table>;
 
 		if (tuition > 0) {
-			h = <p>You need pay more ${tuition}<KUI.YesButton label="Pay" /></p>;
+			h = (
+				<RC.Div>
+					<KUI.Comp.SelectPaymentWay ref="payway" />
+					<RC.Div style={{textAlign:'right'}}>
+						<KUI.YesButton onClick={this.payNow.bind(this)} label="Pay Now"></KUI.YesButton>
+					</RC.Div>
+				</RC.Div>
+			);
 		}
 		else{
-			h = <RC.Div style={{textAlign:'right'}}>
-				<KUI.YesButton onClick={this.refundChangeClass.bind(this)} label="Refund"></KUI.YesButton>
-			</RC.Div>;
+			h = (
+				<RC.Div>
+					<RB.Input onChange={function(){}} ref="cca" name="cacc" type="radio" label="Cash" />
+					<RB.Input onChange={function(){}} ref="ccb" name="cacc" type="radio" label="School Credit" />
+					<RC.Div style={{textAlign:'right'}}>
+						<KUI.YesButton onClick={this.refundChangeClass.bind(this)} label="Refund"></KUI.YesButton>
+					</RC.Div>
+				</RC.Div>
+			);
 		}
 
 		return (
@@ -379,15 +392,45 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		);
 	}
 	refundChangeClass(){
+		let cca = $(this.refs.cca.getInputDOMNode()).prop('checked'),
+			ccb = $(this.refs.ccb.getInputDOMNode()).prop('checked');
+		let sc = false;
+		if(ccb){
+			sc = true;
+		}
+
+
+	}
+
+	payNow(){
+		let way = this.refs.payway.getValue();
+		console.log(way);
+		if(way === 'cash' || way === 'check'){
+			this.changeToNewClass({
+				amount : this.state.changeResult.tuitionDifferent,
+				paymentType : way
+			}, function(nid, json){
+				util.goPath('/student/'+json.studentID);
+			});
+		}
+		else{
+			alert('comming soon');
+		}
+
+	}
+
+	changeToNewClass(opts, callback){
 		let data = {
 			ClassStudentID : this.data.id,
 			toClassID : this.state.changeResult.toClass._id,
-			studentID : this.data.student._id
+			studentID : this.data.student._id,
+			amount : opts.amount,
+			paymentType : opts.paymentType
 		};
 		this.module.Class.callMeteorMethod('changeClass', [data], {
 			success : function(rs){
 				if(rs){
-					util.goPath('/student/'+data.studentID);
+					callback(rs, data);
 				}
 			}
 		});
