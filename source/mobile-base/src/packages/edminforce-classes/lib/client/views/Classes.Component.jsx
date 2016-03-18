@@ -129,7 +129,8 @@
                 this.studentCurrentClasses = currentClasses.map((c) => ({
                     programID: c.programID,
                     sessionID: c.sessionID,
-                    schedule: c.schedule
+                    schedule: c.schedule,
+                    teacher: c.teacher
                 }));
             }
         }
