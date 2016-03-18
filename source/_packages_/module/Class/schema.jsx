@@ -167,7 +167,7 @@ Schema.ClassStudent = {
         optional : true
     }),
     type : KG.schema.default({
-        allowedValues : ['trail', 'register', 'wait', 'makeup'],
+        allowedValues : ['trial', 'register', 'wait', 'makeup'],
         custom : function(){
 
             return KG.get('EF-ClassStudent').validateSchemaStatus({

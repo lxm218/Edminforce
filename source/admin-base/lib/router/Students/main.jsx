@@ -42,7 +42,7 @@ if(Meteor.isClient){
     Route.route('/trailclass/:studentID', {
         action : function(p){
             App.routeHandler(p, {
-                pageTitle: "Students | Trail Class",
+                pageTitle: "Students | Trial Class",
                 bodyTmpl: <KUI.Student_TrailClass />
             });
 
