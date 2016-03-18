@@ -167,13 +167,17 @@ KUI.Student_profile = class extends KUI.Page{
                         lineHeight : '24px',
                         height : '24px',
                         fontSize : '12px',
-                        padding : '0 12px'
+                        padding : '0 12px',
+                        marginRight: '10px'
                     };
 
                     return (
                         <RC.Div style={{textAlign:'center'}}>
-                            {<KUI.NoButton style={sy} href={`/student/changeclass/${doc._id}`}
-                             label="Change"></KUI.NoButton>}
+                            <KUI.NoButton style={sy} href={`/student/changeclass/${doc._id}`}
+                             label="Change"></KUI.NoButton>
+
+                            <KUI.NoButton style={sy} href={`/student/cancelclass/${doc._id}`}
+                                          label="Cancel"></KUI.NoButton>
                         </RC.Div>
                     );
                 }

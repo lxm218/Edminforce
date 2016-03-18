@@ -417,7 +417,12 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			});
 		}
 		else{
-			alert('comming soon');
+			this.changeToNewClass({
+				paymentType : way
+			}, function(nid, json){
+				//TODO go to payment page
+				util.goPath('/student/changeclasspay/'+nid);
+			});
 		}
 
 	}

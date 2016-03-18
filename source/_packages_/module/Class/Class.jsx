@@ -348,6 +348,18 @@ let Class = class extends Base{
                 return rs;
             },
 
+            cancelClassForReady(opts){
+                let m = KG.DataHelper.getDepModule();
+                let cd = this.getAll({_id : opts.classID})[0];
+
+                let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
+                return {
+                    tuition : 0-tuition,
+                    'class' : cd
+                };
+
+            },
+
             changeClass(opts){
                 let m = KG.DataHelper.getDepModule();
                 let ClassStudentID = opts.ClassStudentID,
@@ -360,7 +372,7 @@ let Class = class extends Base{
                 let student = m.Student.getDB().findOne({_id : studentID});
 
                 let toClass = this.getAll({_id : toClassID})[0];
-                console.log(m, student, toClass);
+                //console.log(m, student, toClass);
 
                 //cancel from class
                 m.ClassStudent.updateStatus('canceled', ClassStudentID);
@@ -380,7 +392,7 @@ let Class = class extends Base{
                 }
                 else{
                     data.status = 'checkouting';
-                    orderStatus = 'wait';
+                    orderStatus = 'waiting';
                 }
                 let newClassStudentID = m.ClassStudent.getDB().insert(data);
 
@@ -405,6 +417,43 @@ let Class = class extends Base{
                 }
 
                 return newClassStudentID;
+            },
+
+            cancelClass(opts){
+                let m = KG.DataHelper.getDepModule();
+                let ClassStudentID = opts.ClassStudentID,
+                    studentID = opts.studentID;
+
+                let amount = opts.amount,
+                    paymentType = opts.paymentType;
+
+                let student = m.Student.getDB().findOne({_id : studentID});
+
+                //cancel from class
+                m.ClassStudent.updateStatus('canceled', ClassStudentID);
+
+                let orderStatus = 'success';
+
+                //insert order
+                let orderData = {
+                    accountID : student.accountID,
+                    studentID : studentID,
+                    details : [ClassStudentID],
+                    paymentType : paymentType,
+                    type : 'cancel class',
+                    status : orderStatus,
+                    amount : amount,
+                    paymentTotal : amount.toString()
+                };
+                let orderID = m.Order.getDB().insert(orderData);
+
+                if(paymentType === 'school credit'){
+                    m.Customer.getDB().update({_id : student.accountID}, {
+                        '$inc' : {schoolCredit : Math.abs(amount)}
+                    });
+                }
+
+                return true;
             }
         };
     }

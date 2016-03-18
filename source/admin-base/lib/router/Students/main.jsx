@@ -59,6 +59,26 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/changeclasspay/:classstudentID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | Change Class Payment",
+                bodyTmpl: <KUI.Student_ChangeClass_Payment />
+            });
+
+        }
+    });
+
+    Route.route('/cancelclass/:classstudentID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | Cancel Class",
+                bodyTmpl: <KUI.Student_CancelClass />
+            });
+
+        }
+    });
+
 
 
 
