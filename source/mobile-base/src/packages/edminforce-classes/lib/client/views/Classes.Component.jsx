@@ -62,20 +62,29 @@
 
         getMeteorData() {
 
-            let handler = Meteor.subscribe("EF-Classes-For-Register");
+            let programAndSessionSub = Meteor.subscribe("EFProgramAndSession");
+            let studentSub = Meteor.subscribe("EFStudentByFamily");
 
-            if (handler.ready()) {
+            if (programAndSessionSub.ready() && studentSub.ready()) {
                 this.getStudents();
-
                 this.getSessions();
-
                 this.getPrograms();
+            }
 
-                this.getClasses();
+            this.programID = this.state.programID || this.programID;
+            this.sessionID = this.state.sessionID || this.sessionID;
+            this.studentID = this.state.studentID || this.studentID;
+
+            let classSub = null;
+            if (this.programID && this.sessionID && this.studentID) {
+                classSub = Meteor.subscribe("EF-Classes-For-Register", this.studentID, this.programID, this.sessionID);
+                if (classSub.ready()) {
+                    this.getClasses();
+                }
             }
 
             return {
-                isReady: handler.ready()
+                isReady: programAndSessionSub.ready() && studentSub.ready() && (!classSub || classSub.ready())
             }
         }
 

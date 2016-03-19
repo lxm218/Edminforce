@@ -71,51 +71,51 @@ Meteor.startup(function () {
     });
 
     // Get the class for register
-    Meteor.publishComposite("EF-Classes-For-Register", function () {
-        return {
-            find: function () {
-                return EdminForce.Collections.student.find({
-                    accountID: this.userId
-                }, {
-                    sort: {
-                        name: 1
-                    }
-                })
-            },
-            children: [
-                // program list
-                {
-                    find: function () {
-                        return EdminForce.Collections.program.find({}, {
-                            sort: {
-                                createTime: 1
-                            }
-                        });
-                    }
-                },
-                // currently user's students registered which classes
-                {
-                    find: function (student) {
-                        return EdminForce.Collections.classStudent.find({studentID:student._id});
-                    }
-                },
-
-                // all active classes
-                {
-                    find: function () {
-                        return EdminForce.Collections.class.find({status: 'Active'});
-                    }
-                },
-
-                // all sessions
-                {
-                    find: function () {
-                        return EdminForce.Collections.session.find({});
-                    }
-                }
-            ]
-        }
-    });
+    //Meteor.publishComposite("EF-Classes-For-Register", function (studentID, programID, sessionID) {
+    //    return {
+    //        find: function () {
+    //            return EdminForce.Collections.student.find({
+    //                accountID: this.userId
+    //            }, {
+    //                sort: {
+    //                    name: 1
+    //                }
+    //            })
+    //        },
+    //        children: [
+    //            // program list
+    //            {
+    //                find: function () {
+    //                    return EdminForce.Collections.program.find({}, {
+    //                        sort: {
+    //                            createTime: 1
+    //                        }
+    //                    });
+    //                }
+    //            },
+    //            // currently user's students registered which classes
+    //            {
+    //                find: function (student) {
+    //                    return EdminForce.Collections.classStudent.find({studentID:student._id});
+    //                }
+    //            },
+    //
+    //            // all active classes
+    //            {
+    //                find: function () {
+    //                    return EdminForce.Collections.class.find({status: 'Active'});
+    //                }
+    //            },
+    //
+    //            // all sessions
+    //            {
+    //                find: function () {
+    //                    return EdminForce.Collections.session.find({});
+    //                }
+    //            }
+    //        ]
+    //    }
+    //});
 
     Meteor.publishComposite("EF-Cart-Detail-By-ID", function (cartIDs /*, classID, studentID*/) {
 
@@ -372,6 +372,35 @@ Meteor.startup(function () {
     // Publishes the current customer
     Meteor.publish("EFCurrentCustomer", function () {
         return EdminForce.Collections.Customer.find({_id: this.userId});
+    });
+
+    Meteor.publish("EFStudentByFamily", function () {
+        return EdminForce.Collections.student.find({accountID: this.userId});
+    });
+
+    Meteor.publish("EFProgramAndSession", function() {
+        return [
+            EdminForce.Collections.program.find({}),
+            EdminForce.Collections.session.find({})
+        ]
+    });
+
+    Meteor.publishComposite("EF-Classes-For-Register", function (studentID, programID, sessionID) {
+        return {
+            find: function(){
+                return EdminForce.Collections.classStudent.find({studentID})
+            },
+            children: [
+                {
+                    find: function(classStudent) {
+                        return EdminForce.Collections.class.find({
+                            status: 'Active',
+                            $or : [{programID,sessionID}, {_id:classStudent.classID}]
+                        })
+                    }
+                }
+            ]
+        }
     });
 
 });
