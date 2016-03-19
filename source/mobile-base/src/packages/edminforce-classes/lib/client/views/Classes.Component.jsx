@@ -57,6 +57,11 @@
             this.setCollectionLabelAndValue(newState.sessions);
             this.setCollectionLabelAndValue(newState.students);
 
+            newState.originalClasses = newState.classes;
+            if (this.state.weekDay && !newState.firstRegistrationWeekSession) {
+                newState.classes = _.filter(newState.originalClasses, (c) => c.schedule.day == this.state.weekDay );
+            }
+
             newState.isReady = true;
 
             this.setState(newState);
@@ -72,7 +77,7 @@
 
         componentDidMount() {
             super.componentDidMount();
-            Meteor.call("getRegistrationData", true, this.studentID, this.programID, this.sessionID, this.onReceiveData.bind(this));
+            Meteor.call("getRegistrationData", true, this.state.studentID, this.state.programID, this.state.sessionID, this.onReceiveData.bind(this));
         }
 
         onSelectStudent(event) {
@@ -103,14 +108,15 @@
         }
 
         onTableRowSelection(selectedRowIndice) {
-            this.selectedClasses = selectedRowIndice.map( (idx) => this.classes[idx] );
+            this.selectedClasses = selectedRowIndice.map( (idx) => this.state.classes[idx] );
         }
 
 
         onSelectDay(day) {
             this.selectedClasses = [];
             this.setState({
-                weekDay: day
+                weekDay: day,
+                classes: _.filter(this.state.originalClasses, (c) => c.schedule.day == day )
             })
         }
 
@@ -128,7 +134,7 @@
                 accountID: Meteor.userId(),
                 classID: c["_id"],
                 programID: c.programID,
-                studentID: this.studentID,
+                studentID: this.state.studentID,
                 status: "pending",
                 type: 'register'
             }));
@@ -158,15 +164,10 @@
             let self = this;
             let classTable;
 
-            let classes = this.state.classes;
-            if (!this.state.firstRegistrationWeekSession && this.state.weekDay) {
-                classes = _.filter(classes, (c) => c.schedule.day == this.state.weekDay );
-            }
-
-            if (classes.length > 0) {
+            if (this.state.classes.length > 0) {
                 //selected by default
-                this.state.firstRegistrationWeekSession && (this.selectedClasses = classes);
-                let classItems = classes.map(function (item, index) {
+                this.state.firstRegistrationWeekSession && (this.selectedClasses = this.state.classes);
+                let classItems = this.state.classes.map(function (item, index) {
                     return (
                         <TableRow key={item._id} selected={!!_.find(self.selectedClasses, {_id:item._id})}>
                             <TableRowColumn style={{width: "100%", whiteSpace:"normal"}}>
@@ -210,7 +211,7 @@
             let renderBodyElements = [];
 
             if (this.state.firstRegistrationWeekSession) {
-                classes.length > 0 && renderBodyElements.push(
+                this.state.classes.length > 0 && renderBodyElements.push(
                     (<RC.Div style={{"padding": "20px"}} key="renewMsg"><p>You're renewing the following classes:</p></RC.Div>)
                 );
 
