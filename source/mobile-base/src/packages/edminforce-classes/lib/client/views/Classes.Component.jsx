@@ -51,7 +51,10 @@
                 return;
             }
             result.classes = result.classes || [];
-            let newState = _.pick(result, ['sessions','classes','students','programs','firstRegistrationWeekSession','firstRegistrationWeekAlert','studentID','programID','sessionID']);
+            let newState = _.pick(result, ['sessions','classes','students','programs','studentID','programID','sessionID']);
+
+            newState.firstRegistrationWeekSession = !!result.firstRegistrationWeekSession;
+            newState.firstRegistrationWeekAlert = !!result.firstRegistrationWeekAlert;
 
             this.setCollectionLabelAndValue(newState.programs);
             this.setCollectionLabelAndValue(newState.sessions);
