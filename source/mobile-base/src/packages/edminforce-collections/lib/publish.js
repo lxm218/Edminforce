@@ -338,7 +338,8 @@ Meteor.startup(function () {
                             },
                             status: {
                                 $in: ['checkouted']
-                            }
+                            },
+                            $or:[{lessonDate:{$exists:false}}, {lessonDate:{$gte:new Date()}}]
                         })
                     },
                     children: [

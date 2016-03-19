@@ -124,7 +124,7 @@ console.log(date, query);
 				key : 'nickName'
 			},
 			{
-				title : 'Trail Number',
+				title : 'Trial Number',
 				key : 'trialStudent'
 			},
 			{
@@ -207,13 +207,13 @@ KUI.Student_TrailClass = class extends KUI.Page{
 
 		return (
 			<RC.Div>
-				<h3>Trail Class for {this.data.student.name}</h3>
+				<h3>Trial Class for {this.data.student.name}</h3>
 				<hr/>
 				<FilterBox ref="filter" />
 				<hr/>
 				<ResultTable ref="result" />
 				<RC.Div style={{textAlign:'right'}}>
-					<KUI.YesButton onClick={this.trail.bind(this)} label="Trail Class"></KUI.YesButton>
+					<KUI.YesButton onClick={this.trial.bind(this)} label="Trial Class"></KUI.YesButton>
 				</RC.Div>
 			</RC.Div>
 		);
@@ -228,13 +228,13 @@ KUI.Student_TrailClass = class extends KUI.Page{
 		});
 	}
 
-	trail(){
+	trial(){
 		let self = this;
 		let m = this.getDepModule();
 		let data = this.refs.result.getSelectValue();
 
 		if(!data){
-			util.toast.showError('You must select a class to trail');
+			util.toast.showError('You must select a class to trial');
 			return false;
 		}
 
@@ -260,7 +260,7 @@ KUI.Student_TrailClass = class extends KUI.Page{
 			classID : json.classID,
 			studentID : json.studentID,
 			lessonDate : json.date,
-			type : 'trail',
+			type : 'trial',
 			status : 'checkouted'
 		};
 
@@ -271,7 +271,7 @@ KUI.Student_TrailClass = class extends KUI.Page{
 			success : function(cid){
 				//TODO how to pay?
 				console.log(cid);
-				util.toast.alert('Trail Class Success');
+				util.toast.alert('Trial Class Success');
 				util.goPath('/student/'+data.studentID);
 			},
 			error : function(e, error){

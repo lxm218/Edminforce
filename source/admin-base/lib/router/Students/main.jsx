@@ -42,7 +42,7 @@ if(Meteor.isClient){
     Route.route('/trailclass/:studentID', {
         action : function(p){
             App.routeHandler(p, {
-                pageTitle: "Students | Trail Class",
+                pageTitle: "Students | Trial Class",
                 bodyTmpl: <KUI.Student_TrailClass />
             });
 
@@ -54,6 +54,26 @@ if(Meteor.isClient){
             App.routeHandler(p, {
                 pageTitle: "Students | Change Class",
                 bodyTmpl: <KUI.Student_ChangeClass />
+            });
+
+        }
+    });
+
+    Route.route('/changeclasspay/:classstudentID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | Change Class Payment",
+                bodyTmpl: <KUI.Student_ChangeClass_Payment />
+            });
+
+        }
+    });
+
+    Route.route('/cancelclass/:classstudentID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | Cancel Class",
+                bodyTmpl: <KUI.Student_CancelClass />
             });
 
         }

@@ -143,7 +143,7 @@ Meteor.startup(function () {
 
                 EdminForce.Collections.classStudent.update({
                     status:{
-                        $nin:['checkouted']
+                        $nin:['checkouted', 'canceled']
                     },
                     _id: {
                         $in: classStudentsID
