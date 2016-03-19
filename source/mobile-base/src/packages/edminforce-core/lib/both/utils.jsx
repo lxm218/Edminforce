@@ -53,3 +53,18 @@ EdminForce.utils.getClassName = function(classData){
     let classNameTemplate = `${programName} ${sessionName} ${day} ${time}`;
     return classNameTemplate;
 };
+
+EdminForce.utils.compareTime = function(ts1, ts2) {
+    if (!ts1 || !ts2) return false;
+
+    let reg = /^(\d{1,2})\s*:\s*(\d{1,2})\s*(\w{2})$/;
+    let result1 = reg.exec(ts1);
+    let result2 = reg.exec(ts2);
+
+    if (!result1 || !result2)  return false;
+
+    if (result1[3].toLowerCase() != result2[3].toLowerCase())
+        return false;
+
+    return (parseInt(result1[1]) == parseInt(result2[1]) && parseInt(result1[2]) == parseInt(result2[2]));
+}

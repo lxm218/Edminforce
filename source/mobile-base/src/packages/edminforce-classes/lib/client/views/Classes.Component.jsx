@@ -14,33 +14,12 @@
     injectTapEventPlugin();
 
     // Don't forget to change `SomeName` to correct name
-    EdminForce.Components.Classes = class extends RC.CSSMeteorData {
+    EdminForce.Components.Classes = class extends RC.CSS {
 
         constructor(p) {
             super(p);
 
-            this.classes = [];
-            this.programs = [];
-            this.students = [];
-            this.sessions = [];
-
-            // selected programID
-            this.programID = null;
-
-            // selected sessionID
-            this.sessionID = null;
-
-            // selected StudentID
-            this.studentID = null;
-
-            this.classID = null;
-
             this.selectedClasses = [];
-
-            // special handling for first registration week
-            this.firstRegistrationWeekSession = false;
-            this.studentCurrentClasses = [];
-            this.firstRegistrationWeekAlert;
 
             this.selectedClassStyle = { backgroundColor: "#e0e0e0" }
 
@@ -50,7 +29,14 @@
 
                 studentID: null,
                 programID: null,
-                sessionID: null
+                sessionID: null,
+
+                classes : [],
+                programs : [],
+                students : [],
+                sessions : [],
+
+                isReady : false
             };
 
             this.routeChange = false;
@@ -60,282 +46,58 @@
             return !this.routeChange;
         }
 
-        getMeteorData() {
-
-            let programAndSessionSub = Meteor.subscribe("EFProgramAndSession");
-            let studentSub = Meteor.subscribe("EFStudentByFamily");
-
-            if (programAndSessionSub.ready() && studentSub.ready()) {
-                this.getStudents();
-                this.getSessions();
-                this.getPrograms();
+        onReceiveData(err, result) {
+            if (err) {
+                return;
             }
+            result.classes = result.classes || [];
+            let newState = _.pick(result, ['sessions','classes','students','programs','firstRegistrationWeekSession','firstRegistrationWeekAlert','studentID','programID','sessionID']);
 
-            this.programID = this.state.programID || this.programID;
-            this.sessionID = this.state.sessionID || this.sessionID;
-            this.studentID = this.state.studentID || this.studentID;
+            this.setCollectionLabelAndValue(newState.programs);
+            this.setCollectionLabelAndValue(newState.sessions);
+            this.setCollectionLabelAndValue(newState.students);
 
-            let classSub = null;
-            if (this.programID && this.sessionID && this.studentID) {
-                classSub = Meteor.subscribe("EF-Classes-For-Register", this.studentID, this.programID, this.sessionID);
-                if (classSub.ready()) {
-                    this.getClasses();
-                }
-            }
+            newState.isReady = true;
 
-            return {
-                isReady: programAndSessionSub.ready() && studentSub.ready() && (!classSub || classSub.ready())
-            }
+            this.setState(newState);
         }
 
-        setSelectedID(idName, idOptions) {
-            this[idName] = null;
-            if (idOptions.length >0) {
-                if (this.state[idName] && _.find(idOptions, {_id:this.state[idName]}))
-                    this[idName] = this.state[idName];
-                else
-                    this[idName] = idOptions[0]._id;
-            }
+        setCollectionLabelAndValue(col) {
+            if (!col) return;
+            _.forEach(col, (c) => {
+                c.value = c._id;
+                c.label = c.name;
+            })
         }
 
-        getPrograms() {
-            let programs = EdminForce.Collections.program.find({}).fetch();
-
-            for (let i = 0; i < programs.length; i++) {
-                programs[i].value = programs[i]["_id"];
-                programs[i].label = programs[i].name;
-            }
-
-            this.programs = programs;
-            this.setSelectedID('programID',programs);
-        }
-
-        getSessions() {
-            let currentDate = new Date();
-            let sessions = EdminForce.Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
-
-            for (let i = 0; i < sessions.length; i++) {
-                sessions[i].value = sessions[i]["_id"];
-                sessions[i].label = sessions[i].name;
-            }
-
-            this.sessions = sessions;
-
-            this.setSelectedID('sessionID', sessions);
-
-            let selectedSession = _.find(this.sessions, {_id:this.sessionID});
-
-            this.firstRegistrationWeekSession = (currentDate >= selectedSession.registrationStartDate && currentDate <= moment(selectedSession.registrationStartDate).add(7,"d").toDate());
-
-            // for the case of first week registration, we need to get current classes of the selected student
-            // so we can find out which classes are available for first week registration.
-            this.studentCurrentClasses = [];
-            if (this.firstRegistrationWeekSession && this.studentID) {
-                let studentClasses = EdminForce.Collections.classStudent.find({studentID:this.studentID, type:'register', status:'checkouted'}).fetch();
-                let classIDs = studentClasses.map( (sc) => sc.classID );
-                // we may need to filter out history classes that are finished long time ago.
-                let currentClasses = EdminForce.Collections.class.find({_id: {$in:classIDs}}).fetch();
-                this.studentCurrentClasses = currentClasses.map((c) => ({
-                    programID: c.programID,
-                    sessionID: c.sessionID,
-                    schedule: c.schedule,
-                    teacher: c.teacher
-                }));
-            }
-        }
-
-        getStudents() {
-            let students = EdminForce.Collections.student.find({
-                accountID: Meteor.userId()
-            }).fetch();
-
-            // discuss with Ma Lan, she said same student can register multiple class in same program
-            /*
-             let registeredStudents = EdminForce.Collections.classStudent.find({
-             programID: this.programID
-             }).fetch();
-
-             let validStudents = [];
-
-             for (let i = 0; i < students.length; i++) {
-             let student = students[i];
-             let find = false;
-             for (let j = 0; j < registeredStudents.length; j++) {
-             // This student already registered this program
-             if (student["_id"] === registeredStudents[j].studentID) {
-             find = true;
-             break;
-             }
-             }
-
-             // not registered before
-             if (!find) {
-             student.value = student["_id"];
-             student.label = student.name;
-             validStudents.push(student);
-             }
-             }
-             */
-
-            for (let i = 0; i < students.length; i++) {
-                let student = students[i];
-                student.value = student["_id"];
-                student.label = student.name;
-            }
-
-            this.students = students;
-            this.setSelectedID('studentID', students);
-        }
-
-        compareTime(ts1, ts2) {
-            if (!ts1 || !ts2) return false;
-
-            let reg = /^(\d{1,2})\s*:\s*(\d{1,2})\s*(\w{2})$/;
-            let result1 = reg.exec(ts1);
-            let result2 = reg.exec(ts2);
-
-            if (!result1 || !result2)  return false;
-
-            if (result1[3].toLowerCase() != result2[3].toLowerCase())
-                return false;
-
-            return (parseInt(result1[1]) == parseInt(result2[1]) && parseInt(result1[2]) == parseInt(result2[2]));
-        }
-
-        eligibleForFirstRegistrationWeek(classData) {
-            return _.find(this.studentCurrentClasses,(c) => {
-                    return c.programID === classData.programID &&
-                        c.schedule.day === classData.schedule.day &&
-                        c.teacher === classData.teacher &&
-                        this.compareTime(c.schedule.time,classData.schedule.time)
-                });
-        }
-
-        getClasses() {
-            // Available Class Condition
-            this.firstRegistrationWeekAlert = false;
-            let classes
-            if (this.firstRegistrationWeekSession) {
-                // for first week registration, program list is hidden, so we are not filtering by program
-                classes = EdminForce.Collections.class.find({
-                    sessionID: this.sessionID
-                }).fetch();
-
-                let numClasses = classes.length;
-                numClasses > 0 && (classes = _.filter(classes, (c) => this.eligibleForFirstRegistrationWeek(c)));
-                this.firstRegistrationWeekAlert = (numClasses != classes.length);
-            }
-            else {
-                classes = EdminForce.Collections.class.find({
-                    programID: this.programID,
-                    sessionID: this.sessionID
-                }).fetch();
-            }
-
-            if (this.state.weekDay && !this.firstRegistrationWeekSession) {
-                classes = _.filter(classes, (c) => { return c.schedule && c.schedule.day == this.state.weekDay })
-            }
-
-            let validClasses = [];
-
-            for (let i = 0; i < classes.length; i++) {
-                let item = classes[i];
-
-                // this class is available
-                if (this.whetherClassAvailable(item)) {
-                    validClasses.push(item);
-                }
-            }
-
-            this.classes = validClasses;
-        }
-
-        /**
-         * judge whether currently class is available, condition:
-         * 1. class isn't full
-         * 2. student meet required gender
-         * 3. student meet required age
-         * @param classInfo {Object}
-         * @returns {boolean}
-         */
-        whetherClassAvailable(classInfo) {
-            // Get class register information
-            let registeredStudents = EdminForce.Collections.classStudent.find({
-                classID: classInfo['_id'],
-                type: {
-                    $in:['register']
-                },
-                status: {
-                    $in: ['pending', 'checkouting', 'checkouted']
-                }
-            }).fetch();
-
-            // this class isn't available
-            if (classInfo.maxStudent <= registeredStudents.length) {
-                return false;
-            }
-
-            // find selected student information
-            let student = _.find(this.students, {_id:this.studentID});
-
-            if (!student) {
-                return true;
-            }
-
-            // this student already registered
-            let existedClass = EdminForce.Collections.classStudent.find({
-                classID: classInfo["_id"],
-                studentID: student["_id"],
-                type: {
-                    $in:['register']
-                },
-                status: {
-                    $in: ['pending', 'checkouting', 'checkouted']
-                }
-            }).fetch();
-
-            if (existedClass && existedClass[0]) {
-                return false;
-            }
-
-            // class required gender isn't same with student's
-            if (classInfo.genderRequire && (classInfo.genderRequire.toLowerCase() !== 'all') && (classInfo.genderRequire.toLowerCase() !== student.profile.gender.toLowerCase())) {
-                return false;
-            }
-
-            // Get currently student's birthday
-            let age = EdminForce.utils.calcAge(student.profile.birthday);
-
-            // if class has min age, and currently student's age less than min age
-            if (classInfo.minAgeRequire && classInfo.minAgeRequire > age) {
-                return false;
-            }
-
-            // if class has max age, and currently student's age bigger than max age
-            if (classInfo.maxAgeRequire && classInfo.maxAgeRequire < age) {
-                return false;
-            }
-
-            return true;
+        componentDidMount() {
+            super.componentDidMount();
+            Meteor.call("getRegistrationData", true, this.studentID, this.programID, this.sessionID, this.onReceiveData.bind(this));
         }
 
         onSelectStudent(event) {
             this.selectedClasses = [];
+            Meteor.call("getRegistrationData", false, event.target.value, this.state.programID, this.state.sessionID, this.onReceiveData.bind(this));
             this.setState({
+                isReady: false,
                 studentID:event.target.value
             })
         }
 
         onSelectProgram(event) {
             this.selectedClasses = [];
+            Meteor.call("getRegistrationData", false, this.state.studentID, event.target.value, this.state.sessionID, this.onReceiveData.bind(this));
             this.setState({
+                isReady: false,
                 programID:event.target.value
             })
         }
 
         onSelectSession(event) {
             this.selectedClasses = [];
+            Meteor.call("getRegistrationData", false, this.state.studentID, this.state.programID, event.target.value, this.onReceiveData.bind(this));
             this.setState({
+                isReady: false,
                 sessionID: event.target.value
             })
         }
@@ -395,10 +157,10 @@
 
             let self = this;
             let classTable;
-            if (this.classes.length > 0) {
+            if (this.state.classes.length > 0) {
                 //selected by default
-                this.firstRegistrationWeekSession && (this.selectedClasses = this.classes);
-                let classItems = this.classes.map(function (item, index) {
+                this.state.firstRegistrationWeekSession && (this.selectedClasses = this.classes);
+                let classItems = this.state.classes.map(function (item, index) {
                     return (
                         <TableRow key={item._id} selected={!!_.find(self.selectedClasses, {_id:item._id})}>
                             <TableRowColumn style={{width: "100%", whiteSpace:"normal"}}>
@@ -425,7 +187,7 @@
                 )
             }
             else {
-                if (this.firstRegistrationWeekAlert)
+                if (this.state.firstRegistrationWeekAlert)
                     classTable = (
                         <RC.Div style={{"padding": "20px"}} key="priorityAlert">
                             <p><b>The first week registration only opens to current students to renew the same classes they're currently taking. Please come back next week for registration.</b></p>
@@ -441,8 +203,8 @@
 
             let renderBodyElements = [];
 
-            if (this.firstRegistrationWeekSession) {
-                this.classes.length > 0 && renderBodyElements.push(
+            if (this.state.firstRegistrationWeekSession) {
+                this.state.classes.length > 0 && renderBodyElements.push(
                     (<RC.Div style={{"padding": "20px"}} key="renewMsg"><p>You're renewing the following classes:</p></RC.Div>)
                 );
 
@@ -455,7 +217,7 @@
             else {
                 // program selection is only available in regular registration
                 renderBodyElements.push((
-                    <RC.Select options={this.programs} value={this.programID}
+                    <RC.Select options={this.state.programs} value={this.state.programID}
                         label={TAPi18n.__("ef_classes_program")} labelColor="brand1"
                         onChange={this.onSelectProgram.bind(this)} key="programList"/>
                 ));
@@ -492,14 +254,14 @@
 
             return (
                 <RC.Div style={{"padding": "20px"}}>
-                    <RC.Loading isReady={this.data.isReady}>
+                    <RC.Loading isReady={this.state.isReady}>
                         <RC.VerticalAlign center={true} className="padding" height="300px" key="title">
                             <h2>{title}</h2>
                         </RC.VerticalAlign>
-                        <RC.Select options={this.students} value={this.studentID} key="studentList"
+                        <RC.Select options={this.state.students} value={this.state.studentID} key="studentList"
                             label={TAPi18n.__("ef_classes_students")} labelColor="brand1"
                             onChange={this.onSelectStudent.bind(this)}/>
-                        <RC.Select options={this.sessions} value={this.sessionID} key="sessionList"
+                        <RC.Select options={this.state.sessions} value={this.state.sessionID} key="sessionList"
                             label="Session" labelColor="brand1"
                             onChange={this.onSelectSession.bind(this)}/>
                         {renderBodyElements}
