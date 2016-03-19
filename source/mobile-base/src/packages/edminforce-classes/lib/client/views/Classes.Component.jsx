@@ -157,10 +157,16 @@
 
             let self = this;
             let classTable;
-            if (this.state.classes.length > 0) {
+
+            let classes = this.state.classes;
+            if (!this.state.firstRegistrationWeekSession && this.state.weekDay) {
+                classes = _.filter(classes, (c) => c.schedule.day == this.state.weekDay );
+            }
+
+            if (classes.length > 0) {
                 //selected by default
-                this.state.firstRegistrationWeekSession && (this.selectedClasses = this.classes);
-                let classItems = this.state.classes.map(function (item, index) {
+                this.state.firstRegistrationWeekSession && (this.selectedClasses = classes);
+                let classItems = classes.map(function (item, index) {
                     return (
                         <TableRow key={item._id} selected={!!_.find(self.selectedClasses, {_id:item._id})}>
                             <TableRowColumn style={{width: "100%", whiteSpace:"normal"}}>
@@ -204,7 +210,7 @@
             let renderBodyElements = [];
 
             if (this.state.firstRegistrationWeekSession) {
-                this.state.classes.length > 0 && renderBodyElements.push(
+                classes.length > 0 && renderBodyElements.push(
                     (<RC.Div style={{"padding": "20px"}} key="renewMsg"><p>You're renewing the following classes:</p></RC.Div>)
                 );
 
