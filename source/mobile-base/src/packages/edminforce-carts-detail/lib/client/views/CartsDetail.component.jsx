@@ -49,7 +49,7 @@
                 let program = EdminForce.Collections.program.find({_id:classData.programID}).fetch();
                 sc.program = program && program[0];
 
-                sc.classFee = EdminForce.Collections.class.calculateRegistrationFee(classData,session);
+                sc.classFee = EdminForce.Collections.class.calculateRegistrationFee(classData,sc.session);
             })
 
             let student = EdminForce.Collections.student.find({_id:studentClasses[0].studentID}).fetch();
