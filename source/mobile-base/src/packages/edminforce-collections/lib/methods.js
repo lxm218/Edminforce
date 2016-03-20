@@ -97,8 +97,6 @@ Meteor.methods({
         let result = {}
         let currentDate = new Date();
 
-        console.log("call");
-
         if (initialLoad) {
             result.students = EdminForce.Collections.student.find({accountID: this.userId}).fetch();
             result.sessions = EdminForce.Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
@@ -130,7 +128,6 @@ Meteor.methods({
         result.firstRegistrationWeekSession = (currentDate >= selectedSession.registrationStartDate && currentDate <= moment(selectedSession.registrationStartDate).add(7,"d").toDate());
 
         if (result.firstRegistrationWeekSession) {
-            console.log('get priority classes');
 
             let studentClasses = EdminForce.Collections.classStudent.find({studentID, type:'register', status:'checkouted'}).fetch();
             let classIDs = studentClasses.map( (sc) => sc.classID );
@@ -144,8 +141,6 @@ Meteor.methods({
                 if (curTeachers.indexOf(cc.teacher)<0) curTeachers.push(cc.teacher);
                 if (curClassDays.indexOf(cc.schedule.day)) curClassDays.push(cc.schedule.day);
             });
-
-            console.log("currentClasses done");
 
             // for first week registration, program list is hidden, so we are not filtering by program
             let classes = EdminForce.Collections.class.find({
@@ -171,16 +166,11 @@ Meteor.methods({
             result.classes = classes;
         }
         else {
-            console.log('get regular classes');
-
             result.classes = EdminForce.Collections.class.find({
                 programID,
                 sessionID
             }).fetch();
         }
-
-        console.log('before last checks');
-        console.log(result.classes.length);
 
         // other checks
         result.classes = _.filter(result.classes, (classInfo) => {
@@ -227,8 +217,6 @@ Meteor.methods({
 
             return true;
         });
-
-        console.log(result.classes.length);
 
         return result;
     }
