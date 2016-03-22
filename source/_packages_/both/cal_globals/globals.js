@@ -23,4 +23,6 @@ Cal.RC= {}  //定制UI组件
 //自定义mixin
 Cal.Mixins={}
 
+UI ={}
+
 
