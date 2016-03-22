@@ -21,7 +21,7 @@ KUI.Family_add = class extends RC.CSSMeteorData{
             <RC.Div>
                 <h3>Add Family</h3>
                 <hr/>
-                <KUI.Family_add_comp ref="form" />
+                <KUI.Family_add_comp type="add" ref="form" />
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton ref="addBtn" onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>

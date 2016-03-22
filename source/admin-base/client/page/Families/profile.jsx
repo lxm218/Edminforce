@@ -64,6 +64,13 @@ KUI.Family_add_comp = class extends RC.CSS{
                 wrapperClassName : 'col-xs-8',
                 ref : 'em_phone',
                 label : 'Phone'
+            },
+            credit : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                label : 'School Credit',
+                ref : 'credit',
+                disabled : true
             }
         };
 
@@ -73,12 +80,15 @@ KUI.Family_add_comp = class extends RC.CSS{
             }
         };
 
+        let type = this.props.type;
+
         return (
             <form className="form-horizontal">
                 <RB.Row>
                     <RB.Col md={6} mdOffset={0}>
                         <RB.Input type="text" {... p.name} />
                         <RB.Input type="text" {... p.phone} />
+                        {type==='edit'?<RB.Input type="text" {... p.credit} />:null}
                         <p style={sy.rd}>Alternative Contact</p>
                         <RB.Input type="text" {... p.alternativeName} />
                         <RB.Input type="text" {... p.alternativePhone} />
@@ -127,6 +137,10 @@ KUI.Family_add_comp = class extends RC.CSS{
         al_phone.getInputDOMNode().value = al.phone || '';
         em_name.getInputDOMNode().value = em.name || '';
         em_phone.getInputDOMNode().value = em.phone || '';
+
+        if(data.schoolCredit){
+            this.refs.credit.getInputDOMNode().value  = data.schoolCredit;
+        }
     }
 
 };
@@ -176,7 +190,7 @@ KUI.Family_profile = class extends KUI.Page{
 
         return (
             <RC.Div>
-                <KUI.Family_add_comp ref="form" />
+                <KUI.Family_add_comp type="edit" ref="form" />
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>
