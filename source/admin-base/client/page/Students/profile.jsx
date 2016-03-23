@@ -38,7 +38,10 @@ KUI.Student_profile = class extends KUI.Page{
 
         //find from ClassStudent
         let s1 = Meteor.subscribe('EF-ClassStudent', {
-            query : {studentID : id}
+            query : {
+                studentID : id,
+                status : 'checkouted'
+            }
         });
         let s2 = Meteor.subscribe('EF-Class');
         if(!s1.ready() || !s2.ready()){
@@ -106,12 +109,14 @@ KUI.Student_profile = class extends KUI.Page{
                 {this.getProfileBox()}
 
                 <hr />
-                <h3>Class History</h3>
+                <h3>Current Class</h3>
                 {this.renderClassTable()}
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton style={sy.ml} href={`/registration/index/student/${this.data.id}`} label="Register New Class"></KUI.YesButton>
                 </RC.Div>
-
+                <hr/>
+                <h3>Class History</h3>
+                {this.renderClassHistoryTable()}
                 <hr/>
                 <h3>Trial / Makeup Class</h3>
                 {this.renderTrailOrMakeupClassTable()}
@@ -122,6 +127,66 @@ KUI.Student_profile = class extends KUI.Page{
             </RC.Div>
         );
 
+    }
+
+    renderClassHistoryTable(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
+        let self = this;
+        const titleArray = [
+            {
+                title : 'Class',
+                key : 'class'
+            },
+            {
+                title : 'Teacher',
+                key : 'teacher'
+            },
+            {
+                title : 'Session',
+                key : 'session'
+            },
+            //{
+            //    title : 'Type',
+            //    key : 'type'
+            //},
+            {
+                title : 'Status',
+                //key : 'status'
+                reactDom(doc){
+                    return doc.status==='checkouted'?'complete':doc.status;
+                }
+            }
+        ];
+
+        let json = [];
+        _.each(this.data.classStudentData, (item)=>{
+            if(item.type !== 'register' && item.type !== 'wait'){
+                return true;
+            }
+            if(item.status !== 'checkouted'){
+                return true;
+            }
+            let cls = this.data.classData[item.classID];
+            if(!cls) return true;
+            item.class = cls.nickName;
+            item.teacher = cls.teacher;
+            item.session = cls.sessionName;
+
+            if(moment().isAfter(moment(cls.session.endDate), 'day')){
+                json.push(item);
+            }
+
+        });
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={json}
+                title={titleArray}
+                ref="table"></KUI.Table>
+        );
     }
 
 
@@ -198,7 +263,11 @@ KUI.Student_profile = class extends KUI.Page{
             item.teacher = cls.teacher;
             item.session = cls.sessionName;
 
-            json.push(item);
+            if(moment().isBefore(moment(cls.session.endDate), 'day')){
+                json.push(item);
+            }
+
+
         });
 
         return (

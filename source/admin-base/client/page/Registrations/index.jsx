@@ -7,30 +7,45 @@ KUI.Registration_index = class extends KUI.Page{
         this.studentID = this.props.studentID;
 
         this.state = {
-            search_student_query : {},
-            student : null
+            search_student_query : null,
+            student : null,
+            search_class_query : null
         };
 
     }
 
     getMeteorData(){
+        this.module = KG.DataHelper.getDepModule();
         let x = Meteor.subscribe('EF-Class'),
+            x1 = Meteor.subscribe('EF-Program'),
+            x2 = Meteor.subscribe('EF-Session'),
             y = Meteor.subscribe('EF-Student'),
             z = Meteor.subscribe('EF-ClassStudent');
 
+        if(!x1.ready || !x2.ready) return {ready : false};
+        let P = this.module.Program.getDB().find().fetch(),
+            S = this.module.Session.getDB().find().fetch();
+
         return {
-            ready : x.ready() && y.ready() && z.ready(),
+            ready : x.ready() && y.ready(),
             studentList : this.getStudentData(),
-            classList : this.getClassData()
+            classList : this.getClassData(),
+            program : P,
+            session : S
         };
     }
 
     getClassData(){
-        return KG.get('EF-Class').getAll();
+        let query = this.state.search_class_query;
+        if(!query) return [];
+        return KG.get('EF-Class').getAll(query);
     }
     getStudentData(){
         let query = this.state.search_student_query;
-        return KG.get('EF-Student').getAll(query);
+        if(!query) return [];
+        return KG.get('EF-Student').getAll(query, {
+            sort : {createTime : -1}
+        });
     }
 
     getReactObj(){
@@ -49,6 +64,19 @@ KUI.Registration_index = class extends KUI.Page{
                 ref : 'student',
                 label : 'Student'
             },
+            program : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-6',
+                ref : 'program',
+                label : 'Program'
+            },
+            session : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-6',
+                ref : 'session',
+                label : 'Session'
+            },
+
             lesson : {
                 labelClassName : 'col-xs-2',
                 wrapperClassName : 'col-xs-6',
@@ -59,7 +87,9 @@ KUI.Registration_index = class extends KUI.Page{
 
         let option = {
             student : this.data.studentList,
-            lesson : this.data.classList
+            lesson : this.data.classList,
+            program : this.data.program,
+            session : this.data.session
         };
 
         option.student = [{_id:'-1', nickName:'Please select student'}].concat(option.student);
@@ -96,6 +126,21 @@ KUI.Registration_index = class extends KUI.Page{
                             </RB.Row>
                         </RB.Input>
 
+                        <RB.Input onChange={this.change.bind(this)} type="select" {... p.program}>
+                            {
+                                _.map(option.program, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.name}</option>;
+                                })
+                            }
+                        </RB.Input>
+                        <RB.Input onChange={this.change.bind(this)} type="select" {... p.session}>
+                            {
+                                _.map(option.session, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.name}</option>;
+                                })
+                            }
+                        </RB.Input>
+
                         <RB.Input type="select" {... p.lesson}>
                             {
                                 _.map(option.lesson, (item, index)=>{
@@ -114,6 +159,20 @@ KUI.Registration_index = class extends KUI.Page{
             </form>
         );
     }
+
+    change(){
+        let p = this.refs.program,
+            s = this.refs.session;
+        let query = {
+            programID : p.getValue(),
+            sessionID : s.getValue()
+        };
+
+        this.setState({
+            search_class_query:query
+        });
+    }
+
 
     cancel(){
         let {student, lesson} = this.getReactObj();
@@ -226,7 +285,7 @@ KUI.Registration_index = class extends KUI.Page{
 
     openModal(){
         this.setState({
-            search_student_query:{}
+            search_student_query:null
         });
         this.refs.modal.show();
     }
@@ -285,13 +344,6 @@ KUI.Registration_index = class extends KUI.Page{
                 key : 'age',
                 style : {
                 }
-            },
-            {
-                title : 'Parents',
-                key : 'accountName',
-                style : {
-
-                }
             }
         ];
 
@@ -306,10 +358,15 @@ KUI.Registration_index = class extends KUI.Page{
         );
     }
 
+    runOnceAfterDataReady(){
+        this.change();
+    }
+
 };
 
 KUI.Registration_index1 = class extends KUI.Registration_index{
     runOnceAfterDataReady(){
+        super.runOnceAfterDataReady();
         console.log(this.studentID);
         let studentID = this.studentID;
         if(studentID){

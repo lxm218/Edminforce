@@ -139,7 +139,7 @@ KUI.Family_add_comp = class extends RC.CSS{
         em_phone.getInputDOMNode().value = em.phone || '';
 
         if(data.schoolCredit){
-            this.refs.credit.getInputDOMNode().value  = data.schoolCredit;
+            this.refs.credit.getInputDOMNode().value  = '$'+data.schoolCredit;
         }
     }
 

@@ -11,15 +11,18 @@ KUI.Family_index = class extends KUI.Page{
     }
 
     getMeteorData(){
-        let x = Meteor.subscribe('EF-Customer');
-
         let query = this.state.query;
 
-        let list = KG.get('EF-Customer').getAll(query, {
+        let x = Meteor.subscribe('EF-Customer', {
+            query : query,
+            pageSize : 10,
             sort : {
                 createTime : -1
             }
         });
+
+
+        let list = KG.get('EF-Customer').getAll({});
 
         return {
             ready : x.ready(),
@@ -88,7 +91,10 @@ KUI.Family_index = class extends KUI.Page{
 
         let query = {};
         if(name){
-            query.name = new RegExp(name, 'i');
+            query.name = {
+                value : name,
+                type : 'RegExp'
+            };
         }
         if(status){
             query.status = status;

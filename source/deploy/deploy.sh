@@ -12,7 +12,7 @@ deployAdminBase(){
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
-    echo "link : http://staging.admin.classforth.com/home";
+    echo "link : https://sadmin.calcolor.classforth.com";
 }
 
 deployMobileBase(){
@@ -24,7 +24,7 @@ deployMobileBase(){
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
-    echo "link : http://www.classforth.com";
+    echo "link : https://scalcolor.classforth.com";
 }
 
 deployMobileBaseProduction(){
