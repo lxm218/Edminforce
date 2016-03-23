@@ -17,18 +17,23 @@ KUI.Student_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
-        Meteor.subscribe('EF-Customer');
-        Meteor.subscribe('EF-Student', {});
-
         let query = this.state.query;
 
-        let list = this.getStudentModule().getAll(query,{
-            sort : {
-                updateTime : -1
-            }
-        });
+        let x1 = Meteor.subscribe('EF-Customer');
+            x2 = Meteor.subscribe('EF-Student', {
+                query : query,
+                sort : {
+                    updateTime : -1
+                },
+                pageSize : 10
+            });
+
+
+
+        let list = this.getStudentModule().getAll({});
 
         return {
+            ready : x1.ready() && x2.ready(),
             list
         };
     }
@@ -122,12 +127,15 @@ KUI.Student_index = class extends RC.CSSMeteorData{
 
                 <hr />
 
-                <KUI.Table
-                    style={style.table}
-                    list={list}
-                    title={titleArray}
-                    ref="table"></KUI.Table>
-
+                {this.data.ready ?
+                    <KUI.Table
+                        style={style.table}
+                        list={list}
+                        title={titleArray}
+                        ref="table"></KUI.Table>
+                    :
+                    util.renderLoading()
+                }
 
             </RC.Div>
         );
@@ -202,7 +210,10 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         //TODO input to Student module
         let query = {};
         if(sname.getValue()){
-            query.name = new RegExp(sname.getValue(), 'i');
+            query.name = {
+                value : sname.getValue(),
+                type : 'RegExp'
+            };
         }
         if(sa.getValue){
             query.status = sa.getValue();
