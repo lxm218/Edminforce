@@ -35,3 +35,6 @@ ihealth:framework-engine
 ihealth:framework-mobile
 ihealth:dev-tools
 percolate:synced-cron
+edminforce:dbschema
+meteorflux:reactive-dependency
+chuangbo:cookie
