@@ -235,6 +235,15 @@ KG.define('EF-Customer', class extends Base{
                     let rs = this._db.update({_id : id}, {'$set' : data});
                     return rs;
                 }
+            },
+
+            useSchoolCreditById(credit, id){
+                let one = this._db.findOne({_id : id});
+                credit = credit || one.schoolCredit
+                let rs = this._db.update({_id : id}, {'$inc' : {
+                    schoolCredit : (credit*-1)
+                }});
+                return rs;
             }
         };
     }

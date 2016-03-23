@@ -123,6 +123,12 @@ KUI.Registration_success = class extends KUI.Page{
         if(this.data.coupon){
             KG.get('EF-Coupon').useOnce(this.data.coupon);
         }
+
+        KG.get('EF-Customer').callMeteorMethod('useSchoolCreditById', [null, this.data.student.accountID], {
+            success : function(){
+
+            }
+        });
     }
 
 };
