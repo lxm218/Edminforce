@@ -370,6 +370,13 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 				</RC.Div>
 			);
 		}
+		else if(tuition === 0){
+			h = (
+				<RC.Div style={{textAlign:'right'}}>
+					<KUI.YesButton onClick={this.confirmChangeClass.bind(this)} label="Confirm"></KUI.YesButton>
+				</RC.Div>
+			);
+		}
 		else{
 			h = (
 				<RC.Div>
@@ -390,6 +397,13 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 				{h}
 			</RC.Div>
 		);
+	}
+	confirmChangeClass(){
+		this.changeToNewClass({
+			paymentType : 'cash'
+		}, function(nid, json){
+			util.goPath('/student/'+json.studentID);
+		});
 	}
 	refundChangeClass(){
 		let cca = $(this.refs.cca.getInputDOMNode()).prop('checked'),

@@ -215,6 +215,7 @@ console.log('['+this._name+':'+methodName+' call]');
 
     _publishMeteorData(){
         Meteor.publish(this._name, (opts)=>{
+
             opts = _.extend({
                 query : {},
                 sort : {},
@@ -222,6 +223,14 @@ console.log('['+this._name+':'+methodName+' call]');
                 pageNum : 1,
                 field : null
             }, opts||{});
+            _.mapObject(opts.query || {}, (item, key)=>{
+                if(_.isObject(item)){
+                    if(item.type === 'RegExp'){
+                        opts.query[key] = new RegExp(item.value, 'i');
+                    }
+                }
+            });
+
             let skip = opts.pageSize * (opts.pageNum-1);
             let option = {
                 sort : opts.sort,

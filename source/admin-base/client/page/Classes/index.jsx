@@ -37,20 +37,33 @@ KUI.Class_index = class extends RC.CSSMeteorData{
     }
 
     getMeteorData(){
-        Meteor.subscribe('EF-Class');
-        Meteor.subscribe('EF-Program');
-        Meteor.subscribe('EF-Session');
-
         let query = this.state.query;
-        let list = KG.get('EF-Class').getAll(query);
+        let x1 = Meteor.subscribe('EF-Class', {
+                query : query,
+                sort : {
+                    updateTime : -1
+                },
+                pageSize : 10
+            }),
+            x2 = Meteor.subscribe('EF-Program');
+            x3 = Meteor.subscribe('EF-Session');
+
+        if(!x2.ready() || !x3.ready()) return {ready : false};
+
+
+        let list = KG.get('EF-Class').getAll({});
 
         return {
+            ready : x1.ready(),
             list : list
         };
     }
 
 
     renderTable(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
         let self = this;
 
         let sy = this.css.get('styles');
@@ -262,7 +275,10 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             'schedule.day' : day.getValue()
         };
         if(teacher.getValue()){
-            query.teacher = new RegExp(teacher.getValue(), 'i');
+            query.teacher = {
+                value : teacher.getValue(),
+                type : 'RegExp'
+            };
         }
         //console.log(query);
 
