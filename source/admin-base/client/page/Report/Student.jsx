@@ -1,4 +1,88 @@
+let Filter = class extends KUI.Page{
 
+	getMeteorData(){
+		let x = Meteor.subscribe('EF-AdminUser', {
+			query : {
+				role : 'teacher'
+			}
+		});
+
+		return {
+			ready : x.ready(),
+			teacher : KG.get('EF-AdminUser').getDB().find().fetch()
+		};
+	}
+
+	render(){
+		if(!this.data.ready){
+			return util.renderLoading();
+		}
+		let p = {
+			date : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-4',
+				ref : 'date',
+				label : 'Select Date'
+			},
+			teacher : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-4',
+				ref : 'teacher',
+				label : 'Select Teacher'
+			}
+		};
+
+		let option = {
+			teacher : [{nickName:'All'}].concat(this.data.teacher)
+		};
+
+		return (
+			<form className="form-horizontal">
+				<RB.Row>
+					<RB.Col md={12}>
+						<RB.Input type="text" {... p.date} />
+
+						<RB.Input type="select" {... p.teacher}>
+							{
+								_.map(option.teacher, (item, index)=>{
+									return <option key={index} value={item.nickName}>{item.nickName}</option>;
+								})
+							}
+						</RB.Input>
+					</RB.Col>
+				</RB.Row>
+			</form>
+		);
+	}
+
+	getRefs(){
+		return {
+			date : this.refs.date,
+			teacher : this.refs.teacher
+		};
+	}
+
+	runOnceAfterDataReady(){
+
+		let {date} = this.getRefs();
+		$(date.getInputDOMNode()).datepicker({});
+	}
+
+	getValue(){
+		let {date, teacher} = this.getRefs();
+
+
+		let rs = {
+			date : $(date.getInputDOMNode()).datepicker('getDate')
+		};
+
+		if(teacher.getValue() !== 'All'){
+			rs.teacher = teacher.getValue();
+		}
+
+		return rs;
+	}
+};
 
 
 KUI.Report_Student = class extends KUI.Page{
@@ -27,7 +111,7 @@ KUI.Report_Student = class extends KUI.Page{
 			<RC.Div>
 				<h3>Student Report</h3>
 				<hr/>
-				<KUI.Report_CommonFilter ref="filter" />
+				<Filter ref="filter" />
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.YesButton onClick={this.search.bind(this)} label="Show Result"></KUI.YesButton>
 				</RC.Div>
@@ -40,14 +124,12 @@ KUI.Report_Student = class extends KUI.Page{
 
 
 	search(){
-		let date = this.refs.filter.getValue().date;
+		let data = this.refs.filter.getValue();
 
 		this.setState({
 			loadingResult : true
 		});
-		KG.DataHelper.callMeteorMethod('getStudentReport', [{
-			date : date
-		}], {
+		KG.DataHelper.callMeteorMethod('getStudentReport', [data], {
 			context : this,
 			success : function(rs){
 				console.log(rs);
@@ -116,6 +198,7 @@ KUI.Report_Student = class extends KUI.Page{
 		return (
 			<RC.Div style={sy} key={index}>
 				<h4>{classData.nickName}</h4>
+				<p>Teacher : {classData.teacher}</p>
 				<KUI.Table
 					style={{}}
 					list={list}

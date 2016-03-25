@@ -63,6 +63,12 @@ if(Meteor.isClient){
 
                 FlowRouter.go('/home/login');
             }
+            else{
+                _.delay(function(){
+                    $(window).scrollTop(0);
+                }, 16);
+
+            }
 
         });
     }]);

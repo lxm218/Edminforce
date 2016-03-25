@@ -37,38 +37,97 @@ KG.define('EF-DataHelper', class extends Base{
             getFinanceReport(opts){
                 let m = this.getDepModule();
 
-                let date = moment(opts.date),
-                    min = date.hour(0).minute(0).second(0).clone(),
+                let result = [];
+
+                // date is moment object
+                let loop = (date)=>{
+                    let min = date.hour(0).minute(0).second(0).clone(),
+                        max = date.hour(23).minute(59).second(59).clone();
+                    let query = {
+                        status : 'success',
+                        type : 'register class',
+                        updateTime : {
+                            '$gte' : min.toDate(),
+                            '$lte' : max.toDate()
+                        }
+                    };
+
+                    let data = m.Order.getDB().find(query).fetch();
+
+                    let rs = {
+                        'credit card' : 0,
+                        'echeck' : 0,
+                        'cash' : 0,
+                        'check' : 0,
+                        detail : []
+                    };
+                    let total = 0;
+                    _.each(data, (item)=>{
+                        if(_.isUndefined(rs[item.paymentType])){
+                            rs[item.paymentType] = 0;
+                        }
+
+                        rs.detail.push(item.details[0]);
+
+                        rs[item.paymentType] += parseFloat(item.paymentTotal);
+                        total += parseFloat(item.paymentTotal);
+                    });
+
+                    rs.total = total;
+                    rs.date = date.clone().toDate();
+
+                    result.push(rs);
+                };
+
+                let start = moment(opts.startDate),
+                    end = moment(opts.endDate);
+
+                do{
+                    loop(start);
+                    start = start.add(1, 'days');
+                }while(end.isAfter(start, 'day'));
+
+                return result;
+            },
+
+            getFinanceDetailByDate(date){
+                let m = KG.DataHelper.getDepModule();
+
+                date = moment(date);
+                let min = date.hour(0).minute(0).second(0).clone(),
                     max = date.hour(23).minute(59).second(59).clone();
                 let query = {
                     status : 'success',
+                    type : 'register class',
                     updateTime : {
                         '$gte' : min.toDate(),
                         '$lte' : max.toDate()
                     }
                 };
 
+                let result = [];
                 let data = m.Order.getDB().find(query).fetch();
 
-                let rs = {
-                    'credit card' : 0,
-                    'echeck' : 0,
-                    'cash' : 0,
-                    'check' : 0
-                };
-                let total = 0;
-                _.each(data, (item)=>{
-                    if(_.isUndefined(rs[item.paymentType])){
-                        rs[item.paymentType] = 0;
-                    }
 
-                    rs[item.paymentType] += parseFloat(item.paymentTotal);
-                    total += parseFloat(item.paymentTotal);
+                _.each(data, (item)=>{
+                    var csID = _.last(item.details);
+                    if(!csID) return true;
+
+                    let cs = m.ClassStudent.getDB().findOne({
+                        _id : csID
+                        //status : 'checkouted'
+                    });
+                    if(!cs) return true;
+                    let student = m.Student.getAll({_id : cs.studentID})[0],
+                        cls = m.Class.getAll({_id : cs.classID})[0];
+                    cs.student = student;
+                    cs.class = cls;
+                    cs.order = item;
+
+                    result.push(cs);
                 });
 
-                rs.total = total;
-
-                return [rs];
+                return result;
             },
 
             getStudentReport(opts){
@@ -83,6 +142,9 @@ KG.define('EF-DataHelper', class extends Base{
                 let query = {
                     'schedule.day' : week
                 };
+                if(opts.teacher){
+                    query.teacher = opts.teacher;
+                }
                 let classData = m.Class.getAll(query),
                     rs = {};
 
