@@ -26,12 +26,20 @@ Accounts._loginHandlers[1] = {
         //    password: passwordValidator
         //});
 
-        console.log(options);
-        var user = Meteor.users.findOne({
-            username : options.user.username,
-            role : options.user.role
-        });
-        console.log(user);
+        var fieldName;
+        var fieldValue;
+        if (options.user.username) {
+            fieldName = 'username';
+            fieldValue = options.user.username;
+        } else if (options.user.email) {
+            fieldName = 'emails.address';
+            fieldValue = options.user.email;
+        }
+
+        var selector = {};
+        selector[fieldName] = fieldValue;
+        selector.role = options.user.role;
+        var user = Meteor.users.findOne(selector);
         if (!user)
             throw new Meteor.Error(403, "User not found");
 
