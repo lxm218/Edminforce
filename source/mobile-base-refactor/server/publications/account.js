@@ -1,6 +1,5 @@
 
 Meteor.publish('account', function() {
-    console.log(this.userId);
     return [
         Meteor.users.find({_id: this.userId}, {
             fields : {

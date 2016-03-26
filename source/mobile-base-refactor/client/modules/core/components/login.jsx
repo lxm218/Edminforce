@@ -181,8 +181,10 @@ EdminForce.Components.User = React.createClass({
       // Attempt Log In
       let self = this
       this.setState({ waiting: true })
-      console.log(form)
-      Meteor.loginWithPassword(form.username, form.password, function(err){
+
+      let userSelector = {role:'user'};
+      form.username.indexOf('@')<0 ? (userSelector.username=form.username) : (userSelector.email=form.username);
+      Meteor.loginWithPassword(userSelector, form.password, function(err){
         if (!err){
           if (form.keepName == '1') {
             Cookie.set('username', form.username)
@@ -190,20 +192,6 @@ EdminForce.Components.User = React.createClass({
             Cookie.remove('username')
           }
           self.resetForm()
-
-
-            //check role
-            if(Meteor.user().role !== 'user'){
-                Meteor.logout(function(){
-                    self.setState({
-                        msg: 'User not found',
-                        buttonActive: false,
-                        waiting: false
-                    })
-                });
-
-                return;
-            }
         }
 
         let passedMsg = err && err.error
