@@ -46,8 +46,8 @@ Schema.CustomerCoupon = {
     customerID : KG.schema.default(),
     couponID : KG.schema.default(),
     status : KG.schema.default({
-        //allowedValues : ['valid', 'success', 'fail']
-        defaultValue : 'valid'
+        optional: false,
+        allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled']
     }),
     isValid : KG.schema.default({
         type : Boolean,

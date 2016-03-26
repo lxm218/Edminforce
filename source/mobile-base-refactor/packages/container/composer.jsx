@@ -1,9 +1,140 @@
 'use strict';
 
-//import React from 'react';
-//import hoistStatics from 'hoist-non-react-statics';
-//import invariant from 'invariant';
-//import shallowEqual from 'shallowequal';
+//------------------------------------- invariant --------------------------------------
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var NODE_ENV = typeof process === 'object' ? process.env.NODE_ENV : null;
+
+function invariant(condition, format, a, b, c, d, e, f) {
+    if (NODE_ENV !== 'production') {
+        if (format === undefined) {
+            throw new Error('invariant requires an error message argument');
+        }
+    }
+
+    if (!condition) {
+        var error;
+        if (format === undefined) {
+            error = new Error(
+                'Minified exception occurred; use the non-minified dev environment ' +
+                'for the full error message and additional helpful warnings.'
+            );
+        } else {
+            var args = [a, b, c, d, e, f];
+            var argIndex = 0;
+            error = new Error(
+                format.replace(/%s/g, function() { return args[argIndex++]; })
+            );
+            error.name = 'Invariant Violation';
+        }
+
+        error.framesToPop = 1; // we don't care about invariant's own frame
+        throw error;
+    }
+};
+
+
+
+//------------------------------------- shallowequal --------------------------------------
+var fetchKeys = lodash.keys;
+
+function shallowEqual(objA, objB, compare, compareContext) {
+
+    var ret = compare ? compare.call(compareContext, objA, objB) : void 0;
+
+    if (ret !== void 0) {
+        return !!ret;
+    }
+
+    if (objA === objB) {
+        return true;
+    }
+
+    if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+        return false;
+    }
+
+    var keysA = fetchKeys(objA);
+    var keysB = fetchKeys(objB);
+
+    var len = keysA.length;
+    if (len !== keysB.length) {
+        return false;
+    }
+
+    compareContext = compareContext || null;
+
+    // Test for A's keys different from B.
+    var bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
+    for (var i = 0; i < len; i++) {
+        var key = keysA[i];
+        if (!bHasOwnProperty(key)) {
+            return false;
+        }
+        var valueA = objA[key];
+        var valueB = objB[key];
+
+        var _ret = compare ? compare.call(compareContext, valueA, valueB, key) : void 0;
+        if (_ret === false || _ret === void 0 && valueA !== valueB) {
+            return false;
+        }
+    }
+
+    return true;
+};
+
+
+
+
+//------------------------------------- hoistStatics --------------------------------------
+var REACT_STATICS = {
+    childContextTypes: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    mixins: true,
+    propTypes: true,
+    type: true
+};
+
+var KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    arguments: true,
+    arity: true
+};
+
+function hoistStatics(targetComponent, sourceComponent) {
+    var keys = Object.getOwnPropertyNames(sourceComponent);
+    for (var i=0; i<keys.length; ++i) {
+        if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
+            try {
+                targetComponent[keys[i]] = sourceComponent[keys[i]];
+            } catch (error) {
+
+            }
+        }
+    }
+
+    return targetComponent;
+};
+
+
+
+//-------------------------------------  komposer --------------------------------------
+
 
 function DefaultErrorComponent({error}) {
     return (

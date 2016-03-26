@@ -1,23 +1,22 @@
 Package.describe({
     name: "edminforce:mobile-context",
-    summary: "composer and container",
+    summary: "mobile app context",
     version: "0.0.1",
     git: ""
 });
-
 
 Package.onUse(function(api) {
     api.versionsFrom("1.2.1");
 
     api.use([
-    ], ["client"]);
+        'edminforce:collections'
+    ], ["client","server"]);
 
     api.addFiles([
         'index.js'
-    ], ["client"]);
+    ], ["client","server"]);
 
     api.export([
         'EdminForce'
-    ], ["client"]);
+    ], ["client", "server"]);
 });
-

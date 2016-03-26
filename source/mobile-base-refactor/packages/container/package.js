@@ -15,9 +15,6 @@ Package.onUse(function(api) {
     ], ["client"]);
 
     api.addFiles([
-        'shallowequal.js',
-        'invariant.js',
-        'hoist-non-react-statics.js',
         'react-simple-di.jsx',
         'composer.jsx'
     ], ["client"]);

@@ -1,5 +1,3 @@
-//import React from 'react';
-//import hoistStatics from 'hoist-non-react-statics';
 'use strict';
 
 const getDisplayName = Component => (
@@ -76,7 +74,16 @@ function useDeps(mapper = defaultMapper) {
   };
 }
 
+function injectContext(context, actions) {
+  for (let key in actions) {
+    if (actions.hasOwnProperty(key)) {
+      actions[key] = actions[key].bind(null, context);
+    }
+  }
+}
+
 ReactDI = {
   injectDeps,
-  useDeps
+  useDeps,
+  injectContext
 }
