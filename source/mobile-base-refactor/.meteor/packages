@@ -39,3 +39,4 @@ edminforce:collections
 meteorflux:reactive-dependency
 chuangbo:cookie
 edminforce:container
+edminforce:mobile-context

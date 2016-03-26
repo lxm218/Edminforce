@@ -24,7 +24,7 @@ var KNOWN_STATICS = {
     arity: true
 };
 
-function hoistNonReactStatics(targetComponent, sourceComponent) {
+function hoistStatics(targetComponent, sourceComponent) {
     var keys = Object.getOwnPropertyNames(sourceComponent);
     for (var i=0; i<keys.length; ++i) {
         if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]]) {
@@ -38,5 +38,3 @@ function hoistNonReactStatics(targetComponent, sourceComponent) {
 
     return targetComponent;
 };
-
-hoistStatics = hoistNonReactStatics;

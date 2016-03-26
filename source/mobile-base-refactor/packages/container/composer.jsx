@@ -1,3 +1,5 @@
+'use strict';
+
 //import React from 'react';
 //import hoistStatics from 'hoist-non-react-statics';
 //import invariant from 'invariant';
@@ -210,4 +212,11 @@ function composeAll(...composers) {
 
         return finalComponent;
     };
+}
+
+Composer = {
+    compose,
+    composeWithTracker,
+    composeWithPromise,
+    composeAll
 }

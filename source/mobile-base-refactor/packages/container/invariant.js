@@ -20,7 +20,7 @@
  * will remain to ensure logic does not differ in production.
  */
 
-var NODE_ENV = process.env.NODE_ENV;
+var NODE_ENV = typeof process === 'object' ? process.env.NODE_ENV : null;
 
 function invariant(condition, format, a, b, c, d, e, f) {
   if (NODE_ENV !== 'production') {
