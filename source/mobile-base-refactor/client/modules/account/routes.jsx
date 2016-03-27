@@ -10,3 +10,27 @@ DefaultRoutes.route('/account', {
         })
     }
 });
+
+DefaultRoutes.route('/account/changepassword', {
+    name: "accountChangepassword",
+    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
+    action: function(p) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.AccountChangePassword  context={EdminForce.Contexts.Account} actions={EdminForce.Actions.Account} />
+        })
+    }
+});
+
+DefaultRoutes.route('/account/updatephone', {
+    name: "accountUpdatephone",
+    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
+    action: function(p) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.AccountUpdatePhone  context={EdminForce.Contexts.Account} actions={EdminForce.Actions.Account} />
+        })
+    }
+});

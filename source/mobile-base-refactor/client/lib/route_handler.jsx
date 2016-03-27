@@ -44,3 +44,14 @@ EdminForce.utils.authCheckRouteTrigger = function (context, redirect) {
 EdminForce.utils.authGo = function(path) {
     FlowRouter.go(Meteor.userId() ? path : '/login');
 }
+
+EdminForce.utils.renderError = function(error) {
+    return error ? (
+        <div className='center'>
+            <div className="bigger inline-block invis-70 red">
+                <div>{error}</div>
+            </div>
+        </div>
+    ): null;
+}
+
