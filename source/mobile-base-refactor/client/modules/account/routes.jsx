@@ -34,3 +34,29 @@ DefaultRoutes.route('/account/updatephone', {
         })
     }
 });
+
+
+DefaultRoutes.route('/account/alternative', {
+    name: "accountAlternative",
+    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
+    action: function(p) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.AccountAlternative  context={EdminForce.Contexts.Account} actions={EdminForce.Actions.Account} />
+        })
+    }
+});
+
+
+DefaultRoutes.route('/account/emergency', {
+    name: "accountEmergency",
+    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
+    action: function(p) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.AccountEmergency context={EdminForce.Contexts.Account} actions={EdminForce.Actions.Account} />
+        })
+    }
+});

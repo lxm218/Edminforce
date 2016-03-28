@@ -37,6 +37,23 @@ EdminForce.Actions.Account = {
         });
     },
 
+
+    // update alternative contact
+    updateAlternative({LocalState}, alterContact) {
+        LocalState.set('ERROR_ACCOUNT_ALTERNATIVE', null);
+        Meteor.call('account.updateAlternative', alterContact, function (err) {
+            err ? LocalState.set('ERROR_ACCOUNT_ALTERNATIVE', err.reason) : FlowRouter.go('/account');
+        });
+    },
+
+    // update emergency contact
+    updateEmergency({LocalState}, emergencyContact) {
+        LocalState.set('ERROR_ACCOUNT_EMERGENCY', null);
+        Meteor.call('account.updateEmergency', emergencyContact, function (err) {
+            err ? LocalState.set('ERROR_ACCOUNT_EMERGENCY', err.reason) : FlowRouter.go('/account');
+        });
+    },
+
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
         LocalState.set('WAIT_ACCOUNT', false);
