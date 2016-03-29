@@ -10,6 +10,8 @@ KUI.Registration_payment = class extends KUI.Page{
             coupon : false
         };
 
+        this.currentUseSchoolCredit = new ReactiveVar(0);
+
         this.total = new ReactiveVar(0);
     }
 
@@ -119,15 +121,7 @@ KUI.Registration_payment = class extends KUI.Page{
             });
         }
 
-        //school credit
-        if(this.state.schoolCredit){
-            list.push({
-                item : 'Credit',
-                amount : C.credit>0?('-$'+C.credit):0
-            });
 
-            total = total - C.credit;
-        }
 
         if(C.registrationFee > 0){
             list.push({
@@ -136,6 +130,24 @@ KUI.Registration_payment = class extends KUI.Page{
             });
 
             total = total + C.registrationFee;
+        }
+
+        //school credit
+        if(this.state.schoolCredit){
+            this.currentUseSchoolCredit.set(C.credit);
+            list.push({
+                item : 'Credit',
+                amount : C.credit>0?('-$'+C.credit):0
+            });
+
+            if(C.credit > total){
+                this.currentUseSchoolCredit.set(total);
+                total = 0;
+            }
+            else{
+                total = total - C.credit;
+            }
+
         }
 
 
@@ -311,7 +323,8 @@ KUI.Registration_payment = class extends KUI.Page{
             accountID : this.data.student.accountID,
             studentID : this.data.student._id,
             details : [this.data.id],
-            amount : this.total.get()
+            amount : this.total.get(),
+            schoolCredit : this.currentUseSchoolCredit.get()
         };
         if(this.state.coupon){
             let cid = this.state.coupon._id;
