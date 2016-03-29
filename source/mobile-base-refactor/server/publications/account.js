@@ -1,4 +1,5 @@
 
+// publish data for account page: user, customer, and students
 Meteor.publish('account', function() {
     return [
         Meteor.users.find({_id: this.userId}, {
@@ -18,4 +19,14 @@ Meteor.publish('account', function() {
             accountID: this.userId
         })
     ]
+});
+
+// publish one or all students for the current logged-in user
+Meteor.publish('student', function(id) {
+    let selector = {
+        accountID: this.userId
+    };
+    id && (selector._id = id);
+
+    return EdminForce.Collections.student.find(selector);
 });

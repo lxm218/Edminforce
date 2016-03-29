@@ -1,4 +1,5 @@
 
+injectTapEventPlugin();
 
 EdminForce.Components.AppMain = React.createClass({
     signout(){

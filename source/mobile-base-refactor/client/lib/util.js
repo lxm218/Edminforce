@@ -51,3 +51,12 @@ EdminForce.utils.getClassName = function(classData){
     let classNameTemplate = `${programName} ${sessionName} ${day} ${time}`;
     return classNameTemplate;
 };
+
+EdminForce.utils.isValidDate = function(dateStr) {
+    let dateObj = new Date(dateStr);
+    let regex = /^\s*[0,1]{0,1}[0-9]\/[0,1,2,3]{0,1}[0-9]\/[1,2][0,9][0-9]{2}\s*$/;
+    if (!regex.test(dateStr) || dateObj.toString() == "Invalid Date")
+        return false;
+    else
+        return true;
+}

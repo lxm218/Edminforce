@@ -31,6 +31,13 @@ Meteor.methods({
                 emergencyContact: eContact
             }
         });
-    }
+    },
 
+    "account.upsertStudent": function(student) {
+        student.accountID = this.userId;
+        if (student._id)
+            EdminForce.Collections.student.update({_id:student._id}, {$set: _.omit(student, ['_id'])});
+        else
+            EdminForce.Collections.student.insert(student);
+    }
 });

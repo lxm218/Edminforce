@@ -60,3 +60,18 @@ DefaultRoutes.route('/account/emergency', {
         })
     }
 });
+
+// add new or edit existing student
+DefaultRoutes.route('/account/student', {
+    name: "accountStudent",
+    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
+    action: function(p) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.AccountStudent studentID={FlowRouter.getQueryParam("studentID")} 
+                                                            context={EdminForce.Contexts.Account} 
+                                                            actions={EdminForce.Actions.Account} />
+        })
+    }
+});
