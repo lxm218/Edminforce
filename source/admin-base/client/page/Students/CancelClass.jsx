@@ -146,7 +146,9 @@ KUI.Student_CancelClass = class extends KUI.Page{
 				},
 				{
 					title : 'Amount',
-					key : 'value'
+					reactDom(doc){
+						return util.addDollerSign(doc.value);
+					}
 				}
 			],
 			list = [{key : 'Tuition Difference', value : tuition}];

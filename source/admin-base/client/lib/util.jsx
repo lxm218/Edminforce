@@ -30,6 +30,16 @@ _.extend(util, {
     },
     getReactJQueryObject : function(reactObj){
         return $(util.getReactDomNode(reactObj));
+    },
+
+    addDollerSign : function(num){
+        var tmp = num;
+        if(tmp < 0){
+            return '-$'+Math.abs(tmp);
+        }
+        else{
+            return '$'+tmp;
+        }
     }
 });
 
