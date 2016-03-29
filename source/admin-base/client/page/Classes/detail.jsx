@@ -21,7 +21,7 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
         });
 
         let id = this.getClassId();
-        let data = KG.get('EF-Class').getAll({_id : this.getClassId()})[0];
+        let data = KG.get('EF-Class').getDB().findOne();
 
         let y = KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId());
 
@@ -56,7 +56,7 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
 
         return (
             <RC.Div>
-                <h3>{data.nickName}</h3>
+                <h3>Edit Class</h3>
                 <hr/>
                 <KUI.Class_comp_add edit={true} init-data={data} ref="form"></KUI.Class_comp_add>
                 <RC.Div style={{textAlign:'right'}}>

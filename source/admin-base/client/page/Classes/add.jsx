@@ -110,7 +110,6 @@ KUI.Class_comp_add = class extends KUI.Page{
             status : status.getValue(),
             teacher : teacher.getValue(),
             length : len.getValue(),
-            //numberOfClass : number.getValue(),
             maxAgeRequire : maxAge.getValue(),
             minAgeRequire : minAge.getValue(),
             level : level.getValue(),
@@ -148,7 +147,6 @@ KUI.Class_comp_add = class extends KUI.Page{
         status.getInputDOMNode().value = opt.status[0];
         teacher.getInputDOMNode().value = '';
         len.getInputDOMNode().value = opt.lengthOfClass[0];
-        //number.getInputDOMNode().value = '';
         maxAge.getInputDOMNode().value = '';
         minAge.getInputDOMNode().value = '';
         level.getInputDOMNode().value = opt.level[0];
@@ -329,7 +327,7 @@ KUI.Class_comp_add = class extends KUI.Page{
             <RB.Row>
                 <form className="form-horizontal">
                     <RB.Col md={6} mdOffset={0}>
-                        {edit ? <RB.Input type="text" {... p.name} /> : ''}
+                        {false ? <RB.Input type="text" {... p.name} /> : null}
                         <RB.Input type="select" {... p.status}>
                             {
                                 _.map(option.status, (item, index)=>{
@@ -353,7 +351,7 @@ KUI.Class_comp_add = class extends KUI.Page{
                             }
                         </RB.Input>
 
-                        {edit ? <RB.Input type="text" {... p.numberOfClass} /> : ''}
+                        {false ? <RB.Input type="text" {... p.numberOfClass} /> : ''}
 
                         <RB.Input type="select" {... p.level}>
                             {
@@ -438,13 +436,13 @@ KUI.Class_comp_add = class extends KUI.Page{
             level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime,
             makeup, makeupFee
             } = this.getReactObj();
-        name.getInputDOMNode().value = data.nickName;
+        //name.getInputDOMNode().value = data.nickName;
         program.getInputDOMNode().value = data.programID;
         session.getInputDOMNode().value = data.sessionID;
         status.getInputDOMNode().value = data.status;
         teacher.getInputDOMNode().value = data.teacher || '';
         len.getInputDOMNode().value = data.length;
-        number.getInputDOMNode().value = data.numberOfClass;
+        //number.getInputDOMNode().value = data.numberOfClass;
         maxAge.getInputDOMNode().value = data.maxAgeRequire || 0;
         minAge.getInputDOMNode().value = data.minAgeRequire || 0;
         level.getInputDOMNode().value = data.level;
@@ -461,7 +459,7 @@ KUI.Class_comp_add = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
-
+console.log(this.props['init-data'])
         if(this.props['init-data'])
             this.setValue(this.props['init-data']);
     }
