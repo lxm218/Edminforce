@@ -1,10 +1,12 @@
 
-KUI.Class_detail = class extends RC.CSSMeteorData{
+KUI.Class_detail = class extends KUI.Page{
     constructor(p){
         super(p);
 
         this.state = {
-
+            classTableReady : false,
+            classTableData : [],
+            checkCanBeRegister : false
         };
     }
 
@@ -23,12 +25,9 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
         let id = this.getClassId();
         let data = KG.get('EF-Class').getDB().findOne();
 
-        let y = KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId());
 
         return {
             ready : x.ready(),
-            classTableReady : y.ready(),
-            classTableData : y.data,
             data : data,
             id : id,
 
@@ -87,9 +86,12 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
     }
 
     renderClassTable(){
-        if(!this.data.classTableReady){
+
+        if(!this.state.classTableReady){
             return util.renderLoading();
         }
+
+
 
         let titleArray = [
             {
@@ -127,7 +129,7 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
             }
         ];
 
-        let list = _.filter(this.data.classTableData, (item)=>{
+        let list = _.filter(this.state.classTableData, (item)=>{
             return item.status === 'checkouted';
         });
 
@@ -156,6 +158,18 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
 
             </RC.Div>
         );
+
+    }
+
+    runOnceAfterDataReady(){
+        let self = this;
+        KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId(), 2000, function(data){
+            console.log(data);
+            self.setState({
+                classTableReady:true,
+                classTableData : data
+            });
+        });
 
     }
 };
