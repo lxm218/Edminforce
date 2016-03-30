@@ -1,7 +1,8 @@
 // account > alternative contract
 const reactiveFnAccountAlternative = ({context,actions}, onData) => {
     const error = context.LocalState.get('ERROR_ACCOUNT_ALTERNATIVE');
-    if (Meteor.subscribe('account').ready()) {
+    EdminForce.Contexts.Account.SubManager.subscribe('account');
+    if (EdminForce.Contexts.Account.SubManager.ready()) {
         if (!Meteor.userId()) return;
 
         let customer = EdminForce.Collections.Customer.findOne({_id:Meteor.userId()});

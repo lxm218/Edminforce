@@ -75,7 +75,13 @@ EdminForce.Actions.Account = {
 };
 
 EdminForce.Contexts.Account = {
-    LocalState: new ReactiveDict()
+    LocalState: new ReactiveDict(),
+    SubManager: new SubsManager({
+        // maximum number of cached subscriptions
+        cacheLimit: 20,
+        // expiration time in minutes
+        expireIn: 30
+    })
 }
 
 ReactDI.injectContext(EdminForce.Contexts.Account, EdminForce.Actions.Account);

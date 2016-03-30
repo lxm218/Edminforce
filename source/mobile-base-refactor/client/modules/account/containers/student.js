@@ -2,7 +2,8 @@
 const reactiveFnAccountStudent = ({context,actions,studentID}, onData) => {
     const error = context.LocalState.get('ERROR_ACCOUNT_STUDENT');
     if (studentID) {
-        if (Meteor.subscribe('student', studentID).ready()) {
+        EdminForce.Contexts.Account.SubManager.subscribe('student');
+        if (EdminForce.Contexts.Account.SubManager.ready()) {
             if (!Meteor.userId()) return;
             let student = EdminForce.Collections.student.findOne({_id:studentID});
             if (student.profile) {
