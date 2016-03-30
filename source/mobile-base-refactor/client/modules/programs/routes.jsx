@@ -1,6 +1,5 @@
 DefaultRoutes.route('/programs', {
     name: "programs",
-    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p) {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",

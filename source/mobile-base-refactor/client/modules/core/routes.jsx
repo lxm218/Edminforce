@@ -38,7 +38,6 @@ DefaultRoutes.route('/login', {
 
 DefaultRoutes.route('/contact', {
     name: "contact",
-    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p) {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
