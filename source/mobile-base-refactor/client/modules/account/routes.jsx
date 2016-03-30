@@ -65,11 +65,11 @@ DefaultRoutes.route('/account/emergency', {
 DefaultRoutes.route('/account/student', {
     name: "accountStudent",
     triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
-    action: function(p) {
+    action: function(p, q) {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Containers.AccountStudent studentID={FlowRouter.getQueryParam("studentID")} 
+            bodyTmpl: <EdminForce.Containers.AccountStudent studentID={q.studentID}
                                                             context={EdminForce.Contexts.Account} 
                                                             actions={EdminForce.Actions.Account} />
         })
