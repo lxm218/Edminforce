@@ -1,8 +1,3 @@
-/*
- * Edminforce registration package
- */
-
-
 Registration = {
-
+    
 };
