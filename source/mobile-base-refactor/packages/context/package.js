@@ -9,7 +9,18 @@ Package.onUse(function(api) {
     api.versionsFrom("1.2.1");
 
     api.use([
-        'edminforce:collections'
+        // schema of mongo collections
+        "kg:base",
+        "edminforce:account",
+        "edminforce:admin-user",
+        "edminforce:customer",
+        "edminforce:class",
+        "edminforce:student",
+        "edminforce:coupon",
+        "edminforce:order",
+        "edminforce:email",
+        "edminforce:datahelper"
+        
     ], ["client","server"]);
 
     api.addFiles([
@@ -17,6 +28,7 @@ Package.onUse(function(api) {
     ], ["client","server"]);
 
     api.export([
-        'EdminForce'
+        'EdminForce',
+        'Collections',
     ], ["client", "server"]);
 });

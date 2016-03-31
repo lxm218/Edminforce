@@ -1,0 +1,8 @@
+/*
+ * Edminforce registration package
+ */
+
+
+Registration = {
+
+};
