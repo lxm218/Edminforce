@@ -261,7 +261,7 @@ EdminForce.Components.User = React.createClass({
       }, function(err) {
         if (!err){
             // add data to Customer DB
-            let xs = EdminForce.Collections.Customer.insert({
+            let xs = Collections.Customer.insert({
                 name : form.email,
                 email : form.email,
                 _id : Meteor.user()._id

@@ -28,12 +28,12 @@ EdminForce.utils.calcAge = function (date) {
  */
 EdminForce.utils.getClassName = function(classData){
     // format of class name: program session day time
-    let program = EdminForce.Collections.program.find({_id: classData.programID}).fetch();
+    let program = Collections.program.find({_id: classData.programID}).fetch();
     if(_.isArray(program)){
         program = program[0];
     }
 
-    let session = EdminForce.Collections.session.find({_id: classData.sessionID}).fetch();
+    let session = Collections.session.find({_id: classData.sessionID}).fetch();
     if(_.isArray(session)){
         session = session[0];
     }

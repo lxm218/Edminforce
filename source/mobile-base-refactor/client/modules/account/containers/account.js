@@ -9,8 +9,8 @@ const reactiveFnAccount = ({context,actions}, onData) => {
 
         onData(null, {
             user: Meteor.user(),
-            customer: EdminForce.Collections.Customer.findOne({_id:Meteor.userId()}),
-            students: EdminForce.Collections.student.find({accountID:Meteor.userId()}).fetch(),
+            customer: Collections.Customer.findOne({_id:Meteor.userId()}),
+            students: Collections.student.find({accountID:Meteor.userId()}).fetch(),
             error
         })
     }

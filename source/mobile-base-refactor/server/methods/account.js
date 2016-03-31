@@ -10,7 +10,7 @@ Meteor.methods({
 
 
     "account.updatePhone": function (phone) {
-        EdminForce.Collections.Customer.update(this.userId, {
+        Collections.Customer.update(this.userId, {
             $set : {
                 phone : phone
             }
@@ -18,7 +18,7 @@ Meteor.methods({
     },
 
     "account.updateAlternative": function (aContact) {
-        EdminForce.Collections.Customer.update(this.userId, {
+        Collections.Customer.update(this.userId, {
             $set : {
                 alternativeContact: aContact
             }
@@ -26,7 +26,7 @@ Meteor.methods({
     },
 
     "account.updateEmergency": function (eContact) {
-        EdminForce.Collections.Customer.update(this.userId, {
+        Collections.Customer.update(this.userId, {
             $set : {
                 emergencyContact: eContact
             }
@@ -36,8 +36,8 @@ Meteor.methods({
     "account.upsertStudent": function(student) {
         student.accountID = this.userId;
         if (student._id)
-            EdminForce.Collections.student.update({_id:student._id}, {$set: _.omit(student, ['_id'])});
+            Collections.student.update({_id:student._id}, {$set: _.omit(student, ['_id'])});
         else
-            EdminForce.Collections.student.insert(student);
+            Collections.student.insert(student);
     }
 });

@@ -6,7 +6,7 @@ const reactiveFnAccountUpdatePhone = ({context,actions}, onData) => {
         if (!Meteor.userId()) return;
 
         onData(null, {
-            customer: EdminForce.Collections.Customer.findOne({_id:Meteor.userId()}),
+            customer: Collections.Customer.findOne({_id:Meteor.userId()}),
             error
         })
     }

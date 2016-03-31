@@ -5,7 +5,7 @@ const reactiveFnAccountStudent = ({context,actions,studentID}, onData) => {
         EdminForce.Contexts.Account.SubManager.subscribe('student');
         if (EdminForce.Contexts.Account.SubManager.ready()) {
             if (!Meteor.userId()) return;
-            let student = EdminForce.Collections.student.findOne({_id:studentID});
+            let student = Collections.student.findOne({_id:studentID});
             if (student.profile) {
                 student.gender = student.profile.gender;
                 student.birthday = moment(student.profile.birthday).format("MM/DD/YYYY");

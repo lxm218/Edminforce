@@ -11,11 +11,11 @@ Meteor.publish('account', function() {
             }
         }),
 
-        EdminForce.Collections.Customer.find({
+        Collections.Customer.find({
             _id : this.userId
         }),
 
-        EdminForce.Collections.student.find({
+        Collections.student.find({
             accountID: this.userId
         })
     ]
@@ -28,5 +28,5 @@ Meteor.publish('student', function(id) {
     };
     id && (selector._id = id);
 
-    return EdminForce.Collections.student.find(selector);
+    return Collections.student.find(selector);
 });

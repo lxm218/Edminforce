@@ -6,7 +6,7 @@ const reactiveFnAccountEmergency = ({context,actions}, onData) => {
     if (EdminForce.Contexts.Account.SubManager.ready()) {
         if (!Meteor.userId()) return;
 
-        let customer = EdminForce.Collections.Customer.findOne({_id:Meteor.userId()});
+        let customer = Collections.Customer.findOne({_id:Meteor.userId()});
         let emergencyContact = customer ? customer.emergencyContact: {};
         onData(null, {
             emergencyContact,
