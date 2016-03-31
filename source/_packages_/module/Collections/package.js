@@ -18,7 +18,6 @@ Package.onUse(function(api) {
         "http",
         "react",
         "reactive-var@1.0.6",
-        "underscore",
         "momentjs:moment",
 
         'sha',
@@ -42,11 +41,9 @@ Package.onUse(function(api) {
 
 
     api.addFiles([
-        //'lib/underscore.js',
-
-        '../Base/KG.jsx',
-        '../Base/base.jsx',
-        '../Base/util.jsx',
+        'KG.jsx',
+        'base.jsx',
+        'util.jsx',
 
         '../DataHelper/queryhelper.jsx',
 

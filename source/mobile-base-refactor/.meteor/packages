@@ -11,7 +11,6 @@ session                 # Client-side reactive dictionary for your app
 jquery                  # Helpful client-side library
 tracker                 # Meteor's client-side reactive programming library
 
-standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
 ecmascript              # Enable ECMAScript2015+ syntax in app code
 
@@ -20,24 +19,31 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 http
 email
-react
-kadira:flow-router
-kadira:react-layout
-fortawesome:fontawesome
 less
+standard-minifier-css
+standard-minifier-js
+kadira:flow-router
+meteorhacks:subs-manager
 reactive-dict
-momentjs:moment
-izzilab:material-ui
-stevezhu:lodash
-meteorflux:dispatcher
-ihealth:utils
-ihealth:framework-engine
-ihealth:framework-mobile
-ihealth:dev-tools
+
 percolate:synced-cron
-edminforce:collections
+ihealth:utils
+ihealth:framework-mobile
+
+##### Mongo collections #####
+kg:base
+edminforce:account
+edminforce:admin-user
+edminforce:customer
+edminforce:class
+edminforce:student
+edminforce:coupon
+edminforce:order
+edminforce:email
+edminforce:datahelper
+##### Mongo collections #####
+
+### the following meteor package may be removed ###
+meteorflux:dispatcher
 meteorflux:reactive-dependency
 chuangbo:cookie
-edminforce:container
-edminforce:mobile-context
-meteorhacks:subs-manager

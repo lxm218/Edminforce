@@ -32,8 +32,6 @@ Package.onUse(function(api) {
 
 
     api.addFiles([
-        'lib/underscore.js',
-
         'KG.jsx',
         'base.jsx',
         'util.jsx'

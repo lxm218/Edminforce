@@ -1,6 +1,9 @@
 /*
  * Edminforce mobile app context
  */
+import KG from 'meteor/edminforce:collections';
+
+console.log(KG);
 
 EdminForce = {
     utils: {},

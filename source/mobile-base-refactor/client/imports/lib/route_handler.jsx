@@ -1,3 +1,7 @@
+
+import {mount} from 'react-mounter';
+import AppMain from '/client/imports/modules/core/components/mainLayout.jsx';
+
 // Route Handler Function for every Route
 EdminForce.utils.routeHandler = function (p, args) {
     let defs = {
@@ -6,7 +10,7 @@ EdminForce.utils.routeHandler = function (p, args) {
         metaDesc: Meteor.settings.public.appDesc,
 
         // Route
-        layout: EdminForce.Components.AppMain,
+        layout: AppMain,
         pageTitle: "Unknown",
         //showGlobalNav: false,
         //globalNav: null,
@@ -19,7 +23,7 @@ EdminForce.utils.routeHandler = function (p, args) {
     document.title = args.metaTitle
     document.description = args.metaDesc
 
-    ReactLayout.render(args.layout, {
+    mount(args.layout, {
         title: args.pageTitle,
         //showGlobalNav: args.showGlobalNav,
         //globalNav: args.globalNav,

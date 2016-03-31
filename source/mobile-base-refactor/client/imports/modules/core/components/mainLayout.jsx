@@ -1,13 +1,22 @@
+import {DefaultRoutes} from 'meteor/ihealth:utils'
+import {RC} from 'meteor/ihealth:framework-mobile';
+import React from 'react';
+import {Meteor} from 'meteor/meteor';
+import {FlowRouter} from 'meteor/kadira:flow-router';
 
-injectTapEventPlugin();
 
-EdminForce.Components.AppMain = React.createClass({
+class AppMain extends React.Component {
+    constructor(p) {
+        super(p);
+        this.signout = this.signout.bind(this);
+    }
+
     signout(){
         Dispatcher.dispatch({actionType: 'LEFT_NAV_CLOSE'})
         Dispatcher.dispatch({actionType: 'AUTH_LOGOUT'})
-    },
+    }
 
-    render: function () {
+    render() {
         return (
             <RC.Body>
                 <RC.HeaderNav nav={this.props.headerNav} title={this.props.title}
@@ -28,4 +37,6 @@ EdminForce.Components.AppMain = React.createClass({
             </RC.Body>
         );
     }
-});
+}
+
+export default AppMain;
