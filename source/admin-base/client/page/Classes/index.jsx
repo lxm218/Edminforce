@@ -6,7 +6,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : null
+            query : {}
         };
     }
 
