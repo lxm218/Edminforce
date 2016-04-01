@@ -17,7 +17,7 @@ EdminForce.Components.Programs = class extends RC.CSS {
     }
 
     onBookTrial(programId) {
-        this.props.actions.bookTrial(programId);
+        this.props.actions.showTrialClasses(programId);
     }
 
     render() {

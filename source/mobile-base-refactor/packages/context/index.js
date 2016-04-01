@@ -21,7 +21,8 @@ EdminForce = {
     Actions : {},
     Contexts: {},
     Collections : Collections,
-    VERSION : '0.0.1'
+    Registration: {},
+    VERSION : '0.0.1',
 };
 
 

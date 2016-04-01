@@ -9,11 +9,13 @@ Package.onUse(function(api) {
     api.versionsFrom("1.2.1");
 
     api.use([
+        "ecmascript",
         "edminforce:mobile-context",
+        "stevezhu:lodash",
+        "momentjs:moment",
     ], ["client","server"]);
 
     api.addFiles([
-        'index.js',
         'trialClasses.js',
     ], ["server"]);
     
