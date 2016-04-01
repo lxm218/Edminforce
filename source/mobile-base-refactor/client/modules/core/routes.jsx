@@ -18,7 +18,7 @@ DefaultRoutes.route('/', {
 DefaultRoutes.route('/login', {
     name: "Log In",
     //triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
-    action: function(p) {
+    action: function(p, q) {
         let pageTitle = "Log In"
         var dynamicRoute = {
             pageTitle: pageTitle, // This is for header title
@@ -29,9 +29,7 @@ DefaultRoutes.route('/login', {
             hideLeftNavToggle: true,
             hideShoppingCartButton: true
         }
-
-        dynamicRoute.bodyTmpl = (<EdminForce.Components.User fullHeight={true} theme="overlay-dark" bgColor="brand-light"></EdminForce.Components.User>);
-
+        dynamicRoute.bodyTmpl = (<EdminForce.Components.User redirectUrl={q.r} fullHeight={true} theme="overlay-dark" bgColor="brand-light"></EdminForce.Components.User>);
         EdminForce.utils.routeHandler(p, dynamicRoute)
     }
 })

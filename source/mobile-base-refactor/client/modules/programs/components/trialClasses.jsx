@@ -16,8 +16,8 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         this.onSelectDay = this.onSelectDay.bind(this);
     }
 
-    bookTrial(item) {
-        this.props.actions.bookTrial(item);
+    bookTrial(classItem) {
+        this.props.actions.bookTrial(classItem);
     }
 
     onSelectDay(day) {

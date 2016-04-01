@@ -204,7 +204,8 @@ EdminForce.Components.User = React.createClass({
         // message hook;for calphin listener
         if(!err){
           Dispatcher.dispatch({
-            actionType: "AUTH_LOGIN_SUCCESS"
+            actionType: "AUTH_LOGIN_SUCCESS",
+            redirectUrl: this.props.redirectUrl
           });
           return;
         }
@@ -297,7 +298,8 @@ EdminForce.Components.User = React.createClass({
 
         if(!err){
           Dispatcher.dispatch({
-            actionType: "AUTH_REGISTER_SUCCESS"
+            actionType: "AUTH_REGISTER_SUCCESS",
+            redirectUrl: this.props.redirectUrl
           });
           return;
         }

@@ -6,27 +6,19 @@ EdminForce.Actions.Programs = {
         FlowRouter.go(path);
     },
     
-    bookTrial({LocalState}, programId) {
-        // let programID = FlowRouter.getParam("programID");
-        // // user login
-        // if (Meteor.user()) {
-        //     //TODO if currently user not student, jump to add student page, after add successful then jump to confirm page
-        //     console.log("User logged");
-        //     let params = {
-        //         programID: programID,
-        //         classID: item._id,
-        //         timestamp: item.lessonDate.getTime()
-        //     }
-        //     let path = FlowRouter.path("/programs/:programID/:classID/:timestamp", params);
-        //     FlowRouter.go(path);
-        //
-        // } else {  // user not login
-        //     console.log("User not logged");
-        //     FlowRouter.go('/login');
-        //     Session.set("BookTrialClassId", item._id);
-        //     Session.set("BookTrialProgramId", programID);
-        //     Session.set("BookTrialTimestamp", item.lessonDate.getTime());
-        // }
+    bookTrial({LocalState}, classItem) {
+        let path = FlowRouter.path("/bookTrial", null,{
+            classID: classItem._id,
+            timestamp: calssItem.lessonDate.getTime(),
+        });
+
+        if (Meteor.user()) {
+            FlowRouter.go(path);
+        }
+        else {
+            let loginRedirect = FlowRouter.path('/login',null,{r:path});
+            FlowRouter.go(loginRedirect);
+        }
     },
     
     clearErrors({LocalState}, errorName) {

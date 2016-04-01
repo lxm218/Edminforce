@@ -134,4 +134,78 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
     return availableLessons;
 }
 
+/*
+ * validate student age & gender for a class
+ */
+function validateStudentForClass(classInfo, student) {
+
+    // validate gender
+    if (classInfo.genderRequire && 
+        (classInfo.genderRequire.toLowerCase() !== 'all') && 
+        (classInfo.genderRequire.toLowerCase() !== student.profile.gender.toLowerCase())) {
+        return false;
+    }
+
+    // validate age
+    let age = EdminForce.utils.calcAge(student.profile.birthday);
+    if (classInfo.minAgeRequire && classInfo.minAgeRequire > age) {
+        return false;
+    }
+    if (classInfo.maxAgeRequire && classInfo.maxAgeRequire < age) {
+        return false;
+    }
+
+    return true;
+}
+
+/*
+ * returns a list of students who are eligible for a specified trial class
+ */
+function getTrialStudents(accountID, classID) {
+    let classItem = Collections.class.findOne({_id:classID});
+    if (!classItem) {
+        console.error('getTrialClassStudents > class not found: ' + classID);
+        return null;
+    }
+    
+    let program = Collections.program.findOne({_id:classItem.programID});
+    if (!program) {
+        console.error('getTrialClassStudents > program not found: ' + classItem.programID);
+        return null;
+    }
+
+    let result = {
+        classItem,
+        program,
+        students: []
+    };
+
+    let students = Collections.student.find({accountID}).fetch();
+
+    students.forEach( (student) => {
+        // check gender & age
+        if (!validateStudentForClass(classItem, student))
+            return;
+        
+        // check if a student already had a trial of the program, or if the student ever registered the class
+        let trialRecord = Collections.classStudent.findOne({
+            programID: classItem.programID,
+            studentID: student._id,
+            type: {$in:['trial','register']},
+            status: {$in:['pending', 'checkouting', 'checkouted']}
+        });
+
+        if (trialRecord)
+            return;
+        
+        result.students.push({
+            _id: student._id,
+            name: student.name
+        });
+    });
+    
+    return result;
+}
+
 EdminForce.Registration.getAvailableTrialLessons = getAvailableTrialLessons;
+EdminForce.Registration.getTrialClassStudents = getTrialClassStudents;

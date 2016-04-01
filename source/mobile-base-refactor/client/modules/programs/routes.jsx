@@ -23,3 +23,18 @@ DefaultRoutes.route('/trialClasses/:programID', {
         })
     }
 });
+
+DefaultRoutes.route('/bookTrial', {
+    name: "bookTrialClass",
+    action: function(p, q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.BookTrial
+                classID={q.classID}
+                classDate={q.timestamp}
+                context={EdminForce.Contexts.Programs}
+                actions={EdminForce.Actions.Programs} />
+        })
+    }
+});
