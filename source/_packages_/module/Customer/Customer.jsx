@@ -154,7 +154,7 @@ KG.define('EF-Customer', class extends Base{
             let refresher = function(){
                 _.each(LIST_ARR, function(doc){
                     try{
-                        self.removed(LISTBYCLASSQUERY, doc._id);
+                        //self.removed(LISTBYCLASSQUERY, doc._id);
                     }catch(e){}
 
                 });
@@ -177,7 +177,9 @@ KG.define('EF-Customer', class extends Base{
                 });
             };
 
-            let handler = m.Class.getDB().find(query).observeChanges({
+            let handler = m.Class.getDB().find(query, {
+                limit : 10
+            }).observeChanges({
                 added(id, fields){
                     refresher();
                 },

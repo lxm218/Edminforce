@@ -6,7 +6,7 @@ KUI.Email_index = class extends KUI.Page{
 
         this.state = {
             email_template_id : null,
-            filterQuery : {}
+            filterQuery : null
         };
 
         this.email_html = new ReactiveVar(null);
@@ -30,12 +30,21 @@ KUI.Email_index = class extends KUI.Page{
 
         let y = Meteor.subscribe('EF-AdminUser');
 
-        let cx = Customer.subscribeByClassQuery(this.state.filterQuery);
-        //console.log(cx.ready(), cx.data);
+        let cx = {
+            ready : function(){return true;},
+            data : []
+        };
+        if(this.state.filterQuery){
+            cx = Customer.subscribeByClassQuery(this.state.filterQuery);
+        }
+
 
         let sx = Meteor.subscribe('EF-Session');
 
-        let clsx = Class.subscribeClassByQuery();
+        let clsx = {
+            ready : function(){return true;},
+            data : []
+        };//Class.subscribeClassByQuery({});
 
         return {
             ready : x.ready() && y.ready() && clsx.ready(),
@@ -150,19 +159,21 @@ KUI.Email_index = class extends KUI.Page{
                             }
                         </RB.Input>
 
+
+                    </RB.Col>
+                    <RB.Col xs={6}>
+                        {/*<RB.Input type="select" {... p.class}>
+                            {
+                                _.map(option['class'], (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.nickName}</option>;
+                                })
+                            }
+                        </RB.Input>*/}
+
                         <RB.Input type="select" {... p.teacher}>
                             {
                                 _.map(option.teacher, (item, index)=>{
                                     return <option key={index} value={item.nickName}>{item.nickName}</option>;
-                                })
-                            }
-                        </RB.Input>
-                    </RB.Col>
-                    <RB.Col xs={6}>
-                        <RB.Input type="select" {... p.class}>
-                            {
-                                _.map(option['class'], (item, index)=>{
-                                    return <option key={index} value={item._id}>{item.nickName}</option>;
                                 })
                             }
                         </RB.Input>
@@ -189,7 +200,7 @@ KUI.Email_index = class extends KUI.Page{
 
         let query = {
             sessionID : session.getValue(),
-            classID : cls.getValue(),
+            //classID : cls.getValue(),
             dayOfClass : day.getValue(),
             status : status.getValue(),
             teacher : teacher.getValue()
@@ -243,7 +254,7 @@ KUI.Email_index = class extends KUI.Page{
         return {
             email_tpl : this.refs.email_tpl,
             session : this.refs.session,
-            cls : this.refs.cls,
+            //cls : this.refs.cls,
             day : this.refs.day,
             status : this.refs.status,
             teacher : this.refs.teacher

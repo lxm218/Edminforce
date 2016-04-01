@@ -6,7 +6,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : {}
+            query : null
         };
     }
 
@@ -38,23 +38,29 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
     getMeteorData(){
         let query = this.state.query;
-        let x1 = Meteor.subscribe('EF-Class', {
+        let x1 = null;
+        if(query){
+            x1 = Meteor.subscribe('EF-Class', {
                 query : query,
                 sort : {
                     updateTime : -1
                 },
                 pageSize : 10
-            }),
-            x2 = Meteor.subscribe('EF-Program');
+            });
+        }
+        let x2 = Meteor.subscribe('EF-Program');
             x3 = Meteor.subscribe('EF-Session');
 
         if(!x2.ready() || !x3.ready()) return {ready : false};
 
 
-        let list = KG.get('EF-Class').getAll({});
+        let list = [];
+        if(x1){
+            list = KG.get('EF-Class').getAll({});
+        }
 
         return {
-            ready : x1.ready(),
+            ready : x1?x1.ready():true,
             list : list
         };
     }

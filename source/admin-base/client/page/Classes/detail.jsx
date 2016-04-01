@@ -22,9 +22,11 @@ KUI.Class_detail = class extends KUI.Page{
             }
         });
 
+
+
         let id = this.getClassId();
         let data = KG.get('EF-Class').getDB().findOne();
-
+        console.log(x.ready());
 
         return {
             ready : x.ready(),
@@ -48,7 +50,7 @@ KUI.Class_detail = class extends KUI.Page{
     }
 
     render(){
-        if(!this.data.ready || !this.data.data){
+        if(!this.data.ready){
             return util.renderLoading();
         }
         let data = this.data.data;

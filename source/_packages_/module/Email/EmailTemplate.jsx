@@ -17,6 +17,8 @@ KG.define('EF-EmailTemplate', class extends Base{
     }
 
 
+
+
     /*
     * @param
     * {user} will replace with opts.user

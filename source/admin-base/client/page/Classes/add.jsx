@@ -59,10 +59,10 @@ KUI.Class_comp_add = class extends KUI.Page{
             }
         });
 
-
+console.log(x2.ready(), x3.ready(), x1.ready());
 
         return {
-            ready : x1.ready() && x2.ready() && x3.ready(),
+            ready : true,
             program : this.getProgramData(),
             session : this.getSessionData(),
             teacherList : KG.get('EF-AdminUser').getDB().find().fetch()
@@ -323,6 +323,10 @@ KUI.Class_comp_add = class extends KUI.Page{
 
         let option = this.getSelectOption();
 
+        let dis = {
+            display : (edit ? 'none' : 'block')
+        };
+
         return (
             <RB.Row>
                 <form className="form-horizontal">
@@ -376,9 +380,10 @@ KUI.Class_comp_add = class extends KUI.Page{
                     </RB.Col>
 
                     <RB.Col md={6} mdOffset={0}>
+                        <div style={dis}>
                         <RB.Input type="select" {... p.program}>
                             {
-                                _.map(option.program, (item, index)=>{
+                                _.map(option.program, (item, index)=> {
                                     return <option key={index} value={item._id}>{item.name}</option>;
                                 })
                             }
@@ -390,6 +395,7 @@ KUI.Class_comp_add = class extends KUI.Page{
                                 })
                             }
                         </RB.Input>
+                        </div>
 
                         <RB.Input type="select" {... p.scheduleDay}>
                             {
@@ -458,7 +464,7 @@ KUI.Class_comp_add = class extends KUI.Page{
         makeupFee.getInputDOMNode().value = data.makeupClassFee;
     }
 
-    runOnceAfterDataReady(){
+    componentDidMount(){
 console.log(this.props['init-data'])
         if(this.props['init-data'])
             this.setValue(this.props['init-data']);
