@@ -112,16 +112,19 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
             // check against maxTrialStudent, null means no limit
             if (classItem.trialStudent && trialNumber >= classItem.trialStudent) continue;
 
-            // TODO: use _.pick to get only the data needed by client
-            let lesson = {...classItem};
-            // available lesson
+            // this lesson is available
+            // only pick the fields that are needed by client
+            let lesson = _.pick(classItem, ['_id', 'programID', 'sessionID', 'schedule', 'length', 'teacher']);
             lesson.key = lesson._id + ":" + classDate.unix();
-            lesson.lessonDate = classDate.toDate();
+            let lessonDate = moment(classDate);
+            lessonDate.hour(classTime.hour());
+            lessonDate.minute(classTime.minute());
+            lesson.lessonDate = lessonDate.toDate();
+            lesson.name = `${program.name} ${classSession.name} ${classItem.schedule.day} ${classItem.schedule.time}`;
 
             availableLessons.push(lesson);
         }
     }
-
     return availableLessons;
 }
 
