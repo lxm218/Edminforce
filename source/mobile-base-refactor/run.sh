@@ -35,6 +35,9 @@ runLocal(){
   #stopMongoDB
   #startMongoDB
   export MONGO_URL=mongodb://localhost:27017/EdminForce
+
+  #staging mongodb
+  #export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
   meteor run --settings settings.json --port $PORT
 }
 

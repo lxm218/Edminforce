@@ -1,6 +1,6 @@
 Package.describe({
-    name: "edminforce:registration",
-    summary: "mobile app context",
+    name: "edminforce:utils",
+    summary: "help functions",
     version: "0.0.1",
     git: ""
 });
@@ -12,16 +12,12 @@ Package.onUse(function(api) {
         "ecmascript",
         "stevezhu:lodash",
         "momentjs:moment",
-        
+
         "edminforce:mobile-context",
-        "edminforce:utils",
     ], ["client","server"]);
 
     api.addFiles([
-        'trialClasses.js',
-    ], ["server"]);
-    
-    api.export([
-        'Registration',
-    ], ["client", "server"]);
+        'util.js'
+    ], ["client","server"]);
+
 });

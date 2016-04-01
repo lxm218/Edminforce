@@ -39,6 +39,7 @@ edminforce:mobile-context@0.0.1
 edminforce:order@0.0.1
 edminforce:registration@0.0.1
 edminforce:student@0.0.1
+edminforce:utils@0.0.1
 ejson@1.0.7
 email@1.0.8
 es5-shim@4.1.14

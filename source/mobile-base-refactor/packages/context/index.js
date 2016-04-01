@@ -20,7 +20,7 @@ EdminForce = {
     Containers: {},
     Actions : {},
     Contexts: {},
-    Collections : Collections,
+    //Collections : Collections,
     Registration: {},
     VERSION : '0.0.1',
 };

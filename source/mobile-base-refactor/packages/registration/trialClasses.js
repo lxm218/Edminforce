@@ -37,6 +37,13 @@ function getClassMakeupStudentCount(classID, dt) {
  * in the specified date range
  */
 function getAvailableTrialLessons(programId, startDt, endDt) {
+
+    let program = Collections.program.findOne({_id:programId});
+    if (!program) {
+        console.error("getAvailableTrialClasses > program not found:" + programId);
+        return [];
+    }
+
     // find sessions within the specified date range
     //!(session.startDate > endDt || session.endDate < startDt)  ==> session.startDate <= endDt && session.endDate >= startDt
     let sessions = Collections.session.find({
@@ -120,8 +127,7 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
             lessonDate.hour(classTime.hour());
             lessonDate.minute(classTime.minute());
             lesson.lessonDate = lessonDate.toDate();
-            lesson.name = `${program.name} ${classSession.name} ${classItem.schedule.day} ${classItem.schedule.time}`;
-
+            lesson.name = EdminForce.utils.getClassName(program.name, classSession.name, classItem.schedule.day, classItem.schedule.time);
             availableLessons.push(lesson);
         }
     }
