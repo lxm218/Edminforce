@@ -6,7 +6,7 @@ EdminForce.Actions.Programs = {
         FlowRouter.go(path);
     },
     
-    bookTrial({LocalState}, classItem) {
+    showTrialEligibleStudents({LocalState}, classItem) {
         let path = FlowRouter.path("/bookTrial", null,{
             classID: classItem._id,
             timestamp: classItem.lessonDate.getTime(),
@@ -19,6 +19,10 @@ EdminForce.Actions.Programs = {
             let loginRedirect = FlowRouter.path('/login',null,{r:path});
             FlowRouter.go(loginRedirect);
         }
+    },
+    
+    bookTrial({LocalState}, studentID, trialClass, trialDate) {
+        
     },
     
     clearErrors({LocalState}, errorName) {

@@ -17,7 +17,7 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
     }
 
     bookTrial(classItem) {
-        this.props.actions.bookTrial(classItem);
+        this.props.actions.showTrialEligibleStudents(classItem);
     }
 
     onSelectDay(day) {

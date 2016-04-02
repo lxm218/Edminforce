@@ -12,6 +12,10 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
             msg: null
         }
 
+        this.classDateTime = parseInt(FlowRouter.getQueryParam("timestamp"));
+        this.classDateTime = new Date(this.classDateTime);
+        this.selectedStudent = null;
+
         this.registration = this.registration.bind(this);
         this.confirm = this.confirm.bind(this);
         this.selectStudent = this.selectStudent.bind(this);
@@ -19,60 +23,65 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
     }
 
     confirm() {
-        let selectedStudents = _.toArray(this.selectedStudents);
-        if (selectedStudents.length === 0) {
-            alert("Please at least select one students!");
+        if (!this.selectedStudent) {
+            alert("Please select a student.");
             return;
         }
-        let timestamp = FlowRouter.getParam("timestamp") * 1;
-        var insertData = [];
-        for (let i = 0; i < selectedStudents.length; i++) {
-            var data = {
-                accountID: Meteor.userId(),
-                classID: this.data.classInfo._id,
-                studentID: selectedStudents[i]._id,
-                programID: this.data.classInfo.programID,
-                lessonDate: new Date(timestamp),
-                status: "checkouted",
-                type: "trial",
-                createTime: new Date()
-            };
 
-            insertData.push(data);
-        }
+        let {
+            classItem
+        } = this.props.trialStudents;
 
-        var emailData = this.getAllClasses(insertData)
-        var html = this.getPaymentConfirmEmailTemplate(emailData)
+        this.props.actions.bookTrial(this.selectedStudent._id, classItem, this.classDateTime);
 
-        let self = this;
-
-        var moreIds = EdminForce.Collections.classStudent.batchInsert(insertData, function (err, res) {
-            //called with err or res where res is array of created _id values
-
-            if (err) {
-                alert("Insert Fail!");
-            } else {
-                let params = {
-                    programId: self.data.classInfo.programID,
-                    classId: self.data.classInfo._id,
-                    timestamp: timestamp
-                };
-                Meteor.call('sendEmailHtml',
-                    Meteor.user().emails[0].address,
-                    'Trial Class Booking Confirmation',
-                    html,
-                    function (error, result) {
-                        if (!!error) {
-                            console.log(error)
-                        }
-                        if (!!result) {
-                            console.log(result)
-                        }
-                    });
-                let path = FlowRouter.path("/programs/:programId/:classId/:timestamp/summary", params);
-                FlowRouter.go(path);
-            }
-        });
+        // var insertData = [];
+        // for (let i = 0; i < selectedStudents.length; i++) {
+        //     var data = {
+        //         accountID: Meteor.userId(),
+        //         classID: this.data.classInfo._id,
+        //         studentID: selectedStudents[i]._id,
+        //         programID: this.data.classInfo.programID,
+        //         lessonDate: new Date(timestamp),
+        //         status: "checkouted",
+        //         type: "trial",
+        //         createTime: new Date()
+        //     };
+        //
+        //     insertData.push(data);
+        // }
+        //
+        // var emailData = this.getAllClasses(insertData)
+        // var html = this.getPaymentConfirmEmailTemplate(emailData)
+        //
+        // let self = this;
+        //
+        // var moreIds = EdminForce.Collections.classStudent.batchInsert(insertData, function (err, res) {
+        //     //called with err or res where res is array of created _id values
+        //
+        //     if (err) {
+        //         alert("Insert Fail!");
+        //     } else {
+        //         let params = {
+        //             programId: self.data.classInfo.programID,
+        //             classId: self.data.classInfo._id,
+        //             timestamp: timestamp
+        //         };
+        //         Meteor.call('sendEmailHtml',
+        //             Meteor.user().emails[0].address,
+        //             'Trial Class Booking Confirmation',
+        //             html,
+        //             function (error, result) {
+        //                 if (!!error) {
+        //                     console.log(error)
+        //                 }
+        //                 if (!!result) {
+        //                     console.log(result)
+        //                 }
+        //             });
+        //         let path = FlowRouter.path("/programs/:programId/:classId/:timestamp/summary", params);
+        //         FlowRouter.go(path);
+        //     }
+        // });
     }
 
     formatDate(date) {
@@ -164,13 +173,7 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
     }
 
     selectStudent(event, studentId) {
-        let student = _.find(this.props.trialStudents.students, {_id: studentId});
-        this.selectedStudents || (this.selectedStudents = {});
-        if (this.selectedStudents[student._id]) {
-            delete this.selectedStudents[student._id];
-        } else {
-            this.selectedStudents[student._id] = student;
-        }
+        this.selectedStudent = _.find(this.props.trialStudents.students, {_id: studentId});
     }
 
     addStudent() {
@@ -181,7 +184,6 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
     }
 
     render() {
-        let timestamp = parseInt(FlowRouter.getQueryParam("timestamp"));
         let {
             classItem,
             students
@@ -217,7 +219,7 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
                         {classItem.name}
                     </RC.Item>
                     <RC.Item title="Date">
-                        {moment(timestamp).format("dddd, MMMM Do YYYY, h:mm a")}
+                        {moment(this.classDateTime).format("dddd, MMMM Do YYYY, h:mm a")}
                     </RC.Item>
                 </RC.List>
                 {confirmButton}
