@@ -9,7 +9,7 @@ EdminForce.Actions.Programs = {
     bookTrial({LocalState}, classItem) {
         let path = FlowRouter.path("/bookTrial", null,{
             classID: classItem._id,
-            timestamp: calssItem.lessonDate.getTime(),
+            timestamp: classItem.lessonDate.getTime(),
         });
 
         if (Meteor.user()) {

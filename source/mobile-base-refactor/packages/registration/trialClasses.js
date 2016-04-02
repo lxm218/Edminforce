@@ -164,15 +164,23 @@ function validateStudentForClass(classInfo, student) {
 function getTrialStudents(accountID, classID) {
     let classItem = Collections.class.findOne({_id:classID});
     if (!classItem) {
-        console.error('getTrialClassStudents > class not found: ' + classID);
+        console.error('getTrialStudents > class not found: ' + classID);
         return null;
     }
     
     let program = Collections.program.findOne({_id:classItem.programID});
     if (!program) {
-        console.error('getTrialClassStudents > program not found: ' + classItem.programID);
+        console.error('getTrialStudents > program not found: ' + classItem.programID);
         return null;
     }
+
+    let session = Collections.session.findOne({_id:classItem.sessionID});
+    if (!session) {
+        console.error('getTrialStudents > session not found: ' + classItem.sessionID);
+        return null;
+    }
+
+    classItem.name = EdminForce.utils.getClassName(program.name, session.name, classItem.schedule.day, classItem.schedule.time);
 
     let result = {
         classItem,
@@ -208,4 +216,4 @@ function getTrialStudents(accountID, classID) {
 }
 
 EdminForce.Registration.getAvailableTrialLessons = getAvailableTrialLessons;
-EdminForce.Registration.getTrialClassStudents = getTrialClassStudents;
+EdminForce.Registration.getTrialStudents = getTrialStudents;

@@ -164,7 +164,7 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
     }
 
     selectStudent(event, studentId) {
-        let student = _.find(this.props.trialStudents, {_id:studentId});
+        let student = _.find(this.props.trialStudents.students, {_id: studentId});
         this.selectedStudents || (this.selectedStudents = {});
         if (this.selectedStudents[student._id]) {
             delete this.selectedStudents[student._id];
@@ -181,7 +181,7 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
     }
 
     render() {
-        let timestamp = parseInt(FlowRouter.getParam("timestamp"));
+        let timestamp = parseInt(FlowRouter.getQueryParam("timestamp"));
         let {
             classItem,
             students
@@ -191,41 +191,36 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
             <RadioButton value={item._id}
                          key={item._id}
                          label={item.name}
-                         style={index === this.data.students.length-1 ? {borderBottom:'none'}:null}
+                         style={index === students.length-1 ? {borderBottom:'none'}:null}
             />
         );
 
         let confirmButton = students.length === 0 ?
-            (<RC.Button bgColor="brand2" onClick={this.registration}>
-                <$translate label="registration"/>
-            </RC.Button>) :
-            (<RC.Button bgColor="brand2" onClick={this.confirm}>
-                <$translate label="confirm"/>
-            </RC.Button>);
+            (<RC.Button bgColor="brand2" onClick={this.registration}>Sorry, no trial class is available for your account. Please go to registration directly</RC.Button>) :
+            (<RC.Button bgColor="brand2" onClick={this.confirm}>Confirm</RC.Button>);
 
         return (
             <RC.Div style={{padding:"10px"}}>
-                <RC.Loading isReady={this.data.isReady}>
-                    <RC.VerticalAlign center={true} className="padding" height="300px">
-                        <h2>Book Confirm</h2>
-                    </RC.VerticalAlign>
-                    <RC.List>
-                        <RC.Item title="Student">
-                            <RadioButtonGroup name="selectStudent" onChange={this.selectStudent}>
-                                {studentItems}
-                            </RadioButtonGroup>
-                            {students.length === 0 ?
-                                <RC.Button bgColor="brand2" key='_add_button_' theme="inline" onClick={this.addStudent}>Add</RC.Button> : null}
-                        </RC.Item>
-                        <RC.Item title="Class Name">
-                            {classItem.name}
-                        </RC.Item>
-                        <RC.Item title="Date">
-                            {moment(timestamp).format("dddd, MMMM Do YYYY, h:mm a")}
-                        </RC.Item>
-                    </RC.List>
-                    {confirmButton}
-                </RC.Loading>
+                <RC.VerticalAlign center={true} className="padding" height="300px">
+                    <h2>Book Confirm</h2>
+                </RC.VerticalAlign>
+                <RC.List>
+                    <RC.Item title="Student">
+                        <RadioButtonGroup name="selectStudent" onChange={this.selectStudent}>
+                            {studentItems}
+                        </RadioButtonGroup>
+                        {students.length === 0 ?
+                            <RC.Button bgColor="brand2" key='_add_button_' theme="inline"
+                                       onClick={this.addStudent}>Add</RC.Button> : null}
+                    </RC.Item>
+                    <RC.Item title="Class Name">
+                        {classItem.name}
+                    </RC.Item>
+                    <RC.Item title="Date">
+                        {moment(timestamp).format("dddd, MMMM Do YYYY, h:mm a")}
+                    </RC.Item>
+                </RC.List>
+                {confirmButton}
             </RC.Div>
         );
     }

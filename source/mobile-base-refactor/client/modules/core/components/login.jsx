@@ -205,7 +205,7 @@ EdminForce.Components.User = React.createClass({
         if(!err){
           Dispatcher.dispatch({
             actionType: "AUTH_LOGIN_SUCCESS",
-            redirectUrl: this.props.redirectUrl
+            redirectUrl: self.props.redirectUrl
           });
           return;
         }
@@ -299,7 +299,7 @@ EdminForce.Components.User = React.createClass({
         if(!err){
           Dispatcher.dispatch({
             actionType: "AUTH_REGISTER_SUCCESS",
-            redirectUrl: this.props.redirectUrl
+            redirectUrl: self.props.redirectUrl
           });
           return;
         }
