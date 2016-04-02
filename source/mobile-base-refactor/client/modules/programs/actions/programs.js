@@ -23,6 +23,22 @@ EdminForce.Actions.Programs = {
     
     bookTrial({LocalState}, studentID, trialClass, trialDate) {
         
+        // var insertData = [];
+        // for (let i = 0; i < selectedStudents.length; i++) {
+        //     var data = {
+        //         accountID: Meteor.userId(),
+        //         classID: this.data.classInfo._id,
+        //         studentID: selectedStudents[i]._id,
+        //         programID: this.data.classInfo.programID,
+        //         lessonDate: new Date(timestamp),
+        //         status: "checkouted",
+        //         type: "trial",
+        //         createTime: new Date()
+        //     };
+        //
+        //     insertData.push(data);
+        // }
+
     },
     
     clearErrors({LocalState}, errorName) {
