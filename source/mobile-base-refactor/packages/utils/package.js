@@ -16,8 +16,14 @@ Package.onUse(function(api) {
         "edminforce:mobile-context",
     ], ["client","server"]);
 
+    // both
     api.addFiles([
         'util.js'
     ], ["client","server"]);
 
+    // server only
+    api.addFiles([
+        'server.js'
+    ], ["server"]);
+    
 });

@@ -1,34 +1,50 @@
 /*
  * Returns the number of registered regular student in a class
  */
-function getClassRegularStudentCount (classID) {
-    return Collections.classStudent.find({
+function getClassRegularStudentCount(classID) {
+    // return Collections.classStudent.find({
+    //     classID,
+    //     status: {$in:['pending', 'checkouting', 'checkouted']},
+    //     type: 'register'
+    // }).count();
+
+    return EdminForce.utils.mongoCount(Collections.classStudent, {
         classID,
         status: {$in:['pending', 'checkouting', 'checkouted']},
         type: 'register'
-    }).count();
+    });
 }
 
 /*
  * Returns number of trial student for class on a specified date
  */
 function getClassTrialStudentCount(classID, dt) {
-    return Collections.classStudent.find({
+    // return Collections.classStudent.find({
+    //     classID,
+    //     lessonDate: dt,
+    //     type: 'trial'
+    // }).count();
+    return EdminForce.utils.mongoCount(Collections.classStudent, {
         classID,
         lessonDate: dt,
         type: 'trial'
-    }).count();
+    });
 }
 
 /*
  * Returns number of make up student for class on a specified date
  */
 function getClassMakeupStudentCount(classID, dt) {
-    return Collections.classStudent.find({
+    // return Collections.classStudent.find({
+    //     classID,
+    //     lessonDate: dt,
+    //     type: 'makeup'
+    // }).count();
+    return EdminForce.utils.mongoCount(Collections.classStudent, {
         classID,
         lessonDate: dt,
         type: 'makeup'
-    }).count();
+    });
 }
 
 
