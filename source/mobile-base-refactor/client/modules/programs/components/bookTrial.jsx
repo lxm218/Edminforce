@@ -31,8 +31,8 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
         let {
             classItem
         } = this.props.trialStudents;
-
-        this.props.actions.bookTrial(this.selectedStudent._id, classItem, this.classDateTime);
+        
+        this.props.actions.bookTrial(classItem.programID, this.selectedStudent._id, classItem._id, this.classDateTime);
 
         // var insertData = [];
         // for (let i = 0; i < selectedStudents.length; i++) {
@@ -203,6 +203,7 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
 
         return (
             <RC.Div style={{padding:"10px"}}>
+                {EdminForce.utils.renderError(this.props.error)}
                 <RC.VerticalAlign center={true} className="padding" height="300px">
                     <h2>Book Confirm</h2>
                 </RC.VerticalAlign>

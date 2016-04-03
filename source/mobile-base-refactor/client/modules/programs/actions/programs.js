@@ -21,29 +21,15 @@ EdminForce.Actions.Programs = {
         }
     },
     
-    bookTrial({LocalState}, studentID, trialClass, trialDate) {
-        
-        // var insertData = [];
-        // for (let i = 0; i < selectedStudents.length; i++) {
-        //     var data = {
-        //         accountID: Meteor.userId(),
-        //         classID: this.data.classInfo._id,
-        //         studentID: selectedStudents[i]._id,
-        //         programID: this.data.classInfo.programID,
-        //         lessonDate: new Date(timestamp),
-        //         status: "checkouted",
-        //         type: "trial",
-        //         createTime: new Date()
-        //     };
-        //
-        //     insertData.push(data);
-        // }
-
+    bookTrial({LocalState}, programID, studentID, classID, lessonDate) {
+        LocalState.set('ERROR_PROGRAM_BOOKTRIAL', null);
+        Meteor.call('program.bookTrial', programID, studentID, classID, lessonDate, function (err) {
+            err ? LocalState.set('ERROR_PROGRAM_BOOKTRIAL', err.reason) : FlowRouter.go('/account');
+        });
     },
     
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
-        LocalState.set('WAIT_ACCOUNT', false);
     }
 };
 

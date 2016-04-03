@@ -4,7 +4,7 @@ EdminForce.Actions.Account = {
     updateUserName({LocalState}, userName) {
         LocalState.set('ERROR_ACCOUNT', null);
         Meteor.call('account.updateUserName', userName, function (err) {
-            err && LocalState.set('ERROR_ACCOUNT', err.message);
+            err && LocalState.set('ERROR_ACCOUNT', err.reason);
         });
     },
 

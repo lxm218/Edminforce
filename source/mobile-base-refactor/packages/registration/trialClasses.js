@@ -212,14 +212,14 @@ function getTrialStudents(accountID, classID) {
             return;
         
         // check if a student already had a trial of the program, or if the student ever registered the class
-        let trialRecord = Collections.classStudent.findOne({
+        let trialRecord = EdminForce.utils.mongoCount(Collections.classStudent, {
             programID: classItem.programID,
             studentID: student._id,
             type: {$in:['trial','register']},
             status: {$in:['pending', 'checkouting', 'checkouted']}
         });
 
-        if (trialRecord)
+        if (trialRecord > 0)
             return;
         
         result.students.push({

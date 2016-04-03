@@ -14,18 +14,6 @@ Collections = {
     customerCoupon : KG.create("EF-CustomerCoupon")._db,
 };
 
-// Collections = {
-//     Customer : new Mongo.Collection('EF-Customer'),
-//     program : new Mongo.Collection("EF-Program"),
-//     class : new Mongo.Collection("EF-Class"),
-//     classStudent : new Mongo.Collection("EF-ClassStudent"),
-//     session : new Mongo.Collection("EF-Session"),
-//     student : new Mongo.Collection("EF-Student"),
-//     orders : new Mongo.Collection("EF-Order", {DBName : 'EF-Orders'}),
-//     coupon : new Mongo.Collection("EF-Coupon"),
-//     customerCoupon : new Mongo.Collection("EF-CustomerCoupon"),
-// };
-
 EdminForce = {
     utils: {},
     Components : {},

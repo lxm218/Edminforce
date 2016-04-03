@@ -1,6 +1,6 @@
 // show students who are eligible for a given trial class
 const reactiveFnTrialStudents = ({context,actions,classID}, onData) => {
-    const errorId = 'ERROR_GETTRIALSTUDENT';
+    const errorId = 'ERROR_PROGRAM_BOOKTRIAL';
     const error = context.LocalState.get(errorId);
     if (error) {
         onData(null, {error})

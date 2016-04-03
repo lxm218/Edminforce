@@ -1,10 +1,6 @@
 /*
  * Trial classes
  */
-let {
-    WeekDaySelector
-} = EdminForce.Components; 
-
 EdminForce.Components.TrialClasses = class extends RC.CSS {
 
     constructor(p) {
@@ -16,7 +12,7 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         this.onSelectDay = this.onSelectDay.bind(this);
     }
 
-    bookTrial(classItem) {
+    getTrialStudents(classItem) {
         this.props.actions.showTrialEligibleStudents(classItem);
     }
 
@@ -36,7 +32,7 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         let lessons = this.props.classes || [];
         this.state.selectedDay && (lessons = _.filter(lessons,(lesson) => lesson.schedule && lesson.schedule.day.toLowerCase() === this.state.selectedDay.toLowerCase()));
         let lessonElements = lessons.map( (item) => (
-            <RC.Item key={item.key} theme="divider" onClick={self.bookTrial.bind(self, item)}>
+            <RC.Item key={item.key} theme="divider" onClick={self.getTrialStudents.bind(self, item)}>
                 <h3>{item.name}</h3>
                 <div>
                     <br/>
@@ -50,6 +46,7 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
 
         return (
             <div>
+                {EdminForce.utils.renderError(this.props.error)}
                 <EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay} />
                 <RC.List>
                     {lessonElements}

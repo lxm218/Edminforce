@@ -31,6 +31,7 @@ EdminForce.Components.Programs = class extends RC.CSS {
         ));
         return (
             <RC.Div style={{padding: "10px"}}>
+                {EdminForce.utils.renderError(this.props.error)}
                 {programs}
             </RC.Div>
         );
