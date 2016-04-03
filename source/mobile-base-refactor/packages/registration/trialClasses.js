@@ -2,49 +2,49 @@
  * Returns the number of registered regular student in a class
  */
 function getClassRegularStudentCount(classID) {
-    // return Collections.classStudent.find({
-    //     classID,
-    //     status: {$in:['pending', 'checkouting', 'checkouted']},
-    //     type: 'register'
-    // }).count();
-
-    return EdminForce.utils.mongoCount(Collections.classStudent, {
+    return Collections.classStudent.find({
         classID,
         status: {$in:['pending', 'checkouting', 'checkouted']},
         type: 'register'
-    });
+    }).count();
+
+    // return EdminForce.utils.mongoCount(Collections.classStudent, {
+    //     classID,
+    //     status: {$in:['pending', 'checkouting', 'checkouted']},
+    //     type: 'register'
+    // });
 }
 
 /*
  * Returns number of trial student for class on a specified date
  */
 function getClassTrialStudentCount(classID, dt) {
-    // return Collections.classStudent.find({
-    //     classID,
-    //     lessonDate: dt,
-    //     type: 'trial'
-    // }).count();
-    return EdminForce.utils.mongoCount(Collections.classStudent, {
+    return Collections.classStudent.find({
         classID,
         lessonDate: dt,
         type: 'trial'
-    });
+    }).count();
+    // return EdminForce.utils.mongoCount(Collections.classStudent, {
+    //     classID,
+    //     lessonDate: dt,
+    //     type: 'trial'
+    // });
 }
 
 /*
  * Returns number of make up student for class on a specified date
  */
 function getClassMakeupStudentCount(classID, dt) {
-    // return Collections.classStudent.find({
-    //     classID,
-    //     lessonDate: dt,
-    //     type: 'makeup'
-    // }).count();
-    return EdminForce.utils.mongoCount(Collections.classStudent, {
+    return Collections.classStudent.find({
         classID,
         lessonDate: dt,
         type: 'makeup'
-    });
+    }).count();
+    // return EdminForce.utils.mongoCount(Collections.classStudent, {
+    //     classID,
+    //     lessonDate: dt,
+    //     type: 'makeup'
+    // });
 }
 
 
@@ -212,14 +212,19 @@ function getTrialStudents(accountID, classID) {
             return;
         
         // check if a student already had a trial of the program, or if the student ever registered the class
-        let trialRecord = EdminForce.utils.mongoCount(Collections.classStudent, {
+        // let trialRecord = EdminForce.utils.mongoCount(Collections.classStudent, {
+        //     programID: classItem.programID,
+        //     studentID: student._id,
+        //     type: {$in:['trial','register']},
+        //     status: {$in:['pending', 'checkouting', 'checkouted']}
+        // });
+
+        let trialRecord = Collections.classStudent.find({
             programID: classItem.programID,
             studentID: student._id,
             type: {$in:['trial','register']},
             status: {$in:['pending', 'checkouting', 'checkouted']}
-        });
-
-        console.log(student.name, trialRecord, classItem);
+        }).count();
 
         if (trialRecord > 0)
             return;

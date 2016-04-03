@@ -25,9 +25,11 @@ Meteor.methods({
             throw new Meteor.Error(500, 'Student not found','Invalid student id: ' + studentID);
         }
 
-        let classData = Collections.class.findOne({_id:classID});
+        // update class record
+        let classData = EdminForce.utils.updateTrialAndMakeupCount('trial', classID, lessonDate);
+
         if (!classData) {
-            throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
+            throw new Meteor.Error(500, 'No space for trial in the selected class','No space for trial in the selected class: ' + classID);
         }
 
         // insert a class student record
@@ -35,7 +37,7 @@ Meteor.methods({
             accountID: this.userId,
             classID,
             studentID,
-            programID:classData.programID,
+            programID: classData.programID,
             lessonDate,
             status: "checkouted",
             type: "trial",

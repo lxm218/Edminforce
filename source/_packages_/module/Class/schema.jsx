@@ -139,7 +139,7 @@ Schema.Class = {
     // has a count.
     // { '20160101' : 2}
     trial: {
-      type: object,
+      type: Object,
       optional: true,
       blackbox: true,
       defaultValue: {}
@@ -147,7 +147,7 @@ Schema.Class = {
 
     // makeup class record, same format as trial
     makeup: {
-      type: object,
+      type: Object,
       optional: true,
       blackbox: true,
       defaultValue: {}
