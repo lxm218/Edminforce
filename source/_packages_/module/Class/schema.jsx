@@ -129,7 +129,7 @@ Schema.Class = {
     }),
 
     // number of registered regular students
-    registerCount : KG.schema.default({
+    numberOfRegistered : KG.schema.default({
         type : Number,
         optional : true,
         defaultValue : 0

@@ -1,18 +1,4 @@
 
-/* 
- * Call count using mongo rawCollection object
- * the mongo rawCollection count is way more
- * efficient than meteor.collection.find().count()
- */
-// EdminForce.utils.mongoCount = function(meteorMongoCollection, query) {
-//     let syncFn = Meteor.wrapAsync( (q, callback) => {
-//         meteorMongoCollection.rawCollection().count(q, callback);
-//     });
-//
-//     return syncFn(query);
-// }
-
-
 EdminForce.utils.sendEmailText = function (to, subject, text) {
     check([to, subject, text], [String]);
     Email.send({

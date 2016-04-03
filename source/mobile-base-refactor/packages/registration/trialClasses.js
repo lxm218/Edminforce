@@ -7,12 +7,6 @@ function getClassRegularStudentCount(classID) {
         status: {$in:['pending', 'checkouting', 'checkouted']},
         type: 'register'
     }).count();
-
-    // return EdminForce.utils.mongoCount(Collections.classStudent, {
-    //     classID,
-    //     status: {$in:['pending', 'checkouting', 'checkouted']},
-    //     type: 'register'
-    // });
 }
 
 /*
@@ -24,11 +18,6 @@ function getClassTrialStudentCount(classID, dt) {
         lessonDate: dt,
         type: 'trial'
     }).count();
-    // return EdminForce.utils.mongoCount(Collections.classStudent, {
-    //     classID,
-    //     lessonDate: dt,
-    //     type: 'trial'
-    // });
 }
 
 /*
@@ -40,11 +29,6 @@ function getClassMakeupStudentCount(classID, dt) {
         lessonDate: dt,
         type: 'makeup'
     }).count();
-    // return EdminForce.utils.mongoCount(Collections.classStudent, {
-    //     classID,
-    //     lessonDate: dt,
-    //     type: 'makeup'
-    // });
 }
 
 
@@ -75,7 +59,8 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
         programID: programId,
         status: 'Active',
         trialStudent: {$ne: 0},
-        sessionID: {$in: sessionIds}
+        sessionID: {$in: sessionIds},
+        $where: "this.numberOfRegistered < this.maxStudent"
     }, {
         sort: {
             createTime: 1
@@ -88,9 +73,8 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
     for (let i = 0; i < classes.length; i++) {
         let classItem = classes[i];
 
-        // get number of registered regular
-        let numRegularStudents = getClassRegularStudentCount(classItem._id);
         // check if the class is fully booked by regular students
+        let numRegularStudents = classItem.hasOwnProperty('numberOfRegistered') ? classItem.numberOfRegistered : 0;
         if (numRegularStudents >= classItem.maxStudent)
             continue;
 
@@ -127,13 +111,18 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
                         bd.getFullYear() == classDate.year() } ))
                 continue;
 
-            let trialNumber = getClassTrialStudentCount(classItem._id, classDate.toDate());
+            //let trialNumber = getClassTrialStudentCount(classItem._id, classDate.toDate());
+            let trialNumber = 0;
+            let strLessonDate = classDate.format('YYYY-MM-DD');
+            if (classItem.trial && classItem.trial.hasOwnProperty(strLessonDate)) {
+                trialNumber = classItem.trial[strLessonDate];
+            }
 
             // trial + regular <= maxStudent
             if (trialNumber + numRegularStudents >= classItem.maxStudent) continue;
 
             // check against maxTrialStudent, null means no limit
-            if (classItem.trialStudent && trialNumber >= classItem.trialStudent) continue;
+            if (trialNumber >= classItem.trialStudent) continue;
 
             // this lesson is available
             // only pick the fields that are needed by client
@@ -212,13 +201,6 @@ function getTrialStudents(accountID, classID) {
             return;
         
         // check if a student already had a trial of the program, or if the student ever registered the class
-        // let trialRecord = EdminForce.utils.mongoCount(Collections.classStudent, {
-        //     programID: classItem.programID,
-        //     studentID: student._id,
-        //     type: {$in:['trial','register']},
-        //     status: {$in:['pending', 'checkouting', 'checkouted']}
-        // });
-
         let trialRecord = Collections.classStudent.find({
             programID: classItem.programID,
             studentID: student._id,
