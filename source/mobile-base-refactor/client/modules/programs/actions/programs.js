@@ -21,9 +21,9 @@ EdminForce.Actions.Programs = {
         }
     },
     
-    bookTrial({LocalState}, programID, studentID, classID, lessonDate) {
+    bookTrial({LocalState}, studentID, classID, className, lessonDate) {
         LocalState.set('ERROR_PROGRAM_BOOKTRIAL', null);
-        Meteor.call('program.bookTrial', programID, studentID, classID, lessonDate, function (err) {
+        Meteor.call('program.bookTrial', studentID, classID, className, lessonDate, function (err) {
             err ? LocalState.set('ERROR_PROGRAM_BOOKTRIAL', err.reason) : FlowRouter.go('/account');
         });
     },

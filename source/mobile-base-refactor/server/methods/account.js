@@ -1,6 +1,9 @@
 
 Meteor.methods({
     "account.updateUserName": function (username) {
+
+        check(username, String);
+
         Meteor.users.update(this.userId, {
             $set: {
                 username: username
@@ -10,6 +13,9 @@ Meteor.methods({
 
 
     "account.updatePhone": function (phone) {
+
+        check(phone, String);
+
         Collections.Customer.update(this.userId, {
             $set : {
                 phone : phone

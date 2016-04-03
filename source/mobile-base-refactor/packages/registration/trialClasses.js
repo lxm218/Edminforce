@@ -219,6 +219,8 @@ function getTrialStudents(accountID, classID) {
             status: {$in:['pending', 'checkouting', 'checkouted']}
         });
 
+        console.log(student.name, trialRecord, classItem);
+
         if (trialRecord > 0)
             return;
         
