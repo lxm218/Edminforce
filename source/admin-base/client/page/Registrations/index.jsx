@@ -359,6 +359,8 @@ KUI.Registration_index = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
+
+
         this.change();
     }
 
@@ -381,6 +383,24 @@ KUI.Registration_index1 = class extends KUI.Registration_index{
                 student : null
             });
         }
+    }
+};
+
+KUI.Registration_index2 = class extends KUI.Registration_index{
+    runOnceAfterDataReady(){
+
+        util.getReactJQueryObject(this.refs.program).hide();
+        util.getReactJQueryObject(this.refs.session).hide();
+        this.setState({
+            search_class_query:{}
+        });
+
+        _.delay(()=>{
+            this.refs.lesson.getInputDOMNode().value = FlowRouter.getParam('classID');
+        }, 1000);
+
+
+
     }
 };
 

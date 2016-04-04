@@ -152,11 +152,12 @@ KUI.Class_detail = class extends KUI.Page{
         }
 
         let flag = x.flag;
+        let classID = this.getClassId();
 
         return (
             <RC.Div style={{textAlign:'right'}}>
-                {flag?<KUI.YesButton onClick={function(){}} label="Register"></KUI.YesButton>:null}
-                {!flag?<KUI.YesButton onClick={function(){}} label="Waitlist"></KUI.YesButton>:null}
+                {flag?<KUI.YesButton href={`/registration/index/class/${classID}`} label="Register"></KUI.YesButton>:null}
+                {!flag?<KUI.YesButton href={`/registration/index/class/${classID}`} label="Waitlist"></KUI.YesButton>:null}
 
             </RC.Div>
         );
