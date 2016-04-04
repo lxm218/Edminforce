@@ -53,5 +53,5 @@ Meteor.methods({
         trialData[student.name][className] = lessonDate;
         let html = EdminForce.utils.getPaymentConfirmEmailTemplate(trialData);
         EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
-    }
+    },
 });

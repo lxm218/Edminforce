@@ -14,6 +14,7 @@ Package.onUse(function(api) {
         "ecmascript",
         "stevezhu:lodash",
         "momentjs:moment",
+        "meteorhacks:aggregate",
 
         "edminforce:mobile-context",
     ], ["client","server"]);

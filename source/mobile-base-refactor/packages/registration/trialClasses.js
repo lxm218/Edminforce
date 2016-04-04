@@ -60,7 +60,7 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
         status: 'Active',
         trialStudent: {$ne: 0},
         sessionID: {$in: sessionIds},
-        $where: "this.numberOfRegistered < this.maxStudent"
+        //$where: "this.numberOfRegistered < this.maxStudent"
     }, {
         sort: {
             createTime: 1
@@ -68,6 +68,8 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
     }).fetch();
 
     let availableLessons = [];
+
+    console.log('numof classes', classes.length);
 
     // find all available lessons for each class
     for (let i = 0; i < classes.length; i++) {
