@@ -1,4 +1,59 @@
 
+KUI.Pagination = class extends RC.CSS{
+
+    constructor(p){
+        super(p);
+
+        let self = this;
+        this.state = {
+            total : 20,
+            activePage : 1,
+            onSelect : function(e, se){
+                self.setState({
+                    activePage : se.eventKey
+                });
+            }
+        };
+
+
+    }
+
+
+    render(){
+
+        let s = this.state;
+
+        let p = {
+            prev : true,
+            next : true,
+            first : false,
+            last : false,
+            boundaryLinks : true,
+            items : s.total,
+            activePage : s.activePage,
+            onSelect : s.onSelect,
+
+            style : {
+                margin:0
+            }
+        };
+
+        p.maxButtons = s.total > 4 ? 4 : s.total;
+        if(s.total > 4){
+            p.ellipsis = true;
+            p.first = true;
+            p.last = true;
+        }
+
+
+
+        return (
+            <RB.Pagination {... p} />
+        );
+    }
+
+};
+
 
 KUI.Table = class extends RC.CSS{
     static propTypes : {
@@ -29,13 +84,34 @@ KUI.Table = class extends RC.CSS{
 
 
     render(){
+
+        let sy = _.extend({
+            marginBottom:0
+        }, this.props.style||{});
+
+        const by = {
+            div : {
+                textAlign : 'left',
+                marginBottom:'15px'
+            },
+            div1 : {
+                textAlign : 'right',
+                marginTop : '8px'
+            }
+        };
+
         return (
-            <RB.Table style={this.props.style} striped bordered condensed hover>
-                {this.renderThead()}
-                {
-                    this.renderTBody()
-                }
-            </RB.Table>
+            <RC.Div style={by.div}>
+                <RB.Table style={sy} striped bordered condensed hover>
+                    {this.renderThead()}
+                    {
+                        this.renderTBody()
+                    }
+                </RB.Table>
+
+                <div style={by.div1}><KUI.Pagination ref="page" /></div>
+            </RC.Div>
+
         );
     }
 
