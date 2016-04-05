@@ -1,8 +1,8 @@
 // account > update phone
 const reactiveFnAccountUpdatePhone = ({context,actions}, onData) => {
     const error = context.LocalState.get('ERROR_ACCOUNT_UPDATEPHONE');
-    EdminForce.Contexts.Account.SubManager.subscribe('account');
-    if (EdminForce.Contexts.Account.SubManager.ready()) {
+    context.SubManager.subscribe('account');
+    if (context.SubManager.ready()) {
         if (!Meteor.userId()) return;
 
         onData(null, {

@@ -2,9 +2,9 @@
 // account page
 const reactiveFnAccount = ({context,actions}, onData) => {
     const error = context.LocalState.get('ERROR_ACCOUNT');
-    EdminForce.Contexts.Account.SubManager.subscribe('account');
+    context.SubManager.subscribe('account');
     //if (Meteor.subscribe('account').ready()) {
-    if (EdminForce.Contexts.Account.SubManager.ready()) {
+    if (context.SubManager.ready()) {
         if (!Meteor.userId()) return;
 
         onData(null, {
