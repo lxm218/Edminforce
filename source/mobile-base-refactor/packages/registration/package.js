@@ -19,9 +19,10 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'trialClasses.js',
+        'classes.js'
     ], ["server"]);
     
-    api.export([
-        'Registration',
-    ], ["client", "server"]);
+    // api.export([
+    //     'Registration',
+    // ], ["client", "server"]);
 });

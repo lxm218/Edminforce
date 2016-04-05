@@ -54,4 +54,12 @@ Meteor.methods({
         let html = EdminForce.utils.getPaymentConfirmEmailTemplate(trialData);
         EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
     },
+
+    // get a list of trial classes for a program, within specified date range
+    'program.getClasses': function (programID, startDt, endDt) {
+        check(programID, String);
+        check([startDt,endDt] [Date]);
+        return EdminForce.Registration.getClasesForRegistration(programID, startDt, endDt);
+    },
+    
 });
