@@ -37,7 +37,11 @@ EdminForce.Actions.Programs = {
 };
 
 EdminForce.Contexts.Programs = {
-    LocalState: new ReactiveDict()
+    LocalState: new ReactiveDict(),
+    // this is to cache meteor method call result
+    // when handle errors raised by actions, we can use cached result in rendering, 
+    // instead of calling the method
+    MethodCache: {}
 }
 
 ReactDI.injectContext(EdminForce.Contexts.Programs, EdminForce.Actions.Programs);

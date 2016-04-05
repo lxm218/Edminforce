@@ -1,5 +1,26 @@
 
 EdminForce.Actions.Students = {
+    
+    // save student
+    upsertStudent({LocalState}, updatedStudent, redirectUrl) {
+        LocalState.set('ERROR_STUDENT', null);
+        let student = {... _.omit(updatedStudent, ['gender','birthday'])};
+        !student.status && (student.status='Active');
+        student.profile = {
+            gender: updatedStudent.gender,
+            birthday: updatedStudent.birthday
+        }
+        Meteor.call('students.upsertStudent', student, function (err) {
+            if (err) {
+                LocalState.set('ERROR_STUDENT', err.reason);
+            }
+            else {
+                EdminForce.utils.postActionRedirect(redirectUrl);
+            }
+        });
+    },
+
+
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
     }

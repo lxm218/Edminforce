@@ -23,10 +23,10 @@ EdminForce.Components.Students = class extends RC.CSS {
             };
             let query = {
                 current: studentClass._id,
-                programID: studentClass.programID,
+                //programID: studentClass.programID,
                 completed: !!studentClass.completed
             }
-            let path = FlowRouter.path("/students/:studentID", params, query);
+            let path = FlowRouter.path("/studentClass/:studentID", params, query);
             FlowRouter.go(path);
         }
     }
@@ -35,7 +35,7 @@ EdminForce.Components.Students = class extends RC.CSS {
         // update student
         if (!student) return;
 
-        let path = FlowRouter.path("/account/addstudent", null, {studentID: student._id});
+        let path = FlowRouter.path("/student/:studentID", {studentID: student._id}, {r:'/students'});
         FlowRouter.go(path);
     }
 

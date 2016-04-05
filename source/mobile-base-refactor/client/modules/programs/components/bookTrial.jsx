@@ -44,10 +44,13 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
     }
 
     addStudent() {
-        Session.set("BookTrialTimestamp", FlowRouter.getParam("timestamp"));
-        Session.set("BookTrialClassId", FlowRouter.getParam("classID"));
-        Session.set("BookTrialProgramId", FlowRouter.getParam("programID"));
-        FlowRouter.go('/account/addstudent');
+        let redirectQueryParams = {
+            r: '/bookTrial',
+            classID: FlowRouter.getQueryParam("classID"),
+            timestamp: FlowRouter.getQueryParam("timestamp")
+        };
+
+        FlowRouter.go(FlowRouter.path('/student', null, redirectQueryParams));
     }
 
     render() {

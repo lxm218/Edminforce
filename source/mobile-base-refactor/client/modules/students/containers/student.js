@@ -1,6 +1,7 @@
-// account > add/update student
-const reactiveFnAccountStudent = ({context,actions,studentID}, onData) => {
-    const error = context.LocalState.get('ERROR_ACCOUNT_STUDENT');
+// add/update student
+const reactiveFnStudent = ({context,actions,studentID}, onData) => {
+    const errorId = 'ERROR_STUDENT';
+    const error = context.LocalState.get(errorId);
     if (studentID) {
         context.SubManager.subscribe('student');
         if (context.SubManager.ready()) {
@@ -20,7 +21,7 @@ const reactiveFnAccountStudent = ({context,actions,studentID}, onData) => {
         })
     }
 
-    return actions.clearErrors.bind(null,'ERROR_ACCOUNT_STUDENT');
+    return actions.clearErrors.bind(null,errorId);
 };
 
-EdminForce.Containers.AccountStudent = Composer.composeWithTracker(reactiveFnAccountStudent)(EdminForce.Components.AccountStudent);
+EdminForce.Containers.Student = Composer.composeWithTracker(reactiveFnStudent)(EdminForce.Components.Student);

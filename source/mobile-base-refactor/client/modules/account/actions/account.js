@@ -54,20 +54,6 @@ EdminForce.Actions.Account = {
         });
     },
     
-    // save student
-    upsertStudent({LocalState}, updatedStudent) {
-        LocalState.set('ERROR_ACCOUNT_STUDENT', null);
-        let student = {... _.omit(updatedStudent, ['gender','birthday'])};
-        !student.status && (student.status='Active');
-        student.profile = {
-            gender: updatedStudent.gender,
-            birthday: updatedStudent.birthday
-        }
-        Meteor.call('account.upsertStudent', student, function (err) {
-            err ? LocalState.set('ERROR_ACCOUNT_STUDENT', err.reason) : FlowRouter.go('/account');
-        });
-    },
-
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
         LocalState.set('WAIT_ACCOUNT', false);

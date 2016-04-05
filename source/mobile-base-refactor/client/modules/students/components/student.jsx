@@ -8,7 +8,7 @@ let {
 
 let _ = lodash;
 
-EdminForce.Components.AccountStudent = class extends RC.CSS {
+EdminForce.Components.Student = class extends RC.CSS {
 
     constructor(p) {
         super(p);
@@ -58,7 +58,7 @@ EdminForce.Components.AccountStudent = class extends RC.CSS {
     }
     
     onSave() {
-        this.props.actions.upsertStudent({...this.props.student, ...this.editedStudent});
+        this.props.actions.upsertStudent({...this.props.student, ...this.editedStudent}, this.props.redirectUrl);
     }
 
     render() {

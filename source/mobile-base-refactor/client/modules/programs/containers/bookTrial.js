@@ -3,11 +3,9 @@ const reactiveFnTrialStudents = ({context,actions,classID}, onData) => {
     const errorId = 'ERROR_PROGRAM_BOOKTRIAL';
     const error = context.LocalState.get(errorId);
     if (error) {
+        let cachedResult = context.MethodCache['program.getTrialStudents'] || {classItem:{},students:[]};   
         onData(null, {
-            trialStudents: {
-                classItem:{},
-                students:[],
-            },
+            trialStudents: cachedResult,
             error
         })
     }
@@ -16,6 +14,7 @@ const reactiveFnTrialStudents = ({context,actions,classID}, onData) => {
         onData();
         // call method to get trial classes in 4 weeks
         Meteor.call('program.getTrialStudents', classID,  function(methodError, result) {
+            !methodError && (context.MethodCache['program.getTrialStudents'] = result); 
             onData(null,{
                 trialStudents : result,
                 error: methodError

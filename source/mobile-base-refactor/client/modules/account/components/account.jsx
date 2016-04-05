@@ -53,11 +53,11 @@ EdminForce.Components.Account = class extends RC.CSS {
     }
 
     addStudent() {
-        FlowRouter.go("/account/student");
+        FlowRouter.go(FlowRouter.path('/student', null, {r:'/account'}));
     }
 
     updateStudent(studentID) {
-        FlowRouter.go("/account/student?studentID=" + studentID);
+        FlowRouter.go(FlowRouter.path('/student/:studentID', {studentID}, {r:'/account'}));
     }
 
     updateAlternateContact() {

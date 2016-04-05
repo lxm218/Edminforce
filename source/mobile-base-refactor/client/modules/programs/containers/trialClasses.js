@@ -2,7 +2,10 @@
 const reactiveFnTrialClasses = ({context,actions,programID}, onData) => {
     const error = context.LocalState.get('ERROR_TRIALCLASSES');
     if (error) {
-        onData(null, {error})
+        onData(null, {
+            classes : [],
+            error
+        })
     }
     else {
         // call onData with no data to show loading screen
@@ -15,7 +18,6 @@ const reactiveFnTrialClasses = ({context,actions,programID}, onData) => {
             });
         });
     }
-
     return actions.clearErrors.bind(null,'ERROR_TRIALCLASSES');
 };
 EdminForce.Containers.TrialClasses = Composer.composeWithTracker(reactiveFnTrialClasses)(EdminForce.Components.TrialClasses);

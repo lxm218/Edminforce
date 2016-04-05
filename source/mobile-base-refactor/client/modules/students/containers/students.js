@@ -1,4 +1,6 @@
 // studnets
+
+// create a list of students, each with registered classes
 function createStudentListWithClasses() {
     // students
     let students = Collections.student.find({accountID: Meteor.userId()}).fetch();
