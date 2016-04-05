@@ -4,23 +4,12 @@ Dependency.add('auth.store', new function () {
     var self = this;
 
     function postLoginAction(redirectUrl) {
-        
-        FlowRouter.go(redirectUrl || '/account');
 
-        // if(Session.get("BookTrialClassId")){
-        //     let params = {
-        //         programsId: Session.get("BookTrialProgramId"),
-        //         classId: Session.get("BookTrialClassId"),
-        //         timestamp: Session.get("BookTrialTimestamp")
-        //     }
-        //     let path = FlowRouter.path("/programs/:programsId/:classId/:timestamp", params);
-        //     FlowRouter.go(path);
-        //     Session.set("BookTrialClassId", null);
-        //     Session.set("BookTrialProgramId", null);
-        //     Session.set("BookTrialTimestamp", null);
-        // }else{
-        //     FlowRouter.go('/account')
-        // }
+        let path = '/account';
+        if (redirectUrl) {
+            path = FlowRouter.path(redirectUrl.r, null,_.omit(redirectUrl, 'r'));
+        }
+        FlowRouter.go(path);
     }
 
     self.tokenId = Dispatcher.register(function (payload) {

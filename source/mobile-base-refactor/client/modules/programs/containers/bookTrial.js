@@ -3,7 +3,13 @@ const reactiveFnTrialStudents = ({context,actions,classID}, onData) => {
     const errorId = 'ERROR_PROGRAM_BOOKTRIAL';
     const error = context.LocalState.get(errorId);
     if (error) {
-        onData(null, {error})
+        onData(null, {
+            trialStudents: {
+                classItem:{},
+                students:[],
+            },
+            error
+        })
     }
     else {
         // call onData with no data to show loading screen

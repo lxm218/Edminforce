@@ -69,8 +69,6 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
 
     let availableLessons = [];
 
-    console.log('numof classes', classes.length);
-
     // find all available lessons for each class
     for (let i = 0; i < classes.length; i++) {
         let classItem = classes[i];

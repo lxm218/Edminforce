@@ -29,7 +29,7 @@ DefaultRoutes.route('/login', {
             hideLeftNavToggle: true,
             hideShoppingCartButton: true
         }
-        dynamicRoute.bodyTmpl = (<EdminForce.Components.User redirectUrl={q.r} fullHeight={true} theme="overlay-dark" bgColor="brand-light"></EdminForce.Components.User>);
+        dynamicRoute.bodyTmpl = (<EdminForce.Components.User redirectUrl={q} fullHeight={true} theme="overlay-dark" bgColor="brand-light"></EdminForce.Components.User>);
         EdminForce.utils.routeHandler(p, dynamicRoute)
     }
 })

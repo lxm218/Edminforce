@@ -7,24 +7,27 @@ EdminForce.Actions.Programs = {
     },
     
     showTrialEligibleStudents({LocalState}, classItem) {
-        let path = FlowRouter.path("/bookTrial", null,{
+        let queryParams = {
             classID: classItem._id,
             timestamp: classItem.lessonDate.getTime(),
-        });
-
+        };
+        
+        let path;
         if (Meteor.user()) {
-            FlowRouter.go(path);
+            path = FlowRouter.path("/bookTrial", null,queryParams);
         }
         else {
-            let loginRedirect = FlowRouter.path('/login',null,{r:path});
-            FlowRouter.go(loginRedirect);
+            queryParams.r = "/bookTrial";
+            path = FlowRouter.path("/login", null,queryParams);
         }
+
+        FlowRouter.go(path);
     },
     
     bookTrial({LocalState}, studentID, classID, className, lessonDate) {
         LocalState.set('ERROR_PROGRAM_BOOKTRIAL', null);
         Meteor.call('program.bookTrial', studentID, classID, className, lessonDate, function (err) {
-            err ? LocalState.set('ERROR_PROGRAM_BOOKTRIAL', err.reason) : FlowRouter.go('/account');
+            err ? LocalState.set('ERROR_PROGRAM_BOOKTRIAL', err.reason) : FlowRouter.go('/bookTrialSummary');
         });
     },
     

@@ -38,3 +38,15 @@ DefaultRoutes.route('/bookTrial', {
         })
     }
 });
+
+DefaultRoutes.route('/bookTrialSummary', {
+    name: "bookTrialSummary",
+    action: function(p, q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Components.BookTrialSummary />
+        })
+    }
+});
+
