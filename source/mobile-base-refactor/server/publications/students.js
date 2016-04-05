@@ -10,7 +10,7 @@ Meteor.publishComposite("StudentsWithClasses", function(studentID) {
                 accountID: userId
             }
             studentID && (query._id = studentID);
-            return Collections.student.find(query);
+            return Collections.student.find(query, {fields:{_id:1, name:1, accountID:1}});
         },
 
         children: [
@@ -32,7 +32,7 @@ Meteor.publishComposite("StudentsWithClasses", function(studentID) {
                     {
                         // class info
                         find(studentClass) {
-                            return Collections.class.find({_id:studentClass.classID})
+                            return Collections.class.find({_id:studentClass.classID}, {fields:{name:1,programID:1,sessionID: 1,teacher: 1,schedule:1,status:1}})
                         },
                         children: [
                             {
