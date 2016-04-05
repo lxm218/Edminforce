@@ -50,3 +50,13 @@ DefaultRoutes.route('/bookTrialSummary', {
     }
 });
 
+DefaultRoutes.route('/classes', {
+    name: "classRegistration",
+    action: function(p, q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Components.Classes />
+        })
+    }
+});
