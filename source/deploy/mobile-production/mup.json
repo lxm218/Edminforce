@@ -2,12 +2,12 @@
   // Server authentication info
   "servers": [
     {
-      "host": "ec2-54-67-104-129.us-west-1.compute.amazonaws.com",
+      "host": "ec2-54-210-143-229.compute-1.amazonaws.com",
       "username": "ubuntu",
       //"password": "password",
       // or pem file (ssh based authentication)
       // WARNING: Keys protected by a passphrase are not supported
-      "pem": "../CalColor.pem",
+      "pem": "../ClassForth.pem",
       // Also, for non-standard ssh port use this
       //"sshOptions": { "port" : 22 },
       // server specific environment variables
