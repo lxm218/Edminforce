@@ -14,11 +14,8 @@ EdminForce.Components.Classes = class extends RC.CSS {
     constructor(p) {
         super(p);
 
-        this.selectedClasses = [];
-        this.programs = [];
-        this.students = [];
-        this.sessions = [];
         this.classes = [];
+        this.selectedClasses = [];
 
         this.state = {
             weekDay: null,
@@ -34,28 +31,17 @@ EdminForce.Components.Classes = class extends RC.CSS {
         this.stateBag = this.props.context.StateBag.classes;
     }
 
-    setCollectionLabelAndValue(col) {
-        if (!col) return;
-        _.forEach(col, (c) => {
-            c.value = c._id;
-            c.label = c.name;
-        })
-    }
-
     onSelectStudent(event) {
-        this.selectedClasses = [];
         this.stateBag.studentID = event.target.value
         this.props.context.LocalState.set('state.classes', new Date().getTime());
     }
 
     onSelectProgram(event) {
-        this.selectedClasses = [];
         this.stateBag.programID = event.target.value;
         this.props.context.LocalState.set('state.classes', new Date().getTime());
     }
 
     onSelectSession(event) {
-        this.selectedClasses = [];
         this.stateBag.sessionID = event.target.value;
         this.props.context.LocalState.set('state.classes', new Date().getTime());
     }
@@ -80,29 +66,10 @@ EdminForce.Components.Classes = class extends RC.CSS {
         this.props.actions.bookClass(this.stateBag.studentID, this.selectedClasses);
     }
 
-    // program, students, and sessions are only returned in the initial method call
-    saveInitialLoadData() {
-        if (this.props.registration.programs) {
-            this.programs = this.props.registration.programs;
-            this.setCollectionLabelAndValue(this.programs);
-        }
-
-        if (this.props.registration.sessions) {
-            this.sessions = this.props.registration.sessions;
-            this.setCollectionLabelAndValue(this.sessions);
-        }
-
-        if (this.props.registration.students) {
-            this.students = this.props.registration.students;
-            this.setCollectionLabelAndValue(this.students);
-        }
-    }
-
     render() {
         let self = this;
         let classTable;
 
-        this.saveInitialLoadData();
         let {
             classes,
             firstRegistrationWeekSession,
@@ -179,7 +146,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
         else {
             // program selection is only available in regular registration
             renderBodyElements.push((
-                <RC.Select options={this.programs} value={this.stateBag.programID}
+                <RC.Select options={this.stateBag.programs} value={this.stateBag.programID}
                            label="Program" labelColor="brand1"
                            onChange={this.onSelectProgram} key="programList"/>
             ));
@@ -208,10 +175,10 @@ EdminForce.Components.Classes = class extends RC.CSS {
                 <RC.VerticalAlign center={true} className="padding" height="300px" key="title">
                     <h2>Registration</h2>
                 </RC.VerticalAlign>
-                <RC.Select options={this.students} value={this.stateBag.studentID} key="studentList"
+                <RC.Select options={this.stateBag.students} value={this.stateBag.studentID} key="studentList"
                            label="Students" labelColor="brand1"
                            onChange={this.onSelectStudent}/>
-                <RC.Select options={this.sessions} value={this.stateBag.sessionID} key="sessionList"
+                <RC.Select options={this.stateBag.sessions} value={this.stateBag.sessionID} key="sessionList"
                            label="Session" labelColor="brand1"
                            onChange={this.onSelectSession}/>
                 {renderBodyElements}
