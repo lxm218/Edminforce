@@ -220,6 +220,47 @@ function getTrialStudents(accountID, classID) {
     return result;
 }
 
+/*
+ * book trial class
+ */
+function bookTrial(userId, studentID, classID, className, lessonDate) {
+    
+    let student = Collections.student.findOne({_id: studentID});
+    if (!student) {
+        throw new Meteor.Error(500, 'Student not found','Invalid student id: ' + studentID);
+    }
+
+    // update class record
+    let classData = EdminForce.utils.updateTrialAndMakeupCount('trial', classID, lessonDate);
+
+    if (!classData) {
+        throw new Meteor.Error(500, 'No space for trial in the selected class','No space for trial in the selected class: ' + classID);
+    }
+
+    // insert a class student record
+    Collections.classStudent.insert({
+        accountID: userId,
+        classID,
+        studentID,
+        programID: classData.programID,
+        lessonDate,
+        status: "checkouted",
+        type: "trial",
+        createTime: new Date()
+    });
+
+    // Let other method calls from the same client start running,
+    // without waiting for the email sending to complete.
+    //this.unblock();
+
+    let trialData = {};
+    trialData[student.name] = {};
+    trialData[student.name][className] = lessonDate;
+    let html = EdminForce.utils.getPaymentConfirmEmailTemplate(trialData);
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
+}
+
 EdminForce.Registration.getAvailableTrialLessons = getAvailableTrialLessons;
 EdminForce.Registration.getTrialStudents = getTrialStudents;
-EdminForce.Registration.validateStudentForClass = validateStudentForClass; 
+EdminForce.Registration.validateStudentForClass = validateStudentForClass;
+EdminForce.Registration.bookTrial = bookTrial;

@@ -63,7 +63,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
             alert("Sorry, no class available in this program.");
             return;
         }
-        this.props.actions.bookClass(this.stateBag.studentID, this.selectedClasses);
+        this.props.actions.bookClass(this.stateBag.studentID, this.selectedClasses.map( (c) => c._id ));
     }
 
     render() {

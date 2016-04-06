@@ -142,4 +142,40 @@ function getClasesForRegistration(userId, initialLoad,studentID, programID, sess
     return result;
 }
 
+/* 
+ * book classes for a student
+ */
+function bookClasses(userId, studentID, classIDs) {
+
+    let bookedIDs = [];
+    classIDs.forEach( (classID) => {
+        let classData = Collections.class.findOne({_id:classID}, {fields:{programID:1,maxStudent:1, numberOfRegistered:1}});
+        
+        if (classData && classData.numberOfRegistered < classData.maxStudent) {
+            // update the class registered count
+            let nUpdated = Collections.class.update({
+                _id:classID,
+                numberOfRegistered: {$lt:classData.maxStudent}},{
+                $inc: {numberOfRegistered: 1}
+            });
+
+            if (nUpdated) {
+                // insert a record in classStudent collection
+                let classStudentID = Collections.classStudent.insert({
+                    accountID: userId,
+                    classID,
+                    programID: classData.programID,
+                    studentID,
+                    status: "pending",
+                    type: 'register',
+                });
+                bookedIDs.push(classStudentID);
+            }
+        }
+    })
+
+    return bookedIDs;
+}
+
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
+EdminForce.Registration.bookClasses = bookClasses;
