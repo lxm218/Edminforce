@@ -152,6 +152,7 @@ KUI.Email_index = class extends KUI.Page{
                         </RB.Input>
 
                         <RB.Input type="select" {... p.day}>
+                            <option key={-1} value="all">All</option>
                             {
                                 _.map(option.day, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
@@ -171,6 +172,7 @@ KUI.Email_index = class extends KUI.Page{
                         </RB.Input>*/}
 
                         <RB.Input type="select" {... p.teacher}>
+                            <option key={-1} value="all">All</option>
                             {
                                 _.map(option.teacher, (item, index)=>{
                                     return <option key={index} value={item.nickName}>{item.nickName}</option>;
@@ -205,6 +207,12 @@ KUI.Email_index = class extends KUI.Page{
             status : status.getValue(),
             teacher : teacher.getValue()
         };
+        if(query.dayOfClass === 'all'){
+            delete query.dayOfClass;
+        }
+        if(query.teacher === 'all'){
+            delete query.teacher;
+        }
 
         console.log(query);
         this.setState({
