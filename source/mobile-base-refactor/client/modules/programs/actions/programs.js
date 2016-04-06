@@ -69,7 +69,11 @@ EdminForce.Contexts.Programs = {
     // this is to cache meteor method call result
     // when handle errors raised by actions, we can use cached result in rendering, 
     // instead of calling the method
-    MethodCache: {}
+    MethodCache: {},
+    
+    StateBag: {
+        classes: {}
+    }
 }
 
 ReactDI.injectContext(EdminForce.Contexts.Programs, EdminForce.Actions.Programs);

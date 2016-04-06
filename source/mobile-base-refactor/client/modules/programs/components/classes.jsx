@@ -30,6 +30,8 @@ EdminForce.Components.Classes = class extends RC.CSS {
         this.onSelectStudent = this.onSelectStudent.bind(this);
         this.onSelectProgram = this.onSelectProgram.bind(this);
         this.onTableRowSelection = this.onTableRowSelection.bind(this);
+
+        this.stateBag = this.props.context.StateBag.classes;
     }
 
     setCollectionLabelAndValue(col) {
@@ -42,23 +44,25 @@ EdminForce.Components.Classes = class extends RC.CSS {
 
     onSelectStudent(event) {
         this.selectedClasses = [];
-        this.props.context.LocalState.set('classes.studentID', event.target.value);
+        this.stateBag.studentID = event.target.value
+        this.props.context.LocalState.set('state.classes', new Date().getTime());
     }
 
     onSelectProgram(event) {
         this.selectedClasses = [];
-        this.props.context.LocalState.set('classes.programID', event.target.value);
+        this.stateBag.programID = event.target.value;
+        this.props.context.LocalState.set('state.classes', new Date().getTime());
     }
 
     onSelectSession(event) {
         this.selectedClasses = [];
-        this.props.context.LocalState.set('classes.sessionID', event.target.value);
+        this.stateBag.sessionID = event.target.value;
+        this.props.context.LocalState.set('state.classes', new Date().getTime());
     }
 
     onTableRowSelection(selectedRowIndice) {
         this.selectedClasses = selectedRowIndice.map((idx) => this.classes[idx]);
     }
-
 
     onSelectDay(day) {
         this.selectedClasses = [];
@@ -73,7 +77,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
             alert("Sorry, no class available in this program.");
             return;
         }
-        this.props.actions.bookClass(this.studentID, this.selectedClasses);
+        this.props.actions.bookClass(this.stateBag.studentID, this.selectedClasses);
     }
 
     // program, students, and sessions are only returned in the initial method call
@@ -92,10 +96,6 @@ EdminForce.Components.Classes = class extends RC.CSS {
             this.students = this.props.registration.students;
             this.setCollectionLabelAndValue(this.students);
         }
-
-        this.props.registration.programID && (this.programID = this.props.registration.programID);
-        this.props.registration.sessionID && (this.sessionID = this.props.registration.sessionID);
-        this.props.registration.studentID && (this.studentID = this.props.registration.studentID);
     }
 
     render() {
@@ -108,6 +108,8 @@ EdminForce.Components.Classes = class extends RC.CSS {
             firstRegistrationWeekSession,
             firstRegistrationWeekAlert
         } = this.props.registration;
+
+        this.stateBag = this.props.context.StateBag.classes;
 
         // filter by weekday
         if (this.state.weekDay && !firstRegistrationWeekSession) {
@@ -177,7 +179,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
         else {
             // program selection is only available in regular registration
             renderBodyElements.push((
-                <RC.Select options={this.programs} value={this.programID}
+                <RC.Select options={this.programs} value={this.stateBag.programID}
                            label="Program" labelColor="brand1"
                            onChange={this.onSelectProgram} key="programList"/>
             ));
@@ -206,10 +208,10 @@ EdminForce.Components.Classes = class extends RC.CSS {
                 <RC.VerticalAlign center={true} className="padding" height="300px" key="title">
                     <h2>Registration</h2>
                 </RC.VerticalAlign>
-                <RC.Select options={this.students} value={this.studentID} key="studentList"
+                <RC.Select options={this.students} value={this.stateBag.studentID} key="studentList"
                            label="Students" labelColor="brand1"
                            onChange={this.onSelectStudent}/>
-                <RC.Select options={this.sessions} value={this.sessionID} key="sessionList"
+                <RC.Select options={this.sessions} value={this.stateBag.sessionID} key="sessionList"
                            label="Session" labelColor="brand1"
                            onChange={this.onSelectSession}/>
                 {renderBodyElements}
