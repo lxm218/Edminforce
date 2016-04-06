@@ -55,8 +55,12 @@ KUI.Email_AddTemplate_comp = class extends RC.CSS{
         };
     }
 
-    setDefaultValue(){
+    setDefaultValue(data){
+        let name = this.refs.name;
+        let html = data.html ? decodeURIComponent(data.html) : '';
 
+        name.getInputDOMNode().value = data.name;
+        $(this.refs.html).summernote('code', html);
     }
 
     reset(){
@@ -98,4 +102,57 @@ KUI.Email_AddTemplate = class extends RC.CSS{
     }
 
 
+};
+
+KUI.Email_EditTemplate = class extends KUI.Page{
+
+    getMeteorData(){
+        var id = FlowRouter.getParam('emailID');
+        let x = Meteor.subscribe('EF-EmailTemplate', {
+            _id : id
+        });
+
+        return {
+            ready : x.ready(),
+            id : id,
+            data : KG.get('EF-EmailTemplate').getDB().findOne()
+        };
+    }
+
+    save(){
+        let self = this;
+        let data = this.refs.form.getValue();
+
+        let rs = KG.get('EF-EmailTemplate').updateById(data, this.data.id);
+        KG.result.handle(rs, {
+            success : function(){
+                util.toast.alert('update success');
+                self.refs.form.reset();
+                util.goPath('/email');
+            },
+            error : function(e){
+                util.toast.showError(e.reason);
+            }
+        });
+    }
+
+    render(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
+        return (
+            <RC.Div>
+                <h3>Edit Email Template</h3>
+                <hr/>
+                <KUI.Email_AddTemplate_comp ref="form" />
+                <RC.Div style={{textAlign:'right'}}>
+                    <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
+                </RC.Div>
+            </RC.Div>
+        );
+    }
+
+    runOnceAfterDataReady(){
+        this.refs.form.setDefaultValue(this.data.data);
+    }
 };

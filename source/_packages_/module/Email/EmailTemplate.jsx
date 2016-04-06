@@ -16,6 +16,16 @@ KG.define('EF-EmailTemplate', class extends Base{
         return super.insert(data);
     }
 
+    updateById(data, id){
+        data.html = encodeURIComponent(data.html);
+
+        try{
+            let rs = this._db.update({_id : id}, {'$set' : data});
+            return KG.result.out(true, rs);
+        }catch(e){
+            return KG.result.out(false, e, e.toString());
+        }
+    }
 
 
 

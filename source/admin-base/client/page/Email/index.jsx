@@ -77,7 +77,6 @@ KUI.Email_index = class extends KUI.Page{
             <RC.Div>
                 <h3>
                     Send Email
-                    <RC.URL style={sy.url} href="/email/template/add">Add Email Template</RC.URL>
                 </h3>
                 <hr/>
                 {this.renderFilterBox()}
@@ -295,9 +294,22 @@ KUI.Email_index = class extends KUI.Page{
                 </RB.Row>
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton onClick={this.preview.bind(this)} label="Preview Email"></KUI.YesButton>
+                    <KUI.YesButton style={{marginLeft:'15px'}} href="/email/template/add" label="Add Email Template"></KUI.YesButton>
+                    <KUI.YesButton style={{marginLeft:'15px'}} onClick={this.toEditPage.bind(this)} label="Edit Email Template"></KUI.YesButton>
                 </RC.Div>
             </form>
         );
+    }
+
+    toEditPage(){
+        let {email_tpl} = this.getRefs();
+        let val = email_tpl.getValue();
+        if(!val){
+            util.toast.showError('Please selete email template');
+            return false;
+        }
+
+        util.goPath('/email/template/edit/'+val);
     }
 
     preview(){
