@@ -222,3 +222,4 @@ function getTrialStudents(accountID, classID) {
 
 EdminForce.Registration.getAvailableTrialLessons = getAvailableTrialLessons;
 EdminForce.Registration.getTrialStudents = getTrialStudents;
+EdminForce.Registration.validateStudentForClass = validateStudentForClass; 

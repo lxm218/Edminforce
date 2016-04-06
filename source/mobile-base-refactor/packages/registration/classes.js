@@ -1,10 +1,31 @@
 
-function getClasesForRegistration(initialLoad,studentID, programID, sessionID) {
+const _classFields = {
+    name:0,
+    trial: 0,
+    makeup: 0,
+    createTime: 0,
+    updateTime: 0,
+    makeupClassFee: 0,
+    makeupStudent: 0,
+    trialStudent: 0,
+    numberOfClass: 0,
+    tuition: 0,
+    level: 0
+}
+
+const _studentFields = {
+    name:1,
+    accountID: 1,
+    profile: 1
+}
+
+// returns a list of registration classes for a specified program, session, and student.
+function getClasesForRegistration(userId, initialLoad,studentID, programID, sessionID) {
     let result = {}
     let currentDate = new Date();
 
     if (initialLoad) {
-        result.students = Collections.student.find({accountID: this.userId}).fetch();
+        result.students = Collections.student.find({accountID: userId},{fields:_studentFields}).fetch();
         result.sessions = Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
         result.programs = Collections.program.find({}).fetch();
 
@@ -23,19 +44,24 @@ function getClasesForRegistration(initialLoad,studentID, programID, sessionID) {
 
     if (!studentID || !programID || !sessionID) return result;
 
-    let student = Collections.student.findOne({_id:studentID});
+    let student = result.students ? _.find(result.students, {_id:studentID}) : Collections.student.findOne({_id:studentID},{fields:_studentFields});
     if (!student) return result;
 
-    // check if it's the priority registration time for the selected session
-    let selectedSession = Collections.session.findOne({_id:sessionID});
+    let selectedSession = result.sessions ? _.find(result.sessions, {_id:sessionID}) : Collections.session.findOne({_id:sessionID});
     if (!selectedSession) return result;
+    
+    let program = result.programs ? _.find(result.programs, {_id:programID}) : Collections.program.findOne({_id: programID});
+    if (!program) return result;
+
+    // check if it's the priority registration time for the selected session
     result.firstRegistrationWeekSession = (currentDate >= selectedSession.registrationStartDate && currentDate <= moment(selectedSession.registrationStartDate).add(7,"d").toDate());
 
     if (result.firstRegistrationWeekSession) {
-
-        let studentClasses = Collections.classStudent.find({studentID, type:'register', status:'checkouted'}).fetch();
+        
+        // get all current class IDs of the selected student
+        let studentClasses = Collections.classStudent.find({studentID, type:'register', status:'checkouted'}, {fields:{classID:1}}).fetch();
         let classIDs = studentClasses.map( (sc) => sc.classID );
-        // TODO: we may need to filter out history classes that are finished long time ago.
+        
         let currentClasses = Collections.class.find({status:'Active',_id: {$in:classIDs}}).fetch();
         let curProgramIDs = [];
         let curTeachers = [];
@@ -52,6 +78,8 @@ function getClasesForRegistration(initialLoad,studentID, programID, sessionID) {
             programID: {$in: curProgramIDs},
             teacher: {$in: curTeachers},
             'schedule.day' : {$in: curClassDays}
+        }, {
+            fields: _classFields
         }).fetch();
 
         // filter by eligibility of first week registration
@@ -73,22 +101,16 @@ function getClasesForRegistration(initialLoad,studentID, programID, sessionID) {
         result.classes = Collections.class.find({
             programID,
             sessionID
+        }, {
+            fields: _classFields
         }).fetch();
     }
 
     // other checks
     result.classes = _.filter(result.classes, (classInfo) => {
         //  - check available space
-        let registeredStudents = Collections.classStudent.find({
-            classID: classInfo['_id'],
-            type: {
-                $in:['register']
-            },
-            status: {
-                $in: ['pending', 'checkouting', 'checkouted']
-            }
-        }).fetch();
-        if (classInfo.maxStudent <= registeredStudents.length) return false;
+        if (classInfo.maxStudent <= classInfo.numberOfRegistered)
+            return false;
 
         // - check if the student already registered
         let existedClass = Collections.classStudent.find({
@@ -100,30 +122,24 @@ function getClasesForRegistration(initialLoad,studentID, programID, sessionID) {
             status: {
                 $in: ['pending', 'checkouting', 'checkouted']
             }
-        }).fetch();
-        if (existedClass && existedClass[0]) return false;
+        }).count();
+        if (existedClass >0) return false;
 
-        // - check gender
-        if (classInfo.genderRequire &&
-            (classInfo.genderRequire.toLowerCase() !== 'all') &&
-            (classInfo.genderRequire.toLowerCase() !== student.profile.gender.toLowerCase())) {
+        // - check gender & age
+        if (!EdminForce.Registration.validateStudentForClass(classInfo, student))
             return false;
-        }
 
-        // Get currently student's birthday
-        let age = EdminForce.utils.calcAge(student.profile.birthday);
-
-        // if class has min age, and currently student's age less than min age
-        if (classInfo.minAgeRequire && classInfo.minAgeRequire > age) return false;
-
-        // if class has max age, and currently student's age bigger than max age
-        if (classInfo.maxAgeRequire && classInfo.maxAgeRequire < age) return false;
+        // updateClassName
+        classInfo.name = EdminForce.utils.getClassName(program.name, selectedSession.name, classInfo.schedule.day, classInfo.schedule.time);
 
         return true;
     });
 
+    result.studentID = studentID;
+    result.programID = programID;
+    result.sessionID = sessionID;
+
     return result;
 }
-
 
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;

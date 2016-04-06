@@ -31,6 +31,34 @@ EdminForce.Actions.Programs = {
         });
     },
     
+    bookClass({LocalState}, studentID, classes) {
+        // let insertData = this.selectedClasses.map( (c) => ({
+        //     accountID: Meteor.userId(),
+        //     classID: c["_id"],
+        //     programID: c.programID,
+        //     studentID: this.state.studentID,
+        //     status: "pending",
+        //     type: 'register'
+        // }));
+        //
+        // // first insert it to classStudent cart
+        // EdminForce.Collections.classStudent.batchInsert(insertData, function (err, res) {
+        //     if (err) {
+        //         alert("Insert Fail!");
+        //     } else {
+        //
+        //         let params = {
+        //             cartId: res.join()
+        //         };
+        //
+        //         let path = FlowRouter.path("/carts/detail/:cartId", params);
+        //         FlowRouter.go(path);
+        //
+        //     }
+        // }.bind(this));
+        
+    },
+    
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
     }

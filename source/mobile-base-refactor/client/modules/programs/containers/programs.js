@@ -1,6 +1,7 @@
 // program list
 const reactiveFnPrograms = ({context,actions}, onData) => {
-    const error = context.LocalState.get('ERROR_PROGRAM');
+    errorId = 'ERROR_PROGRAM';
+    const error = context.LocalState.get(errorId);
     if (Meteor.subscribe('programs').ready()) {
         onData(null, {
             programs: Collections.program.find({},{sort: {createTime: -1}}).fetch(),
@@ -8,6 +9,6 @@ const reactiveFnPrograms = ({context,actions}, onData) => {
         })
     }
 
-    return actions.clearErrors.bind(null,'ERROR_PROGRAM');
+    return actions.clearErrors.bind(null,errorId);
 };
 EdminForce.Containers.Programs = Composer.composeWithTracker(reactiveFnPrograms)(EdminForce.Components.Programs);

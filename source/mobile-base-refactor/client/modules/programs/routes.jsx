@@ -56,7 +56,9 @@ DefaultRoutes.route('/classes', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Components.Classes />
+            bodyTmpl: <EdminForce.Containers.Classes
+                context={EdminForce.Contexts.Programs}
+                actions={EdminForce.Actions.Programs} />
         })
     }
 });

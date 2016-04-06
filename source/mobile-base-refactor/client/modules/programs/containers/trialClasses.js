@@ -1,6 +1,7 @@
 // trial classes
 const reactiveFnTrialClasses = ({context,actions,programID}, onData) => {
-    const error = context.LocalState.get('ERROR_TRIALCLASSES');
+    const errorId = 'ERROR_TRIALCLASSES';
+    const error = context.LocalState.get(errorId);
     if (error) {
         onData(null, {
             classes : [],
@@ -18,6 +19,6 @@ const reactiveFnTrialClasses = ({context,actions,programID}, onData) => {
             });
         });
     }
-    return actions.clearErrors.bind(null,'ERROR_TRIALCLASSES');
+    return actions.clearErrors.bind(null,errorId);
 };
 EdminForce.Containers.TrialClasses = Composer.composeWithTracker(reactiveFnTrialClasses)(EdminForce.Components.TrialClasses);
