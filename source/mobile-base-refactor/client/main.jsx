@@ -4,12 +4,8 @@ Dependency.add('auth.store', new function () {
     var self = this;
 
     function postLoginAction(redirectUrl) {
-        if (redirectUrl) {
-            EdminForce.utils.postActionRedirect(redirectUrl);
-        }
-        else {
+        if (!EdminForce.utils.postActionRedirect(redirectUrl))
             FlowRouter.go('/account');
-        }
     }
 
     self.tokenId = Dispatcher.register(function (payload) {

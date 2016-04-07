@@ -29,5 +29,7 @@ EdminForce.utils.isValidDate = function(dateStr) {
 EdminForce.utils.postActionRedirect = function(redirectUrl) {
     if (redirectUrl && redirectUrl.r) {
         FlowRouter.go(FlowRouter.path(redirectUrl.r, null, _.omit(redirectUrl, 'r')));
+        return true;
     }
+    return false;
 }
