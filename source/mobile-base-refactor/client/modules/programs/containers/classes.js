@@ -34,7 +34,11 @@ const reactiveFnClasses = ({context,actions}, onData) => {
         // call onData with no data to show loading screen
         onData();
 
-        Meteor.call(methodName, !studentID, studentID, programID, sessionID, function(methodError, result) {
+        let loadContextData = !context.StateBag.classes.students ||
+                !context.StateBag.classes.sessions ||
+                !context.StateBag.classes.programs;
+
+        Meteor.call(methodName, loadContextData, studentID, programID, sessionID, function(methodError, result) {
             if (!methodError) {
                 context.MethodCache[methodName] = result;
                 context.StateBag.classes.programID = result.programID;
@@ -62,11 +66,11 @@ const reactiveFnClasses = ({context,actions}, onData) => {
         });
     }
 
+    // return a cleanup function when the component is un-mounted
     return () => {
         context.StateBag.classes = {};
         actions.clearErrors(errorId);
     }
-    //return actions.clearErrors.bind(null, errorId);
 };
 EdminForce.Containers.Classes = Composer.composeWithTracker(reactiveFnClasses)(EdminForce.Components.Classes);
 

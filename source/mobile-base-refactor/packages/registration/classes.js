@@ -19,12 +19,29 @@ const _studentFields = {
     profile: 1
 }
 
-// returns a list of registration classes for a specified program, session, and student.
-function getClasesForRegistration(userId, initialLoad,studentID, programID, sessionID) {
+
+/**
+ * returns a list of registration classes for a specified program, session, and student.
+ * @param userId {String}
+ * @param loadContextData {Boolean} whether return students/sessions/programs or not
+ * @param studentID {String} student ID
+ * @param programID {String} program ID
+ * @param sessionID {String} sessionID
+ * @returns {
+ *      programID: String,
+ *      sessionID: String,
+ *      studentID: String,
+ *      students: [student],
+ *      programs: [program],
+ *      sessions: [session],
+ *      classes: [class]
+ * }
+ */
+function getClasesForRegistration(userId, loadContextData, studentID, programID, sessionID) {
     let result = {}
     let currentDate = new Date();
 
-    if (initialLoad) {
+    if (loadContextData || !studentID || !programID || !sessionID) {
         result.students = Collections.student.find({accountID: userId},{fields:_studentFields}).fetch();
         result.sessions = Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
         result.programs = Collections.program.find({}).fetch();
