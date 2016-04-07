@@ -12,7 +12,8 @@ Package.onUse(function(api) {
         "ecmascript",
         "stevezhu:lodash",
         "momentjs:moment",
-        
+
+        "kg:base",
         "edminforce:mobile-context",
         "edminforce:utils",
     ], ["client","server"]);

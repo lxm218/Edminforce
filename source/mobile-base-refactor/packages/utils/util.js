@@ -10,9 +10,12 @@ EdminForce.utils.calcAge = function (dob) {
 /**
  * Get class name from program, session, class day & time
  */
-EdminForce.utils.getClassName = function(programName, sessionName, day, time){
-    return `${programName} ${sessionName} ${day} ${time}`;
+EdminForce.utils.getClassName = function(programName, sessionName, classData){
+    return `${programName} ${sessionName} ${classData.schedule.day} ${classData.schedule.time}`;
 };
+// EdminForce.utils.getClassName = function(programName, sessionName, day, time){
+//     return `${programName} ${sessionName} ${day} ${time}`;
+// };
 
 EdminForce.utils.isValidDate = function(dateStr) {
     let dateObj = new Date(dateStr);

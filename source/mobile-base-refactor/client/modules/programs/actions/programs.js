@@ -35,7 +35,7 @@ EdminForce.Actions.Programs = {
         LocalState.set('ERROR_CLASSES', null);
         Meteor.call('program.bookClasses', studentID, classIDs, function(err,result){
             err ? LocalState.set('ERROR_CLASSES', err.reason) : 
-                FlowRouter.go(FlowRouter.path("/carts/detail/:cartId", {cardId:result.join()}));
+                FlowRouter.go(FlowRouter.path("/registrationSummary", null, {registrationIDs:result.join()}));
         });
     },
     

@@ -132,7 +132,7 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
             lessonDate.hour(classTime.hour());
             lessonDate.minute(classTime.minute());
             lesson.lessonDate = lessonDate.toDate();
-            lesson.name = EdminForce.utils.getClassName(program.name, classSession.name, classItem.schedule.day, classItem.schedule.time);
+            lesson.name = EdminForce.utils.getClassName(program.name, classSession.name, classItem);
             availableLessons.push(lesson);
         }
     }
@@ -185,7 +185,7 @@ function getTrialStudents(accountID, classID) {
         return null;
     }
 
-    classItem.name = EdminForce.utils.getClassName(program.name, session.name, classItem.schedule.day, classItem.schedule.time);
+    classItem.name = EdminForce.utils.getClassName(program.name, session.name, classItem);
 
     let result = {
         classItem,
