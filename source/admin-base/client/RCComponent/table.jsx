@@ -6,16 +6,28 @@ KUI.Pagination = class extends RC.CSS{
 
         let self = this;
         this.state = {
-            total : 20,
-            activePage : 1,
+            total : p.total,
+            activePage : p.page,
             onSelect : function(e, se){
                 self.setState({
                     activePage : se.eventKey
                 });
+                self.props.onSelectPage(se.eventKey);
             }
         };
 
 
+    }
+
+    componentWillUpdate(np, ns){
+        super.componentWillUpdate(np, ns);
+
+        if(np.page && np.total){
+            this.setState({
+                total : np.total,
+                activePage : np.page
+            });
+        }
     }
 
 
@@ -86,32 +98,17 @@ KUI.Table = class extends RC.CSS{
     render(){
 
         let sy = _.extend({
-            marginBottom:0
+            marginBottom:'15px'
         }, this.props.style||{});
 
-        const by = {
-            div : {
-                textAlign : 'left',
-                marginBottom:'15px'
-            },
-            div1 : {
-                textAlign : 'right',
-                marginTop : '8px'
-            }
-        };
 
         return (
-            <RC.Div style={by.div}>
-                <RB.Table style={sy} striped bordered condensed hover>
-                    {this.renderThead()}
-                    {
+            <RB.Table style={sy} striped bordered condensed hover>
+                {this.renderThead()}
+                {
                         this.renderTBody()
-                    }
-                </RB.Table>
-
-                <div style={by.div1}><KUI.Pagination ref="page" /></div>
-            </RC.Div>
-
+                }
+            </RB.Table>
         );
     }
 

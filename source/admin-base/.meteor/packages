@@ -29,6 +29,7 @@ react
 
 kadira:flow-router
 kadira:react-layout
+tmeasday:publish-counts
 
 fourseven:scss@=3.2.0
 fortawesome:fontawesome

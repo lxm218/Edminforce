@@ -106,6 +106,7 @@ spacebars-compiler@1.0.7
 srp@1.0.4
 standard-minifiers@1.0.2
 summernote:summernote@0.8.1
+tmeasday:publish-counts@0.7.3
 tracker@1.0.9
 twbs:bootstrap@3.3.6
 ui@1.0.8

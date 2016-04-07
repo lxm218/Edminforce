@@ -43,12 +43,39 @@ _.extend(util, {
     }
 });
 
+util.data = {
+    subscribe : function(obj, opts){
+        let name;
+        if(_.isString(obj)){
+            name = obj;
+        }
+        else{
+            name = obj._name;
+        }
+
+        let x = Meteor.subscribe(name, opts||{});
+        x._name = name;
+        return x;
+    },
+
+    getMaxCount : function(subobj){
+        let name = subobj._name;
+        if(!name){
+            throw Meteor.Error('param error', '[util.data.getMaxCount] argument error');
+        }
+
+        return Counts.get(name+'-count');
+    }
+};
+
 util.const = {
     //TODO input to module
     'StudentStatus' : ['Active', 'Inactive'],
     'Gender' : ['Male', 'Female'],
 
-    dateFormat : 'MM/DD/YYYY'
+    dateFormat : 'MM/DD/YYYY',
+
+    PageSize : 10
 };
 
 util.dialog = {

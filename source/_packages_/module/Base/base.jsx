@@ -214,8 +214,8 @@ console.log('['+this._name+':'+methodName+' call]');
     }
 
     _publishMeteorData(){
-        Meteor.publish(this._name, (opts)=>{
-
+        let self = this;
+        Meteor.publish(this._name, function(opts){
             opts = _.extend({
                 query : {},
                 sort : {},
@@ -239,10 +239,12 @@ console.log('['+this._name+':'+methodName+' call]');
             };
             if(opts.field){
                 option.fields = opts.field;
-            }
+            };
 
-            return this._db.find(opts.query, option);
+            Counts.publish(this, self._name+'-count', self._db.find(opts.query));
+            return self._db.find(opts.query, option);
         });
+
 
         this.publishMeteorData();
 
