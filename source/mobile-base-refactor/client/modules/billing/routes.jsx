@@ -12,3 +12,16 @@ DefaultRoutes.route('/registrationSummary', {
         })
     }
 })
+
+DefaultRoutes.route('/checkout', {
+    name: "cart checkout",
+    action: function(p,q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.Checkout
+                context={EdminForce.Contexts.Programs}
+                actions={EdminForce.Actions.Programs} />
+        })
+    }
+})

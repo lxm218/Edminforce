@@ -206,6 +206,15 @@ function calculateRegistrationFee(classData, session) {
 }
 
 
+function getDocumentFromCache(documentName, id, cache) {
+    let doc = _.find(cache, {_id:id});
+    if (!doc) {
+        doc = Collections[documentName].findOne({_id:id});
+        doc && (cache.push(doc));
+    }
+    return doc;
+}
+
 /* 
  * Retrieves registration summary for a list of pending registrations
  * {
@@ -217,55 +226,122 @@ function calculateRegistrationFee(classData, session) {
 function getRegistrationSummary(userId, studentClassIDs) {
 
     let result = {
-        student: {},
-        classes: []
+        // student: {},
+        // classes: [],
+        students:[]
     }
 
-    let studentClasses = Collections.classStudent.find({
-        _id: {$in: studentClassIDs},
-        accountID: userId
-    }, {
-        fields: {classID:1, studentID:1, programID:1}
+    let query = {
+        accountID: userId,
+        status: 'pending'
+    }
+    if (studentClassIDs) {
+        query._id = {$in: studentClassIDs}
+    }
+    let studentClasses = Collections.classStudent.find(query, {
+        fields: {classID:1, studentID:1, programID:1,type:1,lessonDate:1},
+        sort: {studentID:-1}
     }).fetch();
-
-    if (!studentClasses || studentClasses.length == 0) return result;
-
-    result.student = Collections.student.findOne({_id: studentClasses[0].studentID}) || {};
 
     let sessions = [];
     let programs = [];
 
-    _.forEach(studentClasses, (sc) => {
-        let classData = Collections.class.findOne({_id: sc.classID}, {fields:{schedule:1,programID:1,sessionID:1,tuition:1}});
-        if (!classData) return;
+    let groupByStudent = lodash.groupBy(studentClasses, 'studentID');
+    lodash.forOwn(groupByStudent, (value,key) => {
+        let student = Collections.student.findOne({_id: key}, {fields:{name:1}});
+        if (!student) return;
 
-        let session = _.find(sessions, {_id: classData.sessionID});
-        if (!session) {
-            session = Collections.session.findOne({_id: classData.sessionID});
-            session && (sessions.push(session));
-        }
-        if (!session) throw new Meteor.Error(500, 'Session not found','Invalid session id: ' + classData.sessionID);
+        student.classes = [];
+        lodash.forEach(value, (sc) => {
+            let classData = Collections.class.findOne({_id: sc.classID}, {fields:{schedule:1,programID:1,sessionID:1,tuition:1}});
+            if (!classData) return;
 
-        let program = _.find(programs, {_id: classData.programID});
-        if (!program) {
-            program = Collections.program.findOne({_id: classData.programID});
-            program && (programs.push(program));
-        }
-        if (!program) throw new Meteor.Error(500, 'Program not found','Invalid program id: ' + classData.programID);
+            let session = getDocumentFromCache('session', classData.sessionID, sessions);
+            if (!session) throw new Meteor.Error(500, 'Session not found','Invalid session id: ' + classData.sessionID);
 
-        classData.name = EdminForce.utils.getClassName(program.name, session.name, classData);
-        classData.classFee = calculateRegistrationFee(classData, session);
+            let program = getDocumentFromCache('program', classData.programID, programs);
+            if (!program) throw new Meteor.Error(500, 'Program not found','Invalid program id: ' + classData.programID);
 
-        result.classes.push(classData);
-    })
+            sc.name = EdminForce.utils.getClassName(program.name, session.name, classData);
+
+            if (sc.type === 'makeup') {
+                sc.classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
+            }
+            else {
+                sc.classFee = calculateRegistrationFee(classData, session);
+            }
+
+            student.classes.push(sc);
+        });
+
+        result.students.push(student);
+    });
+
+
+    // _.forEach(studentClasses, (sc) => {
+    //     let classData = Collections.class.findOne({_id: sc.classID}, {fields:{schedule:1,programID:1,sessionID:1,tuition:1}});
+    //     if (!classData) return;
+    //
+    //     let session = getDocumentFromCache('session', classData.sessionID, sessions);
+    //     if (!session) throw new Meteor.Error(500, 'Session not found','Invalid session id: ' + classData.sessionID);
+    //
+    //     let program = getDocumentFromCache('program', classData.programID, programs);
+    //     if (!program) throw new Meteor.Error(500, 'Program not found','Invalid program id: ' + classData.programID);
+    //
+    //     classData.name = EdminForce.utils.getClassName(program.name, session.name, classData);
+    //     classData.classFee = calculateRegistrationFee(classData, session);
+    //
+    //     result.classes.push(classData);
+    // })
 
     // registration fee
     let customer = Collections.Customer.findOne({_id: userId});
-    result.registrationFee = (customer && !customer.hasRegistrationFee) ? 0 : 25;
+    result.isNewCustomer = customer && customer.hasRegistrationFee;
+    result.registrationFee = result.isNewCustomer ? 25 : 0;
     
     return result;
 }
 
+/*
+ * returns all shopping cart items
+ */
+// function getShoppingCartItems(userId, classStudentIDs) {
+//     let cart = {
+//         items: []
+//     }
+//
+//     let pendingRegistrations = Collections.classStudent.find({
+//         accountID: userId,
+//         status: "pending"
+//     }, {
+//         sort: {
+//             studentID: -1
+//         }
+//     }).fetch();
+//
+//     let sessions = [];
+//     let programs = [];
+//
+//     pendingRegistrations.forEach( (sc) => {
+//         let classData = Collections.class.findOne({_id:sc.classID});
+//         if (!classData) return;
+//
+//         let session = getDocumentFromCache('session', classData.sessionID, sessions);
+//         let program = getDocumentFromCache('session', classData.programID, programs);
+//         if (!session || !program) return;
+//
+//         sc.name = EdminForce.utils.getClassName(program.name, session.name, classData);
+//         if (sc.type === 'makeup') {
+//             sc.price = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
+//         }
+//         else {
+//             sc.price = calculateRegistrationFee(classData, session);
+//         }
+//
+//     })
+// }
+
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;
 EdminForce.Registration.getRegistrationSummary = getRegistrationSummary;
+//EdminForce.Registration.getShoppingCartItems = getShoppingCartItems;
