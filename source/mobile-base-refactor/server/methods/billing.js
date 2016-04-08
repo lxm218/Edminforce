@@ -5,4 +5,9 @@ Meteor.methods({
         check(studentClassIDs, [String]);
         return EdminForce.Registration.getRegistrationSummary(this.userId, studentClassIDs);
     },
+
+    'billing.getShoppingCartItems': function () {
+        return EdminForce.Registration.getRegistrationSummary(this.userId);
+    },
+    
 });

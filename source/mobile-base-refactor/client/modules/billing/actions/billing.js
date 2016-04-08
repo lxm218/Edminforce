@@ -6,7 +6,8 @@ EdminForce.Actions.Billing = {
 };
 
 EdminForce.Contexts.Billing = {
-    LocalState: new ReactiveDict()
+    LocalState: new ReactiveDict(),
+    MethodCache: {},    
 }
 
 ReactDI.injectContext(EdminForce.Contexts.Billing, EdminForce.Actions.Billing);

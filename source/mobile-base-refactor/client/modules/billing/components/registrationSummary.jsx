@@ -28,6 +28,8 @@ EdminForce.Components.RegistrationSummary = class extends RC.CSS {
         let style = {
             padding: '10px'
         };
+        
+        let student = this.props.students[0] || {classes:[]}
 
         return (
             <RC.Div style={style} className="carts-detail">
@@ -36,7 +38,7 @@ EdminForce.Components.RegistrationSummary = class extends RC.CSS {
                 </RC.VerticalAlign>
 
                 <RC.VerticalAlign center={true} className="padding">
-                    <h4>{this.props.student.name}</h4>
+                    <h4>{student.name}</h4>
                 </RC.VerticalAlign>
 
                 <Table selectable={false}>
@@ -48,7 +50,7 @@ EdminForce.Components.RegistrationSummary = class extends RC.CSS {
                     </TableHeader>
                     <TableBody displayRowCheckbox={false}>
                         {
-                            this.props.classes.map((sc) => (
+                            student.classes.map((sc) => (
                                 <TableRow key={sc._id}>
                                     <TableRowColumn>{sc.name}</TableRowColumn>
                                     <TableRowColumn>{'$' + sc.classFee}</TableRowColumn>
@@ -56,7 +58,7 @@ EdminForce.Components.RegistrationSummary = class extends RC.CSS {
                             ))
                         }
                         {
-                            this.props.registrationFee > 0 ? (
+                            (student.classes.length > 0 && this.props.registrationFee > 0) ? (
                                 <TableRow key="regFee">
                                     <TableRowColumn>Registration Fee:</TableRowColumn>
                                     <TableRowColumn>{'$' + this.props.registrationFee}</TableRowColumn>
