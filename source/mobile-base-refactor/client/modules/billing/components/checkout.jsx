@@ -19,8 +19,11 @@ EdminForce.Components.Checkout = class extends RC.CSS {
         this.makeupOnly = true;
 
         this.state = {}
-    }
 
+        this.process = this.process.bind(this);
+        this.applyCoupon = this.applyCoupon.bind(this);
+    }
+    
     deleteCartItem(cartItem) {
         this.props.actions.deleteCartItem(cartItem._id);
     }
@@ -216,9 +219,9 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                 <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon" value=""
                           label="" placeholder="Enter Coupon Code"/>
                 <RC.Button {... attributes} style={processButtonStyle} theme="inline" bgColor="brand2"
-                                            onClick={this.applyCoupon.bind(this)}>Apply</RC.Button>
+                                            onClick={this.applyCoupon}>Apply</RC.Button>
                 <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark"
-                                            onClick={this.process.bind(this)}>Process Payment</RC.Button>
+                                            onClick={this.process}>Process Payment</RC.Button>
             </RC.Div>
         );
     }
