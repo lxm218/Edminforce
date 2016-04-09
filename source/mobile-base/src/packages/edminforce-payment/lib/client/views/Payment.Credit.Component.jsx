@@ -103,6 +103,7 @@
               "_id": orderID,
               paymentTotal:String(amt),
               paymentMethod:"creditCard",
+              paymentSource:"mobile",
               status:"success"
             }
           }, function(err, res){

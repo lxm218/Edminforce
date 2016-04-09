@@ -152,6 +152,7 @@
               "_id": orderID,
               paymentTotal:amt,
               paymentMethod:"echeck",
+              paymentSource:"mobile",
               status:"success"
             }
           }, function(err, res){
