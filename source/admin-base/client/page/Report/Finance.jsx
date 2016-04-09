@@ -321,6 +321,12 @@ KUI.Report_Finance = class extends KUI.Page{
 			{
 				title : 'Amount',
 				key : 'order.paymentTotal'
+			},
+			{
+				title : 'Date',
+				reactDom(doc){
+					return moment(doc.updateTime).format('MM/DD/YYYY hh:mm:ss');
+				}
 			}
 		];
 
