@@ -1,8 +1,6 @@
 
 
 let Base = class{
-
-
     constructor(name, option){
         this._name = name;
         this._db = null;
@@ -204,13 +202,27 @@ console.log('['+this._name+':'+methodName+' call]');
         this.initEnd();
 
         if(Meteor.isServer){
+
             Meteor.startup(function(){
-                //self.addTestData.call(self);
+                self._defineCronJob.call(self);
+                self.addTestData.call(self);
 
                 self._publishMeteorData.call(self);
+                
             });
         }
 
+    }
+    defineCronJob(){
+        return [];
+    }
+
+    _defineCronJob(){
+
+        let list = this.defineCronJob();
+        _.each(list, function(item){
+            KG.SyncedCron.add(item);
+        });
     }
 
     _publishMeteorData(){

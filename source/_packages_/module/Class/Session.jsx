@@ -29,6 +29,31 @@ KG.define('EF-Session', class extends Base{
         };
     }
 
+    defineCronJob(){
+        let self = this;
+        return [
+            {
+                name : 'Make session date to expired',
+                schedule: function (parser) {
+                    return parser.text('every 5 min');
+                },
+                job : function(){
+                    let now = new Date();
+                    self._db.update({
+                        registrationStatus : 'Yes',
+                        registrationEndDate : {
+                            '$lt' : now
+                        }
+                    }, {
+                        '$set' : {
+                            registrationStatus : 'No'
+                        }
+                    }, {multi : true});
+                }
+            }
+        ];
+    }
+
 
     insert(data){
         //TODO validate

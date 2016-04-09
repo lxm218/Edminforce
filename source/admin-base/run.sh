@@ -22,7 +22,7 @@ stopProcess() {
 runLocalHost(){
 
     PORT=8000
-    stopMongoDB
+    #stopMongoDB
 
     tmp=`echo $1 |sed 's/[0-9]//g'`
     if [ -n "$1" ] && [ -z "${tmp}" ] && [ $1 -gt 2900 ]
