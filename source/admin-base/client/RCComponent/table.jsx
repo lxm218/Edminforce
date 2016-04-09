@@ -40,7 +40,8 @@ KUI.Pagination = class extends RC.CSS{
             next : true,
             first : false,
             last : false,
-            boundaryLinks : true,
+            ellipsis : false,
+            boundaryLinks : false,
             items : s.total,
             activePage : s.activePage,
             onSelect : s.onSelect,
@@ -50,13 +51,13 @@ KUI.Pagination = class extends RC.CSS{
             }
         };
 
-        p.maxButtons = s.total > 4 ? 4 : s.total;
-        if(s.total > 4){
+        p.maxButtons = s.total > 5 ? (5+1) : s.total;
+        if(s.total > p.maxButtons+1){
             p.ellipsis = true;
             p.first = true;
             p.last = true;
+            p.boundaryLinks = true;
         }
-
 
 
         return (

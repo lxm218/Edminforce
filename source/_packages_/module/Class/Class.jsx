@@ -530,7 +530,7 @@ let Class = class extends Base{
 
             Counts.publish(this, dbName+'-count', self._db.find(query));
 
-            this.ready();
+            //this.ready();
             this.onStop(function() {
                 handler.stop();
             });
