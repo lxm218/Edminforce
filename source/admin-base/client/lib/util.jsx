@@ -86,6 +86,32 @@ util.dialog = {
     },
     alert : function(msg){
         alert(msg);
+    },
+
+    render : function(id, opts){
+        id = id || 'modal';
+        let self = this;
+        opts = _.extend({
+            onHide : function(){
+                self.refs[id].hide();
+            },
+            title : '',
+            YesFn : function(){},
+            YesText : '',
+            renderBody : function(){return null;}
+        }, opts||{});
+
+        return (
+            <KUI.Modal onHide={opts.onHide.bind(this)}
+                       title={opts.title}
+                       YesText={opts.YesText}
+                       onYes={opts.YesFn.bind(this)}
+                       ref={id}>
+
+
+                {opts.renderBody.call(this)}
+            </KUI.Modal>
+        );
     }
 };
 

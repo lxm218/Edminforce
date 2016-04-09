@@ -19,13 +19,49 @@ KUI.Email_AddTemplate_comp = class extends RC.CSS{
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
                         <RB.Input type="text" {... p.name} />
-                        <RB.Input wrapperClassName="col-xs-12">
+                        <RB.Input groupClassName="no_margin_bottom" wrapperClassName="col-xs-12">
                             <div {... p.html}></div>
                         </RB.Input>
+
+                        <KUI.NoButton onClick={this.showEmailModal.bind(this)} label="Email Variables"></KUI.NoButton>
                     </RB.Col>
                 </RB.Row>
+                {this.renderEmailModal()}
             </form>
         );
+    }
+
+    showEmailModal(){
+        this.refs.modal.show();
+    }
+
+    renderEmailModal(){
+        let param = {
+            title : 'Email Variables',
+            YesFn : function(){
+
+            },
+            renderBody : function(){
+                return (
+                    <RC.Div>
+                        <h4>Quick Help</h4>
+                        <hr/>
+                        <p>
+                            Email Variables:<br/>
+                            {`{user} : Account Name`}<br/>
+                            {`{student}	: Student Name`}<br/>
+                            {`{class} : Class Name`}<br/>
+                        </p>
+                        <p>
+                            {`To use email variables include the {} in the body or subject of your email when you send bulk emails.`}<br/>
+                            {`For example, Dear {user}!`}
+                        </p>
+                    </RC.Div>
+                );
+            }
+        };
+
+        return util.dialog.render.call(this, 'modal', param);
     }
 
     componentDidMount(){
@@ -75,7 +111,6 @@ KUI.Email_AddTemplate = class extends RC.CSS{
         return (
             <RC.Div>
                 <h3>Add Email Template</h3>
-                <hr/>
                 <KUI.Email_AddTemplate_comp ref="form" />
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
@@ -89,6 +124,7 @@ KUI.Email_AddTemplate = class extends RC.CSS{
         let data = this.refs.form.getValue();
 
         let rs = KG.get('EF-EmailTemplate').insert(data);
+        console.log(rs);
         KG.result.handle(rs, {
             success : function(){
                 util.toast.alert('insert success');
@@ -96,7 +132,7 @@ KUI.Email_AddTemplate = class extends RC.CSS{
                 util.goPath('/email');
             },
             error : function(e){
-                util.toast.showError(e.reason);
+                util.toast.showError('Insert Email template error, Please check');
             }
         });
     }
@@ -131,7 +167,7 @@ KUI.Email_EditTemplate = class extends KUI.Page{
                 util.goPath('/email');
             },
             error : function(e){
-                util.toast.showError(e.reason);
+                util.toast.showError('Insert Email template error, Please check');
             }
         });
     }

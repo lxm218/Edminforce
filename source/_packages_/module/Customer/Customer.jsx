@@ -151,14 +151,14 @@ KG.define('EF-Customer', class extends Base{
                 delete query.dayOfClass;
             }
 
-            let refresher = function(){
+            let refresher = function(id){
                 _.each(LIST_ARR, function(doc){
                     try{
                         //self.removed(LISTBYCLASSQUERY, doc._id);
                     }catch(e){}
 
                 });
-                let tmp = m.Class.getAll(query),
+                let tmp = m.Class.getAll({_id : id}),
                     tmpArr = [];
                 //console.log(tmp)
                 _.each(tmp, (doc)=>{
@@ -177,14 +177,12 @@ KG.define('EF-Customer', class extends Base{
                 });
             };
 
-            let handler = m.Class.getDB().find(query, {
-                limit : 10
-            }).observeChanges({
+            let handler = m.Class.getDB().find(query).observeChanges({
                 added(id, fields){
-                    refresher();
+                    refresher(id);
                 },
                 changed(id, fields){
-                    refresher();
+                    refresher(id);
                 }
             });
 
