@@ -215,6 +215,119 @@ function getDocumentFromCache(documentName, id, cache) {
     return doc;
 }
 
+/*
+ * Apply a coupon to shopping cart
+ */
+function applyCoupon(userId, couponId, cart) {
+
+    let coupon = Collections.coupon.findOne({_id: couponId});
+    if (!coupon) {
+        cart.couponMsg = 'Cannot verify this coupon, please make sure you typed correct coupon';
+        return;
+    }
+
+    // check coupon time
+    coupon.startDate = coupon.startDate || new Date(1900,1,1);
+    coupon.endDate = coupon.endDate || new Date(9999,1,1);
+    let currentTime = new Date();
+    if (currentTime < coupon.startDate || currentTime > coupon.endDate) {
+        cart.couponMsg = 'Invalid Coupon';
+        return;
+    }
+
+    // check if the coupon is only valid for new customers
+    let customer = Collections.Customer.findOne({_id: userId});
+    let isNewCustomer = customer && customer.hasRegistrationFee;
+    if (coupon.validForNoBooked && !isNewCustomer) {
+        cart.couponMsg = 'This Coupon is Only Valid for New Customers';
+        return;
+    }
+
+    //  check how many times the coupon has been used
+    let usedCoupons = Collections.customerCoupon.find({
+        customerID: userId,
+        couponID: couponId,
+        status: {
+            $nin: ['expired']
+        }
+    }).count();
+
+    let maxCount = Number(coupon.maxCount);
+    if (maxCount && usedCoupons >= maxCount) {
+        cart.couponMsg = "This coupon can only be used " + coupon.maxCount + " times";
+        return;
+    }
+
+    // check minimum amount
+    let minAmount = Number(coupon.overRequire);
+    if (minAmount && cart.total < minAmount) {
+        cart.couponMsg = "This coupon only valid when you buy more than " + coupon.overRequire;
+        return;
+    }
+
+
+    // check class and program
+    coupon.useFor = coupon.useFor || [];
+    coupon.weekdayRequire = coupon.weekdayRequire || [];
+    let passProgram = false, passWeekday = false;
+    if (_.find(coupon.useFor || [], function (item) {
+            return item.toLowerCase() === 'all'
+        })) {
+        // this coupon can use for any program
+        passProgram = true;
+    }
+    if (_.find(coupon.weekdayRequire || [], function (item) {
+            return item.toLowerCase() === 'all'
+        })) {
+        // this coupon can use for any program
+        passWeekday = true;
+    }
+
+    // check for program & week day restriction
+    if (!passWeekday || !passProgram) {
+        let valid = true;
+        for (let iStudent = 0; valid && iStudent < cart.students.length; iStudent++ ) {
+            for (let iClass = 0; valid && iClass < cart.students[iStudent].classes; iClass++) {
+                // check program
+                let classData = cart.students[iStudent].classes[iClass];
+                if (!passProgram) {
+                    if (coupon.useFor.indexOf(classData.programID)<0)
+                        valid = false;
+                }
+
+                if (!passWeekday) {
+                    if (coupon.weekdayRequire.indexOf(classData.schedule.day.toLowerCase()) < 0)
+                        valid = false;
+                }
+            }
+        }
+
+        if (!valid) {
+            cart.couponMsg = "Make sure your selected classes' program and day is in Coupon";
+            return;
+        }
+    }
+
+    // passed all validations, now calculate discount amount
+    cart.couponMsg = '';
+    let discountAmount = 0;
+    let discount = coupon.discount;
+    let reg = /^\s*([\d]*[\.]?[\d]*)\s*([%$])\s*$/;
+    let result = discount.match(reg);
+    if (result) {
+        let value = Number(result[1]) || 0;
+        // $ or %
+        let unit = result[2];
+        if (unit == "$") {
+            discountAmount = value;
+        } else if (unit == '%') {
+            discountAmount = cart.totalDiscountable * value / 100;
+        }
+    }
+
+    cart.discount = discountAmount;
+}
+
 /* 
  * Retrieves registration summary for a list of pending registrations
  * {
@@ -223,12 +336,16 @@ function getDocumentFromCache(documentName, id, cache) {
  *      registrationFee
  * }
  */
-function getRegistrationSummary(userId, studentClassIDs) {
+function getRegistrationSummary(userId, studentClassIDs, couponId) {
 
     let result = {
         // student: {},
         // classes: [],
-        students:[]
+        students:[],
+        total: 0,
+        totalDiscountable: 0,
+        discount: 0,
+        couponMsg: ''
     }
 
     let query = {
@@ -263,13 +380,18 @@ function getRegistrationSummary(userId, studentClassIDs) {
             if (!program) throw new Meteor.Error(500, 'Program not found','Invalid program id: ' + classData.programID);
 
             sc.name = EdminForce.utils.getClassName(program.name, session.name, classData);
+            // we need schedule for coupon validation
+            sc.schedule = classData.schedule;
 
             if (sc.type === 'makeup') {
                 sc.classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
             }
             else {
                 sc.classFee = calculateRegistrationFee(classData, session);
+                result.totalDiscountable += sc.classFee;
             }
+            
+            result.total += sc.classFee;
 
             student.classes.push(sc);
         });
@@ -277,71 +399,27 @@ function getRegistrationSummary(userId, studentClassIDs) {
         result.students.push(student);
     });
 
-
-    // _.forEach(studentClasses, (sc) => {
-    //     let classData = Collections.class.findOne({_id: sc.classID}, {fields:{schedule:1,programID:1,sessionID:1,tuition:1}});
-    //     if (!classData) return;
-    //
-    //     let session = getDocumentFromCache('session', classData.sessionID, sessions);
-    //     if (!session) throw new Meteor.Error(500, 'Session not found','Invalid session id: ' + classData.sessionID);
-    //
-    //     let program = getDocumentFromCache('program', classData.programID, programs);
-    //     if (!program) throw new Meteor.Error(500, 'Program not found','Invalid program id: ' + classData.programID);
-    //
-    //     classData.name = EdminForce.utils.getClassName(program.name, session.name, classData);
-    //     classData.classFee = calculateRegistrationFee(classData, session);
-    //
-    //     result.classes.push(classData);
-    // })
-
     // registration fee
     let customer = Collections.Customer.findOne({_id: userId});
     result.isNewCustomer = customer && customer.hasRegistrationFee;
-    result.registrationFee = result.isNewCustomer ? 25 : 0;
-    
+    if (result.isNewCustomer) {
+        result.registrationFee = 25;
+        result.total += 25;
+    }
+    else {
+        result.registrationFee = 0;
+    }
+
+    // check coupon
+    if (couponId && result.totalDiscountable > 0) {
+        applyCoupon(userId, couponId, result);
+    }
+
     return result;
 }
 
-/*
- * returns all shopping cart items
- */
-// function getShoppingCartItems(userId, classStudentIDs) {
-//     let cart = {
-//         items: []
-//     }
-//
-//     let pendingRegistrations = Collections.classStudent.find({
-//         accountID: userId,
-//         status: "pending"
-//     }, {
-//         sort: {
-//             studentID: -1
-//         }
-//     }).fetch();
-//
-//     let sessions = [];
-//     let programs = [];
-//
-//     pendingRegistrations.forEach( (sc) => {
-//         let classData = Collections.class.findOne({_id:sc.classID});
-//         if (!classData) return;
-//
-//         let session = getDocumentFromCache('session', classData.sessionID, sessions);
-//         let program = getDocumentFromCache('session', classData.programID, programs);
-//         if (!session || !program) return;
-//
-//         sc.name = EdminForce.utils.getClassName(program.name, session.name, classData);
-//         if (sc.type === 'makeup') {
-//             sc.price = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
-//         }
-//         else {
-//             sc.price = calculateRegistrationFee(classData, session);
-//         }
-//
-//     })
-// }
 
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;
 EdminForce.Registration.getRegistrationSummary = getRegistrationSummary;
-//EdminForce.Registration.getShoppingCartItems = getShoppingCartItems;
+EdminForce.Registration.applyCoupon = applyCoupon;
