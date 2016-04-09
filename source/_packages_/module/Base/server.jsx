@@ -1,5 +1,5 @@
 KG.SyncedCron.config({
-	log : true
+	log : false
 });
 console.log(KG.SyncedCron.options)
 

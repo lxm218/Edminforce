@@ -37,6 +37,11 @@ KUI.PageTable = class extends RC.CSS{
 			marginBottom:0
 		}, this.props.style||{});
 
+		let total = this.props.total;
+		if(this.props.pagesize){
+			total = Math.ceil(total/this.props.pagesize);
+		}
+
 		const by = {
 			div : {
 				textAlign : 'left',
@@ -45,9 +50,11 @@ KUI.PageTable = class extends RC.CSS{
 			div1 : {
 				textAlign : 'right',
 				marginTop : '8px',
-				display : this.props.total>1?'block':'none'
+				display : total>1?'block':'none'
 			}
 		};
+
+
 
 		return (
 			<RC.Div style={by.div}>
@@ -59,7 +66,7 @@ KUI.PageTable = class extends RC.CSS{
 				</RB.Table>
 
 				<div style={by.div1}><KUI.Pagination
-					total={this.props.total}
+					total={total}
 					page={this.props.page}
 					onSelectPage={this.props.onSelectPage}
 					ref="page" /></div>

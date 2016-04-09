@@ -176,7 +176,6 @@ KUI.Family_index = class extends KUI.Page{
             total={total}
             onSelectPage={this.selectPage.bind(this)}
             page={this.state.page}
-            pagesize={util.const.PageSize}
             title={titleArray}
             ref="table"></KUI.PageTable>;
     }
