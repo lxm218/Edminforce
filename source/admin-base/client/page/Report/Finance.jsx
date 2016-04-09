@@ -106,6 +106,8 @@ KUI.Report_Finance = class extends KUI.Page{
 					<Filter ref="filter" />
 					<RC.Div style={{textAlign:'right'}}>
 						<KUI.YesButton onClick={this.search.bind(this)} label="Show Result"></KUI.YesButton>
+						{this.showExportPeriodButton()}
+						
 					</RC.Div>
 					<hr/>
 					{this.renderResultTable()}
@@ -116,6 +118,7 @@ KUI.Report_Finance = class extends KUI.Page{
 					{this.renderDateTable()}
 					<RC.Div style={{textAlign:'right'}}>
 						<KUI.NoButton onClick={this.backToMain.bind(this)} label="Back"></KUI.NoButton>
+						{this.showExportDayButton()}
 					</RC.Div>
 				</RC.Div>
 
@@ -130,7 +133,7 @@ KUI.Report_Finance = class extends KUI.Page{
 		});
 	}
 
-
+	
 
 	search(){
 		let data = this.refs.filter.getValue(),
@@ -158,6 +161,56 @@ KUI.Report_Finance = class extends KUI.Page{
 				});
 			}
 		});
+	}
+
+	exportPeriod(){
+		let list = _.map(this.state.result, (item)=>{
+				item['Date'] = moment(item.date).format(util.const.dateFormat)
+				delete item.date
+				item['E-Check'] = '$' + item.echeck
+				delete item.echeck
+				item['Cash'] = '$' + item.cash
+				delete item.cash
+				item['Check'] = '$' + item.check
+				delete item.check
+				item['Total'] = '$' + item.total
+				delete item.total
+				delete item['credit card']
+				delete item.detail
+				return item;
+			})
+
+		let csv = Papa.unparse(list)
+		var blob = new Blob([csv], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, "FinancialReport.csv");
+	}
+
+	exportDay(){
+		let list = _.map(this.state.dateResult, (item)=>{
+				item['Student'] = item.student.name
+				item['Class'] = item.class.nickName
+				item['Type'] = item.type
+				item['Payment'] = item.order.paymentType
+				item['Amount'] = item.order.paymentTotal
+				delete item.student
+				delete item.class
+				delete item.type
+				delete item.order
+				delete item._id
+				delete item.studentID
+				delete item.accountID
+				delete item.programID
+				delete item.classID
+				delete item.status
+				delete item.createTime
+				delete item.updateTime
+				delete item.orderID
+				return item;
+			})
+
+		let csv = Papa.unparse(list)
+		var blob = new Blob([csv], {type: "text/plain;charset=utf-8"});
+		saveAs(blob, "FinancialReport.csv");
 	}
 
 	renderResultTable(){
@@ -279,5 +332,16 @@ KUI.Report_Finance = class extends KUI.Page{
 				title={titleArray}
 				ref="table"></KUI.Table>
 		);
+	}
+
+	showExportPeriodButton(){
+		if(this.state.result.length > 0) {
+			return (<KUI.YesButton onClick={this.exportPeriod.bind(this)} style={{marginLeft : '15px'}} label="Export Report" ></KUI.YesButton>);
+		}
+	}
+	showExportDayButton(){
+		if(this.state.dateResult.length > 0) {
+			return (<KUI.NoButton onClick={this.exportDay.bind(this)} style={{marginLeft : '15px'}} label="Export Report" ></KUI.NoButton>);
+		}
 	}
 };

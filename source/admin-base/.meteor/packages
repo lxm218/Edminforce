@@ -5,6 +5,7 @@
 # but you can also edit it by hand.
 
 meteor
+cfs:filesaver
 underscore
 session
 webapp
@@ -17,6 +18,9 @@ jquery
 reload
 autoupdate
 coffeescript
+
+harrison:papa-parse
+#pfafman:filesaver
 
 standard-minifiers      # JS/CSS minifiers run for production mode
 es5-shim                # ECMAScript 5 compatibility for older browsers.
@@ -58,3 +62,4 @@ edminforce:order
 edminforce:email
 
 edminforce:datahelper
+

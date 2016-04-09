@@ -15,6 +15,7 @@ boilerplate-generator@1.0.4
 caching-compiler@1.0.0
 cal:globals@0.0.1
 callback-hook@1.0.4
+cfs:filesaver@0.0.6
 check@1.1.0
 chuangbo:cookie@1.1.0
 coffeescript@1.0.11
@@ -44,6 +45,7 @@ fortawesome:fontawesome@4.5.0
 fourseven:scss@3.2.0
 geojson-utils@1.0.4
 gfk:mailgun-api@1.0.0
+harrison:papa-parse@1.1.1
 html-tools@1.0.5
 htmljs@1.0.5
 http@1.1.1
