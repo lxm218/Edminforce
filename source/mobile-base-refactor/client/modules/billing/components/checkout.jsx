@@ -9,7 +9,7 @@ let {
 
 let _ = lodash;
 
-EdminForce.Components.CartsCheckout = class extends RC.CSS {
+EdminForce.Components.Checkout = class extends RC.CSS {
 
     constructor(p) {
         super(p);
@@ -21,19 +21,8 @@ EdminForce.Components.CartsCheckout = class extends RC.CSS {
         this.state = {}
     }
 
-    deleteCartItem(cart) {
-        console.log(cart)
-        this.data.isReady = false;
-        EdminForce.Collections.classStudent.remove({
-            "_id": cart["_id"]
-        }, function (err, res) {
-            this.data.isReady = true;
-            if (err) {
-                alert("Delete Fail!");
-            } else {
-                console.log("[info]Delete successful");
-            }
-        }.bind(this));
+    deleteCartItem(cartItem) {
+        this.props.actions.deleteCartItem(cartItem._id);
     }
 
     applyCoupon() {

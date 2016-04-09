@@ -141,7 +141,26 @@ EdminForce.utils.updateTrialAndMakeupCount = function(trialOrMakeup, classID, le
     return nUpdated == 0 ? null : classData;
 }
 
+/*
+ * release makeup/trial space
+ */
+EdminForce.utils.releaseTrialAndMakeupSpace = function(trialOrMakeup, classID, lessonDate) {
+    let query = {
+        _id: classID,
+    }
 
+    let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
+    let lessonDateField = trialOrMakeup + '.' + strLessonDate;
+    query[lessonDateField] = {$gt: 0};
+
+    let incData = {};
+    incData[lessonDateField] = -1;
+    return Collections.class.update(query, {$inc: incData});
+}
+
+/*
+ * Sync classStudent collection and class collection
+ */
 EdminForce.utils.updateClassRegistration = function() {
 
     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted', type:'register'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);

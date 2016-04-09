@@ -20,8 +20,8 @@ DefaultRoutes.route('/checkout', {
             pageTitle: "Edmin Force",
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.Checkout
-                context={EdminForce.Contexts.Programs}
-                actions={EdminForce.Actions.Programs} />
+                context={EdminForce.Contexts.Billing}
+                actions={EdminForce.Actions.Billing} />
         })
     }
 })

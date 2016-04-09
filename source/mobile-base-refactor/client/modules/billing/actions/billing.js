@@ -14,6 +14,13 @@ EdminForce.Actions.Billing = {
         })
     },
     
+    deleteCartItem({LocalState, StateBag}, cartItemId) {
+        Meteor.call('bill.deleteCartItem', cartItemId, function(err, result){
+            err && (StateBag.checkout.popupError = 'Delete Fail');
+            LocalState.set('state.checkout', new Date().getTime());
+        });
+    },
+    
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
     }

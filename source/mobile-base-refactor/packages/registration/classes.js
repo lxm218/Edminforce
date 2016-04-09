@@ -418,8 +418,33 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     return result;
 }
 
+function removePendingRegistration(userId, studentClassId) {
+
+    let sc = Collections.classStudent.findOne({_id:studentClassId});
+    if (!sc) return;
+    // it's important to include status & account id in the query condition of the following
+    // remove call. It will ensure we only remove pending record that belongs to the current user.
+    let nRemoved = Collections.classStudent.remove({_id:studentClassId, accountID:userId, status: 'pending'});
+    if (nRemoved == 0) return;
+
+    // update registration count
+    if (sc.type == 'register') {
+        Collections.class.update( {
+            _id: sc.classID,
+            numberOfRegistered: {$gt: 0}
+        }, {
+            $inc: {
+                numberOfRegistered: -1
+            }
+        });
+    }
+    else
+    if (sc.type === 'makeup' || sc.type === 'trial') {
+        EdminForce.utils.releaseTrialAndMakeupSpace(sc.type, sc.classID, sc.lessonDate);
+    }
+}
 
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;
 EdminForce.Registration.getRegistrationSummary = getRegistrationSummary;
-EdminForce.Registration.applyCoupon = applyCoupon;
+EdminForce.Registration.removePendingRegistration = removePendingRegistration;
