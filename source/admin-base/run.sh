@@ -32,8 +32,7 @@ runLocalHost(){
     fi
 
 
-    #export MONGO_URL=$MONGOURL
-    export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
+    export MONGO_URL=$MONGOURL
 
     echo "---- start set env ----"
     export $ENV
