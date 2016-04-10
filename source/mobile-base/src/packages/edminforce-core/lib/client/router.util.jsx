@@ -16,7 +16,9 @@ EdminForce.utils.routeHandler = function (p, args) {
     }
     if (_.isObject(args)) _.defaults(args, defs); else args = defs;
 
-    document.title = args.metaTitle
+    console.log(args);
+
+    document.title = args.pageTitle
     document.description = args.metaDesc
 
     ReactLayout.render(args.layout, {
