@@ -326,6 +326,7 @@ function applyCoupon(userId, couponId, cart) {
     }
 
     cart.discount = discountAmount;
+    cart.appliedCouponId = couponId;
 }
 
 /* 
@@ -444,7 +445,217 @@ function removePendingRegistration(userId, studentClassId) {
     }
 }
 
+function postPaymentUpdate(userId, order, paymentMethod) {
+
+    // update registration fee flag
+    Collections.Customer.update({
+        _id: userI,
+        hasRegistrationFee:true
+    },{
+        $set: {
+            hasRegistrationFee: false
+        }
+     });
+
+    // update order
+    let orderUpdate = {
+        status: 'success',
+        paymentType: paymentMethod,
+    };
+
+    if (order.couponID) {
+        orderUpdate.customerCouponID = Collections.customerCoupon.insert({
+            customerID: userId,
+            couponID: order.couponID,
+            status: 'checkouted'
+        });
+    }
+
+    Collections.orders.update({
+        _id: orderId,
+        accountID: userId
+    }, {
+        $set: orderUpdate
+    });
+
+    // update classStudent
+    let nUpdated = Collections.classStudent.update( {
+        _id: {$in: order.details},
+        status: 'pending'
+    }, {
+        $set: {
+            status: 'checkouted'
+        }
+    });
+
+    let result = {};
+
+    // check if any pending booking has expired
+    if (nUpdated < order.details.length) {
+        let expiredRegistrations = Collections.classStudent.find({
+            _id: {$in: order.details},
+            status: {$ne:'checkouted'}
+        }).fetch();
+
+        console.log('expired registrations');
+        console.log(expiredRegistrations);
+        
+        let failedRegistrations = [];
+
+        // try to re-book
+        expiredRegistrations.forEach( (sc) => {
+            let nRebooked = 0;
+            if (sc.type === 'register') {
+                let classData = Collections.class.findOne({_id: sc.classID});
+                if (classData) {
+                    nRebooked = Collections.class.update( {
+                        _id: sc.classID,
+                        numberOfRegistered: {$lt: classData.maxStudent}
+                    }, {
+                        $inc: {
+                            numberOfRegistered: 1
+                        }
+                    })
+                }
+            }
+            else
+            if (sc.type === 'makeup') {
+                let classData = EdminForce.utils.updateTrialAndMakeupCount('makeup', sc.classID, sc.lessonDate);
+                nRebooked = classData ? 1: 0;
+            }
+
+            // rebooked
+            if (nRebooked>0) {
+                Collections.classStudent.update({_id: sc._id}, {$set:{status:'checkouted'}});
+            }
+            else {
+                failedRegistrations.push(sc._id);
+            }
+        });
+
+        if (failedRegistrations.length > 0) {
+            // fill failed bookings with student name and class name
+            result.error = 'registrationExpired';
+            result.expiredRegistrationIDs = failedRegistrations.join();
+        }
+    }
+
+    return result;
+}
+
+/*
+ * get a list of expired class student records that can't be re-booked becase
+ * there is no space in the classes.
+ */
+function getExpiredRegistrations(userId, expiredRegistrationIDs) {
+    
+    let expiredRegistrations = Collections.classStudent.find({
+        _id: {$in: expiredRegistrationIDs},
+        accountID: userId
+    }).fetch();
+
+    let result = [];
+    let sessions = [];
+    let programs = [];
+    let students = [];
+    expiredRegistrations.forEach( (sc) => {
+        let classData = Collections.class.find({_id: sc.classID});
+        let program = null;
+        let session = null;
+        let student = null;
+        if (classData) {
+            session = getDocumentFromCache('session', classData.sessionID, sessions);
+            program = getDocumentFromCache('program', classData.programID, programs);
+            student = getDocumentFromCache('student', sc.studentID, students);
+        }
+       
+        if (classData && program && session) {
+            sc.className = EdminForce.utils.getClassName(program.name, session.name, classData);
+        }
+        if (student) {
+            sc.studentName = student.name;
+        }
+       
+        result.push(sc);
+    })
+    
+    return result;
+}
+
+function payECheck(userId, checkPaymentInfo) {
+
+    let order = Collections.orders.findOne({_id: checkPaymentInfo.orderId});
+    if (!order) throw new Meteor.Error(500, 'Order not found','Invalid order id: ' + checkPaymentInfo.orderId);
+
+    // process payment
+    // if success,
+    //      update pending class, try to rebook if expired
+    //      update order
+    //      update custom coupon
+    var paymentInfo = {
+        "createTransactionRequest": {
+            "merchantAuthentication": {
+                "name": "42ZZf53Hst",
+                "transactionKey": "3TH6yb6KN43vf76j"
+            },
+            "refId": "123461",
+            "transactionRequest": {
+                "transactionType": "authCaptureTransaction",
+                "amount": "5",
+                "payment": {
+                    "bankAccount": {
+                        "accountType": "checking",
+                        "routingNumber": "125000024",
+                        "accountNumber": "12345678",
+                        "nameOnAccount": "John Doe"
+                    }
+                },
+                "profile":{
+                    "createProfile": false
+                },
+                "poNumber": "456654",
+                "customer": {
+                    "id": "99999456656"
+                },
+                "customerIP": "192.168.1.1",
+                "transactionSettings": {
+                    "setting": {
+                        "settingName": "testRequest",
+                        "settingValue": "false"
+                    }
+                },
+            }
+        }
+    };
+
+    paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.routingNumber = checkPaymentInfo.routingNumber
+    paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = checkPaymentInfo.accountNumber
+    paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = checkPaymentInfo.nameOnAccount
+    //Missing
+    paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
+    paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount;
+
+    var URL = 'https://apitest.authorize.net/xml/v1/request.api'
+    var response = HTTP.call('POST',URL, {data: paymentInfo});
+
+    console.log(response);
+
+    if (response &&
+        response.data &&
+        response.data.messages &&
+        response.data.messages.message[0].code == "I00001") {
+        return postPaymentUpdate(userId, order, 'echeck');
+    }
+    else {
+        return {
+            error: 'unsuccessful payment transaction'
+        }
+    }
+}
+
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;
 EdminForce.Registration.getRegistrationSummary = getRegistrationSummary;
 EdminForce.Registration.removePendingRegistration = removePendingRegistration;
+EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;

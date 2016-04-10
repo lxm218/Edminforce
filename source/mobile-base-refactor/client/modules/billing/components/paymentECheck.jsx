@@ -1,9 +1,47 @@
 EdminForce.Components.PaymentECheck = class extends RC.CSS {
     constructor(p) {
         super(p);
+        this.state = {
+            valid: false
+        }
+
+        this.validateFormData = this.validateFormData.bind(this);
+        this.postPayment = this.postPayment.bind(this);
+    }
+
+    postPayment() {
+        if (!this.state.valid) return;
+        let orderId = FlowRouter.getQueryParam('orderId');
+        let form = this.refs.paymentForm.getFormData()
+        this.props.actions.payECheck(orderId, form.routingNumber, form.accountNumber, form.nameOnAccount);
+    }
+
+    validateFormData(e){
+        let form = this.refs.paymentForm.getFormData()
+        var routingNumber = form.routingNumber
+        var accountNumber = form.accountNumber
+        var nameOnAccount = form.nameOnAccount
+        let message = [];
+        if (routingNumber.length != 9) {
+            this.setState({valid:false});
+        }
+        if (accountNumber.length == 0) {
+            this.setState({valid:false});
+        }
+        if (nameOnAccount.length == 0) {
+            this.setState({valid:false});
+        }
+
+        this.setState({valid:true});
     }
 
     render() {
+        let {
+            pendingOrder
+        } = this.props.context.StateBag;
+        if (!pendingOrder)
+            return (<div>Can't find order data</div>)
+
         var inputTheme = "small-label"
         var buttonTheme = "full"
         if (_.contains(["overlay-light", "overlay-dark"], this.props.theme)) {
@@ -11,26 +49,25 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
             buttonTheme += "," + this.props.theme
         }
 
+        let paymentTotal = pendingOrder.amount + 0.5;
+
         return (
             <RC.List className="padding">
-                <span className="totalAmount">Total Amount is : ${this.calculateTotal()}</span>
+                {EdminForce.utils.renderError(this.props.error)}
+                <span className="totalAmount">Total Amount is : ${paymentTotal}</span>
                 <br/>
                 <br/>
                 <RC.Form onSubmit={this.postPayment} ref="paymentForm">
                     {this.printMsg()}
-                    <RC.Input name="routingNumber" onKeyUp={this.checkRoutingNumber} label="Routing Number"
-                              theme={inputTheme} ref="routingNumber"/>
-                    <RC.Input name="accountNumber" onKeyUp={this.checkAccountNumber} label="Account Number"
-                              theme={inputTheme} ref="accountNumber"/>
-                    <RC.Input name="nameOnAccount" onKeyUp={this.checkName} label="Check Holder Name"
-                              theme={inputTheme} ref="nameOnAccount"/>
-                    <RC.Button name="button" theme="full" buttonColor="brand">Pay Now</RC.Button>
+                    <RC.Input name="routingNumber" label="Routing Number" theme={inputTheme} onChange={this.validateFormData} ref="routingNumber"/>
+                    <RC.Input name="accountNumber" label="Account Number" theme={inputTheme} onChange={this.validateFormData} ref="accountNumber"/>
+                    <RC.Input name="nameOnAccount" label="Check Holder Name" theme={inputTheme} onChange={this.validateFormData} ref="nameOnAccount"/>
+                    <RC.Button name="button" theme="full" buttonColor="brand" disabled={this.state.valid}>Pay Now</RC.Button>
                 </RC.Form>
             </RC.List>
         );
     }
 }
-
 
 
 EdminForce.Components.ECheck = React.createClass({

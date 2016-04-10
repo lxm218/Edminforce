@@ -18,7 +18,7 @@ const reactiveFnTrialStudents = ({context,actions,classID}, onData) => {
             !methodError && (context.MethodCache[methodName] = result); 
             onData(null,{
                 trialStudents : result,
-                error: methodError
+                error: methodError 
             });
         });
     }

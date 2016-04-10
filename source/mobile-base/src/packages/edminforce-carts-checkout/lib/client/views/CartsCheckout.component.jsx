@@ -293,7 +293,7 @@
                     if (!orderID) {
                         alert("Process fail!");
                         return;
-                    }
+                }
 
                     FlowRouter.go("/payment?order=" + orderID + "&makeupOnly=" + makeupOnlyFlag);
                 }

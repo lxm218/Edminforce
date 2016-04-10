@@ -1,6 +1,7 @@
 
 EdminForce.Actions.Billing = {
     validateCouponId({LocalState, StateBag}, couponId) {
+        LocalState.set('ERROR_CHECKOUT', null);
         Meteor.call('billing.validateCouponId', couponId, function(err, result){
             if (result) {
                 StateBag.checkout.couponId = couponId;
@@ -15,9 +16,63 @@ EdminForce.Actions.Billing = {
     },
     
     deleteCartItem({LocalState, StateBag}, cartItemId) {
-        Meteor.call('bill.deleteCartItem', cartItemId, function(err, result){
+        LocalState.set('ERROR_CHECKOUT', null);
+        Meteor.call('billing.deleteCartItem', cartItemId, function(err, result){
             err && (StateBag.checkout.popupError = 'Delete Fail');
             LocalState.set('state.checkout', new Date().getTime());
+        });
+    },
+    
+    prepareOrder({LocalState},order, makeupOnly) {
+        LocalState.set('ERROR_CHECKOUT', null);
+        Meteor.call('billing.prepareOrder', order, function(err,result){
+            if (err) {
+                LocalState.set('ERROR_CHECKOUT', err.reason);
+            }
+            else {
+                let path = FlowRouter.path('payment',null, {
+                    orderId: result,
+                    makeupOnly
+                });
+                FlowRouter.go(path);
+            }
+        });
+    },
+    
+    payECheck({LocalState,makeupOnly}, orderId, routingNumber, accountNumber, nameOnAccount) {
+        LocalState.set('ERROR_CHECKOUT', null);
+        Meteor.call('billing.payECheck', {orderId,routingNumber,accountNumber,nameOnAccount}, function(err,result){
+            if (err) {
+                LocalState.set('ERROR_CHECKOUT', err.reason);
+            }
+            else {
+                let path = FlowRouter.path('checkoutSummary',null, {
+                    makeupOnly
+                });
+                FlowRouter.go(path);
+            }
+        });
+    },
+
+    payCreditCard({LocalState,makeupOnly}, orderId, routingNumber, accountNumber, nameOnAccount) {
+        LocalState.set('ERROR_CHECKOUT', null);
+        Meteor.call('billing.payCreditCard', {orderId,routingNumber,accountNumber,nameOnAccount}, function(err,result){
+            if (err) {
+                LocalState.set('ERROR_CHECKOUT', err.reason);
+            }
+            else {
+                // check result
+                if (!result.error || result.error == 'registrationExpired') {
+                    let path = FlowRouter.path('checkoutSummary',null, {
+                        makeupOnly,
+                        expiredRegistrationIDs: result.expiredRegistrationIDs
+                    });
+                    FlowRouter.go(path);
+                }
+                else {
+                    LocalState.set('ERROR_CHECKOUT', result.error);
+                }
+            }
         });
     },
     

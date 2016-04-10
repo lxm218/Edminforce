@@ -37,6 +37,33 @@ DefaultRoutes.route('/payment', {
     }
 })
 
+DefaultRoutes.route('/paymentECheck', {
+    name: "payment echcek",
+    action: function(p,q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.PaymentECheck
+                makeupOnly={q.makeupOnly}
+                context={EdminForce.Contexts.Billing}
+                actions={EdminForce.Actions.Billing} />
+        })
+    }
+})
+
+DefaultRoutes.route('/paymentCredit', {
+    name: "payment creditcard",
+    action: function(p,q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.PaymentCredit
+                makeupOnly={q.makeupOnly}
+                context={EdminForce.Contexts.Billing}
+                actions={EdminForce.Actions.Billing} />
+        })
+    }
+})
 
 
 DefaultRoutes.route('/checkoutSummary', {
@@ -45,7 +72,11 @@ DefaultRoutes.route('/checkoutSummary', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Components.CheckoutSummary />
+            bodyTmpl: <EdminForce.Containers.CheckoutSummary
+                makeupOnly={q.makeupOnly}
+                expiredRegistrationIDs={q.expiredRegistrationIDs}
+                context={EdminForce.Contexts.Billing}
+                actions={EdminForce.Actions.Billing} />
         })
     }
 })

@@ -18,8 +18,42 @@ Meteor.methods({
     },
 
     // delete a registration item (student class doc), update registration count in class document
-    'bill.deleteCartItem': function(studentClassId) {
+    'billing.deleteCartItem': function(studentClassId) {
         check(studentClassId, String);
         EdminForce.Registration.removePendingRegistration(this.userId, studentClassId);
+    },
+    
+    'billing.prepareOrder': function(order) {
+        check(order, {
+            details: [String],
+            amount: Number,
+            discount: Number,
+            couponID: Match.Optional(String)
+        });
+        
+        return Collections.orders.insert({
+            accountID: this.userId,
+            details: order.details,
+            status: 'waiting',
+            amount: order.amount,
+            //discount: order.discount
+            couponID: order.couponID
+        });
+    },
+    
+    'billing.getExpiredRegistrations': function(expiredRegistrationIDs) {
+        check(expiredRegistrationIDs, [String]);
+        return EdminForce.Registration.getExpiredRegistrations(this.userId, expiredRegistrationIDs);
+    },
+    
+    'billing.payECheck': function(checkPaymentInfo) {
+        check(checkPaymentInfo, {
+            orderId: String,
+            routingNumber: String,
+            accountNumber: String,
+            nameOnAccount: String
+        });
+
+        return EdminForce.Registration.payECheck(this.userId, checkPaymentInfo);
     }
 });
