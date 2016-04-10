@@ -572,6 +572,7 @@
       return (
         <RC.List className="padding">
           <RC.Loading isReady={this.data.isReady}>
+              <div className="payment-container">
               <span className="totalAmount">Total Amount is : ${this.calculateTotal()}</span>
               <br/>
               <br/>
@@ -584,7 +585,9 @@
                   Pay Now
               </RC.Button>
             </RC.Form>
-            </RC.Loading>
+            <a href="http://www.authorize.net/"><div className="authorize-verified"></div></a>
+            </div>
+          </RC.Loading>
         </RC.List>
       );
     }

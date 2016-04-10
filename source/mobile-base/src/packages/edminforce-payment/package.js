@@ -29,11 +29,16 @@ Package.onUse(function(api){
 
     // Don't forget to add your jsx file
     api.addFiles([
+        'lib/client/less/edminforce-payment.less',
         'lib/client/views/Payment.Component.jsx',
         'lib/client/views/Payment.Credit.Component.jsx',
         'lib/client/views/Payment.ECheck.Component.jsx',
         'lib/router/payment.router.jsx'
     ], ["client"]);
+
+    api.addAssets([
+        'lib/client/img/authorize-verified.png'
+    ],['client']);
 
     api.addFiles([
         'lib/server/server.js'
