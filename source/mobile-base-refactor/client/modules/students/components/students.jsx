@@ -23,8 +23,6 @@ EdminForce.Components.Students = class extends RC.CSS {
             };
             let query = {
                 current: studentClass._id,
-                //programID: studentClass.programID,
-                completed: !!studentClass.completed
             }
             let path = FlowRouter.path("/studentClass/:studentID", params, query);
             FlowRouter.go(path);
@@ -42,12 +40,18 @@ EdminForce.Components.Students = class extends RC.CSS {
     render() {
 
         let self = this;
-        let students = this.props.students;
 
         let currentTime = new Date().getTime();
-        let studentElements = students.map((student) => {
+        let studentElements = this.props.students.map((student) => {
+
+            // show all current classes, and one most recent completed class, if any.
+            let classes = student.currentClasses;
+            if (student.completedClasses.length > 0) {
+                classes = student.currentClasses.concat([student.completedClasses[0]]);
+            }
+
             // class records for this student
-            let classElements = student.classes.map((sc, index) => (
+            let classElements = classes.map((sc, index) => (
                 <RC.Div key={student.id + sc._id} onClick={self.selectClass.bind(self, student,sc)}>
                     <p style={{padding: 0, paddingTop: index == 0 ? 8 : 0}}>
                         {sc.program.name}
@@ -82,7 +86,7 @@ EdminForce.Components.Students = class extends RC.CSS {
                 <TableRow key={student._id}>
                     <TableRowColumn style={{width: "25%", whiteSpace:"normal"}}>
                         <p onClick={self.selectStudent.bind(self, student)}>
-                            {student && student.name}
+                            {student.name}
                         </p>
                     </TableRowColumn>
                     <TableRowColumn style={{width: "60%", whiteSpace:"normal"}}>

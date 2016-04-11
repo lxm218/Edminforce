@@ -19,6 +19,10 @@ Package.onUse(function(api) {
     ], ["client","server"]);
 
     api.addFiles([
+        'client.js',
+    ], ["client"]);
+    
+    api.addFiles([
         'trialClasses.js',
         'classes.js'
     ], ["server"]);

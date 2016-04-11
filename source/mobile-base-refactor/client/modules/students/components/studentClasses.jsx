@@ -11,7 +11,6 @@ let {
 
 let _ = lodash;
 
-// Don't forget to change `SomeName` to correct name
 EdminForce.Components.StudentClasses = class extends RC.CSS {
     constructor(p) {
         super(p);
@@ -51,7 +50,10 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
         }
 
         let tabs = [];
-        if (this.props.student.currentClass) {
+        let currentTime = new Date().getTime(); 
+        let student = this.props.student;
+        if (student && student.currentClasses.length > 0) {
+            let currentClass = student.currentClasses[0];
             tabs.push((
                 <Tab key="current" label="Current" value="current">
                     <div style={{marginTop:"10px",display:"block"}}>
@@ -68,21 +70,21 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
                                     <TableRowColumn
                                         style={{width: "40%", whiteSpace:"normal"}}>
                                         <p>
-                                            {this.props.student.name}
+                                            {student.name}
                                         </p>
                                     </TableRowColumn>
                                     <TableRowColumn
                                         style={{width: "60%", whiteSpace:"normal"}}>
                                         <p style={{padding: 0}}>
-                                            {this.props.student.currentClass.program.name}
+                                            {currentClass.program.name}
                                         </p>
 
                                         <p style={{padding: 0}}>
-                                            {this.props.student.currentClass.session && this.props.student.currentClass.session.name} {this.props.student.currentClass.class.schedule.day} {this.props.student.currentClass.class.schedule.time}
+                                            {currentClass.class.shortName}
                                         </p>
 
                                         <p style={{padding: 0}}>
-                                            {"Registered on " + moment(this.props.student.currentClass.createTime).format("MMM D, YYYY")}
+                                            {"Registered on " + moment(currentClass.createTime).format("MMM D, YYYY")}
                                         </p>
                                     </TableRowColumn>
                                 </TableRow>
@@ -90,7 +92,7 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
                         </Table>
                         <div className="students-detail-menus" style={this.state.menuStyle}>
                             {
-                                this.props.student.currentClass.started ?
+                                currentClass.session.startDate.getTime() < currentTime ?
                                     (<RC.Button bgColor="brand2" bgColorHover="dark"
                                                 onClick={this.clickMakeUp.bind(this)}>Make up Class</RC.Button>) :
                                     (<RC.Button bgColor="brand2" bgColorHover="dark"
@@ -104,16 +106,19 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
             ));
         }
 
-        let historyClassElements = this.props.student.completedClasses.map((sc, index) => (
-            <RC.Div key={sc._id}>
-                <p style={{padding: 0, paddingTop: index == 0 ? 8 : 0}}>
-                    {sc.program.name}
-                </p>
-                <p style={{padding: 0}}>
-                    {sc.session.name} {sc.class.schedule && sc.class.schedule.day} {sc.class.schedule && sc.class.schedule.time}
-                </p>
-            </RC.Div>
-        ))
+        let historyClassElements = [];
+        if (student && student.completedClasses.length > 0) {
+            historyClassElements = student.completedClasses.map((sc, index) => (
+                <RC.Div key={sc._id}>
+                    <p style={{padding: 0, paddingTop: index == 0 ? 8 : 0}}>
+                        {sc.program.name}
+                    </p>
+                    <p style={{padding: 0}}>
+                        {sc.class.shortName}
+                    </p>
+                </RC.Div>
+            ))
+        }
 
         if (historyClassElements.length === 0) {
             historyClassElements.push(

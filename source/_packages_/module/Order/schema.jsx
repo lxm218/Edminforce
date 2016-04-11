@@ -24,8 +24,13 @@ Schema.Order = {
         type: Number,
         decimal : true
     },
+    discount:{
+        type: Number,
+        optional: true,
+        defaultValue: 0
+    },
     paymentTotal:{
-        type: String,
+        type: Number,
         optional: true
     },
     poundage : {
