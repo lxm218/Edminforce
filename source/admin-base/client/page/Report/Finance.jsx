@@ -234,10 +234,10 @@ KUI.Report_Finance = class extends KUI.Page{
 					return <b style={sy} onClick={self.toCurrentDate.bind(self)}>{moment(doc.date).format(util.const.dateFormat)}</b>;
 				}
 			},
-			//{
-			//	title : 'Credit Card',
-			//	key : 'credit card'
-			//},
+			{
+				title : 'Credit Card',
+				key : 'credit card'
+			},
 			{
 				title : 'E-Check',
 				key : 'echeck'
