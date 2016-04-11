@@ -167,13 +167,13 @@ KUI.Report_Finance = class extends KUI.Page{
 		let list = _.map(this.state.result, (item)=>{
 				item['Date'] = moment(item.date).format(util.const.dateFormat)
 				delete item.date
-				item['E-Check'] = '$' + item.echeck
+				item['E-Check'] = item.echeck
 				delete item.echeck
-				item['Cash'] = '$' + item.cash
+				item['Cash'] = item.cash
 				delete item.cash
-				item['Check'] = '$' + item.check
+				item['Check'] = item.check
 				delete item.check
-				item['Total'] = '$' + item.total
+				item['Total'] = item.total
 				delete item.total
 				delete item['credit card']
 				delete item.detail

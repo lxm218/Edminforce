@@ -101,7 +101,8 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
 
             //update order db
             let nd = {
-                status : 'success'
+                status : 'success',
+                paymentSource : 'admin'
             };
             KG.get('EF-Order').updateById(nd, this.data.orderID);
 
