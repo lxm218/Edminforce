@@ -14,16 +14,32 @@ KUI.Email_AddTemplate_comp = class extends RC.CSS{
             }
         };
 
+        let sy = {
+            b1 : {
+                marginLeft:'10px'
+            },
+            bc : {
+                fontSize:'16px',
+                color : '#1ab394',
+                position : 'relative',
+                top : '2px'
+            }
+        };
+
         return (
             <form className="form-horizontal">
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
                         <RB.Input type="text" {... p.name} />
+
+                        <label>
+                            Email Variables
+                            <RC.URL style={sy.b1} onClick={this.showEmailModal.bind(this)}><i style={sy.bc} className="fa fa-question-circle"></i></RC.URL>
+                        </label>
                         <RB.Input groupClassName="no_margin_bottom" wrapperClassName="col-xs-12">
                             <div {... p.html}></div>
                         </RB.Input>
 
-                        <KUI.NoButton onClick={this.showEmailModal.bind(this)} label="Email Variables"></KUI.NoButton>
                     </RB.Col>
                 </RB.Row>
                 {this.renderEmailModal()}
@@ -49,8 +65,6 @@ KUI.Email_AddTemplate_comp = class extends RC.CSS{
                         <p>
                             Email Variables:<br/>
                             {`{user} : Account Name`}<br/>
-                            {`{student}	: Student Name`}<br/>
-                            {`{class} : Class Name`}<br/>
                         </p>
                         <p>
                             {`To use email variables include the {} in the body or subject of your email when you send bulk emails.`}<br/>
@@ -111,6 +125,7 @@ KUI.Email_AddTemplate = class extends RC.CSS{
         return (
             <RC.Div>
                 <h3>Add Email Template</h3>
+                <hr/>
                 <KUI.Email_AddTemplate_comp ref="form" />
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
