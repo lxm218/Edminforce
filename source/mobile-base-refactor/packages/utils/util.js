@@ -13,6 +13,11 @@ EdminForce.utils.calcAge = function (dob) {
 EdminForce.utils.getClassName = function(programName, sessionName, classData){
     return `${programName} ${sessionName} ${classData.schedule.day} ${classData.schedule.time}`;
 };
+
+EdminForce.utils.getShortClassName = function(sessionName, classData){
+    return `${sessionName} ${classData.schedule.day} ${classData.schedule.time}`;
+};
+
 // EdminForce.utils.getClassName = function(programName, sessionName, day, time){
 //     return `${programName} ${sessionName} ${day} ${time}`;
 // };

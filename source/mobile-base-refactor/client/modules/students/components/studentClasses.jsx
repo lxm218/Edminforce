@@ -44,7 +44,7 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
 
     render() {
 
-        if (!this.props.error) {
+        if (this.props.error) {
             return (<div>
                 {EdminForce.utils.renderError(this.props.error)}
             </div>)
@@ -53,7 +53,7 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
         let tabs = [];
         if (this.props.student.currentClass) {
             tabs.push((
-                <Tab label="Current" value="current">
+                <Tab key="current" label="Current" value="current">
                     <div style={{marginTop:"10px",display:"block"}}>
                         <Table selectable={false}>
                             <TableHeader displaySelectAll={false} enableSelectAll={false}
@@ -123,7 +123,7 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
         }
 
         tabs.push((
-            <Tab label="History" value="history">
+            <Tab key="history" label="History" value="history">
                 {historyClassElements}
             </Tab>
         ));

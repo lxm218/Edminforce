@@ -32,7 +32,7 @@ DefaultRoutes.route('/studentClass/:studentID', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Containers.Students studentID={p.studentID} 
+            bodyTmpl: <EdminForce.Containers.StudentClasses studentID={p.studentID} 
                                                       current={q.current} programID={q.programID} completed={q.completed}  
                                                       context={EdminForce.Contexts.Students} actions={EdminForce.Actions.Students} />
         })
