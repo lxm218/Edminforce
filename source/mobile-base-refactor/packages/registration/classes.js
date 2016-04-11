@@ -636,8 +636,6 @@ function payECheck(userId, checkPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
     paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount;
 
-    return {};
-
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     var response = HTTP.call('POST',URL, {data: paymentInfo});
 

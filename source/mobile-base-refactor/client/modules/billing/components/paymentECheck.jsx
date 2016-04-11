@@ -11,7 +11,9 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
         this.postPayment = this.postPayment.bind(this);
     }
 
-    postPayment() {
+    postPayment(event) {
+        event.preventDefault();
+
         if (!this.state.valid) return;
         let orderId = FlowRouter.getQueryParam('orderId');
         let form = this.refs.paymentForm.getFormData()
