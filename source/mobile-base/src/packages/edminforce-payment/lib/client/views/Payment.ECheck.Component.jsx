@@ -576,6 +576,9 @@
               <span className="totalAmount">Total Amount is : ${this.calculateTotal()}</span>
               <br/>
               <br/>
+              <div>
+                  <span className="sample-check"></span>
+              </div>
               <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
                 {this.printMsg()}
                 <RC.Input name="routingNumber" onKeyUp={this.checkRoutingNumber} label="Routing Number" theme={inputTheme} ref="routingNumber" />

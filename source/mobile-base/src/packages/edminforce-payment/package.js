@@ -37,7 +37,12 @@ Package.onUse(function(api){
     ], ["client"]);
 
     api.addAssets([
-        'lib/client/img/authorize-verified.png'
+        'lib/client/img/authorize-verified.png',
+        'lib/client/img/american-express.png',
+        'lib/client/img/discover.png',
+        'lib/client/img/mastercard.png',
+        'lib/client/img/sample-check.jpg',
+        'lib/client/img/visa.png'
     ],['client']);
 
     api.addFiles([

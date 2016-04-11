@@ -11,3 +11,38 @@
 .payment-container{
   padding: 20px;
 }
+
+.card{
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  width: 64px;
+  height: 40px;
+  display: inline-block;
+  margin-right: 10px;
+  &.american-express{
+    background-image: url('../img/american-express.png');
+  }
+
+  &.discover{
+    background-image: url('../img/discover.png');
+  }
+
+  &.mastercard{
+    background-image: url('../img/mastercard.png');
+  }
+
+  &.visa{
+    background-image: url('../img/visa.png');
+  }
+}
+
+.sample-check{
+  background-image: url('../img/sample-check.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  display: inline-block;
+  width: 451px;
+  height: 277px;
+}
