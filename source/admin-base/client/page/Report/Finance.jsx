@@ -235,33 +235,33 @@ KUI.Report_Finance = class extends KUI.Page{
 				}
 			},
 			{
-				title : 'Credit Card',
+				title : 'Credit Card ($)',
 				key : 'credit card'
 			},
 			{
-				title : 'E-Check',
+				title : 'E-Check ($)',
 				key : 'echeck'
 			},
 			{
-				title : 'Cash',
+				title : 'Cash ($)',
 				key : 'cash'
 			},
 			{
-				title : 'Check',
+				title : 'Check ($)',
 				key : 'check'
 			},
 			{
-				title : 'Total',
+				title : 'Total ($)',
 				key : 'total'
 			}
 		];
 
 		let list = _.map(this.state.result, (item)=>{
-			_.each(item, (v, k)=>{
-				if(_.isNumber(v) && v>0){
-					item[k] = '$'+v;
-				}
-			});
+			//_.each(item, (v, k)=>{
+			//	if(_.isNumber(v) && v>0){
+			//		item[k] = '$'+v;
+			//	}
+			//});
 
 			return item;
 		});
@@ -319,7 +319,7 @@ KUI.Report_Finance = class extends KUI.Page{
 				key : 'order.paymentType'
 			},
 			{
-				title : 'Amount',
+				title : 'Amount ($)',
 				key : 'order.paymentTotal'
 			},
 			{
