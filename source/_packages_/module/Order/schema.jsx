@@ -2,7 +2,9 @@
 Schema = {};
 Schema.Order = {
     accountID : KG.schema.default(),
-    studentID : KG.schema.default(),
+    studentID : KG.schema.default({
+        optional:true
+    }),
     details:{
         type:[String]   // ClassStudentID
     },

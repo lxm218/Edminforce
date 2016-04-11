@@ -33,118 +33,20 @@ EdminForce.Components.Checkout = class extends RC.CSS {
         this.props.actions.validateCouponId(couponId);
     }
 
-    // insertOrder(order) {
-    //     let makeupOnlyFlag = this.makeupOnly;
-    //     EdminForce.Collections.orders.insert(order, function (err, res) {
-    //         if (err) {
-    //             console.error("Insert order error, error: ", err);
-    //             alert("Process fail!");
-    //             return
-    //         } else {
-    //
-    //             let orderID = res;
-    //             if (!orderID) {
-    //                 alert("Process fail!");
-    //                 return;
-    //             }
-    //
-    //             FlowRouter.go("/payment?order=" + orderID + "&makeupOnly=" + makeupOnlyFlag);
-    //         }
-    //     });
-    // }
-
     process() {
-        
-        this.props.actions.prepareOrder(this.makeupOnly);
-        
-        // let studentClassIDs = [];
-        // this.props.students.forEach( (s) => {
-        //     s.classes.forEach( (sc) => {
-        //         studentClassIDs.push(sc._id);
-        //     })
-        // });
-        //
-        // this.props.actions.prepareOrder(studentClassIDs, this.props.appliedCouponId);
-        
-        
-        
-        // this.props.context.StateBag.pendingOrder = null;
-        // let pendingOrder = {
-        //     details:[]
-        // }
-        //
-        // this.props.students.forEach( (s) => {
-        //     s.classes.forEach( (sc) => {
-        //         pendingOrder.details.push(sc._id);
-        //     })
-        // });
-        //
-        // pendingOrder.amount = this.props.total;
-        // pendingOrder.discount = this.props.discount;
-        // pendingOrder.couponID = this.props.appliedCouponId;
-        // pendingOrder.makeupOnly = this.makeupOnly;
-        //
-        // this.props.context.StateBag.pendingOrder = pendingOrder;
-        // FlowRouter.go("/payment");
-        
-        
-        
-        // create order at server side, re-generate cart items, verify all classes are still pending
-        // payment, revive any expired bookings
-        
-        // when user click process
-        // 1. Insert an order, and update the status of selected book classes
-        // 2.1 Insert and update successful, jump to /payment?orderId=sfdsfsfdsfsf
-        // 2.2 Insert and update fail, stay on this page, alert user
-        // console.group("Process")
-        // console.log(this.data.carts);
-        // console.log(this.total);
-        // console.groupEnd();
-        //
-        // let classStudentsID = [];
-        // this.data.carts.forEach((value, key)=> {
-        //     classStudentsID.push(value['_id']);
-        // });
-        //
-        // let order = {
-        //     accountID: Meteor.userId(),
-        //     details: classStudentsID,
-        //     status: "checkouting",
-        //     amount: this.total
-        // };
-        //
-        // if (this.isNewUser()) {
-        //     order.registrationFee = 25;
-        // } else {
-        //     order.registrationFee = 0;
-        // }
-        //
-        //
-        // if (this.coupon) {
-        //     order.couponID = this.coupon["_id"];
-        //     order.discount = this.discount;
-        //
-        //     // if this order used coupon need to insert a record to customerCoupon collection
-        //     let customerCoupon = {
-        //         customerID: Meteor.userId(),
-        //         couponID: this.coupon['_id'],
-        //         status: "checkouting",
-        //         isValid: true
-        //     };
-        //
-        //     EdminForce.Collections.customerCoupon.insert(customerCoupon, function (err, id) {
-        //         if (err) {
-        //             alert("Something wrong on server side, please try it again");
-        //         } else {
-        //             console.log(id);
-        //             order.customerCouponID = id;
-        //             this.insertOrder(order);
-        //         }
-        //     }.bind(this));
-        //
-        // } else {
-        //     this.insertOrder(order);
-        // }
+        let studentClassIDs = [];
+        this.props.students.forEach( (s) => {
+            s.classes.forEach( (sc) => {
+                studentClassIDs.push(sc._id);
+            })
+        });
+
+        this.props.actions.prepareOrder({
+            details: studentClassIDs,
+            amount: this.props.total - this.props.discount,
+            discount: this.props.discount,
+            couponID: this.props.appliedCouponId
+        });
     }
 
     render() {
@@ -239,6 +141,8 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                 <RC.VerticalAlign center={true} className="padding" height="300px">
                     <h2>Checkout Summary</h2>
                 </RC.VerticalAlign>
+
+                {EdminForce.utils.renderError(this.props.error)}
 
                 <Table selectable={false}>
                     <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>

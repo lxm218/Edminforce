@@ -36,6 +36,7 @@ Meteor.methods({
             details: order.details,
             status: 'waiting',
             amount: order.amount,
+            paymentType: 'echeck',
             //discount: order.discount
             couponID: order.couponID
         });
@@ -54,6 +55,7 @@ Meteor.methods({
             nameOnAccount: String
         });
 
-        return EdminForce.Registration.payECheck(this.userId, checkPaymentInfo);
+        //return EdminForce.Registration.payECheck(this.userId, checkPaymentInfo);
+        return {};
     }
 });

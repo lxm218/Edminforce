@@ -1,18 +1,32 @@
 
-EdminForce.Components.Payment = () => (
-    <div>
-        <RC.Button onClick={
-                FlowRouter.go(FlowRouter.path("/paymentCredit", null, {
-                    orderId: FlowRouter.getQueryParam('orderId'),
-                    makeupOnly: FlowRouter.getQueryParam('makeupOnly')
-                }))
-            }>Use Credit Card, 3% Process Fee</RC.Button>
-        
-        <RC.Button onClick={
-                FlowRouter.go(FlowRouter.path("/paymentECheck", null, {
-                    orderId: FlowRouter.getQueryParam('orderId'),
-                    makeupOnly: FlowRouter.getQueryParam('makeupOnly')
-                }))
-            }>Use ECheck, $0.5 Process Fee</RC.Button>
-    </div>
-) 
+EdminForce.Components.Payment = class extends RC.CSS {
+    constructor(p) {
+        super(p);
+    }
+
+    payECheck() {
+
+        FlowRouter.go(FlowRouter.path("/paymentCredit", null, {
+            orderId: FlowRouter.getQueryParam('orderId'),
+            amount: FlowRouter.getQueryParam('amount'),
+            makeupOnly: FlowRouter.getQueryParam('makeupOnly')
+        }));
+    }
+
+    payCreditCard() {
+        FlowRouter.go(FlowRouter.path("/paymentECheck", null, {
+            orderId: FlowRouter.getQueryParam('orderId'),
+            amount: FlowRouter.getQueryParam('amount'),
+            makeupOnly: FlowRouter.getQueryParam('makeupOnly')
+        }))
+    }
+
+    render() {
+        return (
+            <div>
+                <RC.Button onClick={this.payECheck}>Use Credit Card, 3% Process Fee</RC.Button>
+                <RC.Button onClick={this.payCreditCard}>Use ECheck, $0.5 Process Fee</RC.Button>
+            </div>
+        )
+    }
+}

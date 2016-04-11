@@ -30,8 +30,9 @@ EdminForce.Actions.Billing = {
                 LocalState.set('ERROR_CHECKOUT', err.reason);
             }
             else {
-                let path = FlowRouter.path('payment',null, {
+                let path = FlowRouter.path('/payment',null, {
                     orderId: result,
+                    amount: order.amount,
                     makeupOnly
                 });
                 FlowRouter.go(path);
@@ -39,17 +40,26 @@ EdminForce.Actions.Billing = {
         });
     },
     
-    payECheck({LocalState,makeupOnly}, orderId, routingNumber, accountNumber, nameOnAccount) {
+    payECheck({LocalState,makeupOnly}, checkPaymentInfo) {
         LocalState.set('ERROR_CHECKOUT', null);
-        Meteor.call('billing.payECheck', {orderId,routingNumber,accountNumber,nameOnAccount}, function(err,result){
+        Meteor.call('billing.payECheck', checkPaymentInfo, function(err,result){
+            console.log(err);
+            console.log(result);
             if (err) {
                 LocalState.set('ERROR_CHECKOUT', err.reason);
             }
             else {
-                let path = FlowRouter.path('checkoutSummary',null, {
-                    makeupOnly
-                });
-                FlowRouter.go(path);
+                // check result
+                if (!result.error || result.error == 'registrationExpired') {
+                    let path = FlowRouter.path('/checkoutSummary',null, {
+                        makeupOnly,
+                        expiredRegistrationIDs: result.expiredRegistrationIDs
+                    });
+                    FlowRouter.go(path);
+                }
+                else {
+                    LocalState.set('ERROR_CHECKOUT', result.error);
+                }
             }
         });
     },
@@ -63,7 +73,7 @@ EdminForce.Actions.Billing = {
             else {
                 // check result
                 if (!result.error || result.error == 'registrationExpired') {
-                    let path = FlowRouter.path('checkoutSummary',null, {
+                    let path = FlowRouter.path('/checkoutSummary',null, {
                         makeupOnly,
                         expiredRegistrationIDs: result.expiredRegistrationIDs
                     });

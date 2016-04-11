@@ -449,7 +449,7 @@ function postPaymentUpdate(userId, order, paymentMethod) {
 
     // update registration fee flag
     Collections.Customer.update({
-        _id: userI,
+        _id: userId,
         hasRegistrationFee:true
     },{
         $set: {
@@ -472,7 +472,7 @@ function postPaymentUpdate(userId, order, paymentMethod) {
     }
 
     Collections.orders.update({
-        _id: orderId,
+        _id: order.orderId,
         accountID: userId
     }, {
         $set: orderUpdate
@@ -636,6 +636,8 @@ function payECheck(userId, checkPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
     paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount;
 
+    return {};
+
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     var response = HTTP.call('POST',URL, {data: paymentInfo});
 
@@ -658,4 +660,5 @@ EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;
 EdminForce.Registration.getRegistrationSummary = getRegistrationSummary;
 EdminForce.Registration.removePendingRegistration = removePendingRegistration;
+EdminForce.Registration.payECheck = payECheck;
 EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;

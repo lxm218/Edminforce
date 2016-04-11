@@ -45,6 +45,7 @@ DefaultRoutes.route('/paymentECheck', {
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.PaymentECheck
                 makeupOnly={q.makeupOnly}
+                amount={q.amount}
                 context={EdminForce.Contexts.Billing}
                 actions={EdminForce.Actions.Billing} />
         })
