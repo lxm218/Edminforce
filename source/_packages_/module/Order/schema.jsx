@@ -9,11 +9,9 @@ Schema.Order = {
     paymentType : KG.schema.default({
         allowedValues : ['credit card', 'echeck', 'check', 'cash', 'school credit']
     }),
-    paymentSource:{
-                type: String,
-                allowedValues : ['admin', 'mobile'],
-                optional: true
-    },
+    paymentSource : KG.schema.default({
+        allowedValues : ['admin', 'mobile']
+    }),
     type : KG.schema.default({
         allowedValues : ['register class', 'change class', 'cancel class'],
         optional : true,
