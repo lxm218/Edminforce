@@ -419,17 +419,14 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     return result;
 }
 
-function removePendingRegistration(userId, studentClassId) {
-
-    let sc = Collections.classStudent.findOne({_id:studentClassId});
-    if (!sc) return;
-    // it's important to include status & account id in the query condition of the following
-    // remove call. It will ensure we only remove pending record that belongs to the current user.
-    let nRemoved = Collections.classStudent.remove({_id:studentClassId, accountID:userId, status: 'pending'});
-    if (nRemoved == 0) return;
-
-    // update registration count
+/*
+ * update the count in class record after a registration 
+ * in classStudent is removed or expired
+ */
+function releaseRegistrationSpace(sc) {
+    
     if (sc.type == 'register') {
+        // regular class
         Collections.class.update( {
             _id: sc.classID,
             numberOfRegistered: {$gt: 0}
@@ -441,9 +438,47 @@ function removePendingRegistration(userId, studentClassId) {
     }
     else
     if (sc.type === 'makeup' || sc.type === 'trial') {
+        // makeup or trial
         EdminForce.utils.releaseTrialAndMakeupSpace(sc.type, sc.classID, sc.lessonDate);
     }
 }
+
+/*
+ * delete a pending registration and release the space
+ */
+function removePendingRegistration(userId, studentClassId) {
+
+    let sc = Collections.classStudent.findOne({_id:studentClassId});
+    if (!sc) return;
+    // it's important to include status & account id in the query condition of the following
+    // remove call. It will ensure we only remove pending record that belongs to the current user.
+    let nRemoved = Collections.classStudent.remove({_id:studentClassId, accountID:userId, status: 'pending'});
+    if (nRemoved == 0) return;
+
+    releaseRegistrationSpace(sc);
+}
+
+/* 
+ * expire a pending registration and release the space
+ */
+function expirePendingRegistration(sc) {
+
+    let nUpdated = Collections.classStudent.update({
+        _id: sc._id,
+        status: 'pending'
+    }, {
+        $set: {
+            status: "expired",
+            updateTime: new Date()
+        }
+    });
+    
+    if (nUpdated <=0 ) return;
+    
+    // release class space
+    releaseRegistrationSpace(sc);
+}
+
 
 function postPaymentUpdate(userId, order, paymentMethod) {
 
@@ -658,5 +693,6 @@ EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;
 EdminForce.Registration.getRegistrationSummary = getRegistrationSummary;
 EdminForce.Registration.removePendingRegistration = removePendingRegistration;
+EdminForce.Registration.expirePendingRegistration = expirePendingRegistration;
 EdminForce.Registration.payECheck = payECheck;
 EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;

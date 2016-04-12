@@ -25,19 +25,29 @@ Meteor.startup(function () {
             // valid date
             let validCreateTime = new Date(now.getTime() - Meteor.settings.public.pendingRegistrationTTL);
 
-            Collections.classStudent.update({
-                status: "pending",
+            // get a list of registrations that pass expiration time
+            let expiredRegistrations = Collections.classStudent.find({
+                status: 'pending',
+                type: {$in: ['register', 'makeup']},
                 createTime: {
                     $lt: validCreateTime
                 }
-                }, {
-                    $set: {
-                        status: "expired",
-                        updateTime: now
-                    }
-                }, {
-                multi:true}
-            );
+            }, {
+                fields: {
+                    type: 1,
+                    classID: 1,
+                    lessonDate: 1
+                },
+                sort: {
+                    createTime: 1
+                },
+                limit: 100
+            }).fetch();
+
+            // process each one, set it to expired and release space held
+            expiredRegistrations.forEach( (sc) => {
+                EdminForce.Registration.expirePendingRegistration(sc);
+            })
         }
     });
 
