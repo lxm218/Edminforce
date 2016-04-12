@@ -324,18 +324,22 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
 /*
  * Returns available make up lessons for a student
  */
-function getAvailableMakeupLessons(studentID, programID, classID, startDt, endDt) {
+function getAvailableMakeupLessons(userId, studentID, classID, startDt, endDt) {
 
-    let program = Collections.program.findOne({_id:programID});
-    if (!program) {
-        console.error("getAvailableMakeupLessons > program not found:" + programId);
-        return [];
+    let classItem = Collections.class.findOne({_id:classID});
+    if (!classItem) {
+        throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
     }
 
-    let student = Collections.student.findOne({_id: studentID});
+    let programID = classItem.programID;
+    let program = Collections.program.findOne({_id:programID});
+    if (!program) {
+        throw new Meteor.Error(500, 'Program not found','Invalid program id: ' + programID);
+    }
+
+    let student = Collections.student.findOne({_id: studentID, accountID:userId});
     if (!student) {
-        console.error("getAvailableMakeupLessons > student not found:" + studentID);
-        return [];
+        throw new Meteor.Error(500, 'Student not found','Invalid student id: ' + student);
     }
 
     // find sessions within the specified date range

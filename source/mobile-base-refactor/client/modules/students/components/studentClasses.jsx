@@ -21,19 +21,12 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
         };
     }
 
-    clickMakeUp() {
-        let params = {
-            studentID: this.props.student._id
-        };
+    clickMakeUp(currentClass) {
         let query = {
-            classID: this.props.student.currentClass.classID,
-            programID: this.props.student.currentClass.programID,
-            programName: this.props.student.currentClass.program.name,
-            dob: this.props.student.profile && this.props.student.profile.birthday.getTime(),
-            gender: this.props.student.profile && this.props.student.profile.gender,
-            name: this.props.student.name
+            classID: currentClass.classID,
+            studentID: this.props.studentID            
         }
-        let path = FlowRouter.path("/makeupClass/:studentID", params, query);
+        let path = FlowRouter.path("/makeupClasses", null, query);
         FlowRouter.go(path);
     }
 
@@ -94,7 +87,7 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
                             {
                                 currentClass.session.startDate.getTime() < currentTime ?
                                     (<RC.Button bgColor="brand2" bgColorHover="dark"
-                                                onClick={this.clickMakeUp.bind(this)}>Make up Class</RC.Button>) :
+                                                onClick={this.clickMakeUp.bind(this,currentClass)}>Make up Class</RC.Button>) :
                                     (<RC.Button bgColor="brand2" bgColorHover="dark"
                                                 onClick={this.clickChangeClass.bind(this)}>Change Class</RC.Button>)
                             }

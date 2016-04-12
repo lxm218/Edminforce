@@ -62,3 +62,19 @@ DefaultRoutes.route('/classes', {
         })
     }
 });
+
+
+DefaultRoutes.route('/makeupClasses', {
+    name: "makeupClasses",
+    action: function(p,q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.MakeupClasses
+                studentID={q.studentID}
+                classID={q.classID}
+                context={EdminForce.Contexts.Programs}
+                actions={EdminForce.Actions.Programs} />
+        })
+    }
+});
