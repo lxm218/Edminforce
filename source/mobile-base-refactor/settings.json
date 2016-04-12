@@ -1,6 +1,8 @@
 {
   "public": {
     "appName": "Edmin Force Mobile",
-    "appDesc": "Edmin Force Mobile"
+    "appDesc": "Edmin Force Mobile",
+    // 15 mins
+    "pendingRegistrationTTL": 900000
   }
 }
