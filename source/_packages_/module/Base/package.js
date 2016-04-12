@@ -9,7 +9,7 @@ Package.describe({
 Npm.depends({later: "1.1.6"});
 
 Package.onUse(function(api) {
-    api.versionsFrom("METEOR@1.2");
+    api.versionsFrom("METEOR@1.2.0.2");
 
     var packages = [
         // Server Packages
