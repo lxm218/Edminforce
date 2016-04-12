@@ -24,6 +24,16 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
     }
 
     makeupClass() {
+        if (!this.state.selectedLesson) return;
+        
+        let path = FlowRouter.path('/makeupClassSummary', null, {
+            studentID: this.props.studentID,
+            classID: this.state.selectedLesson._id,
+            studentName: this.props.studentName,
+            lessonDate: this.state.selectedLesson.lessonDate.getTime(),
+            makeupFee: this.state.selectedLesson.makeupClassFee
+        })
+        FlowRouter.go(path);
     }
 
     renderClasses() {

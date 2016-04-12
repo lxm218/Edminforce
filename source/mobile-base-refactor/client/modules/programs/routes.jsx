@@ -72,9 +72,29 @@ DefaultRoutes.route('/makeupClasses', {
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.MakeupClasses
                 studentID={q.studentID}
+                studentName={q.studentName}
                 classID={q.classID}
                 context={EdminForce.Contexts.Programs}
                 actions={EdminForce.Actions.Programs} />
         })
     }
 });
+
+DefaultRoutes.route('/makeupClassSummary', {
+    name: "makeupClassSummary",
+    action: function(p,q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.MakeupClassSummary
+                studentID={q.studentID}
+                studentName={q.studentName}
+                classID={q.classID}
+                lessonDate={q.lessonDate}
+                makeupFee={q.makeupFee}
+                context={EdminForce.Contexts.Programs}
+                actions={EdminForce.Actions.Programs} />
+        })
+    }
+});
+

@@ -81,4 +81,11 @@ Meteor.methods({
         return EdminForce.Registration.getAvailableMakeupLessons(this.userId, studentID, classID, startDt, endDt);
     },
     
+    'program.bookMakeup': function(studentID, classID, lessonDate) {
+        check(studentID, String);
+        check(classID, String);
+        check(lessonDate, Date);
+        
+        return EdminForce.Registration.bookMakeup(this.userId, studentID, classID, lessonDate);
+    },
 });

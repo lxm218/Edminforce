@@ -24,7 +24,8 @@ EdminForce.Components.StudentClasses = class extends RC.CSS {
     clickMakeUp(currentClass) {
         let query = {
             classID: currentClass.classID,
-            studentID: this.props.studentID            
+            studentID: this.props.student._id,
+            studentName: this.props.student.name
         }
         let path = FlowRouter.path("/makeupClasses", null, query);
         FlowRouter.go(path);

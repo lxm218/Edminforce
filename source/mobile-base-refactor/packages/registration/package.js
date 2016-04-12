@@ -26,8 +26,4 @@ Package.onUse(function(api) {
         'trialClasses.js',
         'classes.js'
     ], ["server"]);
-    
-    // api.export([
-    //     'Registration',
-    // ], ["client", "server"]);
 });

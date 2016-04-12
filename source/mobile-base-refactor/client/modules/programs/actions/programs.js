@@ -39,6 +39,16 @@ EdminForce.Actions.Programs = {
         });
     },
     
+    bookMakeup({LocalState}, studentID, classID, lessonDate) {
+        LocalState.set('ERROR_MAKEUPCLASSES', null);
+        // add a pending registration for makeup
+        // studentID, classID, lessonDate
+        Meteor.call('program.bookMakeup', studentID, classID, lessonDate, function(err,result){
+            err ? LocalState.set('ERROR_MAKEUPCLASSES', err.reason) :
+                FlowRouter.go("/checkout");
+        });
+    },
+    
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
     }

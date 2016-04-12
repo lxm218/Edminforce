@@ -86,7 +86,7 @@ function processClassLessonInDateRange(classItem, classSession, program, startDt
             continue;
 
         if (validateCb(classDate)) {
-            let lesson = _.pick(classItem, ['_id', 'programID', 'sessionID', 'schedule', 'length', 'teacher']);
+            let lesson = _.pick(classItem, ['_id', 'programID', 'sessionID', 'schedule', 'length', 'teacher', 'makeupClassFee']);
             lesson.key = lesson._id + ":" + classDate.unix();
             let lessonDate = moment(classDate);
             lessonDate.hour(classTime.hour());

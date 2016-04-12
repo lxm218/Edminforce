@@ -194,6 +194,35 @@ function bookClasses(userId, studentID, classIDs) {
     return bookedIDs;
 }
 
+/* 
+ * book a makeup class for a student
+ */
+function bookMakeup(userId, studentID, classID, lessonDate) {
+    let classData = Collections.class.findOne({
+        _id:classID
+    }, {
+        fields:{
+            programID:1,
+            maxStudent:1,
+            numberOfRegistered:1, 
+            makeup:1, 
+            makeupStudent:1,
+            trialStudent:1
+        }
+    });
+    
+    if (!classData)
+        throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
+
+    let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
+    if (classData.numberOfRegistered >= classData.maxStudent) return false;
+    if (classData.makeup &&
+        classData.makeup[strLessonDate] &&
+        classData.makeup[strLessonDate] >= classData.makeupStudent )
+        return false;
+
+}
+
 /*
  * return class registration fee
  * @param - classData
