@@ -15,5 +15,10 @@ KG.define('EF-Order', class extends Base{
         }
     }
 
+    insert(data){
+        data.paymentSource = 'admin';
+        return super.insert(data);
+    }
+
 
 });

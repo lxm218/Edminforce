@@ -18,7 +18,6 @@ KUI.Registration_success = class extends KUI.Page{
             };
         }
 
-
         let x1 = Meteor.subscribe('EF-Order', {
             query : {_id : one.orderID}
         });
@@ -27,8 +26,15 @@ KUI.Registration_success = class extends KUI.Page{
                 ready : false
             };
         }
-        let order = KG.get('EF-Order').getDB().findOne(),
-            coupon = order.customerCouponID || order.couponID || '';
+        //console.log(x1.ready(), KG.get('EF-Order').getDB().findOne({}));
+        let order = KG.get('EF-Order').getDB().findOne({});
+        if(!order){
+            return {
+                ready : false
+            };
+        }
+
+        let coupon = order.customerCouponID || order.couponID || '';
 
         if(coupon){
             let x2 = Meteor.subscribe('EF-Coupon', {
