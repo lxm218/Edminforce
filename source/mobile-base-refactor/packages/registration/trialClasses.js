@@ -85,7 +85,7 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
             console.error("getAvailableTrialClasses > session not found:" + classItem.sessionID);
             continue;
         }
-        // find class time, do we need this ? probably not
+        // find class time
         let classTime = moment(classItem.schedule.time, 'hh:mma');
 
         // find the first class date within the date range, thanks to momentjs, we can get this easily
