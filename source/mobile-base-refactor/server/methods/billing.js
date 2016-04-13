@@ -55,7 +55,7 @@ Meteor.methods({
             nameOnAccount: String
         });
 
-        //return EdminForce.Registration.payECheck(this.userId, checkPaymentInfo);
+        return EdminForce.Registration.payECheck(this.userId, checkPaymentInfo);
         return {};
     }
 });

@@ -758,7 +758,7 @@ function payECheck(userId, checkPaymentInfo) {
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     var response = HTTP.call('POST',URL, {data: paymentInfo});
 
-    console.log(response);
+    //console.log(response);
 
     if (response &&
         response.data &&
