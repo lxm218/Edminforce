@@ -297,7 +297,7 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
     // }
 
     if (!EdminForce.Registration.isAvailableForTrial(classData, lessonDate))
-        return false;
+        throw new Meteor.Error(500, 'The selected class does not have space for trial','Class id: ' + classID);;
 
     let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
     //this has to be consistent with "isAvailableForTrial"
@@ -314,7 +314,7 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
 
     if (nUpdated > 0) {
         // insert a class student record
-        Collections.classStudent.insert({
+        let scID = Collections.classStudent.insert({
             accountID: userId,
             classID,
             studentID,
@@ -331,10 +331,10 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
         let html = EdminForce.utils.getPaymentConfirmEmailTemplate(trialData);
         EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
         
-        return true;
+        return scID;
     }
-    
-    return false;
+
+    throw new Meteor.Error(500, 'The selected class does not have space for trial','Class id: ' + classID);;
 }
 
 /*

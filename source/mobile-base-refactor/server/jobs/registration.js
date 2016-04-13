@@ -46,6 +46,7 @@ Meteor.startup(function () {
 
             // process each one, set it to expired and release space held
             expiredRegistrations.forEach( (sc) => {
+                console.log('expired: ', sc._id);
                 EdminForce.Registration.expirePendingRegistration(sc);
             })
         }

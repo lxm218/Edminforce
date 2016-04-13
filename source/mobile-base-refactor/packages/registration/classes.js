@@ -224,11 +224,11 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
         throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
 
     if (!EdminForce.Registration.isAvailableForMakeup(classData, lessonDate))
-        return false;
+        throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
 
     if (updateMakeupCount(classID, lessonDate)> 0) {
         // insert a class student record
-        Collections.classStudent.insert({
+        return Collections.classStudent.insert({
             accountID: userId,
             classID,
             studentID,
@@ -238,10 +238,9 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
             type: "makeup",
             createTime: new Date()
         });
-        return true;
     }
 
-    return false;
+    throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
 }
 
 /*
