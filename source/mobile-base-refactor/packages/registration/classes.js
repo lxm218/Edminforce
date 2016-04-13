@@ -194,33 +194,54 @@ function bookClasses(userId, studentID, classIDs) {
     return bookedIDs;
 }
 
+/*
+ * Try allocate a makeup class space
+ */
+function updateMakeupCount(classID, lessonDate) {
+    let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
+    //this has to be consistent with "isAvailableForMakeup"
+    let whereQuery = 'this.makeup.' + strLessonDate + '+this.trial.' + strLessonDate + '+this.numberOfRegistered<this.maxStudent && this.makeup.' + strLessonDate + '<this.makeupStudent';
+    let incData = {};
+    incData['makeup.'+strLessonDate] = 1;
+
+    return Collections.class.update({
+        _id: classID,
+        $where: whereQuery
+    }, {
+        $inc: incData
+    });
+}
+
 /* 
  * book a makeup class for a student
  */
 function bookMakeup(userId, studentID, classID, lessonDate) {
     let classData = Collections.class.findOne({
         _id:classID
-    }, {
-        fields:{
-            programID:1,
-            maxStudent:1,
-            numberOfRegistered:1, 
-            makeup:1, 
-            makeupStudent:1,
-            trialStudent:1
-        }
     });
     
     if (!classData)
         throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
 
-    let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
-    if (classData.numberOfRegistered >= classData.maxStudent) return false;
-    if (classData.makeup &&
-        classData.makeup[strLessonDate] &&
-        classData.makeup[strLessonDate] >= classData.makeupStudent )
+    if (!EdminForce.Registration.isAvailableForMakeup(classData, lessonDate))
         return false;
 
+    if (updateMakeupCount(classID, lessonDate)> 0) {
+        // insert a class student record
+        Collections.classStudent.insert({
+            accountID: userId,
+            classID,
+            studentID,
+            programID: classData.programID,
+            lessonDate,
+            status: "pending",
+            type: "makeup",
+            createTime: new Date()
+        });
+        return true;
+    }
+
+    return false;
 }
 
 /*
@@ -572,7 +593,7 @@ function postPaymentUpdate(userId, order, paymentMethod) {
             if (sc.type === 'register') {
                 let classData = Collections.class.findOne({_id: sc.classID});
                 if (classData) {
-                    nRebooked = Collections.class.update( {
+                    nRebooked = Collections.class.update({
                         _id: sc.classID,
                         numberOfRegistered: {$lt: classData.maxStudent}
                     }, {
@@ -584,8 +605,7 @@ function postPaymentUpdate(userId, order, paymentMethod) {
             }
             else
             if (sc.type === 'makeup') {
-                let classData = EdminForce.utils.updateTrialAndMakeupCount('makeup', sc.classID, sc.lessonDate);
-                nRebooked = classData ? 1: 0;
+                nRebooked = updateMakeupCount(sc.classID, sc.lessonDate)
             }
 
             // rebooked
@@ -725,3 +745,4 @@ EdminForce.Registration.removePendingRegistration = removePendingRegistration;
 EdminForce.Registration.expirePendingRegistration = expirePendingRegistration;
 EdminForce.Registration.payECheck = payECheck;
 EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;
+EdminForce.Registration.bookMakeup = bookMakeup;

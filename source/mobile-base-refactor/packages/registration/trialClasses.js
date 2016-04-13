@@ -56,6 +56,65 @@ function validateStudentForClass(classInfo, student) {
 }
 
 /*
+ * Check if there is space for trial
+ * for a given class on a given date
+ */
+function isAvailableForTrial(classItem, classDate) {
+    let strLessonDate = classDate.format('YYYY-MM-DD');
+    return classItem.trial[strLessonDate] + classItem.numberOfRegistered < classItem.maxStudent &&
+        classItem.trial[strLessonDate] < classItem.trialStudent;
+
+    // let numRegularStudents = classItem.hasOwnProperty('numberOfRegistered') ? classItem.numberOfRegistered : 0;
+    // if (numRegularStudents >= classItem.maxStudent)
+    //     return false;
+    //
+    // let trialNumber = 0;
+    // let strLessonDate = classDate.format('YYYY-MM-DD');
+    // if (classItem.trial && classItem.trial.hasOwnProperty(strLessonDate)) {
+    //     trialNumber = classItem.trial[strLessonDate];
+    // }
+    // // check against maxTrialStudent
+    // if (trialNumber >= classItem.trialStudent) return false;
+    //
+    // // trial + regular <= maxStudent
+    // if (trialNumber + numRegularStudents >= classItem.maxStudent) return false;
+    //
+    // return true;
+}
+
+/*
+ * Check if there is space for makeup class
+ * for a given class on a given date
+ */
+function isAvailableForMakeup(classItem, classDate) {
+    let strLessonDate = classDate.format('YYYY-MM-DD');
+    return classItem.makeup[strLessonDate] + classItem.trial[strLessonDate] + classItem.numberOfRegistered < classItem.maxStudent &&
+        classItem.makeup[strLessonDate] < classItem.makeupStudent;
+
+    // let numRegularStudents = classItem.hasOwnProperty('numberOfRegistered') ? classItem.numberOfRegistered : 0;
+    // if (numRegularStudents >= classItem.maxStudent)
+    //     return false;
+    //
+    // let strLessonDate = classDate.format('YYYY-MM-DD');
+    // let makeupNumber = 0;
+    // if (classItem.makeup && classItem.makeup.hasOwnProperty(strLessonDate)) {
+    //     makeupNumber = classItem.makeup[strLessonDate];
+    // }
+    // if (makeupNumber >= classItem.makupStudent)
+    //     return false;
+    //
+    // // makeup + trial + regular <= maxStudent
+    // let trialNumber = 0;
+    // if (classItem.trial && classItem.trial.hasOwnProperty(strLessonDate)) {
+    //     trialNumber = classItem.trial[strLessonDate];
+    // }
+    // if (trialNumber + makeupNumber + numRegularStudents >= classItem.maxStudent)
+    //     return false;
+    //
+    // return true;
+}
+
+/*
  * Iterate through a date range and check each lesson for a given class
  */
 function processClassLessonInDateRange(classItem, classSession, program, startDt, endDt, resultArray, validateCb) {
@@ -85,7 +144,7 @@ function processClassLessonInDateRange(classItem, classSession, program, startDt
                     bd.getFullYear() == classDate.year() } ))
             continue;
 
-        if (validateCb(classDate)) {
+        if (validateCb(classItem, classDate)) {
             let lesson = _.pick(classItem, ['_id', 'programID', 'sessionID', 'schedule', 'length', 'teacher', 'makeupClassFee']);
             lesson.key = lesson._id + ":" + classDate.unix();
             let lessonDate = moment(classDate);
@@ -154,71 +213,7 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
         }
 
         // check each lesson in selected date range, add valid lesson into result
-        processClassLessonInDateRange(classItem, classSession, program, startDt, endDt, availableLessons, (classDate) => {
-            let trialNumber = 0;
-            let strLessonDate = classDate.format('YYYY-MM-DD');
-            if (classItem.trial && classItem.trial.hasOwnProperty(strLessonDate)) {
-                trialNumber = classItem.trial[strLessonDate];
-            }
-            // trial + regular <= maxStudent
-            if (trialNumber + numRegularStudents >= classItem.maxStudent) return false;
-
-            // check against maxTrialStudent
-            if (trialNumber >= classItem.trialStudent) return false;
-
-            return true;
-        });
-
-        // // find class time
-        // let classTime = moment(classItem.schedule.time, 'hh:mma');
-        //
-        // // find the first class date within the date range, thanks to momentjs, we can get this easily
-        // let classDate = moment(startDt >= classSession.startDate ? startDt : classSession.startDate);
-        // classDate.day(classItem.schedule.day);
-        // if (classDate.toDate() < startDt) {
-        //     classDate = classDate.add(7,'d');
-        // }
-        // // set h:m:s:milli to 0 for accurate comparison
-        // classDate.hour(0);
-        // classDate.minute(0);
-        // classDate.second(0);
-        // classDate.millisecond(0);
-        //
-        // // loop through the date range
-        // let classEndDate = endDt < classSession.endDate ? endDt : classSession.endDate;
-        // for (; classDate.toDate() <= classEndDate; classDate = classDate.add(7,'d')) {
-        //
-        //     // check block out day
-        //     if (_.find(classSession.blockOutDay, (bd) => {
-        //             return bd.getDate() == classDate.date() &&
-        //                 bd.getMonth() == classDate.month() &&
-        //                 bd.getFullYear() == classDate.year() } ))
-        //         continue;
-        //
-        //     //let trialNumber = getClassTrialStudentCount(classItem._id, classDate.toDate());
-        //     let trialNumber = 0;
-        //     let strLessonDate = classDate.format('YYYY-MM-DD');
-        //     if (classItem.trial && classItem.trial.hasOwnProperty(strLessonDate)) {
-        //         trialNumber = classItem.trial[strLessonDate];
-        //     }
-        //
-        //     // trial + regular <= maxStudent
-        //     if (trialNumber + numRegularStudents >= classItem.maxStudent) continue;
-        //
-        //     // check against maxTrialStudent, null means no limit
-        //     if (trialNumber >= classItem.trialStudent) continue;
-        //
-        //     // this lesson is available
-        //     // only pick the fields that are needed by client
-        //     let lesson = _.pick(classItem, ['_id', 'programID', 'sessionID', 'schedule', 'length', 'teacher']);
-        //     lesson.key = lesson._id + ":" + classDate.unix();
-        //     let lessonDate = moment(classDate);
-        //     lessonDate.hour(classTime.hour());
-        //     lessonDate.minute(classTime.minute());
-        //     lesson.lessonDate = lessonDate.toDate();
-        //     lesson.name = EdminForce.utils.getClassName(program.name, classSession.name, classItem);
-        //     availableLessons.push(lesson);
-        // }
+        processClassLessonInDateRange(classItem, classSession, program, startDt, endDt, availableLessons,isAvailableForTrial);
     }
     return availableLessons;
 }
@@ -284,42 +279,62 @@ function getTrialStudents(accountID, classID) {
  * book trial class
  */
 function bookTrial(userId, studentID, classID, className, lessonDate) {
-    
     let student = Collections.student.findOne({_id: studentID});
     if (!student) {
         throw new Meteor.Error(500, 'Student not found','Invalid student id: ' + studentID);
     }
 
-    // update class record
-    let classData = EdminForce.utils.updateTrialAndMakeupCount('trial', classID, lessonDate);
-
-    if (!classData) {
-        throw new Meteor.Error(500, 'No space for trial in the selected class','No space for trial in the selected class: ' + classID);
-    }
-
-    // insert a class student record
-    Collections.classStudent.insert({
-        accountID: userId,
-        classID,
-        studentID,
-        programID: classData.programID,
-        lessonDate,
-        status: "checkouted",
-        type: "trial",
-        createTime: new Date()
+    let classData = Collections.class.findOne({
+        _id:classID
     });
 
-    // Let other method calls from the same client start running,
-    // without waiting for the email sending to complete.
-    //this.unblock();
+    if (!classData)
+        throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
+    
+    // if (!classData) {
+    //     throw new Meteor.Error(500, 'No space for trial in the selected class','No space for trial in the selected class: ' + classID);
+    // }
 
-    let trialData = {};
-    trialData[student.name] = {};
-    trialData[student.name][className] = lessonDate;
-    let html = EdminForce.utils.getPaymentConfirmEmailTemplate(trialData);
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
+    if (!EdminForce.Registration.isAvailableForTrial(classData, lessonDate))
+        return false;
+
+    let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
+    //this has to be consistent with "isAvailableForTrial"
+    let whereQuery = 'this.trial.' + strLessonDate + '+this.numberOfRegistered<this.maxStudent && this.trial.' + strLessonDate + '<this.trialStudent';
+    let incData = {};
+    incData['trial.'+strLessonDate] = 1;
+
+    let nUpdated = Collections.class.update({
+        _id: classID,
+        $where: whereQuery
+    }, {
+        $inc: incData
+    });
+
+    if (nUpdated > 0) {
+        // insert a class student record
+        Collections.classStudent.insert({
+            accountID: userId,
+            classID,
+            studentID,
+            programID: classData.programID,
+            lessonDate,
+            status: "checkouted",
+            type: "trial",
+            createTime: new Date()
+        });
+        
+        let trialData = {};
+        trialData[student.name] = {};
+        trialData[student.name][className] = lessonDate;
+        let html = EdminForce.utils.getPaymentConfirmEmailTemplate(trialData);
+        EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
+        
+        return true;
+    }
+    
+    return false;
 }
-
 
 /*
  * Returns available make up lessons for a student
@@ -395,26 +410,7 @@ function getAvailableMakeupLessons(userId, studentID, classID, startDt, endDt) {
             continue;
 
         // check each lesson in selected date range, add valid lesson into result
-        processClassLessonInDateRange(classItem, classSession, program, startDt, endDt, availableLessons, (classDate) => {
-            let strLessonDate = classDate.format('YYYY-MM-DD');
-            let makeupNumber = 0;
-            if (classItem.makeup && classItem.makeup.hasOwnProperty(strLessonDate)) {
-                makeupNumber = classItem.makeup[strLessonDate];
-            }
-            if (makeupNumber >= classItem.makupStudent)
-                return false;
-
-            // makeup + trial + regular <= maxStudent
-            let trialNumber = 0;
-            if (classItem.trial && classItem.trial.hasOwnProperty(strLessonDate)) {
-                trialNumber = classItem.trial[strLessonDate];
-            }
-            if (trialNumber + makeupNumber + numRegularStudents >= classItem.maxStudent)
-                return false;
-
-            return true;
-        })
-
+        processClassLessonInDateRange(classItem, classSession, program, startDt, endDt, availableLessons, isAvailableForMakeup);
     }
     return availableLessons;
 }
@@ -426,3 +422,5 @@ EdminForce.Registration.getAvailableMakeupLessons = getAvailableMakeupLessons;
 EdminForce.Registration.getTrialStudents = getTrialStudents;
 EdminForce.Registration.validateStudentForClass = validateStudentForClass;
 EdminForce.Registration.bookTrial = bookTrial;
+EdminForce.Registration.isAvailableForMakeup = isAvailableForMakeup;
+EdminForce.Registration.isAvailableForTrial = isAvailableForTrial;
