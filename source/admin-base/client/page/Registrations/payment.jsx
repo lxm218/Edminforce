@@ -44,10 +44,12 @@ KUI.Registration_payment = class extends KUI.Page{
             }
         });
 
-        let student = {};
+        let student = KG.get('EF-Student').getDB().findOne();
         let s4 = null;
-        if(s3.ready()){
-            student = KG.get('EF-Student').getDB().findOne();
+
+
+        if(s3.ready() && student){
+            console.log(student.accountID)
             s4 = Meteor.subscribe('EF-Customer', {
                 query : {
                     _id : student.accountID
@@ -55,13 +57,15 @@ KUI.Registration_payment = class extends KUI.Page{
             });
         }
 
+        let csd = KG.get('EF-Class').getAll()[0];
+//        console.log(student, csd);
 
         return {
             id : id,
             data : one,
-            'class' : KG.get('EF-Class').getAll()[0],
+            'class' : csd,
             student : student,
-            ready : s2.ready() && s3.ready() && s4.ready()
+            ready : s2.ready() && csd && s3.ready() && s4.ready()
         };
     }
 //http://localhost:8000/registration/payment/cWckGjpfLAwpsiL6t
@@ -86,7 +90,7 @@ KUI.Registration_payment = class extends KUI.Page{
         }
 
         let m = this.getDepModule();
-
+console.log(m.Customer.getAll()[0])
         let customer = m.Customer.getAll()[0],
             registrationFee = customer.hasRegistrationFee ? customer.hasRegistrationFee*m.Customer.getRegistrationFee():0;
         let student = this.data.student,
@@ -164,7 +168,7 @@ KUI.Registration_payment = class extends KUI.Page{
             <RC.Div>
                 <h3>Register Class</h3>
                 <hr/>
-                <p>Student : {student.nickName}</p>
+                <p>Student : {student.name}</p>
                 <p>Class : {cls.nickName}</p>
                 {this.renderTable(list)}
                 {this.renderStep1()}

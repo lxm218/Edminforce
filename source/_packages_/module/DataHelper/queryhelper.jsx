@@ -151,11 +151,13 @@ KG.define('EF-DataHelper', class extends Base{
                 let format = 'YYYYMMDD';
                 _.each(classData, (item)=>{
                     let cld = m.Class.getClassLessonDate(item);
+                    console.log(cld)
                     let tmp = _.find(cld, function(one){
                         //console.log(moment(one).format(format), min.format(format));
                         return moment(one).format(format) === min.format(format);
                     });
                     if(!tmp) return true;
+                    console.log(tmp)
 
 
                     let tp = m.ClassStudent.getAll({

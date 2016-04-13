@@ -139,7 +139,7 @@ let Class = class extends Base{
 
         let now = moment(new Date());
         if(now.isAfter(start, 'day')){
-            start = now;
+            //start = now;
         }
 
         let day = this.getDBSchema().schema('schedule.day').allowedValues;

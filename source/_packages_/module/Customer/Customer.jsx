@@ -103,9 +103,12 @@ KG.define('EF-Customer', class extends Base{
         }
 
         try{
-            let rs = this._db.update({_id : id}, {'$set' : data});
+            let rs = this._db.update({_id : id}, {'$set' : data}, function(err){
+                throw err;
+            });
             return KG.result.out(true, rs);
         }catch(e){
+            console.log(e);
             return KG.result.out(false, e, e.toString());
         }
     }

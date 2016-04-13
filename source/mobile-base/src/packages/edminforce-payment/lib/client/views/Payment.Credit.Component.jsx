@@ -549,9 +549,16 @@
       return (
         <RC.List className="padding">
         <RC.Loading isReady={this.data.isReady}>
+            <div className="payment-container">
               <span className="totalAmount">Total Amount is: ${this.calculateTotal()}</span>
               <br/>
               <br/>
+                <div>
+                    <span className="card american-express"></span>
+                    <span className="card discover"></span>
+                    <span className="card mastercard"></span>
+                    <span className="card visa"></span>
+                </div>
               <RC.Form onSubmit={this.postPayment}   ref="paymentForm">
                 {this.printMsg()}
               <RC.Input name="creditCardNumber" onKeyUp={this.checkCardNumber} label="Credit Card Number" theme={inputTheme} ref="cardNumber" />
@@ -567,7 +574,9 @@
                   Pay Now
               </RC.Button>
             </RC.Form>
-            </RC.Loading>
+            <a href="http://www.authorize.net/"><div className="authorize-verified"></div></a>
+            </div>
+        </RC.Loading>
         </RC.List>
       );
     }

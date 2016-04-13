@@ -253,7 +253,11 @@ console.log('['+this._name+':'+methodName+' call]');
                 option.fields = opts.field;
             };
 
-            Counts.publish(this, self._name+'-count', self._db.find(opts.query));
+            Counts.publish(this, self._name+'-count', self._db.find(opts.query), {
+                nonReactive : true,
+                noReady : true
+            });
+
             return self._db.find(opts.query, option);
         });
 

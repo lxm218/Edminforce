@@ -19,7 +19,9 @@ KUI.Registration_index = class extends KUI.Page{
         let x = Meteor.subscribe('EF-Class'),
             x1 = Meteor.subscribe('EF-Program'),
             x2 = Meteor.subscribe('EF-Session'),
-            y = Meteor.subscribe('EF-Student'),
+            y = Meteor.subscribe('EF-Student', {
+                query : this.studentID?{_id:this.studentID}:{}
+            }),
             z = Meteor.subscribe('EF-ClassStudent');
 
         if(!x1.ready || !x2.ready) return {ready : false};
@@ -92,7 +94,7 @@ KUI.Registration_index = class extends KUI.Page{
             session : this.data.session
         };
 
-        option.student = [{_id:'-1', nickName:'Please select student'}].concat(option.student);
+        option.student = [{_id:'-1', name:'Please select student'}].concat(option.student);
         option.lesson = [{_id:'-1', nickName : 'Please select class'}].concat(option.lesson);
 
         let sy = {
@@ -119,7 +121,7 @@ KUI.Registration_index = class extends KUI.Page{
 
                         <RB.Input {... p.student}>
                             <RB.Row>
-                                {so?<RB.Col style={sy.col} xs={4}>{so.nickName}</RB.Col>:''}
+                                {so?<RB.Col style={sy.col} xs={4}>{so.name}</RB.Col>:''}
                                 <RB.Col xs={2}>
                                     {this.studentID?'':<KUI.YesButton onClick={this.openModal.bind(this)} label="Select"></KUI.YesButton>}
                                 </RB.Col>
