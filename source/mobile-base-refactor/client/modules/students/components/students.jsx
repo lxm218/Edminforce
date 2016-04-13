@@ -47,6 +47,7 @@ EdminForce.Components.Students = class extends RC.CSS {
             // show all current classes, and one most recent completed class, if any.
             let classes = student.currentClasses;
             if (student.completedClasses.length > 0) {
+                student.completedClasses[0].completed = true;
                 classes = student.currentClasses.concat([student.completedClasses[0]]);
             }
 

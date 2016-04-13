@@ -61,8 +61,8 @@ function validateStudentForClass(classInfo, student) {
  */
 function isAvailableForTrial(classItem, classDate) {
     let strLessonDate = classDate.format('YYYY-MM-DD');
-    return classItem.trial[strLessonDate] + classItem.numberOfRegistered < classItem.maxStudent &&
-        classItem.trial[strLessonDate] < classItem.trialStudent;
+    let trialCount = classItem.trial && classItem.trial[strLessonDate] ? classItem.trial[strLessonDate] : 0;
+    return trialCount + classItem.numberOfRegistered < classItem.maxStudent &&  trialCount < classItem.trialStudent;
 
     // let numRegularStudents = classItem.hasOwnProperty('numberOfRegistered') ? classItem.numberOfRegistered : 0;
     // if (numRegularStudents >= classItem.maxStudent)
@@ -88,8 +88,10 @@ function isAvailableForTrial(classItem, classDate) {
  */
 function isAvailableForMakeup(classItem, classDate) {
     let strLessonDate = classDate.format('YYYY-MM-DD');
-    return classItem.makeup[strLessonDate] + classItem.trial[strLessonDate] + classItem.numberOfRegistered < classItem.maxStudent &&
-        classItem.makeup[strLessonDate] < classItem.makeupStudent;
+    let makeupCount = classItem.makeup && classItem.makeup[strLessonDate] ? classItem.makeup[strLessonDate] : 0;
+    let trialCount = classItem.trial && classItem.trial[strLessonDate] ? classItem.trial[strLessonDate] : 0;
+    return makeupCount + trialCount + classItem.numberOfRegistered < classItem.maxStudent &&
+        makeupCount < classItem.makeupStudent;
 
     // let numRegularStudents = classItem.hasOwnProperty('numberOfRegistered') ? classItem.numberOfRegistered : 0;
     // if (numRegularStudents >= classItem.maxStudent)
@@ -136,7 +138,6 @@ function processClassLessonInDateRange(classItem, classSession, program, startDt
     // loop through the date range
     let classEndDate = endDt < classSession.endDate ? endDt : classSession.endDate;
     for (; classDate.toDate() <= classEndDate; classDate = classDate.add(7,'d')) {
-
         // check block out day
         if (_.find(classSession.blockOutDay, (bd) => {
                 return bd.getDate() == classDate.date() &&
@@ -373,7 +374,7 @@ function getAvailableMakeupLessons(userId, studentID, classID, startDt, endDt) {
         // excluding current class
         _id: {$ne: classID},
         // filter by program
-        programID: programId,
+        programID,
         // filter by active class
         status: 'Active',
         // filter by makeupStudent

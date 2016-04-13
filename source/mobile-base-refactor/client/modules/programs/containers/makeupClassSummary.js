@@ -1,5 +1,5 @@
 
-const reactiveFnMakeupClassSummary = ({context}, onData) => {
+const reactiveFnMakeupClassSummary = ({context,actions}, onData) => {
     const errorId = 'ERROR_MAKEUPCLASSES';
     const error = context.LocalState.get(errorId);
     onData(null, {error});

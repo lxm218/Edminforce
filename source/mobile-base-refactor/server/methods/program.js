@@ -39,7 +39,7 @@ Meteor.methods({
     },
 
     'program.getMakeupClasses': function (studentID, classID, startDt, endDt) {
-        check([studentID,programID,classID], [String]);
+        check([studentID,classID], [String]);
         check([startDt,endDt] [Date]);
         return EdminForce.Registration.getAvailableMakeupLessons(this.userId, studentID, classID, startDt, endDt);
     },

@@ -12,9 +12,13 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
     }
 
     onSelectDay(day) {
-        this.setState({
+        let newState = {
             selectedDay: day
-        })
+        }
+        if (day != this.state.selectedDay) {
+            newState.selectedLesson = null;
+        }
+        this.setState(newState)
     }
 
     onSelectLesson(classData) {
@@ -75,7 +79,7 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
     render() {
         let attributes = {};
 
-        if (!this.selectedLesson) {
+        if (!this.state.selectedLesson) {
             processButtonStyle = {
                 backgroundColor: "gray",
                 cursor: "not-allowed"
@@ -94,7 +98,6 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
                     <div className="students-detail-make-up">
                         <div className="make-up-step-1" style={{display: "block"}}>
                             <div>
-                                <p style={{marginLeft: "20px"}}>Select Day:</p>
                                 <EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay}/>
                             </div>
                             { this.renderClasses() }
