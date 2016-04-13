@@ -1,3 +1,3 @@
 Meteor.startup( () => {
-    //EdminForce.utils.updateClassRegistration();
+    //EdminForce.Registration.syncClassRegistrationCount();
 })

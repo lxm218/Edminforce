@@ -60,7 +60,7 @@ function validateStudentForClass(classInfo, student) {
  * for a given class on a given date
  */
 function isAvailableForTrial(classItem, classDate) {
-    let strLessonDate = classDate.format('YYYY-MM-DD');
+    let strLessonDate = EdminForce.Registration.getLessonDateFieldName(classDate);
     let trialCount = classItem.trial && classItem.trial[strLessonDate] ? classItem.trial[strLessonDate] : 0;
     return trialCount + classItem.numberOfRegistered < classItem.maxStudent &&  trialCount < classItem.trialStudent;
 
@@ -69,7 +69,7 @@ function isAvailableForTrial(classItem, classDate) {
     //     return false;
     //
     // let trialNumber = 0;
-    // let strLessonDate = classDate.format('YYYY-MM-DD');
+    // let strLessonDate = EdminForce.Registration.getLessonDateFieldName(classDate);
     // if (classItem.trial && classItem.trial.hasOwnProperty(strLessonDate)) {
     //     trialNumber = classItem.trial[strLessonDate];
     // }
@@ -87,7 +87,7 @@ function isAvailableForTrial(classItem, classDate) {
  * for a given class on a given date
  */
 function isAvailableForMakeup(classItem, classDate) {
-    let strLessonDate = classDate.format('YYYY-MM-DD');
+    let strLessonDate = EdminForce.Registration.getLessonDateFieldName(classDate);
     let makeupCount = classItem.makeup && classItem.makeup[strLessonDate] ? classItem.makeup[strLessonDate] : 0;
     let trialCount = classItem.trial && classItem.trial[strLessonDate] ? classItem.trial[strLessonDate] : 0;
     return makeupCount + trialCount + classItem.numberOfRegistered < classItem.maxStudent &&
@@ -97,7 +97,7 @@ function isAvailableForMakeup(classItem, classDate) {
     // if (numRegularStudents >= classItem.maxStudent)
     //     return false;
     //
-    // let strLessonDate = classDate.format('YYYY-MM-DD');
+    // let strLessonDate = EdminForce.Registration.getLessonDateFieldName(classDate);
     // let makeupNumber = 0;
     // if (classItem.makeup && classItem.makeup.hasOwnProperty(strLessonDate)) {
     //     makeupNumber = classItem.makeup[strLessonDate];
@@ -292,18 +292,20 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
     if (!classData)
         throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
     
-    // if (!classData) {
-    //     throw new Meteor.Error(500, 'No space for trial in the selected class','No space for trial in the selected class: ' + classID);
-    // }
-
     if (!EdminForce.Registration.isAvailableForTrial(classData, lessonDate))
         throw new Meteor.Error(500, 'The selected class does not have space for trial','Class id: ' + classID);;
 
-    let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
+    let strLessonDate = EdminForce.Registration.getLessonDateFieldName(lessonDate);
+    let trialCountField = 'this.trial.' + strLessonDate;
+    let trialCount = `(${trialCountField}?${trialCountField}:0)`;
     //this has to be consistent with "isAvailableForTrial"
-    let whereQuery = 'this.trial.' + strLessonDate + '+this.numberOfRegistered<this.maxStudent && this.trial.' + strLessonDate + '<this.trialStudent';
+    let whereQuery = `${trialCount}+this.numberOfRegistered<this.maxStudent && ${trialCount}<this.trialStudent`;
+
+    console.log(classID);
+    console.log(whereQuery);
+
     let incData = {};
-    incData['trial.'+strLessonDate] = 1;
+    incData['trial.' + strLessonDate] = 1;
 
     let nUpdated = Collections.class.update({
         _id: classID,

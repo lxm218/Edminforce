@@ -84,10 +84,10 @@ EdminForce.utils.getPaymentConfirmEmailTemplate = function(data) {
  *  class record - space is available and count is updated
  */
 // EdminForce.utils.updateTrialAndMakeupCount = function(trialOrMakeup, classID, lessonDate) {
-//     // [trial | makeup].YYYY-MM-DD, trial.2015-01-01, makeup.2015-01-01
+//     // [trial | makeup].dYYYYMMDD, trial.d20150101, makeup.d20150101
 //     // we have to include some non-digit characters in lesson data
 //     // otherwise mongodb would treat field name like '20160406' as number
-//     let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
+//     let strLessonDate = EdminForce.Registration.getLessonDateFieldName(lessonDate);
 //     let lessonDateField = trialOrMakeup + '.' + strLessonDate;
 //     // class.trialStudent or class.makeupStudent
 //     let maxFieldName = trialOrMakeup + 'Student'; 
@@ -144,59 +144,59 @@ EdminForce.utils.getPaymentConfirmEmailTemplate = function(data) {
 /*
  * release makeup/trial space
  */
-EdminForce.utils.releaseTrialAndMakeupSpace = function(trialOrMakeup, classID, lessonDate) {
-    let query = {
-        _id: classID,
-    }
-
-    let strLessonDate = moment(lessonDate).format('YYYY-MM-DD');
-    let lessonDateField = trialOrMakeup + '.' + strLessonDate;
-    query[lessonDateField] = {$gt: 0};
-
-    let incData = {};
-    incData[lessonDateField] = -1;
-    return Collections.class.update(query, {$inc: incData});
-}
+// EdminForce.utils.releaseTrialAndMakeupSpace = function(trialOrMakeup, classID, lessonDate) {
+//     let query = {
+//         _id: classID,
+//     }
+//
+//     let strLessonDate =  EdminForce.Registration.getLessonDateFieldName(lessonDate);
+//     let lessonDateField = trialOrMakeup + '.' + strLessonDate;
+//     query[lessonDateField] = {$gt: 0};
+//
+//     let incData = {};
+//     incData[lessonDateField] = -1;
+//     return Collections.class.update(query, {$inc: incData});
+// }
 
 /*
  * Sync classStudent collection and class collection
  */
-EdminForce.utils.updateClassRegistration = function() {
 
-    // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted', type:'register'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
-    // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
-    // db['EF-ClassStudent'].aggregate( [ {$match: {classID: classItem._id, status: 'checkouted', type: 'trial'}}, {$group: {_id: "$lessonDate", count:{$sum:1}}} ]);
-    // db['EF-ClassStudent'].aggregate( [ {$match: {status: 'checkouted', type: 'trial'}}, {$group: {_id: {classID: "$classID", lessonDate:"$lessonDate"}, count:{$sum:1}}} ]);
-    console.log('update class registration data')
-
-    let classes = Collections.class.find({},{fields:{_id:1}}).fetch();
-    console.log('Number of classes: ' + classes.length);
-
-    classes.forEach( (classItem) => {
-
-        console.log('Update class ' + classItem._id);
-
-        // get number of registered regular students
-        let numberOfRegistered = Collections.classStudent.find({classID: classItem._id, status: 'checkouted', type:'register'}).count();
-        let updateData = {
-            numberOfRegistered,
-            trial: {},
-            makeup: {}
-        }
-
-        // use mongo aggregate pipeline to get trial & make up info for each class day
-        let pipeline = [
-            {$match: {classID: classItem._id, status: 'checkouted', type: {$in:['trial','makeup']}}},
-            {$group: {_id: {lessonDate: "$lessonDate", type: "$type"}, count:{$sum:1}}}
-        ];
-        let trialAndMakeups = Collections.classStudent.aggregate(pipeline);
-        if (trialAndMakeups.ok) {
-            trialAndMakeups.forEach( (res) => {
-                let lessonDateStr = moment(res.lessonDate).format('YYYY-MM-DD');
-                updateData[res._id.type][lessonDateStr] = res.count;
-            })
-        }
-
-        Collections.class.update({_id: classItem._id}, {$set: updateData});
-    });
-}
+// EdminForce.utils.updateClassRegistration = function() {
+//     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted', type:'register'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
+//     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
+//     // db['EF-ClassStudent'].aggregate( [ {$match: {classID: classItem._id, status: 'checkouted', type: 'trial'}}, {$group: {_id: "$lessonDate", count:{$sum:1}}} ]);
+//     // db['EF-ClassStudent'].aggregate( [ {$match: {status: 'checkouted', type: 'trial'}}, {$group: {_id: {classID: "$classID", lessonDate:"$lessonDate"}, count:{$sum:1}}} ]);
+//     console.log('update class registration data')
+//
+//     let classes = Collections.class.find({},{fields:{_id:1}}).fetch();
+//     console.log('Number of classes: ' + classes.length);
+//
+//     classes.forEach( (classItem) => {
+//
+//         console.log('Update class ' + classItem._id);
+//
+//         // get number of registered regular students
+//         let numberOfRegistered = Collections.classStudent.find({classID: classItem._id, status: 'checkouted', type:'register'}).count();
+//         let updateData = {
+//             numberOfRegistered,
+//             trial: {},
+//             makeup: {}
+//         }
+//
+//         // use mongo aggregate pipeline to get trial & make up info for each class day
+//         let pipeline = [
+//             {$match: {classID: classItem._id, status: 'checkouted', type: {$in:['trial','makeup']}}},
+//             {$group: {_id: {lessonDate: "$lessonDate", type: "$type"}, count:{$sum:1}}}
+//         ];
+//         let trialAndMakeups = Collections.classStudent.aggregate(pipeline);
+//         if (trialAndMakeups.ok) {
+//             trialAndMakeups.forEach( (res) => {
+//                 let lessonDateStr = EdminForce.Registration.getLessonDateFieldName(res.lessonDate);
+//                 updateData[res._id.type][lessonDateStr] = res.count;
+//             })
+//         }
+//
+//         Collections.class.update({_id: classItem._id}, {$set: updateData});
+//     });
+// }
