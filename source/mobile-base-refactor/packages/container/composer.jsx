@@ -146,7 +146,7 @@ function DefaultErrorComponent({error}) {
 }
 
 function DefaultLoadingComponent() {
-    return (<p>Loading...</p>);
+    return (<RC.Loading isReady={false}></RC.Loading>);
 }
 
 function compose(fn, L1, E1, options = {pure: true}) {

@@ -90,8 +90,8 @@ DefaultRoutes.route('/makeupClassSummary', {
                 studentID={q.studentID}
                 studentName={q.studentName}
                 classID={q.classID}
-                lessonDate={q.lessonDate}
-                makeupFee={q.makeupFee}
+                lessonDate={new Date(Number(q.lessonDate))}
+                makeupFee={Number(q.makeupFee)}
                 context={EdminForce.Contexts.Programs}
                 actions={EdminForce.Actions.Programs} />
         })
