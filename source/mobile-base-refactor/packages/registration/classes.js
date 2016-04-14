@@ -750,10 +750,10 @@ function payECheck(userId, checkPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.routingNumber = checkPaymentInfo.routingNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = checkPaymentInfo.accountNumber
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = checkPaymentInfo.nameOnAccount
-    //Missing
+
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
-    paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount;
+    paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount + 0.5;
 
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     var response = HTTP.call('POST',URL, {data: paymentInfo});
@@ -773,10 +773,92 @@ function payECheck(userId, checkPaymentInfo) {
     }
 }
 
+function payCreditCard(userId, creditCardPaymentInfo) {
+    let order = Collections.orders.findOne({_id: creditCardPaymentInfo.orderId});
+    if (!order) throw new Meteor.Error(500, 'Order not found', 'Invalid order id: ' + creditCardPaymentInfo.orderId);
 
-/*
- * Sync classStudent collection and class collection
- */
+    var paymentInfo = {
+        "createTransactionRequest": {
+            "merchantAuthentication": {
+                "name": "42ZZf53Hst",
+                "transactionKey": "3TH6yb6KN43vf76j"
+            },
+            "refId": "123461",
+            "transactionRequest": {
+                "transactionType": "authCaptureTransaction",
+                "amount": "5",
+                "payment": {
+                    "creditCard": {
+                        "cardNumber": "5424000000000015",
+                        "expirationDate": "1220",
+                        "cardCode": "999"
+                    }
+                },
+                "profile":{
+                    "createProfile": false
+
+                },
+                "poNumber": "456654",
+                "customer": {
+                    "id": "99999456656"
+                },
+                "billTo": {
+                    "firstName": "Ellen",
+                    "lastName": "Johnson",
+                    "company": "Souveniropolis",
+                    "address": "14 Main Street",
+                    "city": "Pecan Springs",
+                    "state": "TX",
+                    "zip": "44628",
+                    "country": "USA"
+                },
+
+                "customerIP": "192.168.1.1",
+                "transactionSettings": {
+                    "setting": {
+                        "settingName": "testRequest",
+                        "settingValue": "false"
+                    }
+                },
+            }
+        }
+    };
+
+    paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardNumber = creditCardPaymentInfo.creditCardNumber;
+    paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.expirationDate = creditCardPaymentInfo.expirationDate;
+    paymentInfo.createTransactionRequest.transactionRequest.payment.creditCard.cardCode = creditCardPaymentInfo.ccv;
+    paymentInfo.createTransactionRequest.transactionRequest.billTo.firstName = creditCardPaymentInfo.firstName;
+    paymentInfo.createTransactionRequest.transactionRequest.billTo.lastName = creditCardPaymentInfo.lastName;
+    paymentInfo.createTransactionRequest.transactionRequest.billTo.address = creditCardPaymentInfo.address;
+    paymentInfo.createTransactionRequest.transactionRequest.billTo.city = creditCardPaymentInfo.city;
+    paymentInfo.createTransactionRequest.transactionRequest.billTo.state = forcreditCardPaymentInfo.state;
+    paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = creditCardPaymentInfo.zip;
+
+    paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
+    paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount * 1.03;
+
+    var URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    var response = HTTP.call('POST',URL, {data: paymentInfo});
+    //console.log(response);
+
+    if (response &&
+        response.data &&
+        response.data.messages &&
+        response.data.messages.message[0].code == "I00001") {
+        return postPaymentUpdate(userId, order, 'credit card');
+    }
+    else {
+        return {
+            error: 'unsuccessful payment transaction'
+        }
+    }
+}
+
+
+    /*
+     * Sync classStudent collection and class collection
+     */
 function syncClassRegistrationCount() {
 
     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted', type:'register'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);

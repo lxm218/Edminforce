@@ -6,7 +6,7 @@ EdminForce.Components.Payment = class extends RC.CSS {
 
     payECheck() {
 
-        FlowRouter.go(FlowRouter.path("/paymentCredit", null, {
+        FlowRouter.go(FlowRouter.path("/paymentCreditCard", null, {
             orderId: FlowRouter.getQueryParam('orderId'),
             amount: FlowRouter.getQueryParam('amount'),
             makeupOnly: FlowRouter.getQueryParam('makeupOnly')

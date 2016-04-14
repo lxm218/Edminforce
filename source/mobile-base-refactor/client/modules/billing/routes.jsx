@@ -53,7 +53,7 @@ DefaultRoutes.route('/paymentECheck', {
     }
 })
 
-DefaultRoutes.route('/paymentCredit', {
+DefaultRoutes.route('/paymentCreditCard', {
     name: "payment creditcard",
     action: function(p,q) {
         EdminForce.utils.routeHandler(p, {

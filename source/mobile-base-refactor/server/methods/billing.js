@@ -37,7 +37,7 @@ Meteor.methods({
             status: 'waiting',
             amount: order.amount,
             paymentType: 'echeck',
-            //discount: order.discount
+            discount: order.discount,
             couponID: order.couponID
         });
     },
@@ -56,6 +56,22 @@ Meteor.methods({
         });
 
         return EdminForce.Registration.payECheck(this.userId, checkPaymentInfo);
-        return {};
+    },
+
+    'billing.payCreditCard': function(creditCardPaymentInfo) {
+        check(creditCardPaymentInfo, {
+            orderId: String,
+            creditCardNumber: String,
+            expirationDate: String,
+            ccv: String,
+            firstName: String,
+            lastName: String,
+            address: String,
+            city: String,
+            state: String,
+            zip: String
+        });
+
+        return EdminForce.Registration.payCreditCard(this.userId, creditCardPaymentInfo);
     }
 });

@@ -64,11 +64,11 @@ EdminForce.Actions.Billing = {
         });
     },
 
-    payCreditCard({LocalState,makeupOnly}, orderId, routingNumber, accountNumber, nameOnAccount) {
-        LocalState.set('ERROR_CHECKOUT', null);
-        Meteor.call('billing.payCreditCard', {orderId,routingNumber,accountNumber,nameOnAccount}, function(err,result){
+    payCreditCard({LocalState,makeupOnly}, creditCardPaymentInfo) {
+        LocalState.set('ERROR_PAY_CREDITCARD', null);
+        Meteor.call('billing.payCreditCard', creditCardPaymentInfo, function(err,result){
             if (err) {
-                LocalState.set('ERROR_CHECKOUT', err.reason);
+                LocalState.set('ERROR_PAY_CREDITCARD', err.reason);
             }
             else {
                 // check result
@@ -80,7 +80,7 @@ EdminForce.Actions.Billing = {
                     FlowRouter.go(path);
                 }
                 else {
-                    LocalState.set('ERROR_CHECKOUT', result.error);
+                    LocalState.set('ERROR_PAY_CREDITCARD', result.error);
                 }
             }
         });
