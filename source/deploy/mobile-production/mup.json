@@ -45,6 +45,6 @@
   // Make it false when you deploy using a CI box.
   "enableUploadProgressBar": true,
   "ssl":{
-    "pem":"./ssl-mobile-prod.pem"
+    "pem":"../SSL_Keys/classforth-star/star-classforth.crt"
   }
 }

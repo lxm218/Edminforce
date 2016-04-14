@@ -12,7 +12,7 @@ deployAdminBase(){
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
-    echo "link : https://sadmin.calcolor.classforth.com";
+    echo "link : https://scalcolor-admin.classforth.com/home";
 }
 
 deployMobileBase(){
@@ -48,7 +48,7 @@ deployToAdminProduction(){
 	#sudo ${MOBILE_ENV} mup setup;
 	sudo ${ADMIN_ENV} mup deploy;
 	cd ../;
-	echo "link : http://admin.classforth.com/home";
+	echo "link : https://calcolor-admin.classforth.com/home";
 }
 
 case "$1" in
