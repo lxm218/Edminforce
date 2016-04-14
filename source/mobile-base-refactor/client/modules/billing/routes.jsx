@@ -44,6 +44,7 @@ DefaultRoutes.route('/paymentECheck', {
             pageTitle: "Edmin Force",
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.PaymentECheck
+                orderId={q.orderId}
                 makeupOnly={q.makeupOnly}
                 amount={q.amount}
                 context={EdminForce.Contexts.Billing}
@@ -58,8 +59,10 @@ DefaultRoutes.route('/paymentCredit', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Containers.PaymentCredit
+            bodyTmpl: <EdminForce.Containers.PaymentCreditCard
+                orderId={q.orderId}
                 makeupOnly={q.makeupOnly}
+                amount={q.amount}
                 context={EdminForce.Contexts.Billing}
                 actions={EdminForce.Actions.Billing} />
         })
