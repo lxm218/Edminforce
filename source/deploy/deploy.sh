@@ -36,7 +36,7 @@ deployMobileBaseProduction(){
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
-    echo "link : http://www.classforth.com";
+    echo "link : https://calcolor.classforth.com/";
 }
 
 deployToAdminProduction(){
