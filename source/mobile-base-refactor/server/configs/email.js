@@ -5,7 +5,7 @@ Meteor.startup(function () {
     // process.env.MAIL_URL = 'smtp://postmaster@classforth.com:88120d123802e276c691d264416f23ed@smtp.mailgun.org:587/';
     process.env.MAIL_URL = 'smtp://postmaster@calcoloracademy.com:21ec76770adbf6309dd2022237a3077e@smtp.mailgun.org:587/';
     Accounts.emailTemplates.siteName = 'calcoloracademy.com';
-    Accounts.emailTemplates.from = "Help <help@calcoloracademy.com>";
+    Accounts.emailTemplates.from = "CalColor Academy <help@calcoloracademy.com>";
     Accounts.emailTemplates.resetPassword.subject = function () {
         return "Password Reset" ;
     };

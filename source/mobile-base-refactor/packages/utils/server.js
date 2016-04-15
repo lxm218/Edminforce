@@ -5,8 +5,7 @@ EdminForce.utils.sendEmailText = function (to, subject, text) {
         to: to,
         // all we need to maintain is the domain name. We can change the user to whatever
         // from: "admin@sandbox581a4fe7e1b54295be84ebc6ec8d93ea.mailgun.org",
-        from: "admin@classforth.com",
-
+        from: "CalColor Academy <help@calcoloracademy.com>",
         subject: subject,
         text: text
     });
@@ -18,7 +17,7 @@ EdminForce.utils.sendEmailHtml = function (to, subject, html) {
         to: to,
         // all we need to maintain is the domain name. We can change the user to whatever
         // from: "admin@sandbox581a4fe7e1b54295be84ebc6ec8d93ea.mailgun.org",
-        from: "admin@classforth.com",
+        from: "CalColor Academy <help@calcoloracademy.com>",
         subject: subject,
         html: html
     });
