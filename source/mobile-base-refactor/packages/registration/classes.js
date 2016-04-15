@@ -567,7 +567,7 @@ function expirePendingRegistration(sc) {
 /*
  * Update after a successful payment
  */
-function postPaymentUpdate(userId, order, paymentType, paymentTotal) {
+function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSource) {
 
     // update registration fee flag
     Collections.Customer.update({
@@ -584,6 +584,7 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal) {
         status: 'success',
         paymentType,
         paymentTotal,
+        paymentSource,
     };
 
     if (order.couponID) {
@@ -793,7 +794,7 @@ function payECheck(userId, checkPaymentInfo) {
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'echeck', paymentTotal);
+        return postPaymentUpdate(userId, order, 'echeck', paymentTotal, checkPaymentInfo.paymentSource);
     }
     else {
         return {
@@ -868,27 +869,26 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     let paymentTotal = order.amount * 1.03;
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
-    //var URL = 'https://apitest.authorize.net/xml/v1/request.api';
-    //var response = HTTP.call('POST',URL, {data: paymentInfo});
+    let URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    let response = HTTP.call('POST',URL, {data: paymentInfo});
     //console.log(response);
 
-    console.log(creditCardPaymentInfo);
-    let response = {
-        data: {
-            messages: {
-                message: [{
-                    code: 'I00001'
-                }]
-            }
-        }
-    }
-
+    // console.log(creditCardPaymentInfo);
+    // let response = {
+    //     data: {
+    //         messages: {
+    //             message: [{
+    //                 code: 'I00001'
+    //             }]
+    //         }
+    //     }
+    // }
 
     if (response &&
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'credit card', paymentTotal);
+        return postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
     }
     else {
         return {

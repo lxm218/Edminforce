@@ -25,6 +25,7 @@ EdminForce.Actions.Billing = {
     
     prepareOrder({LocalState},order, makeupOnly) {
         LocalState.set('ERROR_CHECKOUT', null);
+        order.paymentSource = 'mobile';
         Meteor.call('billing.prepareOrder', order, function(err,result){
             if (err) {
                 LocalState.set('ERROR_CHECKOUT', err.reason);

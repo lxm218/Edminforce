@@ -52,9 +52,10 @@ Meteor.methods({
     'billing.payECheck': function(checkPaymentInfo) {
         check(checkPaymentInfo, {
             orderId: String,
+            paymentSource: String,
             routingNumber: String,
             accountNumber: String,
-            nameOnAccount: String
+            nameOnAccount: String,
         });
 
         return EdminForce.Registration.payECheck(this.userId, checkPaymentInfo);
@@ -63,6 +64,7 @@ Meteor.methods({
     'billing.payCreditCard': function(creditCardPaymentInfo) {
         check(creditCardPaymentInfo, {
             orderId: String,
+            paymentSource: String,
             creditCardNumber: String,
             expirationDate: String,
             ccv: String,
