@@ -1,6 +1,6 @@
 // program list
 const reactiveFnPrograms = ({context,actions}, onData) => {
-    errorId = 'ERROR_PROGRAM';
+    const errorId = 'ERROR_PROGRAM';
     const error = context.LocalState.get(errorId);
     if (Meteor.subscribe('programs').ready()) {
         onData(null, {

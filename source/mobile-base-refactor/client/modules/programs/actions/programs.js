@@ -65,6 +65,13 @@ EdminForce.Contexts.Programs = {
     // UI component and its container
     StateBag: {
         classes: {}
+    },
+    
+    init() {
+        EdminForce.Contexts.Programs.MethodCache = {};
+        EdminForce.Contexts.Programs.StateBag = {
+            classes: {}
+        }
     }
 }
 

@@ -42,13 +42,13 @@ EdminForce.Actions.Billing = {
     },
     
     payECheck({LocalState}, checkPaymentInfo, makeupOnly) {
-        LocalState.set('ERROR_CHECKOUT', null);
+        LocalState.set('ERROR_PAY_ECHECK', null);
         checkPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payECheck', checkPaymentInfo, function(err,result){
             console.log(err);
             console.log(result);
             if (err) {
-                LocalState.set('ERROR_CHECKOUT', err.reason);
+                LocalState.set('ERROR_PAY_ECHECK', err.reason);
             }
             else {
                 // check result
@@ -60,7 +60,7 @@ EdminForce.Actions.Billing = {
                     FlowRouter.go(path);
                 }
                 else {
-                    LocalState.set('ERROR_CHECKOUT', result.error);
+                    LocalState.set('ERROR_PAY_ECHECK', result.error);
                 }
             }
         });
@@ -102,6 +102,13 @@ EdminForce.Contexts.Billing = {
     // UI component and its container
     StateBag: {
         checkout: {}
+    },
+    
+    init() {
+        EdminForce.Contexts.Billing.StateBag = {
+            checkout: {}
+        }
+        EdminForce.Contexts.Billing.MethodCache = {}
     }
 }
 

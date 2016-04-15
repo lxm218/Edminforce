@@ -1,6 +1,7 @@
 // account > update phone
 const reactiveFnAccountUpdatePhone = ({context,actions}, onData) => {
-    const error = context.LocalState.get('ERROR_ACCOUNT_UPDATEPHONE');
+    const errorId = 'ERROR_ACCOUNT_UPDATEPHONE';
+    const error = context.LocalState.get(errorId);
     context.SubManager.subscribe('account');
     if (context.SubManager.ready()) {
         if (!Meteor.userId()) return;
@@ -11,7 +12,7 @@ const reactiveFnAccountUpdatePhone = ({context,actions}, onData) => {
         })
     }
 
-    return actions.clearErrors.bind(null,'ERROR_ACCOUNT_UPDATEPHONE');
+    return actions.clearErrors.bind(null,errorId);
 };
 
 EdminForce.Containers.AccountUpdatePhone = Composer.composeWithTracker(reactiveFnAccountUpdatePhone)(EdminForce.Components.AccountUpdatePhone);

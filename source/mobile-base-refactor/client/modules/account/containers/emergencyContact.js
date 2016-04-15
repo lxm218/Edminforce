@@ -1,7 +1,8 @@
 
 // account > alternative contract
 const reactiveFnAccountEmergency = ({context,actions}, onData) => {
-    const error = context.LocalState.get('ERROR_ACCOUNT_EMERGENCY');
+    const errorId = 'ERROR_ACCOUNT_EMERGENCY';
+    const error = context.LocalState.get(errorId);
     context.SubManager.subscribe('account');
     if (context.SubManager.ready()) {
         if (!Meteor.userId()) return;
@@ -14,7 +15,7 @@ const reactiveFnAccountEmergency = ({context,actions}, onData) => {
         })
     }
 
-    return actions.clearErrors.bind(null,'ERROR_ACCOUNT_EMERGENCY');
+    return actions.clearErrors.bind(null,errorId);
 };
 
 EdminForce.Containers.AccountEmergency = Composer.composeWithTracker(reactiveFnAccountEmergency)(EdminForce.Components.AccountEmergency);

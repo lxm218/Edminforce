@@ -36,10 +36,10 @@ const reactiveFnCheckout = ({context,actions}, onData) => {
         });
     }
 
-    return () => {
-        context.StateBag.checkout = {};
-        actions.clearErrors(errorId);
-    }
-    //return actions.clearErrors.bind(null,errorId);
+    // return () => {
+    //     context.StateBag.checkout = {};
+    //     actions.clearErrors(errorId);
+    // }
+    return actions.clearErrors.bind(null,errorId);
 };
 EdminForce.Containers.Checkout= Composer.composeWithTracker(reactiveFnCheckout)(EdminForce.Components.Checkout);

@@ -1,6 +1,7 @@
 // pay with echeck
 const reactiveFnCheckoutSummary = ({context,actions,expiredRegistrationIDs}, onData) => {
-    const error = context.LocalState.get('ERROR_CHECKOUT');
+    const errorId = 'ERROR_CHECKOUT';
+    const error = context.LocalState.get(errorId);
     
     if (error || !expiredRegistrationIDs) {
         onData(null, {error});
@@ -15,7 +16,7 @@ const reactiveFnCheckoutSummary = ({context,actions,expiredRegistrationIDs}, onD
         });
     }
     
-    return actions.clearErrors.bind(null,'ERROR_CHECKOUT');
+    return actions.clearErrors.bind(null,errorId);
 };
 
 EdminForce.Containers.CheckoutSummary = Composer.composeWithTracker(reactiveFnCheckoutSummary)(EdminForce.Components.CheckoutSummary);

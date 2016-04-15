@@ -41,6 +41,7 @@ const reactiveFnClasses = ({context,actions}, onData) => {
         Meteor.call(methodName, loadContextData, studentID, programID, sessionID, function(methodError, result) {
             if (!methodError) {
                 context.MethodCache[methodName] = result;
+                
                 context.StateBag.classes.programID = result.programID;
                 context.StateBag.classes.studentID = result.studentID;
                 context.StateBag.classes.sessionID = result.sessionID;
@@ -67,10 +68,11 @@ const reactiveFnClasses = ({context,actions}, onData) => {
     }
 
     // return a cleanup function when the component is un-mounted
-    return () => {
-        context.StateBag.classes = {};
-        actions.clearErrors(errorId);
-    }
+    return actions.clearErrors.bind(null,errorId);
+    // return () => {
+    //     context.StateBag.classes = {};
+    //     actions.clearErrors(errorId);
+    // }
 };
 EdminForce.Containers.Classes = Composer.composeWithTracker(reactiveFnClasses)(EdminForce.Components.Classes);
 
