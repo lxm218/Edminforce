@@ -128,6 +128,31 @@ Schema.Class = {
         defaultValue : 0
     }),
 
+    // number of registered regular students
+    numberOfRegistered : KG.schema.default({
+        type : Number,
+        optional : true,
+        defaultValue : 0
+    }),
+
+    // trial class record, each lesson date
+    // has a count.
+    // { '20160101' : 2}
+    trial: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+      defaultValue: {}
+    },
+
+    // makeup class record, same format as trial
+    makeup: {
+      type: Object,
+      optional: true,
+      blackbox: true,
+      defaultValue: {}
+    },
+
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };

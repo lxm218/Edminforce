@@ -47,6 +47,10 @@ Schema.Student = {
         //allowedValue : ['']
         optional : true
     }),
+
+    school: KG.schema.default(),
+    note: KG.schema.default(),
+    
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };

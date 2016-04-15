@@ -1,0 +1,1 @@
+mongo --ssl --sslAllowInvalidCertificates aws-us-east-1-portal.13.dblayer.com:10587/admin -u calcolor -p Icalcolor123!

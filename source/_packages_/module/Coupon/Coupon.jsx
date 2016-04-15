@@ -158,3 +158,9 @@ KG.define('EF-Coupon', class extends Base{
         return n;
     }
 });
+
+KG.define('EF-CustomerCoupon', class extends Base {
+    defineDBSchema() {
+        return Schema.CustomerCoupon;
+    }
+});
