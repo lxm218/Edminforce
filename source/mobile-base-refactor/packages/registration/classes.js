@@ -831,16 +831,28 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.billTo.lastName = creditCardPaymentInfo.lastName;
     paymentInfo.createTransactionRequest.transactionRequest.billTo.address = creditCardPaymentInfo.address;
     paymentInfo.createTransactionRequest.transactionRequest.billTo.city = creditCardPaymentInfo.city;
-    paymentInfo.createTransactionRequest.transactionRequest.billTo.state = forcreditCardPaymentInfo.state;
+    paymentInfo.createTransactionRequest.transactionRequest.billTo.state = creditCardPaymentInfo.state;
     paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = creditCardPaymentInfo.zip;
 
     paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
     paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount * 1.03;
 
-    var URL = 'https://apitest.authorize.net/xml/v1/request.api';
-    var response = HTTP.call('POST',URL, {data: paymentInfo});
+    //var URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    //var response = HTTP.call('POST',URL, {data: paymentInfo});
     //console.log(response);
+
+    console.log(creditCardPaymentInfo);
+    let response = {
+        data: {
+            messages: {
+                message: [{
+                    code: 'I00001'
+                }]
+            }
+        }
+    }
+
 
     if (response &&
         response.data &&
@@ -908,6 +920,7 @@ EdminForce.Registration.getRegistrationSummary = getRegistrationSummary;
 EdminForce.Registration.removePendingRegistration = removePendingRegistration;
 EdminForce.Registration.expirePendingRegistration = expirePendingRegistration;
 EdminForce.Registration.payECheck = payECheck;
+EdminForce.Registration.payCreditCard = payCreditCard;
 EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;
 EdminForce.Registration.bookMakeup = bookMakeup;
 

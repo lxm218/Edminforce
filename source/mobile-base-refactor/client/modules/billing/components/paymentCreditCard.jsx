@@ -31,7 +31,7 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
             zip: formData.zip,
             orderId: this.props.orderId
         }
-        this.props.actions.payCreditCard(creditCardPaymentInfo);
+        this.props.actions.payCreditCard(creditCardPaymentInfo, this.props.makeupOnly);
     }
 
     validateFormData() {

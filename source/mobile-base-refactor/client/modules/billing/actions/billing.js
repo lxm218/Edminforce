@@ -40,7 +40,7 @@ EdminForce.Actions.Billing = {
         });
     },
     
-    payECheck({LocalState,makeupOnly}, checkPaymentInfo) {
+    payECheck({LocalState}, checkPaymentInfo, makeupOnly) {
         LocalState.set('ERROR_CHECKOUT', null);
         Meteor.call('billing.payECheck', checkPaymentInfo, function(err,result){
             console.log(err);
@@ -64,7 +64,7 @@ EdminForce.Actions.Billing = {
         });
     },
 
-    payCreditCard({LocalState,makeupOnly}, creditCardPaymentInfo) {
+    payCreditCard({LocalState}, creditCardPaymentInfo, makeupOnly) {
         LocalState.set('ERROR_PAY_CREDITCARD', null);
         Meteor.call('billing.payCreditCard', creditCardPaymentInfo, function(err,result){
             if (err) {

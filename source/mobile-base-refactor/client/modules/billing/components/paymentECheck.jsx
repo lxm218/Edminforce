@@ -22,7 +22,7 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
             accountNumber: form.accountNumber,
             nameOnAccount: form.nameOnAccount
         }
-        this.props.actions.payECheck(checkPaymentInfo);
+        this.props.actions.payECheck(checkPaymentInfo, this.props.makeupOnly);
     }
 
     validateFormData(e){

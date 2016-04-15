@@ -46,7 +46,7 @@ EdminForce.Components.Checkout = class extends RC.CSS {
             amount: this.props.total - this.props.discount,
             discount: this.props.discount,
             couponID: this.props.appliedCouponId
-        });
+        }, this.makeupOnly);
     }
 
     render() {
