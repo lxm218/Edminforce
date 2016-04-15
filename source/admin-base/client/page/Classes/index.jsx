@@ -6,13 +6,12 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : {}
+            query : {},
+            page : 1
         };
     }
 
     getProgramData(){
-
-
 
         let m = KG.get('EF-Program');
         return m.getDB().find({}, {sort:{
@@ -38,24 +37,33 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
     getMeteorData(){
         let query = this.state.query;
-        let x1 = Meteor.subscribe('EF-Class', {
-                query : query,
-                sort : {
-                    updateTime : -1
-                },
-                pageSize : 10
-            }),
-            x2 = Meteor.subscribe('EF-Program');
-            x3 = Meteor.subscribe('EF-Session');
+        let x1 = null;
+        if(query){
+
+            x1 = KG.get('EF-Class').subscribeClassByQuery(query, {
+                pageSize : 10,
+                pageNum : this.state.page
+            });
+        }
+        let x2 = Meteor.subscribe('EF-Program');
+            x3 = Meteor.subscribe('EF-Session', {
+                query : {
+                    registrationStatus : 'Yes'
+                }
+            });
 
         if(!x2.ready() || !x3.ready()) return {ready : false};
 
 
-        let list = KG.get('EF-Class').getAll({});
+        let list = [];
+        if(x1){
+            list = x1.data;
+        }
 
         return {
-            ready : x1.ready(),
-            list : list
+            ready : x1?x1.ready():true,
+            list : list,
+            count : x1.count
         };
     }
 
@@ -140,12 +148,22 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         ];
 
         return (
-            <KUI.Table
+            <KUI.PageTable
                 style={sy.table}
+                total={this.data.count}
+                page={this.state.page}
+                pagesize={10}
+                onSelectPage={this.selectPageTableNum.bind(this)}
                 list={list}
                 title={titleArray}
-                ref="table"></KUI.Table>
+                ref="table">
+            </KUI.PageTable>
         );
+    }
+    selectPageTableNum(page){
+        this.setState({
+            page : page
+        });
     }
 
     getSearchBox(){
@@ -195,6 +213,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 <form className="form-horizontal">
                     <RB.Col md={6} mdOffset={0}>
                         <RB.Input type="select" {... p.program}>
+                            <option key={-1} value="all">All</option>
                             {
                                 _.map(option.program, (item, index)=>{
                                     return <option key={index} value={item._id}>{item.name}</option>;
@@ -203,6 +222,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                         </RB.Input>
                         <RB.Input type="text" {... p.teacher} />
                         <RB.Input type="select" {... p.day}>
+                            <option key={-1} value="all">All</option>
                             {
                                 _.map(option.day, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
@@ -213,6 +233,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
                     <RB.Col md={6} mdOffset={0}>
                         <RB.Input type="select" {... p.session}>
+                            <option key={-1} value="all">All</option>
                             {
                                 _.map(option.session, (item, index)=>{
                                     return <option key={index} value={item._id}>{item.name}</option>;
@@ -274,17 +295,27 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             status : status.getValue(),
             'schedule.day' : day.getValue()
         };
+        if(query.programID === 'all'){
+            delete query.programID;
+        }
+        if(query.sessionID === 'all'){
+            delete query.sessionID;
+        }
+        if(query['schedule.day'] === 'all'){
+            delete query['schedule.day'];
+        }
+
         if(teacher.getValue()){
             query.teacher = {
                 value : teacher.getValue(),
                 type : 'RegExp'
             };
         }
-        //console.log(query);
 
 
         this.setState({
-            query : query
+            query : query,
+            page : 1
         });
     }
 };

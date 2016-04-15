@@ -6,7 +6,8 @@ KUI.Email_index = class extends KUI.Page{
 
         this.state = {
             email_template_id : null,
-            filterQuery : {}
+            filterQuery : null,
+            page : 1
         };
 
         this.email_html = new ReactiveVar(null);
@@ -30,19 +31,32 @@ KUI.Email_index = class extends KUI.Page{
 
         let y = Meteor.subscribe('EF-AdminUser');
 
-        let cx = Customer.subscribeByClassQuery(this.state.filterQuery);
-        //console.log(cx.ready(), cx.data);
+        let cx = {
+            ready : function(){return true;},
+            data : []
+        };
+        if(this.state.filterQuery){
+            cx = Customer.subscribeByClassQuery(this.state.filterQuery, {
+                pageSize : 10,
+                pageNum : this.state.page
+            });
+
+        }
 
         let sx = Meteor.subscribe('EF-Session');
 
-        let clsx = Class.subscribeClassByQuery();
+        let clsx = {
+            ready : function(){return true;},
+            data : []
+        };
 
         return {
-            ready : x.ready() && y.ready() && clsx.ready(),
+            ready : x.ready() && y.ready() && clsx.ready() && sx.ready(),
             classList : clsx.data,
             emailTemplateList,
             filterReady : cx.ready(),
             filterList : cx.data,
+            filterCount : cx.count,
 
             filterBoxReady : sx.ready(),
             sessionList : Session.getDB().find().fetch()
@@ -68,7 +82,6 @@ KUI.Email_index = class extends KUI.Page{
             <RC.Div>
                 <h3>
                     Send Email
-                    <RC.URL style={sy.url} href="/email/template/add">Add Email Template</RC.URL>
                 </h3>
                 <hr/>
                 {this.renderFilterBox()}
@@ -143,6 +156,7 @@ KUI.Email_index = class extends KUI.Page{
                         </RB.Input>
 
                         <RB.Input type="select" {... p.day}>
+                            <option key={-1} value="all">All</option>
                             {
                                 _.map(option.day, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
@@ -150,19 +164,22 @@ KUI.Email_index = class extends KUI.Page{
                             }
                         </RB.Input>
 
-                        <RB.Input type="select" {... p.teacher}>
-                            {
-                                _.map(option.teacher, (item, index)=>{
-                                    return <option key={index} value={item.nickName}>{item.nickName}</option>;
-                                })
-                            }
-                        </RB.Input>
+
                     </RB.Col>
                     <RB.Col xs={6}>
-                        <RB.Input type="select" {... p.class}>
+                        {/*<RB.Input type="select" {... p.class}>
                             {
                                 _.map(option['class'], (item, index)=>{
                                     return <option key={index} value={item._id}>{item.nickName}</option>;
+                                })
+                            }
+                        </RB.Input>*/}
+
+                        <RB.Input type="select" {... p.teacher}>
+                            <option key={-1} value="all">All</option>
+                            {
+                                _.map(option.teacher, (item, index)=>{
+                                    return <option key={index} value={item.nickName}>{item.nickName}</option>;
                                 })
                             }
                         </RB.Input>
@@ -189,16 +206,27 @@ KUI.Email_index = class extends KUI.Page{
 
         let query = {
             sessionID : session.getValue(),
-            classID : cls.getValue(),
+            //classID : cls.getValue(),
             dayOfClass : day.getValue(),
             status : status.getValue(),
             teacher : teacher.getValue()
         };
+        if(query.dayOfClass === 'all'){
+            delete query.dayOfClass;
+        }
+        if(query.teacher === 'all'){
+            delete query.teacher;
+        }
 
         console.log(query);
         this.setState({
-            filterQuery : query
+            filterQuery : query,
+            page : 1
         });
+    }
+
+    runOnceAfterDataReady(){
+        this.search();
     }
 
     renderFilterResult(){
@@ -225,17 +253,23 @@ KUI.Email_index = class extends KUI.Page{
                         textAlign : 'center',
                         display : 'block'
                     };
-                    return <label style={sy}><input type="checkbox" name="sml" data-email={item.email} /></label>
+
+                    return <label style={sy}><input key={item._id} type="checkbox" onChange={function(){}} defaultChecked="true" name="sml" data-email={item.email} /></label>
                 }
             }
         ];
 
         return (
-            <KUI.Table
+            <KUI.PageTable
                 style={{}}
+                total={this.data.filterCount}
+                onSelectPage={(function(p){this.setState({page:p})}).bind(this)}
+                pagesize={10}
+                page={this.state.page}
                 list={this.data.filterList}
                 title={titleArray}
-                ref="table"></KUI.Table>
+                ref="table">
+            </KUI.PageTable>
         );
     }
 
@@ -243,7 +277,7 @@ KUI.Email_index = class extends KUI.Page{
         return {
             email_tpl : this.refs.email_tpl,
             session : this.refs.session,
-            cls : this.refs.cls,
+            //cls : this.refs.cls,
             day : this.refs.day,
             status : this.refs.status,
             teacher : this.refs.teacher
@@ -276,9 +310,22 @@ KUI.Email_index = class extends KUI.Page{
                 </RB.Row>
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton onClick={this.preview.bind(this)} label="Preview Email"></KUI.YesButton>
+                    <KUI.YesButton style={{marginLeft:'15px'}} href="/email/template/add" label="Add Email Template"></KUI.YesButton>
+                    <KUI.YesButton style={{marginLeft:'15px'}} onClick={this.toEditPage.bind(this)} label="Edit Email Template"></KUI.YesButton>
                 </RC.Div>
             </form>
         );
+    }
+
+    toEditPage(){
+        let {email_tpl} = this.getRefs();
+        let val = email_tpl.getValue();
+        if(!val){
+            util.toast.showError('Please selete email template');
+            return false;
+        }
+
+        util.goPath('/email/template/edit/'+val);
     }
 
     preview(){

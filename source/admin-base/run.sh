@@ -8,11 +8,21 @@ PACKAGE_ROOT=$PWD/../_packages_
 RC_DIR=$PACKAGE_ROOT/ihealth-framework-ui/library
 ENV="PACKAGE_DIRS=$PACKAGE_ROOT/both:$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/module"
 MONGOURL=mongodb://127.0.0.1:27017/EdminForce
+#MONGOURL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
 #echo $ENV
 
+stopMongoDB() {
+  stopProcess "mongod.*$PORT_MONGODB"
+  stopProcess "tail.*logs/mongodb"
+}
+
+stopProcess() {
+  ps -ef | grep "$1" | grep -v grep | awk '{print $2}' | xargs kill -9
+}
 runLocalHost(){
 
     PORT=8000
+    #stopMongoDB
 
     tmp=`echo $1 |sed 's/[0-9]//g'`
     if [ -n "$1" ] && [ -z "${tmp}" ] && [ $1 -gt 2900 ]

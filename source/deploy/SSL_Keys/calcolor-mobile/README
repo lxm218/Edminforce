@@ -1,0 +1,6 @@
+ssl-mobile-prod.pem is the certificate to be used.
+
+It is for site calcolor.classforth.com ONLY.
+
+Private is the second part in the crt file, which means the crt can be used
+directly.

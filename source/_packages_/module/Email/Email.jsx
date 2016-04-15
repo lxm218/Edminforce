@@ -21,7 +21,7 @@ KG.define('EF-Email', class extends Base{
         return {
             sendEmail(data){
 
-                let from = 'contact@classforth.com',
+                let from = 'contact@calcoloracademy.com',
                     domain = KG.util.email.getDomain(from);
 
                 data = _.extend({

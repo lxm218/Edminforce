@@ -71,7 +71,8 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
 
             //update order db
             let nd = {
-                status : 'success'
+                status : 'success',
+                paymentSource : 'admin'
             };
             KG.get('EF-Order').updateById(nd, this.data.orderID);
 

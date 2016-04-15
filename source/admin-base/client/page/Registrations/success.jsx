@@ -18,14 +18,6 @@ KUI.Registration_success = class extends KUI.Page{
             };
         }
 
-        //TODO
-        //if(one.status === 'checkouted'){
-        //    return {
-        //        ready : true,
-        //        invalid : true
-        //    }
-        //}
-
         let x1 = Meteor.subscribe('EF-Order', {
             query : {_id : one.orderID}
         });
@@ -34,8 +26,15 @@ KUI.Registration_success = class extends KUI.Page{
                 ready : false
             };
         }
-        let order = KG.get('EF-Order').getDB().findOne(),
-            coupon = order.customerCouponID || order.couponID || '';
+        //console.log(x1.ready(), KG.get('EF-Order').getDB().findOne({}));
+        let order = KG.get('EF-Order').getDB().findOne({});
+        if(!order){
+            return {
+                ready : false
+            };
+        }
+
+        let coupon = order.customerCouponID || order.couponID || '';
 
         if(coupon){
             let x2 = Meteor.subscribe('EF-Coupon', {
@@ -66,7 +65,8 @@ KUI.Registration_success = class extends KUI.Page{
             'class' : KG.get('EF-Class').getAll()[0],
             student : KG.get('EF-Student').getDB().findOne(),
             ready : s2.ready() && s3.ready(),
-            coupon : coupon
+            coupon : coupon,
+            order : order
         };
 
     }
@@ -118,17 +118,22 @@ KUI.Registration_success = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
-        KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.id);
+        if(this.data.data.status !== 'checkouted'){
+            if(this.data.coupon){
+                KG.get('EF-Coupon').useOnce(this.data.coupon);
+            }
 
-        if(this.data.coupon){
-            KG.get('EF-Coupon').useOnce(this.data.coupon);
+            let schoolCredit = this.data.order.schoolCredit || null;
+            console.log(this.data.order.schoolCredit)
+            KG.get('EF-Customer').callMeteorMethod('useSchoolCreditById', [schoolCredit, this.data.student.accountID], {
+                success : function(){
+                    console.log(arguments)
+                }
+            });
         }
 
-        KG.get('EF-Customer').callMeteorMethod('useSchoolCreditById', [null, this.data.student.accountID], {
-            success : function(){
 
-            }
-        });
+        KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.id);
     }
 
 };

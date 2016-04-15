@@ -30,15 +30,52 @@ _.extend(util, {
     },
     getReactJQueryObject : function(reactObj){
         return $(util.getReactDomNode(reactObj));
+    },
+
+    addDollerSign : function(num){
+        var tmp = num;
+        if(tmp < 0){
+            return '-$'+Math.abs(tmp);
+        }
+        else{
+            return '$'+tmp;
+        }
     }
 });
+
+util.data = {
+    subscribe : function(obj, opts){
+        let name;
+        if(_.isString(obj)){
+            name = obj;
+        }
+        else{
+            name = obj._name;
+        }
+
+        let x = Meteor.subscribe(name, opts||{});
+        x._name = name;
+        return x;
+    },
+
+    getMaxCount : function(subobj){
+        let name = subobj._name;
+        if(!name){
+            throw Meteor.Error('param error', '[util.data.getMaxCount] argument error');
+        }
+
+        return Counts.get(name+'-count');
+    }
+};
 
 util.const = {
     //TODO input to module
     'StudentStatus' : ['Active', 'Inactive'],
     'Gender' : ['Male', 'Female'],
 
-    dateFormat : 'MM/DD/YYYY'
+    dateFormat : 'MM/DD/YYYY',
+
+    PageSize : 10
 };
 
 util.dialog = {
@@ -49,6 +86,32 @@ util.dialog = {
     },
     alert : function(msg){
         alert(msg);
+    },
+
+    render : function(id, opts){
+        id = id || 'modal';
+        let self = this;
+        opts = _.extend({
+            onHide : function(){
+                self.refs[id].hide();
+            },
+            title : '',
+            YesFn : function(){},
+            YesText : '',
+            renderBody : function(){return null;}
+        }, opts||{});
+
+        return (
+            <KUI.Modal onHide={opts.onHide.bind(this)}
+                       title={opts.title}
+                       YesText={opts.YesText}
+                       onYes={opts.YesFn.bind(this)}
+                       ref={id}>
+
+
+                {opts.renderBody.call(this)}
+            </KUI.Modal>
+        );
     }
 };
 

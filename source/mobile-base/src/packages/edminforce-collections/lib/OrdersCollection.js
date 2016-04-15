@@ -54,6 +54,11 @@ OrdersCollection = class OrdersCollection extends BaseCollection {
                 allowedValues : ['creditCard', 'echeck'],
                 optional: true
             },
+            paymentSource:{
+                type: String,
+                allowedValues : ['admin', 'mobile'],
+                optional: true
+            },
             couponID:{
                 type: String,
                 optional: true

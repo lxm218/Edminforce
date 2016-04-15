@@ -6,26 +6,32 @@ KUI.Family_index = class extends KUI.Page{
         super(p);
 
         this.state = {
-            query : {}
+            query : {},
+            page : 1
         };
+
+        this.m = KG.DataHelper.getDepModule();
     }
 
     getMeteorData(){
         let query = this.state.query;
 
-        let x = Meteor.subscribe('EF-Customer', {
+        let x = util.data.subscribe(this.m.Customer, {
             query : query,
             pageSize : 10,
+            pageNum : this.state.page,
             sort : {
                 createTime : -1
             }
         });
 
 
-        let list = KG.get('EF-Customer').getAll({});
 
-        return {
+        let list = this.m.Customer.getAll({});
+
+        return{
             ready : x.ready(),
+            max : util.data.getMaxCount(x),
             list : list
         };
     }
@@ -102,11 +108,15 @@ KUI.Family_index = class extends KUI.Page{
 
         console.log(query);
         this.setState({
-            query : query
+            query : query,
+            page : 1
         });
     }
 
     renderListTable(style){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
 
         const titleArray = [
             {
@@ -157,13 +167,24 @@ KUI.Family_index = class extends KUI.Page{
 
         ];
 
-        let list = this.data.list;
+        let list = this.data.list,
+            total = Math.ceil(this.data.max/util.const.PageSize);
 
-        return <KUI.Table
+        return <KUI.PageTable
             style={style.table}
             list={list}
+            total={total}
+            onSelectPage={this.selectPage.bind(this)}
+            page={this.state.page}
             title={titleArray}
-            ref="table"></KUI.Table>;
+            ref="table"></KUI.PageTable>;
+    }
+
+    selectPage(page){
+
+        this.setState({
+            page : page
+        });
     }
 
     baseStyles(){

@@ -149,9 +149,9 @@ let ClassStudent = class extends Base{
             let arr = [],
                 dbName = 'EF-ClassStudent-By-ClassID';
             let refresher = function(){
-                _.each(arr, function(doc){
-                    self.removed(dbName, doc._id)
-                });
+                //_.each(arr, function(doc){
+                //    self.removed(dbName, doc._id)
+                //});
                 arr = me._db.find(query, {sort:sort}).fetch();
                 _.each(arr, function(doc){
                     doc.classObj = me.module.class.getAll({_id:doc.classID})[0];
@@ -179,20 +179,42 @@ let ClassStudent = class extends Base{
     defineClientMethod(){
         let tmpDB = null;
         return {
-            subscribeFullDataByClassID : function(classID){
-                let x = Meteor.subscribe('EF-ClassStudent-By-ClassID', classID);
+            subscribeFullDataByClassID : function(classID, delay, callback){
                 if(!tmpDB){
                     tmpDB = new Mongo.Collection('EF-ClassStudent-By-ClassID');
                 }
-                let data = [];
-                if(x.ready()){
-                    data = tmpDB.find().fetch();
+                if(!delay){
+                    let x = Meteor.subscribe('EF-ClassStudent-By-ClassID', classID);
+
+                    let data = [];
+                    if(x.ready()){
+                        data = tmpDB.find().fetch();
+                    }
+
+                    return {
+                        ready : x.ready,
+                        data : data
+                    };
+                }
+                else{
+                    Meteor.setTimeout(()=>{
+                        let x = Meteor.subscribe('EF-ClassStudent-By-ClassID', classID);
+                        let data = [];
+
+                        let tm = null;
+                        tm = Meteor.setInterval(()=>{
+                            if(x.ready()){
+                                data = tmpDB.find().fetch();
+                                callback(data);
+
+                                Meteor.clearInterval(tm);
+                            }
+                        }, 500);
+
+                    }, delay);
                 }
 
-                return {
-                    ready : x.ready,
-                    data : data
-                };
+
             }
         };
     }

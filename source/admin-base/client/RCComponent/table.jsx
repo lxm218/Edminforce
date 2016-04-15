@@ -1,4 +1,72 @@
 
+KUI.Pagination = class extends RC.CSS{
+
+    constructor(p){
+        super(p);
+
+        let self = this;
+        this.state = {
+            total : p.total,
+            activePage : p.page,
+            onSelect : function(e, se){
+                self.setState({
+                    activePage : se.eventKey
+                });
+                self.props.onSelectPage(se.eventKey);
+            }
+        };
+
+
+    }
+
+    componentWillUpdate(np, ns){
+        super.componentWillUpdate(np, ns);
+
+        if(np.page && np.total){
+            this.setState({
+                total : np.total,
+                activePage : np.page
+            });
+        }
+    }
+
+
+    render(){
+
+        let s = this.state;
+
+        let p = {
+            prev : true,
+            next : true,
+            first : false,
+            last : false,
+            ellipsis : false,
+            boundaryLinks : false,
+            items : s.total,
+            activePage : s.activePage,
+            onSelect : s.onSelect,
+
+            style : {
+                margin:0
+            }
+        };
+
+        p.maxButtons = s.total > 5 ? (5+1) : s.total;
+        if(s.total > p.maxButtons+1){
+            p.ellipsis = true;
+            p.first = true;
+            p.last = true;
+            p.boundaryLinks = true;
+        }
+
+
+        return (
+            <RB.Pagination {... p} />
+        );
+    }
+
+};
+
 
 KUI.Table = class extends RC.CSS{
     static propTypes : {
@@ -29,11 +97,17 @@ KUI.Table = class extends RC.CSS{
 
 
     render(){
+
+        let sy = _.extend({
+            marginBottom:'15px'
+        }, this.props.style||{});
+
+
         return (
-            <RB.Table style={this.props.style} striped bordered condensed hover>
+            <RB.Table style={sy} striped bordered condensed hover>
                 {this.renderThead()}
                 {
-                    this.renderTBody()
+                        this.renderTBody()
                 }
             </RB.Table>
         );

@@ -1,10 +1,12 @@
 
-KUI.Class_detail = class extends RC.CSSMeteorData{
+KUI.Class_detail = class extends KUI.Page{
     constructor(p){
         super(p);
 
         this.state = {
-
+            classTableReady : false,
+            classTableData : [],
+            checkCanBeRegister : false
         };
     }
 
@@ -20,15 +22,14 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
             }
         });
 
-        let id = this.getClassId();
-        let data = KG.get('EF-Class').getAll({_id : this.getClassId()})[0];
 
-        let y = KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId());
+
+        let id = this.getClassId();
+        let data = KG.get('EF-Class').getDB().findOne();
+        console.log(x.ready());
 
         return {
             ready : x.ready(),
-            classTableReady : y.ready(),
-            classTableData : y.data,
             data : data,
             id : id,
 
@@ -49,14 +50,14 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
     }
 
     render(){
-        if(!this.data.ready || !this.data.data){
+        if(!this.data.ready){
             return util.renderLoading();
         }
         let data = this.data.data;
 
         return (
             <RC.Div>
-                <h3>{data.nickName}</h3>
+                <h3>Edit Class</h3>
                 <hr/>
                 <KUI.Class_comp_add edit={true} init-data={data} ref="form"></KUI.Class_comp_add>
                 <RC.Div style={{textAlign:'right'}}>
@@ -87,9 +88,12 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
     }
 
     renderClassTable(){
-        if(!this.data.classTableReady){
+
+        if(!this.state.classTableReady){
             return util.renderLoading();
         }
+
+
 
         let titleArray = [
             {
@@ -127,7 +131,7 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
             }
         ];
 
-        let list = _.filter(this.data.classTableData, (item)=>{
+        let list = _.filter(this.state.classTableData, (item)=>{
             return item.status === 'checkouted';
         });
 
@@ -148,14 +152,27 @@ KUI.Class_detail = class extends RC.CSSMeteorData{
         }
 
         let flag = x.flag;
+        let classID = this.getClassId();
 
         return (
             <RC.Div style={{textAlign:'right'}}>
-                {flag?<KUI.YesButton onClick={function(){}} label="Register"></KUI.YesButton>:null}
-                {!flag?<KUI.YesButton onClick={function(){}} label="Waitlist"></KUI.YesButton>:null}
+                {flag?<KUI.YesButton href={`/registration/index/class/${classID}`} label="Register"></KUI.YesButton>:null}
+                {!flag?<KUI.YesButton href={`/registration/index/class/${classID}`} label="Waitlist"></KUI.YesButton>:null}
 
             </RC.Div>
         );
+
+    }
+
+    runOnceAfterDataReady(){
+        let self = this;
+        KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId(), 2000, function(data){
+            console.log(data);
+            self.setState({
+                classTableReady:true,
+                classTableData : data
+            });
+        });
 
     }
 };

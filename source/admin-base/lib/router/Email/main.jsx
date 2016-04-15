@@ -28,6 +28,15 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/template/edit/:emailID', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Email | Edit Template",
+                bodyTmpl: <KUI.Email_EditTemplate />
+            });
+        }
+    });
+
 
 
 

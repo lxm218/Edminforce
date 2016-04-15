@@ -6,6 +6,7 @@ Package.describe({
     git: ""
 });
 
+Npm.depends({later: "1.1.6"});
 
 Package.onUse(function(api) {
     api.versionsFrom("METEOR@1.2.0.2");
@@ -38,6 +39,11 @@ Package.onUse(function(api) {
         'base.jsx',
         'util.jsx'
     ], ["client","server"]);
+
+    api.addFiles([
+        'lib/synced-cron.jsx',
+        'server.jsx'
+    ], ['server']);
 
 
     api.export([

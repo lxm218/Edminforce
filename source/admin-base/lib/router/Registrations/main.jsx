@@ -30,6 +30,16 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/index/class/:classID', {
+        action: function (p) {
+
+            App.routeHandler(p, {
+                pageTitle: "Registration | index",
+                bodyTmpl: <KUI.Registration_index2 />
+            })
+        }
+    });
+
     Route.route('/payment/:id', {
         action : function(p){
             App.routeHandler(p, {

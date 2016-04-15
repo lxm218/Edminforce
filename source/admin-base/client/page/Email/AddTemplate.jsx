@@ -14,18 +14,68 @@ KUI.Email_AddTemplate_comp = class extends RC.CSS{
             }
         };
 
+        let sy = {
+            b1 : {
+                marginLeft:'10px'
+            },
+            bc : {
+                fontSize:'16px',
+                color : '#1ab394',
+                position : 'relative',
+                top : '2px'
+            }
+        };
+
         return (
             <form className="form-horizontal">
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
                         <RB.Input type="text" {... p.name} />
-                        <RB.Input wrapperClassName="col-xs-12">
+
+                        <label>
+                            Email Variables
+                            <RC.URL style={sy.b1} onClick={this.showEmailModal.bind(this)}><i style={sy.bc} className="fa fa-question-circle"></i></RC.URL>
+                        </label>
+                        <RB.Input groupClassName="no_margin_bottom" wrapperClassName="col-xs-12">
                             <div {... p.html}></div>
                         </RB.Input>
+
                     </RB.Col>
                 </RB.Row>
+                {this.renderEmailModal()}
             </form>
         );
+    }
+
+    showEmailModal(){
+        this.refs.modal.show();
+    }
+
+    renderEmailModal(){
+        let param = {
+            title : 'Email Variables',
+            YesFn : function(){
+
+            },
+            renderBody : function(){
+                return (
+                    <RC.Div>
+                        <h4>Quick Help</h4>
+                        <hr/>
+                        <p>
+                            Email Variables:<br/>
+                            {`{user} : Account Name`}<br/>
+                        </p>
+                        <p>
+                            {`To use email variables include the {} in the body or subject of your email when you send bulk emails.`}<br/>
+                            {`For example, Dear {user}!`}
+                        </p>
+                    </RC.Div>
+                );
+            }
+        };
+
+        return util.dialog.render.call(this, 'modal', param);
     }
 
     componentDidMount(){
@@ -55,8 +105,12 @@ KUI.Email_AddTemplate_comp = class extends RC.CSS{
         };
     }
 
-    setDefaultValue(){
+    setDefaultValue(data){
+        let name = this.refs.name;
+        let html = data.html ? decodeURIComponent(data.html) : '';
 
+        name.getInputDOMNode().value = data.name;
+        $(this.refs.html).summernote('code', html);
     }
 
     reset(){
@@ -85,6 +139,7 @@ KUI.Email_AddTemplate = class extends RC.CSS{
         let data = this.refs.form.getValue();
 
         let rs = KG.get('EF-EmailTemplate').insert(data);
+        console.log(rs);
         KG.result.handle(rs, {
             success : function(){
                 util.toast.alert('insert success');
@@ -92,10 +147,63 @@ KUI.Email_AddTemplate = class extends RC.CSS{
                 util.goPath('/email');
             },
             error : function(e){
-                util.toast.showError(e.reason);
+                util.toast.showError('Insert Email template error, Please check');
             }
         });
     }
 
 
+};
+
+KUI.Email_EditTemplate = class extends KUI.Page{
+
+    getMeteorData(){
+        var id = FlowRouter.getParam('emailID');
+        let x = Meteor.subscribe('EF-EmailTemplate', {
+            _id : id
+        });
+
+        return {
+            ready : x.ready(),
+            id : id,
+            data : KG.get('EF-EmailTemplate').getDB().findOne()
+        };
+    }
+
+    save(){
+        let self = this;
+        let data = this.refs.form.getValue();
+
+        let rs = KG.get('EF-EmailTemplate').updateById(data, this.data.id);
+        KG.result.handle(rs, {
+            success : function(){
+                util.toast.alert('update success');
+                self.refs.form.reset();
+                util.goPath('/email');
+            },
+            error : function(e){
+                util.toast.showError('Insert Email template error, Please check');
+            }
+        });
+    }
+
+    render(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
+        return (
+            <RC.Div>
+                <h3>Edit Email Template</h3>
+                <hr/>
+                <KUI.Email_AddTemplate_comp ref="form" />
+                <RC.Div style={{textAlign:'right'}}>
+                    <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
+                </RC.Div>
+            </RC.Div>
+        );
+    }
+
+    runOnceAfterDataReady(){
+        this.refs.form.setDefaultValue(this.data.data);
+    }
 };

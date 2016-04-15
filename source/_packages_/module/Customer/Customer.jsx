@@ -103,9 +103,12 @@ KG.define('EF-Customer', class extends Base{
         }
 
         try{
-            let rs = this._db.update({_id : id}, {'$set' : data});
+            let rs = this._db.update({_id : id}, {'$set' : data}, function(err){
+                throw err;
+            });
             return KG.result.out(true, rs);
         }catch(e){
+            console.log(e);
             return KG.result.out(false, e, e.toString());
         }
     }
@@ -124,10 +127,9 @@ KG.define('EF-Customer', class extends Base{
         let me = this;
         let m = this.defineDepModule();
 
-        let LISTBYCLASSQUERY = 'EF-Customer-BY-Class-Query',
-            LIST_ARR = [];
+        let LISTBYCLASSQUERY = 'EF-Customer-BY-Class-Query';
 
-        Meteor.publish(LISTBYCLASSQUERY, function(query={}){
+        Meteor.publish(LISTBYCLASSQUERY, function(query={}, option={}){
             let self = this;
 
             query = _.extend({
@@ -141,6 +143,7 @@ KG.define('EF-Customer', class extends Base{
             query = _.omit(query, function(val){
                 return !val;
             });
+            query = KG.util.setDBQuery(query);
 
             if(query.classID){
                 query._id = query.classID;
@@ -151,14 +154,10 @@ KG.define('EF-Customer', class extends Base{
                 delete query.dayOfClass;
             }
 
-            let refresher = function(){
-                _.each(LIST_ARR, function(doc){
-                    try{
-                        self.removed(LISTBYCLASSQUERY, doc._id);
-                    }catch(e){}
+            let refresher = function(id, type){
 
-                });
-                let tmp = m.Class.getAll(query),
+
+                let tmp = m.Class.getAll({_id : id}),
                     tmpArr = [];
                 //console.log(tmp)
                 _.each(tmp, (doc)=>{
@@ -167,32 +166,31 @@ KG.define('EF-Customer', class extends Base{
                 tmpArr = _.filter(tmpArr, function(val){
                     return !!val;
                 });
-                LIST_ARR = _.uniq(tmpArr, function(item){
+                tmpArr = _.uniq(tmpArr, function(item){
                     return item._id;
                 });
-                //console.log(LIST_ARR)
 
-                _.each(LIST_ARR, (doc)=>{
+                _.each(tmpArr, (doc)=>{
                     self.added(LISTBYCLASSQUERY, doc._id, doc);
                 });
             };
 
+            //console.log(LIST_ARR.length)
             let handler = m.Class.getDB().find(query).observeChanges({
                 added(id, fields){
-                    refresher();
+                    refresher(id, 'added');
                 },
                 changed(id, fields){
-                    refresher();
+                    refresher(id, 'changed');
                 }
             });
 
-            self.ready();
+
+
             self.onStop(function() {
                 handler.stop();
             });
-            return self.ready();
-
-
+            self.ready();
         });
 
     }
@@ -200,20 +198,26 @@ KG.define('EF-Customer', class extends Base{
     defineClientMethod(){
         let tmpDB = null;
         return {
-            subscribeByClassQuery : function(query){
+            subscribeByClassQuery : function(query, option){
+                option = KG.util.setDBOption(option);
                 let dbName = 'EF-Customer-BY-Class-Query';
-                let x = Meteor.subscribe(dbName, query);
                 if(!tmpDB){
                     tmpDB = new Mongo.Collection(dbName);
+
                 }
-                let data = [];
+                let x = Meteor.subscribe(dbName, query, option);
+
+                let data = [],
+                    count = -1;
                 if(x.ready()){
-                    data = tmpDB.find().fetch();
+                    data = tmpDB.find({}, option).fetch();
+                    count = tmpDB.find({}).count();
                 }
 
                 return {
                     ready : x.ready,
-                    data : data
+                    data : data,
+                    count : count
                 };
             }
         };
@@ -239,7 +243,7 @@ KG.define('EF-Customer', class extends Base{
 
             useSchoolCreditById(credit, id){
                 let one = this._db.findOne({_id : id});
-                credit = credit || one.schoolCredit
+                credit = credit || one.schoolCredit;
                 let rs = this._db.update({_id : id}, {'$inc' : {
                     schoolCredit : (credit*-1)
                 }});
