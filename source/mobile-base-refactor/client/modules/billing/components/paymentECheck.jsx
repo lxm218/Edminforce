@@ -59,15 +59,21 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
         return (
             <RC.List className="padding">
                 {EdminForce.utils.renderError(this.props.error)}
-                <span className="totalAmount">Total Amount is : ${this.paymentTotal}</span>
-                <br/>
-                <br/>
-                <RC.Form onSubmit={this.postPayment} ref="paymentForm">
-                    <RC.Input name="routingNumber" label="Routing Number" theme={inputTheme} onChange={this.validateFormData} ref="routingNumber"/>
-                    <RC.Input name="accountNumber" label="Account Number" theme={inputTheme} onChange={this.validateFormData} ref="accountNumber"/>
-                    <RC.Input name="nameOnAccount" label="Check Holder Name" theme={inputTheme} onChange={this.validateFormData} ref="nameOnAccount"/>
-                    <RC.Button name="button" theme="full" buttonColor="brand" {...payButtonOpts}>Pay Now</RC.Button>
-                </RC.Form>
+                <div className="payment-container">
+                    <span className="totalAmount">Total Amount is : ${this.paymentTotal}</span>
+                    <br/>
+                    <br/>
+                    <div>
+                        <span className="sample-check"></span>
+                    </div>
+                    <RC.Form onSubmit={this.postPayment} ref="paymentForm">
+                        <RC.Input name="routingNumber" label="Routing Number" theme={inputTheme} onChange={this.validateFormData} ref="routingNumber"/>
+                        <RC.Input name="accountNumber" label="Account Number" theme={inputTheme} onChange={this.validateFormData} ref="accountNumber"/>
+                        <RC.Input name="nameOnAccount" label="Check Holder Name" theme={inputTheme} onChange={this.validateFormData} ref="nameOnAccount"/>
+                        <RC.Button name="button" theme="full" buttonColor="brand" {...payButtonOpts}>Pay Now</RC.Button>
+                    </RC.Form>
+                    <a href="http://www.authorize.net/"><div className="authorize-verified"></div></a>
+                </div>
             </RC.List>
         );
     }

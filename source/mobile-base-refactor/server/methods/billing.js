@@ -29,6 +29,7 @@ Meteor.methods({
             amount: Number,
             discount: Number,
             registrationFee: Number,
+            paymentSource: String,
             couponID: Match.Optional(String)
         });
 
@@ -38,6 +39,7 @@ Meteor.methods({
             status: 'waiting',
             amount: order.amount,
             paymentType: 'echeck',
+            paymentSource: order.paymentSource,
             discount: order.discount,
             registrationFee: order.registrationFee,
             couponID: order.couponID

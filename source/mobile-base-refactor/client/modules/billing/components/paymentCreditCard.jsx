@@ -85,25 +85,36 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
         return (
             <RC.List className="padding">
                 {EdminForce.utils.renderError(this.props.error)}
-                <span>Total Amount is: ${this.paymentTotal}</span>
-                <br/>
-                <br/>
-                <RC.Form onSubmit={this.postPayment} ref="paymentForm">
-                    <RC.Input name="creditCardNumber" onChange={this.validateFormData} label="Credit Card Number"
-                              theme={inputTheme} ref="cardNumber"/>
-                    <RC.Input name="expirationDate" onChange={this.validateFormData}
-                              label="Expiration Date (MM/YY)" theme={inputTheme} ref="expirationDate"/>
-                    <RC.Input name="ccv" onChange={this.validateFormData} label="CCV" theme={inputTheme} ref="ccv"/>
-                    <RC.Input name="cardHolderFirstName" label="Card Holder First Name" theme={inputTheme}
-                              ref="cardHolderFirstName"/>
-                    <RC.Input name="cardHolderLastName" label="Card Holder Last Name" theme={inputTheme}
-                              ref="cardHolderLastName"/>
-                    <RC.Input name="street" label="Street Address" theme={inputTheme} ref="street"/>
-                    <RC.Input name="city" label="City" theme={inputTheme} ref="city"/>
-                    <RC.Input name="state" label="State" theme={inputTheme} ref="state"/>
-                    <RC.Input name="zip" label="Zip" theme={inputTheme} ref="zip"/>
-                    <RC.Button name="button" theme="full" buttonColor="brand" {...payButtonOpts}>Pay Now</RC.Button>
-                </RC.Form>
+                <div className="payment-container">                
+                    <span>Total Amount is: ${this.paymentTotal}</span>
+                    <br/>
+                    <br/>
+
+                    <div>
+                        <span className="card american-express"></span>
+                        <span className="card discover"></span>
+                        <span className="card mastercard"></span>
+                        <span className="card visa"></span>
+                    </div>
+
+                    <RC.Form onSubmit={this.postPayment} ref="paymentForm">
+                        <RC.Input name="creditCardNumber" onChange={this.validateFormData} label="Credit Card Number"
+                                  theme={inputTheme} ref="cardNumber"/>
+                        <RC.Input name="expirationDate" onChange={this.validateFormData}
+                                  label="Expiration Date (MM/YY)" theme={inputTheme} ref="expirationDate"/>
+                        <RC.Input name="ccv" onChange={this.validateFormData} label="CCV" theme={inputTheme} ref="ccv"/>
+                        <RC.Input name="cardHolderFirstName" label="Card Holder First Name" theme={inputTheme}
+                                  ref="cardHolderFirstName"/>
+                        <RC.Input name="cardHolderLastName" label="Card Holder Last Name" theme={inputTheme}
+                                  ref="cardHolderLastName"/>
+                        <RC.Input name="street" label="Street Address" theme={inputTheme} ref="street"/>
+                        <RC.Input name="city" label="City" theme={inputTheme} ref="city"/>
+                        <RC.Input name="state" label="State" theme={inputTheme} ref="state"/>
+                        <RC.Input name="zip" label="Zip" theme={inputTheme} ref="zip"/>
+                        <RC.Button name="button" theme="full" buttonColor="brand" {...payButtonOpts}>Pay Now</RC.Button>
+                    </RC.Form>
+                    <a href="http://www.authorize.net/"><div className="authorize-verified"></div></a>
+                </div>
             </RC.List>
         );
     }

@@ -43,6 +43,7 @@ EdminForce.Actions.Billing = {
     
     payECheck({LocalState}, checkPaymentInfo, makeupOnly) {
         LocalState.set('ERROR_CHECKOUT', null);
+        checkPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payECheck', checkPaymentInfo, function(err,result){
             console.log(err);
             console.log(result);
@@ -67,6 +68,7 @@ EdminForce.Actions.Billing = {
 
     payCreditCard({LocalState}, creditCardPaymentInfo, makeupOnly) {
         LocalState.set('ERROR_PAY_CREDITCARD', null);
+        creditCardPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payCreditCard', creditCardPaymentInfo, function(err,result){
             if (err) {
                 LocalState.set('ERROR_PAY_CREDITCARD', err.reason);
