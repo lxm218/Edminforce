@@ -32,6 +32,11 @@ Schema.Order = {
         optional: true,
         defaultValue: 0
     },
+    registrationFee:{
+        type: Number,
+        optional: true,
+        defaultValue: 0
+    },
     paymentTotal:{
         type: Number,
         optional: true

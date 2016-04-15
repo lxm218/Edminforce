@@ -24,6 +24,7 @@ Package.onUse(function(api) {
     
     api.addFiles([
         'trialClasses.js',
-        'classes.js'
+        'classes.js',
+        'email.js'
     ], ["server"]);
 });

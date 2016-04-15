@@ -301,8 +301,8 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
     //this has to be consistent with "isAvailableForTrial"
     let whereQuery = `${trialCount}+this.numberOfRegistered<this.maxStudent && ${trialCount}<this.trialStudent`;
 
-    console.log(classID);
-    console.log(whereQuery);
+    // console.log(classID);
+    // console.log(whereQuery);
 
     let incData = {};
     incData['trial.' + strLessonDate] = 1;
@@ -330,7 +330,7 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
         let trialData = {};
         trialData[student.name] = {};
         trialData[student.name][className] = lessonDate;
-        let html = EdminForce.utils.getPaymentConfirmEmailTemplate(trialData);
+        let html = EdminForce.Registration.getTrialConfirmationEmailTemplate(trialData);
         EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
         
         return scID;

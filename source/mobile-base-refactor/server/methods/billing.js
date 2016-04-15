@@ -28,9 +28,10 @@ Meteor.methods({
             details: [String],
             amount: Number,
             discount: Number,
+            registrationFee: Number,
             couponID: Match.Optional(String)
         });
-        
+
         return Collections.orders.insert({
             accountID: this.userId,
             details: order.details,
@@ -38,6 +39,7 @@ Meteor.methods({
             amount: order.amount,
             paymentType: 'echeck',
             discount: order.discount,
+            registrationFee: order.registrationFee,
             couponID: order.couponID
         });
     },

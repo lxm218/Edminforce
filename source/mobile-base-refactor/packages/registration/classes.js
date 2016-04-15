@@ -216,8 +216,8 @@ function updateMakeupCount(classID, lessonDate) {
     //this has to be consistent with "isAvailableForMakeup"
     let whereQuery = `${trialCount}+${makeupCount}+this.numberOfRegistered<this.maxStudent && ${makeupCount}<this.makeupStudent`;
     
-    console.log(classID);
-    console.log(whereQuery);
+    //console.log(classID);
+    //console.log(whereQuery);
     
     let incData = {};
     incData['makeup.'+strLessonDate] = 1;
@@ -564,8 +564,10 @@ function expirePendingRegistration(sc) {
     releaseRegistrationSpace(sc);
 }
 
-
-function postPaymentUpdate(userId, order, paymentMethod) {
+/*
+ * Update after a successful payment
+ */
+function postPaymentUpdate(userId, order, paymentType, paymentTotal) {
 
     // update registration fee flag
     Collections.Customer.update({
@@ -580,7 +582,8 @@ function postPaymentUpdate(userId, order, paymentMethod) {
     // update order
     let orderUpdate = {
         status: 'success',
-        paymentType: paymentMethod,
+        paymentType,
+        paymentTotal,
     };
 
     if (order.couponID) {
@@ -658,6 +661,31 @@ function postPaymentUpdate(userId, order, paymentMethod) {
             result.expiredRegistrationIDs = failedRegistrations.join();
         }
     }
+
+    // send confirmation email
+    let emailData = {
+        "amount": order.amount,
+        //"classes": classes,
+        "registrationFee" : order.registrationFee || 0,
+        "couponDiscount": order.discount || 0,
+        "processFee": paymentTotal - order.amount,
+        "total": paymentTotal
+    };
+
+    let content;
+    let subject;
+    let sc0 = Collections.classStudent.findOne({_id: order.details[0]}, {fields:{type:1}});
+    if (sc0.type === 'makeup') {
+        emailData.classes = EdminForce.Registration.getMakeupClassesForEmail(order.details);
+        content = EdminForce.Registration.getMakeupConfirmEmailTemplate(emailData);
+        subject = "Make Up Class Booking Confirmation";
+    }
+    else {
+        emailData.classes = EdminForce.Registration.getClassesForEmail(order.details);
+        content = EdminForce.Registration.getRegularClassConfirmEmailTemplate(emailData);
+        subject = "Registration Confirmation";
+    }
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, subject,content);
 
     return result;
 }
@@ -753,7 +781,8 @@ function payECheck(userId, checkPaymentInfo) {
 
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
-    paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount + 0.5;
+    let paymentTotal = order.amount + 0.5;
+    paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
     var response = HTTP.call('POST',URL, {data: paymentInfo});
@@ -764,7 +793,7 @@ function payECheck(userId, checkPaymentInfo) {
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'echeck');
+        return postPaymentUpdate(userId, order, 'echeck', paymentTotal);
     }
     else {
         return {
@@ -836,7 +865,8 @@ function payCreditCard(userId, creditCardPaymentInfo) {
 
     paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
-    paymentInfo.createTransactionRequest.transactionRequest.amount = order.amount * 1.03;
+    let paymentTotal = order.amount * 1.03;
+    paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
     //var URL = 'https://apitest.authorize.net/xml/v1/request.api';
     //var response = HTTP.call('POST',URL, {data: paymentInfo});
@@ -858,7 +888,7 @@ function payCreditCard(userId, creditCardPaymentInfo) {
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'credit card');
+        return postPaymentUpdate(userId, order, 'credit card', paymentTotal);
     }
     else {
         return {
@@ -913,6 +943,7 @@ function syncClassRegistrationCount() {
 }
 
 
+EdminForce.Registration.calculateRegistrationFee = calculateRegistrationFee;
 EdminForce.Registration.getLessonDateFieldName = getLessonDateFieldName;
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;
@@ -923,5 +954,4 @@ EdminForce.Registration.payECheck = payECheck;
 EdminForce.Registration.payCreditCard = payCreditCard;
 EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;
 EdminForce.Registration.bookMakeup = bookMakeup;
-
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
