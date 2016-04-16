@@ -16,6 +16,7 @@ DefaultRoutes.route('/registrationSummary', {
 DefaultRoutes.route('/checkout', {
     name: "checkout",
     action: function(p,q) {
+        EdminForce.Contexts.Billing.init();
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,

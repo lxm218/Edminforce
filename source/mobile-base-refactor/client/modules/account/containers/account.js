@@ -1,9 +1,9 @@
 
 // account page
 const reactiveFnAccount = ({context,actions}, onData) => {
-    const error = context.LocalState.get('ERROR_ACCOUNT');
+    const errorId = 'ERROR_ACCOUNT';
+    const error = context.LocalState.get(errorId);
     context.SubManager.subscribe('account');
-    //if (Meteor.subscribe('account').ready()) {
     if (context.SubManager.ready()) {
         if (!Meteor.userId()) return;
 
@@ -15,6 +15,6 @@ const reactiveFnAccount = ({context,actions}, onData) => {
         })
     }
 
-    return actions.clearErrors.bind(null,'ERROR_ACCOUNT');
+    return actions.clearErrors.bind(null,errorId);
 };
 EdminForce.Containers.Account = Composer.composeWithTracker(reactiveFnAccount)(EdminForce.Components.Account);
