@@ -459,7 +459,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
         tuitionMoney.getInputDOMNode().value = data.tuition.money || '';
         tuitionType.getInputDOMNode().value = data.tuition.type;
         scheduleDay.getInputDOMNode().value = data.schedule.day;
-        scheduleTime.getInputDOMNode().value = data.schedule.time;
+        scheduleTime.getInputDOMNode().value = data.schedule.time.replace(/ /g, '').toUpperCase();
         makeup.getInputDOMNode().value = data.makeupStudent || '';
         makeupFee.getInputDOMNode().value = data.makeupClassFee;
     }
