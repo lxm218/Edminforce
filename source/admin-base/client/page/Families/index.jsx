@@ -205,7 +205,7 @@ KUI.Family_index = class extends KUI.Page{
             <RC.Div>
                 {this.getSearchBox()}
                 <hr/>
-                <p>Search Result</p>
+                <p>Search Result: {this.data.max} matches</p>
                 {this.renderListTable(style)}
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton href="/family/add" label="Add Family"></KUI.YesButton>

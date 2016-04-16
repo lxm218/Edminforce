@@ -274,11 +274,12 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 </RC.Div>
 
                 <hr/>
+
+                <p>Search Result : {this.data.count} matches</p>
+                {this.renderTable()}
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton href="/program/class/add" label="Add New Class"></KUI.YesButton>
                 </RC.Div>
-
-                {this.renderTable()}
             </RC.Div>
         );
     }
