@@ -85,4 +85,28 @@ KG.define('EF-Session', class extends Base{
             return KG.result.out(false, e, e.toString());
         }
     }
+
+    defineMeteorMethod(){
+        return {
+            copyClassFromSession : function(fromSessionID, toSessionID){
+                let m = KG.DataHelper.getDepModule();
+                let classList = m.Class.getDB().find({
+                    sessionID : fromSessionID
+                }).fetch();
+
+                if(classList.length < 1){
+                    return KG.result.out(false, new Meteor.Error('error', 'No record'));
+                }
+
+                _.each(classList, (item)=>{
+                    item.sessionID = toSessionID;
+                    delete item._id;
+
+                    m.Class.insert(item);
+                });
+
+                return KG.result.out(true, 'ok');
+            }
+        };
+    }
 });

@@ -154,6 +154,7 @@ KUI.Session_edit = class extends KUI.Page{
 
                             <RC.Div style={{textAlign:'right'}}>
                                 <KUI.NoButton onClick={this.goBack.bind(this)} label="Back"></KUI.NoButton>
+                                <KUI.NoButton style={sy.ml} href={`/program/session/copy_class/${this.data.id}`} label="Copy Class"></KUI.NoButton>
                                 <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                             </RC.Div>
                         </form>

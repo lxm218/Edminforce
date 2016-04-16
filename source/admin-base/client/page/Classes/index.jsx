@@ -7,8 +7,10 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
         this.state = {
             query : {},
-            page : 1
+            page : 1,
+            refresh : false
         };
+
     }
 
     getProgramData(){
@@ -132,6 +134,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                                 KG.get('EF-Class').getDB().remove({
                                     _id : item._id
                                 });
+
                             }
                         });
                     };

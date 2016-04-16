@@ -44,7 +44,14 @@ if(Meteor.isClient){
         }
     });
 
-
+    Route.route('/session/copy_class/:sessionID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle : 'Session | Copy Class',
+                bodyTmpl : <KUI.Session_CopySessionClass />
+            });
+        }
+    });
 
 
 

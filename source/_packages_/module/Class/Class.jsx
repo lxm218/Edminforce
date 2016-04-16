@@ -525,6 +525,9 @@ let Class = class extends Base{
                 },
                 changed(id, fields){
                     refresher.call(pubThis, id);
+                },
+                removed(id){
+                    pubThis.removed(dbName, id);
                 }
             });
 
