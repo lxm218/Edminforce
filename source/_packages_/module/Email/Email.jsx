@@ -33,6 +33,32 @@ KG.define('EF-Email', class extends Base{
                 }, data || {});
 
                 return self.mailgun.send(data);
+            },
+
+            sendClassRegistrationCReceiptAndSchedule(opts){
+                let accountID = opts.accountID,
+                    studentName = opts.student.name,
+                    className = opts.class.nickName,
+                    teacher = opts.class.teacher;
+
+                let account = KG.get('EF-Customer').getDB().findOne({
+                    _id : accountID
+                });
+
+                let html = [
+                    '<h3>Dear '+account.name+'</h3>',
+                    '<h4>Registration is successful for:</h4>',
+                    '<p>Student : '+studentName+'</p>',
+                    '<p>Class : '+className+'</p>',
+                    '<p>Teacher : '+teacher+'</p>'
+                ].join('');
+
+                console.log(html);
+                return self.callMeteorMethod('sendEmail', [{
+                    html : html,
+                    to : account.email,
+                    subject : 'Registration Class Success.'
+                }]);
             }
         };
     }

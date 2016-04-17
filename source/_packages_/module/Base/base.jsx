@@ -84,6 +84,13 @@ let Base = class{
             context : self
         }, opts||{});
 console.log('['+this._name+':'+methodName+' call]');
+
+        if(Meteor.isServer){
+            let tmpRs = Meteor.apply(this._name+':'+methodName, args);
+            console.log(tmpRs);
+            return Meteor.apply(this._name+':'+methodName, args);
+        }
+
         Meteor.apply(this._name+':'+methodName, args, function(error, rs){
             if(error){
                 opts.error.call(opts.context, error);
