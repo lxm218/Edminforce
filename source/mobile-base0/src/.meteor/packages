@@ -1,0 +1,53 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base             # Packages every Meteor app needs to have
+mobile-experience       # Packages for a great mobile UX
+mongo                   # The database Meteor supports right now
+session                 # Client-side reactive dictionary for your app
+jquery                  # Helpful client-side library
+tracker                 # Meteor's client-side reactive programming library
+
+standard-minifiers      # JS/CSS minifiers run for production mode
+es5-shim                # ECMAScript 5 compatibility for older browsers.
+ecmascript              # Enable ECMAScript2015+ syntax in app code
+
+insecure                # Allow all DB writes from clients (for prototyping)
+
+############################################################
+# Added by Manually
+
+edminforce@0.0.1
+edminforce:lib@0.0.1
+edminforce:i18n@0.0.1
+edminforce:core@0.0.1
+edminforce:settings@0.0.1
+edminforce:collections@0.0.1
+edminforce:collections-seed@0.0.1
+edminforce:users@0.0.1
+edminforce:home@0.0.1
+edminforce:programs@0.0.1
+edminforce:programs-classes@0.0.1
+edminforce:programs-classes-confirm@0.0.1
+edminforce:programs-classes-summary@0.0.1
+edminforce:account@0.0.1
+edminforce:account-changepassword@0.0.1
+edminforce:account-updatephone@0.0.1
+edminforce:account-addstudent@0.0.1
+edminforce:account-alternative@0.0.1
+edminforce:account-emergency@0.0.1
+edminforce:students@0.0.1
+edminforce:students-detail@0.0.1
+edminforce:classes@0.0.1
+edminforce:carts-checkout@0.0.1
+edminforce:carts-detail@0.0.1
+edminforce:carts-summary@0.0.1
+edminforce:billings@0.0.1
+edminforce:contact@0.0.1
+edminforce:payment@0.0.1
+http
+email
+force-ssl
