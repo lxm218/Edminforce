@@ -1,2 +1,0 @@
-# edminforce:collections
-
