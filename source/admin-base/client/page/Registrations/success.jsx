@@ -105,16 +105,41 @@ KUI.Registration_success = class extends KUI.Page{
 
                 <hr/>
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton onClick={this.comming} label="Email Receipt and Schedule"></KUI.YesButton>
-                    <KUI.YesButton onClick={this.comming} style={sy.ml} label="Print out Receipt and Schedule"></KUI.YesButton>
+                    <KUI.YesButton ref="sendEmailBtn" onClick={this.sendEmail.bind(this)} label="Email Receipt and Schedule"></KUI.YesButton>
+                    <KUI.YesButton onClick={this.printPage.bind(this)} style={sy.ml} label="Print out Receipt and Schedule"></KUI.YesButton>
                 </RC.Div>
             </RC.Div>
         );
 
     }
 
-    comming(){
-        alert('comming soon');
+    sendEmail(e){
+
+        let self = this;
+        let param = {
+            accountID : this.data.data.accountID,
+            student : this.data.student,
+            'class' : this.data.class
+        };
+
+        self.refs.sendEmailBtn.loading(true);
+        KG.get('EF-Email').callMeteorMethod('sendClassRegistrationCReceiptAndSchedule', [param], {
+            success : function(rs){
+                self.refs.sendEmailBtn.loading(false);
+                if(rs && rs.error){
+                    util.toast.showError(rs.error);
+                }
+                else{
+                    util.toast.alert('Send receipt and schedule success');
+                }
+
+            }
+        });
+
+    }
+
+    printPage(){
+        window.print();
     }
 
     runOnceAfterDataReady(){

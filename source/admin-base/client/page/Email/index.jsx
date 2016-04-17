@@ -86,6 +86,7 @@ KUI.Email_index = class extends KUI.Page{
                 <hr/>
                 {this.renderFilterBox()}
                 <hr/>
+                <p>Search Result : {this.data.filterCount} matches</p>
                 {this.renderFilterResult()}
                 <hr/>
                 {this.renderFilterEmail()}

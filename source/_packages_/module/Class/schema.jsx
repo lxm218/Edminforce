@@ -62,11 +62,12 @@ Schema.Class = {
     numberOfClass : KG.schema.default({
         type : Number,
         label : 'Number Of Class',
-        custom : function(){
-            if(this.value < 1){
-                return 'NumberOfClassLess';
-            }
-        }
+        optional : true
+        //custom : function(){
+        //    if(this.value < 1){
+        //        return 'NumberOfClassLess';
+        //    }
+        //}
     }),
     maxStudent : KG.schema.default({
         type : Number,
