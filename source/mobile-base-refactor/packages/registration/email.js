@@ -49,7 +49,7 @@ EdminForce.Registration.getClassesForEmail = function(classStudentIDs) {
         
         let classData = Collections.class.findOne({_id: sc.classID});
         let session = Collections.session.findOne({_id: classData.sessionID});
-        let program = Collections.program.fineOne({_id: classData.programID});
+        let program = Collections.program.findOne({_id: classData.programID});
 
         let classFee = 0;
         if (sc.type === 'makeup') {
@@ -75,7 +75,7 @@ EdminForce.Registration.getMakeupClassesForEmail = function (classStudentIDs) {
         var doc = res[student.name];
         var classData= Collections.class.findOne({_id: sc.classID});
         let session = Collections.session.findOne({_id: classData.sessionID});
-        let program = Collections.program.fineOne({_id: classData.programID});
+        let program = Collections.program.findOne({_id: classData.programID});
 
         let className = EdminForce.utils.getClassName(program.name, session.name, classData);
         doc[className] = [classData.makeupClassFee, moment(sc.lessonDate).format('YYYY-MM-DD')];
@@ -191,24 +191,24 @@ EdminForce.Registration.getMakeupConfirmEmailTemplate = function (data) {
         tpl = tpl + [
                 '<tr>',
                 '<td colspan=\"3\">Coupon Discount</td>',
-                '<td>-$', data.couponDiscount, '</td>',
+                '<td>-$', data.couponDiscount.toFixed(2), '</td>',
                 '</tr>',].join('')
     }
     if (data.registrationFee != 0) {
         tpl = tpl + [
                 '<tr>',
                 '<td colspan=\"3\">Registration</td>',
-                '<td>$', data.registrationFee, '</td>',
+                '<td>$', data.registrationFee.toFixed(2), '</td>',
                 '</tr>',].join('')
     }
     tpl = tpl + [
             '<tr>',
             '<td colspan=\"3\">Credit Process Fee</td>',
-            '<td>$', data.processFee, '</td>',
+            '<td>$', data.processFee.toFixed(2), '</td>',
             '</tr>',
             '<tr>',
             '<td colspan=\"3\">Total</td>',
-            '<td>$', data.total, '</td>',
+            '<td>$', data.total.toFixed(2), '</td>',
             '</tr>',
 
             '</table>',
@@ -267,24 +267,24 @@ EdminForce.Registration.getRegularClassConfirmEmailTemplate = function (data) {
         tpl = tpl + [
                 '<tr>',
                 '<td colspan=\"2\">Coupon Discount</td>',
-                '<td>-$', data.couponDiscount, '</td>',
+                '<td>-$', data.couponDiscount.toFixed(2), '</td>',
                 '</tr>',].join('')
     }
     if (data.registrationFee != 0) {
         tpl = tpl + [
                 '<tr>',
                 '<td colspan=\"2\">Registration</td>',
-                '<td>$', data.registrationFee, '</td>',
+                '<td>$', data.registrationFee.toFixed(2), '</td>',
                 '</tr>',].join('')
     }
     tpl = tpl + [
             '<tr>',
             '<td colspan=\"2\">Credit Process Fee</td>',
-            '<td>$', data.processFee, '</td>',
+            '<td>$', data.processFee.toFixed(2), '</td>',
             '</tr>',
             '<tr>',
             '<td colspan=\"2\">Total</td>',
-            '<td>$', data.total, '</td>',
+            '<td>$', data.total.toFixed(2), '</td>',
             '</tr>',
 
             '</table>',

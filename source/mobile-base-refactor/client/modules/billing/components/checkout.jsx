@@ -51,10 +51,6 @@ EdminForce.Components.Checkout = class extends RC.CSS {
     }
 
     render() {
-        // show popup error
-        let popupError = this.props.context.StateBag.checkout.popupError;
-        this.props.context.StateBag.checkout.popupError = null;
-        popupError && alert(popupError);
 
         let style = {
             padding: '10px'
@@ -123,7 +119,7 @@ EdminForce.Components.Checkout = class extends RC.CSS {
 
         this.props.discount && cartItems.push((
             <TableRow key="_discount_">
-                <TableRowColumn colSpan="2"><span style={col1Style}>Coupon Discount</span></TableRowColumn>
+                <TableRowColumn colSpan="2"><span style={col1Style}>Coupon Discount ({this.props.appliedCouponId})</span></TableRowColumn>
                 <TableRowColumn colSpan="2"><span
                     style={col2Style}>{"-$" + _.toString(this.props.discount)}</span></TableRowColumn>
             </TableRow>

@@ -1,25 +1,14 @@
 
 EdminForce.Actions.Billing = {
     validateCouponId({LocalState, StateBag}, couponId) {
-        LocalState.set('ERROR_CHECKOUT', null);
-        Meteor.call('billing.validateCouponId', couponId, function(err, result){
-            if (result) {
-                StateBag.checkout.couponId = couponId;
-            }
-            else {
-                StateBag.checkout.couponId = '';
-                StateBag.checkout.popupError = 'Cannot verify this coupon, please make sure you typed correct coupon';
-            }
-            
-            LocalState.set('state.checkout', new Date().getTime());            
-        })
+        StateBag.couponId = couponId;
+        LocalState.set('state.checkout', new Date().getTime());
     },
     
     deleteCartItem({LocalState, StateBag}, cartItemId) {
         LocalState.set('ERROR_CHECKOUT', null);
         Meteor.call('billing.deleteCartItem', cartItemId, function(err, result){
-            err && (StateBag.checkout.popupError = 'Delete Fail');
-            LocalState.set('state.checkout', new Date().getTime());
+            err ? LocalState.set('ERROR_CHECKOUT', err.reason) : LocalState.set('state.checkout', new Date().getTime()); 
         });
     },
     

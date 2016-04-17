@@ -4,42 +4,43 @@ const reactiveFnCheckout = ({context,actions}, onData) => {
     const methodName = 'billing.getShoppingCartItems';
     const error = context.LocalState.get(errorId);
 
-    // access this to be reactive
+    //access this to be reactive
     const stateVersion = context.LocalState.get('state.checkout');
     stateVersion;
 
-    if (error || context.StateBag.checkout.popupError) {
+    if (error) {
         let cachedResult = context.MethodCache[methodName] || {students:[]};
         onData(null, {
             ...cachedResult,
-            error,
-            popupError: context.StateBag.checkout.popupError
+            error
         })
     }
     else {
         // call onData with no data to show loading screen
         onData();
-        Meteor.call(methodName, context.StateBag.checkout.couponId, function(methodError, result) {
-            
-            if (result.couponMsg) {
-                context.StateBag.checkout.popupError = result.couponMsg;
-                result.couponMsg = null;
-                context.StateBag.checkout.couponId = '';
+        Meteor.call(methodName, context.StateBag.couponId, function(methodError, result) {
+            if (methodError) {
+                return context.LocalState.set(errorId, methodError.reason);
             }
-            
-            !methodError && (context.MethodCache[methodName] = result);
-            onData(null,{
-                ...result,
-                error: methodError,
-                popupError: context.StateBag.checkout.popupError
-            });
+            else {
+                let couponError = result.couponMsg;
+                result.couponMsg = null;
+                context.StateBag.couponId = result.appliedCouponId;
+
+                context.MethodCache[methodName] = result;
+                onData(null,{
+                    ...result,
+                    error: couponError
+                });
+            }
         });
     }
 
-    // return () => {
-    //     context.StateBag.checkout = {};
-    //     actions.clearErrors(errorId);
-    // }
-    return actions.clearErrors.bind(null,errorId);
+    return () => {
+        context.StateBag.checkout = {};
+        context.StateBag.couponId = null;
+        actions.clearErrors(errorId);
+    }
+    //return actions.clearErrors.bind(null,errorId);
 };
 EdminForce.Containers.Checkout= Composer.composeWithTracker(reactiveFnCheckout)(EdminForce.Components.Checkout);
