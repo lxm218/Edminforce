@@ -98,12 +98,16 @@ KG.define('EF-Session', class extends Base{
                     return KG.result.out(false, new Meteor.Error('error', 'No record'));
                 }
 
-                _.each(classList, (item)=>{
+                for(let i=0,len=classList.length; i<len; i++){
+                    let item = classList[i];
                     item.sessionID = toSessionID;
                     delete item._id;
+                    delete item.createTime;
+                    delete item.updateTime;
+console.log(item);
+                    m.Class.getDB().insert(item);
+                }
 
-                    m.Class.insert(item);
-                });
 
                 return KG.result.out(true, 'ok');
             }
