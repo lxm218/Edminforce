@@ -168,7 +168,10 @@ KG.define('EF-DataHelper', class extends Base{
                     let trail = m.ClassStudent.getAll({
                         classID : item._id,
                         type : {'$in' : ['trial', 'makeup']},
-                        lessonDate : min.toDate()
+                        lessonDate : {
+                            '$gte' : min.subtract(2, 'days').toDate(),
+                            '$lt' : max.add(2, 'days').toDate()
+                        }
                     });
 
                     let cs = [];
