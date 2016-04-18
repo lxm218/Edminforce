@@ -138,7 +138,7 @@ Schema.Class = {
 
     // trial class record, each lesson date
     // has a count.
-    // { '20160101' : 2}
+    // { 'd20160101' : 2}
     trial: {
       type: Object,
       optional: true,

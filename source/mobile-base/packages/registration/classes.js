@@ -597,8 +597,6 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSour
         });
     }
 
-    console.log(orderUpdate);
-    
     Collections.orders.update({
         _id: order.orderId,
         accountID: userId
