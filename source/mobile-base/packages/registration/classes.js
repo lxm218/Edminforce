@@ -413,7 +413,6 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
         total: 0,
         totalDiscountable: 0,
         discount: 0,
-        couponMsg: ''
     }
 
     let query = {
@@ -481,6 +480,9 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     // check coupon
     if (couponId && result.totalDiscountable > 0) {
         applyCoupon(userId, couponId, result);
+        // if (result.couponMsg) {
+        //     throw new Meteor.Error(500, result.couponMsg, 'Invalid coupon: ' + couponId);
+        // }
     }
 
     return result;

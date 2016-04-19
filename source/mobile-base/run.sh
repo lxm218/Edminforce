@@ -2,8 +2,6 @@
 
 export IHEALTH_ROOT=$PWD/../_packages_/ihealth-framework-ui/library
 export PACKAGE_DIRS=$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobile:$IHEALTH_ROOT/webapp:$PWD/../_packages_/module
-export MONGO_URL=mongodb://localhost:27017/EdminForce
-export MONGOURL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
 
 LOG=true
 PORT=5010
@@ -34,11 +32,13 @@ deploy(){
 }
 
 runLocal(){
-  stopMongoDB
-  startMongoDB
-  export MONGO_URL=$MONGOURL
-  cd src
-  meteor run --port $PORT
+  #stopMongoDB
+  #startMongoDB
+  export MONGO_URL=mongodb://localhost:27017/EdminForce
+
+  #staging mongodb
+  #export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
+  meteor run --settings settings.json --port $PORT
 }
 
 runForJackyTest(){

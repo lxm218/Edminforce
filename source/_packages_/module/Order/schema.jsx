@@ -25,11 +25,13 @@ Schema.Order = {
     },
     amount:{
         type: Number,
+        decimal: true,
         decimal : true
     },
     discount:{
         type: Number,
         optional: true,
+        decimal: true,
         defaultValue: 0
     },
     registrationFee:{
@@ -39,6 +41,7 @@ Schema.Order = {
     },
     paymentTotal:{
         type: Number,
+        decimal: true,
         optional: true
     },
     poundage : {

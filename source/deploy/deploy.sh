@@ -19,7 +19,7 @@ deployMobileBase(){
 	echo "---- start to deploy EF Mobile Production ----";
     . ./ENV.inc
     echo ${MOBILE_ENV};
-    cd mobile2-staging;
+    cd mobile-staging;
     # sudo mup setup;
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
