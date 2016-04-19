@@ -404,6 +404,7 @@ let Class = class extends Base{
                     paymentType : paymentType,
                     type : 'change class',
                     status : orderStatus,
+                    paymentSource : 'admin',
                     amount : amount,
                     paymentTotal : amount.toString()
                 };
@@ -442,6 +443,7 @@ let Class = class extends Base{
                     paymentType : paymentType,
                     type : 'cancel class',
                     status : orderStatus,
+                    paymentSource : 'admin',
                     amount : amount,
                     paymentTotal : amount.toString()
                 };
