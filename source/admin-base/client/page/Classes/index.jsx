@@ -6,7 +6,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : {},
+            query : null,
             page : 1,
             refresh : false
         };
@@ -65,7 +65,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         return {
             ready : x1?x1.ready():true,
             list : list,
-            count : x1.count
+            count : x1?x1.count:0
         };
     }
 
@@ -278,8 +278,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
                 <hr/>
 
-                <p>Search Result : {this.data.count} matches</p>
-                {this.renderTable()}
+                {this.state.query ? <p>Search Result : {this.data.count} matches</p> : null}
+                {this.state.query ? this.renderTable() : null}
+
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton href="/program/class/add" label="Add New Class"></KUI.YesButton>
                 </RC.Div>
