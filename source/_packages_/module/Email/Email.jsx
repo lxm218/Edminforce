@@ -47,7 +47,7 @@ KG.define('EF-Email', class extends Base{
 
                 let html = [
                     '<h3>Dear '+account.name+'</h3>',
-                    '<h4>Registration is successful for:</h4>',
+                    '<h4>Registration is successfully made for:</h4>',
                     '<p>Student : '+studentName+'</p>',
                     '<p>Class : '+className+'</p>',
                     '<p>Teacher : '+teacher+'</p>'
@@ -57,7 +57,7 @@ KG.define('EF-Email', class extends Base{
                 return self.callMeteorMethod('sendEmail', [{
                     html : html,
                     to : account.email,
-                    subject : 'Registration Class Success.'
+                    subject : 'Registration Confirmation'
                 }]);
             }
         };

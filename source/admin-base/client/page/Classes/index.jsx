@@ -97,7 +97,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 key : 'sessionName'
             },
             {
-                title : 'Number',
+                title : 'Registrations',
                 //key : 'numberOfClass'
                 reactDom(doc){
                     return `${doc.numberOfRegistered||0}/${doc.maxStudent}`;
