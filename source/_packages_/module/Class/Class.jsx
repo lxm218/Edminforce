@@ -307,6 +307,64 @@ let Class = class extends Base{
                 return KG.result.out(true, 'ok');
 
             },
+            checkStudentCanBeMakeupClass(opts){
+                let SUCCESSSTATUS = ['pending', 'checkouting', 'checkouted'];
+
+                let {classID, studentID, date} = opts;
+
+                let m = self.getDepModule();
+                let query = {
+                    studentID : studentID,
+                    classID : classID,
+                    type : 'register',
+                    status : {'$in' : SUCCESSSTATUS}
+                };
+                let one = m.ClassStudent.getDB().findOne(query);
+                if(!one){
+                    return KG.result.out(false, new Meteor.Error('-601', 'can not register, can not makeup'));
+                }
+
+                query = {
+                    studentID : studentID,
+                    classID : classID,
+                    type : 'makeup',
+                    status : {'$in' : SUCCESSSTATUS},
+                    lessonDate : date
+                };
+                let z1 = m.ClassStudent.getDB().find(query).count();
+                if(z1 > 0){
+                    return KG.result.out(false, new Meteor.Error('-602', 'already makeup'));
+                }
+
+                let co = self._db.findOne({_id : classID}),
+                    n = m.ClassStudent.getDB().find({
+                        classID : classID,
+                        type : 'register',
+                        status : {'$in' : SUCCESSSTATUS}
+                    }).count(),
+                    n1 = m.ClassStudent.getDB().find({
+                        classID : classID,
+                        type : 'makeup',
+                        lessonDate : date,
+                        status : {'$in' : SUCCESSSTATUS}
+                    }).count();
+                if((co.maxStudent||0) <= (n+n1)){
+                    return KG.result.out(false, new Meteor.Error('-603', 'class is full'));
+                }
+                if((co.makeupStudent||0) <= n1){
+                    return KG.result.out(false, new Meteor.Error('-604', 'class makeup is full'));
+                }
+
+                //check student trail other class with same programID
+                let classList = self._db.find({
+                    programID : co.programID
+                }).fetch();
+
+
+
+                return KG.result.out(true, 'ok');
+
+            },
             checkCanBeRegister(classID){
                 let m = this.getDepModule();
 

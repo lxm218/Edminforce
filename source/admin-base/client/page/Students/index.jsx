@@ -5,8 +5,11 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : {}
+            query : {},
+            page : 1
         };
+
+        this.m = KG.DataHelper.getDepModule();
     }
 
     baseStyles(){
@@ -19,13 +22,14 @@ KUI.Student_index = class extends RC.CSSMeteorData{
     getMeteorData(){
         let query = this.state.query;
 
-        let x1 = Meteor.subscribe('EF-Customer');
-            x2 = Meteor.subscribe('EF-Student', {
+        let x1 = Meteor.subscribe('EF-Customer'),
+            x2 = util.data.subscribe(this.m.Student, {
                 query : query,
+                pageSize : 10,
+                pageNum : this.state.page,
                 sort : {
                     updateTime : -1
-                },
-                pageSize : 10
+                }
             });
 
 
@@ -34,7 +38,8 @@ KUI.Student_index = class extends RC.CSSMeteorData{
 
         return {
             ready : x1.ready() && x2.ready(),
-            list
+            list,
+            count : x2.ready()?util.data.getMaxCount(x2):0
         };
     }
 
@@ -126,13 +131,16 @@ KUI.Student_index = class extends RC.CSSMeteorData{
                 {this.getSearchBox()}
 
                 <hr />
-
+                <p>Search Resulte : {this.data.count} matches</p>
                 {this.data.ready ?
-                    <KUI.Table
+                    <KUI.PageTable
                         style={style.table}
+                        total={this.data.count}
+                        page={this.state.page}
+                        onSelectPage={this.selectPage.bind(this)}
                         list={list}
                         title={titleArray}
-                        ref="table"></KUI.Table>
+                        ref="table"></KUI.PageTable>
                     :
                     util.renderLoading()
                 }
@@ -140,6 +148,12 @@ KUI.Student_index = class extends RC.CSSMeteorData{
             </RC.Div>
         );
 
+    }
+    selectPage(page){
+
+        this.setState({
+            page : page
+        });
     }
 
     getSearchBox(){

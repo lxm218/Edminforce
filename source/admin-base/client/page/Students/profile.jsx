@@ -121,6 +121,7 @@ KUI.Student_profile = class extends KUI.Page{
                 <h3>Trial / Makeup Class</h3>
                 {this.renderTrailOrMakeupClassTable()}
                 <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} href={`/student/makeupclass/${this.data.id}`} label="Makeup Class"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} href={`/student/trailclass/${this.data.id}`} label="Trial Class"></KUI.YesButton>
                 </RC.Div>
 
@@ -357,6 +358,10 @@ KUI.Student_profile = class extends KUI.Page{
                 }
             },
             {
+                title : 'Type',
+                key : 'type'
+            },
+            {
                 title : 'Status',
                 //key : 'status'
                 reactDom(doc){
@@ -370,7 +375,7 @@ KUI.Student_profile = class extends KUI.Page{
             if(item.type !== 'trial' && item.type !== 'makeup'){
                 return true;
             }
-            let cls = this.data.classData[item.classID];
+            let cls = this.data.classData[item.classID] || {};
             item.class = cls.nickName;
             item.teacher = cls.teacher;
             item.session = cls.sessionName;
