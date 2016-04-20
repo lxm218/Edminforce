@@ -503,7 +503,9 @@ let Class = class extends Base{
                     //TODO why has a error
                     //pubThis.removed(dbName, doc._id)
                 });
+
                 arr = self.getAll({_id : id});
+                console.log(id);
                 _.each(arr, (doc)=>{
 
                     pubThis.added(dbName, doc._id, doc);
@@ -520,8 +522,8 @@ let Class = class extends Base{
                 });
                 query.sessionID = {'$in' : session};
             }
-
-            let handler = self._db.find(query).observeChanges({
+console.log(option)
+            let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){
                     refresher(id);
                 },
@@ -559,7 +561,7 @@ let Class = class extends Base{
                 }
                 let data = [];
                 if(x.ready()){
-                    data = tmpDB.find({}, option).fetch();
+                    data = tmpDB.find({}).fetch();
 
                 }
 

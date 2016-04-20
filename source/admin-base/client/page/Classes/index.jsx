@@ -47,7 +47,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 pageNum : this.state.page
             });
         }
-        let x2 = Meteor.subscribe('EF-Program');
+        let x2 = Meteor.subscribe('EF-Program', {});
             x3 = Meteor.subscribe('EF-Session', {
                 query : {
                     registrationStatus : 'Yes'
@@ -60,6 +60,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         let list = [];
         if(x1){
             list = x1.data;
+            console.log(x1.ready(), list);
         }
 
         return {
