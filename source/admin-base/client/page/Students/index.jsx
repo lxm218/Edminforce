@@ -125,7 +125,7 @@ KUI.Student_index = class extends RC.CSSMeteorData{
 
         var list = this.data.list;
 
-
+console.log(list)
         return (
             <RC.Div>
                 {this.getSearchBox()}
