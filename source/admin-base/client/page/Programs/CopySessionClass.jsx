@@ -48,7 +48,7 @@ KUI.Session_CopySessionClass = class extends KUI.Page{
 				labelClassName : 'col-xs-2',
 				wrapperClassName : 'col-xs-10',
 				ref : 'session',
-				label : 'Session'
+				label : 'From Session'
 			}
 		};
 
