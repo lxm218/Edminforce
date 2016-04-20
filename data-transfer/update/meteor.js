@@ -1,5 +1,7 @@
+console.log("Meteor.isServer", Meteor.isServer);
 if (Meteor.isServer) {
 
+  console.log("Meteor.isServer");
 
   Meteor.startup(function () {
 
@@ -21,9 +23,10 @@ if (Meteor.isServer) {
     let studentsData = JSON.parse(Assets.getText('students.json'));
     let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
 
-    var delay = 10;
+    var delay = 0;
 
     function insertData(name, data, db, check, callback){
+      console.log("[inserData], data: ", data);
       check = check || function(d){
             return d;
           };
@@ -56,6 +59,7 @@ if (Meteor.isServer) {
 
     function importDatas(){
       var F = {
+        /*
         program : function(){
           insertData('Program', programsData, program, null, F.session);
         },
@@ -71,7 +75,7 @@ if (Meteor.isServer) {
         },
         adminuser : function(){
           insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
-        },
+        },*/
         classes : function(){
           insertData('Class', classesData, classCollection, null, F.student);
         },
@@ -103,11 +107,12 @@ if (Meteor.isServer) {
         }
       };
 
-      F.program();
+      F.classes();
     }
 
 
     let url = process.env.MONGO_URL;
+    console.log("mongo url: ", url);
     if(url){
       // It is on localhost, don't need to use slow mode
       if(url.search("localhost")!==-1||url.search("127.0.0.1")!==-1){

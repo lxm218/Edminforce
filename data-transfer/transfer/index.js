@@ -7,6 +7,10 @@ let Q = require('q');
 let _ = require('lodash');
 let outPutFolder = "../update/private";
 
+// Change this value to decide how many items want to repeat. If value <=1, means no repeat
+let repeat_time_class= 100;
+let repeat_time_student = 30;
+
 let admin = {
     "services": {
         "password": {//admin
@@ -150,7 +154,7 @@ var classData = {
     },
     tuition: {
         type: "class",
-        money: ""
+        money: "100"
     },
     maxStudent: 10,
     minStudent: 0,
@@ -299,16 +303,39 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
 //excel('data/example-of-class.xlsx', function (err, datas) {
     if (err) throw err;
 
-    //console.log(datas);
+    // datas[0] is header, not used
+    datas = datas.splice(1);
+
+    let repeatDatas = [];
+    repeatDatas=repeatDatas.concat(datas);
+    for(let i=1;i < repeat_time_class; i++){
+        let cloneDatas = _.cloneDeep(datas);
+        let programName={
+
+        };
+
+        for(let j=0; j< cloneDatas.length; j++){
+            let data = cloneDatas[j];
+            if(!programName[_.kebabCase(data[0])]){
+                programName[_.kebabCase(data[0])] = data[0]+i;
+                data[0] = data[0]+i;
+            }else{
+                data[0] = programName[_.kebabCase(data[0])];
+            }
+        }
+
+        repeatDatas = repeatDatas.concat(cloneDatas);
+    }
+
+    datas = repeatDatas;
 
     let programs = [];
     let classes = [];
     let sessions = [];
 
     insertToArray(sessions, spring_2016_session);
-
     // the first item is title, so skip first item
-    for(let i=1; i<datas.length; i++){
+    for(let i=0; i<datas.length; i++){
         let data = datas[i];
 
         //console.log(data);
@@ -334,7 +361,7 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
         nClass.teacher = data[2];
         nClass.schedule.day = data[3];
         nClass.schedule.time = hours_am_pm(data[4]);
-        nClass.tuition.money = programPrices[nProgram._id];
+        nClass.tuition.money = programPrices[nProgram._id]||40;
         nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
         insertToArray(classes, nClass);
 
@@ -364,10 +391,66 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
         }
     });
 
+
+    console.log("===========================");
+    console.log("Add Data summary");
+    console.log("programs: ", programs.length);
+    console.log("classes: ", classes.length);
+    console.log("sessions: ", sessions.length);
+
 });
 
 excel('data/cca/cca-student.xlsx', function(err, datas){
     if (err) throw err;
+
+    // datas[0] is header, not used
+    datas = datas.splice(2);
+
+    let repeatDatas = [];
+    repeatDatas=repeatDatas.concat(datas);
+    for(let i=1;i < repeat_time_student; i++){
+        let cloneDatas = _.cloneDeep(datas);
+        let programName={
+
+        };
+
+        let studentName={
+
+        };
+
+        let primaryEmail={
+
+        };
+
+        for(let j=0; j< cloneDatas.length; j++){
+            let data = cloneDatas[j];
+            if(!programName[_.kebabCase(data[9])]){
+                programName[_.kebabCase(data[9])] = data[9]+i;
+                data[9] = data[9]+i;
+            }else{
+                data[9] = programName[_.kebabCase(data[9])];
+            }
+
+            if(!studentName[_.kebabCase(data[1])]){
+                studentName[_.kebabCase(data[1])] = data[1]+i;
+                data[1] = data[1]+i;
+            }else{
+                data[1] = studentName[_.kebabCase(data[1])];
+            }
+
+            if(!primaryEmail[_.kebabCase(data[7])]){
+                primaryEmail[_.kebabCase(data[7])] = data[7]+i;
+                data[7] = i+data[7];
+            }else{
+                data[7] = primaryEmail[_.kebabCase(data[7])];
+            }
+        }
+
+        repeatDatas = repeatDatas.concat(cloneDatas);
+    }
+
+    datas = repeatDatas;
+
 
     let classStudents = [];
     let accounts = [];
@@ -379,7 +462,7 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
     accounts.push(admin);
     adminUsers.push(adminUser);
 
-    for(var i=2; i<datas.length; i++){
+    for(var i=0; i<datas.length; i++){
         let data = datas[i];
 
         if(!data[7]){
@@ -466,5 +549,13 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
             console.error(err);
         }
     });
+
+    console.log("accounts: ", accounts.length);
+    console.log("adminUsers: ", adminUsers.length);
+    console.log("customers: ", customers.length);
+    console.log("students: ", students.length);
+    console.log("classStudents: ", classStudents.length);
+    console.log("===========================");
+
 });
 

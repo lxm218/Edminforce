@@ -2,8 +2,9 @@
 
 export SOURCE=$PWD/../source
 export IHEALTH_ROOT=$SOURCE/_packages_/ihealth-framework-ui/library
-export MOBILE_BASE_PACKAGES=$SOURCE/mobile-base/src/packages
+export MOBILE_BASE_PACKAGES=$SOURCE/mobile-base0/src/packages
 export PACKAGE_DIRS=$MOBILE_BASE_PACKAGES:$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobile:$IHEALTH_ROOT/webapp:$PWD/../_packages_/module
+
 PORT=4000
 
 # local db
@@ -26,4 +27,5 @@ node index.js
 #=====================
 #Update MongoDB
 cd ../update
+#cd update
 meteor run --port $PORT
