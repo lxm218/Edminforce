@@ -136,6 +136,7 @@ KUI.Student_index = class extends RC.CSSMeteorData{
                     <KUI.PageTable
                         style={style.table}
                         total={this.data.count}
+                        pagesize={10}
                         page={this.state.page}
                         onSelectPage={this.selectPage.bind(this)}
                         list={list}

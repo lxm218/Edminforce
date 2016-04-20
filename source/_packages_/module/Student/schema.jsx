@@ -52,3 +52,16 @@ Schema.Student = {
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };
+
+Schema.StudentComment = {
+    studentID : KG.schema.default(),
+    studentName : KG.schema.default(),
+    fromID : KG.schema.default(),
+    fromName : KG.schema.default(),
+    comment : KG.schema.default({
+        optional : true
+    }),
+
+    createTime : KG.schema.createTime(),
+    updateTime : KG.schema.updateTime()
+};

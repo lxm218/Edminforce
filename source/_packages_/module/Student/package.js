@@ -16,7 +16,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'schema.jsx',
-        'Student.jsx'
+        'Student.jsx',
+        'StudentComment.jsx'
     ], ["client","server"]);
 
 

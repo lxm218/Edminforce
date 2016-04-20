@@ -3,6 +3,8 @@
 KUI.Student_profile = class extends KUI.Page{
     constructor(p){
         super(p);
+
+        this.m = KG.DataHelper.getDepModule();
     }
 
     baseStyles(){
@@ -64,12 +66,19 @@ KUI.Student_profile = class extends KUI.Page{
         if(cs.length>0 && _.size(classData) < 1){
             return {ready : false};
         }
+
+        let scx = Meteor.subscribe('EF-StudentComment', {
+            studentID : this.getProfileId()
+        });
         return {
             id,
             ready : sub.ready(),
             profile,
             classStudentData : cs,
-            classData : classData
+            classData : classData,
+
+            scReady : scx.ready(),
+            scList : this.m.StudentComment.getDB().find({}, {sort:{createTime:-1}}).fetch()
         };
     }
 
@@ -107,8 +116,11 @@ KUI.Student_profile = class extends KUI.Page{
                 <hr />
 
                 {this.getProfileBox()}
+                <hr/>
 
-                <hr />
+                {this.sendCommentBox()}
+
+                <hr/>
                 <h3>Current Class</h3>
                 {this.renderClassTable()}
                 <RC.Div style={sy.rd}>
@@ -124,10 +136,70 @@ KUI.Student_profile = class extends KUI.Page{
                     <KUI.YesButton style={sy.ml} href={`/student/makeupclass/${this.data.id}`} label="Makeup Class"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} href={`/student/trailclass/${this.data.id}`} label="Trial Class"></KUI.YesButton>
                 </RC.Div>
+                <hr/>
+                <h3>Student Comment</h3>
+                {this.renderStudentCommentTable()}
 
             </RC.Div>
         );
 
+    }
+
+    sendCommentBox(){
+        let p = {
+            comment : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-9',
+                ref : 'sendCommentText',
+                label : 'Send Comment'
+            }
+        };
+
+        const sy = {
+            td : {
+                textAlign : 'left'
+            },
+            ml : {
+                marginLeft : '20px'
+            },
+            rd : {
+                textAlign : 'right'
+            }
+        };
+
+        return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Col md={12}>
+                        <RB.Input type="textarea" {... p.comment} />
+                    </RB.Col>
+                </RB.Row>
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.sendComment.bind(this)} label="Send Comment"></KUI.YesButton>
+                </RC.Div>
+            </form>
+        );
+
+    }
+
+    sendComment(){
+        let self = this;
+        let data = {
+            studentID : this.getProfileId(),
+            studentName : this.data.profile.name,
+            fromID : Meteor.user()._id,
+            fromName : Meteor.user().username,
+            comment : this.refs.sendCommentText.getValue()
+        };
+        console.log(data);
+
+        let rs = this.m.StudentComment.insert(data);
+        KG.result.handle(rs, {
+            success : function(){
+                util.toast.alert('Send Comment success');
+                self.refs.sendCommentText.getInputDOMNode().value = '';
+            }
+        });
     }
 
     renderClassHistoryTable(){
@@ -392,7 +464,33 @@ KUI.Student_profile = class extends KUI.Page{
         );
     }
 
+    renderStudentCommentTable(){
+        console.log(this.data.scReady, this.data.scList);
+        if(!this.data.scReady){
+            return util.renderLoading();
+        }
 
+        let titleArray = [
+            {
+                title : 'Date',
+                reactDom(doc){
+                    return moment(doc.createTime).format(util.const.dateFormat)
+                }
+            },
+            {
+                title : 'Comments',
+                key : 'comment'
+            }
+        ];
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={this.data.scList}
+                title={titleArray}
+                ref="table1"></KUI.Table>
+        );
+    }
 
 };
 
