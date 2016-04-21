@@ -15,7 +15,11 @@ const reactiveFnMakeupClasses = ({context,actions,studentID,classID}, onData) =>
         onData();
         // call method to get makeup classes in 4 weeks
         Meteor.call('program.getMakeupClasses', studentID, classID, new Date(), moment().add(4,'w').toDate(),  function(methodError, result) {
-            !methodError && (context.MethodCache[methodName]=result);
+            if (!methodError){
+                EdminForce.utils.parseLessonDate(result);
+                context.MethodCache[methodName]=result;
+            } 
+            
             onData(null,{
                 classes : result,
                 error: methodError

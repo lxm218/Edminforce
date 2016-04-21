@@ -151,7 +151,7 @@ function processClassLessonInDateRange(classItem, classSession, program, startDt
             let lessonDate = moment(classDate);
             lessonDate.hour(classTime.hour());
             lessonDate.minute(classTime.minute());
-            lesson.lessonDate = lessonDate.toDate();
+            lesson.lessonDate = lessonDate.format(EdminForce.utils.dateFormat);
             lesson.name = EdminForce.utils.getClassName(program.name, classSession.name, classItem);
             resultArray.push(lesson);
         }

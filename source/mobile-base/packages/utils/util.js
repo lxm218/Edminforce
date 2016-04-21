@@ -38,3 +38,11 @@ EdminForce.utils.postActionRedirect = function(redirectUrl) {
     }
     return false;
 }
+
+EdminForce.utils.dateFormat = 'YYYY-MM-DDTHH:mm:ss';
+
+EdminForce.utils.parseLessonDate = function(lessons) {
+    lessons.forEach( (l) => {
+        l.lessonDate = moment(l.lessonDate, EdminForce.utils.dateFormat).toDate();
+    })
+}
