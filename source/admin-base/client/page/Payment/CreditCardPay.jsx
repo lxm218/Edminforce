@@ -164,6 +164,19 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
                         <RB.Input type="text" {... p.credit} />
+                        
+                        <RB.Row>
+                          <RB.Col xs={6} md={3}>
+                            <RB.Thumbnail href="#" alt="128×80" src="/assets/visa.png" />
+                          </RB.Col>
+                          <RB.Col xs={6} md={3}>
+                            <RB.Thumbnail href="#" alt="128×80" src="/assets/mastercard.png" />
+                          </RB.Col>
+                          <RB.Col xs={6} md={3}>
+                            <RB.Thumbnail href="#" alt="128×80" src="/assets/discover.png" />
+                          </RB.Col>
+                        </RB.Row>
+
                         <RB.Input type="text" {... p.expiration} />
                         <RB.Input type="text" {... p.ccv} />
                         <RB.Input type="text" {... p.first} />
