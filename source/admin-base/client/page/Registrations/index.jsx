@@ -9,7 +9,9 @@ KUI.Registration_index = class extends KUI.Page{
         this.state = {
             search_student_query : null,
             student : null,
-            search_class_query : null
+            search_class_query : null,
+
+            searchStudentResult : null
         };
 
     }
@@ -20,7 +22,7 @@ KUI.Registration_index = class extends KUI.Page{
             x1 = Meteor.subscribe('EF-Program'),
             x2 = Meteor.subscribe('EF-Session'),
             y = Meteor.subscribe('EF-Student', {
-                query : this.studentID?{_id:this.studentID}:{}
+                query : this.studentID?{_id:this.studentID}:{_id:'xxx'}
             }),
             z = Meteor.subscribe('EF-ClassStudent');
 
@@ -263,7 +265,7 @@ KUI.Registration_index = class extends KUI.Page{
                         <RB.Input ref="search_input" placeholder="Input student name" type="text" />
                     </RB.Col>
                     <RB.Col xs={2}>
-                        <KUI.YesButton onClick={this.searchStudentInModal.bind(this)} label="Search"></KUI.YesButton>
+                        <KUI.YesButton onClick={this.searchStudentByKeyword.bind(this)} label="Search"></KUI.YesButton>
                     </RB.Col>
                 </RB.Row>
 
@@ -272,16 +274,39 @@ KUI.Registration_index = class extends KUI.Page{
         );
     }
 
-    searchStudentInModal(){
+    searchStudentByKeyword(){
+        this.searchStudentInModal(1);
+    }
+
+    searchStudentInModal(page){
+        let self = this;
         let ip = this.refs.search_input.getValue();
         let query = {};
         if(ip){
             query = {
-                name : new RegExp(ip, 'i')
+                name : {
+                    type : 'RegExp',
+                    value : ip
+                }
             };
         }
+
+
         this.setState({
-            search_student_query:query
+            searchStudentResult : 'loading'
+        });
+        KG.get('EF-Student').callMeteorMethod('getStudentListByQuery', [query, {
+            pageNum : page,
+            sort : {
+                createTime : -1
+            }
+        }], {
+            success : function(rs){
+                console.log(rs);
+                self.setState({
+                    searchStudentResult : rs
+                });
+            }
         });
     }
 
@@ -318,6 +343,14 @@ KUI.Registration_index = class extends KUI.Page{
     }
 
     renderStundentTable(){
+        if(this.state.searchStudentResult === 'loading'){
+            return util.renderLoading();
+        }
+        else if(!this.state.searchStudentResult){
+            return null;
+        }
+
+
         let self = this;
 
         const titleArray = [
@@ -332,7 +365,7 @@ KUI.Registration_index = class extends KUI.Page{
             },
             {
                 title : 'Student',
-                key : 'nickName',
+                key : 'name',
                 style : {}
             },
             {
@@ -349,15 +382,23 @@ KUI.Registration_index = class extends KUI.Page{
             }
         ];
 
-        let list = this.data.studentList;
+        let list = this.state.searchStudentResult.list;
 
         return (
-            <KUI.Table
+            <KUI.PageTable
+                total={this.state.searchStudentResult.count}
+                pagesize={10}
+                onSelectPage={this.changePageNum.bind(this)}
                 style={{}}
                 list={list}
                 title={titleArray}
-                ref="ss"></KUI.Table>
+                ref="ss"></KUI.PageTable>
         );
+    }
+
+    changePageNum(page){
+        this.searchStudentInModal(page);
+
     }
 
     runOnceAfterDataReady(){
