@@ -14,7 +14,21 @@ Schema.Contact = {
                 return '601';
             }
         }
-    })
+    }),
+    email: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Email,
+        optional: true
+    },
+    relation: {
+        type: String,
+        optional: true
+    },
+    receive: {
+        type: Boolean,
+        optional: true,
+        defaultValue: false
+    }
 };
 
 Validate.Customer = {
