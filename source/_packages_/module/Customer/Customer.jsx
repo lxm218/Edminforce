@@ -156,36 +156,47 @@ KG.define('EF-Customer', class extends Base{
 
             let refresher = function(id, type){
 
+                let doc = me._db.findOne({_id:id})
 
-                let tmp = m.Class.getAll({_id : id}),
-                    tmpArr = [];
-                //console.log(tmp)
-                _.each(tmp, (doc)=>{
-                    tmpArr = tmpArr.concat(KG.DataHelper.getCustomerByClassData(doc));
-                });
-                tmpArr = _.filter(tmpArr, function(val){
-                    return !!val;
-                });
-                tmpArr = _.uniq(tmpArr, function(item){
-                    return item._id;
-                });
-
-                _.each(tmpArr, (doc)=>{
-                    self.added(LISTBYCLASSQUERY, doc._id, doc);
-                });
+                self.added(LISTBYCLASSQUERY, doc._id, doc);
             };
 
+            let s = Date.now();
+            let classList = m.Class.getDB().find(query).fetch();
+            console.log(Date.now()-s);
+            classList = _.map(classList, (item)=>{
+                return item._id
+            });
+            console.log(Date.now()-s);
+            let xList = _.map(m.ClassStudent.getDB().find({
+                classID : {$in:classList},
+                status : 'checkouted'
+            }, option).fetch(), (item)=>{
+                return item.studentID;
+            });
+            xList = _.uniq(xList, true);
+console.log(Date.now()-s);
+
             //console.log(LIST_ARR.length)
-            let handler = m.Class.getDB().find(query).observeChanges({
-                added(id, fields){
-                    refresher(id, 'added');
+            let handler = m.Student.getDB().find({
+                _id : {$in:xList}
+            }).observeChanges({
+                added(id, doc){
+console.log(id);
+                    refresher(doc.accountID, 'added');
                 },
-                changed(id, fields){
-                    refresher(id, 'changed');
+                changed(id, doc){
+                    refresher(doc.accountID, 'changed');
                 }
             });
 
-
+            Counts.publish(this, LISTBYCLASSQUERY+'-count', m.ClassStudent.getDB().find({
+                classID : {$in:classList},
+                status : 'checkouted'
+            }), {
+                nonReactive : true,
+                noReady : true
+            });
 
             self.onStop(function() {
                 handler.stop();
@@ -210,8 +221,8 @@ KG.define('EF-Customer', class extends Base{
                 let data = [],
                     count = -1;
                 if(x.ready()){
-                    data = tmpDB.find({}, option).fetch();
-                    count = tmpDB.find({}).count();
+                    data = tmpDB.find({}).fetch();
+                    count = Counts.get(dbName+'-count');
                 }
 
                 return {

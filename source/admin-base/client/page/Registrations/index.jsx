@@ -208,8 +208,9 @@ KUI.Registration_index = class extends KUI.Page{
             programID: classData.programID,
             classID : lesson.getValue()
         };
-
+console.log(data);
         let rs = KG.get('EF-ClassStudent').insertByData(data);
+        console.log(rs);
         KG.result.handle(rs, {
             success : function(d){
 
@@ -334,7 +335,7 @@ KUI.Registration_index = class extends KUI.Page{
             }
         });
 
-        rs = KG.get('EF-Student').getAll({_id:rs})[0];
+        rs = _.find(this.state.searchStudentResult.list, {_id : rs});
         console.log(rs);
         this.setState({
             student : rs
