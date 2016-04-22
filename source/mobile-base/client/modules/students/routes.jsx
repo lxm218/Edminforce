@@ -11,7 +11,7 @@ DefaultRoutes.route('/students', {
 });
 
 // add new or edit/show existing student
-DefaultRoutes.route('/student/:studentID', {
+DefaultRoutes.route('/student/:studentID?', {
     name: "student",
     triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p, q) {

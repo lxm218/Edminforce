@@ -48,6 +48,9 @@ Schema.Student = {
         optional : true
     }),
 
+    // the following two fields are merged from mobile schema, required by mobile
+    school: KG.schema.default(),
+    note: KG.schema.default(),
     
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
