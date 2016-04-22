@@ -47,7 +47,7 @@ Schema.Customer = {
         //optional : true
     }),
     phone : KG.schema.default({
-        //optional : true,
+        optional : true,
         custom : function(){
             if(this.value && !/^[0-9]*$/g.test(this.value)){
                 return '601';
@@ -55,7 +55,7 @@ Schema.Customer = {
         }
     }),
     location : KG.schema.default({
-        //optional : true
+        optional : true
     }),
     image : KG.schema.default({
         optional : true

@@ -1,6 +1,15 @@
 
 Meteor.methods({
-    "account.updateUserName": function (username) {
+    // create a customer record after a new user registration
+    'account.addCustomer': function(name, email) {
+        Collections.Customer.insert({
+            _id: this.userId,
+            name,
+            email
+        })
+    },
+
+    'account.updateUserName': function (username) {
 
         check(username, String);
 
@@ -12,7 +21,7 @@ Meteor.methods({
     },
 
 
-    "account.updatePhone": function (phone) {
+    'account.updatePhone': function (phone) {
 
         check(phone, String);
 
@@ -23,7 +32,7 @@ Meteor.methods({
         });
     },
 
-    "account.updateAlternative": function (aContact) {
+    'account.updateAlternative': function (aContact) {
         Collections.Customer.update(this.userId, {
             $set : {
                 alternativeContact: aContact
@@ -31,7 +40,7 @@ Meteor.methods({
         });
     },
 
-    "account.updateEmergency": function (eContact) {
+    'account.updateEmergency': function (eContact) {
         Collections.Customer.update(this.userId, {
             $set : {
                 emergencyContact: eContact
