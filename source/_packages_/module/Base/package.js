@@ -26,7 +26,9 @@ Package.onUse(function(api) {
         "react",
         "underscore",  //verison is 1.5.2, oldest
         "momentjs:moment",
-        "reactive-var@1.0.6"
+        "reactive-var@1.0.6",
+
+        "monbro:mongodb-mapreduce-aggregation"
     ];
     api.use(packages, ["client","server"]);
     api.imply(packages, ["client","server"]);

@@ -49,7 +49,7 @@ if(Meteor.isClient){
         }
     });
 
-    Route.route('/makeupclass/:studentID', {
+    Route.route('/makeupclass/:studentID/:classID', {
         action : function(p){
             App.routeHandler(p, {
                 pageTitle: "Students | Makeup Class",

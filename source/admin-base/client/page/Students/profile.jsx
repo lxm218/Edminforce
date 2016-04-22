@@ -133,7 +133,7 @@ KUI.Student_profile = class extends KUI.Page{
                 <h3>Trial / Makeup Class</h3>
                 {this.renderTrailOrMakeupClassTable()}
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton style={sy.ml} href={`/student/makeupclass/${this.data.id}`} label="Makeup Class"></KUI.YesButton>
+
                     <KUI.YesButton style={sy.ml} href={`/student/trailclass/${this.data.id}`} label="Trial Class"></KUI.YesButton>
                 </RC.Div>
                 <hr/>
@@ -309,8 +309,12 @@ KUI.Student_profile = class extends KUI.Page{
                         marginRight: '10px'
                     };
 
+                    let id = self.getProfileId();
+
                     return (
                         <RC.Div style={{textAlign:'center'}}>
+                            <KUI.NoButton style={sy} href={`/student/makeupclass/${id}/${doc.classID}`}
+                                          label="Make up"></KUI.NoButton>
                             <KUI.NoButton style={sy} href={`/student/changeclass/${doc._id}`}
                              label="Change"></KUI.NoButton>
 

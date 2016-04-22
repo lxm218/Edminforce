@@ -57,6 +57,9 @@ let ClassStudent = class extends Base{
 
     // will run in schema custom func
     validateSchemaStatus(doc){
+        if(Meteor.isClient){
+            return true;
+        }
         let co = this.module.class.getDB().findOne({_id : doc.classID}),
             so = this.module.student.getAll({_id : doc.studentID})[0];
         let rs = true;

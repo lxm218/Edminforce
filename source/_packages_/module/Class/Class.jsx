@@ -171,23 +171,82 @@ let Class = class extends Base{
         return rs;
     }
 
+    _publishMeteorData(){
+        let self = this;
+        Meteor.publish(this._name, function(opts){
+            let pubThis = this;
+            opts = _.extend({
+                query : {},
+                sort : {},
+                pageSize : 999,
+                pageNum : 1,
+                field : null
+            }, opts||{});
+            _.mapObject(opts.query || {}, (item, key)=>{
+                if(_.isObject(item)){
+                    if(item.type === 'RegExp'){
+                        opts.query[key] = new RegExp(item.value, 'i');
+                    }
+                }
+            });
+
+            let skip = opts.pageSize * (opts.pageNum-1);
+            let option = {
+                sort : opts.sort,
+                skip : skip,
+                limit : opts.pageSize
+            };
+            if(opts.field){
+                option.fields = opts.field;
+            };
+
+            Counts.publish(this, self._name+'-count', self._db.find(opts.query), {
+                nonReactive : true,
+                noReady : true
+            });
+
+            let refresher = function(id, doc){
+                doc.program = KG.get('EF-Program').getDB().findOne({_id:doc.programID});
+                doc.session = KG.get('EF-Session').getDB().findOne({_id:doc.sessionID});
+
+                pubThis.added(self._name, id, doc);
+            };
+
+            let handler = self._db.find(opts.query, option).observeChanges({
+                added(id, fields){
+                    refresher(id, fields);
+                },
+                changed(id, fields){
+                    refresher(id, fields);
+                }
+            });
+
+            this.onStop(function() {
+                handler.stop();
+            });
+            return this.ready();
+        });
+
+
+        this.publishMeteorData();
+
+    }
+
 
 
 
     //TODO change to publish meteor data method like ClassStudent
     getAll(query){
-        if(Meteor.isClient){
-            let s1 = Meteor.subscribe('EF-Program');
-            let s2 = Meteor.subscribe('EF-Session');
-            if(!s1.ready() || !s2.ready()){
-                return [];
-            }
-        }
+        //if(Meteor.isClient){
+        //    let s1 = Meteor.subscribe('EF-Program');
+        //    let s2 = Meteor.subscribe('EF-Session');
+        //    if(!s1.ready() || !s2.ready()){
+        //        return [];
+        //    }
+        //}
 
         query = query || {};
 
-        let program = KG.get('EF-Program').getDB().find({}).fetch(),
-            session = KG.get('EF-Session').getDB().find().fetch();
 
         let sort = {
             updateTime : -1
@@ -196,12 +255,13 @@ let Class = class extends Base{
         let data = this._db.find(query, {sort : sort}).fetch();
         data = _.map(data, (item)=>{
 
-            let stmp = _.find(session, (s)=>{
-                return s._id === item.sessionID;
-            });
+            let stmp = item.session;
+            if(!stmp){
+                stmp = KG.get('EF-Session').getDB().findOne({_id:item.sessionID});
+                item.session = stmp;
+            }
 
             item.sessionName = stmp.name;
-            item.session = stmp;
 
 
             if(true || !item.numberOfClass){
@@ -211,11 +271,14 @@ let Class = class extends Base{
                 item.leftOfClass = this.calculateNumberOfClass(item, stmp, true);
             }
 
+            let smp = item.program;
+            if(!smp){
+                smp = KG.get('EF-Program').getDB().findOne({_id : item.programID});
+                item.program = smp;
+            }
 
             //nickName
-            let tn = _.find(program, (p)=>{
-                return p._id === item.programID;
-            }).name;
+            let tn = item.program.name;
             item.programName = tn;
 
             tn += ' '+item.sessionName;
@@ -348,9 +411,9 @@ let Class = class extends Base{
                         lessonDate : date,
                         status : {'$in' : SUCCESSSTATUS}
                     }).count();
-                if((co.maxStudent||0) <= (n+n1)){
-                    return KG.result.out(false, new Meteor.Error('-603', 'class is full'));
-                }
+                //if((co.maxStudent||0) <= (n+n1)){
+                //    return KG.result.out(false, new Meteor.Error('-603', 'class is full'));
+                //}
                 if((co.makeupStudent||0) <= n1){
                     return KG.result.out(false, new Meteor.Error('-604', 'class makeup is full'));
                 }
