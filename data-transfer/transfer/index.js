@@ -7,9 +7,9 @@ let Q = require('q');
 let _ = require('lodash');
 let outPutFolder = "../update/private";
 
-// Change this value to decide how many items want to repeat. If value <=1, means no repeat
-let repeat_time_class= 100;
-let repeat_time_student = 30;
+// Change this value to decide how many items want to repeat. If value <=1, means no repeat, this should be default value
+let repeat_time_class= 1;
+let repeat_time_student = 1;
 
 let admin = {
     "services": {
@@ -558,4 +558,3 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
     console.log("===========================");
 
 });
-

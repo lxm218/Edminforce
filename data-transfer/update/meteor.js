@@ -5,13 +5,13 @@ if (Meteor.isServer) {
 
   Meteor.startup(function () {
 
-    let classCollection = EdminForce.Collections.class;
-    let customer = EdminForce.Collections.Customer;
-    let program = EdminForce.Collections.program;
-    let classStudent = EdminForce.Collections.classStudent;
+    let classCollection = Collections.class;
+    let customer = Collections.Customer;
+    let program = Collections.program;
+    let classStudent = Collections.classStudent;
 
-    let session = EdminForce.Collections.session;
-    let student = EdminForce.Collections.student;
+    let session = Collections.session;
+    let student = Collections.student;
     let adminUserCollection = new Mongo.Collection("EF-AdminUser");
 
     var accountsData = JSON.parse(Assets.getText('accounts.json'));
