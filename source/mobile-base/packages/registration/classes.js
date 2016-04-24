@@ -45,7 +45,12 @@ const _studentFields = {
  * }
  */
 function getClasesForRegistration(userId, loadContextData, studentID, programID, sessionID) {
-    let result = {}
+    let result = {
+        classes:[],
+        students:[],
+        programs:[],
+        sessions:[]
+    }
     let currentDate = new Date();
 
     if (loadContextData || !studentID || !programID || !sessionID) {
