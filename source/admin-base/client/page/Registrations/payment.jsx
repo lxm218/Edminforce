@@ -208,6 +208,10 @@ console.log(m.Customer.getAll()[0])
         }
 
         let sy = this.css.get('styles');
+        let lab = 'Next';
+        if(this.total.get()===0){
+            lab = 'Confirm';
+        }
         return (
             <RC.Div style={dsp}>
                 <RB.Input wrapperClassName="">
@@ -228,7 +232,7 @@ console.log(m.Customer.getAll()[0])
                 {/*<RB.Input onChange={function(){}} ref="s12" type="checkbox" label="New Customer Coupon" />*/}
                 <RC.Div style={{textAlign:'right'}}>
                     {/*<KUI.NoButton onClick={} label="Cancel"></KUI.NoButton>*/}
-                    <KUI.YesButton onClick={this.toStep2.bind(this)} style={sy.ml} label="Next"></KUI.YesButton>
+                    <KUI.YesButton onClick={this.toStep2.bind(this)} style={sy.ml} label={lab}></KUI.YesButton>
                 </RC.Div>
             </RC.Div>
         );
@@ -286,6 +290,8 @@ console.log(m.Customer.getAll()[0])
             dsp.display = 'none';
         }
         let sy = this.css.get('styles');
+
+
         return (
             <RC.Div style={dsp}>
                 <RB.Input onChange={function(){}} ref="s21" name="cgroup" type="radio" label="Credit Card/Debit Card" />
@@ -302,9 +308,15 @@ console.log(m.Customer.getAll()[0])
     }
 
     toStep2(){
-        this.setState({
-            step : 'step2'
-        });
+        if(this.total.get() === 0){
+            this.toPaymentPage();
+        }
+        else{
+            this.setState({
+                step : 'step2'
+            });
+        }
+
     }
     toStep1(){
         this.setState({
@@ -320,6 +332,10 @@ console.log(m.Customer.getAll()[0])
             s23 = $(this.refs.s23.getInputDOMNode()).prop('checked');
 
         Session.set('_register_class_money_total_', this.total.get());
+
+        if(this.total.get() === 0){
+            s22 = true;
+        }
 
         let path = null,
             flag = true;

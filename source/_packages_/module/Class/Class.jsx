@@ -775,6 +775,38 @@ console.log(option)
     }
 
 
+    defineCronJob(){
+        let self = this;
+        let m = KG.DataHelper.getDepModule();
+        let job1 = {
+            name : 'sync class numberOfRegistered',
+            schedule: function (parser) {
+                return parser.text('every 5 min');
+            },
+            job : function(){
+                let list = self._db.find({}).fetch();
+                _.each(list, function(item){
+                    let n = m.ClassStudent.getDB().find({
+                        classID : item._id,
+                        type : 'register',
+                        status : {
+                            '$in' : ['checkouted', 'checkouting']
+                        }
+                    }).count();
+
+                    self._db.update({
+                        _id : item._id
+                    }, {
+                        '$set' : {
+                            numberOfRegistered : n
+                        }
+                    });
+                });
+            }
+        };
+
+        return [job1];
+    }
 
 };
 
