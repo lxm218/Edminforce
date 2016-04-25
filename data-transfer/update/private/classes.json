@@ -22,6 +22,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "beginning_winter_2016_rachel_wednesday_15_30"
   },
   {
@@ -47,6 +50,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_wednesday_15_30"
   },
   {
@@ -72,6 +78,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "beginning_winter_2016_amanda_wednesday_17_15"
   },
   {
@@ -97,6 +106,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_amanda_wednesday_17_15"
   },
   {
@@ -122,6 +134,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_winter_2016_rachel_tuesday_15_45"
   },
   {
@@ -147,6 +162,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_tuesday_15_45"
   },
   {
@@ -172,6 +190,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "beginning_winter_2016_cynthia_saturday_09_00"
   },
   {
@@ -197,6 +218,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_cynthia_saturday_09_00"
   },
   {
@@ -222,6 +246,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "beginning_winter_2016_cynthia_saturday_10_15"
   },
   {
@@ -247,6 +274,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_cynthia_saturday_10_15"
   },
   {
@@ -272,6 +302,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "beginning_winter_2016_cynthia_saturday_11_30"
   },
   {
@@ -297,6 +330,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_cynthia_saturday_11_30"
   },
   {
@@ -322,6 +358,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "beginning_winter_2016_rachel_saturday_13_30"
   },
   {
@@ -347,6 +386,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_saturday_13_30"
   },
   {
@@ -372,6 +414,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "beginning_winter_2016_rachel_saturday_14_45"
   },
   {
@@ -397,6 +442,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_saturday_14_45"
   },
   {
@@ -422,6 +470,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "beginning_winter_2016_rachel_saturday_16_00"
   },
   {
@@ -447,6 +498,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_saturday_16_00"
   },
   {
@@ -472,6 +526,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_winter_2016_rachel_saturday_17_15"
   },
   {
@@ -497,6 +554,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_saturday_17_15"
   },
   {
@@ -522,6 +582,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "beginning_winter_2016_cynthia_thursday_15_45"
   },
   {
@@ -547,6 +610,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_cynthia_thursday_15_45"
   },
   {
@@ -572,6 +638,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "beginning_winter_2016_robbie_thursday_17_30"
   },
   {
@@ -597,6 +666,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_robbie_thursday_17_30"
   },
   {
@@ -622,6 +694,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "beginning_winter_2016_amanda_sunday_09_00"
   },
   {
@@ -647,6 +722,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_amanda_sunday_09_00"
   },
   {
@@ -672,6 +750,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "beginning_winter_2016_rachel_sunday_10_15"
   },
   {
@@ -697,6 +778,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_sunday_10_15"
   },
   {
@@ -722,6 +806,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 4,
     "_id": "beginning_winter_2016_rachel_sunday_11_30"
   },
   {
@@ -747,6 +834,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_sunday_11_30"
   },
   {
@@ -772,6 +862,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 4,
     "_id": "beginning_winter_2016_rachel_sunday_13_30"
   },
   {
@@ -797,6 +890,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_sunday_13_30"
   },
   {
@@ -822,6 +918,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "beginning_winter_2016_amanda_sunday_14_45"
   },
   {
@@ -847,6 +946,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_amanda_sunday_14_45"
   },
   {
@@ -872,6 +974,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "beginning_winter_2016_rachel_sunday_16_30"
   },
   {
@@ -897,6 +1002,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "beginning_spring_2016_rachel_sunday_16_30"
   },
   {
@@ -922,6 +1030,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
     "_id": "digital_winter_2016_kit_saturday_18_00"
   },
   {
@@ -947,6 +1058,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "digital_spring_2016_kit_saturday_18_00"
   },
   {
@@ -972,6 +1086,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
     "_id": "intermediate_winter_2016_eli_wednesday_15_00"
   },
   {
@@ -997,6 +1114,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_eli_wednesday_15_00"
   },
   {
@@ -1022,6 +1142,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "intermediate_winter_2016_amanda_wednesday_15_30"
   },
   {
@@ -1047,6 +1170,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_amanda_wednesday_15_30"
   },
   {
@@ -1072,6 +1198,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_winter_2016_rachel_wednesday_16_45"
   },
   {
@@ -1097,6 +1226,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_rachel_wednesday_16_45"
   },
   {
@@ -1122,6 +1254,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "intermediate_winter_2016_rachel_tuesday_17_00"
   },
   {
@@ -1147,6 +1282,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_rachel_tuesday_17_00"
   },
   {
@@ -1172,6 +1310,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "intermediate_winter_2016_robbie_friday_15_45"
   },
   {
@@ -1197,6 +1338,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_robbie_friday_15_45"
   },
   {
@@ -1222,6 +1366,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "intermediate_winter_2016_amanda_friday_15_45"
   },
   {
@@ -1247,6 +1394,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_amanda_friday_15_45"
   },
   {
@@ -1272,6 +1422,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_winter_2016_eli_friday_17_30"
   },
   {
@@ -1297,6 +1450,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_eli_friday_17_30"
   },
   {
@@ -1322,6 +1478,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "intermediate_winter_2016_eli_saturday_09_00"
   },
   {
@@ -1347,6 +1506,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_eli_saturday_09_00"
   },
   {
@@ -1372,6 +1534,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "intermediate_winter_2016_mei_saturday_09_00"
   },
   {
@@ -1397,6 +1562,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_mei_saturday_09_00"
   },
   {
@@ -1422,6 +1590,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "intermediate_winter_2016_cynthia_saturday_13_30"
   },
   {
@@ -1447,6 +1618,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_cynthia_saturday_13_30"
   },
   {
@@ -1472,6 +1646,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "intermediate_winter_2016_mei_saturday_13_30"
   },
   {
@@ -1497,6 +1674,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_mei_saturday_13_30"
   },
   {
@@ -1522,6 +1702,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 5,
     "_id": "intermediate_winter_2016_mei_saturday_15_15"
   },
   {
@@ -1547,6 +1730,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_mei_saturday_15_15"
   },
   {
@@ -1572,6 +1758,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "intermediate_winter_2016_mei_saturday_17_00"
   },
   {
@@ -1597,6 +1786,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_mei_saturday_17_00"
   },
   {
@@ -1622,6 +1814,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 3,
     "_id": "intermediate_winter_2016_cynthia_thursday_17_00"
   },
   {
@@ -1647,6 +1842,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_cynthia_thursday_17_00"
   },
   {
@@ -1672,6 +1870,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "intermediate_winter_2016_robbie_thursday_15_45"
   },
   {
@@ -1697,6 +1898,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_robbie_thursday_15_45"
   },
   {
@@ -1722,6 +1926,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "intermediate_winter_2016_eli_sunday_08_45"
   },
   {
@@ -1747,6 +1954,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_eli_sunday_08_45"
   },
   {
@@ -1772,6 +1982,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
     "_id": "intermediate_winter_2016_amanda_sunday_10_30"
   },
   {
@@ -1797,6 +2010,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_amanda_sunday_10_30"
   },
   {
@@ -1822,6 +2038,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_winter_2016_amanda_sunday_13_00"
   },
   {
@@ -1847,6 +2066,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_amanda_sunday_13_00"
   },
   {
@@ -1872,6 +2094,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "intermediate_winter_2016_robbie_sunday_13_00"
   },
   {
@@ -1897,6 +2122,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_robbie_sunday_13_00"
   },
   {
@@ -1922,6 +2150,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 5,
     "_id": "intermediate_winter_2016_rachel_sunday_14_45"
   },
   {
@@ -1947,6 +2178,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "intermediate_spring_2016_rachel_sunday_14_45"
   },
   {
@@ -1972,6 +2206,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "pre_advanced_winter_2016_eli_wednesday_16_45"
   },
   {
@@ -1997,6 +2234,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_eli_wednesday_16_45"
   },
   {
@@ -2022,6 +2262,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
     "_id": "pre_advanced_winter_2016_cynthia_friday_15_45"
   },
   {
@@ -2047,6 +2290,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_cynthia_friday_15_45"
   },
   {
@@ -2072,6 +2318,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "pre_advanced_winter_2016_cynthia_friday_17_30"
   },
   {
@@ -2097,6 +2346,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_cynthia_friday_17_30"
   },
   {
@@ -2122,6 +2374,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "pre_advanced_winter_2016_eli_saturday_10_45"
   },
   {
@@ -2147,6 +2402,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_eli_saturday_10_45"
   },
   {
@@ -2172,6 +2430,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
     "_id": "pre_advanced_winter_2016_mei_saturday_10_45"
   },
   {
@@ -2197,6 +2458,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_mei_saturday_10_45"
   },
   {
@@ -2222,6 +2486,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "pre_advanced_winter_2016_cynthia_saturday_15_15"
   },
   {
@@ -2247,6 +2514,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_cynthia_saturday_15_15"
   },
   {
@@ -2272,6 +2542,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
     "_id": "pre_advanced_winter_2016_eli_sunday_10_30"
   },
   {
@@ -2297,6 +2570,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_eli_sunday_10_30"
   },
   {
@@ -2322,6 +2598,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "pre_advanced_winter_2016_robbie_sunday_14_45"
   },
   {
@@ -2347,6 +2626,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_advanced_spring_2016_robbie_sunday_14_45"
   },
   {
@@ -2372,6 +2654,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "pre_ap_ap_winter_2016_eli_wednesday_18_30"
   },
   {
@@ -2397,6 +2682,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_ap_ap_spring_2016_eli_wednesday_18_30"
   },
   {
@@ -2422,6 +2710,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
     "_id": "pre_ap_ap_winter_2016_eli_saturday_13_30"
   },
   {
@@ -2447,6 +2738,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_ap_ap_spring_2016_eli_saturday_13_30"
   },
   {
@@ -2472,6 +2766,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "pre_ap_ap_winter_2016_eli_saturday_15_45"
   },
   {
@@ -2497,6 +2794,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_ap_ap_spring_2016_eli_saturday_15_45"
   },
   {
@@ -2522,6 +2822,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
     "_id": "pre_ap_ap_winter_2016_eli_sunday_13_00"
   },
   {
@@ -2547,6 +2850,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_ap_ap_spring_2016_eli_sunday_13_00"
   },
   {
@@ -2572,6 +2878,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
     "_id": "pre_ap_ap_winter_2016_eli_sunday_15_15"
   },
   {
@@ -2597,6 +2906,9 @@
     "makeupStudent": 2,
     "makeupClassFee": 5,
     "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "pre_ap_ap_spring_2016_eli_sunday_15_15"
   }
 ]
