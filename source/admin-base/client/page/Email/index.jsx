@@ -196,7 +196,7 @@ KUI.Email_index = class extends KUI.Page{
 
                 </RB.Row>
                 <RC.Div style={{textAlign:'right'}}>
-                    <KUI.YesButton onClick={this.search.bind(this)} label="Confirm Search"></KUI.YesButton>
+                    <KUI.YesButton onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
                 </RC.Div>
             </form>
         );
