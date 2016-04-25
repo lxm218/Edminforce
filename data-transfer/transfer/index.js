@@ -134,7 +134,6 @@ var session = {
     "registrationEndDate": new Date("2016-06-29T21:00:00-0700")
 };
 
-
 var program = {
     name:"",
     description: 'Need to add',
@@ -163,7 +162,10 @@ var classData = {
     maxAgeRequire: 100,
     makeupStudent: 2,
     makeupClassFee: 5,
-    genderRequire: "All"
+    genderRequire: "All",
+    makeup:{},
+    trial:{},
+    numberOfRegistered: 0
 };
 
 
@@ -373,23 +375,11 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
 
     }
 
-    jsonfile.writeFile(outPutFolder+'/programs.json', programs, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
+    jsonfile.writeFileSync(outPutFolder+'/programs.json', programs, {spaces: 2});
 
-    jsonfile.writeFile(outPutFolder+'/classes.json', classes, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
+    jsonfile.writeFileSync(outPutFolder+'/classes.json', classes, {spaces: 2});
 
-    jsonfile.writeFile(outPutFolder+'/sessions.json', sessions, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
+    jsonfile.writeFileSync(outPutFolder+'/sessions.json', sessions, {spaces: 2});
 
 
     console.log("===========================");
@@ -523,32 +513,13 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
 
     }
 
+    jsonfile.writeFileSync(outPutFolder+'/accounts.json', accounts, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/customers.json', customers, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/students.json', students, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/classStudents.json', classStudents, {spaces: 2});
 
-    jsonfile.writeFile(outPutFolder+'/accounts.json', accounts, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
-    jsonfile.writeFile(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
-    jsonfile.writeFile(outPutFolder+'/customers.json', customers, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
-    jsonfile.writeFile(outPutFolder+'/students.json', students, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
-    jsonfile.writeFile(outPutFolder+'/classStudents.json', classStudents, {spaces: 2}, function (err) {
-        if(err){
-            console.error(err);
-        }
-    });
+    updateNumberOfRegisteredInClass();
 
     console.log("accounts: ", accounts.length);
     console.log("adminUsers: ", adminUsers.length);
@@ -558,3 +529,29 @@ excel('data/cca/cca-student.xlsx', function(err, datas){
     console.log("===========================");
 
 });
+
+function updateNumberOfRegisteredInClass(){
+  let classesData = jsonfile.readFileSync(outPutFolder+"/classes.json");
+  let classStudents = jsonfile.readFileSync(outPutFolder+"/classStudents.json");
+
+  let numberOfRegistered = {
+
+  };
+
+  for(let i =0; i<classStudents.length; i++){
+    let classStudent = classStudents[i];
+    let classID = 'classID';
+    if(!numberOfRegistered[classStudent[classID]]){
+      numberOfRegistered[classStudent[classID]] = 1;
+    }else{
+      numberOfRegistered[classStudent[classID]] = numberOfRegistered[classStudent[classID]]+1;
+    }
+  }
+
+  for(let j =0; j<classesData.length; j++){
+      classesData[j].numberOfRegistered = numberOfRegistered[classesData[j]['_id']]||0;
+  }
+
+  jsonfile.writeFileSync(outPutFolder+'/classes.json', classesData, {spaces: 2});
+
+}
