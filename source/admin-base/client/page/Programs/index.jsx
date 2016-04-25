@@ -17,7 +17,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
 
         let list = KG.get('EF-Program').getDB().find({}, {
             sort : {
-                createTime : -1
+                displayOrder : 1
             }
         }).fetch();
 
