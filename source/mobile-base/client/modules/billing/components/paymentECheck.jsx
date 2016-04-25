@@ -60,7 +60,7 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
             <RC.List className="padding">
                 {EdminForce.utils.renderError(this.props.error)}
                 <div className="payment-container">
-                    <span className="totalAmount">Total Amount is : ${this.paymentTotal}</span>
+                    <span className="totalAmount">Total Amount is : ${this.paymentTotal.toFixed(2)}</span>
                     <br/>
                     <br/>
                     <div>

@@ -86,7 +86,7 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
             <RC.List className="padding">
                 {EdminForce.utils.renderError(this.props.error)}
                 <div className="payment-container">                
-                    <span>Total Amount is: ${this.paymentTotal}</span>
+                    <span>Total Amount is: ${this.paymentTotal.toFixed(2)}</span>
                     <br/>
                     <br/>
 

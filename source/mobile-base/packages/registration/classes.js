@@ -790,6 +790,7 @@ function payECheck(userId, checkPaymentInfo) {
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
     let paymentTotal = order.amount + 0.5;
+    paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -874,6 +875,7 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
     let paymentTotal = order.amount * 1.03;
+    paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
     let URL = 'https://apitest.authorize.net/xml/v1/request.api';
