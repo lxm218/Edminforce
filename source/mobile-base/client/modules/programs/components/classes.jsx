@@ -190,7 +190,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
                                    label="Students" labelColor="brand1"
                                    onChange={this.onSelectStudent}/>) :
                         (
-                            <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.addStudent} key="addStudentBtn">Add Student</RC.Button>
+                            <RC.Button bgColor="brand2" theme="inline" bgColorHover="dark" onClick={this.addStudent} key="addStudentBtn">Add Student</RC.Button>
                         )
                 }
                 <RC.Select options={this.stateBag.sessions} value={this.stateBag.sessionID} key="sessionList"

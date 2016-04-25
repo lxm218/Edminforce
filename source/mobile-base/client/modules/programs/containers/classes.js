@@ -36,7 +36,8 @@ const reactiveFnClasses = ({context,actions}, onData) => {
 
         let loadContextData = !context.StateBag.classes.students ||
                 !context.StateBag.classes.sessions ||
-                !context.StateBag.classes.programs;
+                !context.StateBag.classes.programs ||
+                !studentID || !programID || !sessionID;
 
         Meteor.call(methodName, loadContextData, studentID, programID, sessionID, function(methodError, result) {
             if (!methodError) {
