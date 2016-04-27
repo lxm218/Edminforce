@@ -91,10 +91,9 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
                     <br/>
 
                     <div>
-                        <span className="card american-express"></span>
-                        <span className="card discover"></span>
-                        <span className="card mastercard"></span>
                         <span className="card visa"></span>
+                        <span className="card mastercard"></span>
+                        <span className="card discover"></span>
                     </div>
 
                     <RC.Form onSubmit={this.postPayment} ref="paymentForm">
@@ -113,7 +112,11 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
                         <RC.Input name="zip" label="Zip" theme={inputTheme} ref="zip"/>
                         <RC.Button name="button" theme="full" buttonColor="brand" {...payButtonOpts}>Pay Now</RC.Button>
                     </RC.Form>
-                    <a href="http://www.authorize.net/"><div className="authorize-verified"></div></a>
+                    <div style={{textAlign:'center'}}>
+                        <a href="http://www.authorize.net/"><span className="badge authorize"></span></a>
+                        <span className="badge positive"></span>
+                        <span className="badge comodo"></span>
+                    </div>      
                 </div>
             </RC.List>
         );
