@@ -39,7 +39,7 @@ KUI.Program_edit = class extends KUI.Page{
             sort : {
                 wrapperClassName : 'col-xs-6',
                 ref : 'sort',
-                placeholder : 'sort number'
+                placeholder : 'Display Order'
             }
         };
 
