@@ -53,6 +53,11 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                 wrapperClassName : 'col-xs-12',
                 ref : 'pdesc'
                 //label : 'Program Description'
+            },
+            sort : {
+                wrapperClassName : 'col-xs-6',
+                ref : 'sort',
+                placeholder : 'sort number'
             }
         };
 
@@ -69,6 +74,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                         <form className="form-horizontal">
 
                             <RB.Input type="text" {... p.name} />
+                            <RB.Input type="text" {... p.sort} />
                             <RB.Input {... p.desc} >
                                 <div ref="html"></div>
 
@@ -216,10 +222,18 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         let self = this;
 
         let name = this.refs.pname.getValue(),
+            sort = parseInt(this.refs.sort.getValue(), 10),
             desc = $(this.refs.html).summernote('code');
+
+        console.log(sort);
+        if(_.isNaN(sort) || !_.isNumber(sort)){
+            util.toast.showError('sort is must number');
+            return false;
+        }
 
         let rs = KG.get('EF-Program').insert({
             name : name,
+            displayOrder : sort,
             description : encodeURIComponent(desc)
         });
 
