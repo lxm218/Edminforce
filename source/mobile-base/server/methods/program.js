@@ -21,14 +21,12 @@ Meteor.methods({
     },
 
     // get a list of trial classes for a program, within specified date range
-    'program.getClasses': function (initialLoad, studentID, programID, sessionID) {
-        if (!initialLoad) {
-            check(studentID, String);
-            check(programID, String);
-            check(sessionID, String);
-        }
+    'program.getClasses': function (studentID, programID, sessionID) {
+        studentID && check(studentID, String);
+        programID && check(programID, String);
+        sessionID && check(sessionID, String);
 
-        return EdminForce.Registration.getClasesForRegistration(this.userId, initialLoad,studentID, programID, sessionID);
+        return EdminForce.Registration.getClasesForRegistration(this.userId,studentID, programID, sessionID);
     },
 
     'program.bookClasses': function(studentID, classIDs) {

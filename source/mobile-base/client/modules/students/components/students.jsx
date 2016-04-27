@@ -64,7 +64,7 @@ EdminForce.Components.Students = class extends RC.CSS {
                         !sc.completed && (
                             <p style={{padding: 0}}>
                                 {
-                                    sc.type === "trial" ? "Trial" : (sc.session.startDate.getTime() < currentTime ? "Current" : "New Registration")
+                                    sc.type === "trial" ? "Trial on " + moment(sc.lessonDate).format("MMM D, YYYY") : (sc.session.startDate.getTime() < currentTime ? "Current" : "New Registration")
                                 }
                             </p>
                         )
