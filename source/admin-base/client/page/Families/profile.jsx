@@ -186,7 +186,8 @@ KUI.Family_profile = class extends KUI.Page{
                 query : {
                     studentID : {
                         '$in' : sl
-                    }
+                    },
+                    status : 'success'
                 }
             });
         }

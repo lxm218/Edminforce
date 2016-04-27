@@ -476,7 +476,7 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 		}
 		else{
 			this.setState({
-				fee : 10//fee
+				fee : fee
 			});
 		}
 
@@ -572,6 +572,9 @@ console.log(orderData);
 					Session.set('KG-Class-Makeup-Fn', 'makeup');
 					if(way === 'credit card'){
 						util.goPath('/payment/creditcard/'+id);
+					}
+					else if(way === 'echeck'){
+						util.goPath('/payment/echeck/'+id);
 					}
 
 				}
