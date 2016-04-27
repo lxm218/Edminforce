@@ -79,7 +79,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                 <hr/>
 
                 <div style={{textAlign:'right'}}>
-                    <RB.Image width="288.64px" height = "177.28px" style={{paddingTop: '5px'},{paddingBottom: '20px'}} src="/assets/payment/sample-check.jpg" />
+                    <RB.Image width="288.64px" height = "177.28px" style={{paddingTop: '5px', paddingBottom: '20px'}} src="/assets/payment/sample-check.jpg" />
                 </div>
 
                 {this.renderForm()}
@@ -96,6 +96,8 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
     }
 
     pay(){
+        let makeup = Session.get('KG-Class-Makeup-Fn') && Session.get('KG-Class-Makeup-Fn')==='makeup';
+
         let json = this.data.data;
         let data = this.getFormValue();
         console.log(data);
@@ -116,9 +118,19 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
             };
             KG.get('EF-Order').updateById(nd, this.data.orderID);
 
-            _.delay(function(){
-                util.goPath('/registration/success/'+json.details[0]);
-            }, 100);
+            if(makeup){
+                //TODO makeup
+                KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.data.details[0]);
+                util.goPath('/student/'+this.data.data.studentID);
+
+            }
+            else{
+                _.delay(function(){
+                    util.goPath('/registration/success/'+json.details[0]);
+                }, 100);
+            }
+
+
         });
     }
 
