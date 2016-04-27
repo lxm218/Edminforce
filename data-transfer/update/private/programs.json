@@ -28,5 +28,65 @@
     "description": "Need to add",
     "availableTrial": true,
     "_id": "pre_ap_ap"
+  },
+  {
+    "name": "Beginning1",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "beginning_1"
+  },
+  {
+    "name": "Digital1",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "digital_1"
+  },
+  {
+    "name": "Intermediate1",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "intermediate_1"
+  },
+  {
+    "name": "Pre/ Advanced1",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "pre_advanced_1"
+  },
+  {
+    "name": "Pre-AP/ AP1",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "pre_ap_ap_1"
+  },
+  {
+    "name": "Beginning2",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "beginning_2"
+  },
+  {
+    "name": "Digital2",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "digital_2"
+  },
+  {
+    "name": "Intermediate2",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "intermediate_2"
+  },
+  {
+    "name": "Pre/ Advanced2",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "pre_advanced_2"
+  },
+  {
+    "name": "Pre-AP/ AP2",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "pre_ap_ap_2"
   }
 ]
