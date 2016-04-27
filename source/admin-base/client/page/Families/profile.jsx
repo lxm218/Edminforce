@@ -148,6 +148,12 @@ KUI.Family_add_comp = class extends RC.CSS{
 
 KUI.Family_profile = class extends KUI.Page{
 
+    constructor(p){
+        super(p);
+
+        this.m = KG.DataHelper.getDepModule();
+    }
+
     getMeteorData(){
         let id = FlowRouter.current().params.id;
         let x = Meteor.subscribe('EF-Customer', {
@@ -167,12 +173,31 @@ KUI.Family_profile = class extends KUI.Page{
             }
         });
 
+        let x1 = {
+            ready : function(){ return false; }
+        };
+        if(y.ready()){
+            let sl = _.map(list, (d)=>{
+                return d._id;
+            });
+            console.log(sl);
+
+            x1 = Meteor.subscribe('EF-Order', {
+                query : {
+                    studentID : {
+                        '$in' : sl
+                    }
+                }
+            });
+        }
+
         return {
             id : id,
             ready : x.ready(),
             listReady : y.ready(),
             profile : profile,
-            list : list
+            list : list,
+            orderReady : x1.ready()
         };
     }
 
@@ -200,6 +225,9 @@ KUI.Family_profile = class extends KUI.Page{
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton style={sy.ml} onClick={this.toAdd.bind(this)} label="Add"></KUI.YesButton>
                 </RC.Div>
+                <hr/>
+                <h4>Billing</h4>
+                {this.renderOrderTable()}
             </RC.Div>
         );
     }
@@ -269,6 +297,65 @@ KUI.Family_profile = class extends KUI.Page{
             </KUI.Table>
         );
 
+    }
+
+    renderOrderTable(){
+        if(!this.data.orderReady){
+            return util.renderLoading();
+        }
+
+        let list = this.m.Order.getDB().find({}, {
+            sort : {
+                updateTime : -1
+            }
+        }).fetch();
+
+        list = _.map(list, (item)=>{
+            let st = this.m.Student.getDB().findOne({
+                _id : item.studentID
+            });
+            item.student = st;
+            return item;
+        });
+
+
+        const titleArray = [
+            {
+                title : 'Date',
+                reactDom(doc){
+                    return moment(doc.updateTime).format(util.const.dateFormat)
+                }
+            },
+            {
+                title : 'Name',
+                key : 'student.name'
+            },
+            {
+                title : 'Type',
+                key : 'type'
+            },
+            {
+                title : 'Amount($)',
+                key : 'paymentTotal'
+            },
+            {
+                title : 'Payment Type',
+                key : 'paymentType'
+            },
+            {
+                title : 'Status',
+                key : 'status'
+            }
+        ];
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={list}
+                title={titleArray}
+                ref="table1">
+            </KUI.Table>
+        );
     }
 
 };
