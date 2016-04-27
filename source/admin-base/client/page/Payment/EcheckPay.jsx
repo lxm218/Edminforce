@@ -81,6 +81,11 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton ref="btn" onClick={this.pay.bind(this)} label="Pay Now"></KUI.YesButton>
                 </RC.Div>
+                 <div style={{textAlign:'right'}}>
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/comodo-secure-padlock.png" />
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/PositiveSSL_tl_trans.png" />
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/authorize-verified.png" />
+                </div>
             </RC.Div>
         );
     }
