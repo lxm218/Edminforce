@@ -63,7 +63,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
 
         let data = this.data.data,
             poundage = parseFloat(data.poundage||0) || 0,
-            total = data.paymentTotal.replace(/\$/g, '');
+            total = data.paymentTotal;
         this.total = total;
 
         return (
@@ -77,6 +77,11 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                     null
                 }
                 <hr/>
+
+                <div style={{textAlign:'right'}}>
+                    <RB.Image width="288.64px" height = "177.28px" style={{paddingTop: '5px'},{paddingBottom: '20px'}} src="/assets/payment/sample-check.jpg" />
+                </div>
+
                 {this.renderForm()}
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton ref="btn" onClick={this.pay.bind(this)} label="Pay Now"></KUI.YesButton>
