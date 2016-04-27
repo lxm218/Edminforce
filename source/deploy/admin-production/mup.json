@@ -35,6 +35,7 @@
   // ROOT_URL must be set to your correct domain (https or http)
   "env": {
     "MONGO_URL" : "mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true",
+    "MONGO_OPLOG_URL" : "mongodb://oploguser:Wk256XgmOkxsLa9OuBLVD_GXzdiYxUmqk-M9u5Wc2FM@haproxy317.aws-us-east-1-portal.15.dblayer.com:10317/local?authSource=admin&ssl=true",
     "PORT" : 80,
     "ROOT_URL": "https://calcolor-admin.classforth.com"
   },
