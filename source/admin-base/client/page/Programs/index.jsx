@@ -57,7 +57,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
             sort : {
                 wrapperClassName : 'col-xs-6',
                 ref : 'sort',
-                placeholder : 'sort number'
+                placeholder : 'Display Order'
             }
         };
 
@@ -279,4 +279,3 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         this.refs.modal.hide();
     }
 };
-
