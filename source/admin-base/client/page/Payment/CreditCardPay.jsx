@@ -28,13 +28,16 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
 
 
     render(){
+        console.log("In Loading Procedure")
         if(!this.data.ready){
             return util.renderLoading();
         }
 
         let data = this.data.data,
             poundage = parseFloat(data.poundage||0) || 0,
-            total = data.paymentTotal.replace(/\$/g, '');
+            // total = data.paymentTotal.replace(/\$/g, '');
+            total = data.paymentTotal;
+            console.log(data)
         this.total = total;
         return (
             <RC.Div>
@@ -51,11 +54,18 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton ref="btn" onClick={this.pay.bind(this)} label="Pay Now"></KUI.YesButton>
                 </RC.Div>
+                <div style={{textAlign:'right'}}>
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/comodo-secure-padlock.png" />
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/PositiveSSL_tl_trans.png" />
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/authorize-verified.png" />
+                </div>
             </RC.Div>
         );
     }
 
     pay(){
+        let makeup = Session.get('KG-Class-Makeup-Fn') && Session.get('KG-Class-Makeup-Fn')==='makeup';
+
         let json = this.data.data;
         let data = this.getFormValue();
         console.log(data);
@@ -76,9 +86,19 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             };
             KG.get('EF-Order').updateById(nd, this.data.orderID);
 
-            _.delay(function(){
-                util.goPath('/registration/success/'+json.details[0]);
-            }, 100);
+            if(makeup){
+                //TODO makeup
+                KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.data.details[0]);
+                util.goPath('/student/'+this.data.data.studentID);
+
+            }
+            else{
+                _.delay(function(){
+                    util.goPath('/registration/success/'+json.details[0]);
+                }, 100);
+            }
+
+
         });
     }
 
@@ -163,20 +183,12 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             <form className="form-horizontal">
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
-                        <RB.Input type="text" {... p.credit} />
-                        
-                        <RB.Row>
-                          <RB.Col xs={6} md={3}>
-                            <RB.Thumbnail href="#" alt="128×80" src="/assets/visa.png" />
-                          </RB.Col>
-                          <RB.Col xs={6} md={3}>
-                            <RB.Thumbnail href="#" alt="128×80" src="/assets/mastercard.png" />
-                          </RB.Col>
-                          <RB.Col xs={6} md={3}>
-                            <RB.Thumbnail href="#" alt="128×80" src="/assets/discover.png" />
-                          </RB.Col>
-                        </RB.Row>
-
+                        <RB.Input type="text" {... p.credit} />  
+                        <div style={{textAlign:'right'}}>
+                            <RB.Image  width="64px" height="55px" src="/assets/payment/visa.png" style={{paddingBottom: '15px'}}/>
+                            <RB.Image  width="64px" height="55px" src="/assets/payment/mastercard.png" style={{paddingBottom: '15px'}}/>
+                            <RB.Image  width="64px" height="55px" src="/assets/payment/discover.png" style={{paddingBottom: '15px'}}/>
+                        </div>
                         <RB.Input type="text" {... p.expiration} />
                         <RB.Input type="text" {... p.ccv} />
                         <RB.Input type="text" {... p.first} />

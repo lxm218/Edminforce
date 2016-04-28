@@ -6,10 +6,15 @@ let fs = require('fs');
 let Q = require('q');
 let _ = require('lodash');
 let outPutFolder = "../update/private";
+let errorOutputFolder = "errorOutput";
 
 // Change this value to decide how many items want to repeat. If value <=1, means no repeat, this should be default value
 let repeat_time_class= 1;
 let repeat_time_student = 1;
+
+let default_birthday = new Date("1970/1/1");
+
+// Following
 
 let admin = {
     "services": {
@@ -117,7 +122,7 @@ var student = {
     "accountID": "",
     "profile": {
         "gender": "Male",
-        "birthday": ""
+        "birthday": default_birthday
     },
     "status": "Active"
 };
@@ -291,15 +296,101 @@ function insertToArray(array, data){
     }
 }
 
-let programPrices = {
-
-};
+let programPrices = {};
 programPrices[getProgramID("Beginning")] = 25;
 programPrices[getProgramID("Intermediate")] = 30;
 programPrices[getProgramID("Pre/Advanced")] = 30;
 programPrices[getProgramID("Pre-AP/AP")] = 40;
 programPrices[getProgramID("Digital")] = 40;
 
+function updateNumberOfRegisteredInClass(){
+  let classesData = jsonfile.readFileSync(outPutFolder+"/classes.json");
+  let classStudents = jsonfile.readFileSync(outPutFolder+"/classStudents.json");
+
+  let numberOfRegistered = {
+
+  };
+
+  for(let i =0; i<classStudents.length; i++){
+    let classStudent = classStudents[i];
+    let classID = 'classID';
+    if(!numberOfRegistered[classStudent[classID]]){
+      numberOfRegistered[classStudent[classID]] = 1;
+    }else{
+      numberOfRegistered[classStudent[classID]] = numberOfRegistered[classStudent[classID]]+1;
+    }
+  }
+
+  for(let j =0; j<classesData.length; j++){
+      classesData[j].numberOfRegistered = numberOfRegistered[classesData[j]['_id']]||0;
+  }
+
+  jsonfile.writeFileSync(outPutFolder+'/classes.json', classesData, {spaces: 2});
+
+}
+
+function cleanData(){
+  // This array store all the datas that has error
+  let error_classes = [];
+  let error_classStudents = [];
+
+  let classesData = jsonfile.readFileSync(outPutFolder+"/classes.json");
+  let programsData = jsonfile.readFileSync(outPutFolder+"/programs.json");
+  let sessionsData = jsonfile.readFileSync(outPutFolder+"/sessions.json");
+  let classStudentsData = jsonfile.readFileSync(outPutFolder+"/classStudents.json");
+  let accountsData = jsonfile.readFileSync(outPutFolder+"/accounts.json");
+  let studentsData = jsonfile.readFileSync(outPutFolder+"/students.json");
+
+
+
+  // clean classes
+  // following condition means this class isn't valid, need to remove to error_data
+  // 1. programID, sessionID doesn't exist
+  for(let i = 0; i< classesData.length; i++){
+    let item = classesData[i];
+    let programExist = _.find(programsData, {_id: item.programID});
+    let sessionExist = _.find(sessionsData, {_id: item.sessionID});
+
+    // this data should be removed
+    if(!programExist || !sessionExist){
+      let newItem = _.cloneDeep(item);
+      newItem.ef_removed_reason = "programID or sessionID doesn't exist";
+      error_classes.push(newItem);
+      // remove this data
+      classesData.splice(i, 1);
+      i--;
+    }
+  }
+
+  // clean classStudents
+  // following condition means this classStudent isn't valid, need to remove to error_data
+  // 1. programID, accountID, classID, studentID
+  for(let i = 0; i< classStudentsData.length; i++){
+    let item = classStudentsData[i];
+
+    let programExist = _.find(programsData, {_id: item.programID});
+    let accountExist = _.find(accountsData, {_id: item.accountID});
+    let classExist = _.find(classesData, {_id: item.classID});
+    let studentExist = _.find(studentsData, {_id: item.studentID});
+
+    // this data should be removed
+    if(!programExist || !accountExist || !classExist || !studentExist){
+      let newItem = _.cloneDeep(item);
+      newItem.ef_removed_reason = "programID, accountID, classID, studentID doesn't exist";
+      error_classStudents.push(newItem);
+      // remove this data
+      classStudentsData.splice(i, 1);
+      i--;
+    }
+  }
+
+  jsonfile.writeFileSync(outPutFolder+'/classStudents.json', classStudentsData, {spaces: 2});
+  jsonfile.writeFileSync(outPutFolder+'/classes.json', classesData, {spaces: 2});
+
+  jsonfile.writeFileSync(errorOutputFolder+'/error-classes.json', error_classes, {spaces: 2});
+  jsonfile.writeFileSync(errorOutputFolder+'/error-classStudents.json', error_classStudents, {spaces: 2});
+
+}
 
 excel('data/cca/cca-class.xlsx', function (err, datas) {
 //excel('data/example-of-class.xlsx', function (err, datas) {
@@ -310,6 +401,8 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
 
     let repeatDatas = [];
     repeatDatas=repeatDatas.concat(datas);
+
+    // repeat data for presure test
     for(let i=1;i < repeat_time_class; i++){
         let cloneDatas = _.cloneDeep(datas);
         let programName={
@@ -388,170 +481,145 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
     console.log("classes: ", classes.length);
     console.log("sessions: ", sessions.length);
 
+    excel('data/cca/cca-student.xlsx', function(err, datas){
+        if (err) throw err;
+
+        // datas[0] is header, not used
+        datas = datas.splice(2);
+
+        let repeatDatas = [];
+        repeatDatas=repeatDatas.concat(datas);
+        for(let i=1;i < repeat_time_student; i++){
+            let cloneDatas = _.cloneDeep(datas);
+            let programName={
+
+            };
+
+            let studentName={
+
+            };
+
+            let primaryEmail={
+
+            };
+
+            for(let j=0; j< cloneDatas.length; j++){
+                let data = cloneDatas[j];
+                if(!programName[_.kebabCase(data[9])]){
+                    programName[_.kebabCase(data[9])] = data[9]+i;
+                    data[9] = data[9]+i;
+                }else{
+                    data[9] = programName[_.kebabCase(data[9])];
+                }
+
+                if(!studentName[_.kebabCase(data[1])]){
+                    studentName[_.kebabCase(data[1])] = data[1]+i;
+                    data[1] = data[1]+i;
+                }else{
+                    data[1] = studentName[_.kebabCase(data[1])];
+                }
+
+                if(!primaryEmail[_.kebabCase(data[7])]){
+                    primaryEmail[_.kebabCase(data[7])] = data[7]+i;
+                    data[7] = i+data[7];
+                }else{
+                    data[7] = primaryEmail[_.kebabCase(data[7])];
+                }
+            }
+
+            repeatDatas = repeatDatas.concat(cloneDatas);
+        }
+
+        datas = repeatDatas;
+
+
+        let classStudents = [];
+        let accounts = [];
+        let customers = [];
+        let students = [];
+        let adminUsers = [];
+
+        // Add admin
+        accounts.push(admin);
+        adminUsers.push(adminUser);
+
+        for(var i=0; i<datas.length; i++){
+            let data = datas[i];
+
+            if(!data[7]){
+                console.log("Canceled data, ", data);
+                continue;
+            }
+
+            let nTeacherUser = _.cloneDeep(teacherUser);
+            nTeacherUser.emails[0].address = _.camelCase(data[11])+"@classforth.com";
+            nTeacherUser.username = nTeacherUser.emails[0].address;
+            nTeacherUser._id = getTeacherID(nTeacherUser.emails[0].address);
+            insertToArray(accounts, nTeacherUser);
+
+            let nTacherAdminUser = _.cloneDeep(tacherAdminUser);
+            nTacherAdminUser.nickName = data[11];
+            nTacherAdminUser.email = _.camelCase(data[11])+"@classforth.com";
+            nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
+            insertToArray(adminUsers, nTacherAdminUser);
+
+
+            let nUser = _.cloneDeep(user);
+            nUser._id = getUserID(data[7]);
+            nUser.emails[0].address = data[7];
+            nUser.username = data[7];
+            insertToArray(accounts, nUser);
+
+            let nCustomer = _.cloneDeep(customer);
+            nCustomer._id = getUserID(data[7]);
+            nCustomer.name = data[7];
+            nCustomer.email = data[7];
+            nCustomer.phone = getPhoneNumber(data[4]);
+            insertToArray(customers, nCustomer);
+
+            let nStudent = _.cloneDeep(student);
+            nStudent._id = getStudentID(nUser._id, data[1]);
+            nStudent.name = data[1]||data[7];
+            nStudent.accountID = nUser._id;
+            if(data[2]){
+                nStudent.profile.gender = _.capitalize(data[2]);
+            }else{// Add default value
+                nStudent.profile.gender = "Male";
+            }
+
+            if(data[3]){
+                nStudent.profile.birthday = new Date(data[3]);
+            }else{// Add default value
+                // This is the default value for student
+                nStudent.profile.birthday = default_birthday;
+            }
+            insertToArray(students, nStudent);
+
+            let nClassStudent = _.cloneDeep(classStudent);
+            nClassStudent.accountID = nUser._id;
+            nClassStudent.classID = getClassID(data[9], data[10], data[11], data[12], data[13]);
+            nClassStudent.programID = getProgramID(data[9]);
+            nClassStudent.studentID = nStudent._id;
+            nClassStudent._id=getClassStudentID(nClassStudent.classID,nClassStudent.studentID);
+            insertToArray(classStudents, nClassStudent);
+
+        }
+
+        jsonfile.writeFileSync(outPutFolder+'/accounts.json', accounts, {spaces: 2});
+        jsonfile.writeFileSync(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2});
+        jsonfile.writeFileSync(outPutFolder+'/customers.json', customers, {spaces: 2});
+        jsonfile.writeFileSync(outPutFolder+'/students.json', students, {spaces: 2});
+        jsonfile.writeFileSync(outPutFolder+'/classStudents.json', classStudents, {spaces: 2});
+
+        console.log("accounts: ", accounts.length);
+        console.log("adminUsers: ", adminUsers.length);
+        console.log("customers: ", customers.length);
+        console.log("students: ", students.length);
+        console.log("classStudents: ", classStudents.length);
+        console.log("===========================");
+        updateNumberOfRegisteredInClass();
+        cleanData();
+
+    });
+
 });
-
-excel('data/cca/cca-student.xlsx', function(err, datas){
-    if (err) throw err;
-
-    // datas[0] is header, not used
-    datas = datas.splice(2);
-
-    let repeatDatas = [];
-    repeatDatas=repeatDatas.concat(datas);
-    for(let i=1;i < repeat_time_student; i++){
-        let cloneDatas = _.cloneDeep(datas);
-        let programName={
-
-        };
-
-        let studentName={
-
-        };
-
-        let primaryEmail={
-
-        };
-
-        for(let j=0; j< cloneDatas.length; j++){
-            let data = cloneDatas[j];
-            if(!programName[_.kebabCase(data[9])]){
-                programName[_.kebabCase(data[9])] = data[9]+i;
-                data[9] = data[9]+i;
-            }else{
-                data[9] = programName[_.kebabCase(data[9])];
-            }
-
-            if(!studentName[_.kebabCase(data[1])]){
-                studentName[_.kebabCase(data[1])] = data[1]+i;
-                data[1] = data[1]+i;
-            }else{
-                data[1] = studentName[_.kebabCase(data[1])];
-            }
-
-            if(!primaryEmail[_.kebabCase(data[7])]){
-                primaryEmail[_.kebabCase(data[7])] = data[7]+i;
-                data[7] = i+data[7];
-            }else{
-                data[7] = primaryEmail[_.kebabCase(data[7])];
-            }
-        }
-
-        repeatDatas = repeatDatas.concat(cloneDatas);
-    }
-
-    datas = repeatDatas;
-
-
-    let classStudents = [];
-    let accounts = [];
-    let customers = [];
-    let students = [];
-    let adminUsers = [];
-
-    // Add admin
-    accounts.push(admin);
-    adminUsers.push(adminUser);
-
-    for(var i=0; i<datas.length; i++){
-        let data = datas[i];
-
-        if(!data[7]){
-            console.log("Canceled data, ", data);
-            continue;
-        }
-
-        let nTeacherUser = _.cloneDeep(teacherUser);
-        nTeacherUser.emails[0].address = _.camelCase(data[11])+"@classforth.com";
-        nTeacherUser.username = nTeacherUser.emails[0].address;
-        nTeacherUser._id = getTeacherID(nTeacherUser.emails[0].address);
-        insertToArray(accounts, nTeacherUser);
-
-        let nTacherAdminUser = _.cloneDeep(tacherAdminUser);
-        nTacherAdminUser.nickName = data[11];
-        nTacherAdminUser.email = _.camelCase(data[11])+"@classforth.com";
-        nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
-        insertToArray(adminUsers, nTacherAdminUser);
-
-
-        let nUser = _.cloneDeep(user);
-        nUser._id = getUserID(data[7]);
-        nUser.emails[0].address = data[7];
-        nUser.username = data[7];
-        insertToArray(accounts, nUser);
-
-        let nCustomer = _.cloneDeep(customer);
-        nCustomer._id = getUserID(data[7]);
-        nCustomer.name = data[7];
-        nCustomer.email = data[7];
-        nCustomer.phone = getPhoneNumber(data[4]);
-        insertToArray(customers, nCustomer);
-
-        let nStudent = _.cloneDeep(student);
-        nStudent._id = getStudentID(nUser._id, data[1]);
-        nStudent.name = data[1]||data[7];
-        nStudent.accountID = nUser._id;
-        if(data[2]){
-            nStudent.profile.gender = _.capitalize(data[2]);
-        }else{// Add default value
-            nStudent.profile.gender = "Male";
-        }
-
-        if(data[3]){
-            nStudent.profile.birthday = new Date(data[3]);
-        }else{// Add default value
-            nStudent.profile.birthday = new Date("1900/1/1");
-        }
-        insertToArray(students, nStudent);
-
-        let nClassStudent = _.cloneDeep(classStudent);
-        nClassStudent.accountID = nUser._id;
-        nClassStudent.classID = getClassID(data[9], data[10], data[11], data[12], data[13]);
-        nClassStudent.programID = getProgramID(data[9]);
-        nClassStudent.studentID = nStudent._id;
-        nClassStudent._id=getClassStudentID(nClassStudent.classID,nClassStudent.studentID);
-        insertToArray(classStudents, nClassStudent);
-
-    }
-
-    jsonfile.writeFileSync(outPutFolder+'/accounts.json', accounts, {spaces: 2});
-    jsonfile.writeFileSync(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2});
-    jsonfile.writeFileSync(outPutFolder+'/customers.json', customers, {spaces: 2});
-    jsonfile.writeFileSync(outPutFolder+'/students.json', students, {spaces: 2});
-    jsonfile.writeFileSync(outPutFolder+'/classStudents.json', classStudents, {spaces: 2});
-
-    updateNumberOfRegisteredInClass();
-
-    console.log("accounts: ", accounts.length);
-    console.log("adminUsers: ", adminUsers.length);
-    console.log("customers: ", customers.length);
-    console.log("students: ", students.length);
-    console.log("classStudents: ", classStudents.length);
-    console.log("===========================");
-
-});
-
-function updateNumberOfRegisteredInClass(){
-  let classesData = jsonfile.readFileSync(outPutFolder+"/classes.json");
-  let classStudents = jsonfile.readFileSync(outPutFolder+"/classStudents.json");
-
-  let numberOfRegistered = {
-
-  };
-
-  for(let i =0; i<classStudents.length; i++){
-    let classStudent = classStudents[i];
-    let classID = 'classID';
-    if(!numberOfRegistered[classStudent[classID]]){
-      numberOfRegistered[classStudent[classID]] = 1;
-    }else{
-      numberOfRegistered[classStudent[classID]] = numberOfRegistered[classStudent[classID]]+1;
-    }
-  }
-
-  for(let j =0; j<classesData.length; j++){
-      classesData[j].numberOfRegistered = numberOfRegistered[classesData[j]['_id']]||0;
-  }
-
-  jsonfile.writeFileSync(outPutFolder+'/classes.json', classesData, {spaces: 2});
-
-}

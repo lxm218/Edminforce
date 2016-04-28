@@ -116,9 +116,7 @@ KUI.Student_profile = class extends KUI.Page{
                 <hr />
 
                 {this.getProfileBox()}
-                <hr/>
 
-                {this.sendCommentBox()}
 
                 <hr/>
                 <h3>Current Class</h3>
@@ -139,6 +137,8 @@ KUI.Student_profile = class extends KUI.Page{
                 <hr/>
                 <h3>Student Comment</h3>
                 {this.renderStudentCommentTable()}
+                <hr/>
+                {this.sendCommentBox()}
 
             </RC.Div>
         );
@@ -148,10 +148,10 @@ KUI.Student_profile = class extends KUI.Page{
     sendCommentBox(){
         let p = {
             comment : {
-                labelClassName : 'col-xs-3',
-                wrapperClassName : 'col-xs-9',
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-10',
                 ref : 'sendCommentText',
-                label : 'Send Comment'
+                label : 'Comment'
             }
         };
 
@@ -175,7 +175,7 @@ KUI.Student_profile = class extends KUI.Page{
                     </RB.Col>
                 </RB.Row>
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton style={sy.ml} onClick={this.sendComment.bind(this)} label="Send Comment"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} onClick={this.sendComment.bind(this)} label="Add Comment"></KUI.YesButton>
                 </RC.Div>
             </form>
         );

@@ -1,4 +1,5 @@
-KUI.Student_MakeupClass = class extends KUI.Page{
+//not use
+KUI.Student_MakeupClass1 = class extends KUI.Page{
 	constructor(p){
 		super(p);
 		this.state = {

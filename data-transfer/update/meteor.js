@@ -59,7 +59,6 @@ if (Meteor.isServer) {
 
     function importDatas(){
       var F = {
-        /*
         program : function(){
           insertData('Program', programsData, program, null, F.session);
         },
@@ -75,7 +74,7 @@ if (Meteor.isServer) {
         },
         adminuser : function(){
           insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
-        },*/
+        },
         classes : function(){
           insertData('Class', classesData, classCollection, null, F.student);
         },
@@ -107,7 +106,7 @@ if (Meteor.isServer) {
         }
       };
 
-      F.classes();
+      F.program();
     }
 
 

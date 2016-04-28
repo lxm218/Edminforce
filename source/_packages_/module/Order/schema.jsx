@@ -15,7 +15,7 @@ Schema.Order = {
         allowedValues : ['admin', 'mobile']
     }),
     type : KG.schema.default({
-        allowedValues : ['register class', 'change class', 'cancel class'],
+        allowedValues : ['register class', 'change class', 'cancel class', 'makeup class'],
         optional : true,
         defaultValue : 'register class'
     }),

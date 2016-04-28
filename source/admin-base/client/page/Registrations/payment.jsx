@@ -398,7 +398,7 @@ console.log(m.Customer.getAll()[0])
             }
             total = total.toFixed(2);
             orderData.poundage = orderData.poundage.toString();
-            orderData.paymentTotal = total.toString();
+            orderData.paymentTotal = total;
 
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {
