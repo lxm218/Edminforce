@@ -784,6 +784,8 @@ console.log(option)
                 return parser.text('every 5 min');
             },
             job : function(){
+
+                //TODO find best way to update
                 let list = self._db.find({}).fetch();
                 _.each(list, function(item){
                     let n = m.ClassStudent.getDB().find({
