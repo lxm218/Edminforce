@@ -598,7 +598,7 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSour
     }
 
     Collections.orders.update({
-        _id: order.orderId,
+        _id: order._id,
         accountID: userId
     }, {
         $set: orderUpdate
