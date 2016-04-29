@@ -32,7 +32,7 @@ EdminForce.Components.CheckoutSummary = class extends RC.CSS {
                 </RC.Div>
             )
 
-        return this.props.makeupOnly ?
+        return this.props.makeupOnly.toLowerCase() === 'true' ?
             (
                 <RC.Div style={{padding:"10px"}}>
                     <RC.VerticalAlign center={true} className="padding" height="300px">
