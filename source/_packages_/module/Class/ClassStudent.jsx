@@ -222,6 +222,31 @@ let ClassStudent = class extends Base{
         };
     }
 
+    defineMeteorMethod(){
+        let self = this;
+        return {
+            syncNumberOfRegister(classID){
+                let m = KG.DataHelper.getDepModule();
+                let n = self.getDB().find({
+                    classID : classID,
+                    type : 'register',
+                    status : {
+                        '$in' : ['checkouted', 'checkouting']
+                    }
+                }).count();
+                console.log(n);
+                return m.Class._db.update({
+                    _id : classID
+                }, {
+                    '$set' : {
+                        numberOfRegistered : n
+                    }
+                });
+
+            }
+        };
+    }
+
 };
 
 KG.define('EF-ClassStudent', ClassStudent);

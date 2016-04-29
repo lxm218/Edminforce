@@ -218,6 +218,8 @@ console.log(data);
                     util.goPath('/registration/payment/'+d);
                 }, 500);
 
+
+
             },
             error : function(e, error){
                 util.toast.showError(error.statusText);

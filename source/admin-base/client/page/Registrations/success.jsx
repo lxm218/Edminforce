@@ -148,8 +148,8 @@ KUI.Registration_success = class extends KUI.Page{
                 KG.get('EF-Coupon').useOnce(this.data.coupon);
             }
 
-            let schoolCredit = this.data.order.schoolCredit || null;
-            console.log(this.data.order.schoolCredit)
+            let schoolCredit = this.data.order.schoolCredit || 0;
+            console.log(schoolCredit)
             KG.get('EF-Customer').callMeteorMethod('useSchoolCreditById', [schoolCredit, this.data.student.accountID], {
                 success : function(){
                     console.log(arguments)
@@ -159,6 +159,12 @@ KUI.Registration_success = class extends KUI.Page{
 
 
         KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.id);
+        //sync data
+        KG.get('EF-ClassStudent').callMeteorMethod('syncNumberOfRegister', [this.data.class._id], {
+            success : function(rs){
+                console.log(rs);
+            }
+        });
     }
 
 };
