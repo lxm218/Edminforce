@@ -453,7 +453,7 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			studentID : json.studentID,
 			lessonDate : json.date,
 			type : 'makeup',
-			status : 'checkouting'
+			status : 'pending'
 		};
 
 		if(false && fee === 0){
@@ -503,7 +503,7 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 		}
 
 		data.type = 'makeup';
-		data.status = 'checkouting';
+		data.status = 'pending';
 		data.lessonDate = data.date;
 		delete data.date;
 

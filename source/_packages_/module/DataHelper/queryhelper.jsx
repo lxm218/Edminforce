@@ -163,7 +163,7 @@ KG.define('EF-DataHelper', class extends Base{
                     let tp = m.ClassStudent.getAll({
                         classID : item._id,
                         type : 'register',
-                        status : {'$in' : ['checkouting', 'checkouted']}
+                        status : {'$in' : ['pending', 'checkouted']}
                     });
 
                     let trail = m.ClassStudent.getAll({

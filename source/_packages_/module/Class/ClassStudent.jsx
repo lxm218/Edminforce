@@ -231,7 +231,7 @@ let ClassStudent = class extends Base{
                     classID : classID,
                     type : 'register',
                     status : {
-                        '$in' : ['checkouted', 'checkouting']
+                        '$in' : ['checkouted', 'pending']
                     }
                 }).count();
                 console.log(n);

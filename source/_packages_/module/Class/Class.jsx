@@ -305,7 +305,7 @@ let Class = class extends Base{
                 return rs > 0;
             },
             checkStudentCanBeTrailClass(opts){
-                let SUCCESSSTATUS = ['pending', 'checkouting', 'checkouted'];
+                let SUCCESSSTATUS = ['pending', 'checkouted'];
 
                 let {classID, studentID, date} = opts;
 
@@ -371,7 +371,7 @@ let Class = class extends Base{
 
             },
             checkStudentCanBeMakeupClass(opts){
-                let SUCCESSSTATUS = ['pending', 'checkouting', 'checkouted'];
+                let SUCCESSSTATUS = ['pending', 'checkouted'];
 
                 let {classID, studentID, date} = opts;
 
@@ -512,7 +512,7 @@ let Class = class extends Base{
                     orderStatus = 'success';
                 }
                 else{
-                    data.status = 'checkouting';
+                    data.status = 'pending';
                     orderStatus = 'waiting';
                 }
                 let newClassStudentID = m.ClassStudent.getDB().insert(data);
@@ -792,7 +792,7 @@ console.log(option)
                         classID : item._id,
                         type : 'register',
                         status : {
-                            '$in' : ['checkouted', 'checkouting']
+                            '$in' : ['checkouted', 'pending']
                         }
                     }).count();
 

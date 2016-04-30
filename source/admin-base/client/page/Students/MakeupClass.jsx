@@ -141,7 +141,7 @@ console.log(data);
 			studentID : json.studentID,
 			lessonDate : json.date,
 			type : 'makeup',
-			status : 'checkouting'
+			status : 'pending'
 		};
 
 		if(fee === 0){

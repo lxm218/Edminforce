@@ -205,7 +205,7 @@ Schema.ClassStudent = {
         }
     }),
     status : KG.schema.default({
-        allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled'],
+        allowedValues : ['pending', 'checkouted', 'canceled'],
         optional : true,
         defaultValue : 'pending'
     }),
