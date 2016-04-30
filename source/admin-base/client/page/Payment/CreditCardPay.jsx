@@ -45,7 +45,7 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
                     Credit Card | Total : ${total}
                 </h3>
                 {poundage>0?
-                    <p style={{textAlign:'right'}}>Poundage : {poundage*100}%</p>
+                    <p style={{textAlign:'right'}}>Transaction Fee: {poundage*100}%</p>
                     :
                     null
                 }
@@ -183,7 +183,7 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             <form className="form-horizontal">
                 <RB.Row>
                     <RB.Col md={12} mdOffset={0}>
-                        <RB.Input type="text" {... p.credit} />  
+                        <RB.Input type="text" {... p.credit} />
                         <div style={{textAlign:'right'}}>
                             <RB.Image  width="64px" height="55px" src="/assets/payment/visa.png" style={{paddingBottom: '15px'}}/>
                             <RB.Image  width="64px" height="55px" src="/assets/payment/mastercard.png" style={{paddingBottom: '15px'}}/>
