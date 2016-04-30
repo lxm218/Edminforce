@@ -171,23 +171,82 @@ let Class = class extends Base{
         return rs;
     }
 
+    _publishMeteorData(){
+        let self = this;
+        Meteor.publish(this._name, function(opts){
+            let pubThis = this;
+            opts = _.extend({
+                query : {},
+                sort : {},
+                pageSize : 999,
+                pageNum : 1,
+                field : null
+            }, opts||{});
+            _.mapObject(opts.query || {}, (item, key)=>{
+                if(_.isObject(item)){
+                    if(item.type === 'RegExp'){
+                        opts.query[key] = new RegExp(item.value, 'i');
+                    }
+                }
+            });
+
+            let skip = opts.pageSize * (opts.pageNum-1);
+            let option = {
+                sort : opts.sort,
+                skip : skip,
+                limit : opts.pageSize
+            };
+            if(opts.field){
+                option.fields = opts.field;
+            };
+
+            Counts.publish(this, self._name+'-count', self._db.find(opts.query), {
+                nonReactive : true,
+                noReady : true
+            });
+
+            let refresher = function(id, doc){
+                doc.program = KG.get('EF-Program').getDB().findOne({_id:doc.programID});
+                doc.session = KG.get('EF-Session').getDB().findOne({_id:doc.sessionID});
+
+                pubThis.added(self._name, id, doc);
+            };
+
+            let handler = self._db.find(opts.query, option).observeChanges({
+                added(id, fields){
+                    refresher(id, fields);
+                },
+                changed(id, fields){
+                    refresher(id, fields);
+                }
+            });
+
+            this.onStop(function() {
+                handler.stop();
+            });
+            return this.ready();
+        });
+
+
+        this.publishMeteorData();
+
+    }
+
 
 
 
     //TODO change to publish meteor data method like ClassStudent
     getAll(query){
-        if(Meteor.isClient){
-            let s1 = Meteor.subscribe('EF-Program');
-            let s2 = Meteor.subscribe('EF-Session');
-            if(!s1.ready() || !s2.ready()){
-                return [];
-            }
-        }
+        //if(Meteor.isClient){
+        //    let s1 = Meteor.subscribe('EF-Program');
+        //    let s2 = Meteor.subscribe('EF-Session');
+        //    if(!s1.ready() || !s2.ready()){
+        //        return [];
+        //    }
+        //}
 
         query = query || {};
 
-        let program = KG.get('EF-Program').getDB().find({}).fetch(),
-            session = KG.get('EF-Session').getDB().find().fetch();
 
         let sort = {
             updateTime : -1
@@ -196,12 +255,13 @@ let Class = class extends Base{
         let data = this._db.find(query, {sort : sort}).fetch();
         data = _.map(data, (item)=>{
 
-            let stmp = _.find(session, (s)=>{
-                return s._id === item.sessionID;
-            });
+            let stmp = item.session;
+            if(!stmp){
+                stmp = KG.get('EF-Session').getDB().findOne({_id:item.sessionID});
+                item.session = stmp;
+            }
 
             item.sessionName = stmp.name;
-            item.session = stmp;
 
 
             if(true || !item.numberOfClass){
@@ -211,11 +271,14 @@ let Class = class extends Base{
                 item.leftOfClass = this.calculateNumberOfClass(item, stmp, true);
             }
 
+            let smp = item.program;
+            if(!smp){
+                smp = KG.get('EF-Program').getDB().findOne({_id : item.programID});
+                item.program = smp;
+            }
 
             //nickName
-            let tn = _.find(program, (p)=>{
-                return p._id === item.programID;
-            }).name;
+            let tn = item.program.name;
             item.programName = tn;
 
             tn += ' '+item.sessionName;
@@ -242,7 +305,7 @@ let Class = class extends Base{
                 return rs > 0;
             },
             checkStudentCanBeTrailClass(opts){
-                let SUCCESSSTATUS = ['pending', 'checkouting', 'checkouted'];
+                let SUCCESSSTATUS = ['pending', 'checkouted'];
 
                 let {classID, studentID, date} = opts;
 
@@ -303,6 +366,64 @@ let Class = class extends Base{
                 if(n1 > 0){
                     return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
                 }
+
+                return KG.result.out(true, 'ok');
+
+            },
+            checkStudentCanBeMakeupClass(opts){
+                let SUCCESSSTATUS = ['pending', 'checkouted'];
+
+                let {classID, studentID, date} = opts;
+
+                let m = self.getDepModule();
+                let query = {
+                    studentID : studentID,
+                    classID : classID,
+                    type : 'register',
+                    status : {'$in' : SUCCESSSTATUS}
+                };
+                let one = m.ClassStudent.getDB().findOne(query);
+                if(!one){
+                    return KG.result.out(false, new Meteor.Error('-601', 'can not register, can not makeup'));
+                }
+
+                query = {
+                    studentID : studentID,
+                    classID : classID,
+                    type : 'makeup',
+                    status : {'$in' : SUCCESSSTATUS},
+                    lessonDate : date
+                };
+                let z1 = m.ClassStudent.getDB().find(query).count();
+                if(z1 > 0){
+                    return KG.result.out(false, new Meteor.Error('-602', 'already makeup'));
+                }
+
+                let co = self._db.findOne({_id : classID}),
+                    n = m.ClassStudent.getDB().find({
+                        classID : classID,
+                        type : 'register',
+                        status : {'$in' : SUCCESSSTATUS}
+                    }).count(),
+                    n1 = m.ClassStudent.getDB().find({
+                        classID : classID,
+                        type : 'makeup',
+                        lessonDate : date,
+                        status : {'$in' : SUCCESSSTATUS}
+                    }).count();
+                //if((co.maxStudent||0) <= (n+n1)){
+                //    return KG.result.out(false, new Meteor.Error('-603', 'class is full'));
+                //}
+                if((co.makeupStudent||0) <= n1){
+                    return KG.result.out(false, new Meteor.Error('-604', 'class makeup is full'));
+                }
+
+                //check student trail other class with same programID
+                let classList = self._db.find({
+                    programID : co.programID
+                }).fetch();
+
+
 
                 return KG.result.out(true, 'ok');
 
@@ -391,7 +512,7 @@ let Class = class extends Base{
                     orderStatus = 'success';
                 }
                 else{
-                    data.status = 'checkouting';
+                    data.status = 'pending';
                     orderStatus = 'waiting';
                 }
                 let newClassStudentID = m.ClassStudent.getDB().insert(data);
@@ -404,6 +525,7 @@ let Class = class extends Base{
                     paymentType : paymentType,
                     type : 'change class',
                     status : orderStatus,
+                    paymentSource : 'admin',
                     amount : amount,
                     paymentTotal : amount.toString()
                 };
@@ -442,6 +564,7 @@ let Class = class extends Base{
                     paymentType : paymentType,
                     type : 'cancel class',
                     status : orderStatus,
+                    paymentSource : 'admin',
                     amount : amount,
                     paymentTotal : amount.toString()
                 };
@@ -501,7 +624,9 @@ let Class = class extends Base{
                     //TODO why has a error
                     //pubThis.removed(dbName, doc._id)
                 });
+
                 arr = self.getAll({_id : id});
+                console.log(id);
                 _.each(arr, (doc)=>{
 
                     pubThis.added(dbName, doc._id, doc);
@@ -518,8 +643,8 @@ let Class = class extends Base{
                 });
                 query.sessionID = {'$in' : session};
             }
-
-            let handler = self._db.find(query).observeChanges({
+console.log(option)
+            let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){
                     refresher(id);
                 },
@@ -557,7 +682,7 @@ let Class = class extends Base{
                 }
                 let data = [];
                 if(x.ready()){
-                    data = tmpDB.find({}, option).fetch();
+                    data = tmpDB.find({}).fetch();
 
                 }
 
@@ -650,6 +775,40 @@ let Class = class extends Base{
     }
 
 
+    defineCronJob(){
+        let self = this;
+        let m = KG.DataHelper.getDepModule();
+        let job1 = {
+            name : 'sync class numberOfRegistered',
+            schedule: function (parser) {
+                return parser.text('every 5 min');
+            },
+            job : function(){
+
+                //TODO find best way to update
+                let list = self._db.find({}).fetch();
+                _.each(list, function(item){
+                    let n = m.ClassStudent.getDB().find({
+                        classID : item._id,
+                        type : 'register',
+                        status : {
+                            '$in' : ['checkouted', 'pending']
+                        }
+                    }).count();
+
+                    self._db.update({
+                        _id : item._id
+                    }, {
+                        '$set' : {
+                            numberOfRegistered : n
+                        }
+                    });
+                });
+            }
+        };
+
+        return [job1];
+    }
 
 };
 

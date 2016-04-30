@@ -6,7 +6,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : {},
+            query : null,
             page : 1,
             refresh : false
         };
@@ -47,7 +47,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 pageNum : this.state.page
             });
         }
-        let x2 = Meteor.subscribe('EF-Program');
+        let x2 = Meteor.subscribe('EF-Program', {});
             x3 = Meteor.subscribe('EF-Session', {
                 query : {
                     registrationStatus : 'Yes'
@@ -60,12 +60,13 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         let list = [];
         if(x1){
             list = x1.data;
+            console.log(x1.ready(), list);
         }
 
         return {
             ready : x1?x1.ready():true,
             list : list,
-            count : x1.count
+            count : x1?x1.count:0
         };
     }
 
@@ -96,10 +97,10 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 key : 'sessionName'
             },
             {
-                title : 'Number',
+                title : 'Registrations',
                 //key : 'numberOfClass'
                 reactDom(doc){
-                    return `${doc.leftOfClass}/${doc.numberOfClass}`;
+                    return `${doc.numberOfRegistered||0}/${doc.maxStudent}`;
                 }
             },
             {
@@ -278,8 +279,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
                 <hr/>
 
-                <p>Search Result : {this.data.count} matches</p>
-                {this.renderTable()}
+                {this.state.query ? <p>Search Result : {this.data.count} matches</p> : null}
+                {this.state.query ? this.renderTable() : null}
+
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton href="/program/class/add" label="Add New Class"></KUI.YesButton>
                 </RC.Div>

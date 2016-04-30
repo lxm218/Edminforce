@@ -44,37 +44,37 @@ const _studentFields = {
  *      classes: [class]
  * }
  */
-function getClasesForRegistration(userId, loadContextData, studentID, programID, sessionID) {
-    let result = {}
+function getClasesForRegistration(userId, studentID, programID, sessionID) {
+    let result = {
+        classes:[],
+    }
     let currentDate = new Date();
 
-    if (loadContextData || !studentID || !programID || !sessionID) {
-        result.students = Collections.student.find({accountID: userId},{fields:_studentFields}).fetch();
-        result.sessions = Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
-        result.programs = Collections.program.find({}).fetch();
+    result.students = Collections.student.find({accountID: userId},{fields:_studentFields}).fetch();
+    result.sessions = Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
+    result.programs = Collections.program.find({}).fetch();
 
-        if (!studentID || !_.find(result.students, {_id:studentID})) {
-            result.students.length > 0 && (result.studentID = studentID = result.students[0]._id);
-        }
+    if (!studentID || !_.find(result.students, {_id:studentID})) {
+        result.students.length > 0 && (result.studentID = studentID = result.students[0]._id);
+    }
 
-        if (!programID || !_.find(result.programs, {_id:programID})) {
-            result.programs.length > 0 && (result.programID = programID = result.programs[0]._id);
-        }
+    if (!programID || !_.find(result.programs, {_id:programID})) {
+        result.programs.length > 0 && (result.programID = programID = result.programs[0]._id);
+    }
 
-        if (!sessionID || !_.find(result.sessions, {_id:sessionID})) {
-            result.sessions.length > 0 && (result.sessionID = sessionID = result.sessions[0]._id);
-        }
+    if (!sessionID || !_.find(result.sessions, {_id:sessionID})) {
+        result.sessions.length > 0 && (result.sessionID = sessionID = result.sessions[0]._id);
     }
 
     if (!studentID || !programID || !sessionID) return result;
 
-    let student = result.students ? _.find(result.students, {_id:studentID}) : Collections.student.findOne({_id:studentID},{fields:_studentFields});
+    let student = _.find(result.students, {_id:studentID});
     if (!student) return result;
 
-    let selectedSession = result.sessions ? _.find(result.sessions, {_id:sessionID}) : Collections.session.findOne({_id:sessionID});
+    let selectedSession = _.find(result.sessions, {_id:sessionID});
     if (!selectedSession) return result;
     
-    let program = result.programs ? _.find(result.programs, {_id:programID}) : Collections.program.findOne({_id: programID});
+    let program = _.find(result.programs, {_id:programID});
     if (!program) return result;
 
     // check if it's the priority registration time for the selected session
@@ -597,10 +597,8 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSour
         });
     }
 
-    console.log(orderUpdate);
-    
     Collections.orders.update({
-        _id: order.orderId,
+        _id: order._id,
         accountID: userId
     }, {
         $set: orderUpdate
@@ -787,6 +785,7 @@ function payECheck(userId, checkPaymentInfo) {
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
     let paymentTotal = order.amount + 0.5;
+    paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
     var URL = 'https://apitest.authorize.net/xml/v1/request.api'
@@ -871,6 +870,7 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
     let paymentTotal = order.amount * 1.03;
+    paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
     let URL = 'https://apitest.authorize.net/xml/v1/request.api';

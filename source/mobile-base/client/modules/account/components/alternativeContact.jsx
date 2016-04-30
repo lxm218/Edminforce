@@ -21,7 +21,7 @@ EdminForce.Components.AccountAlternative = class extends RC.CSS {
         let style = {
             padding: '10px'
         };
-        let checked = (this.props.alternativeContact.receive.toString() === 'true');
+        let checked = this.props.alternativeContact.receive;
 
         //{checked ? <RC.Checkbox name="receive" checked label="Receive Communications"/> : <RC.Checkbox name="receive" label="Receive Communications"/>}
         return <RC.Div style={style}>

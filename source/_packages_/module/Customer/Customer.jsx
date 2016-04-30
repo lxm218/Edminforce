@@ -243,7 +243,7 @@ KG.define('EF-Customer', class extends Base{
 
             useSchoolCreditById(credit, id){
                 let one = this._db.findOne({_id : id});
-                credit = credit || one.schoolCredit;
+                //credit = credit;
                 let rs = this._db.update({_id : id}, {'$inc' : {
                     schoolCredit : (credit*-1)
                 }});

@@ -85,6 +85,9 @@ let Student = class extends Base{
         if(data.nickName){
             data.name = data.nickName;
         }
+        else{
+            data.nickName = data.name;
+        }
 
         try{
             let rs = this._db.insert(data, function(err){
@@ -94,6 +97,24 @@ let Student = class extends Base{
         }catch(e){
             return KG.result.out(false, e, e.reason||e.toString());
         }
+    }
+
+    defineMeteorMethod(){
+        let self = this;
+        return {
+            getStudentListByQuery : function(query, option){
+                option = KG.util.setDBOption(option||{});
+                query = KG.util.setDBQuery(query||{});
+
+                let rs = self.getAll(query, option),
+                    count = self._db.find(query).count();
+
+                return {
+                    list : rs,
+                    count : count
+                };
+            }
+        };
     }
 
 

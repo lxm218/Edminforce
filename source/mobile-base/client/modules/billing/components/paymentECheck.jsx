@@ -60,7 +60,7 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
             <RC.List className="padding">
                 {EdminForce.utils.renderError(this.props.error)}
                 <div className="payment-container">
-                    <span className="totalAmount">Total Amount is : ${this.paymentTotal}</span>
+                    <span className="totalAmount">Total Amount is : ${this.paymentTotal.toFixed(2)}</span>
                     <br/>
                     <br/>
                     <div>
@@ -72,7 +72,11 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
                         <RC.Input name="nameOnAccount" label="Check Holder Name" theme={inputTheme} onChange={this.validateFormData} ref="nameOnAccount"/>
                         <RC.Button name="button" theme="full" buttonColor="brand" {...payButtonOpts}>Pay Now</RC.Button>
                     </RC.Form>
-                    <a href="http://www.authorize.net/"><div className="authorize-verified"></div></a>
+                    <div style={{textAlign:'center'}}>
+                        <a href="http://www.authorize.net/"><span className="badge authorize"></span></a>
+                        <span className="badge positive"></span>
+                        <span className="badge comodo"></span>
+                    </div>
                 </div>
             </RC.List>
         );

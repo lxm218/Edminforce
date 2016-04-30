@@ -8,7 +8,7 @@ EdminForce.Actions.Students = {
         !student.status && (student.status='Active');
         student.profile = {
             gender: updatedStudent.gender,
-            birthday: updatedStudent.birthday
+            birthday: new Date(updatedStudent.birthday)
         }
         Meteor.call('students.upsertStudent', student, function (err) {
             if (err) {

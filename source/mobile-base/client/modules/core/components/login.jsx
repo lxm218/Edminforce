@@ -262,19 +262,11 @@ EdminForce.Components.User = React.createClass({
       }, function(err) {
         if (!err){
             // add data to Customer DB
-            let xs = Collections.Customer.insert({
-                name : form.email,
-                email : form.email,
-                _id : Meteor.user()._id
+            Meteor.call('account.addCustomer', form.email, form.email, function(methodErr,result){
+                methodErr && console.log(methodErr);
             });
-            console.log(xs);
 
-
-          //Meteor.call('SetOptIn', Meteor.userId(), form.OptIn == "on" ? true : false, function(error, res){
-          //  console.log(error)
-          //  err = error;
-          //})
-          self.resetForm()
+            self.resetForm()
         }
 
         let passedMsg = err && err.error

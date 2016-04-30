@@ -16,13 +16,34 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 100%;
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   margin:0 auto;
 }
 
 .payment-container{
   padding: 20px;
+}
+
+.badge{
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100%;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  margin-right: 10px;
+  &.authorize{
+    background-image: url('/img/payment/authorize-verified.png');
+  }
+
+  &.positive{
+    background-image: url('/img/payment/PositiveSSL_tl_trans.png');
+  }
+
+  &.comodo{
+    background-image: url('/img/payment/comodo-secure-padlock.png');
+  }
 }
 
 .card{

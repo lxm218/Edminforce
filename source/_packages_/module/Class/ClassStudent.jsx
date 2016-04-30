@@ -57,6 +57,9 @@ let ClassStudent = class extends Base{
 
     // will run in schema custom func
     validateSchemaStatus(doc){
+        if(Meteor.isClient){
+            return true;
+        }
         let co = this.module.class.getDB().findOne({_id : doc.classID}),
             so = this.module.student.getAll({_id : doc.studentID})[0];
         let rs = true;
@@ -214,6 +217,31 @@ let ClassStudent = class extends Base{
                     }, delay);
                 }
 
+
+            }
+        };
+    }
+
+    defineMeteorMethod(){
+        let self = this;
+        return {
+            syncNumberOfRegister(classID){
+                let m = KG.DataHelper.getDepModule();
+                let n = self.getDB().find({
+                    classID : classID,
+                    type : 'register',
+                    status : {
+                        '$in' : ['checkouted', 'pending']
+                    }
+                }).count();
+                console.log(n);
+                return m.Class._db.update({
+                    _id : classID
+                }, {
+                    '$set' : {
+                        numberOfRegistered : n
+                    }
+                });
 
             }
         };

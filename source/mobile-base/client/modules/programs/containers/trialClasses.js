@@ -15,7 +15,11 @@ const reactiveFnTrialClasses = ({context,actions,programID}, onData) => {
         onData();
         // call method to get trial classes in 4 weeks
         Meteor.call('program.getTrialClasses', programID, new Date(), moment().add(4,'w').toDate(),  function(methodError, result) {
-            !methodError && (context.MethodCache[methodName] = result);
+            if (!methodError){
+                EdminForce.utils.parseLessonDate(result);
+                context.MethodCache[methodName]=result;
+            }
+
             onData(null,{
                 classes : result || [],
                 error: methodError

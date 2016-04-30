@@ -63,7 +63,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
 
         let data = this.data.data,
             poundage = parseFloat(data.poundage||0) || 0,
-            total = data.paymentTotal.replace(/\$/g, '');
+            total = data.paymentTotal;
         this.total = total;
 
         return (
@@ -72,20 +72,32 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                     E-Check | Total : ${total}
                 </h3>
                 {poundage>0?
-                    <p style={{textAlign:'right'}}>Poundage : {poundage}</p>
+                    <p style={{textAlign:'right'}}>Transaction Fee: ${poundage}</p>
                     :
                     null
                 }
                 <hr/>
+
+                <div style={{textAlign:'right'}}>
+                    <RB.Image width="288.64px" height = "177.28px" style={{paddingTop: '5px', paddingBottom: '20px'}} src="/assets/payment/sample-check.jpg" />
+                </div>
+
                 {this.renderForm()}
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton ref="btn" onClick={this.pay.bind(this)} label="Pay Now"></KUI.YesButton>
                 </RC.Div>
+                 <div style={{textAlign:'right'}}>
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/comodo-secure-padlock.png" />
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/PositiveSSL_tl_trans.png" />
+                    <RB.Image   height="100px" style={{paddingTop: '30px'}} src="/assets/payment/authorize-verified.png" />
+                </div>
             </RC.Div>
         );
     }
 
     pay(){
+        let makeup = Session.get('KG-Class-Makeup-Fn') && Session.get('KG-Class-Makeup-Fn')==='makeup';
+
         let json = this.data.data;
         let data = this.getFormValue();
         console.log(data);
@@ -106,9 +118,19 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
             };
             KG.get('EF-Order').updateById(nd, this.data.orderID);
 
-            _.delay(function(){
-                util.goPath('/registration/success/'+json.details[0]);
-            }, 100);
+            if(makeup){
+                //TODO makeup
+                KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.data.details[0]);
+                util.goPath('/student/'+this.data.data.studentID);
+
+            }
+            else{
+                _.delay(function(){
+                    util.goPath('/registration/success/'+json.details[0]);
+                }, 100);
+            }
+
+
         });
     }
 

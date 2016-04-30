@@ -7,6 +7,10 @@ KG.define('EF-Program', class extends Base{
             description : KG.schema.default({
                 optional : true
             }),
+            displayOrder: {
+                type: Number,
+                defaultValue: 0
+            },
             createTime : KG.schema.createTime(),
             updateTime : KG.schema.updateTime()
         };

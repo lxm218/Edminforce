@@ -49,6 +49,16 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/makeupclass/:studentID/:classID', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Students | Makeup Class",
+                bodyTmpl: <KUI.Student_MakeupClass />
+            });
+
+        }
+    });
+
     Route.route('/changeclass/:classstudentID', {
         action : function(p){
             App.routeHandler(p, {

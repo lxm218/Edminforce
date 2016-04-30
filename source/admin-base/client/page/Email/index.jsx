@@ -86,7 +86,7 @@ KUI.Email_index = class extends KUI.Page{
                 <hr/>
                 {this.renderFilterBox()}
                 <hr/>
-                <p>Search Result : {this.data.filterCount} matches</p>
+
                 {this.renderFilterResult()}
                 <hr/>
                 {this.renderFilterEmail()}
@@ -196,7 +196,7 @@ KUI.Email_index = class extends KUI.Page{
 
                 </RB.Row>
                 <RC.Div style={{textAlign:'right'}}>
-                    <KUI.YesButton onClick={this.search.bind(this)} label="Confirm Search"></KUI.YesButton>
+                    <KUI.YesButton onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
                 </RC.Div>
             </form>
         );
@@ -227,12 +227,16 @@ KUI.Email_index = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
-        this.search();
+        //this.search();
     }
 
     renderFilterResult(){
         if(!this.data.filterReady){
             return util.renderLoading();
+        }
+        console.log(this.data.filterList);
+        if(!this.data.filterList){
+            return null;
         }
 
         const titleArray = [
@@ -261,16 +265,19 @@ KUI.Email_index = class extends KUI.Page{
         ];
 
         return (
-            <KUI.PageTable
-                style={{}}
-                total={this.data.filterCount}
-                onSelectPage={(function(p){this.setState({page:p})}).bind(this)}
-                pagesize={10}
-                page={this.state.page}
-                list={this.data.filterList}
-                title={titleArray}
-                ref="table">
-            </KUI.PageTable>
+            <RC.Div>
+                <p>Search Result : {this.data.filterCount} matches</p>
+                <KUI.PageTable
+                    style={{}}
+                    total={this.data.filterCount}
+                    onSelectPage={(function(p){this.setState({page:p})}).bind(this)}
+                    pagesize={10}
+                    page={this.state.page}
+                    list={this.data.filterList}
+                    title={titleArray}
+                    ref="table">
+                </KUI.PageTable>
+            </RC.Div>
         );
     }
 

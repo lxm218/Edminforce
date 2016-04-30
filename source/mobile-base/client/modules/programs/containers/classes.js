@@ -34,11 +34,7 @@ const reactiveFnClasses = ({context,actions}, onData) => {
         // call onData with no data to show loading screen
         onData();
 
-        let loadContextData = !context.StateBag.classes.students ||
-                !context.StateBag.classes.sessions ||
-                !context.StateBag.classes.programs;
-
-        Meteor.call(methodName, loadContextData, studentID, programID, sessionID, function(methodError, result) {
+        Meteor.call(methodName, studentID, programID, sessionID, function(methodError, result) {
             if (!methodError) {
                 context.MethodCache[methodName] = result;
                 
@@ -61,7 +57,7 @@ const reactiveFnClasses = ({context,actions}, onData) => {
             }
 
             onData(null,{
-                registration : result || {classes:[]},
+                registration : result,
                 error: methodError
             });
         });

@@ -14,7 +14,21 @@ Schema.Contact = {
                 return '601';
             }
         }
-    })
+    }),
+    email: {
+        type: String,
+        regEx: SimpleSchema.RegEx.Email,
+        optional: true
+    },
+    relation: {
+        type: String,
+        optional: true
+    },
+    receive: {
+        type: Boolean,
+        optional: true,
+        defaultValue: false
+    }
 };
 
 Validate.Customer = {
@@ -33,7 +47,7 @@ Schema.Customer = {
         //optional : true
     }),
     phone : KG.schema.default({
-        //optional : true,
+        optional : true,
         custom : function(){
             if(this.value && !/^[0-9]*$/g.test(this.value)){
                 return '601';
@@ -41,7 +55,7 @@ Schema.Customer = {
         }
     }),
     location : KG.schema.default({
-        //optional : true
+        optional : true
     }),
     image : KG.schema.default({
         optional : true

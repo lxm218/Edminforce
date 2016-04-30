@@ -11,7 +11,8 @@ KG.define('EF-DataHelper', class extends Base{
             Customer : KG.get('EF-Customer'),
             Order : KG.get('EF-Order'),
             Program : KG.get('EF-Program'),
-            Session : KG.get('EF-Session')
+            Session : KG.get('EF-Session'),
+            StudentComment : KG.get('EF-StudentComment')
         };
 
     }
@@ -150,9 +151,9 @@ KG.define('EF-DataHelper', class extends Base{
 
                 let format = 'YYYYMMDD';
                 _.each(classData, (item)=>{
+
                     let cld = m.Class.getClassLessonDate(item);
                     let tmp = _.find(cld, function(one){
-                        //console.log(moment(one).format(format), min.format(format));
                         return moment(one).format(format) === min.format(format);
                     });
                     if(!tmp) return true;
@@ -162,15 +163,15 @@ KG.define('EF-DataHelper', class extends Base{
                     let tp = m.ClassStudent.getAll({
                         classID : item._id,
                         type : 'register',
-                        status : {'$in' : ['checkouting', 'checkouted']}
+                        status : {'$in' : ['pending', 'checkouted']}
                     });
 
                     let trail = m.ClassStudent.getAll({
                         classID : item._id,
                         type : {'$in' : ['trial', 'makeup']},
                         lessonDate : {
-                            '$gte' : min.subtract(2, 'days').toDate(),
-                            '$lt' : max.add(2, 'days').toDate()
+                            '$gte' : min.clone().subtract(2, 'days').toDate(),
+                            '$lt' : max.clone().add(2, 'days').toDate()
                         }
                     });
 

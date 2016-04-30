@@ -35,6 +35,11 @@ KUI.Program_edit = class extends KUI.Page{
                 wrapperClassName : 'col-xs-12',
                 ref : 'pdesc'
                 //label : 'Program Description'
+            },
+            sort : {
+                wrapperClassName : 'col-xs-6',
+                ref : 'sort',
+                placeholder : 'Display Order'
             }
         };
 
@@ -49,6 +54,7 @@ KUI.Program_edit = class extends KUI.Page{
                         <form className="form-horizontal">
 
                             <RB.Input type="text" {... p.name} />
+                            <RB.Input type="text" {... p.sort} />
                             <RB.Input {... p.desc} >
                                 <div ref="html"></div>
 
@@ -85,15 +91,25 @@ KUI.Program_edit = class extends KUI.Page{
         let name = this.refs.pname;
         let desc = this.data.data.description ? decodeURIComponent(this.data.data.description) : '';
 
+
         name.getInputDOMNode().value = this.data.data.name;
+        this.refs.sort.getInputDOMNode().value = this.data.data.displayOrder || 0;
         $(this.refs.html).summernote('code', desc);
     }
 
     save(){
         let name = this.refs.pname,
+            sort = parseInt(this.refs.sort.getValue(), 10),
             desc = $(this.refs.html).summernote('code');
+
+        if(_.isNaN(sort) || !_.isNumber(sort)){
+            util.toast.showError('sort is must number');
+            return false;
+        }
+
         let rs = KG.get('EF-Program').updateById({
             name : name.getValue(),
+            displayOrder : sort,
             description : encodeURIComponent(desc)
         }, this.getProgramId());
 

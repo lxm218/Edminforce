@@ -27,6 +27,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
         this.onSelectStudent = this.onSelectStudent.bind(this);
         this.onSelectProgram = this.onSelectProgram.bind(this);
         this.onTableRowSelection = this.onTableRowSelection.bind(this);
+        this.addStudent = this.addStudent.bind(this);
 
         this.stateBag = this.props.context.StateBag.classes;
     }
@@ -64,6 +65,14 @@ EdminForce.Components.Classes = class extends RC.CSS {
             return;
         }
         this.props.actions.bookClass(this.stateBag.studentID, this.selectedClasses.map( (c) => c._id ));
+    }
+
+    addStudent() {
+        let redirectQueryParams = {
+            r: '/classes'
+        };
+
+        FlowRouter.go(FlowRouter.path('/student', null, redirectQueryParams));
     }
 
     render() {
@@ -175,9 +184,15 @@ EdminForce.Components.Classes = class extends RC.CSS {
                 <RC.VerticalAlign center={true} className="padding" height="300px" key="title">
                     <h2>Registration</h2>
                 </RC.VerticalAlign>
-                <RC.Select options={this.stateBag.students} value={this.stateBag.studentID} key="studentList"
-                           label="Students" labelColor="brand1"
-                           onChange={this.onSelectStudent}/>
+                {
+                    this.stateBag.students && this.stateBag.students.length > 0 ?
+                        (<RC.Select options={this.stateBag.students} value={this.stateBag.studentID} key="studentList"
+                                   label="Students" labelColor="brand1"
+                                   onChange={this.onSelectStudent}/>) :
+                        (
+                            <RC.Button bgColor="brand2" theme="inline" bgColorHover="dark" onClick={this.addStudent} key="addStudentBtn">Add Student</RC.Button>
+                        )
+                }
                 <RC.Select options={this.stateBag.sessions} value={this.stateBag.sessionID} key="sessionList"
                            label="Session" labelColor="brand1"
                            onChange={this.onSelectSession}/>

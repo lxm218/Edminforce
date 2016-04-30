@@ -138,7 +138,7 @@ Schema.Class = {
 
     // trial class record, each lesson date
     // has a count.
-    // { '20160101' : 2}
+    // { 'd20160101' : 2}
     trial: {
       type: Object,
       optional: true,
@@ -205,7 +205,7 @@ Schema.ClassStudent = {
         }
     }),
     status : KG.schema.default({
-        allowedValues : ['pending', 'checkouting', 'checkouted', 'expiring', 'expired', 'canceling', 'canceled'],
+        allowedValues : ['pending', 'checkouted', 'canceled'],
         optional : true,
         defaultValue : 'pending'
     }),

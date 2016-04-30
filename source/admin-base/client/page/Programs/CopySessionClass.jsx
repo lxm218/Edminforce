@@ -45,10 +45,10 @@ KUI.Session_CopySessionClass = class extends KUI.Page{
 	renderFilterBox(){
 		let p = {
 			session : {
-				labelClassName : 'col-xs-2',
-				wrapperClassName : 'col-xs-10',
+				labelClassName : 'col-xs-3',
+				wrapperClassName : 'col-xs-9',
 				ref : 'session',
-				label : 'Session'
+				label : 'From Session'
 			}
 		};
 

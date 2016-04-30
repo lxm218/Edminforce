@@ -3,6 +3,8 @@
 KUI.Student_profile = class extends KUI.Page{
     constructor(p){
         super(p);
+
+        this.m = KG.DataHelper.getDepModule();
     }
 
     baseStyles(){
@@ -64,12 +66,19 @@ KUI.Student_profile = class extends KUI.Page{
         if(cs.length>0 && _.size(classData) < 1){
             return {ready : false};
         }
+
+        let scx = Meteor.subscribe('EF-StudentComment', {
+            studentID : this.getProfileId()
+        });
         return {
             id,
             ready : sub.ready(),
             profile,
             classStudentData : cs,
-            classData : classData
+            classData : classData,
+
+            scReady : scx.ready(),
+            scList : this.m.StudentComment.getDB().find({}, {sort:{createTime:-1}}).fetch()
         };
     }
 
@@ -108,7 +117,8 @@ KUI.Student_profile = class extends KUI.Page{
 
                 {this.getProfileBox()}
 
-                <hr />
+
+                <hr/>
                 <h3>Current Class</h3>
                 {this.renderClassTable()}
                 <RC.Div style={sy.rd}>
@@ -121,12 +131,75 @@ KUI.Student_profile = class extends KUI.Page{
                 <h3>Trial / Makeup Class</h3>
                 {this.renderTrailOrMakeupClassTable()}
                 <RC.Div style={sy.rd}>
+
                     <KUI.YesButton style={sy.ml} href={`/student/trailclass/${this.data.id}`} label="Trial Class"></KUI.YesButton>
                 </RC.Div>
+                <hr/>
+                <h3>Student Comment</h3>
+                {this.renderStudentCommentTable()}
+                <hr/>
+                {this.sendCommentBox()}
 
             </RC.Div>
         );
 
+    }
+
+    sendCommentBox(){
+        let p = {
+            comment : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-10',
+                ref : 'sendCommentText',
+                label : 'Comment'
+            }
+        };
+
+        const sy = {
+            td : {
+                textAlign : 'left'
+            },
+            ml : {
+                marginLeft : '20px'
+            },
+            rd : {
+                textAlign : 'right'
+            }
+        };
+
+        return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Col md={12}>
+                        <RB.Input type="textarea" {... p.comment} />
+                    </RB.Col>
+                </RB.Row>
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.sendComment.bind(this)} label="Add Comment"></KUI.YesButton>
+                </RC.Div>
+            </form>
+        );
+
+    }
+
+    sendComment(){
+        let self = this;
+        let data = {
+            studentID : this.getProfileId(),
+            studentName : this.data.profile.name,
+            fromID : Meteor.user()._id,
+            fromName : Meteor.user().username,
+            comment : this.refs.sendCommentText.getValue()
+        };
+        console.log(data);
+
+        let rs = this.m.StudentComment.insert(data);
+        KG.result.handle(rs, {
+            success : function(){
+                util.toast.alert('Send Comment success');
+                self.refs.sendCommentText.getInputDOMNode().value = '';
+            }
+        });
     }
 
     renderClassHistoryTable(){
@@ -236,8 +309,12 @@ KUI.Student_profile = class extends KUI.Page{
                         marginRight: '10px'
                     };
 
+                    let id = self.getProfileId();
+
                     return (
                         <RC.Div style={{textAlign:'center'}}>
+                            <KUI.NoButton style={sy} href={`/student/makeupclass/${id}/${doc.classID}`}
+                                          label="Make up"></KUI.NoButton>
                             <KUI.NoButton style={sy} href={`/student/changeclass/${doc._id}`}
                              label="Change"></KUI.NoButton>
 
@@ -357,6 +434,10 @@ KUI.Student_profile = class extends KUI.Page{
                 }
             },
             {
+                title : 'Type',
+                key : 'type'
+            },
+            {
                 title : 'Status',
                 //key : 'status'
                 reactDom(doc){
@@ -370,7 +451,7 @@ KUI.Student_profile = class extends KUI.Page{
             if(item.type !== 'trial' && item.type !== 'makeup'){
                 return true;
             }
-            let cls = this.data.classData[item.classID];
+            let cls = this.data.classData[item.classID] || {};
             item.class = cls.nickName;
             item.teacher = cls.teacher;
             item.session = cls.sessionName;
@@ -387,7 +468,33 @@ KUI.Student_profile = class extends KUI.Page{
         );
     }
 
+    renderStudentCommentTable(){
+        console.log(this.data.scReady, this.data.scList);
+        if(!this.data.scReady){
+            return util.renderLoading();
+        }
 
+        let titleArray = [
+            {
+                title : 'Date',
+                reactDom(doc){
+                    return moment(doc.createTime).format(util.const.dateFormat)
+                }
+            },
+            {
+                title : 'Comments',
+                key : 'comment'
+            }
+        ];
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={this.data.scList}
+                title={titleArray}
+                ref="table1"></KUI.Table>
+        );
+    }
 
 };
 

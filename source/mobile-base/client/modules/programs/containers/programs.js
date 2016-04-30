@@ -4,7 +4,7 @@ const reactiveFnPrograms = ({context,actions}, onData) => {
     const error = context.LocalState.get(errorId);
     if (Meteor.subscribe('programs').ready()) {
         onData(null, {
-            programs: Collections.program.find({},{sort: {createTime: -1}}).fetch(),
+            programs: Collections.program.find({},{sort: {displayOrder: 1}}).fetch(),
             error
         })
     }

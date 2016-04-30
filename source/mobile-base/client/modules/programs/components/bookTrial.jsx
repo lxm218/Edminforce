@@ -56,6 +56,7 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
     render() {
         let {
             classItem,
+            program,
             students
         } = this.props.trialStudents;
 
@@ -86,8 +87,8 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
                             <RC.Button bgColor="brand2" key='_add_button_' theme="inline"
                                        onClick={this.addStudent}>Add</RC.Button> : null}
                     </RC.Item>
-                    <RC.Item title="Class Name">
-                        {classItem.name}
+                    <RC.Item title="Class">
+                        {program.name}
                     </RC.Item>
                     <RC.Item title="Date">
                         {moment(this.classDateTime).format("dddd, MMMM Do YYYY, h:mm a")}

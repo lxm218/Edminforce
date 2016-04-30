@@ -3,10 +3,15 @@ KUI.Comp = {};
 KUI.Comp.SelectPaymentWay = class extends RC.CSS{
 	render(){
 
+		let f = this.props.type !== 'cash';
+
 		return (
 			<RC.Div style={{}}>
+				{f?
 				<RB.Input onChange={function(){}} ref="s21" name="cgroup" type="radio" label="Credit Card/Debit Card" />
-				<RB.Input onChange={function(){}} ref="s24" name="cgroup" type="radio" label="E-Check" />
+					:null}
+				{f?<RB.Input onChange={function(){}} ref="s24" name="cgroup" type="radio" label="E-Check" />:null}
+
 				<RB.Input onChange={function(){}} ref="s22" name="cgroup" type="radio" label="Cash" />
 				<RB.Input onChange={function(){}} ref="s23" name="cgroup" type="radio" label="Check" />
 
