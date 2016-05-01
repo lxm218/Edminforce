@@ -13,7 +13,7 @@ EdminForce.Components.HeaderNav = class extends RC.HeaderNav {
     if (!this.props.useMiniNav && this.props.children) {
       // Full Nav
       return <div>
-        <RC.URL href={this.props.shoppingCartUrl} style={Object.assign(h.assignPseudos(styles.xContain, state.get("fullNav")), {right:30, top: 5}) }>
+        <RC.URL href={this.props.shoppingCartUrl} style={Object.assign(h.assignPseudos(styles.xContain, state.get("fullNav")), {right:30, top: 5, zIndex: 6000}) }>
           <RC.AvatarBadge
               color="#ff7928"
               style={{backgroundColor:'none',float:'right'}}
