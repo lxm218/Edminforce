@@ -10,8 +10,9 @@ EdminForce.Components.AppMain = React.createClass({
     render: function () {
         return (
             <RC.Body>
-                <RC.HeaderNav nav={this.props.headerNav} title={this.props.title}
-                    useMiniNav={!Meteor.user() || !!this.props.headerNav}>
+                <EdminForce.Components.HeaderNav nav={this.props.headerNav} title={this.props.title}
+                    useMiniNav={!Meteor.user() || !!this.props.headerNav}
+                    shoppingCartUrl="/checkout">
                     <RC.URL href="/">Home</RC.URL>
                     <RC.URL href="/account">My Account</RC.URL>
                     <RC.URL href="/students">Students</RC.URL>
@@ -20,7 +21,7 @@ EdminForce.Components.AppMain = React.createClass({
                     <RC.URL href="/billings">Billing</RC.URL>
                     <RC.URL href="/contact">Contact Us</RC.URL>
                     <RC.URL onClick={this.signout}>Sign Out</RC.URL>
-                </RC.HeaderNav>
+                </EdminForce.Components.HeaderNav>
 
                 <RC.MobileContentArea>
                         {this.props.body}
