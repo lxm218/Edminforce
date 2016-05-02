@@ -20,6 +20,8 @@ Meteor.startup(function () {
             return parser.text('every 5 mins');
         },
         job: function () {
+            console.log(`Expiration check of pending registrations (${Meteor.settings.public.pendingRegistrationTTL}).`);
+            
             // current time
             let now = new Date();
             // valid date

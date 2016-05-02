@@ -26,7 +26,6 @@ Schema.Order = {
     amount:{
         type: Number,
         decimal: true,
-        decimal : true
     },
     discount:{
         type: Number,

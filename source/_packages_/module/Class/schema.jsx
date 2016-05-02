@@ -204,6 +204,12 @@ Schema.ClassStudent = {
 
         }
     }),
+    fee:{
+        type: Number,
+        optional: true,
+        decimal: true,
+        defaultValue: 0
+    },
     status : KG.schema.default({
         allowedValues : ['pending', 'checkouted', 'canceled', 'expired'],
         optional : true,

@@ -461,6 +461,10 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
             result.total += sc.classFee;
 
             student.classes.push(sc);
+
+            // save classFee back into classStudent record
+            // so we can show it in billing report
+            Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee}});
         });
 
         result.students.push(student);
