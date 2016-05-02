@@ -33,7 +33,7 @@ KUI.Class_detail = class extends KUI.Page{
             data : data,
             id : id,
 
-            checkCanBeRegister : KG.get('EF-Class').checkCanBeRegister(id)
+            checkCanBeRegister : true
         };
     }
 
@@ -67,6 +67,9 @@ KUI.Class_detail = class extends KUI.Page{
                 <h3>Registration</h3>
                 {this.renderClassTable()}
                 {this.renderRegisterButton()}
+                <hr/>
+                <h3>Trials/Makeup/Waitlist</h3>
+                {this.renderOtherTypeTable()}
             </RC.Div>
         );
     }
@@ -123,6 +126,10 @@ KUI.Class_detail = class extends KUI.Page{
                 }
             },
             {
+                title : 'Type',
+                key : 'type'
+            },
+            {
                 title : 'Status',
                 //key : 'status'
                 reactDom(doc){
@@ -132,7 +139,65 @@ KUI.Class_detail = class extends KUI.Page{
         ];
 
         let list = _.filter(this.state.classTableData, (item)=>{
-            return item.status === 'checkouted';
+            return _.contains(['checkouted', 'pending'], item.status) && item.type === 'register';
+        });
+
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={list}
+                title={titleArray}
+                ref="table"></KUI.Table>
+        );
+    }
+
+    renderOtherTypeTable(){
+        if(!this.state.classTableReady){
+            return util.renderLoading();
+        }
+
+
+
+        let titleArray = [
+            {
+                title : 'Student',
+                reactDom(doc){
+                    return <RC.URL href={`/student/${doc.studentObj._id}`}>{doc.studentObj.nickName}</RC.URL>
+                }
+            },
+            {
+                title : 'Age',
+                key : 'studentObj.age'
+            },
+            {
+                title : 'Gender',
+                key : 'studentObj.profile.gender'
+            },
+            {
+                title : 'Start Date',
+                reactDom(doc){
+                    return moment(doc.classObj.session.registrationStartDate).format(util.const.dateFormat);
+                }
+            },
+            {
+                title : 'End Date',
+                reactDom(doc){
+                    return moment(doc.classObj.session.registrationEndDate).format(util.const.dateFormat);
+                }
+            },
+
+            {
+                title : 'Status',
+                //key : 'status'
+                reactDom(doc){
+                    return doc.status==='checkouted'?'success':doc.status;
+                }
+            }
+        ];
+
+        let list = _.filter(this.state.classTableData, (item)=>{
+            return item.status === 'checkouted' && item.type !== 'register';
         });
 
 
@@ -147,11 +212,11 @@ KUI.Class_detail = class extends KUI.Page{
 
     renderRegisterButton(){
         let x = this.data.checkCanBeRegister;
-        if(!x.ready){
+        if(!x){
             return null;
         }
 
-        let flag = x.flag;
+        let flag = x;
         let classID = this.getClassId();
 
         return (
@@ -166,7 +231,8 @@ KUI.Class_detail = class extends KUI.Page{
 
     runOnceAfterDataReady(){
         let self = this;
-        KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId(), 2000, function(data){
+        console.log(this.getClassId())
+        KG.get('EF-ClassStudent').subscribeFullDataByClassID(this.getClassId(), 500, function(data){
             console.log(data);
             self.setState({
                 classTableReady:true,

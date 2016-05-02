@@ -140,6 +140,7 @@ let ClassStudent = class extends Base{
     publishMeteorData(){
         let me = this;
 
+        let ARR1 = [];
         Meteor.publish('EF-ClassStudent-By-ClassID', function(classID){
             let query = {
                     classID : classID
@@ -147,31 +148,33 @@ let ClassStudent = class extends Base{
                 sort = {
                     updateTime : -1
                 };
-            //console.log(query);
+            console.log(query);
             let self = this;
+
             let arr = [],
                 dbName = 'EF-ClassStudent-By-ClassID';
-            let refresher = function(){
-                //_.each(arr, function(doc){
-                //    self.removed(dbName, doc._id)
-                //});
-                arr = me._db.find(query, {sort:sort}).fetch();
-                _.each(arr, function(doc){
-                    doc.classObj = me.module.class.getAll({_id:doc.classID})[0];
-                    doc.studentObj = me.module.student.getAll({_id:doc.studentID})[0];
-                    self.added(dbName, doc._id, doc);
-                });
-                //console.log(arr);
+
+
+            let refresher = function(id, doc){
+//console.log(id, doc);
+                doc.classObj = me.module.class.getAll({_id:doc.classID})[0];
+                doc.studentObj = me.module.student.getAll({_id:doc.studentID})[0];
+                self.added(dbName, id, doc);
+
             };
             let handler = me._db.find(query, {sort:sort}).observeChanges({
-                added(id, fields){
-                    refresher();
+                added(id, doc){
+                    ARR1.push(id);
+                    refresher(id, doc);
                 },
-                changed(id, fields){
-                    refresher();
+                changed(id, doc){
+                    refresher(id, doc);
+                },
+                removed(id){
+                    self.removed(dbName, id);
                 }
             });
-            self.ready();
+
             self.onStop(function() {
                 handler.stop();
             });
@@ -183,40 +186,27 @@ let ClassStudent = class extends Base{
         let tmpDB = null;
         return {
             subscribeFullDataByClassID : function(classID, delay, callback){
-                if(!tmpDB){
+
+                if(!tmpDB)
                     tmpDB = new Mongo.Collection('EF-ClassStudent-By-ClassID');
-                }
-                if(!delay){
+
+                Meteor.setTimeout(()=>{
                     let x = Meteor.subscribe('EF-ClassStudent-By-ClassID', classID);
-
                     let data = [];
-                    if(x.ready()){
-                        data = tmpDB.find().fetch();
-                    }
 
-                    return {
-                        ready : x.ready,
-                        data : data
-                    };
-                }
-                else{
-                    Meteor.setTimeout(()=>{
-                        let x = Meteor.subscribe('EF-ClassStudent-By-ClassID', classID);
-                        let data = [];
+                    let tm = null;
+                    tm = Meteor.setInterval(()=>{
+                        if(x.ready()){
+                            data = tmpDB.find({
+                                classID : classID
+                            }).fetch();
+                            callback(data);
 
-                        let tm = null;
-                        tm = Meteor.setInterval(()=>{
-                            if(x.ready()){
-                                data = tmpDB.find().fetch();
-                                callback(data);
+                            Meteor.clearInterval(tm);
+                        }
+                    }, 500);
 
-                                Meteor.clearInterval(tm);
-                            }
-                        }, 500);
-
-                    }, delay);
-                }
-
+                }, delay);
 
             }
         };

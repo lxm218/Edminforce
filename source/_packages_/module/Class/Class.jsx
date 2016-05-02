@@ -438,7 +438,7 @@ let Class = class extends Base{
                 let nn = m.ClassStudent.getDB().find({
                     classID : classID,
                     type : 'register',
-                    status : 'checkouted'
+                    status : {'$in': ['pending', 'checkouted']}
                 }).count();
 
                 if((nn+1) > max){
@@ -748,7 +748,7 @@ console.log(option)
                 let nn = m.ClassStudent.getDB().find({
                     classID : classID,
                     type : 'register',
-                    status : 'checkouted'
+                    status : {'$in': ['checkouted', 'pending']}
                 }).count();
 
                 if((nn+1) > max){
