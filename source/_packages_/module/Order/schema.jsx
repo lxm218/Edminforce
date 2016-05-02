@@ -39,6 +39,8 @@ Schema.Order = {
         optional: true,
         defaultValue: 0
     },
+    //amount = orderTotal(including registrationFee) - discount
+    //paymentTotal = amount + paymentFee (depends on paymentType)
     paymentTotal:{
         type: Number,
         decimal: true,
