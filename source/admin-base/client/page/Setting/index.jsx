@@ -34,7 +34,7 @@ KUI.Setting_index = class extends KUI.Page{
             <RC.Div>
                 {this.renderTable()}
                 <RC.Div style={{textAlign:'right'}}>
-                    <KUI.YesButton style={sy.ml} href="/setting/adminuser/list" label="Staff List"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} href="/setting/account/list" label="Staff List"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} href="/setting/changepassword" label="Change Password"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} href="/setting/account/edit" label="Edit"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} href="/setting/account/add" label="Add"></KUI.YesButton>

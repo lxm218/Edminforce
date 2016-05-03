@@ -46,6 +46,15 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/account/list', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Setting | Account List",
+                bodyTmpl: <KUI.Setting_AdminUserList />
+            });
+        }
+    });
+
 
 
 
