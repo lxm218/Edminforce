@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-
-
 deployAdminBase(){
 
 	echo "---- start to deploy EF Admin Staging ----";
@@ -51,12 +49,40 @@ deployToAdminProduction(){
 	echo "link : https://calcolor-admin.classforth.com/home";
 }
 
+deployAdminDemo(){
+
+	echo "---- start to deploy EF Admin Demo ----";
+    . ./ENV.inc
+    echo ${ADMIN_ENV};
+    cd admin-demo;
+    sudo mup setup;
+    sudo ${ADMIN_ENV} mup deploy;
+    cd ../;
+    echo "link : https://demo-admin.classforth.com/home";
+}
+
+deployMobileDemo(){
+	echo "---- start to deploy EF Mobile Demo ----";
+    . ./ENV.inc
+    echo ${MOBILE_ENV};
+    cd mobile-demo;
+    sudo mup setup;
+    sudo ${MOBILE_ENV} mup deploy;
+    cd ../;
+    echo "link : https://demo.classforth.com";
+}
 case "$1" in
-  admin)
-    deployAdminBase
-    ;;
+   admin)
+     deployAdminBase
+     ;;
 	mobile)
 		deployMobileBase
+		;;
+   admin-demo)
+     deployAdminDemo
+     ;;
+	mobile-demo)
+		deployMobileDemo
 		;;
 	mobile-production)
     deployMobileBaseProduction
