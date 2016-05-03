@@ -29,6 +29,7 @@ let admin = {
             "verified": false
         }
     ],
+    '_id' : 'admin_classforth_com',
     "role": "admin"
 };
 
@@ -568,7 +569,7 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
             nUser._id = getUserID(data[7]);
             nUser.emails[0].address = data[7];
             nUser.username = data[7];
-            insertToArray(accounts, nUser);
+            //insertToArray(accounts, nUser);
 
             let nCustomer = _.cloneDeep(customer);
             nCustomer._id = getUserID(data[7]);

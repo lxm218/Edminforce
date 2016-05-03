@@ -64,9 +64,11 @@ if (Meteor.isServer) {
         },
         session : function(){
           insertData('Session', sessionsData, session, null, F.account);
+          //insertData('Session', sessionsData, session, null, F.account);
         },
         account : function(){
           insertData('Account', accountsData, Meteor.users, null, F.customer);
+          //insertData('Account', accountsData, Meteor.users, null, F.adminuser);
         },
         customer : function(){
           insertData('Customer', customersData, customer, null, F.adminuser);
@@ -77,6 +79,7 @@ if (Meteor.isServer) {
         },
         classes : function(){
           insertData('Class', classesData, classCollection, null, F.student);
+          //insertData('Class', classesData, classCollection, null, function(){});
         },
         student : function(){
           insertData('Student', studentsData, student, function(item){

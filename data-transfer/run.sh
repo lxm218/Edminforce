@@ -22,6 +22,9 @@ export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblaye
 # Calcolor Prod DB
 #export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
 
+# Calcolor Demo
+#export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/demo?ssl=true
+
 #=====================
 #transfer data
 cd transfer
