@@ -11,6 +11,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             refresh : false
         };
 
+        this.m = KG.DataHelper.getDepModule();
     }
 
     getProgramData(){
@@ -53,8 +54,13 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                     registrationStatus : 'Yes'
                 }
             });
+        let x4 = Meteor.subscribe('EF-AdminUser', {
+            query : {
+                role : 'teacher'
+            }
+        });
 
-        if(!x2.ready() || !x3.ready()) return {ready : false};
+        if(!x2.ready() || !x3.ready() || !x4.ready()) return {ready : false};
 
 
         let list = [];
@@ -62,6 +68,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             list = x1.data;
             console.log(x1.ready(), list);
         }
+
 
         return {
             ready : x1?x1.ready():true,
@@ -209,8 +216,12 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             program : this.getProgramData(),
             session : this.getSessionData(),
             status : KG.get('EF-Class').getDBSchema().schema('status').allowedValues,
-            day : KG.get('EF-Class').getDBSchema().schema('schedule.day').allowedValues
+            day : KG.get('EF-Class').getDBSchema().schema('schedule.day').allowedValues,
+            teacher : []
         };
+
+        option.teacher = this.m.AdminUser.getAll({});
+
 
         return (
             <RB.Row>
@@ -224,7 +235,15 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                                 })
                             }
                         </RB.Input>
-                        <RB.Input type="text" {... p.teacher} />
+                        <RB.Input type="select" {... p.teacher}>
+                            <option key={-1} value="all">All</option>
+                            {
+                                _.map(option.teacher, (item, index)=>{
+                                    return <option key={index} value={item.nickName}>{item.nickName}</option>;
+                                })
+                            }
+                        </RB.Input>
+
                         <RB.Input type="select" {... p.day}>
                             <option key={-1} value="all">All</option>
                             {
@@ -259,6 +278,10 @@ KUI.Class_index = class extends RC.CSSMeteorData{
     }
 
     render(){
+
+        if(!this.data.ready){
+            //return util.renderLoading();
+        }
 
         const sy = {
             rd : {
@@ -311,11 +334,15 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             delete query['schedule.day'];
         }
 
-        if(teacher.getValue()){
-            query.teacher = {
-                value : teacher.getValue(),
-                type : 'RegExp'
-            };
+        //if(teacher.getValue()){
+        //    query.teacher = {
+        //        value : teacher.getValue(),
+        //        type : 'RegExp'
+        //    };
+        //}
+
+        if(teacher.getValue() !== 'all'){
+            query.teacher = teacher.getValue();
         }
 
 

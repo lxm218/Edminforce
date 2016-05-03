@@ -57,7 +57,7 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         const titleArray = [
             {
                 title : 'Student',
-                key : 'nickName',
+                key : 'name',
                 style : {
                 }
             },
