@@ -49,3 +49,4 @@ check
 meteorhacks:aggregate
 accounts-password
 force-ssl
+tmeasday:publish-counts

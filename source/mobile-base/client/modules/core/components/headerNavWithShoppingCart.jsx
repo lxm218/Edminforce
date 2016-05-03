@@ -13,13 +13,18 @@ EdminForce.Components.HeaderNav = class extends RC.HeaderNav {
     if (!this.props.useMiniNav && this.props.children) {
       // Full Nav
       return <div>
-        <RC.URL href={this.props.shoppingCartUrl} style={Object.assign(h.assignPseudos(styles.xContain, state.get("fullNav")), {right:30, top: 5, zIndex: 6000}) }>
-          <RC.AvatarBadge
-              color="#ff7928"
-              style={{backgroundColor:'none',float:'right'}}
-              badgeOnLeft={false}
-              uiClass="shopping-cart"></RC.AvatarBadge>
-        </RC.URL>
+        {
+          this.props.shoppingCartUrl ? (
+              <RC.URL href={this.props.shoppingCartUrl} style={Object.assign(h.assignPseudos(styles.xContain, state.get("fullNav")), {right:30, top: 5, zIndex: 6000}) }>
+                <RC.AvatarBadge
+                    color="#ff7928"
+                    style={{backgroundColor:'none',float:'right'}}
+                    badgeOnLeft={true}
+                    badge={this.props.shoppingCartCount}
+                    uiClass="shopping-cart"></RC.AvatarBadge>
+              </RC.URL>
+          ) : null
+        }
         <a onClick={this._toggleFull.bind(this)} style={h.assignPseudos(styles.xContain, state.get("fullNav"))}>
           <span style={h.assignPseudos(styles.xTop, state.get("fullNav"))}/>
           <span style={h.assignPseudos(styles.xMid, state.get("fullNav"))}/>
