@@ -19,7 +19,7 @@ EdminForce.Components.AppMain = React.createClass({
                     <RC.URL href="/account">My Account</RC.URL>
                     <RC.URL href="/students">Students</RC.URL>
                     <RC.URL href="/classes">Class Registration</RC.URL>
-                    <RC.URL href="/billings">Billing</RC.URL>
+                    <RC.URL href="/billing">Billing</RC.URL>
                     <RC.URL href="/contact">Contact Us</RC.URL>
                     <RC.URL onClick={this.signout}>Sign Out</RC.URL>
                 </EdminForce.Components.HeaderNav>

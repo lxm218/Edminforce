@@ -905,10 +905,17 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     }
 }
 
+/*
+ * Returns billing summary, current & history
+ */
+function getBillingSummary(userId) {
 
-    /*
-     * Sync classStudent collection and class collection
-     */
+}
+
+
+/*
+ * Sync classStudent collection and class collection
+ */
 function syncClassRegistrationCount() {
 
     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted', type:'register'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
@@ -962,4 +969,5 @@ EdminForce.Registration.payECheck = payECheck;
 EdminForce.Registration.payCreditCard = payCreditCard;
 EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;
 EdminForce.Registration.bookMakeup = bookMakeup;
+EdminForce.Registration.getBillingSummary = getBillingSummary;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
