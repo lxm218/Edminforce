@@ -315,7 +315,7 @@ function applyCoupon(userId, couponId, cart) {
         customerID: userId,
         couponID: couponId,
         status: {
-            $nin: ['expired']
+            $nin: ['canceled']
         }
     }).count();
 
@@ -559,7 +559,7 @@ function expirePendingRegistration(sc) {
         status: 'pending'
     }, {
         $set: {
-            status: "expired",
+            status: 'canceled',
             updateTime: new Date()
         }
     });
