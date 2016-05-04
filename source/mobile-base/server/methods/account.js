@@ -47,4 +47,8 @@ Meteor.methods({
             }
         });
     },
+
+    'account.checkUserByEmail':function(email){
+        return (Accounts.findUserByEmail(email) != null);
+    },
 });

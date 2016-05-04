@@ -1,6 +1,13 @@
 if(Meteor.isClient){
 
-
+    FlowRouter.route('/', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Home | index",
+                bodyTmpl: <KUI.Home_index />
+            });
+        }
+    });
 
 
     let Route = FlowRouter.group({

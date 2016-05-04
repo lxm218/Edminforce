@@ -64,6 +64,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
         let data = this.data.data,
             poundage = parseFloat(data.poundage||0) || 0,
             total = data.paymentTotal;
+        total = parseFloat(total).toFixed(2);
         this.total = total;
 
         return (
@@ -72,7 +73,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                     E-Check | Total : ${total}
                 </h3>
                 {poundage>0?
-                    <p style={{textAlign:'right'}}>Transaction Fee: ${poundage}</p>
+                    <p style={{textAlign:'right'}}>Transaction Fee: ${poundage.toFixed(2)}</p>
                     :
                     null
                 }
