@@ -79,5 +79,9 @@ Meteor.methods({
         });
 
         return EdminForce.Registration.payCreditCard(this.userId, creditCardPaymentInfo);
+    },
+
+    'billing.getBillingSummary': function() {
+        return EdminForce.Registration.getBillingSummary(this.userId);
     }
 });

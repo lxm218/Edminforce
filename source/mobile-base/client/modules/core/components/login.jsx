@@ -321,7 +321,7 @@ EdminForce.Components.User = React.createClass({
       // Attempt Log In
       let self = this
       this.setState({ waiting: true })
-      Meteor.call('CheckEmail', form.email, function(err, result){
+      Meteor.call('account.checkUserByEmail', form.email, function(err, result){
 
         if (!!err) {
           console.log(err)
@@ -334,7 +334,10 @@ EdminForce.Components.User = React.createClass({
             let passedMsg = err && err.error
                 ? (ph.errorMsgs[err.error] || err.reason)
                 : <p>Password Reset Email Has Been Sent!</p>
-            self.setState({ msg: passedMsg })
+            self.setState({
+              waiting: false,
+              msg: passedMsg
+            })
           })
         } else {
           // the email address is not found

@@ -6,7 +6,7 @@ EdminForce.utils.routeHandler = function (p, args) {
         metaDesc: Meteor.settings.public.appDesc,
 
         // Route
-        layout: EdminForce.Components.AppMain,
+        layout: EdminForce.Containers.AppMain,
         pageTitle: "Unknown",
         //showGlobalNav: false,
         //globalNav: null,

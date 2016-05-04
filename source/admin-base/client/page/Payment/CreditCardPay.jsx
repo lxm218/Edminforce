@@ -37,7 +37,8 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             poundage = parseFloat(data.poundage||0) || 0,
             // total = data.paymentTotal.replace(/\$/g, '');
             total = data.paymentTotal;
-            console.log(data)
+
+        total = parseFloat(total).toFixed(2);
         this.total = total;
         return (
             <RC.Div>

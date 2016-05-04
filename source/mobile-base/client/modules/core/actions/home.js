@@ -13,3 +13,9 @@ EdminForce.Actions.Home = {
         FlowRouter.go('/contact');
     }
 }
+
+EdminForce.Contexts.Home = {
+    LocalState: new ReactiveDict(),
+}
+
+ReactDI.injectContext(EdminForce.Contexts.Home, EdminForce.Actions.Home);

@@ -44,9 +44,9 @@ Dependency.add('auth.store', new function () {
 
 
 if (Meteor.isClient) {
-    let {
-        AppMain
-        } = EdminForce.Components;
+    // let {
+    //     AppMain
+    //     } = EdminForce.Components;
 
     Meteor.startup(() => {
 
@@ -72,10 +72,10 @@ if (Meteor.isClient) {
         document.getElementsByTagName('head')[0].appendChild(titleTag);
 
         // Add App Container
-        let appContainer = document.createElement('div');
-        appContainer.id = "appContainer";
-        document.body.appendChild(appContainer);
-
-        ReactDOM.render(<AppMain></AppMain>, document.getElementById("appContainer"));
+        // let appContainer = document.createElement('div');
+        // appContainer.id = "appContainer";
+        // document.body.appendChild(appContainer);
+        //
+        // ReactDOM.render(<AppMain></AppMain>, document.getElementById("appContainer"));
     });
 }

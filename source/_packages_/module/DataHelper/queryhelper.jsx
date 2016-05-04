@@ -12,6 +12,7 @@ KG.define('EF-DataHelper', class extends Base{
             Order : KG.get('EF-Order'),
             Program : KG.get('EF-Program'),
             Session : KG.get('EF-Session'),
+            AdminUser : KG.get('EF-AdminUser'),
             StudentComment : KG.get('EF-StudentComment')
         };
 

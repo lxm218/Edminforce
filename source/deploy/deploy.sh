@@ -55,7 +55,7 @@ deployAdminDemo(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-demo;
-    sudo mup setup;
+    # sudo mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
     echo "link : https://demo-admin.classforth.com/home";
@@ -66,7 +66,7 @@ deployMobileDemo(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-demo;
-    sudo mup setup;
+    # sudo mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
     echo "link : https://demo.classforth.com";

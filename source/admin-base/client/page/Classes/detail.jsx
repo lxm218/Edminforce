@@ -175,24 +175,25 @@ KUI.Class_detail = class extends KUI.Page{
                 key : 'studentObj.profile.gender'
             },
             {
-                title : 'Start Date',
+                title : 'Book Date',
                 reactDom(doc){
-                    return moment(doc.classObj.session.registrationStartDate).format(util.const.dateFormat);
+                    return moment(doc.createTime).format(util.const.dateFormat);
                 }
             },
             {
-                title : 'End Date',
+                title : 'Class Date',
                 reactDom(doc){
-                    return moment(doc.classObj.session.registrationEndDate).format(util.const.dateFormat);
+                    let rs = '';
+                    if(doc.lessonDate){
+                        rs = moment(doc.lessonDate).format(util.const.dateFormat);
+                    }
+                    return rs;
                 }
             },
 
             {
-                title : 'Status',
-                //key : 'status'
-                reactDom(doc){
-                    return doc.status==='checkouted'?'success':doc.status;
-                }
+                title : 'Type',
+                key : 'type'
             }
         ];
 
