@@ -6,7 +6,7 @@ deployAdminBase(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-staging;
-    # sudo mup setup;
+    sudo mup setup;
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
@@ -18,7 +18,7 @@ deployMobileBase(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-staging;
-    # sudo mup setup;
+    sudo mup setup;
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
@@ -30,7 +30,7 @@ deployMobileBaseProduction(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-production;
-    # sudo mup setup;
+    sudo mup setup;
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
@@ -42,7 +42,7 @@ deployToAdminProduction(){
 	. ./ENV.inc
 	echo ${ADMIN_ENV};
 	cd admin-production;
-   # sudo mup setup;
+   sudo mup setup;
 	#sudo ${MOBILE_ENV} mup setup;
 	sudo ${ADMIN_ENV} mup deploy;
 	cd ../;
@@ -73,25 +73,34 @@ deployMobileDemo(){
 }
 case "$1" in
    admin)
-     deployAdminBase
-     ;;
+      deployAdminBase
+      ;;
 	mobile)
 		deployMobileBase
 		;;
    admin-demo)
-     deployAdminDemo
-     ;;
+      deployAdminDemo
+      ;;
 	mobile-demo)
 		deployMobileDemo
 		;;
 	mobile-production)
-    deployMobileBaseProduction
-    ;;
+      deployMobileBaseProduction
+      ;;
 	admin-production)
 		deployToAdminProduction
 		;;
-    *)
-        echo "usage {admin|mobile|admin-production|mobile-production}"
-        ;;
+   all)
+      deployAdminBase
+		deployMobileBase
+      deployAdminDemo
+		deployMobileDemo
+      deployMobileBaseProduction
+		deployToAdminProduction
+		deployToAdminProduction
+		;;
+   *)
+      echo "usage {admin|mobile|admin-production|mobile-production}"
+      ;;
 
 esac
