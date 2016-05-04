@@ -16,9 +16,9 @@ BillingOrderDetails = (props) => (
     <Table selectable={false}>
         <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
             <TableRow>
-                <TableHeaderColumn>Student</TableHeaderColumn>
-                <TableHeaderColumn>Class</TableHeaderColumn>
-                <TableHeaderColumn>Amount</TableHeaderColumn>
+                <TableHeaderColumn><p>Student</p></TableHeaderColumn>
+                <TableHeaderColumn><p>Class</p></TableHeaderColumn>
+                <TableHeaderColumn><p>Amount</p></TableHeaderColumn>
             </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
@@ -26,9 +26,9 @@ BillingOrderDetails = (props) => (
                 [].concat(...props.students.map( (s) =>
                     s.classes.map( (sc) => (
                         <TableRow key={s._id + sc._id}>
-                            <TableRowColumn>{s.name}</TableRowColumn>
-                            <TableRowColumn>{sc.name}</TableRowColumn>
-                            <TableRowColumn>${sc.classFee.toFixed(2)}</TableRowColumn>
+                            <TableRowColumn><p>{s.name}</p></TableRowColumn>
+                            <TableRowColumn><p>{sc.name}</p></TableRowColumn>
+                            <TableRowColumn><p>${sc.classFee.toFixed(2)}</p></TableRowColumn>
                         </TableRow>
                     )))
                 )
@@ -36,27 +36,27 @@ BillingOrderDetails = (props) => (
             {
                 props.registrationFee ? (
                     <TableRow key="_registrationfee_">
-                        <TableRowColumn>Registration Fee</TableRowColumn>
+                        <TableRowColumn><p>Registration Fee</p></TableRowColumn>
                         <TableRowColumn></TableRowColumn>
-                        <TableRowColumn>${props.registrationFee.toFixed(2)}</TableRowColumn>
+                        <TableRowColumn><p>${props.registrationFee.toFixed(2)}</p></TableRowColumn>
                     </TableRow>
                 ) : null
             }
             {
                 props.discount ? (
                     <TableRow key="_discount_">
-                        <TableRowColumn>Discount</TableRowColumn>
+                        <TableRowColumn><p>Discount</p></TableRowColumn>
                         <TableRowColumn></TableRowColumn>
-                        <TableRowColumn>-${props.discount.toFixed(2)}</TableRowColumn>
+                        <TableRowColumn><p>-${props.discount.toFixed(2)}</p></TableRowColumn>
                     </TableRow>
                 ) : null
             }
             {
                 props.total ? (
                 <TableRow key="_grandTotal_">
-                    <TableRowColumn>Total</TableRowColumn>
+                    <TableRowColumn><p>Total</p></TableRowColumn>
                     <TableRowColumn></TableRowColumn>
-                    <TableRowColumn>${(props.total - props.discount).toFixed(2)}</TableRowColumn>
+                    <TableRowColumn><p>${(props.total - props.discount).toFixed(2)}</p></TableRowColumn>
                 </TableRow>) : null
             }
         </TableBody>
@@ -74,18 +74,18 @@ BillingHistoryOrders = class extends RC.CSS {
             <Table selectable={false}>
                 <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
                     <TableRow>
-                        <TableHeaderColumn>Date</TableHeaderColumn>
-                        <TableHeaderColumn>Amount</TableHeaderColumn>
-                        <TableHeaderColumn>Status</TableHeaderColumn>
+                        <TableHeaderColumn><p>Date</p></TableHeaderColumn>
+                        <TableHeaderColumn><p>Amount</p></TableHeaderColumn>
+                        <TableHeaderColumn><p>Status</p></TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                     {
                         this.props.historyOrders.map( (order) => (
                             <TableRow>
-                                <TableHeaderColumn>{moment(order.updateTime).format("MMM D, YYYY")}</TableHeaderColumn>
-                                <TableHeaderColumn>{order.paymentTotal.toFixed(2)}</TableHeaderColumn>
-                                <TableHeaderColumn>{order.status === 'success' ? 'Completed' : order.status}</TableHeaderColumn>
+                                <TableRowColumn><p>{moment(order.updateTime).format("MMM D, YYYY")}</p></TableRowColumn>
+                                <TableRowColumn><p>{order.paymentTotal.toFixed(2)}</p></TableRowColumn>
+                                <TableRowColumn><p>{order.status === 'success' ? 'Completed' : order.status}</p></TableRowColumn>
                             </TableRow>
                         ))
                     }
@@ -94,67 +94,6 @@ BillingHistoryOrders = class extends RC.CSS {
         )
     }
 }
-
-// EdminForce.Components.BillingOrder = class extends RC.CSS {
-//     constructor(p) {
-//         super(p)
-//     }
-//
-//     render() {
-//         let orderItems = [];
-//
-//         this.props.students.forEach((s) => {
-//             s.classes.forEach((sc) => {
-//                 orderItems.push((
-//                     <TableRow key={s._id + sc._id}>
-//                         <TableRowColumn>{s.name}</TableRowColumn>
-//                         <TableRowColumn>{sc.name}</TableRowColumn>
-//                         <TableRowColumn>${sc.classFee}</TableRowColumn>
-//                     </TableRow>
-//                 ));
-//             })
-//         });
-//
-//         this.props.registrationFee && orderItems.push((
-//             <TableRow key="_registrationfee_">
-//                 <TableRowColumn colSpan="2"><span style={col1Style}>Registration Fee</span></TableRowColumn>
-//                 <TableRowColumn colSpan="2"><span
-//                     style={col2Style}>${this.props.registrationFee}</span></TableRowColumn>
-//             </TableRow>
-//         ));
-//
-//         this.props.discount && orderItems.push((
-//             <TableRow key="_discount_">
-//                 <TableRowColumn>Discount</TableRowColumn>
-//                 <TableRowColumn></TableRowColumn>
-//                 <TableRowColumn>{"-$" + _.toString(this.props.discount)}</TableRowColumn>
-//             </TableRow>
-//         ));
-//
-//         orderItems.push((
-//             <TableRow key="_grandTotal_">
-//                 <TableRowColumn>Total</TableRowColumn>
-//                 <TableRowColumn></TableRowColumn>
-//                 <TableRowColumn>{"$" + _.toString(this.props.total - this.props.discount)}</TableRowColumn>
-//             </TableRow>
-//         ));
-//
-//         return (
-//             <Table selectable={false}>
-//                 <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
-//                     <TableRow>
-//                         <TableHeaderColumn>Student</TableHeaderColumn>
-//                         <TableHeaderColumn>Class</TableHeaderColumn>
-//                         <TableHeaderColumn>Amount</TableHeaderColumn>
-//                     </TableRow>
-//                 </TableHeader>
-//                 <TableBody displayRowCheckbox={false}>
-//                     {orderItems}
-//                 </TableBody>
-//             </Table>
-//         )
-//     }
-// }
 
 EdminForce.Components.Billing = class extends RC.CSS {
     constructor(p) {
