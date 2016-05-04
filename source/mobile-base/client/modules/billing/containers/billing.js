@@ -3,18 +3,26 @@
 const reactiveFnBilling = ({context,actions}, onData) => {
     const errorId = 'ERROR_BILLING';
     const error = context.LocalState.get(errorId);
+    const methodName = 'billing.getBillingSummary';
 
     if (error) {
-        onData(null, {error});
+        let cachedResult = context.MethodCache[methodName] || {historyOrders:[],currentOrder:{}};
+        onData(null, {
+            ...cachedResult,
+            error
+        })
     }
     else {
-        onData(null,{});
-        // Meteor.call('billing.getBillingSummary', function(err, result) {
-        //     onData(null, {
-        //         ...result,
-        //         error: err ? err.reason: null
-        //     });
-        // });
+        onData();
+        Meteor.call(methodName, function(methodError, result) {
+            if (methodError) {
+                return context.LocalState.set(errorId, methodError.reason);
+            }
+            else {
+                context.MethodCache[methodName] = result;
+                onData(null, {...result});
+            }
+        });
     }
 
     return actions.clearErrors.bind(null,errorId);

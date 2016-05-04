@@ -909,13 +909,13 @@ function payCreditCard(userId, creditCardPaymentInfo) {
  * Returns billing summary, current & history
  */
 function getBillingSummary(userId) {
-    let currentBill = getRegistrationSummary(userId);
+    let currentOrder = getRegistrationSummary(userId);
     let historyOrders = Collections.orders.find({accountID:userId, status:'success'}, {fields:{updateTime:1, paymentTotal:1,status:1}}).fetch();
 
     return {
         historyOrders,
         // current pending billing items, grouped by student
-        students: currentBill.students,
+        currentOrder,
     }
 }
 
