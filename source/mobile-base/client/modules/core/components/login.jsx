@@ -334,7 +334,10 @@ EdminForce.Components.User = React.createClass({
             let passedMsg = err && err.error
                 ? (ph.errorMsgs[err.error] || err.reason)
                 : <p>Password Reset Email Has Been Sent!</p>
-            self.setState({ msg: passedMsg })
+            self.setState({
+              waiting: false,
+              msg: passedMsg
+            })
           })
         } else {
           // the email address is not found
