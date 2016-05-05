@@ -100,7 +100,12 @@ EdminForce.Components.Billing = class extends RC.CSS {
         super(p);
     }
 
+    checkout() {
+        FlowRouter.go("/checkout");
+    }
+
     render() {
+        let hasCurrentOrders = _.find(this.props.currentOrder.students, (s) => s.classes && s.classes.length > 0);
         return (
             <RC.Div style={{"padding": "20px"}}>
                 <RC.VerticalAlign center={true} className="padding" height="300px" key="title" style={{marginBottom:20}}>
@@ -108,10 +113,15 @@ EdminForce.Components.Billing = class extends RC.CSS {
                 </RC.VerticalAlign>
                 <Tabs>
                     <Tab label="Current" value="current">
-                        <BillingOrderDetails {...this.props.currentOrder}></BillingOrderDetails>
+                        {hasCurrentOrders ? (<BillingOrderDetails {...this.props.currentOrder}></BillingOrderDetails>) : (<RC.Div><p style={{textAlign:'center'}}>No current billing information</p></RC.Div>)}
+                        {hasCurrentOrders ? (<RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.checkout}>Pay Now</RC.Button>) : null}
                     </Tab>
                     <Tab key="history" label="History" value="history">
-                        <BillingHistoryOrders historyOrders={this.props.historyOrders}></BillingHistoryOrders>
+                        {
+                            this.props.historyOrders && this.props.historyOrders.length > 0 ?
+                                (<BillingHistoryOrders historyOrders={this.props.historyOrders}></BillingHistoryOrders>) :
+                                (<RC.Div><p style={{textAlign:'center'}}>No history billing information</p></RC.Div>)
+                        }
                     </Tab>
                 </Tabs>
             </RC.Div>
