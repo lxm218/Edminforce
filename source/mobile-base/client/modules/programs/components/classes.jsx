@@ -100,6 +100,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
                     <TableRow key={item._id} selected={!!_.find(self.selectedClasses, {_id:item._id})}>
                         <TableRowColumn style={{width: "100%", whiteSpace:"normal"}}>
                             <h3>{item.name}</h3>
+                            <p><strong>Available:</strong> {item.maxStudent-item.numberOfRegistered}</p>
                             <p><strong>Teacher:</strong> {item.teacher}</p>
                             <p><strong>Length:</strong> {item.length}</p>
                         </TableRowColumn>
