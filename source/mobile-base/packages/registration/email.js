@@ -213,7 +213,7 @@ EdminForce.Registration.getMakeupConfirmEmailTemplate = function (data) {
 
             '</table>',
 
-            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+            '<h4>See details, please <a href="https://calcolor.classforth.com/" target="_blank">Login Your Account</a></h4>',
 
             '<br/><br/>',
             '<b>', school.name, '</b>'
@@ -289,7 +289,7 @@ EdminForce.Registration.getRegularClassConfirmEmailTemplate = function (data) {
 
             '</table>',
 
-            '<h4>See details, please <a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+            '<h4>See details, please <a href="https://calcolor.classforth.com/" target="_blank">Login Your Account</a></h4>',
 
             '<br/><br/>',
             '<b>', school.name, '</b>'

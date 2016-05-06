@@ -25,7 +25,7 @@ deployMobileBase(){
     echo "link : https://scalcolor.classforth.com";
 }
 
-deployMobileBaseProduction(){
+deployMobileProduction(){
 	echo "---- start to deploy EF Mobile Production ----";
     . ./ENV.inc
     echo ${MOBILE_ENV};
@@ -37,7 +37,7 @@ deployMobileBaseProduction(){
     echo "link : https://calcolor.classforth.com/";
 }
 
-deployToAdminProduction(){
+deployAdminProduction(){
 	echo "---- start to deploy EF Admin Production ----";
 	. ./ENV.inc
 	echo ${ADMIN_ENV};
@@ -85,19 +85,18 @@ case "$1" in
 		deployMobileDemo
 		;;
 	mobile-production)
-      deployMobileBaseProduction
+      deployMobileProduction
       ;;
 	admin-production)
-		deployToAdminProduction
+		deployAdminProduction
 		;;
    all)
       deployAdminBase
 		deployMobileBase
       deployAdminDemo
 		deployMobileDemo
-      deployMobileBaseProduction
-		deployToAdminProduction
-		deployToAdminProduction
+      deployMobileProduction
+		deployAdminProduction
 		;;
    *)
       echo "usage {admin|mobile|admin-production|mobile-production}"
