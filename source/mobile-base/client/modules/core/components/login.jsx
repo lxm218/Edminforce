@@ -262,7 +262,7 @@ EdminForce.Components.User = React.createClass({
       }, function(err) {
         if (!err){
             // add data to Customer DB
-            Meteor.call('account.addCustomer', form.email, form.email, function(methodErr,result){
+            Meteor.call('account.addCustomer', uName, form.email, function(methodErr,result){
                 methodErr && console.log(methodErr);
             });
 

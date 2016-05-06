@@ -20,92 +20,54 @@ EdminForce.Components.Student = class extends RC.CSS {
 
         this.onChange = this.onChange.bind(this);
         this.onSave = this.onSave.bind(this);
-        this.onChangeBirthday = this.onChangeBirthday.bind(this);
-        this.changeGender = this.changeGender.bind(this);
-    }
-
-    onChangeBirthday(event) {
-        let birthdayStr = event.target.value;
-        let birthdayErrorText = "Please type correct birthday, mm/dd/yyyy";
-        try {
-            if (EdminForce.utils.isValidDate(birthdayStr)) {
-                let birthday = new Date(birthdayStr);
-                birthdayStr = moment(birthday).format("MM/DD/YYYY");
-                birthdayErrorText = "";
-            }
-        } catch (e) {
-        }
-        
-        this.editedStudent.birthday = birthdayStr;
-        this.setState({
-            studentVersion: this.state.studentVersion+1,
-            birthdayErrorText
-        });
-    }
-
-    changeGender(event, index, value){
-        this.editedStudent.gender = value;
-        this.setState({
-            studentVersion: this.state.studentVersion+1
-        });
     }
 
     onChange (event) {
         this.editedStudent[event.target.id] = event.target.value;
         this.setState({
-            studentVersion: this.state.studentVersion+1
+            studentVersion: this.state.studentVersion+1,
+            birthdayErrorText: ''
         });
     }
     
     onSave() {
-        this.props.actions.upsertStudent({...this.props.student, ...this.editedStudent}, this.props.redirectUrl);
+        // validate birthday
+        let student = {...this.props.student, ...this.editedStudent};
+        let validBirthday = false;
+        try {
+            if (EdminForce.utils.isValidDate(student.birthday)) {
+                let birthday = new Date(student.birthday);
+                student.birthday = moment(birthday).format("MM/DD/YYYY");
+                validBirthday = true;
+            }
+        } catch (e) {
+        }
+
+        if (!validBirthday) {
+            this.setState({
+                    birthdayErrorText: "Please type correct birthday, mm/dd/yyyy"
+                });
+            return;
+        }
+
+        this.props.actions.upsertStudent(student, this.props.redirectUrl);
     }
 
     render() {
         let student = {...this.props.student, ...this.editedStudent};
-        let isValid = student.name && student.gender && EdminForce.utils.isValidDate(student.birthday);
+        let isValid = student.name && student.gender;
         
         return (
             <div>
                 <RC.VerticalAlign center={true} className="padding" height="300px"></RC.VerticalAlign>
-                {EdminForce.utils.renderError(this.props.error)}
-                <div style={{padding: "20px"}}>
-                    <TextField
-                        id="name"
-                        floatingLabelText="Student Name"
-                        fullWidth={true}
-                        value={student.name}
-                        onChange={this.onChange} /><br/>
-                    <SelectField
-                        id="gender"
-                        floatingLabelText="Gender"
-                        fullWidth={true}
-                        value={student.gender}
-                        onChange={this.changeGender}>
-                        <MenuItem value={"Male"} primaryText="Male"/>
-                        <MenuItem value={"Female"} primaryText="Female"/>
-                    </SelectField><br/>
-                    <TextField
-                        id="birthday"
-                        floatingLabelText="Birthday"
-                        hintText="mm/dd/yyyy"
-                        fullWidth={true}
-                        value={student.birthday}
-                        onChange={this.onChangeBirthday}
-                        errorText={this.state.birthdayErrorText}/><br/>
-                    <TextField
-                        id="school"
-                        floatingLabelText="School"
-                        fullWidth={true}
-                        value={student.school}
-                        onChange={this.onChange}/><br/>
-                    <TextField
-                        id="note"
-                        floatingLabelText="Comments"
-                        fullWidth={true}
-                        value={student.note}
-                        onChange={this.onChange}/><br/>
-                </div>
+                {EdminForce.utils.renderError(this.props.error || this.state.birthdayErrorText)}
+                <RC.Div style={{padding: "20px"}}>
+                    <RC.Input style={{paddingLeft:6}} id="name" name="name" label="Student Name" value={student.name} onChange={this.onChange}/>
+                    <RC.Select id="gender" name="gender" label="Gender" options={["", "Male","Female"]} value={student.gender} onChange={this.onChange}/>
+                    <RC.Input style={{paddingLeft:6}} id="birthday" name="birthday" label="Birthday (mm/dd/yyyy)" value={student.birthday} onChange={this.onChange} />
+                    <RC.Input style={{paddingLeft:6}} id="school" name="school" label="School" value={student.school} onChange={this.onChange}/>
+                    <RC.Input style={{paddingLeft:6}} id="note" name="note" label="Comments" value={student.note} onChange={this.onChange}/>
+                </RC.Div>
                 <div style={{padding: "20px"}}>
                     <RaisedButton
                         label="Save"
