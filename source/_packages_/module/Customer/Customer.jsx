@@ -81,6 +81,14 @@ KG.define('EF-Customer', class extends Base{
                     let rs = this._db.insert(data, function(err){
                         throw err;
                     });
+
+                    //add log
+                    let dd = this._db.findOne({_id : rs});
+                    KG.RequestLog.addByType('insert Customer', {
+                        id : rs,
+                        data : dd
+                    });
+
                     return callback(KG.result.out(true, rs));
                 },
                 error : function(err){
@@ -106,6 +114,13 @@ KG.define('EF-Customer', class extends Base{
             let rs = this._db.update({_id : id}, {'$set' : data}, function(err){
                 throw err;
             });
+
+            //add log
+            KG.RequestLog.addByType('edit Customer', {
+                id : id,
+                data : data
+            });
+
             return KG.result.out(true, rs);
         }catch(e){
             console.log(e);

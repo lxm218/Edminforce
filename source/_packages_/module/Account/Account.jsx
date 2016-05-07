@@ -143,6 +143,12 @@ KG.define('Account', class extends Base{
 
             if(Meteor.user()){
 
+                //add log
+                KG.RequestLog.addByType('login', {
+                    operatorID : Meteor.user()._id,
+                    operatorName : opts.username
+                });
+
                 // status must be admin
                 if(Meteor.user().role !== 'admin'){
 
