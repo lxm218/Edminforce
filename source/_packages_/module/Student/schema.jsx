@@ -36,6 +36,9 @@ Schema.Student = {
         //optional : true,
         label : 'Student Name'
     }),
+    //email : KG.schema.default({
+    //    optional : true
+    //}),
     profile : {
         type : new SimpleSchema(Schema.StudentProfile)
     },
