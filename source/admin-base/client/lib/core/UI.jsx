@@ -152,6 +152,12 @@ KUI.dom = {
 };
 
 KUI.Page = class extends RC.CSSMeteorData{
+    constructor(p){
+        super(p);
+
+        this.m = KG.DataHelper.getDepModule();
+    }
+
     componentDidMount(){
         super.componentDidMount();
 
