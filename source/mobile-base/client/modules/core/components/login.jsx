@@ -183,7 +183,8 @@ EdminForce.Components.User = React.createClass({
       this.setState({ waiting: true })
 
       let userSelector = {role:'user'};
-      form.username.indexOf('@')<0 ? (userSelector.username=form.username) : (userSelector.email=form.username);
+      form.username.indexOf('@') < 0 ? (userSelector.username=form.username) : (userSelector.email=form.username.toLowerCase());
+      console.log(userSelector)
       Meteor.loginWithPassword(userSelector, form.password, function(err){
         if (!err){
           if (form.keepName == '1') {
@@ -193,6 +194,7 @@ EdminForce.Components.User = React.createClass({
           }
           self.resetForm()
         }
+        console.log(err)
 
         let passedMsg = err && err.error
             ? (ph.errorMsgs[err.error] || err.reason)
@@ -256,7 +258,7 @@ EdminForce.Components.User = React.createClass({
       let uName = form.fName + ' '+ form.lName
       Accounts.createUser({
         username: uName,
-        email: form.email,
+        email: form.email.toLowerCase(),
         password: form.pw,
         role : 'user'
       }, function(err) {
