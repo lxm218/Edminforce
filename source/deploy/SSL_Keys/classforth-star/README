@@ -1,5 +1,10 @@
-star-classforth.csr is the ssl certificate, which has the private key in the 
-second part.
+star-classforth.crt is the ssl certificate, which has the following:
+1. root certificate
+2. intermediate certificate
+3. private key
+The order matters.
+
+star-classforth.csr is the application form when generating certificate.
 
 The cert is for *.classforth.com, no secondary subdomain is allowed.
 

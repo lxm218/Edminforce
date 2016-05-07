@@ -162,7 +162,7 @@ EdminForce.Components.User = React.createClass({
             '<h3>Welcome ',data.name,'</h3>',
             '<p>Thank for creating an account. Your login ID is your email.</p>',
             '<p>Now it is a good time to login and update your profile.</p>',
-            '<h4><a href="http://www.classforth.com" target="_blank">Login Your Account</a></h4>',
+            '<h4><a href="https://calcolor.classforth.com/" target="_blank">Login Your Account</a></h4>',
 
             '<br/><br/>',
             '<b>',school.name,'</b>'

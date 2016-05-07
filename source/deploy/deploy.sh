@@ -6,7 +6,7 @@ deployAdminBase(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-staging;
-    # sudo mup setup;
+    sudo mup setup;
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
@@ -18,31 +18,31 @@ deployMobileBase(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-staging;
-    # sudo mup setup;
+    sudo mup setup;
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
     echo "link : https://scalcolor.classforth.com";
 }
 
-deployMobileBaseProduction(){
+deployMobileProduction(){
 	echo "---- start to deploy EF Mobile Production ----";
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-production;
-    # sudo mup setup;
+    sudo mup setup;
     #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
     echo "link : https://calcolor.classforth.com/";
 }
 
-deployToAdminProduction(){
+deployAdminProduction(){
 	echo "---- start to deploy EF Admin Production ----";
 	. ./ENV.inc
 	echo ${ADMIN_ENV};
 	cd admin-production;
-   # sudo mup setup;
+   sudo mup setup;
 	#sudo ${MOBILE_ENV} mup setup;
 	sudo ${ADMIN_ENV} mup deploy;
 	cd ../;
@@ -73,25 +73,33 @@ deployMobileDemo(){
 }
 case "$1" in
    admin)
-     deployAdminBase
-     ;;
+      deployAdminBase
+      ;;
 	mobile)
 		deployMobileBase
 		;;
    admin-demo)
-     deployAdminDemo
-     ;;
+      deployAdminDemo
+      ;;
 	mobile-demo)
 		deployMobileDemo
 		;;
 	mobile-production)
-    deployMobileBaseProduction
-    ;;
+      deployMobileProduction
+      ;;
 	admin-production)
-		deployToAdminProduction
+		deployAdminProduction
 		;;
-    *)
-        echo "usage {admin|mobile|admin-production|mobile-production}"
-        ;;
+   all)
+      deployAdminBase
+		deployMobileBase
+      deployAdminDemo
+		deployMobileDemo
+      deployMobileProduction
+		deployAdminProduction
+		;;
+   *)
+      echo "usage {admin|mobile|admin-production|mobile-production}"
+      ;;
 
 esac
