@@ -67,11 +67,40 @@ BillingOrderDetails = (props) => (
 BillingHistoryOrders = class extends RC.CSS {
     constructor(p) {
         super(p)
+        this.state = {
+            orderDetail: null
+        }
+        this.onTableCellClick = this.onTableCellClick.bind(this);
+        this.backToOrderList = this.backToOrderList.bind(this);
     }
-    
+
+    onTableCellClick(rowIndex, columnIndex) {
+        let orderId = this.props.historyOrders[rowIndex]._id;
+        this.props.actions.getHistoryOrderDetails(orderId, (err,result) =>{
+            !err && this.setState({
+                orderDetail: result
+            })
+        });
+    }
+
+    backToOrderList() {
+        this.setState({
+            orderDetail: null
+        })
+    }
+
     render () {
+        if (this.state.orderDetail) {
+            return (
+                <RC.Div>
+                    <BillingOrderDetails {...this.state.orderDetail}></BillingOrderDetails>
+                    <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.backToOrderList}>Back to order list</RC.Button>
+                </RC.Div>
+            )
+        }
+
         return (
-            <Table selectable={false}>
+            <Table selectable={false} onCellClick={this.onTableCellClick}>
                 <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
                     <TableRow>
                         <TableHeaderColumn>Date</TableHeaderColumn>
@@ -110,6 +139,7 @@ EdminForce.Components.Billing = class extends RC.CSS {
             <RC.Div style={{"padding": "20px"}} className="carts-checkout">
                 <RC.VerticalAlign center={true} className="padding" height="300px" key="title" style={{marginBottom:20}}>
                     <h2>Billing & Payment</h2>
+                    {EdminForce.utils.renderError(this.props.error)}
                 </RC.VerticalAlign>
                 <Tabs>
                     <Tab label="Current" value="current">
@@ -119,7 +149,7 @@ EdminForce.Components.Billing = class extends RC.CSS {
                     <Tab key="history" label="History" value="history">
                         {
                             this.props.historyOrders && this.props.historyOrders.length > 0 ?
-                                (<BillingHistoryOrders historyOrders={this.props.historyOrders}></BillingHistoryOrders>) :
+                                (<BillingHistoryOrders historyOrders={this.props.historyOrders} actions={this.props.actions}></BillingHistoryOrders>) :
                                 (<RC.Div><p style={{textAlign:'center'}}>No history billing information</p></RC.Div>)
                         }
                     </Tab>

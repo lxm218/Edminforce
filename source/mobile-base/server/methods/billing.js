@@ -83,5 +83,10 @@ Meteor.methods({
 
     'billing.getBillingSummary': function() {
         return EdminForce.Registration.getBillingSummary(this.userId);
-    }
+    },
+    
+    'billing.getHistoryOrderDetails': function(orderId) {
+        check(orderId, String);
+        return EdminForce.Registration.getHistoryOrderDetails(this.userId, orderId);
+    },
 });

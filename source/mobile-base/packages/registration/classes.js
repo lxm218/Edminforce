@@ -405,10 +405,11 @@ function applyCoupon(userId, couponId, cart) {
  * }
  */
 function getRegistrationSummary(userId, studentClassIDs, couponId) {
-
     let result = {
-        // student: {},
-        // classes: [],
+        // isNewCustomer
+        // registrationFee
+        // couponMsg
+        // appliedCouponId
         students:[],
         total: 0,
         totalDiscountable: 0,
@@ -919,6 +920,51 @@ function getBillingSummary(userId) {
     }
 }
 
+function getHistoryOrderDetails(userId, orderId) {
+    let result = {
+        registrationFee: 0,
+        students:[],
+        total: 0,
+        discount: 0,
+    }
+    
+    let order = Collections.orders.findOne(orderId);
+    if (!order) return result;
+
+    result.registrationFee = order.registrationFee;
+    result.total = order.amount;
+    result.discount = order.discount;
+
+    let classStudents = Collections.classStudent.find({
+        _id: {$in: order.details}
+    }, {
+        fields: {
+            classID:1, 
+            studentID:1, 
+            programID:1,
+            type:1,
+            lessonDate:1, 
+            fee:1
+        }
+    }).fetch();
+
+    for (let sc of classStudents) {
+        let student = lodash.find(result.students, {_id: sc.studentID});
+        if (!student) {
+            student = Collections.student.findOne(sc.studentID, {fields: _studentFields});
+            if (student) {
+                student.classes = [];
+                result.students.push(student);
+            }
+        }
+        if (!student) continue;
+        sc.classFee = sc.fee || 0;
+        student.classes.push(sc);
+    }
+    
+    return result;
+}
+
 
 /*
  * Sync classStudent collection and class collection
@@ -977,4 +1023,5 @@ EdminForce.Registration.payCreditCard = payCreditCard;
 EdminForce.Registration.getExpiredRegistrations = getExpiredRegistrations;
 EdminForce.Registration.bookMakeup = bookMakeup;
 EdminForce.Registration.getBillingSummary = getBillingSummary;
+EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;

@@ -78,6 +78,15 @@ EdminForce.Actions.Billing = {
         });
     },
     
+    getHistoryOrderDetails({LocalState}, orderId, callback) {
+        Meteor.call('billing.getHistoryOrderDetails', orderId, function(err,result){
+            if (err) {
+                LocalState.set('ERROR_BILLING', err.reason);
+            }
+            callback(err,result);
+        });
+    },
+    
     clearErrors({LocalState}, errorName) {
         LocalState.set(errorName, null);
     }
