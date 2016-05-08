@@ -125,6 +125,14 @@ let ClassStudent = class extends Base{
 
 
         let rs = this._db.insert(data);
+
+        //add log
+        KG.RequestLog.addByType('register class', {
+            id : rs,
+            data : data
+        });
+
+
         return KG.result.out(true, rs);
     }
 

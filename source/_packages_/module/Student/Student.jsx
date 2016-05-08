@@ -109,6 +109,15 @@ let Student = class extends Base{
                 let rs = self.getAll(query, option),
                     count = self._db.find(query).count();
 
+                let m = KG.DataHelper.getDepModule();
+                rs = _.map(rs, (item)=>{
+                    item.customer = m.Customer.getDB().findOne({
+                        _id : item.accountID
+                    });
+
+                    return item;
+                });
+
                 return {
                     list : rs,
                     count : count

@@ -372,6 +372,10 @@ console.log(data);
                 style : {}
             },
             {
+                title : 'Email',
+                key : 'customer.email'
+            },
+            {
                 title : 'Gender',
                 key : 'profile.gender',
                 style : {
@@ -386,7 +390,7 @@ console.log(data);
         ];
 
         let list = this.state.searchStudentResult.list;
-
+console.log(list)
         return (
             <KUI.PageTable
                 total={this.state.searchStudentResult.count}

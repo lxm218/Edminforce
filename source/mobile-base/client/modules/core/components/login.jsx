@@ -183,7 +183,8 @@ EdminForce.Components.User = React.createClass({
       this.setState({ waiting: true })
 
       let userSelector = {role:'user'};
-      form.username.indexOf('@')<0 ? (userSelector.username=form.username) : (userSelector.email=form.username);
+      form.username.indexOf('@') < 0 ? (userSelector.username=form.username) : (userSelector.email=form.username.toLowerCase());
+      console.log(userSelector)
       Meteor.loginWithPassword(userSelector, form.password, function(err){
         if (!err){
           if (form.keepName == '1') {
@@ -193,6 +194,7 @@ EdminForce.Components.User = React.createClass({
           }
           self.resetForm()
         }
+        console.log(err)
 
         let passedMsg = err && err.error
             ? (ph.errorMsgs[err.error] || err.reason)
@@ -256,7 +258,7 @@ EdminForce.Components.User = React.createClass({
       let uName = form.fName + ' '+ form.lName
       Accounts.createUser({
         username: uName,
-        email: form.email,
+        email: form.email.toLowerCase(),
         password: form.pw,
         role : 'user'
       }, function(err) {
@@ -447,8 +449,8 @@ EdminForce.Components.User = React.createClass({
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" value="" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" />
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" />
-          <RC.Checkbox className="cal-checkbox" name="term" ref="term" value={1}
-                       label="Yes，I accpet Privacy Policy and Terms of Use."/>
+          <RC.Checkbox name="term" ref="term" value={1} style={{whiteSpace:"normal"}}
+                       label="Yes,I accept Privacy Policy and Terms of Use."/>
 
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
