@@ -1,75 +1,116 @@
 #!/usr/bin/env bash
 
 deployAdminBase(){
-
-	echo "---- start to deploy EF Admin Staging ----";
+    echo "*************************************************";
+	 echo "---- start to deploy EF Admin Staging ----";
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-staging;
     sudo mup setup;
-    #sudo ${MOBILE_ENV} mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
     echo "link : https://scalcolor-admin.classforth.com/home";
+    echo "*************************************************";
+    echo "";
 }
 
 deployMobileBase(){
-	echo "---- start to deploy EF Mobile Production ----";
+    echo "*************************************************";
+	 echo "---- start to deploy EF Mobile Production ----";
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-staging;
     sudo mup setup;
-    #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
     echo "link : https://scalcolor.classforth.com";
+    echo "*************************************************";
+    echo "";
 }
 
 deployMobileProduction(){
-	echo "---- start to deploy EF Mobile Production ----";
+    echo "*************************************************";
+	 echo "---- start to deploy EF Mobile Production ----";
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-production;
     sudo mup setup;
-    #sudo ${MOBILE_ENV} mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
     echo "link : https://calcolor.classforth.com/";
+    echo "*************************************************";
+    echo "";
 }
 
 deployAdminProduction(){
-	echo "---- start to deploy EF Admin Production ----";
-	. ./ENV.inc
-	echo ${ADMIN_ENV};
-	cd admin-production;
-   sudo mup setup;
-	#sudo ${MOBILE_ENV} mup setup;
-	sudo ${ADMIN_ENV} mup deploy;
-	cd ../;
-	echo "link : https://calcolor-admin.classforth.com/home";
+    echo "*************************************************";
+	 echo "---- start to deploy EF Admin Production ----";
+	 . ./ENV.inc
+	 echo ${ADMIN_ENV};
+	 cd admin-production;
+    sudo mup setup;
+	 sudo ${ADMIN_ENV} mup deploy;
+	 cd ../;
+ 	 echo "link : https://calcolor-admin.classforth.com/home";
+    echo "*************************************************";
+    echo "";
 }
 
 deployAdminDemo(){
-
-	echo "---- start to deploy EF Admin Demo ----";
+    echo "*************************************************";
+	 echo "---- start to deploy EF Admin Demo ----";
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-demo;
-    # sudo mup setup;
+    sudo mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
     echo "link : https://demo-admin.classforth.com/home";
+    echo "*************************************************";
+    echo "";
 }
 
 deployMobileDemo(){
-	echo "---- start to deploy EF Mobile Demo ----";
+    echo "*************************************************";
+	 echo "---- start to deploy EF Mobile Demo ----";
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-demo;
-    # sudo mup setup;
+    sudo mup setup;
     sudo ${MOBILE_ENV} mup deploy;
     cd ../;
     echo "link : https://demo.classforth.com";
+    echo "*************************************************";
+    echo "";
+}
+
+deployAdminCalphin(){
+    echo "*************************************************";
+	 echo "---- start to deploy EF Admin Calphin ----";
+    . ./ENV.inc
+    echo ${ADMIN_ENV};
+    cd admin-calphin;
+    sudo mup setup;
+    sudo ${ADMIN_ENV} mup deploy;
+    cd ../;
+    echo "link : https://calphin-admin.classforth.com/home";
+    echo "*************************************************";
+    echo "";
+
+}
+
+deployMobileCalphin(){
+    echo "*************************************************";
+	 echo "---- start to deploy EF Mobile Calphin ----";
+    . ./ENV.inc
+    echo ${MOBILE_ENV};
+    cd mobile-calphin;
+    sudo mup setup;
+    sudo ${MOBILE_ENV} mup deploy;
+    cd ../;
+    echo "link : https://calphin.classforth.com";
+    echo "*************************************************";
+    echo "";
 }
 case "$1" in
    admin)
@@ -89,6 +130,10 @@ case "$1" in
       ;;
 	admin-production)
 		deployAdminProduction
+		;;
+	calphin)
+      deployAdminCalphin
+		deployMobileCalphin
 		;;
    all)
       deployAdminBase
