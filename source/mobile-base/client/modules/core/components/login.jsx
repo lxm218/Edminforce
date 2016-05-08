@@ -431,7 +431,7 @@ EdminForce.Components.User = React.createClass({
 
           {this.printMsg()}
           <RC.Input name="username" label="E-Mail"  placeholder="john@example.net" theme={inputTheme} ref="username" value={Cookie.get('username')||''} />
-          <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" placeholder="Password"/>
+          <RC.Input name="password" label="Password" type="password" theme={inputTheme} ref="password" placeholder="Edm1n!"/>
           <RC.Checkbox  style={{borderBottom:'none'}} name="keepName" ref="keepName" value={1} label="Remember My User Name"/>
 
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
@@ -444,11 +444,11 @@ EdminForce.Components.User = React.createClass({
         //<div>Create an Account</div>
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
-          <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fNameail" placeholder="First Name" />
-          <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Last Name" />
+          <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fNameail" placeholder="John" />
+          <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
-          <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Password"/>
-          <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" placeholder="Repeat Password"/>
+          <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>
+          <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" placeholder="Edm1n!"/>
           <RC.Checkbox name="term" ref="term" value={1} style={{whiteSpace:"normal"}}
                        label="Yes, I accept Policy and Terms."/>
 
