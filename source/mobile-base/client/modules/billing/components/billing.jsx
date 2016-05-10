@@ -17,7 +17,7 @@ BillingOrderDetails = (props) => (
         <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
             <TableRow>
                 <TableHeaderColumn>Student</TableHeaderColumn>
-                <TableHeaderColumn>Class</TableHeaderColumn>
+                <TableHeaderColumn>{props.typeColumnName}</TableHeaderColumn>
                 <TableHeaderColumn>Amount</TableHeaderColumn>
             </TableRow>
         </TableHeader>
@@ -93,7 +93,7 @@ BillingHistoryOrders = class extends RC.CSS {
         if (this.state.orderDetail) {
             return (
                 <RC.Div>
-                    <BillingOrderDetails {...this.state.orderDetail}></BillingOrderDetails>
+                    <BillingOrderDetails {...this.state.orderDetail} typeColumnName="Type"></BillingOrderDetails>
                     <RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.backToOrderList}>Back to order list</RC.Button>
                 </RC.Div>
             )
@@ -113,7 +113,7 @@ BillingHistoryOrders = class extends RC.CSS {
                         this.props.historyOrders.map( (order) => (
                             <TableRow>
                                 <TableRowColumn>{moment(order.updateTime).format("MMM D, YYYY")}</TableRowColumn>
-                                <TableRowColumn>{order.paymentTotal.toFixed(2)}</TableRowColumn>
+                                <TableRowColumn>${order.paymentTotal.toFixed(2)}</TableRowColumn>
                                 <TableRowColumn>{order.status === 'success' ? 'Completed' : order.status}</TableRowColumn>
                             </TableRow>
                         ))
@@ -143,7 +143,7 @@ EdminForce.Components.Billing = class extends RC.CSS {
                 </RC.VerticalAlign>
                 <Tabs>
                     <Tab label="Current" value="current">
-                        {hasCurrentOrders ? (<BillingOrderDetails {...this.props.currentOrder}></BillingOrderDetails>) : (<RC.Div><p style={{textAlign:'center'}}>No current billing information</p></RC.Div>)}
+                        {hasCurrentOrders ? (<BillingOrderDetails {...this.props.currentOrder} typeColumnName="Class"></BillingOrderDetails>) : (<RC.Div><p style={{textAlign:'center'}}>No current billing information</p></RC.Div>)}
                         {hasCurrentOrders ? (<RC.Button bgColor="brand2" bgColorHover="dark" onClick={this.checkout}>Pay Now</RC.Button>) : null}
                     </Tab>
                     <Tab key="history" label="History" value="history">

@@ -959,6 +959,12 @@ function getHistoryOrderDetails(userId, orderId) {
         }
         if (!student) continue;
         sc.classFee = sc.fee || 0;
+
+        if (order.type === "register class" && sc.type === "makeup")
+            sc.name = "makeup class";
+        else
+            sc.name = order.type;
+
         student.classes.push(sc);
     }
     
