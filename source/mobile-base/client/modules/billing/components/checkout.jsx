@@ -4,7 +4,7 @@ let {
     TableRow,
     TableHeader,
     TableRowColumn,
-    TableBody
+    TableBody,
 }=MUI;
 
 let _ = lodash;
@@ -18,10 +18,13 @@ EdminForce.Components.Checkout = class extends RC.CSS {
         this.hasMakeupClass = false;
         this.makeupOnly = true;
 
-        this.state = {}
+        this.state = {
+            applySchoolCredit: false
+        }
 
         this.process = this.process.bind(this);
         this.applyCoupon = this.applyCoupon.bind(this);
+        this.toggleSchoolCredit = this.toggleSchoolCredit.bind(this);
     }
     
     deleteCartItem(cartItem) {
@@ -48,6 +51,12 @@ EdminForce.Components.Checkout = class extends RC.CSS {
             registrationFee: this.props.registrationFee,
             couponID: this.props.appliedCouponId
         }, this.makeupOnly);
+    }
+
+    toggleSchoolCredit(event, checked) {
+        this.setState({
+            applySchoolCredit: checked
+        })
     }
 
     render() {
@@ -109,19 +118,19 @@ EdminForce.Components.Checkout = class extends RC.CSS {
             width: "70%"
         };
 
-        this.props.registrationFee && cartItems.push((
+        numOfClasses > 0 && this.props.registrationFee && cartItems.push((
             <TableRow key="_registrationfee_">
                 <TableRowColumn colSpan="2"><span style={col1Style}>Registration Fee</span></TableRowColumn>
                 <TableRowColumn colSpan="2"><span
-                    style={col2Style}>${this.props.registrationFee}</span></TableRowColumn>
+                    style={col2Style}>${this.props.registrationFee.toFixed(2)}</span></TableRowColumn>
             </TableRow>
         ));
 
-        this.props.discount && cartItems.push((
+        numOfClasses > 0 && this.props.discount && cartItems.push((
             <TableRow key="_discount_">
                 <TableRowColumn colSpan="2"><span style={col1Style}>Coupon Discount ({this.props.appliedCouponId})</span></TableRowColumn>
                 <TableRowColumn colSpan="2"><span
-                    style={col2Style}>{"-$" + _.toString(this.props.discount)}</span></TableRowColumn>
+                    style={col2Style}>-${this.props.discount.toFixed(2)}</span></TableRowColumn>
             </TableRow>
         ));
 
@@ -129,9 +138,22 @@ EdminForce.Components.Checkout = class extends RC.CSS {
             <TableRow key="_grandTotal_">
                 <TableRowColumn colSpan="2"><span style={col1Style}>Total</span></TableRowColumn>
                 <TableRowColumn colSpan="2"><span
-                    style={col2Style}>{"$" + _.toString(this.props.total - this.props.discount)}</span></TableRowColumn>
+                    style={col2Style}>${(this.props.total - this.props.discount).toFixed(2)}</span></TableRowColumn>
             </TableRow>
         ));
+
+        if (numOfClasses > 0 && this.props.schoolCredit > 0) {
+            cartItems.push((
+                <TableRow key="_schoolCredit_">
+                    <TableRowColumn colSpan="2"><RC.Checkbox style={{borderBottom:'none'}}
+                                                             label="Apply School Credit"
+                                                             onClick={this.toggleSchoolCredit} checked={this.state.applySchoolCredit}/>
+                    </TableRowColumn>
+                    <TableRowColumn colSpan="2"><span
+                        style={col2Style}>${this.props.schoolCredit.toFixed(2)}</span></TableRowColumn>
+                </TableRow>
+            ));
+        }
 
         return (
             <RC.Div style={style} className="carts-checkout">
