@@ -69,6 +69,9 @@ EdminForce.Components.Account = class extends RC.CSS {
     }
 
     render() {
+        let schoolCredit = 0;
+        if (this.props.customer && this.props.customer.hasOwnProperty("schoolCredit")) schoolCredit = this.props.customer.schoolCredit;
+
         return (
             <RC.Div>
                 <RC.VerticalAlign center={true} className="padding" height="300px">
@@ -175,6 +178,11 @@ EdminForce.Components.Account = class extends RC.CSS {
                             <TableHeaderColumn>
                                 <RC.Button theme="inline" bgColor="brand2" bgColorHover="dark" onClick={this.updateEmergencyContact}>Update</RC.Button>
                             </TableHeaderColumn>
+                        </TableRow>
+                        <TableRow>
+                            <TableHeaderColumn>School Credit</TableHeaderColumn>
+                            <TableHeaderColumn>${schoolCredit.toFixed(2)}</TableHeaderColumn>
+                            <TableHeaderColumn/>
                         </TableRow>
                     </TableBody>
                 </Table>
