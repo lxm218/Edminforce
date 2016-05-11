@@ -273,7 +273,8 @@ console.log(x2.ready(), x3.ready(), x1.ready());
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'tuitionType',
-                label : ' '
+                label : ' ',
+                disabled : true
             },
             level : {
                 labelClassName : 'col-xs-4',
