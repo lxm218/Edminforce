@@ -5,13 +5,14 @@ KUI.Student_CancelClass = class extends KUI.Page{
 	constructor(p){
 		super(p);
 
+		this.m = KG.DataHelper.getDepModule();
 		this.state = {
 			changeResult : null
 		};
 	}
 
 	getMeteorData(){
-		this.module = KG.DataHelper.getDepModule();
+		this.module = this.m;
 		let csID = FlowRouter.getParam('classstudentID'),
 			x = Meteor.subscribe('EF-ClassStudent', {
 				query : {
@@ -43,6 +44,7 @@ KUI.Student_CancelClass = class extends KUI.Page{
 		if(!cxData){
 			return {ready : false};
 		}
+
 
 		return {
 			ready : sx.ready() && cx.ready(),
@@ -114,6 +116,7 @@ KUI.Student_CancelClass = class extends KUI.Page{
 		var self = this;
 		let data = {
 			classID : this.data.classData._id,
+			ClassStudentID : this.data.id
 		};
 
 		this.module.Class.callMeteorMethod('cancelClassForReady', [data], {
@@ -124,6 +127,7 @@ KUI.Student_CancelClass = class extends KUI.Page{
 				});
 			}
 		});
+
 	}
 
 	renderCancelClass() {

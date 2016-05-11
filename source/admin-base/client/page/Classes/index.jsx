@@ -334,16 +334,16 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             delete query['schedule.day'];
         }
 
-        //if(teacher.getValue()){
-        //    query.teacher = {
-        //        value : teacher.getValue(),
-        //        type : 'RegExp'
-        //    };
-        //}
-
-        if(teacher.getValue() !== 'all'){
-            query.teacher = teacher.getValue();
+        if(teacher.getValue() && teacher.getValue()!=='all'){
+            query.teacher = {
+                value : teacher.getValue(),
+                type : 'RegExp'
+            };
         }
+
+        //if(teacher.getValue() !== 'all'){
+        //    query.teacher = teacher.getValue();
+        //}
 
 
         this.setState({

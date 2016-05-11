@@ -62,7 +62,7 @@ KUI.Class_comp_add = class extends KUI.Page{
 console.log(x2.ready(), x3.ready(), x1.ready());
 
         return {
-            ready : true,
+            ready : x1.ready() && x2.ready() && x3.ready(),
             program : this.getProgramData(),
             session : this.getSessionData(),
             teacherList : KG.get('EF-AdminUser').getDB().find().fetch()
@@ -273,7 +273,8 @@ console.log(x2.ready(), x3.ready(), x1.ready());
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'tuitionType',
-                label : ' '
+                label : ' ',
+                disabled : true
             },
             level : {
                 labelClassName : 'col-xs-4',
@@ -322,7 +323,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
         };
 
         let option = this.getSelectOption();
-
+console.log(option)
         let dis = {
             display : (edit ? 'none' : 'block')
         };
@@ -442,6 +443,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
             level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime,
             makeup, makeupFee
             } = this.getReactObj();
+        console.log(data.teacher);
         //name.getInputDOMNode().value = data.nickName;
         program.getInputDOMNode().value = data.programID;
         session.getInputDOMNode().value = data.sessionID;
@@ -464,7 +466,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
         makeupFee.getInputDOMNode().value = data.makeupClassFee;
     }
 
-    componentDidMount(){
+    runOnceAfterDataReady(){
 console.log(this.props['init-data'])
         if(this.props['init-data'])
             this.setValue(this.props['init-data']);

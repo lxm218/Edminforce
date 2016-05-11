@@ -414,8 +414,9 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
         total: 0,
         totalDiscountable: 0,
         discount: 0,
+        schoolCredit: 0,
     }
-
+    
     let query = {
         accountID: userId,
         status: 'pending'
@@ -481,6 +482,9 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     else {
         result.registrationFee = 0;
     }
+
+    // get customer's school credit
+    customer && customer.hasOwnProperty('schoolCredit') && (result.schoolCredit = customer.schoolCredit);
 
     // check coupon
     if (couponId && result.totalDiscountable > 0) {
@@ -933,7 +937,7 @@ function getHistoryOrderDetails(userId, orderId) {
 
     result.registrationFee = order.registrationFee;
     result.total = order.amount;
-    result.discount = order.discount;
+    order.hasOwnProperty('discount') && (result.discount = order.discount);
 
     let classStudents = Collections.classStudent.find({
         _id: {$in: order.details}

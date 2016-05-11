@@ -113,7 +113,7 @@ BillingHistoryOrders = class extends RC.CSS {
                         this.props.historyOrders.map( (order) => (
                             <TableRow>
                                 <TableRowColumn>{moment(order.updateTime).format("MMM D, YYYY")}</TableRowColumn>
-                                <TableRowColumn>${order.paymentTotal.toFixed(2)}</TableRowColumn>
+                                <TableRowColumn>${Number(order.paymentTotal).toFixed(2)}</TableRowColumn>
                                 <TableRowColumn>{order.status === 'success' ? 'Completed' : order.status}</TableRowColumn>
                             </TableRow>
                         ))
