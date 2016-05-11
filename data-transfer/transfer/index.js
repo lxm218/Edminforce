@@ -101,7 +101,8 @@ var customer = {
     "email": "",
     "phone": "",
     "location": "Fremont",
-    "status": "Active"
+    "status": "Active",
+    "hasRegistrationFee" : false
 };
 
 var classStudent = {

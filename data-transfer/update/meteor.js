@@ -105,7 +105,9 @@ if (Meteor.isServer) {
               return null;
             }
             return item;
-          }, function(){});
+          }, function(){
+            EdminForce.Registration.syncClassRegistrationCount();
+          });
         }
       };
 
