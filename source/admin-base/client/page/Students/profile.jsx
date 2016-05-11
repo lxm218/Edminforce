@@ -508,6 +508,9 @@ KUI.Student_profile = class extends KUI.Page{
             if(item.type !== 'trial' && item.type !== 'makeup'){
                 return true;
             }
+            if(!item.lessonDate || moment(moment(item.lessonDate)).isBefore(moment(), 'days')){
+                return true;
+            }
             let cls = this.data.classData[item.classID] || {};
             item.class = cls.nickName;
             item.teacher = cls.teacher;

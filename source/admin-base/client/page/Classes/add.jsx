@@ -62,7 +62,7 @@ KUI.Class_comp_add = class extends KUI.Page{
 console.log(x2.ready(), x3.ready(), x1.ready());
 
         return {
-            ready : true,
+            ready : x1.ready() && x2.ready() && x3.ready(),
             program : this.getProgramData(),
             session : this.getSessionData(),
             teacherList : KG.get('EF-AdminUser').getDB().find().fetch()
