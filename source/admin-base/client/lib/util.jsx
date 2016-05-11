@@ -43,6 +43,8 @@ _.extend(util, {
     }
 });
 
+util.swal = swal;
+
 util.data = {
     subscribe : function(obj, opts){
         let name;

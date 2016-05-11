@@ -414,6 +414,8 @@ KUI.Student_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
+        let self = this;
+
         const titleArray = [
             {
                 title : 'Class',
@@ -442,6 +444,61 @@ KUI.Student_profile = class extends KUI.Page{
                 //key : 'status'
                 reactDom(doc){
                     return doc.status==='checkouted'?'success':doc.status;
+                }
+            },
+            {
+                title : 'Action',
+                reactDom(doc){
+                    let sy = {
+                        lineHeight : '24px',
+                        height : '24px',
+                        fontSize : '12px',
+                        padding : '0 12px',
+                        marginRight: '10px'
+                    };
+
+                    if(doc.type === 'trial'){
+                        let del = function(){
+                            swal({
+                                title: "Cancel trial this class?",
+                                text: "",
+                                type: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Yes, delete it!",
+                                closeOnConfirm: false
+                            }, function(){
+                                self.m.ClassStudent.getDB().remove({_id : doc._id});
+                                swal("cancel trial class success.", "", "success");
+                            });
+
+                        };
+
+                        return (
+                            <RC.Div style={{textAlign:'center'}}>
+                                <KUI.NoButton style={sy} onClick={del}
+                                              label="Cancel"></KUI.NoButton>
+                            </RC.Div>
+                        );
+                    }
+                    else if(doc.type === 'makeup'){
+
+                        let del = function(){
+                            swal({
+                                title : 'comming soon',
+                                allowOutsideClick : true
+                            });
+                        };
+
+                        return (
+                            <RC.Div style={{textAlign:'center'}}>
+
+
+                                <KUI.NoButton style={sy} onClick={del}
+                                              label="Cancel"></KUI.NoButton>
+                            </RC.Div>
+                        );
+                    }
                 }
             }
         ];

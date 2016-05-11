@@ -323,7 +323,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
         };
 
         let option = this.getSelectOption();
-
+console.log(option)
         let dis = {
             display : (edit ? 'none' : 'block')
         };
@@ -443,6 +443,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
             level, gender, trial, min, max, tuitionMoney, tuitionType, scheduleDay, scheduleTime,
             makeup, makeupFee
             } = this.getReactObj();
+        console.log(data.teacher);
         //name.getInputDOMNode().value = data.nickName;
         program.getInputDOMNode().value = data.programID;
         session.getInputDOMNode().value = data.sessionID;
@@ -465,7 +466,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
         makeupFee.getInputDOMNode().value = data.makeupClassFee;
     }
 
-    componentDidMount(){
+    runOnceAfterDataReady(){
 console.log(this.props['init-data'])
         if(this.props['init-data'])
             this.setValue(this.props['init-data']);
