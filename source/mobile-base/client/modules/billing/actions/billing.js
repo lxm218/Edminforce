@@ -29,13 +29,33 @@ EdminForce.Actions.Billing = {
             }
         });
     },
+
+    payWithSchoolCredit({LocalState}, paymentInfo, makeupOnly) {
+        LocalState.set('ERROR_CHECKOUT', null);
+        paymentInfo.paymentSource = 'mobile';
+        Meteor.call('billing.payWithSchoolCredit', paymentInfo, function(err,result){
+            if (err) {
+                return LocalState.set('ERROR_CHECKOUT', err.reason);
+            }
+
+            if (!result.error || result.error == 'registrationExpired') {
+                let path = FlowRouter.path('/checkoutSummary',null, {
+                    makeupOnly,
+                    expiredRegistrationIDs: result.expiredRegistrationIDs
+                });
+                FlowRouter.go(path);
+            }
+            else {
+                // check if the error is schoolCreditChanged
+                LocalState.set('ERROR_CHECKOUT', result.error);
+            }
+        });
+    },
     
     payECheck({LocalState}, checkPaymentInfo, makeupOnly) {
         LocalState.set('ERROR_PAY_ECHECK', null);
         checkPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payECheck', checkPaymentInfo, function(err,result){
-            console.log(err);
-            console.log(result);
             if (err) {
                 LocalState.set('ERROR_PAY_ECHECK', err.reason);
             }

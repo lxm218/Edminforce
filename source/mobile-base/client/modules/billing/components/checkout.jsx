@@ -43,14 +43,27 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                 studentClassIDs.push(sc._id);
             })
         });
+        
+        if (this.state.applySchoolCredit && this.props.schoolCredit > this.props.total - this.props.discount) {
+            this.props.actions.payWithSchoolCredit({
+                details: studentClassIDs,
+                amount: this.props.total - this.props.discount,
+                discount: this.props.discount,
+                registrationFee: this.props.registrationFee,
+                couponID: this.props.appliedCouponId
+            }, this.makeupOnly);
+        } 
+        else {
 
-        this.props.actions.prepareOrder({
-            details: studentClassIDs,
-            amount: this.props.total - this.props.discount,
-            discount: this.props.discount,
-            registrationFee: this.props.registrationFee,
-            couponID: this.props.appliedCouponId
-        }, this.makeupOnly);
+            this.props.actions.prepareOrder({
+                details: studentClassIDs,
+                amount: this.props.total - this.props.discount,
+                discount: this.props.discount,
+                registrationFee: this.props.registrationFee,
+                couponID: this.props.appliedCouponId,
+                schoolCredit: this.state.applySchoolCredit ? this.props.schoolCredit : 0,
+            }, this.makeupOnly);
+        }
     }
 
     toggleSchoolCredit(event, checked) {

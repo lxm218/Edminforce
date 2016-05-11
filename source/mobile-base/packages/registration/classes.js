@@ -741,10 +741,33 @@ function getExpiredRegistrations(userId, expiredRegistrationIDs) {
     return result;
 }
 
+function applySchoolCredit(userId, amount) {
+    return Collections.customer.update({
+        _id: userId,
+        schoolCredit: {$gt: amount}
+    }, {
+        $inc: {
+            schoolCredit: -amount
+        }
+    });
+}
+
 function payECheck(userId, checkPaymentInfo) {
 
     let order = Collections.orders.findOne({_id: checkPaymentInfo.orderId});
     if (!order) throw new Meteor.Error(500, 'Order not found','Invalid order id: ' + checkPaymentInfo.orderId);
+
+    // deduct school credit if it's applied
+    if (order.schoolCredit > 0) {
+        let schoolCreditApplied = applySchoolCredit(userId, paymentInfo.amount);
+        if (!schoolCreditApplied) {
+            // school credit is not enough
+            return {
+                error: 'insufficientSchoolCredit'
+            }
+        }
+    }
+
 
     // process payment
     // if success,
@@ -818,6 +841,17 @@ function payECheck(userId, checkPaymentInfo) {
 function payCreditCard(userId, creditCardPaymentInfo) {
     let order = Collections.orders.findOne({_id: creditCardPaymentInfo.orderId});
     if (!order) throw new Meteor.Error(500, 'Order not found', 'Invalid order id: ' + creditCardPaymentInfo.orderId);
+
+    // deduct school credit if it's applied
+    if (order.schoolCredit > 0) {
+        let schoolCreditApplied = applySchoolCredit(userId, paymentInfo.amount);
+        if (!schoolCreditApplied) {
+            // school credit is not enough
+            return {
+                error: 'insufficientSchoolCredit'
+            }
+        }
+    }
 
     var paymentInfo = {
         "createTransactionRequest": {
@@ -908,6 +942,39 @@ function payCreditCard(userId, creditCardPaymentInfo) {
             error: 'unsuccessful payment transaction'
         }
     }
+}
+
+/*
+ * pay the entire order using school credit
+ */
+function payWithSchoolCredit(userId, paymentInfo) {
+
+    // deduct school credit
+    let schoolCreditApplied = applySchoolCredit(userId, paymentInfo.amount);
+    if (!schoolCreditApplied) {
+        // school credit is not enough
+        return {
+            error: 'insufficientSchoolCredit'
+        }
+    }
+
+    // add a new order record
+    let order = {
+        accountID: this.userId,
+        details: paymentInfo.details,
+        status: 'waiting',
+        amount: paymentInfo.amount,
+        paymentType: 'echeck',
+        paymentSource: paymentInfo.paymentSource,
+        discount: paymentInfo.discount,
+        registrationFee: paymentInfo.registrationFee,
+        couponID: paymentInfo.couponID,
+        schoolCredit: paymentInfo.amount
+    }
+    order._id = Collections.orders.insert(order);
+
+    // update registration
+    return postPaymentUpdate(userId, order, 'school credit', paymentInfo.amount, paymentInfo.paymentSource);
 }
 
 /*
@@ -1035,3 +1102,4 @@ EdminForce.Registration.bookMakeup = bookMakeup;
 EdminForce.Registration.getBillingSummary = getBillingSummary;
 EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
+EdminForce.Registration.payWithSchoolCredit = payWithSchoolCredit;
