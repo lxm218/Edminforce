@@ -473,9 +473,19 @@ let Class = class extends Base{
                 let m = KG.DataHelper.getDepModule();
                 let cd = this.getAll({_id : opts.classID})[0];
 
-                let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
+                //let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
+                //return {
+                //    tuition : 0-tuition,
+                //    'class' : cd
+                //};
+
+                let d = m.Order.getDB().findOne({
+                    details : {$in:[opts.ClassStudentID]},
+                    type : {$in:['register class', 'change class']},
+                    status : 'success'
+                });
                 return {
-                    tuition : 0-tuition,
+                    tuition : d?0-parseFloat(d.paymentTotal):0,
                     'class' : cd
                 };
 
