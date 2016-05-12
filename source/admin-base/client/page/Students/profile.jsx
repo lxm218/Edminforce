@@ -483,18 +483,11 @@ KUI.Student_profile = class extends KUI.Page{
                     }
                     else if(doc.type === 'makeup'){
 
-                        let del = function(){
-                            swal({
-                                title : 'comming soon',
-                                allowOutsideClick : true
-                            });
-                        };
-
                         return (
                             <RC.Div style={{textAlign:'center'}}>
 
 
-                                <KUI.NoButton style={sy} onClick={del}
+                                <KUI.NoButton style={sy} href={`/student/cancelmakeupclass/${doc._id}`}
                                               label="Cancel"></KUI.NoButton>
                             </RC.Div>
                         );

@@ -587,6 +587,44 @@ let Class = class extends Base{
                 }
 
                 return true;
+            },
+
+            cancelMakeupClass(opts){
+                let m = KG.DataHelper.getDepModule();
+                let ClassStudentID = opts.ClassStudentID,
+                    studentID = opts.studentID;
+
+                let amount = opts.amount,
+                    paymentType = opts.paymentType;
+
+                let student = m.Student.getDB().findOne({_id : studentID});
+
+                //cancel from class
+                m.ClassStudent.updateStatus('canceled', ClassStudentID);
+
+                let orderStatus = 'success';
+
+                //insert order
+                let orderData = {
+                    accountID : student.accountID,
+                    studentID : studentID,
+                    details : [ClassStudentID],
+                    paymentType : paymentType,
+                    type : 'cancel makeup',
+                    status : orderStatus,
+                    paymentSource : 'admin',
+                    amount : amount,
+                    paymentTotal : amount.toString()
+                };
+                let orderID = m.Order.getDB().insert(orderData);
+
+                if(paymentType === 'school credit'){
+                    m.Customer.getDB().update({_id : student.accountID}, {
+                        '$inc' : {schoolCredit : Math.abs(amount)}
+                    });
+                }
+
+                return true;
             }
         };
     }
