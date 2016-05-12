@@ -16,6 +16,23 @@ if (Meteor.isServer) {
 
     var accountsData = JSON.parse(Assets.getText('accounts.json'));
     let classesData = JSON.parse(Assets.getText('classes.json'));
+
+    // convert weekday name from full name to short
+    let weekDayMap = {
+      monday: 'Mon',
+      tuesday: 'Tue',
+      wednesday: 'Wed',
+      thursday: 'Thu',
+      friday: 'Fri',
+      saturday: 'Sat',
+      sunday: 'Sun'
+    }
+    classesData.forEach ( (cls) => {
+      if (cls.schedule && cls.schedule.day && weekDayMap[cls.schedule.day.toLowerCase()]) {
+        cls.schedule.day = weekDayMap[cls.schedule.day.toLowerCase()];
+      }
+    });
+
     let classStudentsData = JSON.parse(Assets.getText('classStudents.json'));
     let customersData = JSON.parse(Assets.getText('customers.json'));
     let programsData = JSON.parse(Assets.getText('programs.json'));
