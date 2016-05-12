@@ -54,6 +54,7 @@ let spring_2016_session = {
     "registrationEndDate": new Date("2016-06-11")
 };
 
+
 let teacherUser = {
     "services": {
         "password": {//admin
@@ -102,7 +103,8 @@ var customer = {
     "phone": "",
     "location": "Fremont",
     "status": "Active",
-    "hasRegistrationFee" : false
+    "hasRegistrationFee" : false,
+    "schoolCredit" : 0
 };
 
 var classStudent = {
@@ -295,7 +297,10 @@ function insertToArray(array, data){
 
     if(!item){
         array.push(data);
+        item = data;
     }
+
+    return item;
 }
 
 let programPrices = {};
@@ -340,7 +345,7 @@ function cleanData(){
   let programsData = jsonfile.readFileSync(outPutFolder+"/programs.json");
   let sessionsData = jsonfile.readFileSync(outPutFolder+"/sessions.json");
   let classStudentsData = jsonfile.readFileSync(outPutFolder+"/classStudents.json");
-  let accountsData = jsonfile.readFileSync(outPutFolder+"/accounts.json");
+  let accountsData = jsonfile.readFileSync(outPutFolder+"/customers.json");
   let studentsData = jsonfile.readFileSync(outPutFolder+"/students.json");
 
 
@@ -431,6 +436,7 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
     let sessions = [];
 
     insertToArray(sessions, spring_2016_session);
+
     // the first item is title, so skip first item
     for(let i=0; i<datas.length; i++){
         let data = datas[i];
@@ -577,7 +583,8 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
             nCustomer.name = data[7];
             nCustomer.email = data[7];
             nCustomer.phone = getPhoneNumber(data[4]);
-            insertToArray(customers, nCustomer);
+            nCustomer = insertToArray(customers, nCustomer);
+            nCustomer.schoolCredit += Number(data[16]);
 
             let nStudent = _.cloneDeep(student);
             nStudent._id = getStudentID(nUser._id, data[1]);
