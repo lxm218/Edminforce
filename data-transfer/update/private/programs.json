@@ -1,32 +1,38 @@
 [
   {
-    "name": "Beginning",
+    "name": "Art Exploration",
     "description": "Need to add",
     "availableTrial": true,
-    "_id": "beginning"
+    "_id": "art_exploration"
   },
   {
-    "name": "Digital",
+    "name": "Digital Art",
     "description": "Need to add",
     "availableTrial": true,
-    "_id": "digital"
+    "_id": "digital_art"
   },
   {
-    "name": "Intermediate",
+    "name": "Art Foundation",
     "description": "Need to add",
     "availableTrial": true,
-    "_id": "intermediate"
+    "_id": "art_foundation"
   },
   {
-    "name": "Pre/ Advanced",
+    "name": "Art Advancement",
     "description": "Need to add",
     "availableTrial": true,
-    "_id": "pre_advanced"
+    "_id": "art_advancement"
   },
   {
-    "name": "Pre-AP/ AP",
+    "name": "AP Art",
     "description": "Need to add",
     "availableTrial": true,
-    "_id": "pre_ap_ap"
+    "_id": "ap_art"
+  },
+  {
+    "name": "Clay",
+    "description": "Need to add",
+    "availableTrial": true,
+    "_id": "clay"
   }
 ]

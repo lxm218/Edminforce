@@ -69,22 +69,6 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "cynthia@classforth.com",
-    "emails": [
-      {
-        "address": "cynthia@classforth.com",
-        "verified": false
-      }
-    ],
-    "role": "admin",
-    "_id": "cynthia_classforth_com"
-  },
-  {
-    "services": {
-      "password": {
-        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
-      }
-    },
     "username": "robbie@classforth.com",
     "emails": [
       {
@@ -101,15 +85,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "mei@classforth.com",
+    "username": "justinP@classforth.com",
     "emails": [
       {
-        "address": "mei@classforth.com",
+        "address": "justinP@classforth.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "mei_classforth_com"
+    "_id": "justin_p_classforth_com"
   },
   {
     "services": {
@@ -117,14 +101,46 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "kit@classforth.com",
+    "username": "cynthia@classforth.com",
     "emails": [
       {
-        "address": "kit@classforth.com",
+        "address": "cynthia@classforth.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "kit_classforth_com"
+    "_id": "cynthia_classforth_com"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "nora@classforth.com",
+    "emails": [
+      {
+        "address": "nora@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "nora_classforth_com"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "justinHo@classforth.com",
+    "emails": [
+      {
+        "address": "justinHo@classforth.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "justin_ho_classforth_com"
   }
 ]

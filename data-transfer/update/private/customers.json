@@ -1,43 +1,33 @@
 [
   {
-    "name": "sarwatamina@gmail.com",
-    "email": "sarwatamina@gmail.com",
-    "phone": "4083068469",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "sarwatamina_gmail_com"
-  },
-  {
-    "name": "shaily_mishra@hotmail.com",
-    "email": "shaily_mishra@hotmail.com",
-    "phone": "5072441214",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "shaily_mishra_hotmail_com"
-  },
-  {
-    "name": "anushamba@gmail.com",
-    "email": "anushamba@gmail.com",
-    "phone": "4086435313",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "anushamba_gmail_com"
-  },
-  {
     "name": "Zhen.v.zeng@gmail.com",
     "email": "Zhen.v.zeng@gmail.com",
     "phone": "4089159981",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zhen_v_zeng_gmail_com"
   },
   {
-    "name": "ruchsaxena@gmail.com",
-    "email": "ruchsaxena@gmail.com",
-    "phone": "5103749119",
+    "name": "sarwatamina@gmail.com",
+    "email": "sarwatamina@gmail.com",
+    "phone": "4083068469",
     "location": "Fremont",
     "status": "Active",
-    "_id": "ruchsaxena_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "sarwatamina_gmail_com"
+  },
+  {
+    "name": "sarithakamath24@gmail.com",
+    "email": "sarithakamath24@gmail.com",
+    "phone": "4083143696",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "sarithakamath_24_gmail_com"
   },
   {
     "name": "caofeng0509@yahoo.com",
@@ -45,6 +35,8 @@
     "phone": "4084392798",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "caofeng_0509_yahoo_com"
   },
   {
@@ -53,15 +45,9 @@
     "phone": "7708141166",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zhangruyun_hotmail_com"
-  },
-  {
-    "name": "xiaodou12@yahoo.com",
-    "email": "xiaodou12@yahoo.com",
-    "phone": "5105662508",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "xiaodou_12_yahoo_com"
   },
   {
     "name": "prabhakar_k@yahoo.com",
@@ -69,15 +55,9 @@
     "phone": "4082425920",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "prabhakar_k_yahoo_com"
-  },
-  {
-    "name": "gulania@gmail.com",
-    "email": "gulania@gmail.com",
-    "phone": "5104565593",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "gulania_gmail_com"
   },
   {
     "name": "anand_sethuraman@yahoo.com",
@@ -85,15 +65,49 @@
     "phone": "5104027041",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
     "_id": "anand_sethuraman_yahoo_com"
   },
   {
-    "name": "jennyqw@gmail.com",
-    "email": "jennyqw@gmail.com",
-    "phone": "5109539217",
+    "name": "luomaggie@gmail.com",
+    "email": "luomaggie@gmail.com",
+    "phone": "4084271766",
     "location": "Fremont",
     "status": "Active",
-    "_id": "jennyqw_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "luomaggie_gmail_com"
+  },
+  {
+    "name": "eunsun@gmail.com",
+    "email": "eunsun@gmail.com",
+    "phone": "4085955405",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "eunsun_gmail_com"
+  },
+  {
+    "name": "shaily_mishra@hotmail.com",
+    "email": "shaily_mishra@hotmail.com",
+    "phone": "5072441214",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "shaily_mishra_hotmail_com"
+  },
+  {
+    "name": "s_jayadevi@hotmail.com",
+    "email": "s_jayadevi@hotmail.com",
+    "phone": "4088380151",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "s_jayadevi_hotmail_com"
   },
   {
     "name": "xuting412@hotmail.com",
@@ -101,6 +115,8 @@
     "phone": "5103038946",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xuting_412_hotmail_com"
   },
   {
@@ -109,6 +125,8 @@
     "phone": "4083346932",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "cuijuan_gmail_com"
   },
   {
@@ -117,6 +135,8 @@
     "phone": "8609339074",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "shen_xf_yahoo_com"
   },
   {
@@ -125,15 +145,9 @@
     "phone": "5109968056",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "liuwei_1_gmail_com"
-  },
-  {
-    "name": "gracehsieh111@hotmail.com",
-    "email": "gracehsieh111@hotmail.com",
-    "phone": "5109283098",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "gracehsieh_111_hotmail_com"
   },
   {
     "name": "fergusonk@esuhsd.org",
@@ -141,15 +155,29 @@
     "phone": "5105522406",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "fergusonk_esuhsd_org"
   },
   {
-    "name": "skshopping@gmail.com",
-    "email": "skshopping@gmail.com",
-    "phone": "4084726481",
+    "name": "jdkora@gmail.com",
+    "email": "jdkora@gmail.com",
+    "phone": "5103712225",
     "location": "Fremont",
     "status": "Active",
-    "_id": "skshopping_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "jdkora_gmail_com"
+  },
+  {
+    "name": "laiwang03@yahoo.com",
+    "email": "laiwang03@yahoo.com",
+    "phone": "5105176244",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
+    "_id": "laiwang_03_yahoo_com"
   },
   {
     "name": "Vivian_tseng_yj@yahoo.com.tw",
@@ -157,23 +185,9 @@
     "phone": "4084215946",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "vivian_tseng_yj_yahoo_com_tw"
-  },
-  {
-    "name": "tdsolanki@gmail.com",
-    "email": "tdsolanki@gmail.com",
-    "phone": "5084945094",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "tdsolanki_gmail_com"
-  },
-  {
-    "name": "mssunilkumar@yahoo.com",
-    "email": "mssunilkumar@yahoo.com",
-    "phone": "4088213284",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "mssunilkumar_yahoo_com"
   },
   {
     "name": "archana.munnungi@gmail.com",
@@ -181,6 +195,8 @@
     "phone": "6147878272",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "archana_munnungi_gmail_com"
   },
   {
@@ -189,7 +205,49 @@
     "phone": "4157131771",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "mtv_2721_yahoo_com"
+  },
+  {
+    "name": "m98111@yahoo.com",
+    "email": "m98111@yahoo.com",
+    "phone": "5104681516",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "m_98111_yahoo_com"
+  },
+  {
+    "name": "cissywan@yahoo.com",
+    "email": "cissywan@yahoo.com",
+    "phone": "4085643942",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "cissywan_yahoo_com"
+  },
+  {
+    "name": "tdsolanki@gmail.com",
+    "email": "tdsolanki@gmail.com",
+    "phone": "5084945094",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "tdsolanki_gmail_com"
+  },
+  {
+    "name": "Mailbandaru@gmail.com",
+    "email": "Mailbandaru@gmail.com",
+    "phone": "4082509713",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "mailbandaru_gmail_com"
   },
   {
     "name": "spinlucyhou@gmail.com",
@@ -197,6 +255,8 @@
     "phone": "8064074310",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "spinlucyhou_gmail_com"
   },
   {
@@ -205,15 +265,9 @@
     "phone": "5103712066",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "cathy_yue_2000_yahoo_com"
-  },
-  {
-    "name": "shanthee@gmail.com",
-    "email": "shanthee@gmail.com",
-    "phone": "7577531225",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "shanthee_gmail_com"
   },
   {
     "name": "toralskale@yahoo.com",
@@ -221,7 +275,29 @@
     "phone": "4088281941",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "toralskale_yahoo_com"
+  },
+  {
+    "name": "shanthee@gmail.com",
+    "email": "shanthee@gmail.com",
+    "phone": "7577531225",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "shanthee_gmail_com"
+  },
+  {
+    "name": "vaishali_bhatter@yahoo.com",
+    "email": "vaishali_bhatter@yahoo.com",
+    "phone": "5106486952",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "vaishali_bhatter_yahoo_com"
   },
   {
     "name": "Jennychen71@hotmail.com",
@@ -229,6 +305,8 @@
     "phone": "5103005399",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jennychen_71_hotmail_com"
   },
   {
@@ -237,6 +315,8 @@
     "phone": "6508637690",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lilyli_200678_gmail_com"
   },
   {
@@ -245,6 +325,8 @@
     "phone": "5103589689",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ch_yan_70_hotmail_com"
   },
   {
@@ -253,6 +335,8 @@
     "phone": "5102989952",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kakoli_roy_gmail_com"
   },
   {
@@ -261,6 +345,8 @@
     "phone": "5103667182",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "reibo_586_li_gmail_com"
   },
   {
@@ -269,15 +355,9 @@
     "phone": "4153414052",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "gbqxr_126_com"
-  },
-  {
-    "name": "eunsun@gmail.com",
-    "email": "eunsun@gmail.com",
-    "phone": "4085955405",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "eunsun_gmail_com"
   },
   {
     "name": "amruta.pradeep@gmail.com",
@@ -285,7 +365,89 @@
     "phone": "4085059053",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "amruta_pradeep_gmail_com"
+  },
+  {
+    "name": "tara25@gmail.com",
+    "email": "tara25@gmail.com",
+    "phone": "4087713302",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "tara_25_gmail_com"
+  },
+  {
+    "name": "sumanbhutra@yahoo.com",
+    "email": "sumanbhutra@yahoo.com",
+    "phone": "4083938523",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "sumanbhutra_yahoo_com"
+  },
+  {
+    "name": "weiching.hu@gmail.com",
+    "email": "weiching.hu@gmail.com",
+    "phone": "5106486871",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "weiching_hu_gmail_com"
+  },
+  {
+    "name": "alanqiuhong@gmail.com",
+    "email": "alanqiuhong@gmail.com",
+    "phone": "5107704227",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "alanqiuhong_gmail_com"
+  },
+  {
+    "name": "g_suji@yahoo.com",
+    "email": "g_suji@yahoo.com",
+    "phone": "4086368144",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "g_suji_yahoo_com"
+  },
+  {
+    "name": "qiangy@gmail.com",
+    "email": "qiangy@gmail.com",
+    "phone": "4087172335",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "qiangy_gmail_com"
+  },
+  {
+    "name": "kumaravela@gmail.com",
+    "email": "kumaravela@gmail.com",
+    "phone": "4085075745",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "kumaravela_gmail_com"
+  },
+  {
+    "name": "xinghongying@hotmail.com",
+    "email": "xinghongying@hotmail.com",
+    "phone": "5106480010",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "xinghongying_hotmail_com"
   },
   {
     "name": "n4nimisha@yahoo.com",
@@ -293,6 +455,8 @@
     "phone": "4083169893",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "n_4_nimisha_yahoo_com"
   },
   {
@@ -301,6 +465,8 @@
     "phone": "5103960964",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sasaleilei_gmail_com"
   },
   {
@@ -309,15 +475,9 @@
     "phone": "7323065633",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "southli_66_gmail_com"
-  },
-  {
-    "name": "qiangy@gmail.com",
-    "email": "qiangy@gmail.com",
-    "phone": "4087172335",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "qiangy_gmail_com"
   },
   {
     "name": "aliciajia@gmail.com",
@@ -325,6 +485,8 @@
     "phone": "5103869733",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "aliciajia_gmail_com"
   },
   {
@@ -333,15 +495,9 @@
     "phone": "4084708951",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "shah_lisa_yahoo_com"
-  },
-  {
-    "name": "xinghongying@hotmail.com",
-    "email": "xinghongying@hotmail.com",
-    "phone": "5106480010",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "xinghongying_hotmail_com"
   },
   {
     "name": "ina.kea@gmail.com",
@@ -349,7 +505,19 @@
     "phone": "4086744205",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ina_kea_gmail_com"
+  },
+  {
+    "name": "wu_daisy@yahoo.com",
+    "email": "wu_daisy@yahoo.com",
+    "phone": "5103787395",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "wu_daisy_yahoo_com"
   },
   {
     "name": "jeffbzhao@yahoo.com",
@@ -357,6 +525,8 @@
     "phone": "4086673923",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jeffbzhao_yahoo_com"
   },
   {
@@ -365,6 +535,8 @@
     "phone": "4088925953",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zrongr_hotmail_com"
   },
   {
@@ -373,6 +545,8 @@
     "phone": "5106760186",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "mjagannath_yahoo_com"
   },
   {
@@ -381,15 +555,19 @@
     "phone": "5102268464",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "gunjan_22_yahoo_com"
   },
   {
-    "name": "muskadvani@hotmail.com",
-    "email": "muskadvani@hotmail.com",
-    "phone": "5106681477",
+    "name": "muskadvani@gmail.com",
+    "email": "muskadvani@gmail.com",
+    "phone": "5105794375",
     "location": "Fremont",
     "status": "Active",
-    "_id": "muskadvani_hotmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "muskadvani_gmail_com"
   },
   {
     "name": "jhnguyen_99@yahoo.com",
@@ -397,6 +575,8 @@
     "phone": "4082215316",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jhnguyen_99_yahoo_com"
   },
   {
@@ -405,31 +585,49 @@
     "phone": "4085292217",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kathrineliu_yahoo_com"
   },
   {
-    "name": "eshankys@yahoo.com",
-    "email": "eshankys@yahoo.com",
-    "phone": "3106637118",
+    "name": "arati.damle@yahoo.com",
+    "email": "arati.damle@yahoo.com",
+    "phone": "5105654773",
     "location": "Fremont",
     "status": "Active",
-    "_id": "eshankys_yahoo_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "arati_damle_yahoo_com"
   },
   {
-    "name": "nkimjj@hotmail.com",
-    "email": "nkimjj@hotmail.com",
-    "phone": "5126668919",
+    "name": "dkongmike@yahoo.com",
+    "email": "dkongmike@yahoo.com",
+    "phone": "5107098887",
     "location": "Fremont",
     "status": "Active",
-    "_id": "nkimjj_hotmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "dkongmike_yahoo_com"
   },
   {
-    "name": "maggie.xiang@gmail.com",
-    "email": "maggie.xiang@gmail.com",
-    "phone": "4088363753",
+    "name": "fahria_khan@yahoo.com",
+    "email": "fahria_khan@yahoo.com",
+    "phone": "4082035392",
     "location": "Fremont",
     "status": "Active",
-    "_id": "maggie_xiang_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "fahria_khan_yahoo_com"
+  },
+  {
+    "name": "joannemiao@gmail.com",
+    "email": "joannemiao@gmail.com",
+    "phone": "4088253231",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "joannemiao_gmail_com"
   },
   {
     "name": "Michelle.liu04@gmail.com",
@@ -437,23 +635,9 @@
     "phone": "4088688672",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "michelle_liu_04_gmail_com"
-  },
-  {
-    "name": "nancy8313@gmail.com",
-    "email": "nancy8313@gmail.com",
-    "phone": "4082030878",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "nancy_8313_gmail_com"
-  },
-  {
-    "name": "suyuinus@gmail.com",
-    "email": "suyuinus@gmail.com",
-    "phone": "4089133826",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "suyuinus_gmail_com"
   },
   {
     "name": "kuntaldaftary@hotmail.com",
@@ -461,6 +645,8 @@
     "phone": "4083862499",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kuntaldaftary_hotmail_com"
   },
   {
@@ -469,7 +655,19 @@
     "phone": "4088888015",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "serenadun_gmail_com"
+  },
+  {
+    "name": "mykidworld76@gmail.com",
+    "email": "mykidworld76@gmail.com",
+    "phone": "4086097691",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "mykidworld_76_gmail_com"
   },
   {
     "name": "meenalmujumdar@gmail.com",
@@ -477,15 +675,19 @@
     "phone": "4087867515",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "meenalmujumdar_gmail_com"
   },
   {
-    "name": "azhujia@gmail.com",
-    "email": "azhujia@gmail.com",
+    "name": "azhujia@hotmail.com",
+    "email": "azhujia@hotmail.com",
     "phone": "4085284621",
     "location": "Fremont",
     "status": "Active",
-    "_id": "azhujia_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "azhujia_hotmail_com"
   },
   {
     "name": "Anita_herbert@yahoo.com",
@@ -493,15 +695,9 @@
     "phone": "4085057306",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "anita_herbert_yahoo_com"
-  },
-  {
-    "name": "psathiya@gmail.com",
-    "email": "psathiya@gmail.com",
-    "phone": "7323258549",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "psathiya_gmail_com"
   },
   {
     "name": "eve_wang@hotmail.com",
@@ -509,6 +705,8 @@
     "phone": "5104565919",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "eve_wang_hotmail_com"
   },
   {
@@ -517,7 +715,39 @@
     "phone": "5107664635",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hitikak_yahoo_com"
+  },
+  {
+    "name": "anuyamunan@yahoo.com",
+    "email": "anuyamunan@yahoo.com",
+    "phone": "4084016696",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "anuyamunan_yahoo_com"
+  },
+  {
+    "name": "suyuinus@gmail.com",
+    "email": "suyuinus@gmail.com",
+    "phone": "4089133826",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "suyuinus_gmail_com"
+  },
+  {
+    "name": "yxiazhang2012@gmail.com",
+    "email": "yxiazhang2012@gmail.com",
+    "phone": "5104499899",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "yxiazhang_2012_gmail_com"
   },
   {
     "name": "yajingzhang@yahoo.com",
@@ -525,6 +755,8 @@
     "phone": "4085066418",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yajingzhang_yahoo_com"
   },
   {
@@ -533,6 +765,8 @@
     "phone": "4088289235",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hetalp_us_yahoo_com"
   },
   {
@@ -541,6 +775,8 @@
     "phone": "6508678474",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lavanya_medari_gmail_com"
   },
   {
@@ -549,6 +785,8 @@
     "phone": "5103388251",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "amyliu_32_gmail_com"
   },
   {
@@ -557,6 +795,8 @@
     "phone": "4087289978",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "rashmi_tarhalkar_gmail_com"
   },
   {
@@ -565,6 +805,8 @@
     "phone": "5108820890",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "linwu_1016_yahoo_com"
   },
   {
@@ -573,7 +815,19 @@
     "phone": "6504500784",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hellovishal_gmail_com"
+  },
+  {
+    "name": "xiaodou12@yahoo.com",
+    "email": "xiaodou12@yahoo.com",
+    "phone": "5105662508",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "xiaodou_12_yahoo_com"
   },
   {
     "name": "nskale@gmail.com",
@@ -581,6 +835,8 @@
     "phone": "5104494525",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "nskale_gmail_com"
   },
   {
@@ -589,15 +845,19 @@
     "phone": "5105934869",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "baowengao_gmail_com"
   },
   {
-    "name": "mjspka@gmail.com",
-    "email": "mjspka@gmail.com",
-    "phone": "4089312208",
+    "name": "Crystalprc@yahoo.com",
+    "email": "Crystalprc@yahoo.com",
+    "phone": "4086673318",
     "location": "Fremont",
     "status": "Active",
-    "_id": "mjspka_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "crystalprc_yahoo_com"
   },
   {
     "name": "sreevallich@gmail.com",
@@ -605,7 +865,49 @@
     "phone": "4086875426",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sreevallich_gmail_com"
+  },
+  {
+    "name": "pranav.pulavarthi@gmail.com",
+    "email": "pranav.pulavarthi@gmail.com",
+    "phone": "4082036127",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "pranav_pulavarthi_gmail_com"
+  },
+  {
+    "name": "parents@tueshahs.com",
+    "email": "parents@tueshahs.com",
+    "phone": "5103866193",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "parents_tueshahs_com"
+  },
+  {
+    "name": "maggie.xiang@gmail.com",
+    "email": "maggie.xiang@gmail.com",
+    "phone": "4088363753",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "maggie_xiang_gmail_com"
+  },
+  {
+    "name": "wuyijing80@gmail.com",
+    "email": "wuyijing80@gmail.com",
+    "phone": "6262329231",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "wuyijing_80_gmail_com"
   },
   {
     "name": "juju130chen@gmail.com",
@@ -613,6 +915,8 @@
     "phone": "5105793001",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "juju_130_chen_gmail_com"
   },
   {
@@ -621,6 +925,8 @@
     "phone": "5108999818",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "brenda_then_yahoo_com"
   },
   {
@@ -629,15 +935,9 @@
     "phone": "5107177866",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "weyfenchen_gmail_com"
-  },
-  {
-    "name": "jessica.zh@gmail.com",
-    "email": "jessica.zh@gmail.com",
-    "phone": "8588480996",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "jessica_zh_gmail_com"
   },
   {
     "name": "nikhiladp@gmail.com",
@@ -645,7 +945,29 @@
     "phone": "5099814270",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "nikhiladp_gmail_com"
+  },
+  {
+    "name": "koganivy@gmail.com",
+    "email": "koganivy@gmail.com",
+    "phone": "4086801168",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "koganivy_gmail_com"
+  },
+  {
+    "name": "luanyuhuachina@gmail.com",
+    "email": "luanyuhuachina@gmail.com",
+    "phone": "4085807186",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "luanyuhuachina_gmail_com"
   },
   {
     "name": "zhujingjing@gmail.com",
@@ -653,6 +975,8 @@
     "phone": "4084065663",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zhujingjing_gmail_com"
   },
   {
@@ -661,6 +985,8 @@
     "phone": "4082158679",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kavikumarsep_2_gmail_com"
   },
   {
@@ -669,6 +995,8 @@
     "phone": "5105667668",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zhuhuiyu_hotmail_com"
   },
   {
@@ -677,6 +1005,8 @@
     "phone": "5109968243",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ushraddha_yahoo_com"
   },
   {
@@ -685,6 +1015,8 @@
     "phone": "4082096605",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yingyan_yy_gmail_com"
   },
   {
@@ -693,15 +1025,19 @@
     "phone": "4084808816",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "weijanice_hotmail_com"
   },
   {
-    "name": "oycaro@gmail.com",
-    "email": "oycaro@gmail.com",
-    "phone": "4083932875",
+    "name": "mail.zhang.yee@gmail.com",
+    "email": "mail.zhang.yee@gmail.com",
+    "phone": "4086433359",
     "location": "Fremont",
     "status": "Active",
-    "_id": "oycaro_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "mail_zhang_yee_gmail_com"
   },
   {
     "name": "jji@visa.com",
@@ -709,6 +1045,8 @@
     "phone": "5106047220",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jji_visa_com"
   },
   {
@@ -717,6 +1055,8 @@
     "phone": "4083688572",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lizhang_1_gmail_com"
   },
   {
@@ -725,6 +1065,8 @@
     "phone": "5104027666",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jjing_yu_yahoo_com"
   },
   {
@@ -733,6 +1075,8 @@
     "phone": "4082425297",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yzsummer_yahoo_com"
   },
   {
@@ -741,6 +1085,8 @@
     "phone": "5103330272",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "iriswang_2005_yahoo_com"
   },
   {
@@ -749,6 +1095,8 @@
     "phone": "5107096943",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yping_1_yahoo_com"
   },
   {
@@ -757,7 +1105,29 @@
     "phone": "4087170987",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "koudai_2002_hotmail_com"
+  },
+  {
+    "name": "ronghua2183@gmail.com",
+    "email": "ronghua2183@gmail.com",
+    "phone": "4088827634",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "ronghua_2183_gmail_com"
+  },
+  {
+    "name": "rzhangnj@yahoo.com",
+    "email": "rzhangnj@yahoo.com",
+    "phone": "5102995505",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "rzhangnj_yahoo_com"
   },
   {
     "name": "jinghai.yin@gmail.com",
@@ -765,6 +1135,8 @@
     "phone": "5103967194",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jinghai_yin_gmail_com"
   },
   {
@@ -773,15 +1145,9 @@
     "phone": "4089609159",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lifang_2000_yahoo_com"
-  },
-  {
-    "name": "shobanakirthi@comcast.net",
-    "email": "shobanakirthi@comcast.net",
-    "phone": "8186455638",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "shobanakirthi_comcast_net"
   },
   {
     "name": "ritzbansal@gmail.com",
@@ -789,6 +1155,8 @@
     "phone": "4084809705",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ritzbansal_gmail_com"
   },
   {
@@ -797,6 +1165,8 @@
     "phone": "7813500209",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "duyan_2002_hotmail_com"
   },
   {
@@ -805,6 +1175,8 @@
     "phone": "4089308673",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "masamitsu_comcast_net"
   },
   {
@@ -813,6 +1185,8 @@
     "phone": "5105734715",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "warmspringsnow_gmail_com"
   },
   {
@@ -821,15 +1195,19 @@
     "phone": "4086790305",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sofichoi_gmail_com"
   },
   {
-    "name": "joannemiao@gmail.com",
-    "email": "joannemiao@gmail.com",
-    "phone": "4088253231",
+    "name": "klryu@hotmail.com",
+    "email": "klryu@hotmail.com",
+    "phone": "4085980406",
     "location": "Fremont",
     "status": "Active",
-    "_id": "joannemiao_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "klryu_hotmail_com"
   },
   {
     "name": "lmjmdfs@gmail.com",
@@ -837,23 +1215,9 @@
     "phone": "5103643961",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lmjmdfs_gmail_com"
-  },
-  {
-    "name": "linxia21@yahoo.com",
-    "email": "linxia21@yahoo.com",
-    "phone": "5104026880",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "linxia_21_yahoo_com"
-  },
-  {
-    "name": "mrunal.rs@gmail.com",
-    "email": "mrunal.rs@gmail.com",
-    "phone": "5103711192",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "mrunal_rs_gmail_com"
   },
   {
     "name": "jzhang007@gmail.com",
@@ -861,6 +1225,8 @@
     "phone": "4087086305",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jzhang_007_gmail_com"
   },
   {
@@ -869,15 +1235,9 @@
     "phone": "5103355095",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "fangfangsun_gmail_com"
-  },
-  {
-    "name": "tracy.chai@gmail.com",
-    "email": "tracy.chai@gmail.com",
-    "phone": "4088586842",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "tracy_chai_gmail_com"
   },
   {
     "name": "kchoo128@yahoo.com",
@@ -885,23 +1245,19 @@
     "phone": "5105857799",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kchoo_128_yahoo_com"
   },
   {
-    "name": "carolshi79@yahoo.com",
-    "email": "carolshi79@yahoo.com",
-    "phone": "5107898075",
+    "name": "fmcchow@yahoo.com",
+    "email": "fmcchow@yahoo.com",
+    "phone": "4082192092",
     "location": "Fremont",
     "status": "Active",
-    "_id": "carolshi_79_yahoo_com"
-  },
-  {
-    "name": "songyueming@hotmail.com",
-    "email": "songyueming@hotmail.com",
-    "phone": "2177789238",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "songyueming_hotmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "fmcchow_yahoo_com"
   },
   {
     "name": "ray.siah@gmail.com",
@@ -909,15 +1265,39 @@
     "phone": "4083969919",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ray_siah_gmail_com"
   },
   {
-    "name": "monika_singla1@yahoo.com",
-    "email": "monika_singla1@yahoo.com",
-    "phone": "5105856857",
+    "name": "nancy8313@gmail.com",
+    "email": "nancy8313@gmail.com",
+    "phone": "4082030878",
     "location": "Fremont",
     "status": "Active",
-    "_id": "monika_singla_1_yahoo_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "nancy_8313_gmail_com"
+  },
+  {
+    "name": "rachanap25@yahoo.co.in",
+    "email": "rachanap25@yahoo.co.in",
+    "phone": "5103048323",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "rachanap_25_yahoo_co_in"
+  },
+  {
+    "name": "tracy.chai@gmail.com",
+    "email": "tracy.chai@gmail.com",
+    "phone": "4088586842",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "tracy_chai_gmail_com"
   },
   {
     "name": "bguo2@hotmail.com",
@@ -925,6 +1305,8 @@
     "phone": "5106849360",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "bguo_2_hotmail_com"
   },
   {
@@ -933,6 +1315,8 @@
     "phone": "4087759699",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "qifengqiao_gmail_com"
   },
   {
@@ -941,15 +1325,9 @@
     "phone": "7736001207",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zhangwxuan_gmail_com"
-  },
-  {
-    "name": "sumanbhutra@yahoo.com",
-    "email": "sumanbhutra@yahoo.com",
-    "phone": "4083938523",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "sumanbhutra_yahoo_com"
   },
   {
     "name": "wjuansong@gmail.com",
@@ -957,6 +1335,8 @@
     "phone": "4085409960",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "wjuansong_gmail_com"
   },
   {
@@ -965,6 +1345,8 @@
     "phone": "4155688155",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "vv_1122_gmail_com"
   },
   {
@@ -973,6 +1355,8 @@
     "phone": "5104175617",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jessica_deng_gmail_com"
   },
   {
@@ -981,15 +1365,9 @@
     "phone": "6507879328",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "huang_yc_hotmail_com"
-  },
-  {
-    "name": "fsmic@yahoo.com",
-    "email": "fsmic@yahoo.com",
-    "phone": "4154938688",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "fsmic_yahoo_com"
   },
   {
     "name": "futaian@gmail.com",
@@ -997,23 +1375,9 @@
     "phone": "4086668985",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "futaian_gmail_com"
-  },
-  {
-    "name": "Mailbandaru@gmail.com",
-    "email": "Mailbandaru@gmail.com",
-    "phone": "4082509713",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "mailbandaru_gmail_com"
-  },
-  {
-    "name": "Crystalprc@yahoo.com",
-    "email": "Crystalprc@yahoo.com",
-    "phone": "4086673318",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "crystalprc_yahoo_com"
   },
   {
     "name": "shaqing@yahoo.com",
@@ -1021,7 +1385,49 @@
     "phone": "2142324382",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "shaqing_yahoo_com"
+  },
+  {
+    "name": "susan@vinstllc.com",
+    "email": "susan@vinstllc.com",
+    "phone": "4158899701",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "susan_vinstllc_com"
+  },
+  {
+    "name": "kothari_preeti@yahoo.com",
+    "email": "kothari_preeti@yahoo.com",
+    "phone": "4082508215",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "kothari_preeti_yahoo_com"
+  },
+  {
+    "name": "nkimjj@hotmail.com",
+    "email": "nkimjj@hotmail.com",
+    "phone": "5126668919",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "nkimjj_hotmail_com"
+  },
+  {
+    "name": "taipingyoung@gmail.com",
+    "email": "taipingyoung@gmail.com",
+    "phone": "4085005969",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "taipingyoung_gmail_com"
   },
   {
     "name": "pinxianl@yahoo.com",
@@ -1029,15 +1435,19 @@
     "phone": "5103869276",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "pinxianl_yahoo_com"
   },
   {
-    "name": "chrys.grace@gmail.com",
-    "email": "chrys.grace@gmail.com",
-    "phone": "3108955216",
+    "name": "  yueefeng@gmail.com",
+    "email": "  yueefeng@gmail.com",
+    "phone": "5105987680",
     "location": "Fremont",
     "status": "Active",
-    "_id": "chrys_grace_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "yueefeng_gmail_com"
   },
   {
     "name": "xiaocanyang@hotmail.com",
@@ -1045,15 +1455,9 @@
     "phone": "4083356222",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xiaocanyang_hotmail_com"
-  },
-  {
-    "name": "aseemm@gmail.com",
-    "email": "aseemm@gmail.com",
-    "phone": "5105161655",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "aseemm_gmail_com"
   },
   {
     "name": "shrirangatv@gmail.com",
@@ -1061,39 +1465,29 @@
     "phone": "4089210231",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "shrirangatv_gmail_com"
   },
   {
-    "name": "akila.lakia@gmail.com",
-    "email": "akila.lakia@gmail.com",
-    "phone": "4082035471",
+    "name": "zhang.lucine@gmail.com",
+    "email": "zhang.lucine@gmail.com",
+    "phone": "5108612371",
     "location": "Fremont",
     "status": "Active",
-    "_id": "akila_lakia_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "zhang_lucine_gmail_com"
   },
   {
-    "name": "zoelin2011@gmail.com",
-    "email": "zoelin2011@gmail.com",
-    "phone": "6262839779",
+    "name": "Mixj1978@hotmail.com",
+    "email": "Mixj1978@hotmail.com",
+    "phone": "4088138609",
     "location": "Fremont",
     "status": "Active",
-    "_id": "zoelin_2011_gmail_com"
-  },
-  {
-    "name": "fpeng01@gmail.com",
-    "email": "fpeng01@gmail.com",
-    "phone": "4088768344",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "fpeng_01_gmail_com"
-  },
-  {
-    "name": "simikmathew@gmail.com",
-    "email": "simikmathew@gmail.com",
-    "phone": "4089310101",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "simikmathew_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "mixj_1978_hotmail_com"
   },
   {
     "name": "lindahua73@gmail.com",
@@ -1101,6 +1495,8 @@
     "phone": "5104029265",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lindahua_73_gmail_com"
   },
   {
@@ -1109,14 +1505,18 @@
     "phone": "5106888272",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xufangc_yahoo_com"
   },
   {
     "name": "khonsou_su@hotmail.com",
     "email": "khonsou_su@hotmail.com",
-    "phone": "6312201633",
+    "phone": "",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "khonsou_su_hotmail_com"
   },
   {
@@ -1125,15 +1525,29 @@
     "phone": "6506197873",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "srividhya_sheaas_gmail_com"
   },
   {
-    "name": "Hanbo6616@hotmail.com",
-    "email": "Hanbo6616@hotmail.com",
-    "phone": "4088768344",
+    "name": "ylhaa2001@yahoo.com",
+    "email": "ylhaa2001@yahoo.com",
+    "phone": "5105796018",
     "location": "Fremont",
     "status": "Active",
-    "_id": "hanbo_6616_hotmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "ylhaa_2001_yahoo_com"
+  },
+  {
+    "name": "shirying@gmail.com",
+    "email": "shirying@gmail.com",
+    "phone": "4089664981",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "shirying_gmail_com"
   },
   {
     "name": "paul.aoun@gmail.com",
@@ -1141,6 +1555,8 @@
     "phone": "5103648776",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "paul_aoun_gmail_com"
   },
   {
@@ -1149,6 +1565,8 @@
     "phone": "4087864447",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "tangge_gmail_com"
   },
   {
@@ -1157,6 +1575,8 @@
     "phone": "2095765528",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kathywang_68_yahoo_com"
   },
   {
@@ -1165,6 +1585,8 @@
     "phone": "5103968322",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "helenxiangliu_yahoo_com"
   },
   {
@@ -1173,6 +1595,8 @@
     "phone": "5104027791",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "libing_wang_gmail_com"
   },
   {
@@ -1181,6 +1605,8 @@
     "phone": "5102838092",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hwu_67_yahoo_com"
   },
   {
@@ -1189,6 +1615,8 @@
     "phone": "2018955095",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yfguan_9814_gmail_com"
   },
   {
@@ -1197,6 +1625,8 @@
     "phone": "5105654262",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hollyh_88_gmail_com"
   },
   {
@@ -1205,6 +1635,8 @@
     "phone": "6502481601",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xulili_0522_yahoo_com"
   },
   {
@@ -1213,6 +1645,8 @@
     "phone": "3127539772",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "binghua_chai_gmail_com"
   },
   {
@@ -1221,7 +1655,19 @@
     "phone": "5105855644",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "amritak_24_yahoo_com"
+  },
+  {
+    "name": "xinliu2005@yahoo.com",
+    "email": "xinliu2005@yahoo.com",
+    "phone": "4084809405",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "xinliu_2005_yahoo_com"
   },
   {
     "name": "fairsea8@gmail.com",
@@ -1229,15 +1675,9 @@
     "phone": "2679726322",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "fairsea_8_gmail_com"
-  },
-  {
-    "name": "fmcchow@yahoo.com",
-    "email": "fmcchow@yahoo.com",
-    "phone": "4085182928",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "fmcchow_yahoo_com"
   },
   {
     "name": "wei.vicky.yang@gmail.com",
@@ -1245,6 +1685,8 @@
     "phone": "4083292851",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "wei_vicky_yang_gmail_com"
   },
   {
@@ -1253,6 +1695,8 @@
     "phone": "",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "margtse_yahoo_com"
   },
   {
@@ -1261,6 +1705,8 @@
     "phone": "6503995960",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "leizwang_yahoo_com"
   },
   {
@@ -1269,15 +1715,39 @@
     "phone": "5108163783",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kellytdinh_yahoo_com"
   },
   {
-    "name": "shanshan.song@gmail.com",
-    "email": "shanshan.song@gmail.com",
-    "phone": "4085088388",
+    "name": "shanshan.song.1999@gmail.com",
+    "email": "shanshan.song.1999@gmail.com",
+    "phone": "5103209089",
     "location": "Fremont",
     "status": "Active",
-    "_id": "shanshan_song_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "shanshan_song_1999_gmail_com"
+  },
+  {
+    "name": "snair22@gmail.com",
+    "email": "snair22@gmail.com",
+    "phone": "6509960421",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "snair_22_gmail_com"
+  },
+  {
+    "name": "audrey888us@yahoo.com",
+    "email": "audrey888us@yahoo.com",
+    "phone": "5105578607",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "audrey_888_us_yahoo_com"
   },
   {
     "name": "mengling.ufl@gmail.com",
@@ -1285,6 +1755,8 @@
     "phone": "3523289437",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "mengling_ufl_gmail_com"
   },
   {
@@ -1293,6 +1765,8 @@
     "phone": "4086570036",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jingma_70_gmail_com"
   },
   {
@@ -1301,6 +1775,8 @@
     "phone": "5103314663",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yu_a_2000_yahoo_com"
   },
   {
@@ -1309,7 +1785,19 @@
     "phone": "",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "clearasu_gmail_com"
+  },
+  {
+    "name": "fsmic@yahoo.com",
+    "email": "fsmic@yahoo.com",
+    "phone": "4154938688",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "fsmic_yahoo_com"
   },
   {
     "name": "butter3344@gmail.com",
@@ -1317,15 +1805,29 @@
     "phone": "9712266320",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "butter_3344_gmail_com"
   },
   {
-    "name": "sriram.x.ramanan@gmail.com",
-    "email": "sriram.x.ramanan@gmail.com",
+    "name": "akila.lakia@gmail.com",
+    "email": "akila.lakia@gmail.com",
     "phone": "4082037896",
     "location": "Fremont",
     "status": "Active",
-    "_id": "sriram_x_ramanan_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "akila_lakia_gmail_com"
+  },
+  {
+    "name": "tony5mufans@gmail.com",
+    "email": "tony5mufans@gmail.com",
+    "phone": "",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "tony_5_mufans_gmail_com"
   },
   {
     "name": "jasmineye2008@gmail.com",
@@ -1333,6 +1835,8 @@
     "phone": "8056370971",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jasmineye_2008_gmail_com"
   },
   {
@@ -1341,23 +1845,9 @@
     "phone": "5164497620",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "dongli_zeng_gmail_com"
-  },
-  {
-    "name": "hp1910@hotmail.com",
-    "email": "hp1910@hotmail.com",
-    "phone": "4082188429",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "hp_1910_hotmail_com"
-  },
-  {
-    "name": "yueefeng@gmail.com",
-    "email": "yueefeng@gmail.com",
-    "phone": "5105987680",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "yueefeng_gmail_com"
   },
   {
     "name": "qzpeng@gmail.com",
@@ -1365,6 +1855,8 @@
     "phone": "5105652941",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "qzpeng_gmail_com"
   },
   {
@@ -1373,6 +1865,8 @@
     "phone": "4084641817",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "chriss_xiang_sina_com"
   },
   {
@@ -1381,7 +1875,29 @@
     "phone": "4085284827",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "liuxh_28_hotmail_com"
+  },
+  {
+    "name": "fpeng01@gmail.com",
+    "email": "fpeng01@gmail.com",
+    "phone": "4088768344",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "fpeng_01_gmail_com"
+  },
+  {
+    "name": "sweta.singh@gmail.com",
+    "email": "sweta.singh@gmail.com",
+    "phone": "4083944170",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "sweta_singh_gmail_com"
   },
   {
     "name": "frances321@yahoo.com",
@@ -1389,6 +1905,8 @@
     "phone": "5103642189",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "frances_321_yahoo_com"
   },
   {
@@ -1397,6 +1915,8 @@
     "phone": "4086215394",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "bsangi_gmail_com"
   },
   {
@@ -1405,7 +1925,49 @@
     "phone": "4085155702",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "allan_cisco_yahoo_com"
+  },
+  {
+    "name": "jayo_5678@yahoo.com",
+    "email": "jayo_5678@yahoo.com",
+    "phone": "",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "jayo_5678_yahoo_com"
+  },
+  {
+    "name": "chrys.grace@gmail.com",
+    "email": "chrys.grace@gmail.com",
+    "phone": "3108955216",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "chrys_grace_gmail_com"
+  },
+  {
+    "name": "elizaxwang@yahoo.com",
+    "email": "elizaxwang@yahoo.com",
+    "phone": "5102849963",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "elizaxwang_yahoo_com"
+  },
+  {
+    "name": "gracehsieh111@hotmail.com",
+    "email": "gracehsieh111@hotmail.com",
+    "phone": "5109283098",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "gracehsieh_111_hotmail_com"
   },
   {
     "name": "vqin3000@gmail.com",
@@ -1413,6 +1975,8 @@
     "phone": "5106619129",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "vqin_3000_gmail_com"
   },
   {
@@ -1421,6 +1985,8 @@
     "phone": "4152908673",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jjjjune_yahoo_com"
   },
   {
@@ -1429,6 +1995,8 @@
     "phone": "4088238287",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "bulma_133_hotmail_com"
   },
   {
@@ -1437,15 +2005,9 @@
     "phone": "5102529221",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lidan_yu_gmail_com"
-  },
-  {
-    "name": "rzhangnj@yahoo.com",
-    "email": "rzhangnj@yahoo.com",
-    "phone": "7813500209",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "rzhangnj_yahoo_com"
   },
   {
     "name": "joycezh@gmail.com",
@@ -1453,15 +2015,9 @@
     "phone": "8316006807",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "joycezh_gmail_com"
-  },
-  {
-    "name": "qun_shen2001@yahoo.com",
-    "email": "qun_shen2001@yahoo.com",
-    "phone": "5105652598",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "qun_shen_2001_yahoo_com"
   },
   {
     "name": "Lianglisa78@gmail.com",
@@ -1469,7 +2025,19 @@
     "phone": "5106766989",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lianglisa_78_gmail_com"
+  },
+  {
+    "name": "Lili.jolly@gmail.com",
+    "email": "Lili.jolly@gmail.com",
+    "phone": "4083861184",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "lili_jolly_gmail_com"
   },
   {
     "name": "wangll2k@yahoo.com",
@@ -1477,15 +2045,9 @@
     "phone": "4084016978",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "wangll_2_k_yahoo_com"
-  },
-  {
-    "name": "sanjits@gmail.com",
-    "email": "sanjits@gmail.com",
-    "phone": "4088060551",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "sanjits_gmail_com"
   },
   {
     "name": "nanzhao688@gmail.com",
@@ -1493,6 +2055,8 @@
     "phone": "4088900656",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "nanzhao_688_gmail_com"
   },
   {
@@ -1501,15 +2065,9 @@
     "phone": "8653083495",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ztyaner_11_gmail_com"
-  },
-  {
-    "name": "Lili.jolly@gmail.com",
-    "email": "Lili.jolly@gmail.com",
-    "phone": "4083861184",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "lili_jolly_gmail_com"
   },
   {
     "name": "cuiyan1@gmail.com",
@@ -1517,15 +2075,9 @@
     "phone": "9492410479",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "cuiyan_1_gmail_com"
-  },
-  {
-    "name": "jayo_5678@yahoo.com",
-    "email": "jayo_5678@yahoo.com",
-    "phone": "",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "jayo_5678_yahoo_com"
   },
   {
     "name": "sv620@hotmail.com",
@@ -1533,7 +2085,19 @@
     "phone": "5108218536",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sv_620_hotmail_com"
+  },
+  {
+    "name": "sanjits@gmail.com",
+    "email": "sanjits@gmail.com",
+    "phone": "4088060551",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "sanjits_gmail_com"
   },
   {
     "name": "lin.bong@gmail.com",
@@ -1541,15 +2105,9 @@
     "phone": "9254807528",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lin_bong_gmail_com"
-  },
-  {
-    "name": "jianpu1999@yahoo.com",
-    "email": "jianpu1999@yahoo.com",
-    "phone": "5103964857",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "jianpu_1999_yahoo_com"
   },
   {
     "name": "sam.liyun@gmail.com",
@@ -1557,6 +2115,8 @@
     "phone": "5107369601",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sam_liyun_gmail_com"
   },
   {
@@ -1565,6 +2125,8 @@
     "phone": "5102400056",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "moutrio_gmail_com"
   },
   {
@@ -1573,6 +2135,8 @@
     "phone": "5106488988",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "business_me_yahoo_com"
   },
   {
@@ -1581,23 +2145,19 @@
     "phone": "5105652862",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sli_96_yahoo_com"
   },
   {
-    "name": "mrsmoreno3213@gmail.com",
-    "email": "mrsmoreno3213@gmail.com",
-    "phone": "4087718116",
+    "name": "paramitad@gmail.com",
+    "email": "paramitad@gmail.com",
+    "phone": "4084764798",
     "location": "Fremont",
     "status": "Active",
-    "_id": "mrsmoreno_3213_gmail_com"
-  },
-  {
-    "name": "wu_daisy@yahoo.com",
-    "email": "wu_daisy@yahoo.com",
-    "phone": "",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "wu_daisy_yahoo_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "paramitad_gmail_com"
   },
   {
     "name": "mrudulapolavarapu@gmail.com",
@@ -1605,7 +2165,49 @@
     "phone": "4086391424",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "mrudulapolavarapu_gmail_com"
+  },
+  {
+    "name": "salima@noorali.com",
+    "email": "salima@noorali.com",
+    "phone": "5105855603",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "salima_noorali_com"
+  },
+  {
+    "name": "linxia21@yahoo.com",
+    "email": "linxia21@yahoo.com",
+    "phone": "5104026880",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "linxia_21_yahoo_com"
+  },
+  {
+    "name": "qun_shen2001@yahoo.com",
+    "email": "qun_shen2001@yahoo.com",
+    "phone": "5105652598",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "qun_shen_2001_yahoo_com"
+  },
+  {
+    "name": "jianpu1999@yahoo.com",
+    "email": "jianpu1999@yahoo.com",
+    "phone": "5103964857",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "jianpu_1999_yahoo_com"
   },
   {
     "name": "Shirley1005@hotmail.com",
@@ -1613,14 +2215,18 @@
     "phone": "5102828176",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "shirley_1005_hotmail_com"
   },
   {
     "name": "shiandlu@gmail.com",
     "email": "shiandlu@gmail.com",
-    "phone": "",
+    "phone": "5103715218",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "shiandlu_gmail_com"
   },
   {
@@ -1629,6 +2235,8 @@
     "phone": "4086189523",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zhuxiaoyun_gmail_com"
   },
   {
@@ -1637,6 +2245,8 @@
     "phone": "408904962",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "srividya_raghuraman_05_gmail_com"
   },
   {
@@ -1645,7 +2255,19 @@
     "phone": "5105799107",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sakunthala_78_gmail_com"
+  },
+  {
+    "name": "liuyxme@gmail.com",
+    "email": "liuyxme@gmail.com",
+    "phone": "4155191692",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "liuyxme_gmail_com"
   },
   {
     "name": "xiaoyiliu0219@gmail.com",
@@ -1653,14 +2275,18 @@
     "phone": "5105098422",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xiaoyiliu_0219_gmail_com"
   },
   {
     "name": "annashi8@hotmail.com",
     "email": "annashi8@hotmail.com",
-    "phone": "4086676802",
+    "phone": "",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "annashi_8_hotmail_com"
   },
   {
@@ -1669,6 +2295,8 @@
     "phone": "6362932340",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "rohini_raghunathan_gmail_com"
   },
   {
@@ -1677,23 +2305,9 @@
     "phone": "5104321217",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "charu_mittal_gmail_com"
-  },
-  {
-    "name": "arati.damle@yahoo.com",
-    "email": "arati.damle@yahoo.com",
-    "phone": "5105654773",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "arati_damle_yahoo_com"
-  },
-  {
-    "name": "Yanling121314@gmail.com",
-    "email": "Yanling121314@gmail.com",
-    "phone": "6692385558",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "yanling_121314_gmail_com"
   },
   {
     "name": "Tinayuko88@yahoo.com",
@@ -1701,6 +2315,8 @@
     "phone": "6269057809",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "tinayuko_88_yahoo_com"
   },
   {
@@ -1709,31 +2325,9 @@
     "phone": "4083983165",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lirui_box_yahoo_com"
-  },
-  {
-    "name": "cici-831@hotmail.com",
-    "email": "cici-831@hotmail.com",
-    "phone": "5103742200",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "cici_831_hotmail_com"
-  },
-  {
-    "name": "suman_sudhir@hotmail.com",
-    "email": "suman_sudhir@hotmail.com",
-    "phone": "4084102314",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "suman_sudhir_hotmail_com"
-  },
-  {
-    "name": "jzzou@yahoo.com",
-    "email": "jzzou@yahoo.com",
-    "phone": "4086669916",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "jzzou_yahoo_com"
   },
   {
     "name": "ruchira.agarwal21@gmail.com",
@@ -1741,7 +2335,59 @@
     "phone": "5107974676",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ruchira_agarwal_21_gmail_com"
+  },
+  {
+    "name": "eshankys@yahoo.com",
+    "email": "eshankys@yahoo.com",
+    "phone": "3106637118",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "eshankys_yahoo_com"
+  },
+  {
+    "name": "cici-831@hotmail.com",
+    "email": "cici-831@hotmail.com",
+    "phone": "5103742200",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "cici_831_hotmail_com"
+  },
+  {
+    "name": "jzzou@yahoo.com",
+    "email": "jzzou@yahoo.com",
+    "phone": "4086669916",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "jzzou_yahoo_com"
+  },
+  {
+    "name": "leahtan_99@yahoo.com",
+    "email": "leahtan_99@yahoo.com",
+    "phone": "4083320252",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "leahtan_99_yahoo_com"
+  },
+  {
+    "name": "sherwinbi@hotmail.com",
+    "email": "sherwinbi@hotmail.com",
+    "phone": "4086749724",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "sherwinbi_hotmail_com"
   },
   {
     "name": "jenniferdeng76@gmail.com",
@@ -1749,15 +2395,29 @@
     "phone": "4086461520",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jenniferdeng_76_gmail_com"
   },
   {
-    "name": "xiaobinzhu2007@gmail.com",
-    "email": "xiaobinzhu2007@gmail.com",
+    "name": "  xiaobinzhu2007@gmail.com ",
+    "email": "  xiaobinzhu2007@gmail.com ",
     "phone": "4125805276",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xiaobinzhu_2007_gmail_com"
+  },
+  {
+    "name": "mrunal.rs@gmail.com",
+    "email": "mrunal.rs@gmail.com",
+    "phone": "5103711192",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "mrunal_rs_gmail_com"
   },
   {
     "name": "rekhaprodduturi@gmail.com",
@@ -1765,15 +2425,9 @@
     "phone": "4084250594",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "rekhaprodduturi_gmail_com"
-  },
-  {
-    "name": "Fanglinzhang@hotmail.com",
-    "email": "Fanglinzhang@hotmail.com",
-    "phone": "4088380791",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "fanglinzhang_hotmail_com"
   },
   {
     "name": "gdjiawen2011@gmail.com",
@@ -1781,6 +2435,8 @@
     "phone": "4089813395",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "gdjiawen_2011_gmail_com"
   },
   {
@@ -1789,6 +2445,8 @@
     "phone": "4084212523",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "htzzht_hotmail_com"
   },
   {
@@ -1797,6 +2455,8 @@
     "phone": "9137356209",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yingying_99_gmail_com"
   },
   {
@@ -1805,6 +2465,8 @@
     "phone": "4086237785",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "brianwang_hotmail_com"
   },
   {
@@ -1813,6 +2475,8 @@
     "phone": "4083686417",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xqchen_81_hotmail_com"
   },
   {
@@ -1821,15 +2485,19 @@
     "phone": "4088289939",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "selhui_yahoo_com"
   },
   {
-    "name": "lindenbear@gmail.com",
-    "email": "lindenbear@gmail.com",
-    "phone": "5104451078",
+    "name": "chenglling@hotmail.com",
+    "email": "chenglling@hotmail.com",
+    "phone": "4084166358",
     "location": "Fremont",
     "status": "Active",
-    "_id": "lindenbear_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "chenglling_hotmail_com"
   },
   {
     "name": "diana.yu@gmail.com",
@@ -1837,6 +2505,8 @@
     "phone": "4152987558",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "diana_yu_gmail_com"
   },
   {
@@ -1845,23 +2515,19 @@
     "phone": "5107098829",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jenfzh_gmail_com"
   },
   {
-    "name": "taipingyoung@gmail.com",
-    "email": "taipingyoung@gmail.com",
-    "phone": "5105890468",
+    "name": "chello7630@yahoo.com",
+    "email": "chello7630@yahoo.com",
+    "phone": "5103586765",
     "location": "Fremont",
     "status": "Active",
-    "_id": "taipingyoung_gmail_com"
-  },
-  {
-    "name": "cao.roath@gmail.com",
-    "email": "cao.roath@gmail.com",
-    "phone": "4085504554",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "cao_roath_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "chello_7630_yahoo_com"
   },
   {
     "name": "cxj9613@hotmail.com",
@@ -1869,31 +2535,29 @@
     "phone": "5138859926",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "cxj_9613_hotmail_com"
   },
   {
-    "name": "juanranfeng@yahoo.com",
-    "email": "juanranfeng@yahoo.com",
-    "phone": "5107423261",
+    "name": "rajmansa@gmail.com  ",
+    "email": "rajmansa@gmail.com  ",
+    "phone": "",
     "location": "Fremont",
     "status": "Active",
-    "_id": "juanranfeng_yahoo_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "rajmansa_gmail_com"
   },
   {
-    "name": "kothari_preeti@yahoo.com",
-    "email": "kothari_preeti@yahoo.com",
-    "phone": "4082508215",
+    "name": "iko129@yahoo.com",
+    "email": "iko129@yahoo.com",
+    "phone": "5105098988",
     "location": "Fremont",
     "status": "Active",
-    "_id": "kothari_preeti_yahoo_com"
-  },
-  {
-    "name": "Nayyarfamily@gmail.com",
-    "email": "Nayyarfamily@gmail.com",
-    "phone": "6507992844",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "nayyarfamily_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "iko_129_yahoo_com"
   },
   {
     "name": "lagisetty_pallavi@yahoo.com",
@@ -1901,6 +2565,8 @@
     "phone": "4083916683",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lagisetty_pallavi_yahoo_com"
   },
   {
@@ -1909,6 +2575,8 @@
     "phone": "6309153686",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "raghu_munaswamy_gmail_com"
   },
   {
@@ -1917,6 +2585,8 @@
     "phone": "6124819444",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "mazenakos_gmail_com"
   },
   {
@@ -1925,15 +2595,19 @@
     "phone": "6122292080",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hakimhussien_gmail_com"
   },
   {
-    "name": "haoyan@msn.com",
-    "email": "haoyan@msn.com",
-    "phone": "5103865681",
+    "name": "lichan_315@hotmail.com",
+    "email": "lichan_315@hotmail.com",
+    "phone": "3107956858",
     "location": "Fremont",
     "status": "Active",
-    "_id": "haoyan_msn_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "lichan_315_hotmail_com"
   },
   {
     "name": "mayk.yu@gmail.com",
@@ -1941,7 +2615,29 @@
     "phone": "5103841939",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "mayk_yu_gmail_com"
+  },
+  {
+    "name": "jiaguo.elaine@gmail.com",
+    "email": "jiaguo.elaine@gmail.com",
+    "phone": "7577844334",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "jiaguo_elaine_gmail_com"
+  },
+  {
+    "name": "haoyan@msn.com",
+    "email": "haoyan@msn.com",
+    "phone": "5103865681",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "haoyan_msn_com"
   },
   {
     "name": "wsway@yahoo.com",
@@ -1949,15 +2645,29 @@
     "phone": "4085681259",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
     "_id": "wsway_yahoo_com"
   },
   {
-    "name": "zxyanz.jia@gmail.com",
-    "email": "zxyanz.jia@gmail.com",
-    "phone": "7577844334",
+    "name": "neeta_adwait17@hotmail.com",
+    "email": "neeta_adwait17@hotmail.com",
+    "phone": "4083108452",
     "location": "Fremont",
     "status": "Active",
-    "_id": "zxyanz_jia_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "neeta_adwait_17_hotmail_com"
+  },
+  {
+    "name": "jennyqw@gmail.com",
+    "email": "jennyqw@gmail.com",
+    "phone": "5109539217",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "jennyqw_gmail_com"
   },
   {
     "name": "wiknut@yahoo.com",
@@ -1965,6 +2675,8 @@
     "phone": "5107016360",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "wiknut_yahoo_com"
   },
   {
@@ -1973,6 +2685,8 @@
     "phone": "4083739132",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "wuyin_79_gmail_com"
   },
   {
@@ -1981,15 +2695,29 @@
     "phone": "5109962763",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hannahxjin_gmail_com"
   },
   {
-    "name": "Rakhi_i@hotmail.com",
-    "email": "Rakhi_i@hotmail.com",
+    "name": "nitesh_singh@hotmail.com",
+    "email": "nitesh_singh@hotmail.com",
     "phone": "8324197105",
     "location": "Fremont",
     "status": "Active",
-    "_id": "rakhi_i_hotmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "nitesh_singh_hotmail_com"
+  },
+  {
+    "name": "aarthy.vijendran@gmail.com",
+    "email": "aarthy.vijendran@gmail.com",
+    "phone": "7327252105",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
+    "_id": "aarthy_vijendran_gmail_com"
   },
   {
     "name": "zoe7670@hotmail.com",
@@ -1997,6 +2725,8 @@
     "phone": "4259456719",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zoe_7670_hotmail_com"
   },
   {
@@ -2005,6 +2735,8 @@
     "phone": "5105527271",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "haitaoww_gmail_com"
   },
   {
@@ -2013,15 +2745,9 @@
     "phone": "7735121380",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lemaochen_gmail_com"
-  },
-  {
-    "name": "qxuelei@gmail.com",
-    "email": "qxuelei@gmail.com",
-    "phone": "9513126989",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "qxuelei_gmail_com"
   },
   {
     "name": "saimbb@gmail.com",
@@ -2029,6 +2755,8 @@
     "phone": "8583663970",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "saimbb_gmail_com"
   },
   {
@@ -2037,31 +2765,9 @@
     "phone": "5184799396",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jialinyu_08_gmail_com"
-  },
-  {
-    "name": "dvibha@gmail.com",
-    "email": "dvibha@gmail.com",
-    "phone": "5104024709",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "dvibha_gmail_com"
-  },
-  {
-    "name": "phi_tran@yahoo.com",
-    "email": "phi_tran@yahoo.com",
-    "phone": "4086270486",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "phi_tran_yahoo_com"
-  },
-  {
-    "name": "Anurikasaran@yahoo.com",
-    "email": "Anurikasaran@yahoo.com",
-    "phone": "4087316216",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "anurikasaran_yahoo_com"
   },
   {
     "name": "gongrb@hotmail.com",
@@ -2069,15 +2775,9 @@
     "phone": "0",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "gongrb_hotmail_com"
-  },
-  {
-    "name": "nehajalan.us@gmail.com",
-    "email": "nehajalan.us@gmail.com",
-    "phone": "4088231081",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "nehajalan_us_gmail_com"
   },
   {
     "name": "wgchan_do@yahoo.com",
@@ -2085,6 +2785,8 @@
     "phone": "4083065666",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "wgchan_do_yahoo_com"
   },
   {
@@ -2093,7 +2795,19 @@
     "phone": "4086674657",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jielanchen_yahoo_com"
+  },
+  {
+    "name": "Fanglinzhang@hotmail.com",
+    "email": "Fanglinzhang@hotmail.com",
+    "phone": "4088380791",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "fanglinzhang_hotmail_com"
   },
   {
     "name": "tonyw01@yahoo.com",
@@ -2101,6 +2815,8 @@
     "phone": "",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "tonyw_01_yahoo_com"
   },
   {
@@ -2109,6 +2825,8 @@
     "phone": "",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "yakyao_smth_gmail_com"
   },
   {
@@ -2117,6 +2835,8 @@
     "phone": "6039217489",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "como_3649_gmail_com"
   },
   {
@@ -2125,31 +2845,29 @@
     "phone": "6504838336",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "qingfen_qiao_yahoo_com"
   },
   {
-    "name": "varadero1223@gmail.com",
-    "email": "varadero1223@gmail.com",
-    "phone": "5107096860",
+    "name": "Nayyarfamily@gmail.com",
+    "email": "Nayyarfamily@gmail.com",
+    "phone": "6507992844",
     "location": "Fremont",
     "status": "Active",
-    "_id": "varadero_1223_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "nayyarfamily_gmail_com"
   },
   {
-    "name": "azurelan@yahoo.com",
-    "email": "azurelan@yahoo.com",
-    "phone": "4082194335",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "azurelan_yahoo_com"
-  },
-  {
-    "name": "samplecheck_ben@yahoo.com",
-    "email": "samplecheck_ben@yahoo.com",
+    "name": "mghome11@gmail.com",
+    "email": "mghome11@gmail.com",
     "phone": "4088343996",
     "location": "Fremont",
     "status": "Active",
-    "_id": "samplecheck_ben_yahoo_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "mghome_11_gmail_com"
   },
   {
     "name": "Lideng2011@gmail.com",
@@ -2157,6 +2875,8 @@
     "phone": "4086210547",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lideng_2011_gmail_com"
   },
   {
@@ -2165,15 +2885,9 @@
     "phone": "",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "feilong_xu_gmail_com"
-  },
-  {
-    "name": "ammalee@yahoo.com",
-    "email": "ammalee@yahoo.com",
-    "phone": "5103968055",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "ammalee_yahoo_com"
   },
   {
     "name": "zhanglouise@yahoo.com",
@@ -2181,6 +2895,8 @@
     "phone": "6509245733",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "zhanglouise_yahoo_com"
   },
   {
@@ -2189,15 +2905,19 @@
     "phone": "5103962288",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "josiechou_hotmail_com"
   },
   {
-    "name": "jing.belinda.zhang@gmail.com",
-    "email": "jing.belinda.zhang@gmail.com",
+    "name": "weisong_yao@yahoo.com",
+    "email": "weisong_yao@yahoo.com",
     "phone": "4088322819",
     "location": "Fremont",
     "status": "Active",
-    "_id": "jing_belinda_zhang_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "weisong_yao_yahoo_com"
   },
   {
     "name": "fenghellen@yahoo.com",
@@ -2205,6 +2925,8 @@
     "phone": "5102662245",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
     "_id": "fenghellen_yahoo_com"
   },
   {
@@ -2213,6 +2935,8 @@
     "phone": "3023537806",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
     "_id": "yuhei_hayashi_gmail_com"
   },
   {
@@ -2221,23 +2945,29 @@
     "phone": "4083755372",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 56,
     "_id": "johngina_gmail_com"
   },
   {
-    "name": "alicamteuzi@gmail.com",
-    "email": "alicamteuzi@gmail.com",
-    "phone": "9258859023",
+    "name": "hennylie@yahoo.com",
+    "email": "hennylie@yahoo.com",
+    "phone": "",
     "location": "Fremont",
     "status": "Active",
-    "_id": "alicamteuzi_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "hennylie_yahoo_com"
   },
   {
-    "name": "luanyuhuachina@gmail.com",
-    "email": "luanyuhuachina@gmail.com",
-    "phone": "4085807186",
+    "name": "monika_singla1@yahoo.com",
+    "email": "monika_singla1@yahoo.com",
+    "phone": "5105856857",
     "location": "Fremont",
     "status": "Active",
-    "_id": "luanyuhuachina_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
+    "_id": "monika_singla_1_yahoo_com"
   },
   {
     "name": "ylavalanche@yahoo.com",
@@ -2245,6 +2975,8 @@
     "phone": "5103646516",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ylavalanche_yahoo_com"
   },
   {
@@ -2253,23 +2985,59 @@
     "phone": "4158232039",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "nanda_4_ucla_yahoo_com"
   },
   {
-    "name": "shyamvarma09@yahoo.com",
-    "email": "shyamvarma09@yahoo.com",
-    "phone": "4086502876",
+    "name": "Manjingxie@hotmail.com",
+    "email": "Manjingxie@hotmail.com",
+    "phone": "4082035518",
     "location": "Fremont",
     "status": "Active",
-    "_id": "shyamvarma_09_yahoo_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "manjingxie_hotmail_com"
   },
   {
-    "name": "aarthy.vijendran@gmail.com",
-    "email": "aarthy.vijendran@gmail.com",
-    "phone": "7327252105",
+    "name": "zoelin2011@gmail.com",
+    "email": "zoelin2011@gmail.com",
+    "phone": "6262839779",
     "location": "Fremont",
     "status": "Active",
-    "_id": "aarthy_vijendran_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "zoelin_2011_gmail_com"
+  },
+  {
+    "name": "reenap@hotmail.com",
+    "email": "reenap@hotmail.com",
+    "phone": "8312346363",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "reenap_hotmail_com"
+  },
+  {
+    "name": "s_sumadevi@hotmail.com",
+    "email": "s_sumadevi@hotmail.com",
+    "phone": "4087504143",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "s_sumadevi_hotmail_com"
+  },
+  {
+    "name": "monumonga@hotmail.com",
+    "email": "monumonga@hotmail.com",
+    "phone": "4044518817",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "monumonga_hotmail_com"
   },
   {
     "name": "ushuihui@gmail.com",
@@ -2277,6 +3045,8 @@
     "phone": "4087128721",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ushuihui_gmail_com"
   },
   {
@@ -2285,15 +3055,9 @@
     "phone": "5104682817",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "ywwang_01_yahoo_com"
-  },
-  {
-    "name": "jeanqw@yahoo.com",
-    "email": "jeanqw@yahoo.com",
-    "phone": "5109968285",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "jeanqw_yahoo_com"
   },
   {
     "name": "Kllbabydd@yahoo.com",
@@ -2301,7 +3065,49 @@
     "phone": "5108283097",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "kllbabydd_yahoo_com"
+  },
+  {
+    "name": "varadero1223@gmail.com",
+    "email": "varadero1223@gmail.com",
+    "phone": "5107096860",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "varadero_1223_gmail_com"
+  },
+  {
+    "name": "vsirsikar@gmail.com",
+    "email": "vsirsikar@gmail.com",
+    "phone": "6504301642",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "vsirsikar_gmail_com"
+  },
+  {
+    "name": "tripusa@yahoo.com",
+    "email": "tripusa@yahoo.com",
+    "phone": "5105992680",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "tripusa_yahoo_com"
+  },
+  {
+    "name": "hanna_xiao@yahoo.com",
+    "email": "hanna_xiao@yahoo.com",
+    "phone": "5102033525",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "hanna_xiao_yahoo_com"
   },
   {
     "name": "lulily@gmail.com",
@@ -2309,23 +3115,9 @@
     "phone": "4088339351",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "lulily_gmail_com"
-  },
-  {
-    "name": "rajkashikar@gmail.com",
-    "email": "rajkashikar@gmail.com",
-    "phone": "6503030844",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "rajkashikar_gmail_com"
-  },
-  {
-    "name": "salima@noorali.com",
-    "email": "salima@noorali.com",
-    "phone": "5105855603",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "salima_noorali_com"
   },
   {
     "name": "Jennyw778@gmail.com",
@@ -2333,6 +3125,8 @@
     "phone": "9796610828",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "jennyw_778_gmail_com"
   },
   {
@@ -2341,6 +3135,8 @@
     "phone": "5103047347",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "582803441_qq_com"
   },
   {
@@ -2349,15 +3145,39 @@
     "phone": "5102400973",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "bsis_hotmail_com"
   },
   {
-    "name": "vsirsikar@gmail.com",
-    "email": "vsirsikar@gmail.com",
-    "phone": "6504301642",
+    "name": "jeanqw@yahoo.com",
+    "email": "jeanqw@yahoo.com",
+    "phone": "5109968285",
     "location": "Fremont",
     "status": "Active",
-    "_id": "vsirsikar_gmail_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 28,
+    "_id": "jeanqw_yahoo_com"
+  },
+  {
+    "name": "shyamvarma09@yahoo.com",
+    "email": "shyamvarma09@yahoo.com",
+    "phone": "4086502876",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "shyamvarma_09_yahoo_com"
+  },
+  {
+    "name": "davidcg427@gmail.com",
+    "email": "davidcg427@gmail.com",
+    "phone": "5109186461",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "davidcg_427_gmail_com"
   },
   {
     "name": "Xxflj@yahoo.com",
@@ -2365,6 +3185,8 @@
     "phone": "5106480289",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "xxflj_yahoo_com"
   },
   {
@@ -2373,6 +3195,8 @@
     "phone": "4088327792",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "helenli_2012_yahoo_com"
   },
   {
@@ -2381,6 +3205,8 @@
     "phone": "5109008273",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sara_xu_gmail_com"
   },
   {
@@ -2389,15 +3215,19 @@
     "phone": "4084649880",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "sirikoppu_gmail_com"
   },
   {
-    "name": "dkongmike@yahoo.com",
-    "email": "dkongmike@yahoo.com",
-    "phone": "5107098887",
+    "name": "suman_sudhir@hotmail.com",
+    "email": "suman_sudhir@hotmail.com",
+    "phone": "4084102314",
     "location": "Fremont",
     "status": "Active",
-    "_id": "dkongmike_yahoo_com"
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "suman_sudhir_hotmail_com"
   },
   {
     "name": "hhu1@yahoo.com",
@@ -2405,6 +3235,8 @@
     "phone": "4088217088",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "hhu_1_yahoo_com"
   },
   {
@@ -2413,15 +3245,9 @@
     "phone": "5104023286",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "vivianho_168_yahoo_com"
-  },
-  {
-    "name": "wenhui_jia@hotmail.com",
-    "email": "wenhui_jia@hotmail.com",
-    "phone": "9257899159",
-    "location": "Fremont",
-    "status": "Active",
-    "_id": "wenhui_jia_hotmail_com"
   },
   {
     "name": "mhafra@yahoo.com",
@@ -2429,6 +3255,38 @@
     "phone": "5105655278",
     "location": "Fremont",
     "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
     "_id": "mhafra_yahoo_com"
+  },
+  {
+    "name": "vanisreet@yahoo.com",
+    "email": "vanisreet@yahoo.com",
+    "phone": "5104932363",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "vanisreet_yahoo_com"
+  },
+  {
+    "name": "amyfulee@hotmail.com",
+    "email": "amyfulee@hotmail.com",
+    "phone": "4083987516",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "amyfulee_hotmail_com"
+  },
+  {
+    "name": "ammalee@yahoo.com",
+    "email": "ammalee@yahoo.com",
+    "phone": "5103968055",
+    "location": "Fremont",
+    "status": "Active",
+    "hasRegistrationFee": false,
+    "schoolCredit": 0,
+    "_id": "ammalee_yahoo_com"
   }
 ]

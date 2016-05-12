@@ -31,14 +31,6 @@
     "_id": "eli_classforth_com"
   },
   {
-    "nickName": "Cynthia",
-    "email": "cynthia@classforth.com",
-    "role": "teacher",
-    "supervisor": "teacher",
-    "title": "Administrator",
-    "_id": "cynthia_classforth_com"
-  },
-  {
     "nickName": "Robbie",
     "email": "robbie@classforth.com",
     "role": "teacher",
@@ -47,19 +39,35 @@
     "_id": "robbie_classforth_com"
   },
   {
-    "nickName": "Mei",
-    "email": "mei@classforth.com",
+    "nickName": "Justin P",
+    "email": "justinP@classforth.com",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "mei_classforth_com"
+    "_id": "justin_p_classforth_com"
   },
   {
-    "nickName": "Kit",
-    "email": "kit@classforth.com",
+    "nickName": "Cynthia",
+    "email": "cynthia@classforth.com",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "kit_classforth_com"
+    "_id": "cynthia_classforth_com"
+  },
+  {
+    "nickName": "Nora",
+    "email": "nora@classforth.com",
+    "role": "teacher",
+    "supervisor": "teacher",
+    "title": "Administrator",
+    "_id": "nora_classforth_com"
+  },
+  {
+    "nickName": "Justin Ho",
+    "email": "justinHo@classforth.com",
+    "role": "teacher",
+    "supervisor": "teacher",
+    "title": "Administrator",
+    "_id": "justin_ho_classforth_com"
   }
 ]
