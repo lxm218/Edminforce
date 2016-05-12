@@ -144,9 +144,13 @@ KUI.Family_add_comp = class extends RC.CSS{
     }
 
     setSchoolCreditNumber(num){
-        if(num){
-            this.refs.credit.getInputDOMNode().value  = num;
-        }
+
+        this.refs.credit.getInputDOMNode().value = num||0;
+
+    }
+    getSchoolCreditNumber(){
+        let n = this.refs.credit.getValue()||0;
+        return  parseFloat(n);
     }
 
 };
@@ -252,12 +256,18 @@ KUI.Family_profile = class extends KUI.Page{
                 return false;
             }
 
+            let old = self.refs.form.getSchoolCreditNumber();
+            if(num+old < 0){
+                swal.showInputError('school credit change error');
+                return false;
+            }
+
             self.m.Customer.getDB().update({_id : self.data.id}, {
                 '$set' : {
-                    schoolCredit : parseFloat(num)
+                    schoolCredit : parseFloat(num+old)
                 }
             });
-            self.refs.form.setSchoolCreditNumber(num);
+            self.refs.form.setSchoolCreditNumber(num+old);
 
             //add to log
             KG.RequestLog.addByType('change school credit', {
