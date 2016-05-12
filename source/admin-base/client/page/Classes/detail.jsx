@@ -217,6 +217,10 @@ KUI.Class_detail = class extends KUI.Page{
             return null;
         }
 
+        if(this.data.data.numberOfRegistered >= this.data.data.maxStudent){
+            x = false;
+        }
+
         let flag = x;
         let classID = this.getClassId();
 
