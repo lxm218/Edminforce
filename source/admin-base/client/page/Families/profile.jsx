@@ -68,7 +68,7 @@ KUI.Family_add_comp = class extends RC.CSS{
             credit : {
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
-                label : 'School Credit',
+                label : 'School Credit($)',
                 ref : 'credit',
                 disabled : true
             }
@@ -138,8 +138,14 @@ KUI.Family_add_comp = class extends RC.CSS{
         em_name.getInputDOMNode().value = em.name || '';
         em_phone.getInputDOMNode().value = em.phone || '';
 
-        if(data.schoolCredit){
-            this.refs.credit.getInputDOMNode().value  = '$'+data.schoolCredit;
+        //if(data.schoolCredit){
+            this.refs.credit.getInputDOMNode().value  = (data.schoolCredit||0);
+        //}
+    }
+
+    setSchoolCreditNumber(num){
+        if(num){
+            this.refs.credit.getInputDOMNode().value  = num;
         }
     }
 
@@ -205,9 +211,65 @@ KUI.Family_profile = class extends KUI.Page{
     baseStyles(){
         return {
             rd : {
-                textAlign : 'right'
+                textAlign : 'right',
+
+            },
+            ml : {
+                marginLeft: '20px'
             }
         };
+    }
+
+    changeSchoolCredit(){
+        let self = this;
+        let param = {
+            title : 'Change School Credit',
+            text : [
+                '<fieldset>',
+                    '<input type="text" class="js_n" style="display:block;" tabindex="3" placeholder="School Credit">',
+                    '<input type="text" class="js_r" style="display:block;" tabindex="3" placeholder="Note">',
+                '</fieldset>'
+            ].join(''),
+            confirmButtonText : 'Confirm',
+            cancelButtonText : 'Cancel',
+            showCancelButton : true,
+            confirmButtonColor : '#1ab394',
+            html : true,
+            closeOnConfirm : false,
+            animation : 'slide-from-top'
+
+        };
+
+        swal(param, function(){
+            console.log(arguments);
+            let num = $('.js_n').val(),
+                note = $('.js_r').val();
+            console.log(num, note);
+
+            num = parseFloat(num);
+            if(!num){
+                swal.showInputError('school credit must be a number');
+                return false;
+            }
+
+            self.m.Customer.getDB().update({_id : self.data.id}, {
+                '$set' : {
+                    schoolCredit : parseFloat(num)
+                }
+            });
+            self.refs.form.setSchoolCreditNumber(num);
+
+            //add to log
+            KG.RequestLog.addByType('change school credit', {
+                data : {
+                    customer : self.data.profile,
+                    credit : num,
+                    note : note
+                }
+            });
+
+            swal.close();
+        });
     }
 
     render(){
@@ -218,6 +280,7 @@ KUI.Family_profile = class extends KUI.Page{
             <RC.Div>
                 <KUI.Family_add_comp type="edit" ref="form" />
                 <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.changeSchoolCredit.bind(this)} label="Change School Credit"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>
                 <hr/>

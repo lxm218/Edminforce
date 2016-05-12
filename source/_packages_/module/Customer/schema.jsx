@@ -78,6 +78,7 @@ Schema.Customer = {
     schoolCredit : KG.schema.default({
         type : Number,
         optional : true,
+        decimal : true,
         defaultValue : 0
     }),
     //for payment
