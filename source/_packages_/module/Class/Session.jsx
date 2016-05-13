@@ -101,6 +101,10 @@ KG.define('EF-Session', class extends Base{
                 for(let i=0,len=classList.length; i<len; i++){
                     let item = classList[i];
                     item.sessionID = toSessionID;
+
+                    //make numberOfRegister value is 0
+                    item.numberOfRegistered = 0;
+
                     delete item._id;
                     delete item.createTime;
                     delete item.updateTime;

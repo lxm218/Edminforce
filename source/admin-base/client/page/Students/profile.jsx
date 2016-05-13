@@ -78,7 +78,9 @@ KUI.Student_profile = class extends KUI.Page{
             classData : classData,
 
             scReady : scx.ready(),
-            scList : this.m.StudentComment.getDB().find({}, {sort:{createTime:-1}}).fetch()
+            scList : this.m.StudentComment.getDB().find({
+                studentID : this.getProfileId()
+            }, {sort:{createTime:-1}}).fetch()
         };
     }
 
