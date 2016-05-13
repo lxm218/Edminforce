@@ -298,6 +298,9 @@ console.log(m.Customer.getAll()[0])
                 <RB.Input onChange={function(){}} ref="s24" name="cgroup" type="radio" label="E-Check" />
                 {<RB.Input onChange={function(){}} ref="s22" name="cgroup" type="radio" label="Cash" />}
                 {<RB.Input onChange={function(){}} ref="s23" name="cgroup" type="radio" label="Check" />}
+
+                <RB.Input onChange={function(){}} ref="s_unpaid" name="cgroup" type="radio" label="Unpaid" />
+
                 {/*<RB.Input onChange={function(){}} ref="s25" type="checkbox" label="Gift Card" />*/}
                 <RC.Div style={{textAlign:'right'}}>
                     {<KUI.NoButton onClick={this.toStep1.bind(this)} label="Cancel"></KUI.NoButton>}
@@ -330,6 +333,8 @@ console.log(m.Customer.getAll()[0])
             s24 = $(this.refs.s24.getInputDOMNode()).prop('checked'),
             s22 = $(this.refs.s22.getInputDOMNode()).prop('checked'),
             s23 = $(this.refs.s23.getInputDOMNode()).prop('checked');
+
+        let s_np = $(this.refs.s_unpaid.getInputDOMNode()).prop('checked');
 
         Session.set('_register_class_money_total_', this.total.get());
 
@@ -379,6 +384,9 @@ console.log(m.Customer.getAll()[0])
             orderData.paymentType = 'check';
             orderData.status = 'success';
             orderData.poundage = App.config.poundage.check;
+        }
+        else if(s_np){
+            //TODO unpaid
         }
         else{
             flag = false;
