@@ -12,14 +12,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -40,14 +40,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -68,14 +68,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -96,14 +96,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -124,14 +124,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -152,14 +152,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -180,14 +180,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -208,14 +208,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -236,14 +236,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -264,14 +264,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -292,14 +292,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -320,14 +320,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -348,14 +348,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -376,14 +376,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -404,14 +404,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -432,14 +432,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -460,14 +460,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -488,14 +488,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "25"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -516,14 +516,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "40"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -544,14 +544,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -572,14 +572,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -600,14 +600,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -628,14 +628,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -656,14 +656,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -684,14 +684,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -712,14 +712,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -740,14 +740,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -768,14 +768,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -796,14 +796,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -824,14 +824,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -852,14 +852,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -880,14 +880,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -908,14 +908,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -936,14 +936,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -964,14 +964,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -992,14 +992,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1020,14 +1020,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1048,14 +1048,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1076,14 +1076,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1104,14 +1104,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1132,14 +1132,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1160,14 +1160,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1188,14 +1188,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1216,14 +1216,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1244,14 +1244,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1272,14 +1272,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1300,14 +1300,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1328,14 +1328,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1356,14 +1356,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1384,14 +1384,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "30"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1412,14 +1412,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "40"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1440,14 +1440,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "40"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1468,14 +1468,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "40"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1496,14 +1496,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "40"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1524,14 +1524,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "40"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
@@ -1552,14 +1552,14 @@
     },
     "tuition": {
       "type": "class",
-      "money": 40
+      "money": "40"
     },
-    "maxStudent": 10,
+    "maxStudent": 9,
     "minStudent": 0,
     "trialStudent": 2,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 2,
+    "makeupStudent": 1,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},

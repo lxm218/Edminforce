@@ -164,12 +164,12 @@ var classData = {
         type: "class",
         money: "100"
     },
-    maxStudent: 10,
+    maxStudent: 9,
     minStudent: 0,
     trialStudent: 2,
     minAgeRequire: 0,
     maxAgeRequire: 100,
-    makeupStudent: 2,
+    makeupStudent: 1,
     makeupClassFee: 5,
     genderRequire: "All",
     makeup:{},
@@ -466,6 +466,7 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
         nClass.schedule.time = hours_am_pm(data[4]);
         nClass.tuition.money = programPrices[nProgram._id]||40;
         nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
+        nClass.tuition.money = data[8];
         insertToArray(classes, nClass);
 
         // Add all class for Spring 2016
@@ -571,12 +572,13 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
             nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
             insertToArray(adminUsers, nTacherAdminUser);
 
-
             let nUser = _.cloneDeep(user);
             nUser._id = getUserID(data[7]);
-            nUser.emails[0].address = data[7];
             nUser.username = data[7];
-            //insertToArray(accounts, nUser);
+            nUser.username = nUser.username.toLowerCase();
+            nUser.emails[0].address = nUser.username;
+
+            insertToArray(accounts, nUser);
 
             let nCustomer = _.cloneDeep(customer);
             nCustomer._id = getUserID(data[7]);

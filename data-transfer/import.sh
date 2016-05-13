@@ -29,16 +29,7 @@ export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblaye
 #export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/demo?ssl=true
 
 #=====================
-#transfer data
-#cd transfer
-#Step 1: install node packages
-#npm install
-#Step 2: start transfer process
-#node index.js
-
-#=====================
 #Update MongoDB
-#cd ../update
-
 cd update
 meteor run --port $PORT
+cd ..
