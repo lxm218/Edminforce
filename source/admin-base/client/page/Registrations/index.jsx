@@ -225,15 +225,31 @@ console.log(data);
                 util.toast.showError(error.statusText);
             },
             step : function(fn){
-                util.dialog.confirm({
-                    msg : 'Class is full of registration, do you want to going into waitlist!',
-                    YesFn : function(){
-                        let mp = fn.call();
-                        if(mp.status){
-                            util.goPath('/registration/payment/'+mp.data);
-                        }
-
+                //util.dialog.confirm({
+                //    msg : 'Class is full of registration, do you want to going into waitlist!',
+                //    YesFn : function(){
+                //        let mp = fn.call();
+                //        if(mp.status){
+                //            util.goPath('/registration/payment/'+mp.data);
+                //        }
+                //
+                //    }
+                //});
+                swal({
+                    title : '',
+                    text : 'Class is full of registration, do you want to going into waitlist!',
+                    type : 'warning',
+                    showCancelButton : true,
+                    closeOnCancel : true,
+                    closeOnConfirm : true,
+                    confirmButtonText : 'Add Waitlist',
+                    confirmButtonColor : '#1ab394'
+                }, function(){
+                    let mp = fn.call();
+                    if(mp.status){
+                        util.toast.alert('Add waitlist success!');
                     }
+
                 });
             }
         });

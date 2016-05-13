@@ -114,6 +114,7 @@ let ClassStudent = class extends Base{
 
         let resultFn = function(){
             data.type = 'wait';
+            data.status = 'checkouted';
             let f = this._db.insert(data);
             return KG.result.out(true, f);
         };
