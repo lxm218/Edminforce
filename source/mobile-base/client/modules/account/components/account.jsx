@@ -96,10 +96,10 @@ EdminForce.Components.Account = class extends RC.CSS {
                             <TableHeaderColumn>
                             {this.state.bUpdateUsername ?
                                 (<div>
-                                    <RC.Input theme="inline" name="username" ref="username" value={this.props.user.username}/>
+                                    <RC.Input theme="inline" name="username" ref="username" value={this.props.customer.name}/>
                                 </div>) :
                                 (<div>
-                                    <span style={{paddingRight: "10px"}}>{this.props.user.username}</span>
+                                    <span style={{paddingRight: "10px"}}>{this.props.customer.name}</span>
                                 </div>)
                             }
                             </TableHeaderColumn>
