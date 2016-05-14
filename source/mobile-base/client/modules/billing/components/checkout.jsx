@@ -148,11 +148,15 @@ EdminForce.Components.Checkout = class extends RC.CSS {
         ));
 
         let orderTotal = this.props.total - this.props.discount;
+        let paymentTotal = orderTotal;
+        if (numOfClasses > 0 && this.state.applySchoolCredit && this.props.schoolCredit > 0) {
+            paymentTotal = this.props.schoolCredit > orderTotal ? 0 : orderTotal - this.props.schoolCredit;
+        }
         cartItems.push((
             <TableRow key="_grandTotal_">
                 <TableRowColumn colSpan="2"><span style={col1Style}>Total</span></TableRowColumn>
                 <TableRowColumn colSpan="2"><span
-                    style={col2Style}>${orderTotal.toFixed(2)}</span></TableRowColumn>
+                    style={col2Style}>${paymentTotal.toFixed(2)}</span></TableRowColumn>
             </TableRow>
         ));
 
