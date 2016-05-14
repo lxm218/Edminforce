@@ -669,7 +669,7 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSour
 
         if (failedRegistrations.length > 0) {
             // fill failed bookings with student name and class name
-            result.error = 'registrationExpired';
+            //result.error = 'registrationExpired';
             result.expiredRegistrationIDs = failedRegistrations.join();
         }
     }
@@ -741,10 +741,31 @@ function getExpiredRegistrations(userId, expiredRegistrationIDs) {
     return result;
 }
 
+function applySchoolCredit(userId, amount) {
+    return Collections.Customer.update({
+        _id: userId,
+        schoolCredit: {$gte: amount}
+    }, {
+        $inc: {
+            schoolCredit: -amount
+        }
+    });
+}
+
 function payECheck(userId, checkPaymentInfo) {
 
     let order = Collections.orders.findOne({_id: checkPaymentInfo.orderId});
     if (!order) throw new Meteor.Error(500, 'Order not found','Invalid order id: ' + checkPaymentInfo.orderId);
+
+    // deduct school credit if it's applied
+    if (order.schoolCredit > 0) {
+        let schoolCreditApplied = applySchoolCredit(userId, order.schoolCredit);
+        if (!schoolCreditApplied) {
+            // school credit is not enough
+            throw new Meteor.Error('insufficientSchoolCredit');
+        }
+    }
+
 
     // process payment
     // if success,
@@ -793,7 +814,7 @@ function payECheck(userId, checkPaymentInfo) {
 
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
-    let paymentTotal = order.amount + 0.5;
+    let paymentTotal = order.amount - order.schoolCredit + 0.5;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
@@ -809,15 +830,22 @@ function payECheck(userId, checkPaymentInfo) {
         return postPaymentUpdate(userId, order, 'echeck', paymentTotal, checkPaymentInfo.paymentSource);
     }
     else {
-        return {
-            error: 'unsuccessful payment transaction'
-        }
+        throw new Meteor.Error(500, 'unsuccessful payment transaction');
     }
 }
 
 function payCreditCard(userId, creditCardPaymentInfo) {
     let order = Collections.orders.findOne({_id: creditCardPaymentInfo.orderId});
     if (!order) throw new Meteor.Error(500, 'Order not found', 'Invalid order id: ' + creditCardPaymentInfo.orderId);
+
+    // deduct school credit if it's applied
+    if (order.schoolCredit > 0) {
+        let schoolCreditApplied = applySchoolCredit(userId, order.schoolCredit);
+        if (!schoolCreditApplied) {
+            // school credit is not enough
+            throw new Meteor.Error('insufficientSchoolCredit');
+        }
+    }
 
     var paymentInfo = {
         "createTransactionRequest": {
@@ -878,7 +906,7 @@ function payCreditCard(userId, creditCardPaymentInfo) {
 
     paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
-    let paymentTotal = order.amount * 1.03;
+    let paymentTotal = (order.amount-order.schoolCredit) * 1.03;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
@@ -904,10 +932,39 @@ function payCreditCard(userId, creditCardPaymentInfo) {
         return postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
     }
     else {
-        return {
-            error: 'unsuccessful payment transaction'
-        }
+        throw new Meteor.Error(500, 'unsuccessful payment transaction');
     }
+}
+
+/*
+ * pay the entire order using school credit
+ */
+function payWithSchoolCredit(userId, paymentInfo) {
+
+    // deduct school credit
+    let schoolCreditApplied = applySchoolCredit(userId, paymentInfo.amount);
+    if (!schoolCreditApplied) {
+        // school credit is not enough
+        throw new Meteor.Error('insufficientSchoolCredit');
+    }
+
+    // add a new order record
+    let order = {
+        accountID: userId,
+        details: paymentInfo.details,
+        status: 'waiting',
+        amount: paymentInfo.amount,
+        paymentType: 'school credit',
+        paymentSource: paymentInfo.paymentSource,
+        discount: paymentInfo.discount,
+        registrationFee: paymentInfo.registrationFee,
+        couponID: paymentInfo.couponID,
+        schoolCredit: paymentInfo.amount
+    }
+    order._id = Collections.orders.insert(order);
+
+    // update registration
+    return postPaymentUpdate(userId, order, 'school credit', 0, paymentInfo.paymentSource);
 }
 
 /*
@@ -915,7 +972,7 @@ function payCreditCard(userId, creditCardPaymentInfo) {
  */
 function getBillingSummary(userId) {
     let currentOrder = getRegistrationSummary(userId);
-    let historyOrders = Collections.orders.find({accountID:userId, status:'success'}, {fields:{updateTime:1, paymentTotal:1,status:1}}).fetch();
+    let historyOrders = Collections.orders.find({accountID:userId, status:'success'}, {fields:{updateTime:1, paymentTotal:1,status:1,schoolCredit:1}}).fetch();
 
     return {
         historyOrders,
@@ -1035,3 +1092,4 @@ EdminForce.Registration.bookMakeup = bookMakeup;
 EdminForce.Registration.getBillingSummary = getBillingSummary;
 EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
+EdminForce.Registration.payWithSchoolCredit = payWithSchoolCredit;

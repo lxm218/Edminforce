@@ -43,14 +43,27 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                 studentClassIDs.push(sc._id);
             })
         });
+        
+        if (this.state.applySchoolCredit && this.props.schoolCredit > this.props.total - this.props.discount) {
+            this.props.actions.payWithSchoolCredit({
+                details: studentClassIDs,
+                amount: this.props.total - this.props.discount,
+                discount: this.props.discount,
+                registrationFee: this.props.registrationFee,
+                couponID: this.props.appliedCouponId
+            }, this.makeupOnly);
+        } 
+        else {
 
-        this.props.actions.prepareOrder({
-            details: studentClassIDs,
-            amount: this.props.total - this.props.discount,
-            discount: this.props.discount,
-            registrationFee: this.props.registrationFee,
-            couponID: this.props.appliedCouponId
-        }, this.makeupOnly);
+            this.props.actions.prepareOrder({
+                details: studentClassIDs,
+                amount: this.props.total - this.props.discount,
+                discount: this.props.discount,
+                registrationFee: this.props.registrationFee,
+                couponID: this.props.appliedCouponId,
+                schoolCredit: this.state.applySchoolCredit ? this.props.schoolCredit : 0,
+            }, this.makeupOnly);
+        }
     }
 
     toggleSchoolCredit(event, checked) {
@@ -134,15 +147,24 @@ EdminForce.Components.Checkout = class extends RC.CSS {
             </TableRow>
         ));
 
+        let orderTotal = this.props.total - this.props.discount;
         cartItems.push((
             <TableRow key="_grandTotal_">
                 <TableRowColumn colSpan="2"><span style={col1Style}>Total</span></TableRowColumn>
                 <TableRowColumn colSpan="2"><span
-                    style={col2Style}>${(this.props.total - this.props.discount).toFixed(2)}</span></TableRowColumn>
+                    style={col2Style}>${orderTotal.toFixed(2)}</span></TableRowColumn>
             </TableRow>
         ));
 
         if (numOfClasses > 0 && this.props.schoolCredit > 0) {
+            let schoolCreditInfo;
+            if (this.props.schoolCredit > orderTotal) {
+                schoolCreditInfo = "$" + orderTotal.toFixed(2) + " of $" + this.props.schoolCredit.toFixed(2);
+            }
+            else {
+                schoolCreditInfo = "$" + this.props.schoolCredit.toFixed(2);
+            }
+
             cartItems.push((
                 <TableRow key="_schoolCredit_">
                     <TableRowColumn colSpan="2"><RC.Checkbox style={{borderBottom:'none'}}
@@ -150,7 +172,7 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                                                              onClick={this.toggleSchoolCredit} checked={this.state.applySchoolCredit}/>
                     </TableRowColumn>
                     <TableRowColumn colSpan="2"><span
-                        style={col2Style}>${this.props.schoolCredit.toFixed(2)}</span></TableRowColumn>
+                        style={col2Style}>{schoolCreditInfo}</span></TableRowColumn>
                 </TableRow>
             ));
         }

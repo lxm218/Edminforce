@@ -105,6 +105,7 @@ BillingHistoryOrders = class extends RC.CSS {
                     <TableRow>
                         <TableHeaderColumn>Date</TableHeaderColumn>
                         <TableHeaderColumn>Amount</TableHeaderColumn>
+                        <TableHeaderColumn>School Credit</TableHeaderColumn>
                         <TableHeaderColumn>Status</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
@@ -114,6 +115,7 @@ BillingHistoryOrders = class extends RC.CSS {
                             <TableRow>
                                 <TableRowColumn>{moment(order.updateTime).format("MMM D, YYYY")}</TableRowColumn>
                                 <TableRowColumn>${Number(order.paymentTotal).toFixed(2)}</TableRowColumn>
+                                <TableRowColumn>${order.schoolCredit ? Number(order.schoolCredit).toFixed(2):"0.00"}</TableRowColumn>
                                 <TableRowColumn>{order.status === 'success' ? 'Completed' : order.status}</TableRowColumn>
                             </TableRow>
                         ))

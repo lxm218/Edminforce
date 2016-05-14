@@ -1,3 +1,10 @@
+function onCheckoutError(title, message) {
+    let path = FlowRouter.path('/checkoutError',null, {
+        title,
+        message
+    });
+    FlowRouter.go(path);
+}
 
 EdminForce.Actions.Billing = {
     validateCouponId({LocalState, StateBag}, couponId) {
@@ -22,11 +29,31 @@ EdminForce.Actions.Billing = {
             else {
                 let path = FlowRouter.path('/payment',null, {
                     orderId: result,
-                    amount: order.amount,
+                    amount: order.amount - order.schoolCredit,
                     makeupOnly
                 });
                 FlowRouter.go(path);
             }
+        });
+    },
+
+    payWithSchoolCredit({LocalState}, paymentInfo, makeupOnly) {
+        LocalState.set('ERROR_CHECKOUT', null);
+        paymentInfo.paymentSource = 'mobile';
+        Meteor.call('billing.payWithSchoolCredit', paymentInfo, function(err,result){
+            if (err) {
+                if (err.error === 'insufficientSchoolCredit') {
+                    onCheckoutError("Insufficient School Credit","The amount of your school credit has changed.");
+                }
+                else {
+                    return LocalState.set('ERROR_CHECKOUT', err.reason);
+                }
+            }
+            let path = FlowRouter.path('/checkoutSummary',null, {
+                makeupOnly,
+                expiredRegistrationIDs: result.expiredRegistrationIDs
+            });
+            FlowRouter.go(path);
         });
     },
     
@@ -34,23 +61,20 @@ EdminForce.Actions.Billing = {
         LocalState.set('ERROR_PAY_ECHECK', null);
         checkPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payECheck', checkPaymentInfo, function(err,result){
-            console.log(err);
-            console.log(result);
             if (err) {
-                LocalState.set('ERROR_PAY_ECHECK', err.reason);
-            }
-            else {
-                // check result
-                if (!result.error || result.error == 'registrationExpired') {
-                    let path = FlowRouter.path('/checkoutSummary',null, {
-                        makeupOnly,
-                        expiredRegistrationIDs: result.expiredRegistrationIDs
-                    });
-                    FlowRouter.go(path);
+                if (err.error === 'insufficientSchoolCredit') {
+                    onCheckoutError("Insufficient School Credit","The amount of your school credit has changed.");
                 }
                 else {
-                    LocalState.set('ERROR_PAY_ECHECK', result.error);
+                    LocalState.set('ERROR_PAY_ECHECK', err.reason);
                 }
+            }
+            else {
+                let path = FlowRouter.path('/checkoutSummary',null, {
+                    makeupOnly,
+                    expiredRegistrationIDs: result.expiredRegistrationIDs
+                });
+                FlowRouter.go(path);
             }
         });
     },
@@ -60,20 +84,19 @@ EdminForce.Actions.Billing = {
         creditCardPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payCreditCard', creditCardPaymentInfo, function(err,result){
             if (err) {
-                LocalState.set('ERROR_PAY_CREDITCARD', err.reason);
-            }
-            else {
-                // check result
-                if (!result.error || result.error == 'registrationExpired') {
-                    let path = FlowRouter.path('/checkoutSummary',null, {
-                        makeupOnly,
-                        expiredRegistrationIDs: result.expiredRegistrationIDs
-                    });
-                    FlowRouter.go(path);
+                if (err.error === 'insufficientSchoolCredit') {
+                    onCheckoutError("Insufficient School Credit","The amount of your school credit has changed.");
                 }
                 else {
-                    LocalState.set('ERROR_PAY_CREDITCARD', result.error);
+                    LocalState.set('ERROR_PAY_CREDITCARD', err.reason);
                 }
+            }
+            else {
+                let path = FlowRouter.path('/checkoutSummary',null, {
+                    makeupOnly,
+                    expiredRegistrationIDs: result.expiredRegistrationIDs
+                });
+                FlowRouter.go(path);
             }
         });
     },
