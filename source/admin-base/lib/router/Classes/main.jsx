@@ -34,6 +34,19 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/calendar', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "calendar",
+                bodyTmpl: <KUI.Class_calendar />
+            });
+
+        }
+    });
+
+
+
+
 
 
 
