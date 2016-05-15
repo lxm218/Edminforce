@@ -51,7 +51,7 @@ KUI.LeftNav = KUI.Class.define('ui.LeftNav', {
             },
             {
                 name : 'Calendar',
-                href : '/program/class/calendar'
+                href : '/classCalendar'
             }
         ];
 

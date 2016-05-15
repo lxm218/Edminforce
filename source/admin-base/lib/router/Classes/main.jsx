@@ -34,7 +34,9 @@ if(Meteor.isClient){
         }
     });
 
-    Route.route('/calendar', {
+
+    //todo move to another place?
+    FlowRouter.route('/classCalendar', {
         action : function(p){
             App.routeHandler(p, {
                 pageTitle: "calendar",
