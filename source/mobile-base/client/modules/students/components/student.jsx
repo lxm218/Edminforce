@@ -56,8 +56,12 @@ EdminForce.Components.Student = class extends RC.CSS {
     render() {
         let student = {...this.props.student, ...this.editedStudent};
         let isValid = student.name && student.gender;
+        let isSigned = student.signedDate && student.signedBy;
         let waiverformLink = "waiverform/" + student._id ;
-        
+        let isSignedText = "No"
+        if (isSigned) {
+            isSignedText = "Yes"
+        }
         return (
             <div>
                 <RC.VerticalAlign center={true} className="padding" height="300px"></RC.VerticalAlign>
@@ -68,7 +72,8 @@ EdminForce.Components.Student = class extends RC.CSS {
                     <RC.Input style={{paddingLeft:6}} id="birthday" name="birthday" label="Birthday (mm/dd/yyyy)" value={student.birthday} onChange={this.onChange} />
                     <RC.Input style={{paddingLeft:6}} id="school" name="school" label="School" value={student.school} onChange={this.onChange}/>
                     <RC.Input style={{paddingLeft:6}} id="note" name="note" label="Comments" value={student.note} onChange={this.onChange}/>
-                    <p><a href={waiverformLink}> Waiver Form </a></p>
+                    <p> Signed waiver form : {isSignedText} </p>
+                    <p><a href={waiverformLink}> Go to Waiver Form => {waiverformLink} </a></p>
                 </RC.Div>
                 <div style={{padding: "20px"}}>
                     <RaisedButton
