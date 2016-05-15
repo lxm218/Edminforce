@@ -9,7 +9,7 @@
 * */
 
 Package.describe({
-  name: "ihealth:framework-mobile-extend",
+  name: "ihealth:framework-extend",
   summary: "Mobile Framework extend.",
   version: "0.0.1",
   git: ""
@@ -28,7 +28,10 @@ Package.onUse(function(api) {
     "ihealth:utils",
     "ihealth:framework-engine",
     "ihealth:framework-mobile",
-    'less@2.5.1'  //todo delete
+    'less@2.5.1',  //todo delete
+
+    'momentjs:moment'
+
 
   ], ["client","server"])
 
@@ -50,6 +53,14 @@ Package.onUse(function(api) {
     // calendar
     "RC/Calendar/Calendar.jsx",
     "RC/Calendar/Calendar.less",
+
+
+    //fullcalendar
+    "RC/fullcalendar/fullcalendar.css",
+    //"RC/fullcalendar/fullcalendar.print.css",
+    "RC/fullcalendar/fullcalendar.js"
+
+
 
   ], "client")
 
