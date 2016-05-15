@@ -67,10 +67,6 @@ Schema.Student = {
         type: String,
         optional: true
     },
-    "signed": {
-        type: Boolean,
-        optional: true
-    },
     
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
