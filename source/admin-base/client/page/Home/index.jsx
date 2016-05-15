@@ -1,6 +1,12 @@
 
 KUI.Home_index = class extends KUI.Page{
 
+    constructor(p){
+        super(p);
+
+        this.m = KG.DataHelper.getDepModule();
+    }
+
     getMeteorData(){
 
         return {
@@ -13,7 +19,14 @@ KUI.Home_index = class extends KUI.Page{
 
         return (
             <RC.Div>
-                <p>Login After</p>
+                <h3>Pending Registration</h3>
+
+                <hr/>
+                <h3>Trial / Makeup Class</h3>
+                <hr/>
+
+                <h3>Waitlist</h3>
+
             </RC.Div>
         );
     }
