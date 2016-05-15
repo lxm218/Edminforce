@@ -242,6 +242,18 @@ let ClassStudent = class extends Base{
                     }
                 });
 
+            },
+
+            getAllByQuery(query={}, option={}){
+                let m = KG.DataHelper.getDepModule();
+                let list = self._db.find(query, option).fetch();
+                list = _.map(list, (item)=>{
+                    item.class = m.Class.getAll({_id : item.classID})[0] || {};
+                    item.student = m.Student.getAll({_id : item.studentID})[0];
+                    return item;
+                });
+
+                return list;
             }
         };
     }
