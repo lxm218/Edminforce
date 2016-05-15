@@ -10,7 +10,10 @@ KUI.Setting_AdminUserList = class extends KUI.Page{
 		let x = Meteor.subscribe('EF-AdminUser', {});
 
 		return {
-			ready : x.ready()
+			ready : x.ready(),
+			list : this.m.AdminUser.getAll({}, {
+				sort : {createTime:-1}
+			})
 		}
 	}
 
@@ -19,9 +22,15 @@ KUI.Setting_AdminUserList = class extends KUI.Page{
 			return util.renderLoading();
 		}
 
-		let list = this.m.AdminUser.getAll({}, {
-			sort : {createTime:-1}
-		});
+		let cu = this.m.AdminUser.getAll({_id : Meteor.user()._id})[0];
+		console.log(cu);
+		if(cu.role !== 'admin'){
+			return (
+				<RC.Div><h3>Sorry, This page is only for Role admin</h3></RC.Div>
+			);
+		}
+
+		let list = this.data.list;
 
 		return (
 			<RC.Div>
@@ -32,6 +41,7 @@ KUI.Setting_AdminUserList = class extends KUI.Page{
 	}
 
 	renderListTable(list){
+		let self = this;
 		let titleArray = [
 			{
 				title : 'Name',
@@ -44,6 +54,57 @@ KUI.Setting_AdminUserList = class extends KUI.Page{
 			{
 				title : 'Role',
 				key : 'role'
+			},
+			{
+				title : 'Action',
+				style : {
+					textAlign : 'center'
+				},
+				reactDom(doc){
+					const sy = {
+						cursor : 'pointer',
+						marginLeft : '12px',
+						position : 'relative',
+						top : '2px'
+					};
+					const ml = {
+						//marginLeft : '10px',
+						cursor : 'pointer'
+					};
+					const ml1 = {
+						position : 'relative',
+						top : '1px',
+						cursor : 'pointer'
+					};
+
+					var del = function(){
+						swal({
+							title : 'Delete '+doc.nickName+'?',
+							text : '',
+							type : 'warning',
+							showCancelButton: true,
+							confirmButtonColor: "#1ab394",
+							confirmButtonText: "Confirm",
+							cancelButtonText: "Cancel",
+							closeOnConfirm: false,
+							closeOnCancel: true
+						}, function(flag){
+							if(flag){
+
+								KG.get('EF-AdminUser').getDB().remove({_id : doc._id});
+								swal('Delete Success', '', 'success');
+							}
+						});
+					};
+
+
+					return (
+						<RC.Div style={{textAlign:'center'}}>
+							<KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
+						</RC.Div>
+
+					);
+				}
 			}
 		];
 
