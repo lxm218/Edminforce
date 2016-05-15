@@ -40,3 +40,18 @@ DefaultRoutes.route('/studentClass/:studentID', {
         })
     }
 });
+
+// show waiver form for a student
+DefaultRoutes.route('/student/waiverform/:studentID', {
+    name: "waiverform",
+    action: function(p, q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Containers.Waiverform 
+                            studentID={p.studentID} 
+                            context={EdminForce.Contexts.Students} 
+                            actions={EdminForce.Actions.Students} />
+        })
+    }
+});

@@ -58,9 +58,23 @@ Schema.Student = {
     note: KG.schema.default({
         optional:true
     }),
+
+    signedDate: {
+        type: Date,
+        optional: true
+    },
+    signedBy: {
+        type: String,
+        optional: true
+    },
+    "signed": {
+        type: Boolean,
+        optional: true
+    },
     
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
+
 };
 
 Schema.StudentComment = {
