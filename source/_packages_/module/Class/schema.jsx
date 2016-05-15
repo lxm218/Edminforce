@@ -215,6 +215,12 @@ Schema.ClassStudent = {
         optional : true,
         defaultValue : 'pending'
     }),
+    pendingFlag : KG.schema.default({
+        optional : true,
+        defaultValue : false,
+        type : Boolean
+    }),
+
     orderID : KG.schema.default({
         optional : true
     }),

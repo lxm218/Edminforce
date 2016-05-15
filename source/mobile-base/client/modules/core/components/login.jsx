@@ -184,7 +184,7 @@ EdminForce.Components.User = React.createClass({
 
       let userSelector = {role:'user'};
       form.username.indexOf('@') < 0 ? (userSelector.username=form.username) : (userSelector.email=form.username.toLowerCase());
-      console.log(userSelector)
+      //console.log(userSelector)
       Meteor.loginWithPassword(userSelector, form.password, function(err){
         if (!err){
           if (form.keepName == '1') {
@@ -257,7 +257,7 @@ EdminForce.Components.User = React.createClass({
       // Create User
       let uName = form.fName + ' '+ form.lName
       Accounts.createUser({
-        username: uName,
+        username: form.email.toLowerCase(),
         email: form.email.toLowerCase(),
         password: form.pw,
         role : 'user'
@@ -265,9 +265,14 @@ EdminForce.Components.User = React.createClass({
         if (!err){
             // add data to Customer DB
             Meteor.call('account.addCustomer', uName, form.email, function(methodErr,result){
-                methodErr && console.log(methodErr);
+              methodErr && console.log(methodErr);
+              if(!methodErr){
+                Dispatcher.dispatch({
+                  actionType: "AUTH_REGISTER_SUCCESS",
+                  redirectUrl: self.props.redirectUrl
+                });
+              }
             });
-
             self.resetForm()
         }
 
@@ -290,13 +295,6 @@ EdminForce.Components.User = React.createClass({
                   html);
         }
 
-        if(!err){
-          Dispatcher.dispatch({
-            actionType: "AUTH_REGISTER_SUCCESS",
-            redirectUrl: self.props.redirectUrl
-          });
-          return;
-        }
         self.setState({
           msg: passedMsg,
           buttonActive: false,
@@ -444,7 +442,7 @@ EdminForce.Components.User = React.createClass({
         //<div>Create an Account</div>
         return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
-          <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fNameail" placeholder="John" />
+          <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" />
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>

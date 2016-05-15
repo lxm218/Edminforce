@@ -10,21 +10,17 @@ Meteor.methods({
     },
 
     'account.updateUserName': function (username) {
-
         check(username, String);
-
-        Meteor.users.update(this.userId, {
+        Collections.Customer.update({_id:this.userId}, {
             $set: {
-                username: username
+                name: username
             }
         });
     },
 
 
     'account.updatePhone': function (phone) {
-
         check(phone, String);
-
         Collections.Customer.update(this.userId, {
             $set : {
                 phone : phone

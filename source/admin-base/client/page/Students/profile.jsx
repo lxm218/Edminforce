@@ -5,6 +5,10 @@ KUI.Student_profile = class extends KUI.Page{
         super(p);
 
         this.m = KG.DataHelper.getDepModule();
+
+        this.state = {
+            waitForPayList : []
+        };
     }
 
     baseStyles(){
@@ -42,7 +46,7 @@ KUI.Student_profile = class extends KUI.Page{
         let s1 = Meteor.subscribe('EF-ClassStudent', {
             query : {
                 studentID : id,
-                status : 'checkouted'
+                status : {$in:['checkouted']}
             }
         });
         let s2 = Meteor.subscribe('EF-Class');
@@ -50,7 +54,7 @@ KUI.Student_profile = class extends KUI.Page{
             return {ready : false};
         }
 
-        let cs = KG.get('EF-ClassStudent').getDB().find({}, sort).fetch();
+        let cs = this.m.ClassStudent.getDB().find({status:'checkouted'}, sort).fetch();
         let classData = {};
         _.each(cs, (item)=>{
             let clsId = item.classID;
@@ -136,6 +140,10 @@ KUI.Student_profile = class extends KUI.Page{
 
                     <KUI.YesButton style={sy.ml} href={`/student/trailclass/${this.data.id}`} label="Trial Class"></KUI.YesButton>
                 </RC.Div>
+                <hr/>
+
+                <h3>Wait for payment</h3>
+                {this.renderWaitForPaymentTable()}
                 <hr/>
                 <h3>Student Comment</h3>
                 {this.renderStudentCommentTable()}
@@ -400,7 +408,18 @@ KUI.Student_profile = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
+        let self = this;
         this.setDefaultValue();
+
+        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{studentID : this.data.id, status : 'pending'}, {
+            sort : {updateTime : -1}
+        }], {
+            success : function(list){
+                self.setState({
+                    waitForPayList : list
+                });
+            }
+        });
     }
 
     setDefaultValue(){
@@ -546,6 +565,65 @@ KUI.Student_profile = class extends KUI.Page{
             <KUI.Table
                 style={{}}
                 list={this.data.scList}
+                title={titleArray}
+                ref="table1"></KUI.Table>
+        );
+    }
+
+    renderWaitForPaymentTable(){
+        let self = this;
+
+        let titleArray = [
+            {
+                title : 'Class',
+                key : 'class.nickName'
+            },
+            {
+                title : 'Teacher',
+                key : 'class.teacher'
+            },
+            {
+                title : 'Session',
+                key : 'class.sessionName'
+            },
+
+            {
+                title : 'Status',
+                key : 'status'
+            },
+            {
+                title : 'Action',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom(doc){
+                    let sy = {
+                        lineHeight : '24px',
+                        height : '24px',
+                        fontSize : '12px',
+                        padding : '0 12px',
+                        marginRight: '10px'
+                    };
+
+                    let id = self.data.id;
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+                            <KUI.NoButton style={sy} href={`/registration/payment/${doc._id}`}
+                                          label="pay now"></KUI.NoButton>
+
+                        </RC.Div>
+                    );
+                }
+            }
+        ];
+
+        let list = this.state.waitForPayList;
+        console.log(list);
+        return (
+            <KUI.Table
+                style={{}}
+                list={list}
                 title={titleArray}
                 ref="table1"></KUI.Table>
         );

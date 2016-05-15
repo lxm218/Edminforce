@@ -35,6 +35,21 @@ if(Meteor.isClient){
     });
 
 
+    //todo move to another place?
+    FlowRouter.route('/classCalendar', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "calendar",
+                bodyTmpl: <KUI.Class_calendar />
+            });
+
+        }
+    });
+
+
+
+
+
 
 
 

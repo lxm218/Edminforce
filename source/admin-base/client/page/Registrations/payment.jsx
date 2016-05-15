@@ -387,6 +387,13 @@ console.log(m.Customer.getAll()[0])
         }
         else if(s_np){
             //TODO unpaid
+            path = '/student/'+this.data.student._id;
+            orderData.paymentType = 'holding';
+            orderData.status = 'waiting';
+
+            this.m.ClassStudent.getDB().update({_id : this.data.id}, {
+                $set : {pendingFlag : true}
+            })
         }
         else{
             flag = false;
@@ -405,7 +412,10 @@ console.log(m.Customer.getAll()[0])
                 total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
             }
             total = total.toFixed(2);
-            orderData.poundage = orderData.poundage.toString();
+            if(orderData.poundage){
+                orderData.poundage = orderData.poundage.toString();
+            }
+
             orderData.paymentTotal = total;
 
             let orderRs = KG.get('EF-Order').insert(orderData);

@@ -30,7 +30,8 @@ Meteor.methods({
             discount: Number,
             registrationFee: Number,
             paymentSource: String,
-            couponID: Match.Optional(String)
+            couponID: Match.Optional(String),
+            schoolCredit: Number,
         });
 
         return Collections.orders.insert({
@@ -42,7 +43,8 @@ Meteor.methods({
             paymentSource: order.paymentSource,
             discount: order.discount,
             registrationFee: order.registrationFee,
-            couponID: order.couponID
+            couponID: order.couponID,
+            schoolCredit: order.schoolCredit
         });
     },
     
@@ -79,6 +81,19 @@ Meteor.methods({
         });
 
         return EdminForce.Registration.payCreditCard(this.userId, creditCardPaymentInfo);
+    },
+
+    'billing.payWithSchoolCredit': function(paymentInfo) {
+        check(paymentInfo, {
+            details: [String],
+            amount: Number,
+            discount: Number,
+            registrationFee: Number,
+            paymentSource: String,
+            couponID: Match.Optional(String)
+        });
+
+        return EdminForce.Registration.payWithSchoolCredit(this.userId, paymentInfo);
     },
 
     'billing.getBillingSummary': function() {

@@ -86,6 +86,17 @@ DefaultRoutes.route('/checkoutSummary', {
     }
 })
 
+DefaultRoutes.route('/checkoutError', {
+    name: "checkoutError",
+    action: function(p,q) {
+        EdminForce.utils.routeHandler(p, {
+            pageTitle: "Edmin Force",
+            headerNav: null,
+            bodyTmpl: <EdminForce.Components.CheckoutError title={q.title} message={q.message}/>
+        })
+    }
+})
+
 
 DefaultRoutes.route('/billing', {
     name: "billing",

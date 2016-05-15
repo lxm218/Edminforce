@@ -37,6 +37,15 @@ if(Meteor.isClient){
 		}
 	});
 
+	Route.route('/classstudent/pending', {
+		action: function (p) {
+			App.routeHandler(p, {
+				pageTitle: "Report | Pending Registration",
+				bodyTmpl: <KUI.Report_ClassStudent_Pending />
+			});
+		}
+	});
+
 
 
 
