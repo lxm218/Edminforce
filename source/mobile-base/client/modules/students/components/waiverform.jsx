@@ -60,6 +60,12 @@ EdminForce.Components.Waiverform = class extends RC.CSS {
         
         return (
             <div>
+                <div>
+                    <h2>Waver Form</h2>
+                    <p><span> 
+                       This Waiver and Assumption of Risks is used when there is a possibility of injury or harm when using another party's facilities or equipment. This document informs the customer of the inherent risks and that they agree to follow all safety rules. The participant releases the other party of any liability for damages they may endure while using the other party's facilities and equipment. 
+                    </span></p>
+                </div>
                 <RC.VerticalAlign center={true} className="padding" height="300px"></RC.VerticalAlign>
                 {EdminForce.utils.renderError(this.props.error || this.state.birthdayErrorText)}
                 <RC.Div style={{padding: "20px"}}>
@@ -69,20 +75,12 @@ EdminForce.Components.Waiverform = class extends RC.CSS {
                 </RC.Div>
                 <div style={{padding: "20px"}}>
                     <RaisedButton
-                        label="Save"
+                        label="Submit"
                         primary={true}
                         fullWidth={true}
                         style={{marginTop:20}}
                         onTouchTap={this.onSave}
                         disabled = {!isValid} />
-                </div>
-                <div>
-                    <h2>Waver Form</h2>
-                    <p><pre> ABCDEFG \n
-                       ... \n
-                       ... \n
-                       ...
-                    </pre></p>
                 </div>
             </div>
         );
