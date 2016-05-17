@@ -6,7 +6,9 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 		this.m = KG.DataHelper.getDepModule();
 
 		this.state = {
-			list : []
+			list : [],
+
+			refresh : null
 		};
 	}
 
@@ -19,6 +21,7 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 	}
 
 	runOnceAfterDataReady(){
+		console.log('--- once ---');
 		let self = this;
 		this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{status : 'pending'}, {
 			sort : {updateTime : -1}
@@ -32,6 +35,7 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 	}
 
 	render(){
+		let self = this;
 		let titleArray = [
 			{
 				title : 'Class',
@@ -59,7 +63,8 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 			{
 				title : 'Action',
 				style : {
-					textAlign : 'center'
+					textAlign : 'center',
+					width : '178px'
 				},
 				reactDom(doc){
 					let sy = {
@@ -70,12 +75,30 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 						marginRight: '10px'
 					};
 
+					let del = function(){
+						swal({
+							title : 'Delete this registration?',
+							type : 'warning',
+							showCancelButton: true,
+							confirmButtonColor: "#1ab394",
+							confirmButtonText: "Yes",
+							cancelButtonText: "No",
+							closeOnConfirm: true,
+							closeOnCancel: true
+						}, function(f){
+							if(f){
+								self.removeById(doc._id);
+							}
+						});
+					};
+
 
 					return (
 						<RC.Div style={{textAlign:'center'}}>
 							<KUI.NoButton style={sy} href={`/registration/payment/${doc._id}`}
 							              label="pay now"></KUI.NoButton>
-
+							<KUI.NoButton style={sy} onClick={del}
+							              label="Cancel"></KUI.NoButton>
 						</RC.Div>
 					);
 				}
@@ -91,6 +114,25 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 				title={titleArray}
 				ref="table1"></KUI.Table>
 		);
+	}
+
+	removeById(id){
+		let list = this.state.list;
+		this.m.ClassStudent.callMeteorMethod('removeById', [id], {
+			context : this,
+			success : function(){
+				let n = _.findIndex(list, {_id:id});
+				console.log(list.length);
+
+				list.splice(n, 1);
+				console.log(list.length);
+				this.setState({
+					list : list,
+
+					refresh : Meteor.uuid()
+				});
+			}
+		});
 	}
 
 };
