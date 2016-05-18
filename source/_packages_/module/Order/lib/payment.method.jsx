@@ -1,8 +1,8 @@
 
 const config = {
     "merchantAuthentication" : {
-        "name" : "42ZZf53Hst",
-        "transactionKey" : "3TH6yb6KN43vf76j"
+        "name" : "9XD2ru9Z",
+        "transactionKey" : "5yZ52WCb2EC5et2c"
     },
 
     requestUrl : 'https://apitest.authorize.net/xml/v1/request.api'
