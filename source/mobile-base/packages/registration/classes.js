@@ -818,7 +818,7 @@ function payECheck(userId, checkPaymentInfo) {
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
-    var URL = 'https://apitest.authorize.net/xml/v1/request.api'
+    var URL = 'https://api.authorize.net/xml/v1/request.api'
     var response = HTTP.call('POST',URL, {data: paymentInfo});
 
     //console.log(response);
@@ -909,8 +909,8 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     let paymentTotal = (order.amount-order.schoolCredit) * 1.03;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
-
-    let URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    let URL = 'https://api.authorize.net/xml/v1/request.api';
+    // let URL = 'https://apitest.authorize.net/xml/v1/request.api';
     let response = HTTP.call('POST',URL, {data: paymentInfo});
     //console.log(response);
 

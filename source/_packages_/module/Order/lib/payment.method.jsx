@@ -5,7 +5,7 @@ const config = {
         "transactionKey" : "5yZ52WCb2EC5et2c"
     },
 
-    requestUrl : 'https://apitest.authorize.net/xml/v1/request.api'
+    requestUrl : 'https://api.authorize.net/xml/v1/request.api'
 };
 
 let CreditCardData = {
