@@ -57,7 +57,7 @@ EdminForce.Components.Student = class extends RC.CSS {
         let student = {...this.props.student, ...this.editedStudent};
         let isValid = student.name && student.gender;
         let isSigned = student.signedDate && student.signedBy;
-        let waiverformLink = "waiverform/" + student._id ;
+        let waiverformLink = "/student/waiverform/" + student._id ;
         let waiverformTag = <a href={waiverformLink}> [Sign Waiver Form] </a>
         if (isSigned) {
             waiverformTag = ""
