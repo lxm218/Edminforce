@@ -13,6 +13,7 @@ EdminForce.Components.AppMain = React.createClass({
                 <EdminForce.Components.HeaderNav id="navMenu"
                                                  nav={this.props.headerNav}
                                                  title={this.props.title}
+                                                 logoUrl="/img/logo/calcolor.png"
                                                  useMiniNav={!this.props.user || !!this.props.headerNav}
                                                  shoppingCartCount={this.props.count}
                                                  shoppingCartUrl="/checkout">
