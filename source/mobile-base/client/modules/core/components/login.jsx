@@ -440,7 +440,7 @@ EdminForce.Components.User = React.createClass({
 
       case "register":
         //<div>Create an Account</div>
-        return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
+        return (<RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
           <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" />
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
@@ -454,7 +454,7 @@ EdminForce.Components.User = React.createClass({
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
 
-        </RC.Form>
+        </RC.Form>)
         break
       case "reset":
         //<div>Reset Password via Email</div>
