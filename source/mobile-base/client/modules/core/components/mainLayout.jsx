@@ -10,7 +10,8 @@ EdminForce.Components.AppMain = React.createClass({
     render: function () {
         return (
             <RC.Body>
-                <EdminForce.Components.HeaderNav nav={this.props.headerNav}
+                <EdminForce.Components.HeaderNav id="navMenu"
+                                                 nav={this.props.headerNav}
                                                  title={this.props.title}
                                                  useMiniNav={!this.props.user || !!this.props.headerNav}
                                                  shoppingCartCount={this.props.count}
