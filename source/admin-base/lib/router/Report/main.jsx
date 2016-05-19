@@ -46,7 +46,14 @@ if(Meteor.isClient){
 		}
 	});
 
-
+	Route.route('/customer/schoolcredit', {
+		action : function(p){
+			App.routeHandler(p, {
+				pageTitle: "Report | School Credit",
+				bodyTmpl: <KUI.Report_Customer_SchoolCredit />
+			});
+		}
+	});
 
 
 
