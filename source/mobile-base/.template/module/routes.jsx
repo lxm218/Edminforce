@@ -8,7 +8,7 @@ DefaultRoutes.route('/', {
     name: "home",
     action: function(p) {
         EdminForce.utils.routeHandler(p, {
-            pageTitle: "Edmin Force",
+            pageTitle: "Classforth",
             headerNav: null,
             bodyTmpl: <EdminForce.Components.Home/>
         })
