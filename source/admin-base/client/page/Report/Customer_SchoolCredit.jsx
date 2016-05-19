@@ -4,7 +4,10 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 		super(p);
 
 		this.state = {
-			page : 1
+			page : 1,
+
+			customer : {},
+			detail : []
 		};
 
 		this.m = KG.DataHelper.getDepModule();
@@ -40,6 +43,8 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 				<h3>School Credit Report</h3>
 				<hr/>
 				{this.renderListTable()}
+
+				{this.renderDetailDialog()}
 			</RC.Div>
 		);
 	}
@@ -51,6 +56,7 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 	}
 
 	renderListTable(){
+		let self = this;
 		const titleArray = [
 			{
 				title : 'Customer Name',
@@ -67,6 +73,53 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 			{
 				title : 'School Credit',
 				key : 'schoolCredit'
+			},
+			{
+				title : 'Action',
+				style : {
+					textAlign : 'center'
+				},
+				reactDom(doc){
+					const sy = {
+						cursor : 'pointer',
+						marginLeft : '12px',
+						position : 'relative',
+						top : '2px'
+					};
+					const ml = {
+						marginLeft : '10px',
+						cursor : 'pointer'
+					};
+					const ml1 = {
+						position : 'relative',
+						top : '1px',
+						cursor : 'pointer'
+					};
+
+					let showModal = function(){
+						self.setState({
+							customer : doc,
+							detail : 'loading'
+						});
+
+						self.m.Customer.callMeteorMethod('getSchoolCreditDetailById', [doc._id], {
+							success : function(rs){
+								self.setState({
+									detail : rs
+								});
+							}
+						});
+
+						self.refs.modal.show();
+					};
+
+					return (
+						<RC.Div style={{textAlign:'center'}}>
+							<KUI.Icon onClick={showModal} icon="fa fa-eye" font="18px" color="#1ab394" style={ml1}></KUI.Icon>
+						</RC.Div>
+
+					);
+				}
 			}
 
 		];
@@ -82,5 +135,71 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 			page={this.state.page}
 			title={titleArray}
 			ref="table"></KUI.PageTable>;
+	}
+
+	renderDetailDialog(){
+		let param = {
+			title : 'Email Variables',
+			YesFn : function(){
+
+			},
+			renderBody : function(){
+				return (
+					<RC.Div>
+						<h4>School Credit Detail For {this.state.customer.name}</h4>
+						<hr/>
+
+						{this.renderDetailTable()}
+					</RC.Div>
+				);
+			}
+		};
+
+		return util.dialog.render.call(this, 'modal', param);
+	}
+
+	renderDetailTable(){
+		if(this.state.detail === 'loading'){
+			return util.renderLoading();
+		}
+
+		console.log(this.state.detail);
+		const titleArray = [
+			{
+				title : 'Date',
+				reactDom(doc){
+					return moment(doc.createTime).format(util.const.dateFormat);
+				}
+			},
+			{
+				title : 'Type',
+				key : 'type'
+			},
+			{
+				title : 'Detail($)',
+				reactDom(doc){
+					if(doc.type === 'change school credit'){
+						return doc.schoolCredit;
+					}
+					else if(doc.type === 'register class'){
+						return '-'+doc.schoolCredit;
+					}
+					else if(doc.paymentType === 'school credit'){
+						return -1*doc.paymentTotal;
+					}
+
+					return doc.schoolCredit;
+				}
+			}
+		];
+
+		return (
+			<KUI.PageTable
+				style={{}}
+				list={this.state.detail}
+				title={titleArray}
+				ref="table">
+			</KUI.PageTable>
+		);
 	}
 };
