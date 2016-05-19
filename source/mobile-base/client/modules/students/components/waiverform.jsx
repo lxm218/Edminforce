@@ -58,11 +58,14 @@ EdminForce.Components.Waiverform = class extends RC.CSS {
         let student = {...this.props.student, ...this.editedStudent};
         let isValid = student.signedDate && student.signedBy;
         let waiverformLink = "waiverform/" + student._id ;
-        let yesNo = <form disabled = {true}>Signed: <input type="radio" name="signed" value="Y" checked /> Yes <input type="radio" name="signed" value="N" /> No </form>
+        let checkedYes = true; 
+        let checkedNo = false;
         if (student.signedBy == null || student.signedBy == "") {
-            yesNo = <form disabled = {true}>Signed: <input type="radio" name="signed" value="Y" /> Yes <input type="radio" name="signed" value="N" checked /> No </form>
+            checkedYes = false;
+            checkedNo = true;
         }
-        
+        let yesNo = <form disabled = {true}>Signed: <input type="radio" name="signed" value="Y" checked={checkedYes} /> Yes <input type="radio" name="signed" value="N" checked={checkedNo} /> No </form>
+
         return (
             <div>
                 <div style={{paddingLeft:7}}>
