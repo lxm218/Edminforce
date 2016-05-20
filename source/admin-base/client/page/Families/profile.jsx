@@ -267,6 +267,18 @@ KUI.Family_profile = class extends KUI.Page{
                     schoolCredit : parseFloat(num+old)
                 }
             });
+            let orderData = {
+                accountID : self.data.id,
+                details : [],
+                paymentType : 'school credit',
+                type : 'change school credit',
+                status : 'success',
+                amount : 0,
+                paymentTotal : 0,
+                schoolCredit : num
+            };
+            self.m.Order.insert(orderData);
+
             self.refs.form.setSchoolCreditNumber(num+old);
 
             //add to log
@@ -378,7 +390,12 @@ KUI.Family_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
-        let list = this.m.Order.getDB().find({}, {
+        let sl = _.map(this.data.list, (d)=>{
+            return d._id;
+        });
+        let list = this.m.Order.getDB().find({
+            studentID : { '$in' : sl}
+        }, {
             sort : {
                 updateTime : -1
             }
