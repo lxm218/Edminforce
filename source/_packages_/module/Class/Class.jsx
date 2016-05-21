@@ -95,7 +95,7 @@ let Class = class extends Base{
     * */
     calculateNumberOfClass(data, session, flag){
         let start = moment(session.startDate),
-            end = moment(session.endDate);
+            end = moment(session.endDate).endOf('day');
 
         if(flag){
             let now = moment(new Date());
@@ -116,12 +116,11 @@ let Class = class extends Base{
             return moment(item).format(format);
         });
 
-        while(end.isAfter(cur, 'day')){
+        while(end.isAfter(cur)){
             if(cur.day() === day){
                 if(_.indexOf(blockDay, cur.format(format)) < 0){
                     rs++;
                 }
-
             }
 
             cur = cur.add(1, 'd');
