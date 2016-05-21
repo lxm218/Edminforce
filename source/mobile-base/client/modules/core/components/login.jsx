@@ -341,7 +341,8 @@ EdminForce.Components.User = React.createClass({
           })
         } else {
           // the email address is not found
-          this.setState({
+          console.log("Email Not Found")
+          self.setState({
             emailFound: false,
             waiting: false,
             buttonActive:false,
