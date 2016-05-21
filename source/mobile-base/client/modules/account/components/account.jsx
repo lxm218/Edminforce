@@ -72,6 +72,8 @@ EdminForce.Components.Account = class extends RC.CSS {
         let schoolCredit = 0;
         if (this.props.customer && this.props.customer.hasOwnProperty("schoolCredit")) schoolCredit = this.props.customer.schoolCredit;
 
+        let styleWrapLine={whiteSpace:"normal"}
+
         return (
             <RC.Div>
                 <RC.VerticalAlign center={true} className="padding" height="300px">
@@ -152,7 +154,7 @@ EdminForce.Components.Account = class extends RC.CSS {
                             </TableHeaderColumn>
                         </TableRow>
                         <TableRow>
-                            <TableHeaderColumn>Alternative Contact</TableHeaderColumn>
+                            <TableHeaderColumn style={styleWrapLine}>Alternative Contact</TableHeaderColumn>
                             <TableHeaderColumn>
                             {
                                 this.props.customer &&
@@ -166,7 +168,7 @@ EdminForce.Components.Account = class extends RC.CSS {
                             </TableHeaderColumn>
                         </TableRow>
                         <TableRow>
-                            <TableHeaderColumn>Emergency Contact</TableHeaderColumn>
+                            <TableHeaderColumn style={styleWrapLine}>Emergency Contact</TableHeaderColumn>
                             <TableHeaderColumn>
                             {
                                 this.props.customer &&
@@ -180,7 +182,7 @@ EdminForce.Components.Account = class extends RC.CSS {
                             </TableHeaderColumn>
                         </TableRow>
                         <TableRow>
-                            <TableHeaderColumn>School Credit</TableHeaderColumn>
+                            <TableHeaderColumn style={styleWrapLine}>School Credit</TableHeaderColumn>
                             <TableHeaderColumn>${schoolCredit.toFixed(2)}</TableHeaderColumn>
                             <TableHeaderColumn/>
                         </TableRow>

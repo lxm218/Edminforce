@@ -9,6 +9,44 @@ let {
     TableBody
 }=MUI;
 
+const SessionInfoBackdrop = ({session}) => (
+    <RC.Div>
+        <Table selectable={false}>
+            <TableBody displayRowCheckbox={false}>
+                <TableRow>
+                    <TableRowColumn colSpan="2">
+                        <RC.VerticalAlign center={true}>
+                            <h3>{session.name}</h3>
+                        </RC.VerticalAlign>
+                    </TableRowColumn>
+                </TableRow>
+                <TableRow>
+                    <TableRowColumn>Starts:</TableRowColumn>
+                    <TableRowColumn>{moment(session.startDate).format('MM/DD/YYYY')}</TableRowColumn>
+                </TableRow>
+                <TableRow>
+                    <TableRowColumn>Ends:</TableRowColumn>
+                    <TableRowColumn>{moment(session.endDate).format('MM/DD/YYYY')}</TableRowColumn>
+                </TableRow>
+                <TableRow>
+                    <TableRowColumn style={{whiteSpace:"normal"}}>Registration starts:</TableRowColumn>
+                    <TableRowColumn>{moment(session.registrationStartDate).format('MM/DD/YYYY')}</TableRowColumn>
+                </TableRow>
+                <TableRow>
+                    <TableRowColumn style={{whiteSpace:"normal"}}>Registration ends:</TableRowColumn>
+                    <TableRowColumn>{moment(session.registrationEndDate).format('MM/DD/YYYY')}</TableRowColumn>
+                </TableRow>
+                {session.blockOutDay && session.blockOutDay.length > 0 ? (
+                    <TableRow>
+                        <TableRowColumn style={{whiteSpace:"normal"}}>No class on the following dates:</TableRowColumn>
+                        <TableRowColumn style={{whiteSpace:"normal"}}>{session.blockOutDay.map(bd => moment(bd).format('MM/DD/YYYY')).join(', ')}</TableRowColumn>
+                    </TableRow>
+                ) : null}
+            </TableBody>
+        </Table>
+    </RC.Div>
+)
+
 EdminForce.Components.Classes = class extends RC.CSS {
 
     constructor(p) {
@@ -19,6 +57,7 @@ EdminForce.Components.Classes = class extends RC.CSS {
 
         this.state = {
             weekDay: null,
+            backdropSessionInfo: null
         };
 
         this.onSelectDay = this.onSelectDay.bind(this);
@@ -28,6 +67,8 @@ EdminForce.Components.Classes = class extends RC.CSS {
         this.onSelectProgram = this.onSelectProgram.bind(this);
         this.onTableRowSelection = this.onTableRowSelection.bind(this);
         this.addStudent = this.addStudent.bind(this);
+        this.showSessionInfo = this.showSessionInfo.bind(this);
+        this.closeBackdrop = this.closeBackdrop.bind(this);
 
         this.stateBag = this.props.context.StateBag.classes;
     }
@@ -73,6 +114,19 @@ EdminForce.Components.Classes = class extends RC.CSS {
         };
 
         FlowRouter.go(FlowRouter.path('/student', null, redirectQueryParams));
+    }
+
+    showSessionInfo(event) {
+        event.preventDefault();
+        this.setState({
+            backdropSessionInfo:<SessionInfoBackdrop session={_.find(this.stateBag.sessions, {_id:this.stateBag.sessionID})} />
+        })
+    }
+
+    closeBackdrop() {
+        this.setState({
+            backdropSessionInfo:null
+        })
     }
 
     render() {
@@ -194,9 +248,13 @@ EdminForce.Components.Classes = class extends RC.CSS {
                             <RC.Button bgColor="brand2" theme="inline" bgColorHover="dark" onClick={this.addStudent} key="addStudentBtn">Add Student</RC.Button>
                         )
                 }
+                <a onClick={this.showSessionInfo}><i className="fa fa-info-circle" style={{float:"right"}}></i></a>
                 <RC.Select options={this.stateBag.sessions} value={this.stateBag.sessionID} key="sessionList"
                            label="Session" labelColor="brand1"
                            onChange={this.onSelectSession}/>
+                <RC.BackDropArea onClick={this.closeBackdrop}>
+                    {this.state.backdropSessionInfo}
+                </RC.BackDropArea>
                 {renderBodyElements}
             </RC.Div>
         );
