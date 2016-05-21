@@ -66,7 +66,7 @@ EdminForce.Components.Student = class extends RC.CSS {
                     <RC.Select id="gender" name="gender" label="Gender" options={["", "Male","Female"]} value={student.gender} onChange={this.onChange}/>
                     <RC.Input style={{paddingLeft:6}} id="birthday" name="birthday" label="Birthday (mm/dd/yyyy)" value={student.birthday} onChange={this.onChange} />
                     <RC.Input style={{paddingLeft:6}} id="school" name="school" label="School" value={student.school} onChange={this.onChange}/>
-                    <RC.Input style={{paddingLeft:6}} id="note" name="note" label="Comments" value={student.note} onChange={this.onChange}/>
+                    <RC.Input style={{paddingLeft:6}} id="note" name="note" label="Note" value={student.note} onChange={this.onChange}/>
                 </RC.Div>
                 <div style={{padding: "20px"}}>
                     <RaisedButton
