@@ -477,7 +477,7 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     result.isNewCustomer = customer && customer.hasRegistrationFee;
     if (result.isNewCustomer) {
         result.registrationFee = 25;
-        result.total += 25;
+        (result.total > 0) && (result.total += 25);
     }
     else {
         result.registrationFee = 0;
