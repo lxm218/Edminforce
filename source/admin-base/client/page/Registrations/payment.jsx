@@ -13,6 +13,8 @@ KUI.Registration_payment = class extends KUI.Page{
         this.currentUseSchoolCredit = new ReactiveVar(0);
 
         this.total = new ReactiveVar(0);
+
+        this.classFee = 0;
     }
 
     getMeteorData(){
@@ -104,6 +106,7 @@ console.log(m.Customer.getAll()[0])
         };
 
         let total = C.classFee;
+        this.classFee = C.classFee;
 
 
         let list = [
@@ -417,6 +420,7 @@ console.log(m.Customer.getAll()[0])
             }
 
             orderData.paymentTotal = total;
+            orderData.discount = this.classFee - total;
 
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {
