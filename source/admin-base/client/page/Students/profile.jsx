@@ -548,6 +548,7 @@ KUI.Student_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
+        let self = this;
         let titleArray = [
             {
                 title : 'Date',
@@ -558,6 +559,30 @@ KUI.Student_profile = class extends KUI.Page{
             {
                 title : 'Comments',
                 key : 'comment'
+            },
+            {
+                title : 'Action',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom(doc){
+
+                    const ml = {
+                        //marginLeft : '10px',
+                        cursor : 'pointer'
+                    };
+
+                    let del = function(){
+                        self.m.StudentComment.getDB().remove({_id : doc._id});
+                    };
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+
+                            <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
+                        </RC.Div>
+                    );
+                }
             }
         ];
 

@@ -139,15 +139,13 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 
 	renderDetailDialog(){
 		let param = {
-			title : 'Email Variables',
+			title : `School Credit Detail For ${this.state.customer.name}`,
 			YesFn : function(){
 
 			},
 			renderBody : function(){
 				return (
 					<RC.Div>
-						<h4>School Credit Detail For {this.state.customer.name}</h4>
-						<hr/>
 
 						{this.renderDetailTable()}
 					</RC.Div>

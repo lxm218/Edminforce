@@ -38,7 +38,7 @@ KUI.Student_comp_add = class extends RC.CSS{
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-9',
                 ref : 'note',
-                label : 'Comments'
+                label : 'Notes'
             }
         };
 

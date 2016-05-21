@@ -124,7 +124,7 @@ KUI.Home_login = class extends KUI.Page{
     forgetPassword(){
         swal({
             title : 'Forget Password?',
-            text : 'Please contact Admin(admin@classforth.com).',
+            text : 'Please contact Admin(admin@edminforce.net).',
             type : 'warning'
         });
     }
