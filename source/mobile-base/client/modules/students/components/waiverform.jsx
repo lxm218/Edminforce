@@ -64,7 +64,7 @@ EdminForce.Components.Waiverform = class extends RC.CSS {
             checkedYes = false;
             checkedNo = true;
         }
-        let yesNo = <form disabled = {true}>Signed: <input type="radio" name="signed" value="Y" checked={checkedYes} /> Yes <input type="radio" name="signed" value="N" checked={checkedNo} /> No </form>
+        let yesNo = <form disabled = {true}> <input type="radio" name="signed" value="Y" checked={checkedYes} /> Yes <input type="radio" name="signed" value="N" checked={checkedNo} /> No </form>
 
         return (
             <div>
@@ -75,9 +75,8 @@ EdminForce.Components.Waiverform = class extends RC.CSS {
 I acknowledge, with my electronic signature, that I wish to participate in the activities conducted by CalColor Academy.<br/><br/>
 CalColor Academy takes all possible precautions to reduce risk and provide safe, healthy, and enjoyable experiences. I acknowledge that risks from participation in activities exist. In consideration of my participation in the Activity, I knowingly and voluntarily assume ass risks arising therefrom, and on behalf of myself, my heirs and assignees release CalColor Academy, its officers, agents, employees and volunteers from any and all claims, liens, damages, lawsuits or liability for property damage, injury or death, resulting from, arising out of, or in any way connected with my participation in the Activity.<br/><br/>
 I agree and acknowledge that this Waiver and Release From Liability/ Assumption of Risk shall apply even in the event that I suffer death, personal injury, or property damage as the result of negligent acts or omissions (other than sole, active negligence) on the part of CalColor Academy, its officers, agents, employees and volunteers. In the event that the individual participating in the Activity is a minor, I certify that I am his/her parent or legal guardian and I give my permission for him/her to participate in the Activity. I understand my signature is a legal and binding signature and will be considered original if signed electronically.<br/><br/>
-Photographs: CalColor Academy is granted permission to use group or individual photographs or photo images taken during class for publicity or promotional purposes. I understand that the pictures taken will be used by CalColor Academy only and will not be distributed to other parties. <br /><br/>
+Photographs: CalColor Academy is granted permission to use group or individual photographs or photo images taken during class for publicity or promotional purposes. I understand that the pictures taken will be used by CalColor Academy only and will not be distributed to other parties.  {yesNo} <br /><br/>
                     </span></p>
-                    {yesNo}
                 </div>
                 <RC.VerticalAlign center={true} className="padding" height="300px"></RC.VerticalAlign>
                 {EdminForce.utils.renderError(this.props.error || this.state.signedDateErrorText)}

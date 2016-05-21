@@ -50,7 +50,24 @@ EdminForce.Components.Student = class extends RC.CSS {
             return;
         }
 
+        let newStudent = false;
+        if (student._id == undefined) {
+            newStudent = true;
+        }
+
         this.props.actions.upsertStudent(student, this.props.redirectUrl);
+
+        let waiverformLink = "/student/waiverform/" + student._id ;
+        let studentProfile = "/student/" + student._id ;
+        //console.log("Exist student: " + studentProfile);
+
+        if (newStudent) {
+            console.log("New student: " + waiverformLink);
+            FlowRouter.go(waiverformLink);
+        } else if (!isSigned) {
+            console.log("in: " + studentProfile);
+            FlowRouter.go(studentProfile);
+        }
     }
 
     render() {
@@ -58,7 +75,7 @@ EdminForce.Components.Student = class extends RC.CSS {
         let isValid = student.name && student.gender;
         let isSigned = student.signedDate && student.signedBy;
         let waiverformLink = "/student/waiverform/" + student._id ;
-        let waiverformTag = <a href={waiverformLink}> [Sign Waiver Form] </a>
+        let waiverformTag = <a href={waiverformLink} style={{color: "blue", fontWeight: "bold"}}> [Sign Waiver Form] </a>
         if (isSigned || (!student._id)) {
             waiverformTag = ""
         }
