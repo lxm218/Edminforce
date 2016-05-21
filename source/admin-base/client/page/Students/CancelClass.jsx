@@ -155,7 +155,7 @@ KUI.Student_CancelClass = class extends KUI.Page{
 					}
 				}
 			],
-			list = [{key : 'Tuition Difference', value : tuition}];
+			list = [{key : 'Refund', value : tuition}];
 		let table = <KUI.Table
 			style={{}}
 			list={list}

@@ -102,7 +102,9 @@ let ResultTable = class extends KUI.Page{
 		let query = _.clone(this.state.query);
 
 
-		let x2 = this.module.Class.subscribeClassByQuery(query);
+		let x2 = this.module.Class.subscribeClassByQuery(query, {
+			pageSize : 1000
+		});
 		console.log(x2);
 		return {
 			ready : x2.ready(),
