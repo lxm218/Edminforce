@@ -131,7 +131,7 @@ KG.define('EF-Coupon', class extends Base{
     }
 
     calculateDiscountResult(discount, num){
-        let reg = /^([0-9]+)([%/\$]{1})$/,
+        let reg = /^([0-9\.]+)([%/\$]{1})$/,
             match = discount.match(reg);
         let n = match[1],
             unit = match[2];
