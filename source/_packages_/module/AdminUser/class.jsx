@@ -15,7 +15,8 @@ let AdminUserSchema = new SimpleSchema({
         defaultValue : 'teacher'
     }),
     status : KG.schema.default({
-        optional : true,
+        //optional : true,
+        allowedValues : ['active', 'inactive'],
         defaultValue: 'active'
     }),
     group : KG.schema.default({

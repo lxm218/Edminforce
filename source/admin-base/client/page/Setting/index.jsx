@@ -1,4 +1,4 @@
-KUI.Setting_index = class extends KUI.Page{
+KUI.Setting_index1 = class extends KUI.Page{
 
     getMeteorData(){
         let query = {_id:Meteor.userId()};
