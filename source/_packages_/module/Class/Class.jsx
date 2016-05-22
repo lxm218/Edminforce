@@ -753,18 +753,22 @@ console.log(option)
 
                 let self = this,
                     format = 'YYYYMMDD';
-                let x = this.subscribeClassByQuery(query||{});
+                let x = this.subscribeClassByQuery(query||{}, {
+                    pageSize:1000
+                });
                 if(!x.ready()){
                     return x;
                 }
 
                 let list = x.data;
                 let rs = [];
+
+                console.log(list);
                 _.each(list, (item)=>{
                     let lessonDate = self.getClassLessonDate(item);
-                    console.log(lessonDate)
+                    //console.log(lessonDate)
                     let index = _.findIndex(lessonDate, function(one){
-                        console.log(moment(one).format(format), moment(date).format(format))
+                        //console.log(moment(one).format(format), moment(date).format(format))
                         return moment(one).format(format) === moment(date).format(format);
                     });
                     if(index !== -1){
