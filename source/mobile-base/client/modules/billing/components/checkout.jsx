@@ -25,6 +25,13 @@ EdminForce.Components.Checkout = class extends RC.CSS {
         this.process = this.process.bind(this);
         this.applyCoupon = this.applyCoupon.bind(this);
         this.toggleSchoolCredit = this.toggleSchoolCredit.bind(this);
+        this.actionDone = this.actionDone.bind(this);
+    }
+    
+    actionDone() {
+        this.setState({
+            processing: false
+        })
     }
     
     deleteCartItem(cartItem) {
@@ -37,6 +44,10 @@ EdminForce.Components.Checkout = class extends RC.CSS {
     }
 
     process() {
+        this.setState({
+            processing: true
+        });
+        
         let studentClassIDs = [];
         this.props.students.forEach( (s) => {
             s.classes.forEach( (sc) => {
@@ -52,7 +63,7 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                 discount: this.props.discount,
                 registrationFee: this.props.registrationFee,
                 couponID: this.props.appliedCouponId,
-            }, this.makeupOnly);
+            }, this.makeupOnly, this.actionDone);
         } 
         else {
             this.props.actions.prepareOrder({
@@ -62,7 +73,7 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                 registrationFee: this.props.registrationFee,
                 couponID: this.props.appliedCouponId,
                 schoolCredit: this.state.applySchoolCredit ? this.props.schoolCredit : 0,
-            }, this.makeupOnly);
+            }, this.makeupOnly, this.actionDone);
         }
     }
 
@@ -183,31 +194,33 @@ EdminForce.Components.Checkout = class extends RC.CSS {
 
         return (
             <RC.Div style={style} className="carts-checkout">
-                <RC.VerticalAlign center={true} className="padding" height="300px">
-                    <h2>Checkout Summary</h2>
-                </RC.VerticalAlign>
+                <RC.Loading isReady={this.state.processing}>
+                    <RC.VerticalAlign center={true} className="padding" height="300px">
+                        <h2>Checkout Summary</h2>
+                    </RC.VerticalAlign>
 
-                {EdminForce.utils.renderError(this.props.error)}
+                    {EdminForce.utils.renderError(this.props.error)}
 
-                <Table selectable={false}>
-                    <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
-                        <TableRow>
-                            <TableHeaderColumn>Student</TableHeaderColumn>
-                            <TableHeaderColumn>Class</TableHeaderColumn>
-                            <TableHeaderColumn>Amount</TableHeaderColumn>
-                            <TableHeaderColumn></TableHeaderColumn>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody displayRowCheckbox={false}>
-                        {cartItems}
-                    </TableBody>
-                </Table>
-                <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon" value=""
-                          label="" placeholder="Enter Coupon Code"/>
-                <RC.Button {... attributes} style={processButtonStyle} theme="inline" bgColor="brand2"
-                                            onClick={this.applyCoupon}>Apply</RC.Button>
-                <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark"
-                                            onClick={this.process}>Process Payment</RC.Button>
+                    <Table selectable={false}>
+                        <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
+                            <TableRow>
+                                <TableHeaderColumn>Student</TableHeaderColumn>
+                                <TableHeaderColumn>Class</TableHeaderColumn>
+                                <TableHeaderColumn>Amount</TableHeaderColumn>
+                                <TableHeaderColumn></TableHeaderColumn>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody displayRowCheckbox={false}>
+                            {cartItems}
+                        </TableBody>
+                    </Table>
+                    <RC.Input ref="counponInput" style={{display:"inline-block", width:"80%"}} name="coupon" value=""
+                              label="" placeholder="Enter Coupon Code"/>
+                    <RC.Button {... attributes} style={processButtonStyle} theme="inline" bgColor="brand2"
+                                                onClick={this.applyCoupon}>Apply</RC.Button>
+                    <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark"
+                                                onClick={this.process}>Process Payment</RC.Button>
+                </RC.Loading>
             </RC.Div>
         );
     }
