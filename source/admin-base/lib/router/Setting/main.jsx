@@ -46,6 +46,15 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/account/edit/:id', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Setting | Edit Account",
+                bodyTmpl: <KUI.Setting_EditUser />
+            });
+        }
+    });
+
     Route.route('/account/list', {
         action: function (p) {
             App.routeHandler(p, {

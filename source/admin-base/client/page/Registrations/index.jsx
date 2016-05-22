@@ -148,7 +148,7 @@ KUI.Registration_index = class extends KUI.Page{
                         <RB.Input type="select" {... p.lesson}>
                             {
                                 _.map(option.lesson, (item, index)=>{
-                                    return <option key={index} value={item._id}>{item.nickName}</option>;
+                                    return <option key={index} value={item._id}>{item.nickName} {item.teacher}</option>;
                                 })
                             }
                         </RB.Input>

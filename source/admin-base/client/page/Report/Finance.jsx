@@ -110,6 +110,7 @@ KUI.Report_Finance = class extends KUI.Page{
 						
 					</RC.Div>
 					<hr/>
+
 					{this.renderResultTable()}
 				</RC.Div>
 				<RC.Div style={sy.d}>
@@ -236,23 +237,33 @@ KUI.Report_Finance = class extends KUI.Page{
 			},
 			{
 				title : 'Credit Card ($)',
-				key : 'credit card'
+				reactDom(doc){
+					return `${doc['credit card'][0]}/${doc['credit card'][1]}`;
+				}
 			},
 			{
 				title : 'E-Check ($)',
-				key : 'echeck'
+				reactDom(doc){
+					return `${doc['echeck'][0]}/${doc['echeck'][1]}`;
+				}
 			},
 			{
 				title : 'Cash ($)',
-				key : 'cash'
+				reactDom(doc){
+					return `${doc['cash'][0]}/${doc['cash'][1]}`;
+				}
 			},
 			{
 				title : 'Check ($)',
-				key : 'check'
+				reactDom(doc){
+					return `${doc['check'][0]}/${doc['check'][1]}`;
+				}
 			},
 			{
 				title : 'Total ($)',
-				key : 'total'
+				reactDom(doc){
+					return `${doc['total'][0]}/${doc['total'][1]}`;
+				}
 			}
 		];
 
@@ -267,11 +278,14 @@ KUI.Report_Finance = class extends KUI.Page{
 		});
 
 		return (
-			<KUI.Table
-				style={{}}
-				list={list}
-				title={titleArray}
-				ref="table"></KUI.Table>
+			<RC.Div>
+				<p style={{color:'#1ab394'}}>Notice : current payment / total payment</p>
+				<KUI.Table
+					style={{}}
+					list={list}
+					title={titleArray}
+					ref="table"></KUI.Table>
+			</RC.Div>
 		);
 	}
 
@@ -312,7 +326,7 @@ KUI.Report_Finance = class extends KUI.Page{
 			},
 			{
 				title : 'Type',
-				key : 'type'
+				key : 'order.type'
 			},
 			{
 				title : 'Payment',

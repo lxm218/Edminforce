@@ -30,6 +30,7 @@ Meteor.startup(function () {
             // get a list of registrations that pass expiration time
             let expiredRegistrations = Collections.classStudent.find({
                 status: 'pending',
+                pendingFlag: false,
                 type: {$in: ['register', 'makeup']},
                 createTime: {
                     $lt: validCreateTime

@@ -95,7 +95,7 @@ let Class = class extends Base{
     * */
     calculateNumberOfClass(data, session, flag){
         let start = moment(session.startDate),
-            end = moment(session.endDate);
+            end = moment(session.endDate).endOf('day');
 
         if(flag){
             let now = moment(new Date());
@@ -116,12 +116,11 @@ let Class = class extends Base{
             return moment(item).format(format);
         });
 
-        while(end.isAfter(cur, 'day')){
+        while(end.isAfter(cur)){
             if(cur.day() === day){
                 if(_.indexOf(blockDay, cur.format(format)) < 0){
                     rs++;
                 }
-
             }
 
             cur = cur.add(1, 'd');
@@ -473,21 +472,21 @@ let Class = class extends Base{
                 let m = KG.DataHelper.getDepModule();
                 let cd = this.getAll({_id : opts.classID})[0];
 
-                //let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
-                //return {
-                //    tuition : 0-tuition,
-                //    'class' : cd
-                //};
-
-                let d = m.Order.getDB().findOne({
-                    details : {$in:[opts.ClassStudentID]},
-                    type : {$in:['register class', 'change class']},
-                    status : 'success'
-                });
+                let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
                 return {
-                    tuition : d?0-parseFloat(d.paymentTotal):0,
+                    tuition : 0-tuition,
                     'class' : cd
                 };
+
+                //let d = m.Order.getDB().findOne({
+                //    details : {$in:[opts.ClassStudentID]},
+                //    type : {$in:['register class', 'change class']},
+                //    status : 'success'
+                //});
+                //return {
+                //    tuition : d?0-parseFloat(d.paymentTotal):0,
+                //    'class' : cd
+                //};
 
             },
 

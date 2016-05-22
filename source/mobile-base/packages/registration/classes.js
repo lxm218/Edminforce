@@ -477,7 +477,7 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     result.isNewCustomer = customer && customer.hasRegistrationFee;
     if (result.isNewCustomer) {
         result.registrationFee = 25;
-        result.total += 25;
+        (result.total > 0) && (result.total += 25);
     }
     else {
         result.registrationFee = 0;
@@ -775,8 +775,8 @@ function payECheck(userId, checkPaymentInfo) {
     var paymentInfo = {
         "createTransactionRequest": {
             "merchantAuthentication": {
-                "name": "42ZZf53Hst",
-                "transactionKey": "3TH6yb6KN43vf76j"
+                "name": "9XD2ru9Z",
+                "transactionKey": "5yZ52WCb2EC5et2c"
             },
             "refId": "123461",
             "transactionRequest": {
@@ -818,7 +818,7 @@ function payECheck(userId, checkPaymentInfo) {
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
-    var URL = 'https://apitest.authorize.net/xml/v1/request.api'
+    var URL = 'https://api.authorize.net/xml/v1/request.api'
     var response = HTTP.call('POST',URL, {data: paymentInfo});
 
     //console.log(response);
@@ -850,8 +850,8 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     var paymentInfo = {
         "createTransactionRequest": {
             "merchantAuthentication": {
-                "name": "42ZZf53Hst",
-                "transactionKey": "3TH6yb6KN43vf76j"
+                "name": "9XD2ru9Z",
+                "transactionKey": "5yZ52WCb2EC5et2c"
             },
             "refId": "123461",
             "transactionRequest": {
@@ -909,8 +909,8 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     let paymentTotal = (order.amount-order.schoolCredit) * 1.03;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
-
-    let URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    let URL = 'https://api.authorize.net/xml/v1/request.api';
+    // let URL = 'https://apitest.authorize.net/xml/v1/request.api';
     let response = HTTP.call('POST',URL, {data: paymentInfo});
     //console.log(response);
 

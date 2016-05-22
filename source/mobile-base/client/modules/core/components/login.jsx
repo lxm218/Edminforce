@@ -341,7 +341,8 @@ EdminForce.Components.User = React.createClass({
           })
         } else {
           // the email address is not found
-          this.setState({
+          console.log("Email Not Found")
+          self.setState({
             emailFound: false,
             waiting: false,
             buttonActive:false,
@@ -440,9 +441,9 @@ EdminForce.Components.User = React.createClass({
 
       case "register":
         //<div>Create an Account</div>
-        return <RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
+        return (<RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
-          <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" />
+          <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" value=""/>
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>
@@ -454,7 +455,7 @@ EdminForce.Components.User = React.createClass({
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
 
-        </RC.Form>
+        </RC.Form>)
         break
       case "reset":
         //<div>Reset Password via Email</div>

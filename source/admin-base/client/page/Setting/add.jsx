@@ -26,6 +26,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
             pwd : this.refs.pwd,
             role : this.refs.role,
             supervisor : this.refs.supervisor,
+            status : this.refs.status,
 
             schoolName : this.refs.schoolName,
             schoolEmail : this.refs.schoolEmail,
@@ -68,6 +69,12 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 ref : 'role',
                 label : 'Access/Role'
             },
+            status : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-4',
+                ref : 'status',
+                label : 'Status'
+            },
             supervisor : {
                 labelClassName : 'col-xs-2',
                 wrapperClassName : 'col-xs-10',
@@ -106,7 +113,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
         }
 
         let option = {
-            role : this.module.AdminUser.getDBSchema().schema('role').allowedValues
+            role : this.module.AdminUser.getDBSchema().schema('role').allowedValues,
+            status : ['active', 'inactive']
         };
 
         let formType = this.formType.get();
@@ -125,6 +133,13 @@ KUI.Setting_add_comp = class extends RC.CSS{
                         <RB.Input type="select" {... p.role}>
                             {
                                 _.map(option.role, (item, index)=>{
+                                    return <option key={index} value={item}>{item}</option>;
+                                })
+                            }
+                        </RB.Input>
+                        <RB.Input type="select" {... p.status}>
+                            {
+                                _.map(option.status, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
                                 })
                             }
@@ -171,7 +186,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
 
     getValue(){
         let {
-            name, email, pwd, role, supervisor, schoolName, schoolEmail, schoolPhone,
+            name, email, pwd, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
             schoolAddress, schoolCity, schoolState, schoolZip
             } = this.getRefs();
 
@@ -179,6 +194,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
             nickName : name.getValue(),
             email : email.getValue(),
             role : role.getValue(),
+            status : status.getValue(),
             supervisor : supervisor.getValue(),
             school : {
                 name : schoolName.getValue(),
@@ -200,12 +216,13 @@ KUI.Setting_add_comp = class extends RC.CSS{
 
     setDefaultValue(data){
         let {
-            name, email, role, supervisor, schoolName, schoolEmail, schoolPhone,
+            name, email, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
             schoolAddress, schoolCity, schoolState, schoolZip
             } = this.getRefs();
         name.getInputDOMNode().value = data.nickName;
         email.getInputDOMNode().value = data.email || '';
         role.getInputDOMNode().value = data.role || '';
+        status.getInputDOMNode().value = data.status || 'active';
         supervisor.getInputDOMNode().value = data.supervisor || '';
         schoolName.getInputDOMNode().value = data.school.name || '';
         schoolEmail.getInputDOMNode().value = data.school.email || '';
@@ -217,13 +234,14 @@ KUI.Setting_add_comp = class extends RC.CSS{
     }
     reset(){
         let {
-            name, email, pwd, role, supervisor, schoolName, schoolEmail, schoolPhone,
+            name, email, pwd, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
             schoolAddress, schoolCity, schoolState, schoolZip
             } = this.getRefs();
         name.getInputDOMNode().value = '';
         email.getInputDOMNode().value = '';
         pwd.getInputDOMNode().value = '';
         role.getInputDOMNode().value = '';
+        status.getInputDOMNode().value = 'active';
         supervisor.getInputDOMNode().value = '';
         schoolName.getInputDOMNode().value = '';
         schoolEmail.getInputDOMNode().value = '';

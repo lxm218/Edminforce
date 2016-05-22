@@ -263,6 +263,30 @@ KG.define('EF-Customer', class extends Base{
                     schoolCredit : (credit*-1)
                 }});
                 return rs;
+            },
+
+            getSchoolCreditDetailById(id){
+                let m = KG.DataHelper.getDepModule();
+
+                let query = {
+                    accountID : id,
+                    status : 'success',
+                    '$or' : [
+                        {
+                            paymentType : 'school credit'
+                        },
+                        {
+                            schoolCredit : {$gt:0}
+                        }
+                    ]
+                };
+
+                let rs = m.Order.getDB().find(query, {
+                    sort : {
+                        createTime : -1
+                    }
+                }).fetch();
+                return rs;
             }
         };
     }

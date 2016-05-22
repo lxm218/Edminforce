@@ -13,6 +13,8 @@ KUI.Registration_payment = class extends KUI.Page{
         this.currentUseSchoolCredit = new ReactiveVar(0);
 
         this.total = new ReactiveVar(0);
+
+        this.classFee = 0;
     }
 
     getMeteorData(){
@@ -104,6 +106,7 @@ console.log(m.Customer.getAll()[0])
         };
 
         let total = C.classFee;
+        this.classFee = C.classFee;
 
 
         let list = [
@@ -387,6 +390,13 @@ console.log(m.Customer.getAll()[0])
         }
         else if(s_np){
             //TODO unpaid
+            path = '/student/'+this.data.student._id;
+            orderData.paymentType = 'holding';
+            orderData.status = 'waiting';
+
+            this.m.ClassStudent.getDB().update({_id : this.data.id}, {
+                $set : {pendingFlag : true}
+            })
         }
         else{
             flag = false;
@@ -405,8 +415,12 @@ console.log(m.Customer.getAll()[0])
                 total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
             }
             total = total.toFixed(2);
-            orderData.poundage = orderData.poundage.toString();
+            if(orderData.poundage){
+                orderData.poundage = orderData.poundage.toString();
+            }
+
             orderData.paymentTotal = total;
+            orderData.discount = this.classFee - total;
 
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {

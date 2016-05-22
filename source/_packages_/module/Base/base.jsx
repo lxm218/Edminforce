@@ -43,13 +43,29 @@ let Base = class{
 
 
         if(Meteor.isServer){
-            let mm = this.defineMeteorMethod();
+            let mm = _.extend({}, this._defineMeteorMethod(), this.defineMeteorMethod());
             let mms = {};
             _.each(mm, (item, key)=>{
                 mms[this._name+':'+key] = item.bind(this);
             });
             Meteor.methods(mms);
         }
+    }
+
+    _defineMeteorMethod(){
+        return {
+            removeById(id){
+                try{
+                    this._db.remove({_id : id});
+
+                    return true;
+                }
+                catch(e){
+                    return e;
+                }
+
+            }
+        };
     }
 
     /*

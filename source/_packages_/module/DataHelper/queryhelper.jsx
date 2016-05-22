@@ -47,7 +47,10 @@ KG.define('EF-DataHelper', class extends Base{
                         max = date.hour(23).minute(59).second(59).clone();
                     let query = {
                         status : 'success',
-                        type : 'register class',
+                        //type : {$in:['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit']},
+                        paymentType : {
+                            $in : ['credit card', 'echeck', 'check', 'cash']
+                        },
                         updateTime : {
                             '$gte' : min.toDate(),
                             '$lte' : max.toDate()
@@ -57,22 +60,27 @@ KG.define('EF-DataHelper', class extends Base{
                     let data = m.Order.getDB().find(query).fetch();
 
                     let rs = {
-                        'credit card' : 0,
-                        'echeck' : 0,
-                        'cash' : 0,
-                        'check' : 0,
-                        detail : []
+                        //[amount, paymentTotal]
+                        'credit card' : [0, 0],
+                        'echeck' : [0, 0],
+                        'cash' : [0, 0],
+                        'check' : [0, 0],
+                        detail : [],
+                        total : []
                     };
-                    let total = 0;
+                    let total = [0, 0];
                     _.each(data, (item)=>{
                         if(_.isUndefined(rs[item.paymentType])){
-                            rs[item.paymentType] = 0;
+                            rs[item.paymentType] = [0, 0];
                         }
 
-                        rs.detail.push(item.details[0]);
+                        rs.detail = rs.detail.concat(item.details);
 
-                        rs[item.paymentType] += parseFloat(item.paymentTotal);
-                        total += parseFloat(item.paymentTotal);
+                        rs[item.paymentType][0] += parseFloat(item.paymentTotal);
+                        rs[item.paymentType][1] += (parseFloat(item.paymentTotal)+item.discount);
+
+                        total[0] += parseFloat(item.paymentTotal);
+                        total[1] += (parseFloat(item.paymentTotal)+item.discount);
                     });
 
                     rs.total = total;
@@ -100,7 +108,9 @@ KG.define('EF-DataHelper', class extends Base{
                     max = date.hour(23).minute(59).second(59).clone();
                 let query = {
                     status : 'success',
-                    type : 'register class',
+                    paymentType : {
+                        $in : ['credit card', 'echeck', 'check', 'cash']
+                    },
                     updateTime : {
                         '$gte' : min.toDate(),
                         '$lte' : max.toDate()

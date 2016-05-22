@@ -104,7 +104,7 @@ KUI.Home_login = class extends KUI.Page{
                         </form>
                         <RC.Div style={{textAlign:'right'}}>
 
-                            <RC.URL style={sy.a}><p>Forgot password?</p></RC.URL>
+                            <RC.URL onClick={this.forgetPassword.bind(this)} style={sy.a}><p>Forgot password?</p></RC.URL>
                             <KUI.YesButton style={style.ml} onClick={this.login.bind(this)} label="Login"></KUI.YesButton>
                         </RC.Div>
                     </RB.Col>
@@ -119,6 +119,14 @@ KUI.Home_login = class extends KUI.Page{
     changeRemember(){}
     componentDidMount(){
         $(this.refs.keep.getInputDOMNode()).attr('checked', true);
+    }
+
+    forgetPassword(){
+        swal({
+            title : 'Forget Password?',
+            text : 'Please contact Admin(admin@edminforce.net).',
+            type : 'warning'
+        });
     }
 
 };
