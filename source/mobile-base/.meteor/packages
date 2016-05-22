@@ -48,5 +48,5 @@ edminforce:utils
 check
 meteorhacks:aggregate
 accounts-password
-#force-ssl
+force-ssl
 tmeasday:publish-counts
