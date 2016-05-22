@@ -43,7 +43,8 @@ let ClassStudent = class extends Base{
         }).maxStudent;
         let nn = this._db.find({
             classID : data.classID,
-            type : 'register'
+            type : 'register',
+            'status' : {$in : ['pending', 'checkouted']}
         }).count();
 
         if((nn+1) > max){

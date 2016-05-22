@@ -13,6 +13,7 @@ KG.define('EF-DataHelper', class extends Base{
             Program : KG.get('EF-Program'),
             Session : KG.get('EF-Session'),
             AdminUser : KG.get('EF-AdminUser'),
+            Coupon : KG.get('EF-Coupon'),
             StudentComment : KG.get('EF-StudentComment')
         };
 
@@ -118,7 +119,11 @@ KG.define('EF-DataHelper', class extends Base{
                 };
 
                 let result = [];
-                let data = m.Order.getDB().find(query).fetch();
+                let data = m.Order.getDB().find(query, {
+                    sort : {
+                        createTime : -1
+                    }
+                }).fetch();
 
 
                 _.each(data, (item)=>{
@@ -203,6 +208,40 @@ KG.define('EF-DataHelper', class extends Base{
                 });
 
                 return rs;
+            },
+
+            getCouponReport(query={}, option={}){
+                let m = this.getDepModule();
+
+                //query = KG.util.setDBQuery(query);
+                option = KG.util.setDBOption(option);
+console.log(option);
+                query = {
+                    status : 'success',
+                    '$or' : [
+                        {
+                            couponID : {$exists : true}
+                        },
+                        {
+                            customerCouponID : {$exists : true}
+                        }
+                    ]
+                };
+
+                let list = m.Order.getDB().find(query, option).fetch(),
+                    total = m.Order.getDB().find(query).count();
+
+                list = _.map(list, function(item){
+                    item.student = m.Student.getDB().findOne({_id : item.studentID});
+                    item.customer = m.Customer.getDB().findOne({_id : item.accountID});
+
+                    let cid = item.couponID || item.customerCouponID;
+                    item.coupon = m.Coupon.getDB().findOne({_id : cid});
+
+                    return item;
+                });
+
+                return {list, total};
             }
         };
     }

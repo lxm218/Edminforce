@@ -134,7 +134,7 @@ KUI.Student_profile = class extends KUI.Page{
                 <h3>Class History</h3>
                 {this.renderClassHistoryTable()}
                 <hr/>
-                <h3>Trial / Makeup Class</h3>
+                <h3>Trial / Makeup Class / Waitlist</h3>
                 {this.renderTrailOrMakeupClassTable()}
                 <RC.Div style={sy.rd}>
 
@@ -453,7 +453,11 @@ KUI.Student_profile = class extends KUI.Page{
             {
                 title : 'Lesson Date',
                 reactDom(doc){
-                    return moment(doc.lessonDate).format(util.const.dateFormat);
+                    if(doc.lessonDate){
+                        return moment(doc.lessonDate).format(util.const.dateFormat);
+                    }
+                    return '';
+
                 }
             },
             {
@@ -519,10 +523,10 @@ KUI.Student_profile = class extends KUI.Page{
 
         let json = [];
         _.each(this.data.classStudentData, (item)=>{
-            if(item.type !== 'trial' && item.type !== 'makeup'){
+            if(item.type !== 'trial' && item.type !== 'makeup' && item.type !== 'wait'){
                 return true;
             }
-            if(!item.lessonDate || moment(moment(item.lessonDate)).isBefore(moment(), 'days')){
+            if(item.type !== 'wait' && (!item.lessonDate || moment(moment(item.lessonDate)).isBefore(moment(), 'days'))){
                 return true;
             }
             let cls = this.data.classData[item.classID] || {};

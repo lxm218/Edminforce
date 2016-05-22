@@ -192,12 +192,12 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 		];
 
 		return (
-			<KUI.PageTable
+			<KUI.Table
 				style={{}}
 				list={this.state.detail}
 				title={titleArray}
 				ref="table">
-			</KUI.PageTable>
+			</KUI.Table>
 		);
 	}
 };
