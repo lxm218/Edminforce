@@ -6,15 +6,19 @@ KUI.Teachers_index = class extends KUI.Page {
         this.state = {
             selectedTeacherIdx:0,
             selectedClassIdx: 0,
-            selectedDateIdx:0
+            selectedDate:moment().format('MM/DD/YYYY')
         };
 
         this.onSelectClass = this.onSelectClass.bind(this);
         this.onSelectTeacher = this.onSelectTeacher.bind(this);
+        this.onClassDateChange = this.onClassDateChange.bind(this);
+        //this.datePickerOption = {daysOfWeekDisabled : [0,6]};
     }
 
     runOnceAfterDataReady(){
-        //$(this.refs.classDate.getInputDOMNode()).datepicker({});
+        let classDateDomNode = this.refs.classDate.getInputDOMNode();
+        $(classDateDomNode).datepicker({});
+        $(classDateDomNode).bind('hide', this.onClassDateChange);
     }
 
     getMeteorData(){
@@ -152,16 +156,24 @@ KUI.Teachers_index = class extends KUI.Page {
     onSelectTeacher(event) {
         this.setState({
             selectedTeacherIdx:event.target.selectedIndex,
-            selectedClassIdx: 0,
-            selectedDateIdx:0
+            selectedClassIdx: 0
         });
     }
 
     onSelectClass(e) {
         this.setState({
-            selectedClassIdx: e.target.selectedIndex,
-            selectedDateIdx:0
+            selectedClassIdx: e.target.selectedIndex
         })
+    }
+
+    onClassDateChange(e) {
+        let  newDate = this.refs.classDate.getValue();
+        if (newDate != this.state.selectedDate) {
+            this.setState({
+                selectedDate: newDate,
+                selectedClassIdx: 0
+            });
+        }
     }
 
     save() {
@@ -230,17 +242,14 @@ KUI.Teachers_index = class extends KUI.Page {
                                     this.data.teachers.map( (t) => (<option key={'t'+t._id} value={t._id}>{t.nickName}</option>))
                                 }
                             </RB.Input>
-                            <RB.Input type="select" {... p.classDate}>
-                                {
-                                    classDates.map( (d) => <option key={d} value={d}>{d}</option>)
-                                }
-                            </RB.Input>
-                        </RB.Col>
-                        <RB.Col md={6} mdOffset={0}>
                             <RB.Input type="select" {... p.class} onChange={this.onSelectClass}>
                                 {
                                     teacherClasses.map( (c) => (<option key={'c'+c._id} value={c._id}>{c.name}</option>))
                                 }
+                            </RB.Input>
+                        </RB.Col>
+                        <RB.Col md={6} mdOffset={0}>
+                            <RB.Input type="text" {... p.classDate} value={this.state.selectedDate}>
                             </RB.Input>
                         </RB.Col>
                     </div>
