@@ -119,7 +119,11 @@ KG.define('EF-DataHelper', class extends Base{
                 };
 
                 let result = [];
-                let data = m.Order.getDB().find(query).fetch();
+                let data = m.Order.getDB().find(query, {
+                    sort : {
+                        createTime : -1
+                    }
+                }).fetch();
 
 
                 _.each(data, (item)=>{

@@ -1,15 +1,26 @@
 
 KUI.RequestLog_Index = class extends KUI.Page{
 
+	constructor(p){
+		super(p);
+
+		this.state = {
+			page : 1
+		};
+	}
+
 	getMeteorData(){
-		let x = Meteor.subscribe('EF-Request', {
+
+		let x = util.data.subscribe(KG.RequestLog, {
 			sort : {createTime : -1},
-			pageSize : 50
+			pageSize : 10,
+			pageNum : this.state.page
 		});
 
 		return {
 			ready : x.ready(),
-			data : KG.RequestLog.getDB().find({}).fetch()
+			data : KG.RequestLog.getDB().find({}).fetch(),
+			count : x.ready()?util.data.getMaxCount(x):0
 		}
 	}
 
@@ -62,13 +73,23 @@ KUI.RequestLog_Index = class extends KUI.Page{
 		return (
 			<RC.Div>
 				<h3>Request Log</h3>
-				<KUI.Table
+				<KUI.PageTable
 					style={{}}
+					total={this.data.count}
+					pagesize={10}
+					page={this.state.page}
+					onSelectPage={this.selectPage.bind(this)}
 					list={list}
 					title={titleArray}
-					ref="table"></KUI.Table>
+					ref="table"></KUI.PageTable>
 			</RC.Div>
 
 		);
+	}
+	selectPage(page){
+
+		this.setState({
+			page : page
+		});
 	}
 };
