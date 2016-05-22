@@ -1,4 +1,4 @@
-KUI.Teachers_index = class extends KUI.Page {
+KUI.Teachers_index = class extends RC.CSSMeteorData {
 
     constructor(p) {
         super(p);
@@ -6,20 +6,30 @@ KUI.Teachers_index = class extends KUI.Page {
         this.state = {
             selectedTeacherIdx:0,
             selectedClassIdx: 0,
-            selectedDate:moment().format('MM/DD/YYYY')
+            selectedDate: moment().format('MM/DD/YYYY')
         };
 
         this.onSelectClass = this.onSelectClass.bind(this);
         this.onSelectTeacher = this.onSelectTeacher.bind(this);
         this.onClassDateChange = this.onClassDateChange.bind(this);
-        //this.datePickerOption = {daysOfWeekDisabled : [0,6]};
     }
 
-    runOnceAfterDataReady(){
-        let classDateDomNode = this.refs.classDate.getInputDOMNode();
-        $(classDateDomNode).datepicker({});
-        $(classDateDomNode).bind('hide', this.onClassDateChange);
+    setupDatePicker(){
+        let classDateDomNode = this.refs.classDate ? this.refs.classDate.getInputDOMNode() : null;
+        if (classDateDomNode) {
+            $(classDateDomNode).datepicker({});
+            $(classDateDomNode).bind('hide', this.onClassDateChange);
+        }
     }
+
+    componentDidMount() {
+        super.componentDidMount && super.componentDidMount();
+        this.setupDatePicker();
+    }
+    // componentDidUpdate(prevProps, prevState) {
+    //     super.componentDidUpdate && super.componentDidUpdate(prevProps, prevState);
+    //     this.setupDatePicker();
+    // }
 
     getMeteorData(){
         let teacherSub = Meteor.subscribe('EF-AdminUser', {
@@ -29,10 +39,9 @@ KUI.Teachers_index = class extends KUI.Page {
         });
 
         let classSub = Meteor.subscribe('EF-CurrentClasses');
-        let studentSub = Meteor.subscribe('EF-StudentsByClassID', this.state.selectedClassID);
         let programSub = Meteor.subscribe('EF-Program');
 
-        let ready = teacherSub.ready() && classSub.ready() && studentSub.ready() & programSub.ready();
+        let ready = teacherSub.ready() && classSub.ready() && programSub.ready();
 
         let teachers = [];
         let classStudents = [];
@@ -49,16 +58,29 @@ KUI.Teachers_index = class extends KUI.Page {
                 p && (c.name = p.name + " " + c.schedule.day + " " + c.schedule.time);
             })
 
-            // students in the selected class
-            classStudents = KG.get('EF-ClassStudent').getDB().find({
-                classID:this.state.selectedClassID,
-                status: 'checkouted'
-            }).fetch();
-            let students = KG.get('EF-Student').getDB().find({}).fetch();
-            classStudents.forEach( (s) => {
-                let student = _.find(students, {_id: s.studentID});
-                student && (s.name = student.name, s.birthday=student.profile.birthday);
-            })
+            // filter class by teacher and date
+            let selectedWeekday = this.state.selectedDate ? moment(this.state.selectedDate).format('ddd') : null;
+            let selectedTeacher = teachers.length > this.state.selectedTeacherIdx ? teachers[this.state.selectedTeacherIdx] : {};
+            classes = _.filter(classes, (c) => (c.schedule.day == selectedWeekday && c.teacher == selectedTeacher.nickName));
+        }
+
+        if (classes.length > this.state.selectedClassIdx) {
+            let selectedClassId = classes[this.state.selectedClassIdx]._id
+            let studentSub = Meteor.subscribe('EF-StudentsByClassID', selectedClassId);
+            ready = ready && studentSub.ready();
+
+            if (ready) {
+                // students in the selected class
+                classStudents = KG.get('EF-ClassStudent').getDB().find({
+                    classID: selectedClassId,
+                    status: 'checkouted'
+                }).fetch();
+                let students = KG.get('EF-Student').getDB().find({}).fetch();
+                classStudents.forEach((s) => {
+                    let student = _.find(students, {_id: s.studentID});
+                    student && (s.name = student.name, s.birthday = student.profile.birthday);
+                })
+            }
         }
 
         return{
@@ -215,21 +237,6 @@ KUI.Teachers_index = class extends KUI.Page {
         };
 
         let selectedTeacher = this.data.teachers.length > this.state.selectedTeacherIdx ? this.data.teachers[this.state.selectedTeacherIdx] : {};
-        let teacherClasses = _.filter(this.data.classes, (c) => (c.teacher == selectedTeacher.nickName));
-        let selectedClass = teacherClasses.length > this.state.selectedClassIdx ? teacherClasses[this.state.selectedClassIdx] : null;
-        let classDates = [];
-        if (selectedClass) {
-            let session = _.find(this.data.sessions, {_id: selectedClass.sessionID});
-            if (session) {
-                let dtStart = moment(session.startDate);
-                dtStart.day(selectedClass.schedule.day);
-                while (dtStart.toDate() <= session.endDate)
-                {
-                    classDates.push(dtStart.format('MM/DD/YYYY'));
-                    dtStart = dtStart.add(7,'d');
-                }
-            }
-        }
 
         return (
             <RC.Div>
@@ -244,12 +251,12 @@ KUI.Teachers_index = class extends KUI.Page {
                             </RB.Input>
                             <RB.Input type="select" {... p.class} onChange={this.onSelectClass}>
                                 {
-                                    teacherClasses.map( (c) => (<option key={'c'+c._id} value={c._id}>{c.name}</option>))
+                                    this.data.classes.map( (c) => (<option key={'c'+c._id} value={c._id}>{c.name}</option>))
                                 }
                             </RB.Input>
                         </RB.Col>
                         <RB.Col md={6} mdOffset={0}>
-                            <RB.Input type="text" {... p.classDate} value={this.state.selectedDate}>
+                            <RB.Input type="text" {... p.classDate} defaultValue={this.state.selectedDate}>
                             </RB.Input>
                         </RB.Col>
                     </div>
