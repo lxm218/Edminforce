@@ -454,6 +454,7 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
 
             if (sc.type === 'makeup') {
                 sc.classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
+                result.totalDiscountable += sc.classFee;
             }
             else {
                 sc.classFee = calculateRegistrationFee(classData, session);
