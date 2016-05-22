@@ -411,7 +411,7 @@ KUI.Student_profile = class extends KUI.Page{
         let self = this;
         this.setDefaultValue();
 
-        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{studentID : this.data.id, status : 'pending'}, {
+        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{studentID : this.data.id, status : 'pending', pendingFlag:true}, {
             sort : {updateTime : -1}
         }], {
             success : function(list){
