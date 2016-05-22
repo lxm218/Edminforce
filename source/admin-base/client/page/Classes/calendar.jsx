@@ -344,7 +344,12 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 
 		let arr=[]
 		classesData.forEach(function(classItem){
-			if(classItem.schedule.day == m.format('ddd')){
+			if(
+				classItem.schedule.day == m.format('ddd')  //周
+				&& m.isBetween(classItem.session.startDate, classItem.session.endDate,null,'[]')  //在session的时间里
+
+			){
+				console.log(classItem.session.startDate, m.format(), classItem.session.endDate)
 				let start = moment(classItem.schedule.time,['hh:mmA'])
 				start.year(m.year())
 				start.month(m.month())
@@ -356,7 +361,8 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 					min:"minutes",
 					hr:"hours",
 				}
-				let end = moment(start).add(classItem.length,'minutes')
+				let addInfo = classItem.length.split(' ')
+				let end = moment(start).add(addInfo[0],unitMap[addInfo[1]])
 
 				let event ={
 					start:start,
@@ -407,10 +413,12 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 		let self =this
 
 		$(this.refs.calendar).fullCalendar({
+			defaultView: 'agendaWeek',
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,basicWeek,basicDay'
+				//right: 'month,basicWeek,basicDay'
+				right: 'month,agendaWeek,agendaDay'
 			},
 
 			events: function(start, end, timezone, callback) {
