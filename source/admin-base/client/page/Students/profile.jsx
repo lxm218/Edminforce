@@ -7,7 +7,9 @@ KUI.Student_profile = class extends KUI.Page{
         this.m = KG.DataHelper.getDepModule();
 
         this.state = {
-            waitForPayList : []
+            waitForPayList : [],
+
+            refresh : null
         };
     }
 
@@ -487,10 +489,10 @@ KUI.Student_profile = class extends KUI.Page{
                         marginRight: '10px'
                     };
 
-                    if(doc.type === 'trial'){
+                    if(doc.type === 'trial' || doc.type === 'wait'){
                         let del = function(){
                             swal({
-                                title: "Cancel trial this class?",
+                                title: "Cancel this class?",
                                 text: "",
                                 type: "warning",
                                 showCancelButton: true,
@@ -499,7 +501,7 @@ KUI.Student_profile = class extends KUI.Page{
                                 closeOnConfirm: false
                             }, function(){
                                 self.m.ClassStudent.getDB().remove({_id : doc._id});
-                                swal("cancel trial class success.", "", "success");
+                                swal("cancel class success.", "", "success");
                             });
 
                         };
@@ -522,6 +524,7 @@ KUI.Student_profile = class extends KUI.Page{
                             </RC.Div>
                         );
                     }
+
                 }
             }
         ];
@@ -630,7 +633,7 @@ KUI.Student_profile = class extends KUI.Page{
                 style : {
                     textAlign : 'center'
                 },
-                reactDom(doc){
+                reactDom(doc, index){
                     let sy = {
                         lineHeight : '24px',
                         height : '24px',
@@ -641,10 +644,23 @@ KUI.Student_profile = class extends KUI.Page{
 
                     let id = self.data.id;
 
+                    let del = function(){
+                        self.m.ClassStudent.getDB().remove({_id:doc._id});
+
+                        self.state.waitForPayList.splice(index, 1);
+
+                        self.setState({
+                            waitForPayList : self.state.waitForPayList,
+                            refresh : Meteor.uuid()
+                        });
+                    };
+
                     return (
                         <RC.Div style={{textAlign:'center'}}>
                             <KUI.NoButton style={sy} href={`/registration/payment/${doc._id}`}
                                           label="pay now"></KUI.NoButton>
+                            <KUI.NoButton style={sy} onClick={del}
+                                          label="Cancel"></KUI.NoButton>
 
                         </RC.Div>
                     );

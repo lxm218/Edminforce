@@ -8,9 +8,12 @@ KUI.Report_Coupon = class extends KUI.Page{
 			list : [],
 			total : 0,
 
-			page : 1,
 
 			refresh : null
+		};
+
+		this.const = {
+			page : 1
 		};
 	}
 
@@ -33,7 +36,7 @@ KUI.Report_Coupon = class extends KUI.Page{
 			sort : {
 				createTime : -1
 			},
-			pageNum : this.state.page,
+			pageNum : this.const.page,
 			pageSize : 10
 		}], {
 			success : function(json){
@@ -113,7 +116,7 @@ KUI.Report_Coupon = class extends KUI.Page{
 				title={titleArray}
 				total={this.state.total}
 				onSelectPage={this.selectPage.bind(this)}
-				page={this.state.page}
+				page={this.const.page}
 				pagesize={10}
 				ref="table1">
 			</KUI.PageTable>
@@ -121,12 +124,8 @@ KUI.Report_Coupon = class extends KUI.Page{
 	}
 
 	selectPage(page){
-		this.setState({
-			page : page
 
-			//refresh : Meteor.uuid()
-		});
-
+		this.const.page = page;
 		this.getStateData();
 	}
 };
