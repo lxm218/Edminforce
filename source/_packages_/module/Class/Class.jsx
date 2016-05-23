@@ -490,6 +490,24 @@ let Class = class extends Base{
 
             },
 
+            cancelMakeupClassForReady(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let d = m.Order.getDB().findOne({
+                    details : {$in:[opts.ClassStudentID]},
+                    type : {$in:['makeup class']},
+                    status : 'success'
+                });
+
+                if(d){
+                    return d.paymentTotal;
+                }
+                else{
+                    let cd = this.getAll({_id : opts.classID})[0];
+                    return cd.makeupClassFee;
+                }
+            },
+
             changeClass(opts){
                 let m = KG.DataHelper.getDepModule();
                 let ClassStudentID = opts.ClassStudentID,

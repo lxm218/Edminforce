@@ -34,7 +34,7 @@ KUI.Report_Coupon = class extends KUI.Page{
 				createTime : -1
 			},
 			pageNum : this.state.page,
-			pageSize : 2
+			pageSize : 10
 		}], {
 			success : function(json){
 				self.setState({
@@ -58,16 +58,16 @@ KUI.Report_Coupon = class extends KUI.Page{
 
 		console.log(this.state.list);
 		let titleArray = [
-			{
-				title : 'Customer',
-				reactDom(doc){
-					if(doc.customer){
-						return doc.customer.name;
-					}
-
-					return '';
-				}
-			},
+			//{
+			//	title : 'Customer',
+			//	reactDom(doc){
+			//		if(doc.customer){
+			//			return doc.customer.name;
+			//		}
+			//
+			//		return '';
+			//	}
+			//},
 			{
 				title : 'Student',
 				reactDom(doc){
@@ -95,9 +95,13 @@ KUI.Report_Coupon = class extends KUI.Page{
 				key : 'discount'
 			},
 			{
+				title : 'From',
+				key : 'paymentSource'
+			},
+			{
 				title : 'Date',
 				reactDom(doc){
-					return moment(doc.updateTime).format(util.const.dateFormat);
+					return moment(doc.updateTime).format('MM/DD/YYYY hh:mm:ss');
 				}
 			}
 		];
@@ -110,7 +114,7 @@ KUI.Report_Coupon = class extends KUI.Page{
 				total={this.state.total}
 				onSelectPage={this.selectPage.bind(this)}
 				page={this.state.page}
-				pagesize={2}
+				pagesize={10}
 				ref="table1">
 			</KUI.PageTable>
 		);
