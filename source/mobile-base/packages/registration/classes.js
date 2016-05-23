@@ -154,6 +154,7 @@ function getClasesForRegistration(userId, studentID, programID, sessionID) {
             return false;
 
         // updateClassName
+        program = _.find(result.programs, {_id:classInfo.programID});
         classInfo.name = EdminForce.utils.getClassName(program.name, selectedSession.name, classInfo);
 
         return true;
