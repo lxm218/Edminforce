@@ -9,6 +9,13 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
 
         this.validateFormData = this.validateFormData.bind(this);
         this.postPayment = this.postPayment.bind(this);
+        this.actionDone = this.actionDone.bind(this);
+    }
+
+    actionDone() {
+        this.setState({
+            processing: false
+        })
     }
 
     postPayment(event) {
@@ -22,7 +29,12 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
             accountNumber: form.accountNumber,
             nameOnAccount: form.nameOnAccount
         }
-        this.props.actions.payECheck(checkPaymentInfo, this.props.makeupOnly);
+
+        this.setState({
+            processing: true
+        });
+
+        this.props.actions.payECheck(checkPaymentInfo, this.props.makeupOnly, this.actionDone);
     }
 
     validateFormData(e){
@@ -58,6 +70,7 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
 
         return (
             <RC.List className="padding">
+                <RC.Loading isReady={this.state.processing}>
                 {EdminForce.utils.renderError(this.props.error)}
                 <div className="payment-container">
                     <span className="totalAmount">Total Amount is : ${this.paymentTotal.toFixed(2)}</span>
@@ -78,6 +91,7 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
                         <span className="badge comodo"></span>
                     </div>
                 </div>
+                </RC.Loading>
             </RC.List>
         );
     }
