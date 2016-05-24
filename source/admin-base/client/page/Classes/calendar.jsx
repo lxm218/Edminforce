@@ -367,7 +367,9 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 				let event ={
 					start:start,
 					end:end,
-					title:classItem.nickName,
+					//title:classItem.nickName,
+					title: classItem.program.name + ' '+classItem.schedule.time + ' '+classItem.teacher,
+
 					url:'program/class/detail/'+classItem._id
 				}
 				arr.push(event)
