@@ -211,13 +211,12 @@ KG.define('EF-DataHelper', class extends Base{
                 return rs;
             },
 
-            getCouponReport(query={}, option={}){
+            getCouponReport(filter={}, option={}){
                 let m = this.getDepModule();
 
-                //query = KG.util.setDBQuery(query);
+                //filter = KG.util.setDBQuery(query);
                 option = KG.util.setDBOption(option);
-console.log(option);
-                query = {
+                let query = {
                     status : 'success',
                     '$or' : [
                         {
@@ -228,6 +227,26 @@ console.log(option);
                         }
                     ]
                 };
+
+                if(filter.source){
+                    query.paymentSource = filter.source;
+                }
+                if(filter.coupon){
+                    query['$or'] = [
+                        {couponID : filter.coupon},
+                        {customerCouponID : filter.coupon}
+                    ];
+                }
+
+                if(filter.startDate || filter.endDate){
+                    query.updateTime = {};
+                }
+                if(filter.startDate){
+                    query.updateTime['$gte'] = filter.startDate;
+                }
+                if(filter.endDate){
+                    query.updateTime['$lte'] = filter.endDate;
+                }
 
                 let list = m.Order.getDB().find(query, option).fetch(),
                     total = m.Order.getDB().find(query).count();
