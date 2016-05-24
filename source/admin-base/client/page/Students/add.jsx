@@ -124,7 +124,7 @@ KUI.Student_comp_add = class extends RC.CSS{
     }
 
     setDefaultValue(data){
-
+console.log(data);
         let {name, gender, birthday, status, school, note} = this.getRefs();
 
         school.getInputDOMNode().value = data.profile.school || '';
