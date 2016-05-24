@@ -5,7 +5,9 @@ KUI.Layout = class extends RC.CSS{
 
         this.state = {
             errorMessage : false,
-            alertMessage : false
+            alertMessage : false,
+
+            showLeftNav : true
         };
 
         this._tm = null;
@@ -114,20 +116,32 @@ KUI.Layout = class extends RC.CSS{
         );
     }
 
+    toggleLeftNav(){
+        this.setState({
+            showLeftNav:!this.state.showLeftNav
+        })
+    }
+
 
     render(){
         let style = this.css.get('styles');
 
+        let pageWraperStyle ={
+            paddingRight:0,
+            marginLeft:this.state.showLeftNav?220:0
+        }
 
         return <div id="ui-layout">
-            <KUI.Header />
+            <KUI.Header toggleLeftNav={this.toggleLeftNav.bind(this)}/>
+
+
 
             <div className="container" style={style.con}>
                 {this.renderErrorMsg()}
                 {this.renderToastMsg()}
 
-                <KUI.LeftNav />
-                <div id="page-wrapper" style={{paddingRight:0}}>
+                <KUI.LeftNav showLeftNav = {this.state.showLeftNav} />
+                <div id="page-wrapper" style={pageWraperStyle}>
 
                     <div style={
                         {
