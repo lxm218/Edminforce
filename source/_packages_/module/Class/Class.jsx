@@ -490,6 +490,24 @@ let Class = class extends Base{
 
             },
 
+            cancelMakeupClassForReady(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let d = m.Order.getDB().findOne({
+                    details : {$in:[opts.ClassStudentID]},
+                    type : {$in:['makeup class']},
+                    status : 'success'
+                });
+
+                if(d){
+                    return d.paymentTotal;
+                }
+                else{
+                    let cd = this.getAll({_id : opts.classID})[0];
+                    return cd.makeupClassFee;
+                }
+            },
+
             changeClass(opts){
                 let m = KG.DataHelper.getDepModule();
                 let ClassStudentID = opts.ClassStudentID,
@@ -753,18 +771,22 @@ console.log(option)
 
                 let self = this,
                     format = 'YYYYMMDD';
-                let x = this.subscribeClassByQuery(query||{});
+                let x = this.subscribeClassByQuery(query||{}, {
+                    pageSize:1000
+                });
                 if(!x.ready()){
                     return x;
                 }
 
                 let list = x.data;
                 let rs = [];
+
+                console.log(list);
                 _.each(list, (item)=>{
                     let lessonDate = self.getClassLessonDate(item);
-                    console.log(lessonDate)
+                    //console.log(lessonDate)
                     let index = _.findIndex(lessonDate, function(one){
-                        console.log(moment(one).format(format), moment(date).format(format))
+                        //console.log(moment(one).format(format), moment(date).format(format))
                         return moment(one).format(format) === moment(date).format(format);
                     });
                     if(index !== -1){

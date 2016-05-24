@@ -171,7 +171,8 @@ console.log(date, query);
 		if(i){
 			return {
 				classID : this.data.classList[i]._id,
-				date : this.state.query.date
+				date : this.state.query.date,
+				classData : this.data.classList[i]
 			};
 		}
 
@@ -353,6 +354,9 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 		this.state = {
 			fee : 0
 		};
+
+		this.fee = 0;
+		this.coupon = null;
 	}
 
 	getMeteorData(){
@@ -478,6 +482,8 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			this.setState({
 				fee : fee
 			});
+
+			this.fee = fee;
 		}
 
 	}
@@ -536,35 +542,52 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			paymentType : this.refs.payway.getValue(),
 			type : 'makeup class',
 			status : 'waiting',
-			amount : this.state.fee
+			amount : this.fee
 		};
 
 		let way = this.refs.payway.getValue();
-		let total = this.state.fee;
+		let total = this.fee;
 		let cash = false;
-		if(way === 'credit card'){
-			orderData.poundage = App.config.poundage.credit;
-			total = parseFloat(total)+(parseFloat(orderData.poundage||0));
+
+		if(this.coupon){
+			orderData.couponID = this.coupon;
+			orderData.discount = this.state.fee - this.fee;
 		}
-		else if(way === 'echeck'){
-			orderData.poundage = App.config.poundage.echeck;
-			total = parseFloat(total)*(1+(parseFloat(orderData.poundage||0)));
+
+		if(this.fee === 0){
+			//fee=0 set payment success
+			orderData.status = 'success';
+			orderData.paymentTotal = orderData.amount;
+
 		}
 		else{
-			orderData.status = 'success';
-			orderData.poundage = 0;
-			cash = true;
+
+			if(way === 'credit card'){
+				orderData.poundage = App.config.poundage.credit;
+				total = parseFloat(total)+(parseFloat(orderData.poundage||0));
+			}
+			else if(way === 'echeck'){
+				orderData.poundage = App.config.poundage.echeck;
+				total = parseFloat(total)*(1+(parseFloat(orderData.poundage||0)));
+			}
+			else{
+				orderData.status = 'success';
+				orderData.poundage = 0;
+				cash = true;
+			}
+			total = total.toFixed(2);
+			orderData.poundage = orderData.poundage.toString();
+			orderData.paymentTotal = total;
 		}
-		total = total.toFixed(2);
-		orderData.poundage = orderData.poundage.toString();
-		orderData.paymentTotal = total;
+
+
 console.log(orderData);
 		let orderRs = KG.get('EF-Order').insert(orderData);
 		KG.result.handle(orderRs, {
 			success : function(id){
 				KG.get('EF-ClassStudent').updateOrderID(id, cid);
 
-				if(cash){
+				if(self.fee === 0 || cash){
 					self.module.ClassStudent.updateStatus('checkouted', cid);
 					util.goPath('/student/'+orderData.studentID);
 				}
@@ -583,6 +606,46 @@ console.log(orderData);
 
 	}
 
+	applyCouponCode(){
+		let self = this;
+		let m = this.module;
+
+		let code = util.getReactJQueryObject(this.refs.cpcode).val();
+		if(!code){
+			util.toast.showError('Please enter coupon code');
+			return;
+		}
+
+		let json = this.refs.result.getSelectValue();
+
+		//check coupon code
+		let param = {
+			accountID : this.data.student.accountID,
+			couponCode : code,
+			overRequire : this.state.fee,
+			programID : json.classData.programID,
+			weekdayRequire : json.classData.schedule.day
+		};
+		console.log(param);
+		m.Coupon.callMeteorMethod('checkCouponCodeValidByCustomerID', [param], {
+			success : function(rs){
+				KG.result.handle(rs, {
+					success : function(d){
+						console.log(d);
+						let fee = m.Coupon.calculateDiscountResult(d.discount, self.state.fee);
+
+						util.getReactJQueryObject(self.refs.fee).html('total : $'+fee);
+						self.fee = fee;
+						self.coupon = code;
+					},
+					error : function(err){
+						util.toast.showError(err.reason);
+					}
+				});
+			}
+		});
+	}
+
 	renderPaymentBox(){
 		let tuition = this.state.fee;
 		let h = '';
@@ -590,6 +653,18 @@ console.log(orderData);
 			h = (
 				<RC.Div>
 					<KUI.Comp.SelectPaymentWay ref="payway" />
+					<RB.Input wrapperClassName="">
+
+						<RB.Row>
+							<RB.Col xs={8}>
+								<input ref="cpcode" placeholder="Enter Coupon Code" type="text" className="form-control" />
+							</RB.Col>
+							<RB.Col xs={4}>
+								<button type="button" onClick={this.applyCouponCode.bind(this)} className="btn btn-w-m btn-primary">Apply</button>
+							</RB.Col>
+						</RB.Row>
+
+					</RB.Input>
 					<RC.Div style={{textAlign:'right'}}>
 						<KUI.YesButton onClick={this.payNow.bind(this)} label="Pay Now"></KUI.YesButton>
 					</RC.Div>
@@ -603,7 +678,7 @@ console.log(orderData);
 		return (
 			<RC.Div>
 				<hr/>
-				<p>Total : ${this.state.fee}</p>
+				<p ref="fee">Total : ${this.state.fee}</p>
 				{h}
 			</RC.Div>
 		);

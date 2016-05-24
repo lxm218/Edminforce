@@ -19,10 +19,11 @@ EdminForce.Actions.Billing = {
         });
     },
     
-    prepareOrder({LocalState},order, makeupOnly) {
+    prepareOrder({LocalState},order, makeupOnly, callBack) {
         LocalState.set('ERROR_CHECKOUT', null);
         order.paymentSource = 'mobile';
         Meteor.call('billing.prepareOrder', order, function(err,result){
+            callBack && callBack();
             if (err) {
                 LocalState.set('ERROR_CHECKOUT', err.reason);
             }
@@ -37,10 +38,11 @@ EdminForce.Actions.Billing = {
         });
     },
 
-    payWithSchoolCredit({LocalState}, paymentInfo, makeupOnly) {
+    payWithSchoolCredit({LocalState}, paymentInfo, makeupOnly, callBack) {
         LocalState.set('ERROR_CHECKOUT', null);
         paymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payWithSchoolCredit', paymentInfo, function(err,result){
+            callBack && callBack();
             if (err) {
                 if (err.error === 'insufficientSchoolCredit') {
                     onCheckoutError("Insufficient School Credit","The amount of your school credit has changed.");
@@ -57,10 +59,11 @@ EdminForce.Actions.Billing = {
         });
     },
     
-    payECheck({LocalState}, checkPaymentInfo, makeupOnly) {
+    payECheck({LocalState}, checkPaymentInfo, makeupOnly, callBack) {
         LocalState.set('ERROR_PAY_ECHECK', null);
         checkPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payECheck', checkPaymentInfo, function(err,result){
+            callBack && callBack();
             if (err) {
                 if (err.error === 'insufficientSchoolCredit') {
                     onCheckoutError("Insufficient School Credit","The amount of your school credit has changed.");
@@ -79,10 +82,11 @@ EdminForce.Actions.Billing = {
         });
     },
 
-    payCreditCard({LocalState}, creditCardPaymentInfo, makeupOnly) {
+    payCreditCard({LocalState}, creditCardPaymentInfo, makeupOnly, callBack) {
         LocalState.set('ERROR_PAY_CREDITCARD', null);
         creditCardPaymentInfo.paymentSource = 'mobile';
         Meteor.call('billing.payCreditCard', creditCardPaymentInfo, function(err,result){
+            callBack && callBack();
             if (err) {
                 if (err.error === 'insufficientSchoolCredit') {
                     onCheckoutError("Insufficient School Credit","The amount of your school credit has changed.");

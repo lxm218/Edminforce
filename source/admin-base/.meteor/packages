@@ -63,3 +63,5 @@ edminforce:email
 
 edminforce:datahelper
 force-ssl
+
+momentjs:moment@=2.13.1

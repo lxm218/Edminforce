@@ -69,10 +69,15 @@ KUI.LeftNav = KUI.Class.define('ui.LeftNav', {
             }
         });
 
+        let navStyle={
+            display:this.props.showLeftNav?'block':'none'
+        }
+
         return (
-            <nav className="navbar-default navbar-static-side" role="navigation">
+            <nav className="navbar-default navbar-static-side" role="navigation" style={navStyle}>
                 <div className="sidebar-collapse">
                     <ul className="nav metismenu" id="side-menu" style={style.bg}>
+
 
                         {
                             _.map(list, function(item, index){

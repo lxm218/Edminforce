@@ -10,8 +10,15 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
 
         this.validateFormData = this.validateFormData.bind(this);
         this.postPayment = this.postPayment.bind(this);
+        this.actionDone = this.actionDone.bind(this);
     }
 
+    actionDone() {
+        this.setState({
+            processing: false
+        })
+    }
+    
     postPayment(event) {
         event.preventDefault();
         if (!this.state.valid) return;
@@ -31,7 +38,12 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
             zip: formData.zip,
             orderId: this.props.orderId
         }
-        this.props.actions.payCreditCard(creditCardPaymentInfo, this.props.makeupOnly);
+        
+        this.setState({
+            processing: true
+        });
+
+        this.props.actions.payCreditCard(creditCardPaymentInfo, this.props.makeupOnly, this.actionDone);
     }
 
     validateFormData() {
@@ -84,6 +96,7 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
         }
         return (
             <RC.List className="padding">
+                <RC.Loading isReady={this.state.processing}>
                 {EdminForce.utils.renderError(this.props.error)}
                 <div className="payment-container">                
                     <span>Total Amount is: ${this.paymentTotal.toFixed(2)}</span>
@@ -118,6 +131,7 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
                         <span className="badge comodo"></span>
                     </div>      
                 </div>
+                </RC.Loading>
             </RC.List>
         );
     }

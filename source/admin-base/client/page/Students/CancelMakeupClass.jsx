@@ -121,14 +121,24 @@ KUI.Student_CancelMakeupClass = class extends KUI.Page{
 
 	calculateTuitionDifferent(){
 		var self = this;
-		let num = this.data.classData.makeupClassFee;
 
-		this.setState({
-			changeResult : {
-				tuition : num,
-				class : self.data.classData
+		let data = {
+			classID : this.data.classData._id,
+			ClassStudentID : this.data.id
+		};
+
+		this.module.Class.callMeteorMethod('cancelMakeupClassForReady', [data], {
+			success : function(rs){
+
+				self.setState({
+					changeResult : {
+						tuition : rs,
+						class : self.data.classData
+					}
+				});
 			}
 		});
+
 
 	}
 
@@ -208,7 +218,7 @@ KUI.Student_CancelMakeupClass = class extends KUI.Page{
 			amount : this.state.changeResult.tuition,
 			paymentType : opts.paymentType
 		};
-		this.module.Class.callMeteorMethod('cancelClass', [data], {
+		this.module.Class.callMeteorMethod('cancelMakeupClass', [data], {
 			success : function(rs){
 				if(rs){
 					callback(rs, data);

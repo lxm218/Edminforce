@@ -55,6 +55,15 @@ if(Meteor.isClient){
 		}
 	});
 
+	Route.route('/coupon', {
+		action : function(p){
+			App.routeHandler(p, {
+				pageTitle: "Report | Coupon Credit",
+				bodyTmpl: <KUI.Report_Coupon />
+			});
+		}
+	});
+
 
 
 

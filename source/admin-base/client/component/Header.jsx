@@ -55,6 +55,9 @@ KUI.Header = KUI.Class.define('ui.Header', {
         return (<RB.Navbar>
             <RB.Navbar.Header>
                 <RB.Navbar.Brand>
+                    <a onClick={this.props.toggleLeftNav}
+                       href="#"><i className="fa fa-bars"></i> </a>
+
                     <a href="/home">Edmin Force</a>
                 </RB.Navbar.Brand>
                 <RB.Navbar.Toggle />

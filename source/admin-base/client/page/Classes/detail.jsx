@@ -193,7 +193,12 @@ KUI.Class_detail = class extends KUI.Page{
 
             {
                 title : 'Type',
-                key : 'type'
+                reactDom(doc){
+                    if(doc.type === 'wait'){
+                        return 'waitlist';
+                    }
+                    return doc.type;
+                }
             }
         ];
 

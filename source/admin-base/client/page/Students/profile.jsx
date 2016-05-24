@@ -7,7 +7,9 @@ KUI.Student_profile = class extends KUI.Page{
         this.m = KG.DataHelper.getDepModule();
 
         this.state = {
-            waitForPayList : []
+            waitForPayList : [],
+
+            refresh : null
         };
     }
 
@@ -134,7 +136,7 @@ KUI.Student_profile = class extends KUI.Page{
                 <h3>Class History</h3>
                 {this.renderClassHistoryTable()}
                 <hr/>
-                <h3>Trial / Makeup Class</h3>
+                <h3>Trial / Makeup Class / Waitlist</h3>
                 {this.renderTrailOrMakeupClassTable()}
                 <RC.Div style={sy.rd}>
 
@@ -338,7 +340,7 @@ KUI.Student_profile = class extends KUI.Page{
 
         let json = [];
         _.each(this.data.classStudentData, (item)=>{
-            if(item.type !== 'register' && item.type !== 'wait'){
+            if(item.type !== 'register'){
                 return true;
             }
             if(item.status !== 'checkouted'){
@@ -411,7 +413,7 @@ KUI.Student_profile = class extends KUI.Page{
         let self = this;
         this.setDefaultValue();
 
-        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{studentID : this.data.id, status : 'pending'}, {
+        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{studentID : this.data.id, status : 'pending', pendingFlag:true}, {
             sort : {updateTime : -1}
         }], {
             success : function(list){
@@ -453,12 +455,21 @@ KUI.Student_profile = class extends KUI.Page{
             {
                 title : 'Lesson Date',
                 reactDom(doc){
-                    return moment(doc.lessonDate).format(util.const.dateFormat);
+                    if(doc.lessonDate){
+                        return moment(doc.lessonDate).format(util.const.dateFormat);
+                    }
+                    return '';
+
                 }
             },
             {
                 title : 'Type',
-                key : 'type'
+                reactDom(doc){
+                    if(doc.type === 'wait'){
+                        return 'waitlist';
+                    }
+                    return doc.type;
+                }
             },
             {
                 title : 'Status',
@@ -478,10 +489,10 @@ KUI.Student_profile = class extends KUI.Page{
                         marginRight: '10px'
                     };
 
-                    if(doc.type === 'trial'){
+                    if(doc.type === 'trial' || doc.type === 'wait'){
                         let del = function(){
                             swal({
-                                title: "Cancel trial this class?",
+                                title: "Cancel this class?",
                                 text: "",
                                 type: "warning",
                                 showCancelButton: true,
@@ -490,7 +501,7 @@ KUI.Student_profile = class extends KUI.Page{
                                 closeOnConfirm: false
                             }, function(){
                                 self.m.ClassStudent.getDB().remove({_id : doc._id});
-                                swal("cancel trial class success.", "", "success");
+                                swal("cancel class success.", "", "success");
                             });
 
                         };
@@ -513,16 +524,17 @@ KUI.Student_profile = class extends KUI.Page{
                             </RC.Div>
                         );
                     }
+
                 }
             }
         ];
 
         let json = [];
         _.each(this.data.classStudentData, (item)=>{
-            if(item.type !== 'trial' && item.type !== 'makeup'){
+            if(item.type !== 'trial' && item.type !== 'makeup' && item.type !== 'wait'){
                 return true;
             }
-            if(!item.lessonDate || moment(moment(item.lessonDate)).isBefore(moment(), 'days')){
+            if(item.type !== 'wait' && (!item.lessonDate || moment(moment(item.lessonDate)).isBefore(moment(), 'days'))){
                 return true;
             }
             let cls = this.data.classData[item.classID] || {};
@@ -621,7 +633,7 @@ KUI.Student_profile = class extends KUI.Page{
                 style : {
                     textAlign : 'center'
                 },
-                reactDom(doc){
+                reactDom(doc, index){
                     let sy = {
                         lineHeight : '24px',
                         height : '24px',
@@ -632,10 +644,23 @@ KUI.Student_profile = class extends KUI.Page{
 
                     let id = self.data.id;
 
+                    let del = function(){
+                        self.m.ClassStudent.getDB().remove({_id:doc._id});
+
+                        self.state.waitForPayList.splice(index, 1);
+
+                        self.setState({
+                            waitForPayList : self.state.waitForPayList,
+                            refresh : Meteor.uuid()
+                        });
+                    };
+
                     return (
                         <RC.Div style={{textAlign:'center'}}>
                             <KUI.NoButton style={sy} href={`/registration/payment/${doc._id}`}
                                           label="pay now"></KUI.NoButton>
+                            <KUI.NoButton style={sy} onClick={del}
+                                          label="Cancel"></KUI.NoButton>
 
                         </RC.Div>
                     );

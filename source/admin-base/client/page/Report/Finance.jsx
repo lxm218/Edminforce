@@ -337,6 +337,20 @@ KUI.Report_Finance = class extends KUI.Page{
 				key : 'order.paymentTotal'
 			},
 			{
+				title : 'Coupon code',
+				reactDom : function(doc){
+					return doc.order.couponID || doc.order.customerCouponID || '';
+				}
+			},
+			{
+				title : 'Discount($)',
+				key : 'order.discount'
+			},
+			{
+				title : 'School Credit',
+				key : 'order.schoolCredit'
+			},
+			{
 				title : 'Pay From',
 				key : 'order.paymentSource'
 			},

@@ -154,6 +154,7 @@ function getClasesForRegistration(userId, studentID, programID, sessionID) {
             return false;
 
         // updateClassName
+        program = _.find(result.programs, {_id:classInfo.programID});
         classInfo.name = EdminForce.utils.getClassName(program.name, selectedSession.name, classInfo);
 
         return true;
@@ -386,7 +387,7 @@ function applyCoupon(userId, couponId, cart) {
         // $ or %
         let unit = result[2];
         if (unit == "$") {
-            discountAmount = value;
+            discountAmount = value > cart.totalDiscountable ? cart.totalDiscountable : value;
         } else if (unit == '%') {
             discountAmount = cart.totalDiscountable * value / 100;
         }
@@ -454,6 +455,7 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
 
             if (sc.type === 'makeup') {
                 sc.classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
+                result.totalDiscountable += sc.classFee;
             }
             else {
                 sc.classFee = calculateRegistrationFee(classData, session);
@@ -742,6 +744,9 @@ function getExpiredRegistrations(userId, expiredRegistrationIDs) {
 }
 
 function applySchoolCredit(userId, amount) {
+    if (amount == 0)
+        return true;
+    
     return Collections.Customer.update({
         _id: userId,
         schoolCredit: {$gte: amount}
