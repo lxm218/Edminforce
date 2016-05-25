@@ -327,6 +327,8 @@ KUI.Teachers_index = class extends RC.CSS {
                     </div>
                 </RB.Row>
 
+                <div>{this.students.length}</div>
+
                 <RC.Div style={{textAlign:'right'}}>
                     <KUI.YesButton style={{marginRight: 20}} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                     <KUI.NoButton onClick={this.cancel.bind(this)} label="Cancel"></KUI.NoButton>
