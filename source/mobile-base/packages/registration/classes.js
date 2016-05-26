@@ -357,11 +357,9 @@ function applyCoupon(userId, couponId, cart) {
 
     cart.totalDiscountable = 0;
     let discountedClasses = [];
-    for (let iStudent = 0; iStudent < cart.students.length; iStudent++ ) {
-        for (let iClass = 0; iClass < cart.students[iStudent].classes; iClass++) {
+    cart.students.forEach( (student) => {
+        student.classes.forEach( (classData) => {
             let valid = true;
-            let classData = cart.students[iStudent].classes[iClass];
-
             // validate class program
             if (!forAllPrograms) {
                 if (coupon.useFor.indexOf(classData.programID)<0)
@@ -378,8 +376,8 @@ function applyCoupon(userId, couponId, cart) {
                 cart.totalDiscountable += classData.classFee;
                 discountedClasses.push(classData);
             }
-        }
-    }
+        })
+    })
 
     // calculate discount amount for the entire order
     let discountAmount = 0;
