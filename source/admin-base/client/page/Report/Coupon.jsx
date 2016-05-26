@@ -213,26 +213,26 @@ KUI.Report_Coupon = class extends KUI.Page{
 
 		console.log(this.state.list);
 		let titleArray = [
-			//{
-			//	title : 'Customer',
-			//	reactDom(doc){
-			//		if(doc.customer){
-			//			return doc.customer.name;
-			//		}
-			//
-			//		return '';
-			//	}
-			//},
 			{
-				title : 'Student',
+				title : 'Customer',
 				reactDom(doc){
-					if(doc.student){
-						return doc.student.name;
+					if(doc.customer){
+						return doc.customer.name;
 					}
 
 					return '';
 				}
 			},
+			//{
+			//	title : 'Student',
+			//	reactDom(doc){
+			//		if(doc.student){
+			//			return doc.student.name;
+			//		}
+			//
+			//		return '';
+			//	}
+			//},
 			{
 				title : 'Type',
 				key : 'type'
