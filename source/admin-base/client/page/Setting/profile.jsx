@@ -44,6 +44,8 @@ KUI.Setting_profile = class extends KUI.Page{
     runOnceAfterDataReady(){
         let data = this.data.profile;
         data.school = KG.get('EF-School').getInfo();
+
+        console.log(data);
         this.refs.form.setDefaultValue(data);
 
         if(this.data.profile.role === 'admin'){
@@ -126,7 +128,6 @@ KUI.Setting_EditUser = class extends KUI.Page{
     save(){
         let self = this;
         let data = this.refs.form.getValue();
-        console.log(data);
 
         let rs = KG.get('EF-AdminUser').updateById(data, self.data.id);
         KG.result.handle(rs, {

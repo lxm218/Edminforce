@@ -11,6 +11,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
         this.state = {
             showSchool : false
         };
+
+        this.tz = null;
     }
 
     getDepModule(){
@@ -34,7 +36,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
             schoolAddress : this.refs.schoolAddress,
             schoolCity : this.refs.schoolCity,
             schoolState : this.refs.schoolState,
-            schoolZip : this.refs.schoolZip
+            schoolZip : this.refs.schoolZip,
+            timezone : this.refs.timezone
 
         };
     }
@@ -103,6 +106,13 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 labelClassName : 'col-xs-2',
                 wrapperClassName : 'wrapper',
                 label : 'School Address'
+            },
+
+            timezone : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-10',
+                ref : 'timezone',
+                label : 'Timezone'
             }
 
         };
@@ -172,6 +182,11 @@ KUI.Setting_add_comp = class extends RC.CSS{
 
                             </RB.Row>
                         </RB.Input>
+
+                        <RB.Input type="select" {... p.timezone}>
+
+                        </RB.Input>
+
                     </RB.Col>
                 </RB.Row>
             </form>
@@ -187,7 +202,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
     getValue(){
         let {
             name, email, pwd, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
-            schoolAddress, schoolCity, schoolState, schoolZip
+            schoolAddress, schoolCity, schoolState, schoolZip, timezone
             } = this.getRefs();
 
         let data = {
@@ -211,13 +226,18 @@ KUI.Setting_add_comp = class extends RC.CSS{
             data.password = pwd.getValue();
         }
 
+        let tz = util.getReactJQueryObject(timezone).find('select');
+
+        data.school.timezone = parseInt(tz.find('option[value="'+tz.val()+'"]').data('offset'), 10);
+        data.school.timezoneString = tz.val();
+
         return data;
     }
 
     setDefaultValue(data){
         let {
             name, email, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
-            schoolAddress, schoolCity, schoolState, schoolZip
+            schoolAddress, schoolCity, schoolState, schoolZip, timezone
             } = this.getRefs();
         name.getInputDOMNode().value = data.nickName;
         email.getInputDOMNode().value = data.email || '';
@@ -231,6 +251,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolCity.value = data.school.city || '';
         schoolState.value = data.school.state || '';
         schoolZip.value = data.school.zipcode || '';
+
+        util.getReactJQueryObject(timezone).find('select').val(data.school.timezoneString);
     }
     reset(){
         let {
@@ -250,6 +272,11 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolCity.value = '';
         schoolState.value = '';
         schoolZip.value = '';
+    }
+
+    componentDidMount(){
+        super.componentDidMount();
+        this.tz = util.getReactJQueryObject(this.refs.timezone).find('select').timezones();
     }
 };
 
