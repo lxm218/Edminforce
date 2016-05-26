@@ -6,7 +6,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : null,
+            query : {},
             page : 1,
             refresh : false
         };
@@ -118,9 +118,13 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 title : 'Schedule',
                 key : 'scheduleAll'
             },
+            //{
+            //    title : 'Length',
+            //    key : 'length'
+            //},
             {
-                title : 'Length',
-                key : 'length'
+                title : 'Tuition($)',
+                key : 'tuition.money'
             },
             {
                 title : 'Action',
