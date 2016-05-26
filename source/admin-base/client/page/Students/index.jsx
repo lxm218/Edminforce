@@ -102,21 +102,44 @@ KUI.Student_index = class extends RC.CSSMeteorData{
                     };
 
                     var del = function(){
-                        util.dialog.confirm({
-                            msg : 'delete this student?',
-                            YesFn : function(){
-                                KG.get('EF-Student').getDB().remove({
-                                    _id : item._id
-                                });
-                            }
+                        swal({
+                            title : 'Delete this student?',
+                            text : '',
+                            type : 'warning',
+                            showCancelButton : true,
+                            closeOnCancel : true,
+                            closeOnConfirm : false,
+                            confirmButtonText : 'Confirm',
+                            confirmButtonColor : '#1ab394'
+                        }, function(f){
+                            if(!f) return false;
+                            self.m.Student.callMeteorMethod('removeById', [item._id], {
+                                success : function(rs){
+                                    console.log(rs);
+                                    if(!rs){
+                                        swal({
+                                            title : 'Delete Fail',
+                                            text : 'student already register class.',
+                                            type : 'error'
+                                        });
+                                    }
+                                    else{
+                                        swal({
+                                            title : 'Delete success',
+                                            text : '',
+                                            type : 'success'
+                                        });
+                                    }
+                                }
+                            });
                         });
                     };
 
                     return (
                         <RC.Div style={{textAlign:'center'}}>
                             <RC.URL href={`/student/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
-                            {/* <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd"
-                             style={ml}></KUI.Icon> */}
+                            {<KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd"
+                             style={ml}></KUI.Icon>}
                         </RC.Div>
 
                     );
