@@ -275,7 +275,7 @@ function calculateRegistrationFee(classData, session) {
 
 
 function getDocumentFromCache(documentName, id, cache) {
-    let doc = _.find(cache, {_id:id});
+    let doc = lodash.find(cache, {_id:id});
     if (!doc) {
         doc = Collections[documentName].findOne({_id:id});
         doc && (cache.push(doc));
@@ -293,6 +293,18 @@ function applyCoupon(userId, couponId, cart) {
         cart.couponMsg = 'Cannot verify this coupon, please make sure you typed correct coupon';
         return;
     }
+
+    // extract coupon type & value
+    let reg = /^\s*([\d]*[\.]?[\d]*)\s*([%$])\s*$/;
+    let result = coupon.discount.match(reg);
+    if (!result) {
+        cart.couponMsg = 'Invalid coupon setting';
+        return;
+    }
+    let couponValue = Number(result[1]) || 0;
+    // $ or %
+    let couponType = result[2];
+
 
     // check coupon time
     coupon.startDate = coupon.startDate || new Date(1900,1,1);
@@ -333,65 +345,58 @@ function applyCoupon(userId, couponId, cart) {
         return;
     }
 
+    // passed all validations, now calculate discount amount
+    cart.couponMsg = '';
 
     // check class and program
     coupon.useFor = coupon.useFor || [];
     coupon.weekdayRequire = coupon.weekdayRequire || [];
-    let passProgram = false, passWeekday = false;
-    if (_.find(coupon.useFor || [], function (item) {
-            return item.toLowerCase() === 'all'
-        })) {
-        // this coupon can use for any program
-        passProgram = true;
-    }
-    if (_.find(coupon.weekdayRequire || [], function (item) {
-            return item.toLowerCase() === 'all'
-        })) {
-        // this coupon can use for any program
-        passWeekday = true;
-    }
+    coupon.weekdayRequire = coupon.weekdayRequire.map( (w) => w.toLowerCase() );
+    let forAllPrograms = coupon.useFor.indexOf('all') >=0;
+    let forAllWeekdays = coupon.weekdayRequire.indexOf('all') >=0;
 
-    // check for program & week day restriction
-    if (!passWeekday || !passProgram) {
-        let valid = true;
-        for (let iStudent = 0; valid && iStudent < cart.students.length; iStudent++ ) {
-            for (let iClass = 0; valid && iClass < cart.students[iStudent].classes; iClass++) {
-                // check program
-                let classData = cart.students[iStudent].classes[iClass];
-                if (!passProgram) {
-                    if (coupon.useFor.indexOf(classData.programID)<0)
-                        valid = false;
-                }
+    cart.totalDiscountable = 0;
+    let discountedClasses = [];
+    for (let iStudent = 0; iStudent < cart.students.length; iStudent++ ) {
+        for (let iClass = 0; iClass < cart.students[iStudent].classes; iClass++) {
+            let valid = true;
+            let classData = cart.students[iStudent].classes[iClass];
 
-                if (!passWeekday) {
-                    if (coupon.weekdayRequire.indexOf(classData.schedule.day.toLowerCase()) < 0)
-                        valid = false;
-                }
+            // validate class program
+            if (!forAllPrograms) {
+                if (coupon.useFor.indexOf(classData.programID)<0)
+                    valid = false;
+            }
+
+            // validate class weekday
+            if (valid && !forAllWeekdays) {
+                if (coupon.weekdayRequire.indexOf(classData.schedule.day.toLowerCase()) < 0)
+                    valid = false;
+            }
+
+            if (valid) {
+                cart.totalDiscountable += classData.classFee;
+                discountedClasses.push(classData);
             }
         }
-
-        if (!valid) {
-            cart.couponMsg = "Make sure your selected classes' program and day is in Coupon";
-            return;
-        }
     }
 
-    // passed all validations, now calculate discount amount
-    cart.couponMsg = '';
+    // calculate discount amount for the entire order
     let discountAmount = 0;
-    let discount = coupon.discount;
-    let reg = /^\s*([\d]*[\.]?[\d]*)\s*([%$])\s*$/;
-    let result = discount.match(reg);
-    if (result) {
-        let value = Number(result[1]) || 0;
-        // $ or %
-        let unit = result[2];
-        if (unit == "$") {
-            discountAmount = value > cart.totalDiscountable ? cart.totalDiscountable : value;
-        } else if (unit == '%') {
-            discountAmount = cart.totalDiscountable * value / 100;
-        }
+    if (couponType == "$") {
+        discountAmount = couponValue;
+    } else if (couponType == '%') {
+        discountAmount = cart.totalDiscountable * couponValue * 0.01;
     }
+    discountAmount > cart.totalDiscountable && (discountAmount = cart.totalDiscountable);
+
+    // calculate discounted fee for each class, we need to save this for refund
+    let discountPercent = (couponType == "%") ? (couponValue >= 100 ? 1 : couponValue * 0.01) : discountAmount/cart.totalDiscountable;
+    discountPercent = 1 - discountPercent;
+    discountedClasses.forEach( (cls) => {
+        cls.discounted = cls.classFee * discountPercent;
+        if (cls.discounted < 0) cls.discounted = 0;
+    });
 
     cart.discount = discountAmount;
     cart.appliedCouponId = couponId;
@@ -454,21 +459,18 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
             sc.schedule = classData.schedule;
 
             if (sc.type === 'makeup') {
-                sc.classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
+                sc.classFee = lodash.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
                 result.totalDiscountable += sc.classFee;
             }
             else {
                 sc.classFee = calculateRegistrationFee(classData, session);
                 result.totalDiscountable += sc.classFee;
             }
+            sc.discounted = sc.classFee;
             
             result.total += sc.classFee;
 
             student.classes.push(sc);
-
-            // save classFee back into classStudent record
-            // so we can show it in billing report
-            Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee}});
         });
 
         result.students.push(student);
@@ -491,10 +493,15 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     // check coupon
     if (couponId && result.totalDiscountable > 0) {
         applyCoupon(userId, couponId, result);
-        // if (result.couponMsg) {
-        //     throw new Meteor.Error(500, result.couponMsg, 'Invalid coupon: ' + couponId);
-        // }
     }
+
+    // save classFee back into classStudent record
+    // so we can show it in billing report
+    lodash.forOwn(groupByStudent, (value,key) => {
+        lodash.forEach(value, (sc) => {
+            Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee, discounted: sc.discounted}});
+        });
+    });
 
     return result;
 }
