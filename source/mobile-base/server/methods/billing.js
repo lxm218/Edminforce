@@ -36,6 +36,7 @@ Meteor.methods({
 
         return Collections.orders.insert({
             accountID: this.userId,
+            studentID: EdminForce.Registration.getStudentIDFromRegistration(order.details),
             details: order.details,
             status: 'waiting',
             amount: order.amount,
