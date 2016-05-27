@@ -96,6 +96,8 @@ let ClassStudent = class extends Base{
     }
     updateOrderID(orderID, id){
         try{
+            //update fee and discounted
+
             let data = {orderID : orderID};
             this._db.update({_id : id}, {'$set' : data});
 
@@ -255,6 +257,20 @@ let ClassStudent = class extends Base{
                 });
 
                 return list;
+            },
+
+            updateClassFeeByOrderID : function(orderID, id){
+                let m = KG.DataHelper.getDepModule();
+                let order = m.Order.getDB().findOne({_id : orderID});
+
+                //update fee and discounted
+                let data = {
+                    fee : order.paymentTotal+order.discount,
+                    discounted : order.paymentTotal
+                };
+                self._db.update({_id : id}, {'$set' : data});
+
+                return true;
             }
         };
     }

@@ -473,20 +473,30 @@ let Class = class extends Base{
                 let cd = this.getAll({_id : opts.classID})[0];
 
                 let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
-                return {
-                    tuition : 0-tuition,
-                    'class' : cd
-                };
+                let allTuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
 
-                //let d = m.Order.getDB().findOne({
-                //    details : {$in:[opts.ClassStudentID]},
-                //    type : {$in:['register class', 'change class']},
-                //    status : 'success'
-                //});
-                //return {
-                //    tuition : d?0-parseFloat(d.paymentTotal):0,
-                //    'class' : cd
-                //};
+
+                let d = m.Order.getDB().findOne({
+                    details : {$in:[opts.ClassStudentID]},
+                    type : {$in:['register class', 'change class']},
+                    status : 'success'
+                });
+                if(d.type === 'change class'){
+                    return {
+                        tuition : 0-tuition,
+                        'class' : cd
+                    };
+                }
+                else{
+                    let cs = m.ClassStudent.getDB().findOne({_id : opts.ClassStudentID});
+                    let tmp = (tuition*cs.discounted/(cs.fee||allTuition)).toFixed(2);
+
+                    return {
+                        tuition : 0-tmp,
+                        'class' : cd
+                    }
+                }
+
 
             },
 
@@ -642,6 +652,23 @@ let Class = class extends Base{
                 }
 
                 return true;
+            },
+
+            removeById : function(id){
+                let m = KG.DataHelper.getDepModule();
+
+                //check can be delete
+                let f = m.ClassStudent.getDB().findOne({
+                    classID : id,
+                    //type : {'$in':['register', 'wait', 'makeup']},
+                    status : {'$in':['pending', 'checkouted']}
+                });
+
+                if(f){
+                    return false;
+                }
+
+                return self._db.remove({_id : id});
             }
         };
     }

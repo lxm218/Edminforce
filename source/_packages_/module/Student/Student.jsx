@@ -131,7 +131,7 @@ let Student = class extends Base{
                 //check can be delete
                 let f = m.ClassStudent.getDB().findOne({
                     studentID : id,
-                    type : {'$in':['register', 'wait', 'makeup']},
+                    //type : {'$in':['register', 'wait', 'makeup']},
                     status : {'$in':['pending', 'checkouted']}
                 });
 

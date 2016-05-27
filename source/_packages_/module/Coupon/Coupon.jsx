@@ -150,10 +150,9 @@ KG.define('EF-Coupon', class extends Base{
     }
 
     useOnce(couponId){
-        this._db.update({_id : couponId}, {
+        let n = this._db.update({_id : couponId}, {
             '$inc' : {maxCount : -1}
         });
-        let n = this._db.findOne({_id:couponId}).maxCount;
         console.log(n);
         return n;
     }
