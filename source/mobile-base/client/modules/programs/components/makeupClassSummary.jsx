@@ -44,7 +44,7 @@ EdminForce.Components.MakeupClassSummary = class extends RC.CSS {
                     }
                 </div>
                 <RC.Button bgColor="brand2" bgColorHover="dark"
-                           onClick={this.checkout}>Pay Now</RC.Button>
+                           onClick={this.checkout}>Check Out</RC.Button>
                 <RC.Button bgColor="brand2" bgColorHover="dark"
                            onClick={this.cancel}>Cancel</RC.Button>
             </div>
