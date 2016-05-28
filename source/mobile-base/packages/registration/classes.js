@@ -853,6 +853,13 @@ function payECheck(userId, checkPaymentInfo) {
         return postPaymentUpdate(userId, order, 'echeck', paymentTotal, checkPaymentInfo.paymentSource);
     }
     else {
+        let errorMessage = {
+            "orderID" : checkPaymentInfo.orderId,
+            "type" : "echeck",
+            "name" : checkPaymentInfo.nameOnAccount,
+            "message": response
+        }
+        Collections.log.insert({type: "Payment Error" ,logData: errorMessage});
         throw new Meteor.Error(500, 'unsuccessful payment transaction');
     }
 }
