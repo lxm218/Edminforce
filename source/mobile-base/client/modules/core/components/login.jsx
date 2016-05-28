@@ -132,6 +132,7 @@ EdminForce.Components.User = React.createClass({
     }
 
   },
+
   switchAction(){
     this.resetForm()
     this.setState({ buttonActive: false })
@@ -144,6 +145,11 @@ EdminForce.Components.User = React.createClass({
       this.setState({ action: this.state.action=="register" ? "login" : "register" })
     }
   },
+
+  showPolicy(){
+    FlowRouter.go('/Policy')
+  },
+
   startReset(){
     this.resetForm()
     this.setState({
@@ -311,6 +317,8 @@ EdminForce.Components.User = React.createClass({
 
 
 
+
+
   reset(e){
     e.preventDefault()
     if (this.state.msg && this.state.msg.length != 0) return null
@@ -421,6 +429,9 @@ EdminForce.Components.User = React.createClass({
       inputTheme += ","+this.props.theme
       buttonTheme += ","+this.props.theme
     }
+    let styles = this.css.styles
+    let linkColor = this.color.isDark ? "rgba(255,255,255,.7)" : "rgba(15,15,15,.7)"
+    let linkColorHover = this.color.isDark ? "#fff" : RC.Theme.color.text
 
     switch (this.state.action) {
 
@@ -448,14 +459,17 @@ EdminForce.Components.User = React.createClass({
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" placeholder="Edm1n!"/>
+          <RC.URL style={styles.url} color={linkColor} colorHover={linkColorHover} onClick={this.showPolicy}>
+            Please check our Terms and Policy here.
+          </RC.URL>
           <RC.Checkbox name="term" ref="term" value={1} style={{whiteSpace:"normal"}}
                        label="Yes, I accept Policy and Terms."/>
 
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
           </RC.Button>
-
-        </RC.Form>)
+        </RC.Form>
+        )
         break
       case "reset":
         //<div>Reset Password via Email</div>
