@@ -84,6 +84,10 @@ EdminForce.Components.Checkout = class extends RC.CSS {
     }
 
     render() {
+        if (this.state.processing)
+            return (
+                <RC.Loading isReady={this.state.processing}></RC.Loading>
+            )
 
         let style = {
             padding: '10px'
@@ -194,7 +198,6 @@ EdminForce.Components.Checkout = class extends RC.CSS {
 
         return (
             <RC.Div style={style} className="carts-checkout">
-                <RC.Loading isReady={this.state.processing}>
                     <RC.VerticalAlign center={true} className="padding" height="300px">
                         <h2>Checkout Summary</h2>
                     </RC.VerticalAlign>
@@ -220,7 +223,6 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                                                 onClick={this.applyCoupon}>Apply</RC.Button>
                     <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2" bgColorHover="dark"
                                                 onClick={this.process}>Process Payment</RC.Button>
-                </RC.Loading>
             </RC.Div>
         );
     }

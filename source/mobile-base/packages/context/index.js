@@ -13,6 +13,7 @@ Collections = {
     coupon : KG.create("EF-Coupon")._db,
     orders : KG.create("EF-Order", {DBName : 'EF-Orders'})._db,
     customerCoupon : KG.create("EF-CustomerCoupon")._db,
+    log: KG.create("EF-Log")._db
 };
 
 EdminForce = {

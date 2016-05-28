@@ -83,6 +83,11 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
     }
 
     render() {
+        if (this.state.processing)
+            return (
+                <RC.Loading isReady={this.state.processing}></RC.Loading>
+            )
+        
         var inputTheme = "small-label"
         var buttonTheme = "full"
         if (_.contains(["overlay-light", "overlay-dark"], this.props.theme)) {
@@ -96,7 +101,6 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
         }
         return (
             <RC.List className="padding">
-                <RC.Loading isReady={this.state.processing}>
                 {EdminForce.utils.renderError(this.props.error)}
                 <div className="payment-container">                
                     <span>Total Amount is: ${this.paymentTotal.toFixed(2)}</span>
@@ -131,7 +135,6 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
                         <span className="badge comodo"></span>
                     </div>      
                 </div>
-                </RC.Loading>
             </RC.List>
         );
     }
