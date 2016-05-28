@@ -873,6 +873,8 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     var paymentInfo = {
         "createTransactionRequest": {
             "merchantAuthentication": {
+                // "name": "42ZZf53Hst",
+                // "transactionKey": "3TH6yb6KN43vf76j"
                 "name": "9XD2ru9Z",
                 "transactionKey": "5yZ52WCb2EC5et2c"
             },
@@ -935,7 +937,7 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     let URL = 'https://api.authorize.net/xml/v1/request.api';
     // let URL = 'https://apitest.authorize.net/xml/v1/request.api';
     let response = HTTP.call('POST',URL, {data: paymentInfo});
-    //console.log(response);
+    // console.log(response);
 
     // console.log(creditCardPaymentInfo);
     // let response = {
@@ -955,6 +957,14 @@ function payCreditCard(userId, creditCardPaymentInfo) {
         return postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
     }
     else {
+        let userName = creditCardPaymentInfo.firstName + ' ' + creditCardPaymentInfo.lastName;
+        let errorMessage = {
+            "orderID" : creditCardPaymentInfo.orderId,
+            "type" : "creditCard",
+            "name" : userName,
+            "message": response
+        }
+        Collections.log.insert({type: "Payment Error" ,logData: errorMessage});
         throw new Meteor.Error(500, 'unsuccessful payment transaction');
     }
 }
