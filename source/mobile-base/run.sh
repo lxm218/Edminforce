@@ -38,7 +38,7 @@ runLocal(){
 
   #staging mongodb
   export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
-
+  #export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
   #export NODE_OPTIONS='--debug'
 
   meteor run --settings settings.json --port $PORT

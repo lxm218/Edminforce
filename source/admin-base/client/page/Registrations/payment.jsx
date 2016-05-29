@@ -15,6 +15,8 @@ KUI.Registration_payment = class extends KUI.Page{
         this.total = new ReactiveVar(0);
 
         this.classFee = 0;
+
+        this.m = KG.DataHelper.getDepModule();
     }
 
     getMeteorData(){
@@ -425,7 +427,8 @@ console.log(m.Customer.getAll()[0])
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {
                 success : function(id){
-                    KG.get('EF-ClassStudent').updateOrderID(id, self.data.id);
+                    self.m.ClassStudent.callMeteorMethod('updateClassFeeByOrderID', [id, self.data.id], {});
+
 
                     if(s21||s24){
                         path += '/'+id;

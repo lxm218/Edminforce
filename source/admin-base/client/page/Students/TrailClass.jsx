@@ -585,7 +585,11 @@ console.log(orderData);
 		let orderRs = KG.get('EF-Order').insert(orderData);
 		KG.result.handle(orderRs, {
 			success : function(id){
-				KG.get('EF-ClassStudent').updateOrderID(id, cid);
+
+
+				if(self.coupon){
+					self.module.Coupon.useOnce(self.coupon);
+				}
 
 				if(self.fee === 0 || cash){
 					self.module.ClassStudent.updateStatus('checkouted', cid);

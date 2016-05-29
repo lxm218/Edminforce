@@ -58,7 +58,7 @@ edminforce:class
 edminforce:student
 edminforce:coupon
 edminforce:order
-
+edminforce:log
 edminforce:email
 
 edminforce:datahelper

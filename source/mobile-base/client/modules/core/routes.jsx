@@ -58,3 +58,17 @@ DefaultRoutes.route('/reset-password/:userToken', {
     EdminForce.utils.routeHandler(p, dynamicRoute)
   }
 });
+
+DefaultRoutes.route('/Policy', {
+  action: function(p) {
+    console.log("userToken is:", p.userToken)
+    var dynamicRoute = {
+      pageTitle: "Policy",
+      headerNav: null,
+      hideBackButton:false,
+      showGlobalNav: false,
+      bodyTmpl: React.createElement(EdminForce.Components.Policy, {userToken: p.userToken, themes: "overlay-dark", bgColor: "brand-light"},null)
+    }
+    EdminForce.utils.routeHandler(p, dynamicRoute)
+  }
+});
