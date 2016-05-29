@@ -571,7 +571,7 @@ function expirePendingRegistration(sc) {
         status: 'pending'
     }, {
         $set: {
-            status: 'canceled',
+            status: 'expired',
             updateTime: new Date()
         }
     });
