@@ -78,13 +78,27 @@ KG.define('EF-DataHelper', class extends Base{
                         rs.detail = rs.detail.concat(item.details);
 
                         rs[item.paymentType][0] += parseFloat(item.paymentTotal);
-                        rs[item.paymentType][1] += (parseFloat(item.paymentTotal)+item.discount);
+                        rs[item.paymentType][1] += parseFloat(item.paymentTotal)+parseFloat(item.discount);
 
                         total[0] += parseFloat(item.paymentTotal);
-                        total[1] += (parseFloat(item.paymentTotal)+item.discount);
+                        total[1] += parseFloat(item.paymentTotal)+parseFloat(item.discount);
+
+
                     });
 
                     rs.total = total;
+
+                    _.each(rs, function(val, key){
+                        if(key === 'detail') return true;
+                        if(val[0]){
+                            rs[key][0] = val[0].toFixed(2);
+                        }
+                        if(val[1]){
+                            rs[key][1] = val[1].toFixed(2);
+                        }
+
+                    });
+
                     rs.date = date.clone().toDate();
 
                     result.push(rs);
