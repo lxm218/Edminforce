@@ -13,10 +13,15 @@ Collections = {
     coupon : KG.create("EF-Coupon")._db,
     orders : KG.create("EF-Order", {DBName : 'EF-Orders'})._db,
     customerCoupon : KG.create("EF-CustomerCoupon")._db,
+    school : KG.create("EF-School")._db,
     log: KG.create("EF-Log")._db
 };
 
 EdminForce = {
+    //https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+    Settings: {
+        timeZone: "America/Los_Angeles"
+    },
     utils: {},
     Components : {},
     Containers: {},

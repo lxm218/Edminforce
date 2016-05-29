@@ -24,7 +24,7 @@ const _studentFields = {
  * Lesson date field name used in trial & makeup count in class document
  */
  function getLessonDateFieldName(lessonDate) {
-    return 'd' + moment(lessonDate).format('YYYYMMDD');
+    return 'd' + moment(lessonDate).tz(EdminForce.Settings.timeZone).format('YYYYMMDD');
 }
 
 /**
@@ -243,7 +243,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
         throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
 
     if (!EdminForce.Registration.isAvailableForMakeup(classData, lessonDate))
-        throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
+        throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 
     if (updateMakeupCount(classID, lessonDate)> 0) {
         // insert a class student record
@@ -259,7 +259,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
         });
     }
 
-    throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
+    throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 }
 
 /*
@@ -571,7 +571,7 @@ function expirePendingRegistration(sc) {
         status: 'pending'
     }, {
         $set: {
-            status: 'canceled',
+            status: 'expired',
             updateTime: new Date()
         }
     });
@@ -1096,6 +1096,20 @@ function getHistoryOrderDetails(userId, orderId) {
  */
 function syncClassRegistrationCount() {
 
+    function getTrialMakeupCount(classStudents) {
+        let dailyCount = {};
+        classStudents.forEach( (sc) => {
+            let lessonDateStr = EdminForce.Registration.getLessonDateFieldName(sc.lessonDate);
+            dailyCount.hasOwnProperty(lessonDateStr) || (dailyCount[lessonDateStr] = 0);
+            if (sc.status == 'canceled')
+                dailyCount[lessonDateStr]--;
+            else
+                dailyCount[lessonDateStr]++;
+        })
+
+        return dailyCount;
+    }
+
     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted', type:'register'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
     // db['EF-ClassStudent'].aggregate( [ {$match: {classID: classItem._id, status: 'checkouted', type: 'trial'}}, {$group: {_id: "$lessonDate", count:{$sum:1}}} ]);
@@ -1105,34 +1119,78 @@ function syncClassRegistrationCount() {
     let classes = Collections.class.find({},{fields:{_id:1}}).fetch();
     console.log('Number of classes: ' + classes.length);
 
+    //let outputData = [];
     classes.forEach( (classItem) => {
 
         console.log('Update class ' + classItem._id);
 
         // get number of registered regular students
         let numberOfRegistered = Collections.classStudent.find({classID: classItem._id, status: 'checkouted', type:'register'}).count();
+        let numberOfCancelled = Collections.classStudent.find({classID: classItem._id, status: 'canceled', type:'register'}).count();
+        numberOfRegistered -= numberOfCancelled;
         let updateData = {
             numberOfRegistered,
-            trial: {},
-            makeup: {}
         }
 
-        // use mongo aggregate pipeline to get trial & make up info for each class day
-        let pipeline = [
-            {$match: {classID: classItem._id, status: 'checkouted', type: {$in:['trial','makeup']}}},
-            {$group: {_id: {lessonDate: "$lessonDate", type: "$type"}, count:{$sum:1}}}
-        ];
-        let trialAndMakeups = Collections.classStudent.aggregate(pipeline);
+        // trial count
+        let trialStudents = Collections.classStudent.find({
+            classID: classItem._id,
+            status: {$in: ['checkouted', 'canceled']},
+            type:'trial'}, {
+            fields: {
+                status:1,
+                lessonDate:1
+            }
+        }).fetch();
+        updateData.trial = getTrialMakeupCount(trialStudents);
 
-        console.log(trialAndMakeups);
+        // makeup count
+        let makeupStudents = Collections.classStudent.find({
+            classID: classItem._id,
+            status: {$in: ['checkouted', 'canceled']},
+            type:'makeup'}, {
+            fields: {
+                status:1,
+                lessonDate:1
+            }
+        }).fetch();
+        updateData.makeup = getTrialMakeupCount(makeupStudents);
 
-        trialAndMakeups.forEach( (res) => {
-            let lessonDateStr = EdminForce.Registration.getLessonDateFieldName(res._id.lessonDate);
-            updateData[res._id.type][lessonDateStr] = res.count;
-        })
+        if (_.keys(updateData.makeup).length > 0 || _.keys(updateData.trial).length) {
+            console.log(classItem._id);
+            console.log(updateData.makeup);
+            console.log(updateData.trial);
 
-        Collections.class.update({_id: classItem._id}, {$set: updateData});
+            outputData.push({
+                classID:classItem._id,
+                numberOfRegistered: updateData.numberOfRegistered,
+                makeup: updateData.makeup,
+                trial:updateData.trial
+            })
+        }
+
+        // --- can't use mongo pipeline, because we need to do timezone conversion on lessonDate ---
+        // also because hour/minute part of lessonDate are not consistent
+
+        // // use mongo aggregate pipeline to get trial & make up info for each class day
+        // let pipeline = [
+        //     {$match: {classID: classItem._id, status: 'checkouted', type: {$in:['trial','makeup']}}},
+        //     {$group: {_id: {lessonDate: "$lessonDate", type: "$type"}, count:{$sum:1}}}
+        // ];
+        // let trialAndMakeups = Collections.classStudent.aggregate(pipeline);
+        //
+        // console.log(trialAndMakeups);
+        //
+        // trialAndMakeups.forEach( (res) => {
+        //     let lessonDateStr = EdminForce.Registration.getLessonDateFieldName(res._id.lessonDate);
+        //     updateData[res._id.type][lessonDateStr] = res.count;
+        // })
+
+        //Collections.class.update({_id: classItem._id}, {$set: updateData});
     });
+
+    // let fs = Npm.require('fs');
+    // fs.writeFile('/home/vagrant/trialMakeup.json', JSON.stringify(outputData));
 }
 
 
