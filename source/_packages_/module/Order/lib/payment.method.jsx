@@ -222,7 +222,8 @@ Meteor.methods({
             zip : form.zip
         });
         _.extend(data.createTransactionRequest.transactionRequest.customer, {
-            id : form.id
+            //id : form.id
+            id : form.order
         });
         data.createTransactionRequest.refId = form.order;
         //data.createTransactionRequest.transactionRequest.amount = (parseInt(form.amount, 10)*1.03).toString();
@@ -291,7 +292,8 @@ Meteor.methods({
         paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.accountNumber = form.accountNumber;
         paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = form.nameOnAccount;
         paymentInfo.createTransactionRequest.refId = form.order;
-        paymentInfo.createTransactionRequest.transactionRequest.customer.id = form.id
+        //paymentInfo.createTransactionRequest.transactionRequest.customer.id = form.id
+        paymentInfo.createTransactionRequest.transactionRequest.customer.id = form.order;
         paymentInfo.createTransactionRequest.transactionRequest.amount = form.amount.toString();
 
         let result = HTTP.call('POST', config.requestUrl, {data: paymentInfo});
