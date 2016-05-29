@@ -162,6 +162,10 @@ KG.define('EF-DataHelper', class extends Base{
                 if(opts.teacher){
                     query.teacher = opts.teacher;
                 }
+                if(opts.programID){
+                    query.programID = opts.programID;
+                }
+
                 let classData = m.Class.getAll(query),
                     rs = {};
 
