@@ -78,3 +78,13 @@ Plan-A
  - Start/End date, lesson date adjusted to school timezone before sending to server, will be stored to MongoDB in UTC
  - When receive "Date" from server at client, display "Date" in school timezone
  - 
+ 
+ 
+ 
+ To change
+ - make up
+ - trial
+ - registration
+ 
+ 
+ getLessonDateFieldName

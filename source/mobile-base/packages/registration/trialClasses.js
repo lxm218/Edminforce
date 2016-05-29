@@ -1,37 +1,4 @@
 /*
- * Returns the number of registered regular student in a class
- */
-// function getClassRegularStudentCount(classID) {
-//     return Collections.classStudent.find({
-//         classID,
-//         status: {$in:['pending', 'checkouting', 'checkouted']},
-//         type: 'register'
-//     }).count();
-// }
-
-/*
- * Returns number of trial student for class on a specified date
- */
-// function getClassTrialStudentCount(classID, dt) {
-//     return Collections.classStudent.find({
-//         classID,
-//         lessonDate: dt,
-//         type: 'trial'
-//     }).count();
-// }
-
-/*
- * Returns number of make up student for class on a specified date
- */
-// function getClassMakeupStudentCount(classID, dt) {
-//     return Collections.classStudent.find({
-//         classID,
-//         lessonDate: dt,
-//         type: 'makeup'
-//     }).count();
-// }
-
-/*
  * validate student age & gender for a class
  */
 function validateStudentForClass(classInfo, student) {
@@ -90,6 +57,9 @@ function isAvailableForMakeup(classItem, classDate) {
     let strLessonDate = EdminForce.Registration.getLessonDateFieldName(classDate);
     let makeupCount = classItem.makeup && classItem.makeup[strLessonDate] ? classItem.makeup[strLessonDate] : 0;
     let trialCount = classItem.trial && classItem.trial[strLessonDate] ? classItem.trial[strLessonDate] : 0;
+    
+    //console.log(classDate.toString(), strLessonDate, makeupCount, trialCount, classItem.makeup);
+    
     return makeupCount + trialCount + classItem.numberOfRegistered < classItem.maxStudent &&
         makeupCount < classItem.makeupStudent;
 
@@ -120,38 +90,56 @@ function isAvailableForMakeup(classItem, classDate) {
  * Iterate through a date range and check each lesson for a given class
  */
 function processClassLessonInDateRange(classItem, classSession, program, startDt, endDt, resultArray, validateCb) {
-    // find class time
-    let classTime = moment(classItem.schedule.time, 'hh:mma');
 
-    // find the first class date within the date range, thanks to momentjs, we can get this easily
-    let classDate = moment(startDt >= classSession.startDate ? startDt : classSession.startDate);
-    classDate.day(classItem.schedule.day);
-    if (classDate.toDate() < startDt) {
-        classDate = classDate.add(7,'d');
+    // parse class schedule.day & time into momentjs
+    // this is ok to be timezone ignorant, we only need to know the day & time.
+    let classTime = moment(classItem.schedule.time, 'hh:mma');
+    classTime.day(classItem.schedule.day);
+
+    // adjust startDt & endDt to be within session startDate & endDate
+    (startDt < classSession.startDate) && (startDt = classSession.startDate);
+    (endDt > classSession.endDate) && (endDt = classSession.endDate);
+
+    // find the first class day within the date range, in school timezone
+    let classDate = moment(startDt).tz(EdminForce.Settings.timeZone);
+    if (classDate.day() != classTime.day()) {
+        // move forward to the weekday
+        let wdAdjust = classTime.day() - classDate.day();
+        wdAdjust < 0 && (wdAdjust += 7);
+        classDate = classDate.add(wdAdjust, 'd');
     }
-    // set h:m:s:milli to 0 for accurate comparison
-    classDate.hour(0);
-    classDate.minute(0);
+    // set to class time
+    classDate.hour(classTime.hour());
+    classDate.minute(classTime.hour());
     classDate.second(0);
     classDate.millisecond(0);
 
-    // loop through the date range
-    let classEndDate = endDt < classSession.endDate ? endDt : classSession.endDate;
-    for (; classDate.toDate() <= classEndDate; classDate = classDate.add(7,'d')) {
+    // in case startDt and first class day are same, we need to compare time,
+    // if the startDt is greater, that means the class on that day is finished,
+    // we move to next week
+    if (classDate.valueOf() < startDt.getTime()) {
+        classDate = classDate.add(7,'d');
+    }
+
+    //console.log(startDt, endDt, classDate.toString())
+
+    // adjust end date to the end of the end date
+    let classEndDate = moment(endDt).tz(EdminForce.Settings.timeZone);
+    classEndDate = classEndDate.endOf('d');
+    // iterate through the date range
+    for (; classDate.valueOf() < classEndDate.valueOf(); classDate = classDate.add(7,'d')) {
         // check block out day
-        if (_.find(classSession.blockOutDay, (bd) => {
-                return bd.getDate() == classDate.date() &&
-                    bd.getMonth() == classDate.month() &&
-                    bd.getFullYear() == classDate.year() } ))
+        if (_.find(classSession.blockOutDay, (bd0) => {
+                let bd = moment(bd0).tz(EdminForce.Settings.timeZone);
+                return bd.date() == classDate.date() &&
+                    bd.month() == classDate.month() &&
+                    bd.year() == classDate.year() } ))
             continue;
 
         if (validateCb(classItem, classDate)) {
             let lesson = _.pick(classItem, ['_id', 'programID', 'sessionID', 'schedule', 'length', 'teacher', 'makeupClassFee']);
             lesson.key = lesson._id + ":" + classDate.unix();
-            let lessonDate = moment(classDate);
-            lessonDate.hour(classTime.hour());
-            lessonDate.minute(classTime.minute());
-            lesson.lessonDate = lessonDate.format(EdminForce.utils.dateFormat);
+            lesson.lessonDate = classDate.format(EdminForce.utils.dateFormat);
             lesson.name = EdminForce.utils.getClassName(program.name, classSession.name, classItem);
             resultArray.push(lesson);
         }

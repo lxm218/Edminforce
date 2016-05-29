@@ -24,7 +24,7 @@ const _studentFields = {
  * Lesson date field name used in trial & makeup count in class document
  */
  function getLessonDateFieldName(lessonDate) {
-    return 'd' + moment(lessonDate).format('YYYYMMDD');
+    return 'd' + moment(lessonDate).tz(EdminForce.Settings.timeZone).format('YYYYMMDD');
 }
 
 /**
@@ -243,7 +243,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
         throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
 
     if (!EdminForce.Registration.isAvailableForMakeup(classData, lessonDate))
-        throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
+        throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 
     if (updateMakeupCount(classID, lessonDate)> 0) {
         // insert a class student record
@@ -259,7 +259,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
         });
     }
 
-    throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
+    throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 }
 
 /*
