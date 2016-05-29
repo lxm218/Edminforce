@@ -334,7 +334,14 @@ KUI.Report_Finance = class extends KUI.Page{
 			},
 			{
 				title : 'Amount ($)',
-				key : 'order.paymentTotal'
+				reactDom : function(doc){
+					if(!_.isUndefined(doc.fee)){
+						return doc.fee;
+					}
+
+					return doc.order.paymentTotal;
+
+				}
 			},
 			{
 				title : 'Coupon code',
@@ -344,7 +351,13 @@ KUI.Report_Finance = class extends KUI.Page{
 			},
 			{
 				title : 'Discount($)',
-				key : 'order.discount'
+				reactDom : function(doc){
+					try{
+						return doc.fee - doc.discounted;
+					}catch(e){
+						return doc.order.discount;
+					}
+				}
 			},
 			{
 				title : 'School Credit',

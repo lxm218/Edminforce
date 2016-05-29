@@ -144,18 +144,30 @@ KG.define('EF-DataHelper', class extends Base{
                     var csID = _.last(item.details);
                     if(!csID) return true;
 
-                    let cs = m.ClassStudent.getDB().findOne({
-                        _id : csID
-                        //status : 'checkouted'
-                    });
-                    if(!cs) return true;
-                    let student = m.Student.getAll({_id : cs.studentID})[0],
-                        cls = m.Class.getAll({_id : cs.classID})[0];
-                    cs.student = student;
-                    cs.class = cls;
-                    cs.order = item;
+                    if(item.type === 'register' || item.type === 'makeup'){
+                        csID = item.details;
+                    }
+                    else{
+                        csID = [csID];
+                    }
 
-                    result.push(cs);
+                    console.log(csID);
+                    _.each(csID, (id)=>{
+                        let cs = m.ClassStudent.getDB().findOne({
+                            _id : id
+                            //status : 'checkouted'
+                        });
+                        if(!cs) return true;
+                        let student = m.Student.getAll({_id : cs.studentID})[0],
+                            cls = m.Class.getAll({_id : cs.classID})[0];
+                        cs.student = student;
+                        cs.class = cls;
+                        cs.order = item;
+
+                        result.push(cs);
+                    });
+
+
                 });
 
                 return result;
