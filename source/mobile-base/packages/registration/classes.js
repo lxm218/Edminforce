@@ -1116,13 +1116,18 @@ function syncClassRegistrationCount() {
     // db['EF-ClassStudent'].aggregate( [ {$match: {status: 'checkouted', type: 'trial'}}, {$group: {_id: {classID: "$classID", lessonDate:"$lessonDate"}, count:{$sum:1}}} ]);
     console.log('update class registration data')
 
-    let classes = Collections.class.find({},{fields:{_id:1}}).fetch();
+    let classes = Collections.class.find({},{fields:{_id:1,trial:1,makeup:1}}).fetch();
     console.log('Number of classes: ' + classes.length);
 
     //let outputData = [];
     classes.forEach( (classItem) => {
 
         console.log('Update class ' + classItem._id);
+
+        // if (_.keys(classItem.makeup).length > 0 || _.keys(classItem.trial).length) {
+        //     console.log(classItem);
+        //     outputData.push(classItem);
+        // }
 
         // get number of registered regular students
         let numberOfRegistered = Collections.classStudent.find({classID: classItem._id, status: 'checkouted', type:'register'}).count();
