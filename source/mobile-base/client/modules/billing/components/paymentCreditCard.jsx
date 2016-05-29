@@ -85,7 +85,7 @@ EdminForce.Components.PaymentCreditCard = class extends RC.CSS {
     render() {
         if (this.state.processing)
             return (
-                <RC.Loading isReady={this.state.processing}></RC.Loading>
+                <RC.Loading isReady={false}></RC.Loading>
             )
         
         var inputTheme = "small-label"

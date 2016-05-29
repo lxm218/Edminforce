@@ -86,7 +86,7 @@ EdminForce.Components.Checkout = class extends RC.CSS {
     render() {
         if (this.state.processing)
             return (
-                <RC.Loading isReady={this.state.processing}></RC.Loading>
+                <RC.Loading isReady={false}></RC.Loading>
             )
 
         let style = {

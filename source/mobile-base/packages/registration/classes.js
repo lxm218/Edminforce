@@ -775,6 +775,40 @@ function applySchoolCredit(userId, amount) {
     });
 }
 
+function logPaymentError(accountID, orderID, paymentType, name,apiResponse) {
+    Collections.log.insert({
+        type: "Payment Error" ,
+        logData: {
+            orderID,
+            accountID,
+            paymentType,
+            name,
+            apiResponse
+        }
+    });
+}
+
+function generatePaymentErrorException(response) {
+    //http://developer.authorize.net/api/reference/index.html
+    let errMsg = 'payment error';
+    let errDetail = '';
+    if (response.data.transactionResponse) {
+        switch(response.data.transactionResponse.responseCode) {
+            case '2':
+                errMsg = 'Declined';
+                break;
+            case '3':
+                errMsg = 'Payment error';
+                break;
+            case '4':
+                errMsg = 'Held for review';
+                break;
+        }
+    }
+    (response && response.data && response.data.messages && response.data.messages.length>0) && (errDetail = response.data.messages.message[0].text);
+    return new Meteor.Error(500, errMsg, errDetail);
+}
+
 function payECheck(userId, checkPaymentInfo) {
 
     let order = Collections.orders.findOne({_id: checkPaymentInfo.orderId});
@@ -836,7 +870,7 @@ function payECheck(userId, checkPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = checkPaymentInfo.nameOnAccount
 
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
-    paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = checkPaymentInfo.orderId;
     let paymentTotal = order.amount - order.schoolCredit + 0.5;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
@@ -850,19 +884,17 @@ function payECheck(userId, checkPaymentInfo) {
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'echeck', paymentTotal, checkPaymentInfo.paymentSource);
+
+        let result = postPaymentUpdate(userId, order, 'echeck', paymentTotal, checkPaymentInfo.paymentSource);
+        result.refId = response.data.refId;
+        return result;
     }
     else {
-        let errorMessage = {
-            "orderID" : checkPaymentInfo.orderId,
-            "type" : "echeck",
-            "name" : checkPaymentInfo.nameOnAccount,
-            "message": response
-        }
-        Collections.log.insert({type: "Payment Error" ,logData: errorMessage});
-        throw new Meteor.Error(500, 'unsuccessful payment transaction');
+        logPaymentError(userId, checkPaymentInfo.orderId, "echeck", checkPaymentInfo.nameOnAccount, response.data);
+        throw generatePaymentErrorException(response);
     }
 }
+
 
 function payCreditCard(userId, creditCardPaymentInfo) {
     let order = Collections.orders.findOne({_id: creditCardPaymentInfo.orderId});
@@ -937,42 +969,27 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = creditCardPaymentInfo.zip;
 
     paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
-    paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = creditCardPaymentInfo.orderId;
     let paymentTotal = (order.amount-order.schoolCredit) * 1.03;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
     let URL = 'https://api.authorize.net/xml/v1/request.api';
     // let URL = 'https://apitest.authorize.net/xml/v1/request.api';
     let response = HTTP.call('POST',URL, {data: paymentInfo});
-    // console.log(response);
-
-    // console.log(creditCardPaymentInfo);
-    // let response = {
-    //     data: {
-    //         messages: {
-    //             message: [{
-    //                 code: 'I00001'
-    //             }]
-    //         }
-    //     }
-    // }
 
     if (response &&
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
+
+        let result = postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
+        result.refId = response.data.refId;
+        return result;
     }
     else {
         let userName = creditCardPaymentInfo.firstName + ' ' + creditCardPaymentInfo.lastName;
-        let errorMessage = {
-            "orderID" : creditCardPaymentInfo.orderId,
-            "type" : "creditCard",
-            "name" : userName,
-            "message": response
-        }
-        Collections.log.insert({type: "Payment Error" ,logData: errorMessage});
-        throw new Meteor.Error(500, 'unsuccessful payment transaction');
+        logPaymentError(userId, creditCardPaymentInfo.orderId, "creditCard", userName, response.data);
+        throw generatePaymentErrorException(response);
     }
 }
 
