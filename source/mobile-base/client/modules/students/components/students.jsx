@@ -118,6 +118,7 @@ EdminForce.Components.Students = class extends RC.CSS {
                             {studentElements}
                         </TableBody>
                     </Table>
+                    <RC.VerticalAlign center={true} className="padding"><h4>Click current class if you want to book makeup class</h4></RC.VerticalAlign>
             </RC.Div>
         );
     }
