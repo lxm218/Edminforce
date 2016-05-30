@@ -28,13 +28,17 @@ KUI.Registration_payment = class extends KUI.Page{
             }
         });
 
-        let one = KG.get('EF-ClassStudent').getDB().findOne();
+
 
         if(!s1.ready()){
             return {
                 ready : false
             };
         }
+        let one = KG.get('EF-ClassStudent').getDB().findOne({
+            _id : id
+        });
+        console.log(one);
 
 
         let s2 = Meteor.subscribe('EF-Class', {
@@ -427,6 +431,7 @@ console.log(m.Customer.getAll()[0])
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {
                 success : function(id){
+                    //self.m.updateOrderID(id, self.data.id);
                     self.m.ClassStudent.callMeteorMethod('updateClassFeeByOrderID', [id, self.data.id], {});
 
 

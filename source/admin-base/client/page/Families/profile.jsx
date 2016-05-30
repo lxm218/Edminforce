@@ -176,7 +176,11 @@ KUI.Family_profile = class extends KUI.Page{
             }
         });
 
-        let profile = KG.get('EF-Customer').getAll()[0];
+        let profile = KG.get('EF-Customer').getAll(
+            {
+                _id : id
+            }
+        )[0];
         let list = KG.get('EF-Student').getAll({}, {
             sort : {
                 updateTime : -1
