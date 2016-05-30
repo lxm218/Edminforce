@@ -231,6 +231,9 @@ let RSTable = class extends KUI.Page{
 		if(d.class){
 			list.push({item : 'Class Name', value : d.class.nickName});
 		}
+		if(d.toClass){
+			list.push({item : 'New Class Name', value : d.toClass.nickName});
+		}
 
 		if(d.credit){
 			list.push({item : 'Credit', value : d.credit});

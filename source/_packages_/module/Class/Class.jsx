@@ -575,6 +575,21 @@ let Class = class extends Base{
                     });
                 }
 
+                //add log
+                let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
+                KG.RequestLog.addByType('change class', {
+                    id : true,
+                    data : {
+                        accountID : student.accountID,
+                        studentID : studentID,
+                        classID : cs.classID,
+                        toClassID : toClassID,
+
+                        paymentType : paymentType,
+                        amount : amount
+                    }
+                });
+
                 return newClassStudentID;
             },
 

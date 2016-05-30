@@ -75,6 +75,7 @@ KG.define('EF-Request', class extends Base{
 				break;
 
 			case 'cancel class':
+			case 'change class':
 			case 'cancel makeup class':
 			case 'makeup class':
 				data.detail = {
@@ -109,6 +110,9 @@ KG.define('EF-Request', class extends Base{
 
 					if(d.classID){
 						rs.result.class = m.Class.getAll({_id:d.classID})[0];
+					}
+					if(d.toClassID){
+						rs.result.toClass = m.Class.getAll({_id:d.toClassID})[0];
 					}
 
 					if(d.studentID){
