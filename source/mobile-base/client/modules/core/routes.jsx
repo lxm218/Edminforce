@@ -6,6 +6,7 @@ FlowRouter.notFound = {
 
 DefaultRoutes.route('/', {
     name: "home",
+    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p) {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
