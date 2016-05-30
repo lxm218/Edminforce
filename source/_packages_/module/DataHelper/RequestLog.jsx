@@ -76,6 +76,11 @@ KG.define('EF-Request', class extends Base{
 
 			case 'cancel class':
 			case 'cancel makeup class':
+			case 'makeup class':
+				data.detail = {
+					id : param.id,
+					data : param.data
+				};
 				break;
 
 			default :
@@ -96,6 +101,8 @@ KG.define('EF-Request', class extends Base{
 
 				if(rs.detail && rs.detail.data){
 					let d = rs.detail.data;
+
+					_.extend(rs.result, d);
 					if(d.accountID){
 						rs.result.customer = m.Customer.getDB().findOne({_id:d.accountID});
 					}
@@ -116,9 +123,6 @@ KG.define('EF-Request', class extends Base{
 						rs.result.credit = d.credit>=0?('+'+d.credit):'-'+Math.abs(d.credit);
 					}
 
-					if(d.note){
-						rs.result.note = d.note;
-					}
 				}
 
 				return rs;

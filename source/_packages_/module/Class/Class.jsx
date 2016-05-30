@@ -613,6 +613,19 @@ let Class = class extends Base{
                     });
                 }
 
+                //add log
+                let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
+                KG.RequestLog.addByType('cancel class', {
+                    id : ClassStudentID,
+                    data : {
+                        accountID : student.accountID,
+                        studentID : studentID,
+                        classID : cs.classID,
+                        amount : amount,
+                        paymentType : paymentType
+                    }
+                });
+
                 return true;
             },
 
@@ -650,6 +663,20 @@ let Class = class extends Base{
                         '$inc' : {schoolCredit : Math.abs(amount)}
                     });
                 }
+
+                //add log
+                let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
+                KG.RequestLog.addByType('cancel makeup class', {
+                    id : ClassStudentID,
+                    data : {
+                        accountID : student.accountID,
+                        studentID : studentID,
+                        classID : cs.classID,
+                        amount : amount,
+                        paymentType : paymentType,
+                        date : moment(cs.lessonDate).format('MM/DD/YYYY')
+                    }
+                });
 
                 return true;
             },

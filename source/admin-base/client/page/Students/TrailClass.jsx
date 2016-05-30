@@ -608,6 +608,20 @@ console.log(orderData);
 			}
 		});
 
+		//add log
+		let data = this.getSubmitData();
+		KG.RequestLog.addByType('makeup class', {
+			id : cid,
+			data : {
+				accountID : this.data.student.accountID,
+				studentID : this.data.student._id,
+				classID : data.classID,
+				date : moment(data.date).format('MM/DD/YYYY'),
+				amount : this.fee,
+				paymentType : this.refs.payway.getValue()
+			}
+		});
+
 	}
 
 	applyCouponCode(){

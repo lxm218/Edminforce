@@ -356,7 +356,7 @@
 			if (Math.abs(offset) < 16) {
 				offset = offset / 60;
 			}
-			mom.zone(offset, keepTime);
+			mom.utcOffset(offset, keepTime);
 		}
 	};
 

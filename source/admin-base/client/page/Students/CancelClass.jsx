@@ -209,6 +209,7 @@ KUI.Student_CancelClass = class extends KUI.Page{
 		this.module.Class.callMeteorMethod('cancelClass', [data], {
 			success : function(rs){
 				if(rs){
+
 					callback(rs, data);
 				}
 			}
