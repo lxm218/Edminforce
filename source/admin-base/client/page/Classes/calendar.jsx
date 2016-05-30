@@ -364,11 +364,30 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 				let addInfo = classItem.length.split(' ')
 				let end = moment(start).add(addInfo[0],unitMap[addInfo[1]])
 
+
+				/*
+				 makeup: {
+				 "d20160529": 2
+				 }
+				* */
+
+				let countKey = 'd'+m.format('YYYYMMDD')
+				let registeredClassCount=classItem.numberOfRegistered
+				let trialClassCount =classItem.trial[countKey] || 0
+				let makeupClassCount =classItem.makeup[countKey] || 0
+
+
 				let event ={
 					start:start,
 					end:end,
 					//title:classItem.nickName,
-					title: classItem.program.name + ' '+classItem.schedule.time + ' '+classItem.teacher,
+					title: classItem.program.name
+							+ ' '+classItem.schedule.time
+							+ ' '+classItem.teacher +'\n'
+							+' register: '+ registeredClassCount+'/'+ classItem.maxStudent+'\n'
+							+' trial: '+trialClassCount+'/'+classItem.trialStudent+'\n'
+							+' makeup:'+ makeupClassCount+'/'+classItem.makeupStudent+'\n'
+							,
 
 					url:'program/class/detail/'+classItem._id
 				}
