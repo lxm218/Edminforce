@@ -5,7 +5,7 @@ Dependency.add('auth.store', new function () {
 
     function postLoginAction(redirectUrl) {
         if (!EdminForce.utils.postActionRedirect(redirectUrl))
-            FlowRouter.go('/');
+            FlowRouter.go('/account');
     }
 
     self.tokenId = Dispatcher.register(function (payload) {
@@ -30,7 +30,7 @@ Dependency.add('auth.store', new function () {
             case "AUTH_RESET_SUCCESS":{
                 FlowRouter.LastRoute
                 FlowRouter.LastRoute=[];
-                FlowRouter.go('/')
+                FlowRouter.go('/account')
                 break;
             }
             case "AUTH_LOGIN_SUCCESS":{
