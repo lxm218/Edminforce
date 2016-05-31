@@ -582,17 +582,32 @@ function expirePendingRegistration(sc) {
     releaseRegistrationSpace(sc);
 }
 
-function getStudentIDFromRegistration(classStudentIDs) {
-    if (!classStudentIDs || classStudentIDs.length == 0)
-        return "";
+function getOrderInfoFromRegistration(classStudentIDs, order) {
+    if (!classStudentIDs || classStudentIDs.length == 0) {
+        order.studentID = ""
+        return;
+    }
 
     // find all student IDs
     let students = Collections.classStudent.find(
         {_id: {$in: classStudentIDs}},
-        {fields: {studentID:1}}).fetch();
+        {fields: {studentID:1,type:1}}).fetch();
     let studentIDs = students.map( (s) => s._id);
+    order.studentID = _.uniq(studentIDs).join();
 
-    return _.uniq(studentIDs).join()
+    // order type
+    let registrationTypes = students.map( (s) => s.type);
+    registrationTypes = _.uniq(registrationTypes);
+    if (registrationTypes.length > 0) {
+        if (registrationTypes.length == 1) {
+            //classStudent.allowedValues : ['trial', 'register', 'wait', 'makeup'],
+            //order.allowedValues : ['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit'],
+            order.type = (registrationTypes[0] == 'makeup') ? 'makeup class' : 'register class';
+        }
+        else {
+            order.type = "mixed";
+        }
+    }
 }
 
 /*
@@ -1008,7 +1023,6 @@ function payWithSchoolCredit(userId, paymentInfo) {
     // add a new order record
     let order = {
         accountID: userId,
-        studentID: getStudentIDFromRegistration(paymentInfo.details),
         details: paymentInfo.details,
         status: 'waiting',
         amount: paymentInfo.amount,
@@ -1019,6 +1033,10 @@ function payWithSchoolCredit(userId, paymentInfo) {
         couponID: paymentInfo.couponID,
         schoolCredit: paymentInfo.amount
     }
+
+    // get studentID and order type from classStudent records
+    getOrderInfoFromRegistration(paymentInfo.details, order);
+
     order._id = Collections.orders.insert(order);
 
     // update registration
@@ -1214,4 +1232,4 @@ EdminForce.Registration.getBillingSummary = getBillingSummary;
 EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
 EdminForce.Registration.payWithSchoolCredit = payWithSchoolCredit;
-EdminForce.Registration.getStudentIDFromRegistration = getStudentIDFromRegistration;
+EdminForce.Registration.getOrderInfoFromRegistration = getOrderInfoFromRegistration;
