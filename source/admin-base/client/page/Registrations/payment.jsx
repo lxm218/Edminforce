@@ -308,7 +308,7 @@ console.log(m.Customer.getAll()[0])
                 {<RB.Input onChange={function(){}} ref="s22" name="cgroup" type="radio" label="Cash" />}
                 {<RB.Input onChange={function(){}} ref="s23" name="cgroup" type="radio" label="Check" />}
 
-                <RB.Input onChange={function(){}} ref="s_unpaid" name="cgroup" type="radio" label="Unpaid" />
+                <RB.Input onChange={function(){}} ref="s_unpaid" name="cgroup" type="radio" label="Pay Later" />
 
                 {/*<RB.Input onChange={function(){}} ref="s25" type="checkbox" label="Gift Card" />*/}
                 <RC.Div style={{textAlign:'right'}}>
