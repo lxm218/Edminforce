@@ -105,6 +105,7 @@ EdminForce.Components.Students = class extends RC.CSS {
             <RC.Div>
                 <RC.Div style={{borderBottom:"1px solid #e0e0e0", paddingBottom:8}}>
                     <h3 style={{"textAlign": "center"}}>Students</h3></RC.Div>
+                    <RC.VerticalAlign center={true} className="padding"><h6>Click current class to book makeup class</h6></RC.VerticalAlign>
                     {EdminForce.utils.renderError(this.props.error)}
                     <Table selectable={false} onRowSelection={self.selectStudent}>
                         <TableHeader displaySelectAll={false} enableSelectAll={false} style={{display:"none"}}>
@@ -118,7 +119,7 @@ EdminForce.Components.Students = class extends RC.CSS {
                             {studentElements}
                         </TableBody>
                     </Table>
-                    <RC.VerticalAlign center={true} className="padding"><h4>Click current class if you want to book makeup class</h4></RC.VerticalAlign>
+
             </RC.Div>
         );
     }
