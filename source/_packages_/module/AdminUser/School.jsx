@@ -24,7 +24,17 @@ KG.define('EF-School', class extends Base{
             'zipcode' : KG.schema.default({
                 optional : true
             }),
-            createTime : KG.schema.createTime()
+            timezone : KG.schema.default({
+                optional : true,
+                type : Number,
+                defaultValue : 0
+            }),
+            timezoneString : KG.schema.default({
+                optional : true,
+                defaultValue : ''
+            }),
+            createTime : KG.schema.createTime(),
+            updateTime : KG.schema.updateTime()
         };
     }
 
@@ -63,6 +73,7 @@ KG.define('EF-School', class extends Base{
         if(rs.zipcode){
             rs.allAddress += rs.zipcode;
         }
+
 
         return rs;
     }

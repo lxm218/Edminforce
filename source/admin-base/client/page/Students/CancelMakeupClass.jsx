@@ -175,12 +175,23 @@ KUI.Student_CancelMakeupClass = class extends KUI.Page{
 			ref=""></KUI.Table>;
 
 
+		let dis = null,
+			btnText = 'Confirm';
+		if(tuition>0){
+			dis = (
+				<div>
+					<RB.Input style={dis} onChange={function(){}} ref="cca" name="cacc" type="radio" label="Cash" />
+					<RB.Input style={dis} onChange={function(){}} ref="ccb" name="cacc" type="radio" label="School Credit" />
+				</div>
+			),
+			btnText = 'Refund Fee';
+		}
+
 		h = (
 			<RC.Div>
-				<RB.Input onChange={function(){}} ref="cca" name="cacc" type="radio" label="Cash" />
-				<RB.Input onChange={function(){}} ref="ccb" name="cacc" type="radio" label="School Credit" />
+				{dis}
 				<RC.Div style={{textAlign:'right'}}>
-					<KUI.YesButton onClick={this.refundChangeClass.bind(this)} label="Refund Fee"></KUI.YesButton>
+					<KUI.YesButton onClick={this.refundChangeClass.bind(this)} label={btnText}></KUI.YesButton>
 				</RC.Div>
 			</RC.Div>
 		);
@@ -196,12 +207,18 @@ KUI.Student_CancelMakeupClass = class extends KUI.Page{
 		);
 	}
 	refundChangeClass(){
-		let cca = $(this.refs.cca.getInputDOMNode()).prop('checked'),
-			ccb = $(this.refs.ccb.getInputDOMNode()).prop('checked');
+
 		let sc = 'cash';
-		if(ccb){
-			sc = 'school credit';
+
+		if(this.state.changeResult.tuition > 0){
+			let cca = $(this.refs.cca.getInputDOMNode()).prop('checked'),
+				ccb = $(this.refs.ccb.getInputDOMNode()).prop('checked');
+
+			if(ccb){
+				sc = 'school credit';
+			}
 		}
+
 
 		this.changeToNewClass({
 			paymentType : sc

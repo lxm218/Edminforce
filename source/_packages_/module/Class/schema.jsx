@@ -204,14 +204,22 @@ Schema.ClassStudent = {
 
         }
     }),
+    // original charge of the class
     fee:{
         type: Number,
         optional: true,
         decimal: true,
         defaultValue: 0
     },
+    // actual charge of the class after coupon/discount
+    discounted:{
+        type: Number,
+        optional: true,
+        decimal: true,
+        defaultValue: 0
+    },
     status : KG.schema.default({
-        allowedValues : ['pending', 'checkouted', 'canceled'],
+        allowedValues : ['pending', 'checkouted', 'canceled', 'expired'],
         optional : true,
         defaultValue : 'pending'
     }),

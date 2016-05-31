@@ -19,7 +19,8 @@ Package.onUse(function(api) {
         "edminforce:coupon",
         "edminforce:order",
         "edminforce:email",
-        "edminforce:datahelper"
+        "edminforce:datahelper",
+        "edminforce:log"
         
     ], ["client","server"]);
 

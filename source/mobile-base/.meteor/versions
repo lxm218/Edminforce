@@ -3,6 +3,7 @@ accounts-password@1.1.4
 alanning:roles@1.2.15
 aldeed:collection2@2.8.0
 aldeed:collection2-core@1.0.0
+aldeed:moment-timezone@0.4.0
 aldeed:schema-deny@1.0.1
 aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
@@ -38,6 +39,7 @@ edminforce:coupon@0.0.1
 edminforce:customer@0.0.1
 edminforce:datahelper@0.0.1
 edminforce:email@0.0.1
+edminforce:log@0.0.1
 edminforce:mobile-context@0.0.1
 edminforce:order@0.0.1
 edminforce:registration@0.0.1

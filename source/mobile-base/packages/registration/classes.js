@@ -24,7 +24,7 @@ const _studentFields = {
  * Lesson date field name used in trial & makeup count in class document
  */
  function getLessonDateFieldName(lessonDate) {
-    return 'd' + moment(lessonDate).format('YYYYMMDD');
+    return 'd' + moment(lessonDate).tz(EdminForce.Settings.timeZone).format('YYYYMMDD');
 }
 
 /**
@@ -243,7 +243,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
         throw new Meteor.Error(500, 'Class not found','Invalid class id: ' + classID);
 
     if (!EdminForce.Registration.isAvailableForMakeup(classData, lessonDate))
-        throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
+        throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 
     if (updateMakeupCount(classID, lessonDate)> 0) {
         // insert a class student record
@@ -259,7 +259,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
         });
     }
 
-    throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);;
+    throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 }
 
 /*
@@ -275,7 +275,7 @@ function calculateRegistrationFee(classData, session) {
 
 
 function getDocumentFromCache(documentName, id, cache) {
-    let doc = _.find(cache, {_id:id});
+    let doc = lodash.find(cache, {_id:id});
     if (!doc) {
         doc = Collections[documentName].findOne({_id:id});
         doc && (cache.push(doc));
@@ -293,6 +293,18 @@ function applyCoupon(userId, couponId, cart) {
         cart.couponMsg = 'Cannot verify this coupon, please make sure you typed correct coupon';
         return;
     }
+
+    // extract coupon type & value
+    let reg = /^\s*([\d]*[\.]?[\d]*)\s*([%$])\s*$/;
+    let result = coupon.discount.match(reg);
+    if (!result) {
+        cart.couponMsg = 'Invalid coupon setting';
+        return;
+    }
+    let couponValue = Number(result[1]) || 0;
+    // $ or %
+    let couponType = result[2];
+
 
     // check coupon time
     coupon.startDate = coupon.startDate || new Date(1900,1,1);
@@ -333,65 +345,56 @@ function applyCoupon(userId, couponId, cart) {
         return;
     }
 
+    // passed all validations, now calculate discount amount
+    cart.couponMsg = '';
 
     // check class and program
     coupon.useFor = coupon.useFor || [];
     coupon.weekdayRequire = coupon.weekdayRequire || [];
-    let passProgram = false, passWeekday = false;
-    if (_.find(coupon.useFor || [], function (item) {
-            return item.toLowerCase() === 'all'
-        })) {
-        // this coupon can use for any program
-        passProgram = true;
-    }
-    if (_.find(coupon.weekdayRequire || [], function (item) {
-            return item.toLowerCase() === 'all'
-        })) {
-        // this coupon can use for any program
-        passWeekday = true;
-    }
+    coupon.weekdayRequire = coupon.weekdayRequire.map( (w) => w.toLowerCase() );
+    let forAllPrograms = coupon.useFor.indexOf('all') >=0;
+    let forAllWeekdays = coupon.weekdayRequire.indexOf('all') >=0;
 
-    // check for program & week day restriction
-    if (!passWeekday || !passProgram) {
-        let valid = true;
-        for (let iStudent = 0; valid && iStudent < cart.students.length; iStudent++ ) {
-            for (let iClass = 0; valid && iClass < cart.students[iStudent].classes; iClass++) {
-                // check program
-                let classData = cart.students[iStudent].classes[iClass];
-                if (!passProgram) {
-                    if (coupon.useFor.indexOf(classData.programID)<0)
-                        valid = false;
-                }
-
-                if (!passWeekday) {
-                    if (coupon.weekdayRequire.indexOf(classData.schedule.day.toLowerCase()) < 0)
-                        valid = false;
-                }
+    cart.totalDiscountable = 0;
+    let discountedClasses = [];
+    cart.students.forEach( (student) => {
+        student.classes.forEach( (classData) => {
+            let valid = true;
+            // validate class program
+            if (!forAllPrograms) {
+                if (coupon.useFor.indexOf(classData.programID)<0)
+                    valid = false;
             }
-        }
 
-        if (!valid) {
-            cart.couponMsg = "Make sure your selected classes' program and day is in Coupon";
-            return;
-        }
-    }
+            // validate class weekday
+            if (valid && !forAllWeekdays) {
+                if (coupon.weekdayRequire.indexOf(classData.schedule.day.toLowerCase()) < 0)
+                    valid = false;
+            }
 
-    // passed all validations, now calculate discount amount
-    cart.couponMsg = '';
+            if (valid) {
+                cart.totalDiscountable += classData.classFee;
+                discountedClasses.push(classData);
+            }
+        })
+    })
+
+    // calculate discount amount for the entire order
     let discountAmount = 0;
-    let discount = coupon.discount;
-    let reg = /^\s*([\d]*[\.]?[\d]*)\s*([%$])\s*$/;
-    let result = discount.match(reg);
-    if (result) {
-        let value = Number(result[1]) || 0;
-        // $ or %
-        let unit = result[2];
-        if (unit == "$") {
-            discountAmount = value > cart.totalDiscountable ? cart.totalDiscountable : value;
-        } else if (unit == '%') {
-            discountAmount = cart.totalDiscountable * value / 100;
-        }
+    if (couponType == "$") {
+        discountAmount = couponValue;
+    } else if (couponType == '%') {
+        discountAmount = cart.totalDiscountable * couponValue * 0.01;
     }
+    discountAmount > cart.totalDiscountable && (discountAmount = cart.totalDiscountable);
+
+    // calculate discounted fee for each class, we need to save this for refund
+    let discountPercent = (couponType == "%") ? (couponValue >= 100 ? 1 : couponValue * 0.01) : discountAmount/cart.totalDiscountable;
+    discountPercent = 1 - discountPercent;
+    discountedClasses.forEach( (cls) => {
+        cls.discounted = cls.classFee * discountPercent;
+        if (cls.discounted < 0) cls.discounted = 0;
+    });
 
     cart.discount = discountAmount;
     cart.appliedCouponId = couponId;
@@ -454,21 +457,18 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
             sc.schedule = classData.schedule;
 
             if (sc.type === 'makeup') {
-                sc.classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
+                sc.classFee = lodash.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
                 result.totalDiscountable += sc.classFee;
             }
             else {
                 sc.classFee = calculateRegistrationFee(classData, session);
                 result.totalDiscountable += sc.classFee;
             }
+            sc.discounted = sc.classFee;
             
             result.total += sc.classFee;
 
             student.classes.push(sc);
-
-            // save classFee back into classStudent record
-            // so we can show it in billing report
-            Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee}});
         });
 
         result.students.push(student);
@@ -491,10 +491,15 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     // check coupon
     if (couponId && result.totalDiscountable > 0) {
         applyCoupon(userId, couponId, result);
-        // if (result.couponMsg) {
-        //     throw new Meteor.Error(500, result.couponMsg, 'Invalid coupon: ' + couponId);
-        // }
     }
+
+    // save classFee back into classStudent record
+    // so we can show it in billing report
+    lodash.forOwn(groupByStudent, (value,key) => {
+        lodash.forEach(value, (sc) => {
+            Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee, discounted: sc.discounted}});
+        });
+    });
 
     return result;
 }
@@ -566,7 +571,7 @@ function expirePendingRegistration(sc) {
         status: 'pending'
     }, {
         $set: {
-            status: 'canceled',
+            status: 'expired',
             updateTime: new Date()
         }
     });
@@ -575,6 +580,34 @@ function expirePendingRegistration(sc) {
     
     // release class space
     releaseRegistrationSpace(sc);
+}
+
+function getOrderInfoFromRegistration(classStudentIDs, order) {
+    if (!classStudentIDs || classStudentIDs.length == 0) {
+        order.studentID = ""
+        return;
+    }
+
+    // find all student IDs
+    let students = Collections.classStudent.find(
+        {_id: {$in: classStudentIDs}},
+        {fields: {studentID:1,type:1}}).fetch();
+    let studentIDs = students.map( (s) => s._id);
+    order.studentID = _.uniq(studentIDs).join();
+
+    // order type
+    let registrationTypes = students.map( (s) => s.type);
+    registrationTypes = _.uniq(registrationTypes);
+    if (registrationTypes.length > 0) {
+        if (registrationTypes.length == 1) {
+            //classStudent.allowedValues : ['trial', 'register', 'wait', 'makeup'],
+            //order.allowedValues : ['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit'],
+            order.type = (registrationTypes[0] == 'makeup') ? 'makeup class' : 'register class';
+        }
+        else {
+            order.type = "mixed";
+        }
+    }
 }
 
 /*
@@ -757,6 +790,40 @@ function applySchoolCredit(userId, amount) {
     });
 }
 
+function logPaymentError(accountID, orderID, paymentType, name,apiResponse) {
+    Collections.log.insert({
+        type: "Payment Error" ,
+        logData: {
+            orderID,
+            accountID,
+            paymentType,
+            name,
+            apiResponse
+        }
+    });
+}
+
+function generatePaymentErrorException(response) {
+    //http://developer.authorize.net/api/reference/index.html
+    let errMsg = 'payment error';
+    let errDetail = '';
+    if (response.data.transactionResponse) {
+        switch(response.data.transactionResponse.responseCode) {
+            case '2':
+                errMsg = 'Declined';
+                break;
+            case '3':
+                errMsg = 'Payment error';
+                break;
+            case '4':
+                errMsg = 'Held for review';
+                break;
+        }
+    }
+    (response && response.data && response.data.messages && response.data.messages.length>0) && (errDetail = response.data.messages.message[0].text);
+    return new Meteor.Error(500, errMsg, errDetail);
+}
+
 function payECheck(userId, checkPaymentInfo) {
 
     let order = Collections.orders.findOne({_id: checkPaymentInfo.orderId});
@@ -818,7 +885,7 @@ function payECheck(userId, checkPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.payment.bankAccount.nameOnAccount = checkPaymentInfo.nameOnAccount
 
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
-    paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = checkPaymentInfo.orderId;
     let paymentTotal = order.amount - order.schoolCredit + 0.5;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
@@ -832,12 +899,17 @@ function payECheck(userId, checkPaymentInfo) {
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'echeck', paymentTotal, checkPaymentInfo.paymentSource);
+
+        let result = postPaymentUpdate(userId, order, 'echeck', paymentTotal, checkPaymentInfo.paymentSource);
+        result.refId = response.data.refId;
+        return result;
     }
     else {
-        throw new Meteor.Error(500, 'unsuccessful payment transaction');
+        logPaymentError(userId, checkPaymentInfo.orderId, "echeck", checkPaymentInfo.nameOnAccount, response.data);
+        throw generatePaymentErrorException(response);
     }
 }
+
 
 function payCreditCard(userId, creditCardPaymentInfo) {
     let order = Collections.orders.findOne({_id: creditCardPaymentInfo.orderId});
@@ -855,6 +927,8 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     var paymentInfo = {
         "createTransactionRequest": {
             "merchantAuthentication": {
+                // "name": "42ZZf53Hst",
+                // "transactionKey": "3TH6yb6KN43vf76j"
                 "name": "9XD2ru9Z",
                 "transactionKey": "5yZ52WCb2EC5et2c"
             },
@@ -910,34 +984,27 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     paymentInfo.createTransactionRequest.transactionRequest.billTo.zip = creditCardPaymentInfo.zip;
 
     paymentInfo.createTransactionRequest.refId = creditCardPaymentInfo.orderId;
-    paymentInfo.createTransactionRequest.transactionRequest.customer.id = userId;
+    paymentInfo.createTransactionRequest.transactionRequest.customer.id = creditCardPaymentInfo.orderId;
     let paymentTotal = (order.amount-order.schoolCredit) * 1.03;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
     let URL = 'https://api.authorize.net/xml/v1/request.api';
     // let URL = 'https://apitest.authorize.net/xml/v1/request.api';
     let response = HTTP.call('POST',URL, {data: paymentInfo});
-    //console.log(response);
-
-    // console.log(creditCardPaymentInfo);
-    // let response = {
-    //     data: {
-    //         messages: {
-    //             message: [{
-    //                 code: 'I00001'
-    //             }]
-    //         }
-    //     }
-    // }
 
     if (response &&
         response.data &&
         response.data.messages &&
         response.data.messages.message[0].code == "I00001") {
-        return postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
+
+        let result = postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
+        result.refId = response.data.refId;
+        return result;
     }
     else {
-        throw new Meteor.Error(500, 'unsuccessful payment transaction');
+        let userName = creditCardPaymentInfo.firstName + ' ' + creditCardPaymentInfo.lastName;
+        logPaymentError(userId, creditCardPaymentInfo.orderId, "creditCard", userName, response.data);
+        throw generatePaymentErrorException(response);
     }
 }
 
@@ -966,6 +1033,10 @@ function payWithSchoolCredit(userId, paymentInfo) {
         couponID: paymentInfo.couponID,
         schoolCredit: paymentInfo.amount
     }
+
+    // get studentID and order type from classStudent records
+    getOrderInfoFromRegistration(paymentInfo.details, order);
+
     order._id = Collections.orders.insert(order);
 
     // update registration
@@ -1043,43 +1114,106 @@ function getHistoryOrderDetails(userId, orderId) {
  */
 function syncClassRegistrationCount() {
 
+    function getTrialMakeupCount(classStudents) {
+        let dailyCount = {};
+        classStudents.forEach( (sc) => {
+            let lessonDateStr = EdminForce.Registration.getLessonDateFieldName(sc.lessonDate);
+            dailyCount.hasOwnProperty(lessonDateStr) || (dailyCount[lessonDateStr] = 0);
+            if (sc.status == 'canceled')
+                dailyCount[lessonDateStr]--;
+            else
+                dailyCount[lessonDateStr]++;
+        })
+
+        return dailyCount;
+    }
+
     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted', type:'register'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
     // db['EF-ClassStudent'].aggregate( [ {$match: {status:'checkouted'}}, {$group: {_id: {classID: "$classID", type: "$type"}, count:{$sum:1}}} ]);
     // db['EF-ClassStudent'].aggregate( [ {$match: {classID: classItem._id, status: 'checkouted', type: 'trial'}}, {$group: {_id: "$lessonDate", count:{$sum:1}}} ]);
     // db['EF-ClassStudent'].aggregate( [ {$match: {status: 'checkouted', type: 'trial'}}, {$group: {_id: {classID: "$classID", lessonDate:"$lessonDate"}, count:{$sum:1}}} ]);
     console.log('update class registration data')
 
-    let classes = Collections.class.find({},{fields:{_id:1}}).fetch();
+    let classes = Collections.class.find({},{fields:{_id:1,trial:1,makeup:1}}).fetch();
     console.log('Number of classes: ' + classes.length);
 
+    //let outputData = [];
     classes.forEach( (classItem) => {
 
         console.log('Update class ' + classItem._id);
 
+        // if (_.keys(classItem.makeup).length > 0 || _.keys(classItem.trial).length) {
+        //     console.log(classItem);
+        //     outputData.push(classItem);
+        // }
+
         // get number of registered regular students
         let numberOfRegistered = Collections.classStudent.find({classID: classItem._id, status: 'checkouted', type:'register'}).count();
+        let numberOfCancelled = Collections.classStudent.find({classID: classItem._id, status: 'canceled', type:'register'}).count();
+        numberOfRegistered -= numberOfCancelled;
         let updateData = {
             numberOfRegistered,
-            trial: {},
-            makeup: {}
         }
 
-        // use mongo aggregate pipeline to get trial & make up info for each class day
-        let pipeline = [
-            {$match: {classID: classItem._id, status: 'checkouted', type: {$in:['trial','makeup']}}},
-            {$group: {_id: {lessonDate: "$lessonDate", type: "$type"}, count:{$sum:1}}}
-        ];
-        let trialAndMakeups = Collections.classStudent.aggregate(pipeline);
+        // trial count
+        let trialStudents = Collections.classStudent.find({
+            classID: classItem._id,
+            status: {$in: ['checkouted', 'canceled']},
+            type:'trial'}, {
+            fields: {
+                status:1,
+                lessonDate:1
+            }
+        }).fetch();
+        updateData.trial = getTrialMakeupCount(trialStudents);
 
-        console.log(trialAndMakeups);
+        // makeup count
+        let makeupStudents = Collections.classStudent.find({
+            classID: classItem._id,
+            status: {$in: ['checkouted', 'canceled']},
+            type:'makeup'}, {
+            fields: {
+                status:1,
+                lessonDate:1
+            }
+        }).fetch();
+        updateData.makeup = getTrialMakeupCount(makeupStudents);
 
-        trialAndMakeups.forEach( (res) => {
-            let lessonDateStr = EdminForce.Registration.getLessonDateFieldName(res._id.lessonDate);
-            updateData[res._id.type][lessonDateStr] = res.count;
-        })
+        if (_.keys(updateData.makeup).length > 0 || _.keys(updateData.trial).length) {
+            console.log(classItem._id);
+            console.log(updateData.makeup);
+            console.log(updateData.trial);
 
-        Collections.class.update({_id: classItem._id}, {$set: updateData});
+            outputData.push({
+                classID:classItem._id,
+                numberOfRegistered: updateData.numberOfRegistered,
+                makeup: updateData.makeup,
+                trial:updateData.trial
+            })
+        }
+
+        // --- can't use mongo pipeline, because we need to do timezone conversion on lessonDate ---
+        // also because hour/minute part of lessonDate are not consistent
+
+        // // use mongo aggregate pipeline to get trial & make up info for each class day
+        // let pipeline = [
+        //     {$match: {classID: classItem._id, status: 'checkouted', type: {$in:['trial','makeup']}}},
+        //     {$group: {_id: {lessonDate: "$lessonDate", type: "$type"}, count:{$sum:1}}}
+        // ];
+        // let trialAndMakeups = Collections.classStudent.aggregate(pipeline);
+        //
+        // console.log(trialAndMakeups);
+        //
+        // trialAndMakeups.forEach( (res) => {
+        //     let lessonDateStr = EdminForce.Registration.getLessonDateFieldName(res._id.lessonDate);
+        //     updateData[res._id.type][lessonDateStr] = res.count;
+        // })
+
+        //Collections.class.update({_id: classItem._id}, {$set: updateData});
     });
+
+    // let fs = Npm.require('fs');
+    // fs.writeFile('/home/vagrant/trialMakeup.json', JSON.stringify(outputData));
 }
 
 
@@ -1098,3 +1232,4 @@ EdminForce.Registration.getBillingSummary = getBillingSummary;
 EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
 EdminForce.Registration.payWithSchoolCredit = payWithSchoolCredit;
+EdminForce.Registration.getOrderInfoFromRegistration = getOrderInfoFromRegistration;

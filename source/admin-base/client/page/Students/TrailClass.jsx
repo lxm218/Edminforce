@@ -585,7 +585,11 @@ console.log(orderData);
 		let orderRs = KG.get('EF-Order').insert(orderData);
 		KG.result.handle(orderRs, {
 			success : function(id){
-				KG.get('EF-ClassStudent').updateOrderID(id, cid);
+
+
+				if(self.coupon){
+					self.module.Coupon.useOnce(self.coupon);
+				}
 
 				if(self.fee === 0 || cash){
 					self.module.ClassStudent.updateStatus('checkouted', cid);
@@ -601,6 +605,20 @@ console.log(orderData);
 					}
 
 				}
+			}
+		});
+
+		//add log
+		let data = this.getSubmitData();
+		KG.RequestLog.addByType('makeup class', {
+			id : cid,
+			data : {
+				accountID : this.data.student.accountID,
+				studentID : this.data.student._id,
+				classID : data.classID,
+				date : moment(data.date).format('MM/DD/YYYY'),
+				amount : this.fee,
+				paymentType : this.refs.payway.getValue()
 			}
 		});
 

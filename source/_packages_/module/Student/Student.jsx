@@ -122,6 +122,26 @@ let Student = class extends Base{
                     list : rs,
                     count : count
                 };
+            },
+
+
+            removeById : function(id){
+                let m = KG.DataHelper.getDepModule();
+
+                //check can be delete
+                let f = m.ClassStudent.getDB().findOne({
+                    studentID : id,
+                    //type : {'$in':['register', 'wait', 'makeup']},
+                    status : {'$in':['pending', 'checkouted']}
+                });
+
+                if(f){
+                    return false;
+                }
+
+                return self._db.remove({_id : id});
+
+
             }
         };
     }

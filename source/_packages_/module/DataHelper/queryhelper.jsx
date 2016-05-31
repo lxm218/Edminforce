@@ -78,13 +78,27 @@ KG.define('EF-DataHelper', class extends Base{
                         rs.detail = rs.detail.concat(item.details);
 
                         rs[item.paymentType][0] += parseFloat(item.paymentTotal);
-                        rs[item.paymentType][1] += (parseFloat(item.paymentTotal)+item.discount);
+                        rs[item.paymentType][1] += parseFloat(item.paymentTotal)+parseFloat(item.discount);
 
                         total[0] += parseFloat(item.paymentTotal);
-                        total[1] += (parseFloat(item.paymentTotal)+item.discount);
+                        total[1] += parseFloat(item.paymentTotal)+parseFloat(item.discount);
+
+
                     });
 
                     rs.total = total;
+
+                    _.each(rs, function(val, key){
+                        if(key === 'detail') return true;
+                        if(val[0]){
+                            rs[key][0] = val[0].toFixed(2);
+                        }
+                        if(val[1]){
+                            rs[key][1] = val[1].toFixed(2);
+                        }
+
+                    });
+
                     rs.date = date.clone().toDate();
 
                     result.push(rs);
@@ -130,18 +144,30 @@ KG.define('EF-DataHelper', class extends Base{
                     var csID = _.last(item.details);
                     if(!csID) return true;
 
-                    let cs = m.ClassStudent.getDB().findOne({
-                        _id : csID
-                        //status : 'checkouted'
-                    });
-                    if(!cs) return true;
-                    let student = m.Student.getAll({_id : cs.studentID})[0],
-                        cls = m.Class.getAll({_id : cs.classID})[0];
-                    cs.student = student;
-                    cs.class = cls;
-                    cs.order = item;
+                    if(item.type === 'register' || item.type === 'makeup'){
+                        csID = item.details;
+                    }
+                    else{
+                        csID = [csID];
+                    }
 
-                    result.push(cs);
+                    console.log(csID);
+                    _.each(csID, (id)=>{
+                        let cs = m.ClassStudent.getDB().findOne({
+                            _id : id
+                            //status : 'checkouted'
+                        });
+                        if(!cs) return true;
+                        let student = m.Student.getAll({_id : cs.studentID})[0],
+                            cls = m.Class.getAll({_id : cs.classID})[0];
+                        cs.student = student;
+                        cs.class = cls;
+                        cs.order = item;
+
+                        result.push(cs);
+                    });
+
+
                 });
 
                 return result;
@@ -162,6 +188,10 @@ KG.define('EF-DataHelper', class extends Base{
                 if(opts.teacher){
                     query.teacher = opts.teacher;
                 }
+                if(opts.programID){
+                    query.programID = opts.programID;
+                }
+
                 let classData = m.Class.getAll(query),
                     rs = {};
 
@@ -211,13 +241,12 @@ KG.define('EF-DataHelper', class extends Base{
                 return rs;
             },
 
-            getCouponReport(query={}, option={}){
+            getCouponReport(filter={}, option={}){
                 let m = this.getDepModule();
 
-                //query = KG.util.setDBQuery(query);
+                //filter = KG.util.setDBQuery(query);
                 option = KG.util.setDBOption(option);
-console.log(option);
-                query = {
+                let query = {
                     status : 'success',
                     '$or' : [
                         {
@@ -228,6 +257,26 @@ console.log(option);
                         }
                     ]
                 };
+
+                if(filter.source){
+                    query.paymentSource = filter.source;
+                }
+                if(filter.coupon){
+                    query['$or'] = [
+                        {couponID : filter.coupon},
+                        {customerCouponID : filter.coupon}
+                    ];
+                }
+
+                if(filter.startDate || filter.endDate){
+                    query.updateTime = {};
+                }
+                if(filter.startDate){
+                    query.updateTime['$gte'] = filter.startDate;
+                }
+                if(filter.endDate){
+                    query.updateTime['$lte'] = filter.endDate;
+                }
 
                 let list = m.Order.getDB().find(query, option).fetch(),
                     total = m.Order.getDB().find(query).count();

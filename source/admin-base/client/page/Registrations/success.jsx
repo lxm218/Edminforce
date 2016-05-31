@@ -10,7 +10,9 @@ KUI.Registration_success = class extends KUI.Page{
             }
         });
 
-        let one = KG.get('EF-ClassStudent').getDB().findOne();
+        let one = KG.get('EF-ClassStudent').getDB({
+            _id : id
+        }).findOne();
 
         if(!s1.ready()){
             return {
@@ -27,7 +29,9 @@ KUI.Registration_success = class extends KUI.Page{
             };
         }
         //console.log(x1.ready(), KG.get('EF-Order').getDB().findOne({}));
-        let order = KG.get('EF-Order').getDB().findOne({});
+        let order = KG.get('EF-Order').getDB().findOne({
+            _id : one.orderID
+        });
         if(!order){
             return {
                 ready : false
@@ -143,10 +147,12 @@ KUI.Registration_success = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
+        console.log(this.data.order);
         if(this.data.data.status !== 'checkouted'){
             if(this.data.coupon){
                 KG.get('EF-Coupon').useOnce(this.data.coupon);
             }
+
 
             let schoolCredit = this.data.order.schoolCredit || 0;
             console.log(schoolCredit)

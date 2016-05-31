@@ -1,15 +1,25 @@
 let Filter = class extends KUI.Page{
 
+	constructor(p){
+		super(p);
+
+		this.m = KG.DataHelper.getDepModule();
+	}
+
 	getMeteorData(){
+
 		let x = Meteor.subscribe('EF-AdminUser', {
 			query : {
 				role : 'teacher'
 			}
 		});
 
+		let x1 = Meteor.subscribe('EF-Program', {});
+
 		return {
-			ready : x.ready(),
-			teacher : KG.get('EF-AdminUser').getDB().find().fetch()
+			ready : x.ready() && x1.ready(),
+			teacher : KG.get('EF-AdminUser').getDB().find().fetch(),
+			programList : this.m.Program.getDB().find().fetch()
 		};
 	}
 
@@ -24,6 +34,12 @@ let Filter = class extends KUI.Page{
 				ref : 'date',
 				label : 'Select Date'
 			},
+			program : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-4',
+				ref : 'program',
+				label : 'Select Program'
+			},
 			teacher : {
 				labelClassName : 'col-xs-2',
 				wrapperClassName : 'col-xs-4',
@@ -33,7 +49,8 @@ let Filter = class extends KUI.Page{
 		};
 
 		let option = {
-			teacher : [{nickName:'All'}].concat(this.data.teacher)
+			teacher : [{nickName:'All'}].concat(this.data.teacher),
+			program : this.data.programList
 		};
 
 		return (
@@ -41,6 +58,15 @@ let Filter = class extends KUI.Page{
 				<RB.Row>
 					<RB.Col md={12}>
 						<RB.Input type="text" {... p.date} />
+
+						<RB.Input type="select" {... p.program}>
+							<option value="-1">All</option>
+							{
+								_.map(option.program, (item, index)=>{
+									return <option key={index} value={item._id}>{item.name}</option>;
+								})
+							}
+						</RB.Input>
 
 						<RB.Input type="select" {... p.teacher}>
 							{
@@ -58,7 +84,8 @@ let Filter = class extends KUI.Page{
 	getRefs(){
 		return {
 			date : this.refs.date,
-			teacher : this.refs.teacher
+			teacher : this.refs.teacher,
+			program : this.refs.program
 		};
 	}
 
@@ -69,7 +96,7 @@ let Filter = class extends KUI.Page{
 	}
 
 	getValue(){
-		let {date, teacher} = this.getRefs();
+		let {date, teacher, program} = this.getRefs();
 
 
 		let rs = {
@@ -78,6 +105,10 @@ let Filter = class extends KUI.Page{
 
 		if(teacher.getValue() !== 'All'){
 			rs.teacher = teacher.getValue();
+		}
+
+		if(program.getValue() !== '-1'){
+			rs.programID = program.getValue();
 		}
 
 		return rs;

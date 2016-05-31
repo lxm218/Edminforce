@@ -6,6 +6,7 @@ FlowRouter.notFound = {
 
 DefaultRoutes.route('/', {
     name: "home",
+    triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p) {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
@@ -54,6 +55,20 @@ DefaultRoutes.route('/reset-password/:userToken', {
       hideBackButton:true,
       showGlobalNav: false,
       bodyTmpl: React.createElement(EdminForce.Components.ResetPasswordEmail, {userToken: p.userToken, themes: "overlay-dark", bgColor: "brand-light"},null)
+    }
+    EdminForce.utils.routeHandler(p, dynamicRoute)
+  }
+});
+
+DefaultRoutes.route('/Policy', {
+  action: function(p) {
+    console.log("userToken is:", p.userToken)
+    var dynamicRoute = {
+      pageTitle: "Policy",
+      headerNav: null,
+      hideBackButton:false,
+      showGlobalNav: false,
+      bodyTmpl: React.createElement(EdminForce.Components.Policy, {userToken: p.userToken, themes: "overlay-dark", bgColor: "brand-light"},null)
     }
     EdminForce.utils.routeHandler(p, dynamicRoute)
   }

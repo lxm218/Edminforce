@@ -33,8 +33,8 @@ Meteor.methods({
             couponID: Match.Optional(String),
             schoolCredit: Number,
         });
-
-        return Collections.orders.insert({
+        
+        let newOrder = {
             accountID: this.userId,
             details: order.details,
             status: 'waiting',
@@ -45,7 +45,10 @@ Meteor.methods({
             registrationFee: order.registrationFee,
             couponID: order.couponID,
             schoolCredit: order.schoolCredit
-        });
+        }
+        // get studentIDs and order type from classStudent records
+        EdminForce.Registration.getOrderInfoFromRegistration(order.details, newOrder);
+        return Collections.orders.insert(newOrder);
     },
     
     'billing.getExpiredRegistrations': function(expiredRegistrationIDs) {

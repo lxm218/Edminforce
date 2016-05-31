@@ -13,6 +13,7 @@ KG.define('EF-Request', class extends Base{
 					'insert Program', 'edit Program', 'delete Program',
 					'insert Session', 'edit Session', 'delete Session',
 					'register class', 'change class', 'cancel class', 'trial class', 'makeup class',
+					'cancel makeup class',
 					'pay order',
 					'change school credit'
 				]
@@ -73,11 +74,64 @@ KG.define('EF-Request', class extends Base{
 				};
 				break;
 
+			case 'cancel class':
+			case 'change class':
+			case 'cancel makeup class':
+			case 'makeup class':
+				data.detail = {
+					id : param.id,
+					data : param.data
+				};
+				break;
+
 			default :
 				throw new Meteor.Error('error', '[add log] '+type+' type is not valid');
 		}
 
 		this._db.insert(data);
+	}
+
+	defineMeteorMethod(){
+		let self = this;
+		return {
+			getDetailById : function(id){
+				let m = KG.DataHelper.getDepModule();
+				let rs = self._db.findOne({_id:id});
+				rs.result = {};
+
+
+				if(rs.detail && rs.detail.data){
+					let d = rs.detail.data;
+
+					_.extend(rs.result, d);
+					if(d.accountID){
+						rs.result.customer = m.Customer.getDB().findOne({_id:d.accountID});
+					}
+
+					if(d.classID){
+						rs.result.class = m.Class.getAll({_id:d.classID})[0];
+					}
+					if(d.toClassID){
+						rs.result.toClass = m.Class.getAll({_id:d.toClassID})[0];
+					}
+
+					if(d.studentID){
+						rs.result.student = m.Student.getDB().findOne({_id : d.studentID});
+					}
+
+					if(d.customer){
+						rs.result.customer = d.customer;
+					}
+
+					if(d.credit){
+						rs.result.credit = d.credit>=0?('+'+d.credit):'-'+Math.abs(d.credit);
+					}
+
+				}
+
+				return rs;
+			}
+		};
 	}
 });
 

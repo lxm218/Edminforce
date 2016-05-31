@@ -38,7 +38,7 @@ KUI.Student_profile = class extends KUI.Page{
 
         if(sub.ready()){
             profile = this.getStudentModule().getDB().findOne({
-                //_id : this.getProfileId()
+                _id : this.getProfileId()
             });
 
         }
@@ -76,6 +76,7 @@ KUI.Student_profile = class extends KUI.Page{
         let scx = Meteor.subscribe('EF-StudentComment', {
             studentID : this.getProfileId()
         });
+        console.log(profile)
         return {
             id,
             ready : sub.ready(),
@@ -412,7 +413,7 @@ KUI.Student_profile = class extends KUI.Page{
     runOnceAfterDataReady(){
         let self = this;
         this.setDefaultValue();
-
+        console.log(this.data.profile);
         this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{studentID : this.data.id, status : 'pending', pendingFlag:true}, {
             sort : {updateTime : -1}
         }], {
@@ -423,6 +424,7 @@ KUI.Student_profile = class extends KUI.Page{
             }
         });
     }
+
 
     setDefaultValue(){
 

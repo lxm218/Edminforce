@@ -6,7 +6,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : null,
+            query : {},
             page : 1,
             refresh : false
         };
@@ -118,9 +118,13 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 title : 'Schedule',
                 key : 'scheduleAll'
             },
+            //{
+            //    title : 'Length',
+            //    key : 'length'
+            //},
             {
-                title : 'Length',
-                key : 'length'
+                title : 'Tuition($)',
+                key : 'tuition.money'
             },
             {
                 title : 'Action',
@@ -136,15 +140,40 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                     };
 
                     var del = function(){
-                        util.dialog.confirm({
-                            msg : 'delete this class?',
-                            YesFn : function(){
-                                KG.get('EF-Class').getDB().remove({
-                                    _id : item._id
-                                });
 
-                            }
+                        swal({
+                            title : 'Delete this class?',
+                            text : '',
+                            type : 'warning',
+                            showCancelButton : true,
+                            closeOnCancel : true,
+                            closeOnConfirm : false,
+                            confirmButtonText : 'Confirm',
+                            confirmButtonColor : '#1ab394'
+                        }, function(f){
+                            if(!f) return false;
+                            self.m.Class.callMeteorMethod('removeById', [item._id], {
+                                success : function(rs){
+                                    console.log(rs);
+                                    if(!rs){
+                                        swal({
+                                            title : 'Delete Fail',
+                                            text : 'class has student record',
+                                            type : 'error'
+                                        });
+                                    }
+                                    else{
+                                        swal({
+                                            title : 'Delete success',
+                                            text : '',
+                                            type : 'success'
+                                        });
+                                    }
+                                }
+                            });
                         });
+
+
                     };
 
                     return (
