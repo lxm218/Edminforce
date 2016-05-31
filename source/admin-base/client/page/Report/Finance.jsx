@@ -107,7 +107,7 @@ KUI.Report_Finance = class extends KUI.Page{
 					<RC.Div style={{textAlign:'right'}}>
 						<KUI.YesButton onClick={this.search.bind(this)} label="Show Result"></KUI.YesButton>
 						{this.showExportPeriodButton()}
-						
+
 					</RC.Div>
 					<hr/>
 
@@ -134,7 +134,7 @@ KUI.Report_Finance = class extends KUI.Page{
 		});
 	}
 
-	
+
 
 	search(){
 		let data = this.refs.filter.getValue(),
@@ -279,7 +279,7 @@ KUI.Report_Finance = class extends KUI.Page{
 
 		return (
 			<RC.Div>
-				<p style={{color:'#1ab394'}}>Notice : current payment / total payment</p>
+				<p style={{color:'#1ab394'}}>Note: actual payment / total charge</p>
 				<KUI.Table
 					style={{}}
 					list={list}
