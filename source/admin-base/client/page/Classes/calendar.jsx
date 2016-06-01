@@ -382,11 +382,12 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 					end:end,
 					//title:classItem.nickName,
 					title: classItem.program.name
-							+ ' '+classItem.schedule.time
+							+ ','
+							//+ ' '+classItem.schedule.time
 							+ ' '+classItem.teacher +'\n'
-							+' register: '+ registeredClassCount+'/'+ classItem.maxStudent//+'\n'
-							+' trial: '+trialClassCount+'/'+classItem.trialStudent //+'\n'
-							+' makeup:'+ makeupClassCount+'/'+classItem.makeupStudent //+'\n'
+							+' Registered: '+ registeredClassCount//+'\n'
+							+' Trial: '+ trialClassCount //+'\n'
+							+' Makeup: '+ makeupClassCount //+'\n'
 							,
 
 					url:'program/class/detail/'+classItem._id
