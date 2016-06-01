@@ -369,9 +369,7 @@ KUI.Report_Finance = class extends KUI.Page{
 			},
 			{
 				title : 'Date',
-				reactDom(doc){
-					return moment(doc.order.createTime).format('MM/DD/YYYY hh:mm:ss');
-				}
+				key : 'dateline'
 			}
 		];
 
