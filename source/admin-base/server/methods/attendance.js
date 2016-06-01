@@ -21,11 +21,22 @@ Meteor.methods({
     },
 
     'attendance.getStudents': function(classID) {
-        let students = KG.get('EF-ClassStudent').getDB().find({classID,status:'checkouted'}).fetch();
+        let students = KG.get('EF-ClassStudent').getDB().find({
+            classID,
+            status:'checkouted'}, {
+            fields: {
+                studentID: 1,
+                type: 1,
+                attendance: 1,
+                lessonDate: 1
+            }
+        }).fetch();
+        let today = moment();
         students.forEach( (s) => {
             let studentInfo = KG.get('EF-Student').getDB().findOne({_id:s.studentID}, {fields:{name:1, profile:1}}) || {}
             s.name = studentInfo.name;
-            s.profile = studentInfo.profile;
+            s.gender = studentInfo.profile.gender;
+            s.age = today.diff(moment(studentInfo.profile.birthday),'y');
         });
         
         return students;
