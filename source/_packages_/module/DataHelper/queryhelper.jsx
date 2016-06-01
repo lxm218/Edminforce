@@ -117,8 +117,9 @@ KG.define('EF-DataHelper', class extends Base{
 
             getFinanceDetailByDate(date){
                 let m = KG.DataHelper.getDepModule();
-
+console.log(date);
                 date = moment(date);
+                console.log(date.format('MM/DD/YYYY'));
                 let min = date.hour(0).minute(0).second(0).clone(),
                     max = date.hour(23).minute(59).second(59).clone();
                 let query = {
@@ -126,7 +127,7 @@ KG.define('EF-DataHelper', class extends Base{
                     paymentType : {
                         $in : ['credit card', 'echeck', 'check', 'cash']
                     },
-                    updateTime : {
+                    createTime : {
                         '$gte' : min.toDate(),
                         '$lte' : max.toDate()
                     }
@@ -144,7 +145,7 @@ KG.define('EF-DataHelper', class extends Base{
                     var csID = _.last(item.details);
                     if(!csID) return true;
 
-                    if(item.type === 'register' || item.type === 'makeup'){
+                    if(item.type !== 'change class'){
                         csID = item.details;
                     }
                     else{
@@ -286,7 +287,8 @@ KG.define('EF-DataHelper', class extends Base{
                     item.customer = m.Customer.getDB().findOne({_id : item.accountID});
 
                     let cid = item.couponID || item.customerCouponID;
-                    item.coupon = m.Coupon.getDB().findOne({_id : cid});
+                    item.couponID = cid;
+                    //item.coupon = m.Coupon.getDB().findOne({_id : cid});
 
                     return item;
                 });

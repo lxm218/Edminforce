@@ -239,7 +239,7 @@ KUI.Report_Coupon = class extends KUI.Page{
 			},
 			{
 				title : 'Coupon Code',
-				key : 'coupon._id'
+				key : 'couponID'
 			},
 			{
 				title : 'Payment amount',

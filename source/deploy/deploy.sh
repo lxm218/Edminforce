@@ -48,7 +48,7 @@ deployAdminProduction(){
 	 . ./ENV.inc
 	 echo ${ADMIN_ENV};
 	 cd admin-production;
-    sudo mup setup;
+    #sudo mup setup;
 	 sudo ${ADMIN_ENV} mup deploy;
 	 cd ../;
  	 echo "link : https://calcolor-admin.classforth.com/home";
