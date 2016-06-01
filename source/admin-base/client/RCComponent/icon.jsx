@@ -3,11 +3,11 @@
 KUI.Icon = class extends RC.CSS{
 
     click(e){
-        e.preventDefault();
-
         if(this.props.onClick){
             this.props.onClick(e)
         }
+
+        e.stopPropagation();
     }
 
 
