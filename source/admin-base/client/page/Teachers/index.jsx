@@ -16,12 +16,26 @@ KUI.Teachers_index = class extends RC.CSS {
         this.onClassDateChange = this.onClassDateChange.bind(this);
         this.filterClassBySelectedTeacher = this.filterClassBySelectedTeacher.bind(this);
         this.getStudents = this.getStudents.bind(this);
+        this.save = this.save.bind(this);
+        this.cancel = this.cancel.bind(this);
+        this.markAllAsPresent = this.markAllAsPresent.bind(this);
+        this.clearAttendance = this.clearAttendance.bind(this);
 
         this.teachers = [];
         this.classes = [];
         this.students = [];
         this.programs = [];
         this.teacherClasses = [];
+
+
+        this.attendanceOptions = [
+            "N/A",
+            "Present",
+            "Absent",
+            "Excused",
+            "Tardy",
+            "Left Early"
+        ]
     }
 
     setupDatePicker(){
@@ -38,9 +52,17 @@ KUI.Teachers_index = class extends RC.CSS {
             seletedClassID = this.teacherClasses[classIdx]._id;
 
         if (seletedClassID) {
+
             !this.state.loading && this.setState({loading:true});
             Meteor.call('attendance.getStudents', seletedClassID, (function(err,result){
                 this.students = result;
+                // filter out trial/makeup students that are not on the selected date
+                this.students = _.filter(this.students, (s) => {
+                    return s.type == 'register' ||
+                            (s.lessonDate.getFullYear() == this.state.selectedDate.getFullYear() &&
+                            s.lessonDate.getMonth() == this.state.selectedDate.getMonth() &&
+                            s.lessonDate.getDate() == this.state.selectedDate.getDate());
+                })
                 cb && cb();
             }).bind(this))
         }
@@ -84,6 +106,10 @@ KUI.Teachers_index = class extends RC.CSS {
         }).bind(this))
     }
 
+    componentWillUnmount() {
+        //alert("save")
+    }
+
     onSelectTeacher(event) {
         let teacherIdx = event.target.selectedIndex;
         let classIdx = 0;
@@ -92,6 +118,7 @@ KUI.Teachers_index = class extends RC.CSS {
             this.setState({
                 selectedTeacherIdx:teacherIdx,
                 selectedClassIdx: classIdx,
+                dirtyCount: 0,
                 loading:false
             });
         });
@@ -102,6 +129,7 @@ KUI.Teachers_index = class extends RC.CSS {
         this.getStudents(classIdx, () => {
             this.setState({
                 selectedClassIdx: classIdx,
+                dirtyCount: 0,
                 loading:false
             });
         });
@@ -119,17 +147,65 @@ KUI.Teachers_index = class extends RC.CSS {
                 this.setState({
                     selectedDate: newDate,
                     selectedClassIdx: classIdx,
+                    dirtyCount: 0,
                     loading:false
                 });
             })
         }
     }
 
-    save() {
+    updateAllAttendance(option) {
+        if (!this.students || !this.students.length) return;
 
+        let currentDay = "d" + moment(this.state.selectedDate).format("YYYYMMDD");
+        this.students.forEach( (s) => {
+            s.currentAttendance = s.attendance[currentDay] = option;
+            s.dirty = true;
+        });
+
+        this.setState({dirtyCount: this.state.dirtyCount+1})
     }
-    cancel() {
+    markAllAsPresent() {
+        this.updateAllAttendance("Present");
+    }
 
+    clearAttendance() {
+        this.updateAllAttendance("N/A");
+    }
+
+    save() {
+        if (!this.state.dirtyCount || !this.students || !this.students.length) return;
+        let studentsToUpdate = _.filter(this.students, "dirty");
+        if (studentsToUpdate.length == 0) return;
+
+        this.setState({loading:true});
+        Meteor.call("attendance.updateStudentsAttendance", studentsToUpdate, (err, result) => {
+            if (!err) {
+                this.students.forEach( (s) => {
+                    s.dirty = false;
+                });
+                this.setState({
+                    dirtyCount: 0,
+                    loading: false
+                });
+            }
+            else {
+                this.setState({
+                    loading: false
+                });
+            }
+        })
+    }
+
+    cancel() {
+        if (!this.state.dirtyCount || !this.students || !this.students.length) return;
+
+        this.students.forEach( (s) => {
+            s.dirty = false;
+        });
+        this.setState({
+            dirtyCount: 0
+        });
     }
 
     render() {
@@ -162,13 +238,6 @@ KUI.Teachers_index = class extends RC.CSS {
             }
         };
 
-        // const attendenceType = [
-        //     "Present",
-        //     "Absent",
-        //     "Excused",
-        //     "Tardy",
-        //     "Left Early"
-        // ];
         let self = this;
         const titleArray = [
             {
@@ -197,7 +266,7 @@ KUI.Teachers_index = class extends RC.CSS {
                 }
             },
             {
-                title : 'Action',
+                title : 'Attendance',
                 style : {
                     textAlign : 'center'
                 },
@@ -205,6 +274,7 @@ KUI.Teachers_index = class extends RC.CSS {
                     let changeAttendance = function(e) {
                         let currentDay = "d" + moment(self.state.selectedDate).format("YYYYMMDD");
                         item.currentAttendance = item.attendance[currentDay] = e.target.value;
+                        item.dirty = true;
                         self.setState({dirtyCount:self.state.dirtyCount+1});
                     }
                     
@@ -212,7 +282,7 @@ KUI.Teachers_index = class extends RC.CSS {
                         <div style={{textAlign:"center"}}>
                             <select value={item.currentAttendance} onChange={changeAttendance}>
                                 {
-                                    KG.get('EF-ClassStudent').getDBSchema().schema('attendance').allowedValues.map( (t) => (<option key={t} value={t}>{t}</option>))
+                                    self.attendanceOptions.map( (t) => (<option key={t} value={t}>{t}</option>))
                                 }
                             </select>
                         </div>
@@ -250,6 +320,12 @@ KUI.Teachers_index = class extends RC.CSS {
                         </RB.Col>
                     </div>
                 </RB.Row>
+                <RB.Row>
+                    <RC.Div style={{textAlign:'left'}}>
+                        <KUI.YesButton style={{margin: 20}} onClick={this.markAllAsPresent} label="Mark all as Present"></KUI.YesButton>
+                        <KUI.YesButton style={{marginTop: 20,marginBottom: 20}} onClick={this.clearAttendance} label="Clear Attendance"></KUI.YesButton>
+                    </RC.Div>
+                </RB.Row>
 
                 <KUI.Table
                     style={style.table}
@@ -260,8 +336,8 @@ KUI.Teachers_index = class extends RC.CSS {
 
 
                 <RC.Div style={{textAlign:'right'}}>
-                    <KUI.YesButton style={{marginRight: 20}} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
-                    <KUI.NoButton onClick={this.cancel.bind(this)} label="Cancel"></KUI.NoButton>
+                    <KUI.YesButton style={{marginRight: 20}} onClick={this.save} label="Save"></KUI.YesButton>
+                    <KUI.NoButton onClick={this.cancel} label="Cancel"></KUI.NoButton>
                 </RC.Div>
             </RC.Div>
         );

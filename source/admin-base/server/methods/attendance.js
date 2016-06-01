@@ -23,6 +23,7 @@ Meteor.methods({
     'attendance.getStudents': function(classID) {
         let students = KG.get('EF-ClassStudent').getDB().find({
             classID,
+            type: {$in: ['register','trial','makeup']},
             status:'checkouted'}, {
             fields: {
                 studentID: 1,
@@ -42,7 +43,18 @@ Meteor.methods({
         return students;
     },
 
-    'attendance.updateStudentAttendance': function() {
+    'attendance.updateStudentsAttendance': function(students) {
+        if (!students || !students.length) return;
         
+        let classStudentDB = KG.get('EF-ClassStudent').getDB();
+        students.forEach( (s) =>{
+            classStudentDB.update({
+                _id: s._id
+            }, {
+                $set : {
+                    attendance: s.attendance
+                }
+            });
+        })
     }
 })

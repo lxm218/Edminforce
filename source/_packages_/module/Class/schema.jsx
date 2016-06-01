@@ -246,15 +246,7 @@ Schema.ClassStudent = {
         type: Object,
         optional: true,
         blackbox: true,
-        defaultValue: {},
-        allowedValues: [
-            "N/A",
-            "Present",
-            "Absent",
-            "Excused",
-            "Tardy",
-            "Left Early"
-        ]
+        defaultValue: {}
     },
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime(),
