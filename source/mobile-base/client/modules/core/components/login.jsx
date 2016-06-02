@@ -465,10 +465,10 @@ EdminForce.Components.User = React.createClass({
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" placeholder="Edm1n!"/>
           <RC.URL style={styles.url} color={linkColor} colorHover={linkColorHover} onClick={this.showPolicy}>
-            Please check our Terms and Policy here.
+            <h6> Terms and Policy </h6>
           </RC.URL>
           <RC.Checkbox name="term" ref="term" value={1} style={{whiteSpace:"normal"}}
-                       label="Yes, I accept Policy and Terms."/>
+                       label="Yes, I accept Terms and Policy."/>
 
           <RC.Button name="button" theme={buttonTheme} active={this.state.buttonActive} disabled={this.state.waiting}>
             {this.state.waiting ? <RC.uiIcon uiClass="circle-o-notch spin-slow" /> : "Sign Up"}
