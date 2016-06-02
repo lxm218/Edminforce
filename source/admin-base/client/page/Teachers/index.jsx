@@ -23,7 +23,10 @@ KUI.Teachers_index = class extends RC.CSS {
 
         this.teachers = [];
         this.classes = [];
+        // all regular students, and trial/makeup students on the selected date
         this.students = [];
+        // a complete list of students of a class, including all trial/makeup students
+        this.completeStudents = [];
         this.programs = [];
         this.teacherClasses = [];
 
@@ -96,7 +99,7 @@ KUI.Teachers_index = class extends RC.CSS {
         let saveChanges = false;
         let studentsToUpdate = [];
         if (this.state.dirtyCount > 0) {
-            studentsToUpdate = _.filter(this.students, "dirty");
+            studentsToUpdate = _.filter(this.completeStudents, "dirty");
             if (studentsToUpdate.length > 0 && window.confirm("Do you want to save the updated attendance ?")) {
                 saveChanges = true;
             }
@@ -110,6 +113,15 @@ KUI.Teachers_index = class extends RC.CSS {
         }
     }
 
+    filterTrialMakeupStudentsByDate(dt) {
+        this.students = _.filter(this.completeStudents, (s) => {
+            return s.type == 'register' ||
+                (s.lessonDate.getFullYear() == dt.getFullYear() &&
+                s.lessonDate.getMonth() == dt.getMonth() &&
+                s.lessonDate.getDate() == dt.getDate());
+        })
+    }
+
     // get students for the selected class
     getStudents(classIdx, cb) {
         let seletedClassID = null;
@@ -121,19 +133,23 @@ KUI.Teachers_index = class extends RC.CSS {
             // prompt user for unsaved changes
             this.promptSave( (err,result) => {
                 Meteor.call('attendance.getStudents', seletedClassID, (function(err,result){
-                    this.students = result;
+                    this.completeStudents = result;
+
+                    // save attendance, so we can restore in cancel
+                    this.completeStudents.forEach( (s) => {
+                        s.attendance = s.attendance || {};
+                        s.savedAttendance = {...s.attendance};
+                    });
+
                     // filter out trial/makeup students that are not on the selected date
-                    this.students = _.filter(this.students, (s) => {
-                        return s.type == 'register' ||
-                            (s.lessonDate.getFullYear() == this.state.selectedDate.getFullYear() &&
-                            s.lessonDate.getMonth() == this.state.selectedDate.getMonth() &&
-                            s.lessonDate.getDate() == this.state.selectedDate.getDate());
-                    })
+                    this.filterTrialMakeupStudentsByDate(this.state.selectedDate);
+
                     cb && cb();
                 }).bind(this))
             })
         }
         else {
+            this.completeStudents = [];
             this.students = [];
             cb && cb();
         }
@@ -199,6 +215,7 @@ KUI.Teachers_index = class extends RC.CSS {
                 })
             }
             else {
+                this.filterTrialMakeupStudentsByDate(newDate);
                 this.setState({
                     selectedDate: newDate
                 });
@@ -226,8 +243,8 @@ KUI.Teachers_index = class extends RC.CSS {
     }
 
     onSave() {
-        if (!this.state.dirtyCount || !this.students || !this.students.length) return;
-        let studentsToUpdate = _.filter(this.students, "dirty");
+        if (!this.state.dirtyCount || !this.completeStudents || !this.completeStudents.length) return;
+        let studentsToUpdate = _.filter(this.completeStudents, "dirty");
         if (studentsToUpdate.length == 0) return;
 
         this.save(studentsToUpdate, (err,result) => {
@@ -240,11 +257,13 @@ KUI.Teachers_index = class extends RC.CSS {
     }
 
     onCancel() {
-        if (!this.state.dirtyCount || !this.students || !this.students.length) return;
+        if (!this.state.dirtyCount || !this.completeStudents || !this.completeStudents.length) return;
 
-        this.students.forEach( (s) => {
+        this.completeStudents.forEach( (s) => {
             s.dirty = false;
+            s.attendance = {...s.savedAttendance};
         });
+
         this.setState({
             dirtyCount: 0
         });
@@ -335,7 +354,6 @@ KUI.Teachers_index = class extends RC.CSS {
 
         let currentDay = "d" + moment(this.state.selectedDate).format("YYYYMMDD");
         this.students.forEach( (s) => {
-            s.attendance = s.attendance || {};
             s.currentAttendance = s.attendance[currentDay] || "N/A";
         })
 
@@ -345,7 +363,7 @@ KUI.Teachers_index = class extends RC.CSS {
                 <RB.Row >
                     <div className="form-horizontal">
                         <RB.Col md={6} mdOffset={0}>
-                            <RB.Input type="select" {... p.teacher} onChange={this.onSelectTeacher}>
+                            <RB.Input type="select" {... p.teacher} onChange={this.onSelectTeacher} value={this.teachers.length > this.state.selectedTeacherIdx ? this.teachers[this.state.selectedTeacherIdx]._id : null}>
                                 {
                                     this.teachers.map( (t) => (<option key={'t'+t._id} value={t._id}>{t.nickName}</option>))
                                 }
