@@ -102,13 +102,13 @@ KG.define('EF-DataHelper', class extends Base{
 
                     });
 
-                    rs.date = date.clone().toDate();
+                    rs.date = date.clone().format(KG.const.dateFormat);
 
                     result.push(rs);
                 };
 
-                let start = moment(opts.startDate, KG.const.dateFormat).utcOffset(zone),
-                    end = moment(opts.endDate, KG.const.dateFormat).add(1, 'days').utcOffset(zone);
+                let start = KG.util.getZoneDateByString(opts.startDate, zone),
+                    end = KG.util.getZoneDateByString(opts.endDate, zone).add(1, 'days');
 console.log(start.format(), end.format());
                 do{
                     loop(start);
@@ -122,7 +122,7 @@ console.log(start.format(), end.format());
                 let m = KG.DataHelper.getDepModule();
 
                 let zone = m.School.getDB().findOne().timezone || 0;
-                date = moment(date, KG.const.dateFormat).utcOffset(zone);
+                date = KG.util.getZoneDateByString(date, zone);
                 let min = date.clone().hour(0).minute(0).second(0),
                     max = date.clone().hour(23).minute(59).second(59);
                 console.log(date.format(), min.format(), max.format());
@@ -169,7 +169,8 @@ console.log(start.format(), end.format());
                         cs.class = cls;
                         cs.order = item;
 
-                        cs.dateline = moment(new Date(item.updateTime)).format('MM/DD/YYYY HH:mm:ss');
+                        cs.dateline = moment.utc(new Date(item.updateTime)).utcOffset(zone).format('MM/DD/YYYY' +
+                            ' HH:mm:ss');
 
                         result.push(cs);
                     });

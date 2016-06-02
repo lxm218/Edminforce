@@ -232,7 +232,7 @@ KUI.Report_Finance = class extends KUI.Page{
 						cursor : 'pointer',
 						fontWeight : 'normal'
 					};
-					return <b style={sy} onClick={self.toCurrentDate.bind(self)}>{moment(doc.date).format(util.const.dateFormat)}</b>;
+					return <b style={sy} onClick={self.toCurrentDate.bind(self)}>{doc.date}</b>;
 				}
 			},
 			{
@@ -362,6 +362,10 @@ KUI.Report_Finance = class extends KUI.Page{
 			{
 				title : 'School Credit',
 				key : 'order.schoolCredit'
+			},
+			{
+				title : 'Registration Fee',
+				key : 'order.registrationFee'
 			},
 			{
 				title : 'Pay From',

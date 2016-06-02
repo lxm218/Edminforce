@@ -31,6 +31,23 @@ KG.util = {
         });
 
         return query;
+    },
+
+    /*
+    * @param str -> 05/29/2016
+    * @param zone -> 8 [must be hours]
+    * @return (moment)"2016-05-29T00:00:00+08:00"
+    * */
+    getZoneDateByString : function(str, zone){
+        var d = moment.utc(str, KG.const.dateFormat).utcOffset(zone);
+        if(zone > 0){
+            d = d.substract(zone, 'hours');
+        }
+        else{
+            d = d.add(Math.abs(zone), 'hours');
+        }
+
+        return d;
     }
 };
 
