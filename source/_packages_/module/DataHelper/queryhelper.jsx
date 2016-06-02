@@ -44,9 +44,11 @@ KG.define('EF-DataHelper', class extends Base{
                 let result = [];
 
                 // date is moment object
+                let zone = m.School.getDB().findOne().timezone || 0;
                 let loop = (date)=>{
-                    let min = date.hour(0).minute(0).second(0).clone(),
-                        max = date.hour(23).minute(59).second(59).clone();
+                    let min = date.clone().hour(0).minute(0).second(0),
+                        max = date.clone().hour(23).minute(59).second(59);
+                    console.log(date.format(), min.format(), max.format());
                     let query = {
                         status : 'success',
                         //type : {$in:['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit']},
@@ -105,9 +107,9 @@ KG.define('EF-DataHelper', class extends Base{
                     result.push(rs);
                 };
 
-                let start = moment(opts.startDate),
-                    end = moment(opts.endDate);
-
+                let start = moment(opts.startDate, KG.const.dateFormat).utcOffset(zone),
+                    end = moment(opts.endDate, KG.const.dateFormat).add(1, 'days').utcOffset(zone);
+console.log(start.format(), end.format());
                 do{
                     loop(start);
                     start = start.add(1, 'days');
@@ -119,10 +121,11 @@ KG.define('EF-DataHelper', class extends Base{
             getFinanceDetailByDate(date){
                 let m = KG.DataHelper.getDepModule();
 
-                date = moment(date);
                 let zone = m.School.getDB().findOne().timezone || 0;
-                let min = date.hour(0).minute(0).second(0).clone().utcOffset(zone),
-                    max = date.hour(23).minute(59).second(59).clone().utcOffset(zone);
+                date = moment(date, KG.const.dateFormat).utcOffset(zone);
+                let min = date.clone().hour(0).minute(0).second(0),
+                    max = date.clone().hour(23).minute(59).second(59);
+                console.log(date.format(), min.format(), max.format());
                 let query = {
                     status : 'success',
                     paymentType : {
@@ -166,7 +169,7 @@ KG.define('EF-DataHelper', class extends Base{
                         cs.class = cls;
                         cs.order = item;
 
-                        cs.dateline = moment(item.updateTime).utcOffset(zone).format('MM/DD/YYYY hh:mm:ss');
+                        cs.dateline = moment(new Date(item.updateTime)).format('MM/DD/YYYY HH:mm:ss');
 
                         result.push(cs);
                     });

@@ -40,7 +40,11 @@ KG = {
 
 KG.const = {
     USERTOKEN : 'Meteor:user-token',
-    CACHELOGINPATH : 'meteor:login-cache-path'
+    CACHELOGINPATH : 'meteor:login-cache-path',
+
+    dateFormat : 'MM/DD/YYYY',
+    timeFormat : 'HH:mm:ss',
+    dateAllFormat : 'MM/DD/YYYY HH:mm:ss'
 };
 
 KG.schema = {

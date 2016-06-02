@@ -287,6 +287,16 @@ KG.define('EF-Customer', class extends Base{
                     }
                 }).fetch();
                 return rs;
+            },
+
+            getOrderInfoByAccountID(id, option={}){
+                let m = KG.DataHelper.getDepModule();
+
+                //get all order data
+                let query = {accountID : id};
+                option = KG.util.setDBOption(option);
+
+
             }
         };
     }
