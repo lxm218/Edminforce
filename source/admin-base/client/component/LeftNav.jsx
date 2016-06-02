@@ -37,6 +37,10 @@ KUI.LeftNav = KUI.Class.define('ui.LeftNav', {
                 href : '/registration'
             },
             {
+                name : 'Teachers',
+                href : '/teachers'
+            },
+            {
                 name : 'Email',
                 href : '/email'
             },

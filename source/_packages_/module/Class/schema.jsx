@@ -236,6 +236,18 @@ Schema.ClassStudent = {
         type : Date,
         optional : true
     },
+    // student attendance record
+    // example:
+    // {
+    //     d20160527: "Present",
+    //     d20160603: "Excused"
+    // }
+    attendance: {
+        type: Object,
+        optional: true,
+        blackbox: true,
+        defaultValue: {}
+    },
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime(),
     dynamicKey : KG.schema.default({
