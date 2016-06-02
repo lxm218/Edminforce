@@ -9,11 +9,18 @@ Meteor.methods({
                 {endDate: {$gte: currentDate}}
             ]
         }) || {};
-        
+
         // all programs
         result.programs = KG.get('EF-Program').getDB().find({}).fetch();
-        // all teachers
-        result.teachers = KG.get('EF-AdminUser').getDB().find({role : 'teacher'}).fetch();
+
+        // teachers. 
+        // admin can view all teachers, teacher can only view herself/himself
+        let currentUser = KG.get('EF-AdminUser').getDB().findOne({_id: this.userId}) || {};
+        let query = {role : 'teacher'};
+        if (currentUser.role != "admin")
+            query._id = this.userId;
+        result.teachers = KG.get('EF-AdminUser').getDB().find(query).fetch();
+
         // all current classes
         result.classes = KG.get('EF-Class').getDB().find({sessionID:result.currentSession._id}).fetch();
         
