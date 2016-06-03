@@ -4,6 +4,14 @@ EdminForce.Components.HeaderNav = class extends RC.HeaderNav {
     super(props);
   }
 
+  baseStyles(np,ns) {
+    let style = super.baseStyles(np, ns);
+    style.fullNavInner.padding = "6% 24px";
+    style.fullNavInner.verticalAlign = "top";
+    style.fullNavItem.fontSize = 26;
+    return style;
+  }
+
   renderFullNav() {
     let self = this
     const styles = this.css.get("styles")
