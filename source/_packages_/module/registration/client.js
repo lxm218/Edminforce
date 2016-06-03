@@ -15,7 +15,7 @@ function getStudentstWithClasses(userId, studentID, studentClassID) {
     return students.map((student) => {
         let studentClasses = Collections.classStudent.find({
             studentID: student._id,
-            type: {$in: ['register', 'trial']}
+            type: {$in: ['register', 'trial', 'makeup']}
         }).fetch();
 
         // separate all classes into current & completed

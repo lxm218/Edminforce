@@ -16,7 +16,7 @@ EdminForce.Components.Students = class extends RC.CSS {
 
     selectClass(student, studentClass) {
         // it has class
-        if (student && studentClass && studentClass.type !== 'trial') {
+        if (student && studentClass && studentClass.type !== 'trial' && studentClass.type !== 'makeup' ) {
 
             let params = {
                 studentID: student._id
@@ -64,7 +64,7 @@ EdminForce.Components.Students = class extends RC.CSS {
                         !sc.completed && (
                             <p style={{padding: 0}}>
                                 {
-                                    sc.type === "trial" ? "Trial on " + moment(sc.lessonDate).format("MMM D, YYYY") : (sc.session.startDate.getTime() < currentTime ? "Current" : "New Registration")
+                                    (sc.type === "trial" || sc.type==='makeup') ? (sc.type === "trial" ? "Trial on " : "Make up on ") + moment(sc.lessonDate).format("MMM D, YYYY") : (sc.session.startDate.getTime() < currentTime ? "Current" : "New Registration")
                                 }
                             </p>
                         )

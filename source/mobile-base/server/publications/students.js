@@ -20,7 +20,7 @@ Meteor.publishComposite("StudentsWithClasses", function(studentID) {
                     return Collections.classStudent.find({
                         studentID: student._id,
                         type: {
-                            $in: ['register', 'trial']
+                            $in: ['register', 'trial', 'makeup']
                         },
                         status: {
                             $in: ['checkouted']
