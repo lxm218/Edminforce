@@ -301,14 +301,21 @@ KUI.Teachers_index = class extends RC.CSS {
     }
 
     onCancel() {
-        if (!this.state.dirtyCount || !this.completeStudents || !this.completeStudents.length) return;
+        let messages = []
+        if (this.state.dirtyCount && this.completeStudents && this.completeStudents.length>0) {
+            this.completeStudents.forEach( (s) => {
+                s.dirty = false;
+                s.attendance = {...s.savedAttendance};
+            });
+            messages.push('Cancelled');
+        }
+        else {
+            messages.push('No changes');
+        }
 
-        this.completeStudents.forEach( (s) => {
-            s.dirty = false;
-            s.attendance = {...s.savedAttendance};
-        });
 
         this.setState({
+            messages,
             dirtyCount: 0
         });
     }
