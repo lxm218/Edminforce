@@ -19,9 +19,7 @@ EdminForce.Components.Home = ({actions}) => (
         </RC.List>
 
         <RC.Div style={{"textAlign": "center"}}>
-            <p style={{fontSize: "16px"}} className="font_8">
-                <span style={{fontFamily: "nimbus-sans-tw01con, sans-serif",fontSize: "22px", lineHeight: "normal"}} className="color_19">ADDRESS</span>
-            </p>
+            <p/>
             <p className="font_9">47816 Warm Springs Blvd, Fremont, CA</p>
             <p className="font_9">help@CalColorAcademy.com</p>
             <p className="font_9">Front-Desk: 510-580-6883</p>
@@ -29,9 +27,7 @@ EdminForce.Components.Home = ({actions}) => (
         </RC.Div>
 
         <RC.Div style={{"textAlign": "center", marginTop: 20}}>
-            <p style={{fontSize: "16px"}} className="font_8">
-                <span style={{fontFamily: "nimbus-sans-tw01con, sans-serif",fontSize: "22px", lineHeight: "normal"}} className="color_19">PHOTO GALLARY +&nbsp;CUSTOMER REVIEW</span>
-            </p>
+
             <RC.Div style={{marginTop: 10}}>
                 <div style={{marginRight:19, display:"inline-block"}}>
                     <a href="http://www.facebook.com/CalColorArt" target="_blank">
@@ -53,7 +49,8 @@ EdminForce.Components.Home = ({actions}) => (
 
         <RC.Div style={{textAlign: "center", marginTop:20}}>
             <p style={{fontSize: "16px"}} className="font_8">
-                <span style={{fontFamily: "nimbus-sans-tw01con, sans-serif",fontSize: "22px", lineHeight: "normal"}} className="color_19">Powered by <a href="http://www.classforth.com" target="_blank">Classforth</a></span>
+              <br/>
+                <span style={{fontFamily: "nimbus-sans-tw01con, sans-serif",fontSize: "12px", lineHeight: "normal"}} className="color_9">Powered by </span> <a href="http://www.classforth.com" style={{fontFamily: "nimbus-sans-tw01con, sans-serif",fontSize: "12px", lineHeight: "normal"}} className="color_19"  target="_blank">Classforth</a>
             </p>
         </RC.Div>
     </RC.Div>
