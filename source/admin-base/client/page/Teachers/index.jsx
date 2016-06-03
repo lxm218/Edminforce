@@ -1,3 +1,30 @@
+const DismissibleInfo = React.createClass({
+    dismiss() {
+        this.props.onDismiss && this.props.onDismiss();
+    },
+
+    render() {
+        if (!this.props.messages || this.props.messages.length == 0)
+            return (<div/>);
+
+        let messages = this.props.messages.map( (msg,idx) => {
+            return <p key={idx}>{msg}</p>
+        });
+
+        return (
+            <div style={{position:"relative"}}>
+                <div style={{position:"absolute", zIndex:100, top: "10px", maxWidth:"500px", right:"10px"}}>
+                    <div className="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" className="close" aria-label="Close" onClick={this.dismiss}><span aria-hidden="true">&times;</span></button>
+                        {messages}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+});
+
+
 KUI.Teachers_index = class extends RC.CSS {
 
     constructor(p) {
@@ -20,6 +47,7 @@ KUI.Teachers_index = class extends RC.CSS {
         this.onCancel = this.onCancel.bind(this);
         this.markAllAsPresent = this.markAllAsPresent.bind(this);
         this.clearAttendance = this.clearAttendance.bind(this);
+        this.dismissMessages = this.dismissMessages.bind(this);
 
         this.teachers = [];
         this.classes = [];
@@ -243,16 +271,32 @@ KUI.Teachers_index = class extends RC.CSS {
     }
 
     onSave() {
-        if (!this.state.dirtyCount || !this.completeStudents || !this.completeStudents.length) return;
+        if (!this.state.dirtyCount || !this.completeStudents || !this.completeStudents.length) {
+            this.setState({messages: ["No changes"]});
+            return;
+        }
         let studentsToUpdate = _.filter(this.completeStudents, "dirty");
-        if (studentsToUpdate.length == 0) return;
+        if (studentsToUpdate.length == 0) {
+            this.setState({messages: ["No changes"]});
+            return;
+        }
 
         this.save(studentsToUpdate, (err,result) => {
             let newState = {
-                loading:false
+                loading:false,
+                messages:[]
             }
-            !err && (newState.dirtyCount = 0);
+            if (err) {
+                newState.messages.push("Error saving attendance.");
+            }
+            else {
+                newState.dirtyCount = 0;
+                newState.messages.push("Successfully saved.");
+            }
             this.setState(newState);
+            setTimeout((function(){ 
+                this.dismissMessages();
+            }).bind(this), 3000);
         });
     }
 
@@ -267,6 +311,10 @@ KUI.Teachers_index = class extends RC.CSS {
         this.setState({
             dirtyCount: 0
         });
+    }
+
+    dismissMessages() {
+        this.state.messages && this.state.messages.length > 0 && this.setState({messages:null});
     }
 
     render() {
@@ -391,7 +439,10 @@ KUI.Teachers_index = class extends RC.CSS {
                 <RB.Row>
                     <RC.Div style={{textAlign:'left'}}>
                         <KUI.YesButton style={{margin: 20}} onClick={this.markAllAsPresent} label="Mark all as Present"></KUI.YesButton>
-                        <KUI.YesButton style={{marginTop: 20,marginBottom: 20}} onClick={this.clearAttendance} label="Clear Attendance"></KUI.YesButton>
+                        <KUI.YesButton style={{marginTop: 20,marginBottom: 20, marginRight:20}} onClick={this.clearAttendance} label="Clear Attendance"></KUI.YesButton>
+                        <RC.Div style={{float:"right"}}>
+                            <DismissibleInfo onDismiss={this.dismissMessages} messages={this.state.messages}></DismissibleInfo>
+                        </RC.Div>
                     </RC.Div>
                 </RB.Row>
 
