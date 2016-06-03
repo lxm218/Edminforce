@@ -166,7 +166,7 @@ KUI.Email_EditTemplate = class extends KUI.Page{
         return {
             ready : x.ready(),
             id : id,
-            data : KG.get('EF-EmailTemplate').getDB().findOne()
+            data : KG.get('EF-EmailTemplate').getDB().findOne({_id:id})
         };
     }
 
