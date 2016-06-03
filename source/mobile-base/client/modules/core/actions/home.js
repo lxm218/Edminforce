@@ -4,13 +4,17 @@ EdminForce.Actions.Home = {
     goToPrograms() {
         FlowRouter.go('/programs');
     },
-
+    
+    goToRegistration() {
+        FlowRouter.go('/classes');
+    },
+    
+    goToStudents() {
+        FlowRouter.go('/students');
+    },
+    
     goToAccount() {
         EdminForce.utils.authGo('/account');
-    },
-
-    goToContact() {
-        FlowRouter.go('/contact');
     }
 }
 
