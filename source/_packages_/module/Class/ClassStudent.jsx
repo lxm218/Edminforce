@@ -265,7 +265,7 @@ let ClassStudent = class extends Base{
 
                 //update fee and discounted
                 let data = {
-                    fee : order.amount-Math.abs(order.discount),
+                    fee : order.amount+order.schoolCredit||0,
                     discounted : order.discount,
                     orderID:orderID
                 };

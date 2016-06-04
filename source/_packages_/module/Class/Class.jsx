@@ -473,7 +473,7 @@ let Class = class extends Base{
                 let cd = this.getAll({_id : opts.classID})[0];
 
                 let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
-                let allTuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
+                let tuiPer = cd.leftOfClass/cd.numberOfClass;
 
 
                 let d = m.Order.getDB().findOne({
@@ -489,7 +489,8 @@ let Class = class extends Base{
                 }
                 else{
                     let cs = m.ClassStudent.getDB().findOne({_id : opts.ClassStudentID});
-                    let tmp = (tuition*cs.discounted/(cs.fee||allTuition)).toFixed(2);
+                    //let tmp = (tuition*cs.discounted/(cs.fee||allTuition)).toFixed(2);
+                    let tmp = ((cs.fee)*tuiPer).toFixed(2);
 
                     return {
                         tuition : 0-tmp,

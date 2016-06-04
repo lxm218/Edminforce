@@ -289,54 +289,45 @@ KG.define('EF-Customer', class extends Base{
                 return rs;
             },
 
-            getOrderInfoByAccountID(id, option={}){
+            getOrderInfoByAccountID(id, option){
+
                 let m = KG.DataHelper.getDepModule();
 
-                //get all order data
                 let query = {
-                    accountID : id,
-                    status : 'success'
+                    status : 'success',
+                    paymentType : {
+                        $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
+                    },
+                    accountID : id
                 };
+
                 option = KG.util.setDBOption(option);
-
-                let orderList = m.Order.getDB().find(query, {
+                option.sort = {
                     updateTime : -1
-                }).fetch();
-
+                };
 
                 let result = [];
-                _.each(orderList, (item)=>{
-                    var csID = _.last(item.details);
-                    if(!csID) return true;
+                let data = m.Order.getDB().find(query, option).fetch();
 
-                    if(item.type !== 'change class'){
-                        csID = item.details;
-                    }
-                    else{
-                        csID = [csID];
-                    }
+console.log(option);
+                result = _.map(data, (item)=>{
+                    //add customer
+                    item.customer = m.Customer.getDB().findOne({_id : item.accountID});
 
-                    console.log(csID);
-                    _.each(csID, (id)=>{
-                        let cs = m.ClassStudent.getDB().findOne({
-                            _id : id
-                            //status : 'checkouted'
-                        });
-                        if(!cs) return true;
-                        let student = m.Student.getAll({_id : cs.studentID})[0],
-                            cls = m.Class.getAll({_id : cs.classID})[0];
-                        cs.student = student;
-                        cs.class = cls;
-                        cs.order = item;
+                    //calculate totalAmount & actualPayment
+                    try{
+                        item.totalAmount = item.amount + Math.abs(item.discount) - item.registrationFee;
+                        item.actualPayment = item.totalAmount - Math.abs(item.discount);
+                    }catch(e){}
 
 
-                        result.push(cs);
-                    });
-
-
+                    return item;
                 });
 
-                return result;
+                return {
+                    count : m.Order.getDB().find(query).count(),
+                    data : result
+                };
             }
         };
     }

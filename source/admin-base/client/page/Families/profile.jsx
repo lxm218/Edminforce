@@ -162,20 +162,39 @@ let BillingTable = class extends RC.CSS{
         this.m = KG.DataHelper.getDepModule();
 
         this.state = {
-            list : null
+            list : null,
+
+            detailReport : null
         };
+
+        this.accountID = null;
+        this.page = 1;
     }
 
     getStateData(accountID){
+        if(accountID){
+            this.accountID = accountID;
+        }
+        else{
+            accountID = this.accountID;
+        }
+
         let self = this;
-        this.m.Customer.callMeteorMethod('getOrderInfoByAccountID', [accountID], {
+        this.m.Customer.callMeteorMethod('getOrderInfoByAccountID', [accountID, {
+            pageSize : 10,
+            pageNum : this.page
+        }], {
             success : function(list){
                 console.log(list);
+                self.setState({
+                    list : list
+                });
             }
         });
     }
 
     render(){
+        let self = this;
         if(!this.state.list){
             return null;
         }
@@ -184,7 +203,139 @@ let BillingTable = class extends RC.CSS{
         }
 
 
-        const titleArray = [
+        let titleArray = [
+            {
+                title : 'Date',
+                //key : 'dateline',
+                reactDom(doc){
+                    let sy = {
+                        cursor : 'pointer',
+                        fontWeight : 'normal',
+                        textDecoration : 'underline'
+                    };
+
+                    let dateline = moment(doc.updateTime).format(KG.const.dateAllFormat);
+
+                    let showDetailModal = function(){
+                        self.setState({
+                            detailReport : 'loading'
+                        });
+
+                        KG.DataHelper.callMeteorMethod('getFinanceDetailByOrderID', [doc._id, dateline], {
+                            success : function(rs){
+                                console.log(rs);
+                                self.setState({
+                                    detailReport : rs
+                                });
+                            }
+                        });
+
+                        self.refs.modal.show();
+                    };
+
+                    return <b style={sy} onClick={showDetailModal.bind(self)}>{dateline}</b>;
+                }
+            },
+            {
+                title : 'Type',
+                key : 'type'
+            },
+            {
+                title : 'Payment',
+                key : 'paymentType'
+            },
+            {
+                title : 'Total Amount($)',
+                key : 'totalAmount'
+            },
+            {
+                title : 'Registration Fee',
+                key : 'registrationFee'
+            },
+            {
+                title : 'School Credit',
+                key : 'schoolCredit'
+            },
+            {
+                title : 'Discount($)',
+                reactDom : function(doc){
+                    return doc.discount;
+                }
+            },
+            {
+                title : 'Coupon code',
+                reactDom : function(doc){
+                    return doc.couponID || doc.customerCouponID || '';
+                }
+            },
+            {
+                title : 'Actual Payment($)',
+                key : 'actualPayment'
+            },
+
+            {
+                title : 'Pay From',
+                key : 'paymentSource'
+            },
+
+        ];
+
+        return (
+            <RC.Div>
+                <KUI.PageTable
+                    total={this.state.list.count}
+                    pagesize={10}
+                    page={this.page}
+                    onSelectPage={this.selectPage.bind(this)}
+                    style={{}}
+                    list={this.state.list.data}
+                    title={titleArray}
+                    ref="table">
+                </KUI.PageTable>
+                {this.renderDetailDialog()}
+            </RC.Div>
+
+        );
+    }
+    selectPage(page){
+        this.page = page;
+console.log(page);
+        this.getStateData();
+    }
+
+    renderDetailDialog(){
+        let param = {
+            title : `Detail Infomation`,
+            YesFn : function(){
+
+            },
+            renderBody : function(){
+                return (
+                    <RC.Div>
+
+                        {this.renderDetailBody()}
+                    </RC.Div>
+                );
+            }
+        };
+
+        return util.dialog.render.call(this, 'modal', param);
+    }
+
+    renderDetailBody(){
+        let self = this;
+        if(!this.state.detailReport){
+            return null;
+        }
+        else if('loading' === this.state.detailReport){
+            return util.renderLoading();
+        }
+
+        let titleArray = [
+            {
+                title : 'Date',
+                key : 'dateline'
+            },
             {
                 title : 'Student',
                 key : 'student.name'
@@ -195,64 +346,34 @@ let BillingTable = class extends RC.CSS{
             },
             {
                 title : 'Type',
-                key : 'order.type'
+                reactDom(doc){
+                    let rs = doc.order.type;
+                    if(rs === 'mixed'){
+                        rs = doc.type;
+                    }
+                    return rs;
+                }
             },
             {
-                title : 'Payment',
-                key : 'order.paymentType'
-            },
-            {
-                title : 'Amount ($)',
-                reactDom : function(doc){
-                    if(!_.isUndefined(doc.fee)){
+                title : 'Amount($)',
+                reactDom(doc){
+                    if(_.contains(['register class', 'makeup class'], doc.order.type)){
                         return doc.fee;
                     }
 
-                    return doc.order.paymentTotal;
+                    return doc.order.amount;
+
 
                 }
-            },
-            {
-                title : 'Coupon code',
-                reactDom : function(doc){
-                    return doc.order.couponID || doc.order.customerCouponID || '';
-                }
-            },
-            {
-                title : 'Discount($)',
-                reactDom : function(doc){
-                    try{
-                        return doc.fee - doc.discounted;
-                    }catch(e){
-                        return doc.order.discount;
-                    }
-                }
-            },
-            {
-                title : 'School Credit',
-                key : 'order.schoolCredit'
-            },
-            {
-                title : 'Registration Fee',
-                key : 'order.registrationFee'
-            },
-            {
-                title : 'Pay From',
-                key : 'order.paymentSource'
-            },
-            {
-                title : 'Date',
-                key : 'dateline'
             }
         ];
 
         return (
             <KUI.Table
                 style={{}}
-                list={this.state.list}
+                list={this.state.detailReport}
                 title={titleArray}
-                ref="table">
-            </KUI.Table>
+                ref="table"></KUI.Table>
         );
     }
 
