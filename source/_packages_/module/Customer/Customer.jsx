@@ -293,10 +293,50 @@ KG.define('EF-Customer', class extends Base{
                 let m = KG.DataHelper.getDepModule();
 
                 //get all order data
-                let query = {accountID : id};
+                let query = {
+                    accountID : id,
+                    status : 'success'
+                };
                 option = KG.util.setDBOption(option);
 
+                let orderList = m.Order.getDB().find(query, {
+                    updateTime : -1
+                }).fetch();
 
+
+                let result = [];
+                _.each(orderList, (item)=>{
+                    var csID = _.last(item.details);
+                    if(!csID) return true;
+
+                    if(item.type !== 'change class'){
+                        csID = item.details;
+                    }
+                    else{
+                        csID = [csID];
+                    }
+
+                    console.log(csID);
+                    _.each(csID, (id)=>{
+                        let cs = m.ClassStudent.getDB().findOne({
+                            _id : id
+                            //status : 'checkouted'
+                        });
+                        if(!cs) return true;
+                        let student = m.Student.getAll({_id : cs.studentID})[0],
+                            cls = m.Class.getAll({_id : cs.classID})[0];
+                        cs.student = student;
+                        cs.class = cls;
+                        cs.order = item;
+
+
+                        result.push(cs);
+                    });
+
+
+                });
+
+                return result;
             }
         };
     }

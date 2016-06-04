@@ -41,7 +41,7 @@ KG.util = {
     getZoneDateByString : function(str, zone){
         var d = moment.utc(str, KG.const.dateFormat).utcOffset(zone);
         if(zone > 0){
-            d = d.substract(zone, 'hours');
+            d = d.subtract(zone, 'hours');
         }
         else{
             d = d.add(Math.abs(zone), 'hours');

@@ -155,6 +155,109 @@ KUI.Family_add_comp = class extends RC.CSS{
 
 };
 
+let BillingTable = class extends RC.CSS{
+    constructor(p){
+        super(p);
+
+        this.m = KG.DataHelper.getDepModule();
+
+        this.state = {
+            list : null
+        };
+    }
+
+    getStateData(accountID){
+        let self = this;
+        this.m.Customer.callMeteorMethod('getOrderInfoByAccountID', [accountID], {
+            success : function(list){
+                console.log(list);
+            }
+        });
+    }
+
+    render(){
+        if(!this.state.list){
+            return null;
+        }
+        else if(this.state.list === 'loading'){
+            return util.renderLoading();
+        }
+
+
+        const titleArray = [
+            {
+                title : 'Student',
+                key : 'student.name'
+            },
+            {
+                title : 'Class',
+                key : 'class.nickName'
+            },
+            {
+                title : 'Type',
+                key : 'order.type'
+            },
+            {
+                title : 'Payment',
+                key : 'order.paymentType'
+            },
+            {
+                title : 'Amount ($)',
+                reactDom : function(doc){
+                    if(!_.isUndefined(doc.fee)){
+                        return doc.fee;
+                    }
+
+                    return doc.order.paymentTotal;
+
+                }
+            },
+            {
+                title : 'Coupon code',
+                reactDom : function(doc){
+                    return doc.order.couponID || doc.order.customerCouponID || '';
+                }
+            },
+            {
+                title : 'Discount($)',
+                reactDom : function(doc){
+                    try{
+                        return doc.fee - doc.discounted;
+                    }catch(e){
+                        return doc.order.discount;
+                    }
+                }
+            },
+            {
+                title : 'School Credit',
+                key : 'order.schoolCredit'
+            },
+            {
+                title : 'Registration Fee',
+                key : 'order.registrationFee'
+            },
+            {
+                title : 'Pay From',
+                key : 'order.paymentSource'
+            },
+            {
+                title : 'Date',
+                key : 'dateline'
+            }
+        ];
+
+        return (
+            <KUI.Table
+                style={{}}
+                list={this.state.list}
+                title={titleArray}
+                ref="table">
+            </KUI.Table>
+        );
+    }
+
+};
+
 
 KUI.Family_profile = class extends KUI.Page{
 
@@ -187,32 +290,13 @@ KUI.Family_profile = class extends KUI.Page{
             }
         });
 
-        let x1 = {
-            ready : function(){ return false; }
-        };
-        if(y.ready()){
-            let sl = _.map(list, (d)=>{
-                return d._id;
-            });
-            console.log(sl);
-
-            x1 = Meteor.subscribe('EF-Order', {
-                query : {
-                    studentID : {
-                        '$in' : sl
-                    },
-                    status : 'success'
-                }
-            });
-        }
 
         return {
             id : id,
             ready : x.ready(),
             listReady : y.ready(),
             profile : profile,
-            list : list,
-            orderReady : x1.ready()
+            list : list
         };
     }
 
@@ -317,7 +401,7 @@ KUI.Family_profile = class extends KUI.Page{
                 </RC.Div>
                 <hr/>
                 <h4>Billing</h4>
-                {this.renderOrderTable()}
+                <BillingTable ref="billingTable"></BillingTable>
             </RC.Div>
         );
     }
@@ -341,6 +425,8 @@ KUI.Family_profile = class extends KUI.Page{
     runOnceAfterDataReady(){
         let data = this.data.profile;
         this.refs.form.setDefaultValue(data);
+
+        this.refs.billingTable.getStateData(this.data.id);
     }
 
     renderStudentTable(){
@@ -389,68 +475,5 @@ KUI.Family_profile = class extends KUI.Page{
 
     }
 
-    renderOrderTable(){
-        if(!this.data.orderReady){
-            return util.renderLoading();
-        }
-
-        let sl = _.map(this.data.list, (d)=>{
-            return d._id;
-        });
-        let list = this.m.Order.getDB().find({
-            studentID : { '$in' : sl}
-        }, {
-            sort : {
-                updateTime : -1
-            }
-        }).fetch();
-
-        list = _.map(list, (item)=>{
-            let st = this.m.Student.getDB().findOne({
-                _id : item.studentID
-            });
-            item.student = st;
-            return item;
-        });
-
-
-        const titleArray = [
-            {
-                title : 'Date',
-                reactDom(doc){
-                    return moment(doc.updateTime).format(util.const.dateFormat)
-                }
-            },
-            {
-                title : 'Name',
-                key : 'student.name'
-            },
-            {
-                title : 'Type',
-                key : 'type'
-            },
-            {
-                title : 'Amount($)',
-                key : 'paymentTotal'
-            },
-            {
-                title : 'Payment Type',
-                key : 'paymentType'
-            },
-            {
-                title : 'Status',
-                key : 'status'
-            }
-        ];
-
-        return (
-            <KUI.Table
-                style={{}}
-                list={list}
-                title={titleArray}
-                ref="table1">
-            </KUI.Table>
-        );
-    }
 
 };
