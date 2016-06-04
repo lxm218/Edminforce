@@ -38,6 +38,8 @@ function applyCoupon(couponId, classStudents) {
         let valid = true;
 
         classData.discounted = classData.fee;
+        if (classData.type != 'makeup' && classData.type != 'register')
+            return;
 
         let classInfo = Collections.class.findOne({_id: classData.classID}, {fields:{schedule:1,programID:1,sessionID:1,tuition:1}});
         if (!classInfo) {
@@ -87,29 +89,33 @@ function updateClassStudentDiscountedFee() {
     orders.forEach( (order) => {
         console.log(order._id, order.type, order.couponID, order.details);
         //console.log(order.amount, order.paymentTotal, order.discount);
+        
+        EdminForce.Registration.getRegistrationSummary(order.accountID, order.details, order.couponID);
 
-        let scs = Collections.classStudent.find({
-            _id: {$in: order.details}
-        }).fetch();
-
-        if (scs.length > 0 && scs[0].hasOwnProperty("discounted")) {
-            console.log('already has discounted');
-            return;
-        }
-
-        if (order.couponID) {
-            console.log(order.couponID);
-            applyCoupon(order.couponID, scs);
-        }
-
-        scs.forEach( (sc) => {
-            if(!order.couponID) {
-                sc.discounted = sc.fee;
-            }
-            console.log(sc._id, sc.fee, sc.discounted);
-
-            //Collections.classStudent.update({_id: sc._id}, {$set: {discounted: sc.discounted}});
-        })
+        // let scs = Collections.classStudent.find({
+        //     _id: {$in: order.details}
+        // }).fetch();
+        //
+        // if (scs.length > 0 && scs[0].hasOwnProperty("discounted")) {
+        //     console.log('already has discounted');
+        //     return;
+        // }
+        //
+        // calcCalssFee(scs);
+        //
+        // if (order.couponID) {
+        //     console.log(order.couponID);
+        //     applyCoupon(order.couponID, scs);
+        // }
+        //
+        // scs.forEach( (sc) => {
+        //     if(!order.couponID) {
+        //         sc.discounted = sc.fee;
+        //     }
+        //     console.log(sc._id, sc.fee, sc.discounted);
+        //
+        //     //Collections.classStudent.update({_id: sc._id}, {$set: {discounted: sc.discounted}});
+        // })
     })
 }
 

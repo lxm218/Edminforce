@@ -270,7 +270,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
  * */
 function calculateRegistrationFee(classData, session) {
     let tuition = lodash.toNumber(classData.tuition.money);
-    return classData.tuition.type==='class'? tuition * KG.get('EF-Class').calculateNumberOfClass(classData,session,true) : tuition
+    return classData.tuition.type==='class'? tuition * KG.get('EF-Class').calculateNumberOfClass(classData,session,false) : tuition
 }
 
 
@@ -306,44 +306,44 @@ function applyCoupon(userId, couponId, cart) {
     let couponType = result[2];
 
 
-    // check coupon time
-    coupon.startDate = coupon.startDate || new Date(1900,1,1);
-    coupon.endDate = coupon.endDate || new Date(9999,1,1);
-    let currentTime = new Date();
-    if (currentTime < coupon.startDate || currentTime > coupon.endDate) {
-        cart.couponMsg = 'Invalid Coupon';
-        return;
-    }
-
-    // check if the coupon is only valid for new customers
-    let customer = Collections.Customer.findOne({_id: userId});
-    let isNewCustomer = customer && customer.hasRegistrationFee;
-    if (coupon.validForNoBooked && !isNewCustomer) {
-        cart.couponMsg = 'This Coupon is Only Valid for New Customers';
-        return;
-    }
-
-    //  check how many times the coupon has been used
-    let usedCoupons = Collections.customerCoupon.find({
-        customerID: userId,
-        couponID: couponId,
-        status: {
-            $nin: ['canceled']
-        }
-    }).count();
-
-    let maxCount = Number(coupon.maxCount);
-    if (maxCount && usedCoupons >= maxCount) {
-        cart.couponMsg = "This coupon can only be used " + coupon.maxCount + " times";
-        return;
-    }
-
-    // check minimum amount
-    let minAmount = Number(coupon.overRequire);
-    if (minAmount && cart.total < minAmount) {
-        cart.couponMsg = "This coupon only valid when you buy more than " + coupon.overRequire;
-        return;
-    }
+    // // check coupon time
+    // coupon.startDate = coupon.startDate || new Date(1900,1,1);
+    // coupon.endDate = coupon.endDate || new Date(9999,1,1);
+    // let currentTime = new Date();
+    // if (currentTime < coupon.startDate || currentTime > coupon.endDate) {
+    //     cart.couponMsg = 'Invalid Coupon';
+    //     return;
+    // }
+    //
+    // // check if the coupon is only valid for new customers
+    // let customer = Collections.Customer.findOne({_id: userId});
+    // let isNewCustomer = customer && customer.hasRegistrationFee;
+    // if (coupon.validForNoBooked && !isNewCustomer) {
+    //     cart.couponMsg = 'This Coupon is Only Valid for New Customers';
+    //     return;
+    // }
+    //
+    // //  check how many times the coupon has been used
+    // let usedCoupons = Collections.customerCoupon.find({
+    //     customerID: userId,
+    //     couponID: couponId,
+    //     status: {
+    //         $nin: ['canceled']
+    //     }
+    // }).count();
+    //
+    // let maxCount = Number(coupon.maxCount);
+    // if (maxCount && usedCoupons >= maxCount) {
+    //     cart.couponMsg = "This coupon can only be used " + coupon.maxCount + " times";
+    //     return;
+    // }
+    //
+    // // check minimum amount
+    // let minAmount = Number(coupon.overRequire);
+    // if (minAmount && cart.total < minAmount) {
+    //     cart.couponMsg = "This coupon only valid when you buy more than " + coupon.overRequire;
+    //     return;
+    // }
 
     // passed all validations, now calculate discount amount
     cart.couponMsg = '';
@@ -495,11 +495,11 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
 
     // save classFee back into classStudent record
     // so we can show it in billing report
-    lodash.forOwn(groupByStudent, (value,key) => {
-        lodash.forEach(value, (sc) => {
-            Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee, discounted: sc.discounted}});
-        });
-    });
+    // lodash.forOwn(groupByStudent, (value,key) => {
+    //     lodash.forEach(value, (sc) => {
+    //         Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee, discounted: sc.discounted}});
+    //     });
+    // });
 
     return result;
 }
