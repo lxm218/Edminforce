@@ -5,6 +5,7 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 
 		this.state = {
 			page : 1,
+			query : {},
 
 			customer : {},
 			detail : []
@@ -16,7 +17,7 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 	getMeteorData(){
 
 		let x = util.data.subscribe(this.m.Customer, {
-			query : {},
+			query : this.state.query,
 			pageSize : 10,
 			pageNum : this.state.page,
 			sort : {
@@ -41,6 +42,8 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 		return (
 			<RC.Div>
 				<h3>School Credit Report</h3>
+				<hr/>
+				{this.getSearchBox()}
 				<hr/>
 				{this.renderListTable()}
 
@@ -199,5 +202,63 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 				ref="table">
 			</KUI.Table>
 		);
+	}
+
+	getSearchBox(){
+
+		let p = {
+			sname : {
+				labelClassName : 'col-xs-3',
+				wrapperClassName : 'col-xs-6',
+				ref : 'sname',
+				label : 'Search Customer'
+			}
+		};
+
+		const sy = {
+			td : {
+				textAlign : 'left'
+			},
+			ml : {
+				marginLeft : '20px'
+			},
+			rd : {
+				textAlign : 'right'
+			}
+		};
+
+		let op1 = ['Active', 'Inactive'];
+
+		return (
+			<form className="form-horizontal">
+				<RB.Row>
+					<RB.Col md={12} mdOffset={0}>
+						<RB.Input type="text" {... p.sname} />
+
+					</RB.Col>
+				</RB.Row>
+				<RC.Div style={sy.rd}>
+					<KUI.YesButton style={sy.ml} onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
+				</RC.Div>
+			</form>
+		);
+	}
+
+	search(){
+		let name = this.refs.sname.getValue();
+
+		let query = {};
+		if(name){
+			query.name = {
+				value : name,
+				type : 'RegExp'
+			};
+		}
+
+		console.log(query);
+		this.setState({
+			query : query,
+			page : 1
+		});
 	}
 };

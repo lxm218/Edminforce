@@ -56,6 +56,10 @@ KUI.Setting_AdminUserList = class extends KUI.Page{
 				key : 'role'
 			},
 			{
+				title : 'Status',
+				key : 'status'
+			},
+			{
 				title : 'Action',
 				style : {
 					textAlign : 'center'
