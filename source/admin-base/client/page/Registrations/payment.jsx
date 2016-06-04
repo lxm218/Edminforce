@@ -415,13 +415,13 @@ console.log(m.Customer.getAll()[0])
             this.changeCustomerRegistrationFee();
 
 
-            let total = 0;
-            if(s24){
-                total = parseFloat(this.total.get())+(parseFloat(orderData.poundage||0));
-            }
-            else{
-                total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
-            }
+            let total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
+            // if(s24){
+            //     total = parseFloat(this.total.get())+(parseFloat(orderData.poundage||0));
+            // }
+            // else{
+            //     total = parseFloat(this.total.get())*(1+(parseFloat(orderData.poundage||0)));
+            // }
             total = total.toFixed(2);
             if(orderData.poundage){
                 orderData.poundage = orderData.poundage.toString();

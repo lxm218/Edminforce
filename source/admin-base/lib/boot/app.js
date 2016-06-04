@@ -9,7 +9,7 @@ App.config = {
 
     poundage : {
         credit : 0.03,
-        echeck : '0.5$',
+        echeck : 0.0075,
         cash : 0,
         check : 0
     }
