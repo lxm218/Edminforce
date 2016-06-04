@@ -90,16 +90,18 @@ function updateClassStudentDiscountedFee() {
         console.log(order._id, order.type, order.couponID, order.details);
         //console.log(order.amount, order.paymentTotal, order.discount);
         
-        EdminForce.Registration.getRegistrationSummary(order.accountID, order.details, order.couponID);
+        let scs = Collections.classStudent.find({
+            _id: {$in: order.details}
+        }).fetch();
+        
+        if (scs.length > 0 && scs[0].hasOwnProperty("discounted")) {
+            console.log('already has discounted');
+            return;
+        }
 
-        // let scs = Collections.classStudent.find({
-        //     _id: {$in: order.details}
-        // }).fetch();
-        //
-        // if (scs.length > 0 && scs[0].hasOwnProperty("discounted")) {
-        //     console.log('already has discounted');
-        //     return;
-        // }
+        let result = EdminForce.Registration.getRegistrationSummary(order.accountID, order.details, order.couponID);
+        console.log(result.students);
+        
         //
         // calcCalssFee(scs);
         //
@@ -121,4 +123,5 @@ function updateClassStudentDiscountedFee() {
 
 Meteor.startup( () => {
     //EdminForce.Registration.syncClassRegistrationCount();
+    updateClassStudentDiscountedFee();
 })
