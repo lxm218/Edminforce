@@ -93,6 +93,11 @@ function updateClassStudentDiscountedFee() {
         let scs = Collections.classStudent.find({
             _id: {$in: order.details}
         }).fetch();
+
+        if (scs.length == 0) {
+            console.log('empty')
+            return;
+        }
         
         if (scs.length > 0 && scs[0].hasOwnProperty("discounted")) {
             console.log('already has discounted');
@@ -100,7 +105,9 @@ function updateClassStudentDiscountedFee() {
         }
 
         let result = EdminForce.Registration.getRegistrationSummary(order.accountID, order.details, order.couponID);
-        console.log(result.students);
+        result.students.forEach( (st) => {
+            console.log(st.classes);
+        })
         
         //
         // calcCalssFee(scs);

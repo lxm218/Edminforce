@@ -420,10 +420,12 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
         discount: 0,
         schoolCredit: 0,
     }
+
+    console.log(userId, studentClassIDs);
     
     let query = {
-        accountID: userId,
-        status: 'pending'
+        //accountID: userId,
+        //status: 'pending'
     }
     if (studentClassIDs) {
         query._id = {$in: studentClassIDs}
@@ -435,6 +437,8 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
 
     let sessions = [];
     let programs = [];
+
+    console.log(studentClasses);
 
     let groupByStudent = lodash.groupBy(studentClasses, 'studentID');
     lodash.forOwn(groupByStudent, (value,key) => {
@@ -495,11 +499,11 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
 
     // save classFee back into classStudent record
     // so we can show it in billing report
-    // lodash.forOwn(groupByStudent, (value,key) => {
-    //     lodash.forEach(value, (sc) => {
-    //         Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee, discounted: sc.discounted}});
-    //     });
-    // });
+    lodash.forOwn(groupByStudent, (value,key) => {
+        lodash.forEach(value, (sc) => {
+            Collections.classStudent.update(sc._id, {$set: {fee: sc.classFee, discounted: sc.discounted}});
+        });
+    });
 
     return result;
 }
