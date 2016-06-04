@@ -265,8 +265,8 @@ let ClassStudent = class extends Base{
 
                 //update fee and discounted
                 let data = {
-                    fee : order.paymentTotal+order.discount,
-                    discounted : order.paymentTotal,
+                    fee : order.amount-Math.abs(order.discount),
+                    discounted : order.discount,
                     orderID:orderID
                 };
                 self._db.update({_id : id}, {'$set' : data});

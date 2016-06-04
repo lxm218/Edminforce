@@ -61,7 +61,8 @@ Schema.Order = {
     schoolCredit:{
         decimal: true,
         type: Number,
-        optional: true
+        optional: true,
+        defaultValue : 0
     },
     createTime: KG.schema.createTime(),
     updateTime: KG.schema.updateTime()

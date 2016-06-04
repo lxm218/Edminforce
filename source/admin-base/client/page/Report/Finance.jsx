@@ -70,7 +70,9 @@ KUI.Report_Finance = class extends KUI.Page{
 			result : [],
 
 			currentDate : null,
-			dateResult : []
+			dateResult : [],
+
+			detailReport : null
 		};
 	}
 
@@ -123,6 +125,7 @@ KUI.Report_Finance = class extends KUI.Page{
 					</RC.Div>
 				</RC.Div>
 
+				{this.renderDetailDialog()}
 			</RC.Div>
 		);
 	}
@@ -230,7 +233,8 @@ KUI.Report_Finance = class extends KUI.Page{
 				reactDom(doc){
 					let sy = {
 						cursor : 'pointer',
-						fontWeight : 'normal'
+						fontWeight : 'normal',
+						textDecoration : 'underline'
 					};
 					return <b style={sy} onClick={self.toCurrentDate.bind(self)}>{doc.date}</b>;
 				}
@@ -257,6 +261,12 @@ KUI.Report_Finance = class extends KUI.Page{
 				title : 'Check ($)',
 				reactDom(doc){
 					return `${doc['check'][0]}/${doc['check'][1]}`;
+				}
+			},
+			{
+				title : 'School Credit ($)',
+				reactDom(doc){
+					return `${doc['school credit'][0]}/${doc['school credit'][1]}`;
 				}
 			},
 			{
@@ -317,64 +327,81 @@ KUI.Report_Finance = class extends KUI.Page{
 		let list = this.state.dateResult;
 		let titleArray = [
 			{
-				title : 'Student',
-				key : 'student.name'
+				title : 'Date',
+				//key : 'dateline',
+				reactDom(doc){
+					let sy = {
+						cursor : 'pointer',
+						fontWeight : 'normal',
+						textDecoration : 'underline'
+					};
+
+					let showDetailModal = function(){
+						self.setState({
+							detailReport : 'loading'
+						});
+
+						KG.DataHelper.callMeteorMethod('getFinanceDetailByOrderID', [doc._id, doc.dateline], {
+							success : function(rs){
+								console.log(rs);
+								self.setState({
+									detailReport : rs
+								});
+							}
+						});
+
+						self.refs.modal.show();
+					};
+
+					return <b style={sy} onClick={showDetailModal.bind(self)}>{doc.dateline}</b>;
+				}
 			},
 			{
-				title : 'Class',
-				key : 'class.nickName'
+				title : 'Family',
+				key : 'customer.name'
 			},
 			{
 				title : 'Type',
-				key : 'order.type'
+				key : 'type'
 			},
 			{
 				title : 'Payment',
-				key : 'order.paymentType'
+				key : 'paymentType'
 			},
 			{
-				title : 'Amount ($)',
+				title : 'Total Amount($)',
+				key : 'totalAmount'
+			},
+			{
+				title : 'Registration Fee',
+				key : 'registrationFee'
+			},
+			{
+				title : 'School Credit',
+				key : 'schoolCredit'
+			},
+			{
+				title : 'Discount($)',
 				reactDom : function(doc){
-					if(!_.isUndefined(doc.fee)){
-						return doc.fee;
-					}
-
-					return doc.order.paymentTotal;
-
+					return doc.discount;
 				}
 			},
 			{
 				title : 'Coupon code',
 				reactDom : function(doc){
-					return doc.order.couponID || doc.order.customerCouponID || '';
+					return doc.couponID || doc.customerCouponID || '';
 				}
 			},
 			{
-				title : 'Discount($)',
-				reactDom : function(doc){
-					try{
-						return doc.fee - doc.discounted;
-					}catch(e){
-						return doc.order.discount;
-					}
-				}
+				title : 'Actual Payment($)',
+				key : 'actualPayment'
 			},
-			{
-				title : 'School Credit',
-				key : 'order.schoolCredit'
-			},
-			{
-				title : 'Registration Fee',
-				key : 'order.registrationFee'
-			},
+
 			{
 				title : 'Pay From',
-				key : 'order.paymentSource'
+				key : 'paymentSource'
 			},
-			{
-				title : 'Date',
-				key : 'dateline'
-			}
+
 		];
 
 
@@ -396,5 +423,73 @@ KUI.Report_Finance = class extends KUI.Page{
 		if(this.state.dateResult.length > 0) {
 			return (<KUI.NoButton onClick={this.exportDay.bind(this)} style={{marginLeft : '15px'}} label="Export Report" ></KUI.NoButton>);
 		}
+	}
+
+
+	renderDetailDialog(){
+		let param = {
+			title : `Finance Report Detail Infomation`,
+			YesFn : function(){
+
+			},
+			renderBody : function(){
+				return (
+					<RC.Div>
+
+						{this.renderDetailBody()}
+					</RC.Div>
+				);
+			}
+		};
+
+		return util.dialog.render.call(this, 'modal', param);
+	}
+
+	renderDetailBody(){
+		if(!this.state.detailReport){
+			return null;
+		}
+		else if('loading' === this.state.detailReport){
+			return util.renderLoading();
+		}
+
+		let titleArray = [
+			{
+				title : 'Date',
+				key : 'dateline'
+			},
+			{
+				title : 'Student',
+				key : 'student.name'
+			},
+			{
+				title : 'Class',
+				key : 'class.nickName'
+			},
+			{
+				title : 'Type',
+				reactDom(doc){
+					let rs = doc.order.type;
+					if(rs === 'mixed'){
+						rs = doc.type;
+					}
+					return rs;
+				}
+			},
+			{
+				title : 'Total Amount($)',
+				reactDom(doc){
+					return doc.fee + Math.abs(doc.discounted);
+				}
+			}
+		];
+
+		return (
+			<KUI.Table
+				style={{}}
+				list={this.state.detailReport}
+				title={titleArray}
+				ref="table"></KUI.Table>
+		);
 	}
 };

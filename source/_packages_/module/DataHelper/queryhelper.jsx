@@ -53,7 +53,7 @@ KG.define('EF-DataHelper', class extends Base{
                         status : 'success',
                         //type : {$in:['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit']},
                         paymentType : {
-                            $in : ['credit card', 'echeck', 'check', 'cash']
+                            $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
                         },
                         updateTime : {
                             '$gte' : min.toDate(),
@@ -69,6 +69,7 @@ KG.define('EF-DataHelper', class extends Base{
                         'echeck' : [0, 0],
                         'cash' : [0, 0],
                         'check' : [0, 0],
+                        'school credit' : [0, 0],
                         detail : [],
                         total : []
                     };
@@ -86,7 +87,10 @@ KG.define('EF-DataHelper', class extends Base{
                         total[0] += parseFloat(item.paymentTotal);
                         total[1] += parseFloat(item.paymentTotal)+parseFloat(item.discount);
 
-
+                        if(item.paymentType === 'school credit'){
+                            rs[item.paymentType][0] += parseFloat(item.schoolCredit||0);
+                            rs[item.paymentType][1] += parseFloat(item.schoolCredit||0);
+                        }
                     });
 
                     rs.total = total;
@@ -129,7 +133,7 @@ console.log(start.format(), end.format());
                 let query = {
                     status : 'success',
                     paymentType : {
-                        $in : ['credit card', 'echeck', 'check', 'cash']
+                        $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
                     },
                     updateTime : {
                         '$gte' : min.toDate(),
@@ -145,37 +149,41 @@ console.log(start.format(), end.format());
                 }).fetch();
 
 
-                _.each(data, (item)=>{
-                    var csID = _.last(item.details);
-                    if(!csID) return true;
+                result = _.map(data, (item)=>{
+                    //add customer
+                    item.customer = m.Customer.getDB().findOne({_id : item.accountID});
 
-                    if(item.type !== 'change class'){
-                        csID = item.details;
-                    }
-                    else{
-                        csID = [csID];
-                    }
+                    //calculate totalAmount & actualPayment
+                    try{
+                        item.totalAmount = item.amount + Math.abs(item.discount) - item.registrationFee;
+                        item.actualPayment = item.totalAmount - Math.abs(item.discount);
+                    }catch(e){}
 
-                    console.log(csID);
-                    _.each(csID, (id)=>{
-                        let cs = m.ClassStudent.getDB().findOne({
-                            _id : id
-                            //status : 'checkouted'
-                        });
-                        if(!cs) return true;
-                        let student = m.Student.getAll({_id : cs.studentID})[0],
-                            cls = m.Class.getAll({_id : cs.classID})[0];
-                        cs.student = student;
-                        cs.class = cls;
-                        cs.order = item;
+                    item.dateline = moment.utc(new Date(item.updateTime)).utcOffset(zone).format(KG.const.dateAllFormat);
 
-                        cs.dateline = moment.utc(new Date(item.updateTime)).utcOffset(zone).format('MM/DD/YYYY' +
-                            ' HH:mm:ss');
+                    return item;
+                });
 
-                        result.push(cs);
+                return result;
+            },
+
+            getFinanceDetailByOrderID(orderID, dateline){
+                let m = KG.DataHelper.getDepModule();
+                let order = m.Order.getDB().findOne({_id : orderID});
+
+                let result = [];
+
+                let csID = order.details;
+                result = _.map(csID, (id)=>{
+                    let cs = m.ClassStudent.getDB().findOne({
+                        _id : id
                     });
+                    cs.student = m.Student.getAll({_id : cs.studentID})[0];
+                    cs.class = m.Class.getAll({_id : cs.classID})[0];
+                    cs.order = order;
+                    cs.dateline = dateline;
 
-
+                    return cs;
                 });
 
                 return result;
