@@ -171,12 +171,16 @@ let BillingTable = class extends RC.CSS{
         this.page = 1;
     }
 
-    getStateData(accountID){
+    getStateData(accountID, page){
         if(accountID){
             this.accountID = accountID;
         }
         else{
             accountID = this.accountID;
+        }
+
+        if(page){
+            this.page = page;
         }
 
         let self = this;
@@ -298,9 +302,8 @@ let BillingTable = class extends RC.CSS{
         );
     }
     selectPage(page){
-        this.page = page;
-console.log(page);
-        this.getStateData();
+
+        this.getStateData(null, page);
     }
 
     renderDetailDialog(){
@@ -498,6 +501,8 @@ KUI.Family_profile = class extends KUI.Page{
                     note : note
                 }
             });
+
+            self.refs.billingTable.getStateData(self.data.id, 1);
 
             swal.close();
         });
