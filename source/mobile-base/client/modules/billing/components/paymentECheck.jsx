@@ -5,7 +5,7 @@ EdminForce.Components.PaymentECheck = class extends RC.CSS {
             valid: false
         }
 
-        this.paymentTotal = Number(this.props.amount) + 0.5;
+        this.paymentTotal = Number(this.props.amount) * 1.0075;
 
         this.validateFormData = this.validateFormData.bind(this);
         this.postPayment = this.postPayment.bind(this);

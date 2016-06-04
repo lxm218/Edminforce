@@ -29,7 +29,7 @@ EdminForce.Components.Payment = class extends RC.CSS {
             <div>
                 <RC.Button onClick={this.payCreditCard}>Credit Card</RC.Button>
                 <RC.Button onClick={this.payECheck}>eCheck</RC.Button>
-                <RC.VerticalAlign left={true} className="padding"><h6>Note: 3% transaction fee is applied to credit card; $0.50 is applied to eCheck.</h6></RC.VerticalAlign>
+                <RC.VerticalAlign left={true} className="padding"><h6>Note: 3% transaction fee is applied to credit card; 0.75% is applied to eCheck.</h6></RC.VerticalAlign>
             </div>
         )
     }

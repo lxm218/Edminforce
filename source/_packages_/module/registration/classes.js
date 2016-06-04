@@ -886,7 +886,7 @@ function payECheck(userId, checkPaymentInfo) {
 
     paymentInfo.createTransactionRequest.refId = checkPaymentInfo.orderId;
     paymentInfo.createTransactionRequest.transactionRequest.customer.id = checkPaymentInfo.orderId;
-    let paymentTotal = order.amount - order.schoolCredit + 0.5;
+    let paymentTotal = (order.amount-order.schoolCredit) * 1.0075;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
