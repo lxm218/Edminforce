@@ -155,8 +155,8 @@ console.log(start.format(), end.format());
 
                     //calculate totalAmount & actualPayment
                     try{
-                        item.totalAmount = item.amount + Math.abs(item.discount) - item.registrationFee;
-                        item.actualPayment = item.totalAmount - Math.abs(item.discount);
+                        item.totalAmount = item.amount - item.registrationFee + Math.abs(item.discount) + item.schoolCredit||0;
+                        item.actualPayment = item.amount;
                     }catch(e){}
 
                     item.dateline = moment.utc(new Date(item.updateTime)).utcOffset(zone).format(KG.const.dateAllFormat);
@@ -186,7 +186,10 @@ console.log(start.format(), end.format());
                     return cs;
                 });
 
-                return result;
+                return {
+                    list : result,
+                    order : order
+                };
             },
 
             getStudentReport(opts){

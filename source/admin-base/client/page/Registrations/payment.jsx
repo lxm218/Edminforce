@@ -16,6 +16,7 @@ KUI.Registration_payment = class extends KUI.Page{
 
         this.classFee = 0;
         this.registrationFee = 0;
+        this.couponDiscount = 0;
 
         this.m = KG.DataHelper.getDepModule();
     }
@@ -129,6 +130,8 @@ console.log(m.Customer.getAll()[0])
 
             total = m.Coupon.calculateDiscountResult(this.state.coupon.discount, total);
             console.log(tmp, total);
+            this.couponDiscount = Math.abs(tmp-total).toFixed(2);
+
             list.push({
                 item : 'Coupon',
                 amount : '-$'+(tmp-total).toFixed(2)
@@ -360,7 +363,8 @@ console.log(m.Customer.getAll()[0])
             details : [this.data.id],
             amount : this.total.get(),
             registrationFee : this.registrationFee,
-            schoolCredit : this.currentUseSchoolCredit.get()
+            schoolCredit : this.currentUseSchoolCredit.get(),
+            discount : this.couponDiscount
         };
         if(this.state.coupon){
             let cid = this.state.coupon._id;
@@ -428,8 +432,7 @@ console.log(m.Customer.getAll()[0])
             }
 
             orderData.paymentTotal = total;
-            //orderData.discount = total+orderData.schoolCredit - (this.classFee+orderData.registrationFee);
-            orderData.discount = total - (this.classFee+orderData.registrationFee);
+
 
             let orderRs = KG.get('EF-Order').insert(orderData);
             KG.result.handle(orderRs, {

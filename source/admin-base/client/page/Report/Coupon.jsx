@@ -247,7 +247,10 @@ KUI.Report_Coupon = class extends KUI.Page{
 			},
 			{
 				title : 'Discount',
-				key : 'discount'
+				key : 'discount',
+				reactDom(doc){
+					return Math.abs(doc.discount);
+				}
 			},
 			{
 				title : 'From',

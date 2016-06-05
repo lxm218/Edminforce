@@ -74,6 +74,8 @@ KUI.Report_Finance = class extends KUI.Page{
 
 			detailReport : null
 		};
+
+		this.orderData = {};
 	}
 
 	getMeteorData(){
@@ -344,8 +346,9 @@ KUI.Report_Finance = class extends KUI.Page{
 						KG.DataHelper.callMeteorMethod('getFinanceDetailByOrderID', [doc._id, doc.dateline], {
 							success : function(rs){
 								console.log(rs);
+								self.orderData = rs.order;
 								self.setState({
-									detailReport : rs
+									detailReport : rs.list
 								});
 							}
 						});
@@ -491,11 +494,22 @@ KUI.Report_Finance = class extends KUI.Page{
 		];
 
 		return (
-			<KUI.Table
-				style={{}}
-				list={this.state.detailReport}
-				title={titleArray}
-				ref="table"></KUI.Table>
+			<RC.Div>
+				<KUI.Table
+					style={{}}
+					list={this.state.detailReport}
+					title={titleArray}
+					ref="table"></KUI.Table>
+
+				{
+					this.orderData.registrationFee
+						?
+						(<p>Registration Fee : {this.orderData.registrationFee}</p>)
+						:
+						null
+				}
+			</RC.Div>
+
 		);
 	}
 };

@@ -128,6 +128,10 @@ console.log(date, query);
 				key : 'trialStudent'
 			},
 			{
+				title : 'Teacher',
+				key : 'teacher'
+			},
+			{
 				title : 'Time',
 				key : 'schedule.time'
 			},
@@ -348,6 +352,7 @@ let FilterBox1 = class extends KUI.Page{
 	}
 };
 
+
 KUI.Student_MakeupClass = class extends KUI.Page{
 	constructor(p){
 		super(p);
@@ -357,10 +362,12 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 
 		this.fee = 0;
 		this.coupon = null;
+
+		this.m = KG.DataHelper.getDepModule();
 	}
 
 	getMeteorData(){
-		this.module = KG.DataHelper.getDepModule();
+		this.module = this.m;
 		let studentID = FlowRouter.getParam('studentID'),
 			classID = FlowRouter.getParam('classID'),
 			x = Meteor.subscribe('EF-Student', {

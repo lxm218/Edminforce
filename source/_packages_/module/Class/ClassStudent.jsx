@@ -104,13 +104,30 @@ let ClassStudent = class extends Base{
         }catch(e){}
     }
 
+
+
     insertByData(data){
+        //TODO change to meteor method
+
         data.type = 'register';
 
         let vd = this.validateWithSchema(data);
         if(vd !== true){
             return KG.result.out(false, vd, vd.reason);
         }
+
+        let tp = this._db.findOne({
+            classID : data.classID,
+            studentID : data.studentID,
+            type : {'$in':['register']},
+            status : {'$in':['pending']}
+        });
+
+        if(tp){
+            return KG.result.out(true, tp._id);
+        }
+
+
 
 
         let flag = this.checkCanBeRegister(data);
@@ -265,7 +282,7 @@ let ClassStudent = class extends Base{
 
                 //update fee and discounted
                 let data = {
-                    fee : order.amount+order.schoolCredit||0,
+                    fee : order.amount + (order.schoolCredit||0) - order.registrationFee||0,
                     discounted : order.discount,
                     orderID:orderID
                 };
