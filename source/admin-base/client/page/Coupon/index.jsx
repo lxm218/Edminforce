@@ -75,7 +75,7 @@ KUI.Coupon_index = class extends KUI.Page{
 
                     return (
                         <RC.Div style={{textAlign:'center'}}>
-                            <RC.URL target="_blank" href={`/program/coupon/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
+                            <RC.URL href={`/program/coupon/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
                             {/* <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd"
                              style={ml}></KUI.Icon> */}
                         </RC.Div>
