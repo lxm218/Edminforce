@@ -7,7 +7,8 @@ KG.define('EF-Coupon', class extends Base{
     getDepModule(){
         return {
             Order : KG.get('EF-Order'),
-            ClassStudent : KG.get('EF-ClassStudent')
+            ClassStudent : KG.get('EF-ClassStudent'),
+            CustomerCoupon : KG.get('EF-CustomerCoupon')
         };
     }
 
@@ -74,7 +75,19 @@ KG.define('EF-Coupon', class extends Base{
                     if(count < 1){
                         return KG.result.out(false, new Meteor.Error('count error', 'Coupon code is invalid'));
                     }
+                    else{
+                        let tpt = m.CustomerCoupon.getDB().find({
+                            customerID : opts.accountID,
+                            couponID : opts.couponCode,
+                            status : 'checkouted'
+                        }).count();
+
+                        if(tpt >= count){
+                            return KG.result.out(false, new Meteor.Error('count error', 'Coupon code is no count to use for current customer.'));
+                        }
+                    }
                 }
+
 
                 let d = moment(new Date());
                 if(d.isBefore(moment(one.startDate), 'd') || d.isAfter(moment(one.endDate), 'd')){
@@ -149,11 +162,20 @@ KG.define('EF-Coupon', class extends Base{
         return rs;
     }
 
-    useOnce(couponId){
-        let n = this._db.update({_id : couponId}, {
-            '$inc' : {maxCount : -1}
+    useOnce(couponId, accountID){
+        //TODO change to meteor method
+
+        //let n = this._db.update({_id : couponId}, {
+        //    '$inc' : {maxCount : -1}
+        //});
+        //console.log(n);
+        let m = this.getDepModule();
+        let n = m.CustomerCoupon.getDB().insert({
+            customerID : accountID,
+            couponID : couponId,
+            status : 'checkouted'
         });
-        console.log(n);
+
         return n;
     }
 });

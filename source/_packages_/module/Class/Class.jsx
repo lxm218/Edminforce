@@ -472,7 +472,7 @@ let Class = class extends Base{
                 let m = KG.DataHelper.getDepModule();
                 let cd = this.getAll({_id : opts.classID})[0];
 
-                let tuition = cd.tuition.type === 'class' ? cd.leftOfClass*cd.tuition.money : cd.tuition.money;
+                let tuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
                 let tuiPer = cd.leftOfClass/cd.numberOfClass;
 
 

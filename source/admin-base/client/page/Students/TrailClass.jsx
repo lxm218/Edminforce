@@ -595,7 +595,7 @@ console.log(orderData);
 
 
 				if(self.coupon){
-					self.module.Coupon.useOnce(self.coupon);
+					self.module.Coupon.useOnce(self.coupon, self.data.student.accountID);
 				}
 
 				if(self.fee === 0 || cash){

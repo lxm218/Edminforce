@@ -150,7 +150,7 @@ KUI.Registration_success = class extends KUI.Page{
         console.log(this.data.order);
         if(this.data.data.status !== 'checkouted'){
             if(this.data.coupon){
-                KG.get('EF-Coupon').useOnce(this.data.coupon);
+                KG.get('EF-Coupon').useOnce(this.data.coupon, this.data.student.accountID);
             }
 
 
