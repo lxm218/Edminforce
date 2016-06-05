@@ -5,7 +5,8 @@ body.modal-open {
   overflow: auto !important; }
 
 .container {
-  max-width: 1080px; }
+  width: auto !important;
+  max-width: 96% !important; }
 
 .note-editor.note-frame {
   border-color: #e5e6e7;
