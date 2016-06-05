@@ -83,7 +83,7 @@ KG.define('EF-Coupon', class extends Base{
                         }).count();
 
                         if(tpt >= count){
-                            return KG.result.out(false, new Meteor.Error('count error', 'Coupon code is no count to use for current customer.'));
+                            return KG.result.out(false, new Meteor.Error('count error', 'This coupon code is invalid for this account.'));
                         }
                     }
                 }
