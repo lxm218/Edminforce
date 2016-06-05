@@ -373,15 +373,15 @@ KUI.Report_Finance = class extends KUI.Page{
 				key : 'totalAmount'
 			},
 			{
-				title : 'Registration Fee',
+				title : 'Registration Fee ($)',
 				key : 'registrationFee'
 			},
 			{
-				title : 'School Credit',
+				title : 'School Credit ($)',
 				key : 'schoolCredit'
 			},
 			{
-				title : 'Discount($)',
+				title : 'Coupon Discount($)',
 				reactDom : function(doc){
 					return doc.discount;
 				}
