@@ -90,15 +90,21 @@ let Class = class extends Base{
     * return number of class
     * @param - data
     *        - session
-    *        - flag : if true, calcalte number from now to session ending
+    *        - flag : if true, calculate number from now to session ending
+    *        - date : when flag is true, calculate number from date to session ending
     * @return numberOfClass
     * */
-    calculateNumberOfClass(data, session, flag){
+    calculateNumberOfClass(data, session, flag, date){
         let start = moment(session.startDate),
             end = moment(session.endDate).endOf('day');
 
         if(flag){
             let now = moment(new Date());
+
+            if(date){
+                now = moment(new Date(date));
+            }
+
             if(now.isAfter(start, 'day')){
                 start = now;
             }
@@ -472,8 +478,10 @@ let Class = class extends Base{
                 let m = KG.DataHelper.getDepModule();
                 let cd = this.getAll({_id : opts.classID})[0];
 
+
                 let tuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
-                let tuiPer = cd.leftOfClass/cd.numberOfClass;
+
+
 
 
                 let d = m.Order.getDB().findOne({
@@ -490,6 +498,10 @@ let Class = class extends Base{
                 else{
                     let cs = m.ClassStudent.getDB().findOne({_id : opts.ClassStudentID});
                     //let tmp = (tuition*cs.discounted/(cs.fee||allTuition)).toFixed(2);
+
+                    let number = this.calculateNumberOfClass(cd, cd.session, true, cs.createTime);
+                    let tuiPer = cd.leftOfClass/number;
+
                     let tmp = ((cs.fee)*tuiPer).toFixed(2);
 
                     return {

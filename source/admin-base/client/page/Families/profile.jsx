@@ -229,7 +229,7 @@ let BillingTable = class extends RC.CSS{
                             success : function(rs){
                                 console.log(rs);
                                 self.setState({
-                                    detailReport : rs
+                                    detailReport : rs.list
                                 });
                             }
                         });
