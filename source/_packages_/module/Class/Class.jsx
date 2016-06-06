@@ -751,6 +751,58 @@ let Class = class extends Base{
                     count : count
                 };
             },
+
+            registerClassForReady(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                //if already have a record of this data, return
+                let one = m.ClassStudent.getDB().findOne({
+                    studentID : opts.studentID,
+                    classID : opts.classID,
+                    type : 'register',
+                    status : {$in : ['pending', 'checkouted', 'wait']}
+                });
+
+                if(one){
+                    if(one.status === 'pending'){
+                        return KG.result.out(true, one._id);
+                    }
+                    if(one.status === 'checkouted'){
+                        return KG.result.out(false, new Meteor.Error('error', 'record is exist.'));
+                    }
+                }
+
+                let student = m.Student.getDB().findOne({_id : opts.studentID}),
+                    cls = m.Class.getDB().findOne({_id : opts.classID});
+
+                let data = {
+                    accountID : student.accountID,
+                    studentID : student._id,
+                    programID : cls.programID,
+                    classID : cls._id
+                };
+                //check number
+                let currentRegisterNumber = m.ClassStudent.getDB().find({
+                    classID : data.classID,
+                    type : 'register',
+                    'status' : {$in : ['pending', 'checkouted']}
+                }).count(),
+                    maxRegisterNumber = cls.maxStudent;
+                if(currentRegisterNumber >= maxRegisterNumber){
+                    return KG.result.out(false, new Meteor.Error('error', 'class registration is full'));
+                }
+
+                data.type = 'register';
+                data.status = 'pending';
+
+                let vd = m.ClassStudent.validateWithSchema(data);
+                if(vd !== true){
+                    return KG.result.out(false, vd, vd.reason);
+                }
+
+                let rs = m.ClassStudent.getDB().insert(data);
+                return KG.result.out(true, rs);
+            }
         };
     }
 
