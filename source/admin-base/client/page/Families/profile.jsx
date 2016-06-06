@@ -361,7 +361,7 @@ let BillingTable = class extends RC.CSS{
                 title : 'Amount($)',
                 reactDom(doc){
                     if(_.contains(['register class', 'makeup class'], doc.order.type)){
-                        return doc.fee;
+                        return doc.fee+doc.discounted;
                     }
 
                     return doc.order.amount;
