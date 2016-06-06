@@ -142,7 +142,8 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 		return {
 			ready : x1?x1.ready():true,
 			list : list,
-			count : x1?x1.count:0
+			count : x1?x1.count:0,
+			teachers:this.m.AdminUser.getAll({}) ||[]
 		};
 	}
 
@@ -273,6 +274,7 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 				textAlign : 'right'
 			}
 		};
+		//console.log(this.data.teachers)
 
 		return (
 			<RC.Div>
@@ -390,7 +392,9 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 							+' Makeup: '+ makeupClassCount //+'\n'
 							,
 
-					url:'program/class/detail/'+classItem._id
+					url:'program/class/detail/'+classItem._id,
+
+					teacher:classItem.teacher  //用于根据teacher分组
 				}
 				arr.push(event)
 
@@ -424,6 +428,9 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 		let self =this;
 
 
+		//console.log(nextState)
+		$(this.refs.calendar).fullCalendar( 'refetchResources' )
+
 		$(this.refs.calendar).fullCalendar( 'refetchEvents' )
 
 		//$(this.refs.calendar).fullCalendar('removeEvents')
@@ -431,11 +438,33 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 		//debugger
 	}
 
+	_attacheResourceId(classes,resources){
 
+		_.each(classes,function(classItem){
+			//todo   暂时根据 teacher 名字来分组 需要改成以id来分组
+			for(var i=0;i<resources.length;i++){
+				if(classItem.teacher == resources[i].title){
+					classItem.resourceId= resources[i].id
+
+					break
+				}
+			}
+		})
+
+	}
 	componentDidMount(){
 		let self =this
 
+		// let resources = this.data.teachers.map(function(item){
+		// 	return {
+		// 		id:item._id,
+		// 		title:item.title
+		// 	}
+		// })
+
 		$(this.refs.calendar).fullCalendar({
+			//schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+
 			defaultView: 'agendaWeek',
 			header: {
 				left: 'prev,next today',
@@ -444,8 +473,31 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 				right: 'month,agendaWeek,agendaDay'
 			},
 
+			resources: function(callback) {
+				console.log('in resources function')
+
+				var resources=[]
+				if(self.data.teachers){
+
+					_.each(self.data.teachers,function(item){
+						resources.push({
+							id:item._id,
+							title:item.nickName
+						})
+					})
+
+				}
+
+				//for use in events callback
+				self._resources = resources
+
+				callback(resources);
+
+			},
+
 			events: function(start, end, timezone, callback) {
 				//console.log(start, end, timezone, callback)
+				console.log('in events function',self.data.list)
 
 				self.start= start
 				self.end= end
@@ -454,6 +506,9 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 				//let events =self.getClassesEvents(start, end, testClassesData)
 
 				//debugger
+				//console.log(events)
+
+				self._attacheResourceId(events,self._resources)
 
 				callback(events)
 
