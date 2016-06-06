@@ -240,7 +240,6 @@ let Class = class extends Base{
 
 
 
-    //TODO change to publish meteor data method like ClassStudent
     getAll(query){
         //if(Meteor.isClient){
         //    let s1 = Meteor.subscribe('EF-Program');
@@ -724,7 +723,34 @@ let Class = class extends Base{
                 }
 
                 return self._db.remove({_id : id});
-            }
+            },
+
+            getAllByQuery(query={}, option={}){
+                let m = KG.DataHelper.getDepModule();
+
+                option = KG.util.setDBOption(option);
+                query = KG.util.setDBQuery(query);
+                let list = self._db.find(query, option).fetch(),
+                    count = self._db.find(query).count();
+                list = _.map(list, (item)=>{
+
+                    item.session = m.Session.getDB().findOne({_id:item.sessionID});
+                    item.program = m.Program.getDB().findOne({_id : item.programID});
+
+
+                    let tn = item.program.name;
+                    tn += ' '+item.session.name;
+                    tn += ' '+item.schedule.day+' '+item.schedule.time;
+
+                    item.nickName = tn;
+                    return item;
+                });
+
+                return {
+                    list : list,
+                    count : count
+                };
+            },
         };
     }
 

@@ -58,7 +58,15 @@ if(Meteor.isClient){
         }
     });
 
-
+    //new register page
+    Route.route('/register', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Registration | register class",
+                bodyTmpl: <KUI.Registration_Page />
+            });
+        }
+    });
 
 
 
