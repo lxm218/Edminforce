@@ -1,9 +1,12 @@
 Meteor.methods({
     'dailyRoster.getData': function (dateStr) {
-        let result = {}
+        let result = {
+            //session
+            //programs
+        }
 
         // get all programs
-        result.programs = KG.get('EF-Program').getDB().find({}).fetch();
+        let programs = KG.get('EF-Program').getDB().find({}).fetch();
 
         // get school timezone setting
         let school = KG.get('EF-School').getDB().findOne();
@@ -28,7 +31,7 @@ console.log(dateStr, requestDate.toString(), weekDay);
         if (!result.session) return result;
         
         // find all classes in this session
-        result.classes = KG.get('EF-Class').getDB().find({
+        let classes = KG.get('EF-Class').getDB().find({
             sessionID: result.session._id,
             'schedule.day': weekDay
         }, {
@@ -41,7 +44,7 @@ console.log(dateStr, requestDate.toString(), weekDay);
         }).fetch();
 
         // get all students
-        result.classes.forEach( (c) => {
+        classes.forEach( (c) => {
             let students = KG.get('EF-ClassStudent').getDB().find({
                 classID: c._id,
                 status: 'checkouted',
@@ -77,6 +80,13 @@ console.log(dateStr, requestDate.toString(), weekDay);
                     type: s.type
                 })
             });
+        })
+
+        let groupByPrograms = _.groupBy(classes, 'programID');
+        result.programs = _.keys(groupByPrograms).map( (k) => {
+            let p = _.find(programs, {_id:k}) || {name:k, _id:k};
+            p.classes = groupByPrograms[k];
+            return p;
         })
 
         return result;

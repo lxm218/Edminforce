@@ -7,7 +7,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             loading:false,
             selectedDate: new Date()
         };
-        this.data = {};
+        this.data = null;
 
         this.onDateChange = this.onDateChange.bind(this);
         this.getDailyRoster = this.getDailyRoster.bind(this);
@@ -42,8 +42,25 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.setState({loading:true});
         Meteor.call('dailyRoster.getData', moment(this.state.selectedDate).format("YYYYMMDD"),(function(err,result){
             this.data = result;
+            // group by programs
             this.setState({loading:false});
         }).bind(this))
+    }
+
+    renderRoster() {
+        if (!this.data) return null;
+
+        let hours = [];
+        this.data.programs.forEach( (p) => {
+            p.classes.forEach( (c) => {
+                c.classTime = moment(c.schedule.time, 'hh:mma');
+                if (hours.indexOf(c.classTime.hours()) < 0)
+                    hours.push(c.classTime.hours());
+                c.classTime = c.classTime.toDate();
+            })
+        });
+
+        hours.sort();
     }
 
     render() {
@@ -73,6 +90,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         </RB.Col>
                     </div>
                 </RB.Row>
+                <RC.Div>
+                    {this.renderRoster()}
+                </RC.Div>
             </RC.Div>
         )
     }
