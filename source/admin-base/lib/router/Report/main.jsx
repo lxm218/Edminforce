@@ -64,10 +64,13 @@ if(Meteor.isClient){
 		}
 	});
 
-
-
-
-
-
+	Route.route('/dailyRoster', {
+		action : function(p){
+			App.routeHandler(p, {
+				pageTitle: "Report | Daily Roster",
+				bodyTmpl: <KUI.Report_DailyRoster/>
+			});
+		}
+	});
 
 }
