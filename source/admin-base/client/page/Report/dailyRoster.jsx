@@ -61,6 +61,33 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         });
 
         hours.sort();
+
+        return (
+            <table className="table table-bordered table-condensed">
+                <colgroup>
+                    <col width ="20%"/>
+                    <col width ="40%"/>
+                    <col width ="40%"/>
+                </colgroup>
+                <tr>
+                    <th>Month</th>
+                    <th>Savings</th>
+                    <th>Savings for holiday!</th>
+                </tr>
+                <tr>
+                    <td rowSpan="3">January</td>
+                    <td>$100</td>
+                    <td>$50</td>
+                </tr>
+                <tr>
+                    <td>$100</td>
+                    <td rowSpan="2"></td>
+                </tr>
+                <tr>
+                    <td >$80</td>
+                </tr>
+            </table>
+        )
     }
 
     render() {
