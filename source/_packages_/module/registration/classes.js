@@ -288,11 +288,15 @@ function getDocumentFromCache(documentName, id, cache) {
  */
 function applyCoupon(userId, couponId, cart) {
 
-    let coupon = Collections.coupon.findOne({_id: couponId});
+    var regexCouponId = new RegExp("^" + couponId + "$", "i");
+    let coupon = Collections.coupon.findOne({_id: regexCouponId});
+
     if (!coupon) {
         cart.couponMsg = 'Cannot verify this coupon, please make sure you typed correct coupon';
         return;
     }
+
+    couponId = coupon._id;
 
     // extract coupon type & value
     let reg = /^\s*([\d]*[\.]?[\d]*)\s*([%$])\s*$/;
