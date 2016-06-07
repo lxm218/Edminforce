@@ -48,7 +48,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
     }
 
     renderRoster() {
-        if (!this.data) return null;
+        if (!this.data || !this.data.programs || !this.data.programs.length)
+            return null;
 
         let hours = [];
         this.data.programs.forEach( (p) => {
@@ -61,31 +62,76 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         });
 
         hours.sort();
+        
+        let colWidth = Math.floor(100 / this.data.programs.length);
+        let timeColWidth = 100 - colWidth * this.data.programs.length;
+        while (timeColWidth + this.data.programs.length < colWidth - 1) {
+            colWidth--;
+            timeColWidth+=this.data.programs.length;
+        }
+        let colWidthElements = new Array(this.data.programs.length);
+        colWidthElements.fill(<col width={colWidth + "%"} />);
+        colWidthElements.unshift(<col width={timeColWidth + "%"} />);
+
+        let rows = [];
+        let currentHour = new Array[this.data.programs.length];
+        currentHour.fill({});
+        hours.forEach( (hour) => {
+            // max number of rows in all program columns
+            let maxRowCount = 0;
+
+            // iterate through all programs
+            this.data.programs.forEach( (p, index) => {
+                // classes from each program, start in the current hour
+                currentHour[index].classes = _.filter(p.classes, (c) => c.classTime.getHours() == hour);
+
+                // generate rows for all classes, and teachers
+                currentHour[index].rows = [];
+                // sort classes by start time
+                if (currentHour[index].classes.length > 0) {
+                    currentHour[index].classes.sort( (a,b) => a.classTime.getTime() - b.classTime.getTime());
+                    currentHour[index].classes.forEach( (c) => {
+                        currentHour[index].rows.push({"teacher":c.teacher});
+                        currentHour[index].rows.concat(c.students);
+                    })
+                }
+
+                if (maxRowCount < currentHour[index].rows.length) maxRowCount = currentHour[index].rows.length;
+            });
+
+            for (let iRow = 0; iRow < maxRowCount; iRow++) {
+                let tdElements = [];
+                iRow == 0 && (tdElements.push( <td rowSpan={maxRowCount}>{moment().hours(hour).format("hh a")}</td> ))
+
+                currentHour.forEach( (p) => {
+                    if (p.rows.length > iRow) {
+                        tdElements.push(<td>{p.rows[iRow].teacher || p.rows[iRow].name}</td>);
+                    }
+                    else
+                    if (p.rows.length == iRow && iRow < maxRowCount-1) {
+                        tdElements.push(<td rowSpan={maxRowCount - iRow}></td>);
+                    }
+                })
+
+                rows.push(<tr>{tdElements}</tr>);
+            }
+        });
+
 
         return (
             <table className="table table-bordered table-condensed">
                 <colgroup>
-                    <col width ="20%"/>
-                    <col width ="40%"/>
-                    <col width ="40%"/>
+                    {colWidthElements}
                 </colgroup>
                 <tr>
-                    <th>Month</th>
-                    <th>Savings</th>
-                    <th>Savings for holiday!</th>
+                    <th></th>
+                    {
+                        this.data.programs.map( (p) => (<th>{p.name}</th>) )
+                    }
                 </tr>
-                <tr>
-                    <td rowSpan="3">January</td>
-                    <td>$100</td>
-                    <td>$50</td>
-                </tr>
-                <tr>
-                    <td>$100</td>
-                    <td rowSpan="2"></td>
-                </tr>
-                <tr>
-                    <td >$80</td>
-                </tr>
+                {
+                    rows
+                }
             </table>
         )
     }
