@@ -288,7 +288,7 @@ function getDocumentFromCache(documentName, id, cache) {
  */
 function applyCoupon(userId, couponId, cart) {
 
-    var regexCouponId = new RegExp("^" + couponId + "$", "i");
+    let regexCouponId = new RegExp("^" + couponId + "$", "i");
     let coupon = Collections.coupon.findOne({_id: regexCouponId});
 
     if (!coupon) {
