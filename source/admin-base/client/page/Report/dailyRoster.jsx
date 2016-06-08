@@ -32,6 +32,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.setupDatePicker();
     }
 
+    onDateEdit(e) {
+        // nothing, just to get rid of the react js warning about value is set, but missing onChange
+    }
 
     onDateChange(e) {
         let  newDate = e.date;
@@ -42,6 +45,30 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.setState({loading:true});
         Meteor.call('dailyRoster.getData', moment(this.state.selectedDate).format("YYYYMMDD"),(function(err,result){
             this.data = result;
+            
+            // sort student names alphabetically, move trial & makeup to the end
+            if (this.data.programs && this.data.programs.length > 0) {
+                this.data.programs.forEach( (p) => {
+                    p.classes.forEach( (c) => {
+                        if (!c.students || c.students.length == 0) return;
+
+                        let regulars = [], makeups = [], trials = [];
+                        c.students.forEach( (s) => {
+                            if (s.type == 'makeup')
+                                makeups.push(s);
+                            else if (s.type == 'trial')
+                                trials.push(s);
+                            else
+                                regulars.push(s);
+                        })
+                        regulars.length > 0 && regulars.sort( (a,b) => (a.name > b.name));
+                        makeups.length > 0 && makeups.sort( (a,b) => (a.name > b.name));
+                        trials.length > 0 && trials.sort( (a,b) => (a.name > b.name));
+                        c.students = regulars.concat(trials).concat(makeups);
+                    })
+                });
+            }
+
             //this.data.date = moment(this.selectedDate);
             // group by programs
             this.setState({loading:false, error: err && err.reason});
@@ -80,8 +107,10 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         // create table column width elements
         let colWidthElements = new Array(this.data.programs.length);
-        colWidthElements.fill(<col width={colWidth + "%"} />);
-        colWidthElements.unshift(<col width={timeColWidth + "%"} />);
+        colWidthElements.push(<col key="cw" width={timeColWidth + "%"} />);
+        this.data.programs.forEach( (p,index) => {
+            colWidthElements.push(<col key={"cw"+index} width={colWidth + "%"} />);
+        })
 
         // create table rows
         let rows = [];
@@ -114,14 +143,14 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             // generate table rows
             for (let iRow = 0; iRow < maxRowCount; iRow++) {
                 let tdElements = [];
-                iRow == 0 && (tdElements.push( <td rowSpan={maxRowCount}>{moment().hours(hour).format("hh:00 A")}</td> ))
+                iRow == 0 && (tdElements.push( <td key={"c"+hour} rowSpan={maxRowCount}>{moment().hours(hour).format("hh:00 A")}</td> ))
 
                 currentHour.forEach( (p, index) => {
                     if (iRow < p.rows.length) {
                         // class name or student name
                         if (p.rows[iRow].teacher) {
                             // show class time and teacher in a "th" style
-                            tdElements.push(<th style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>{p.rows[iRow].teacher}</th>);
+                            tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>{p.rows[iRow].teacher}</th>);
                         }
                         else {
                             let tdContent = p.rows[iRow].name;
@@ -131,17 +160,17 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             if (p.rows[iRow].type == 'makeup')
                                 tdContent += ' (make up)';
 
-                            tdElements.push(<td>{tdContent}</td>);
+                            tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index}>{tdContent}</td>);
                         }
                     }
                     else
                     if (iRow == p.rows.length && iRow < maxRowCount) {
                         // merged cell to show empty space
-                        tdElements.push(<td rowSpan={maxRowCount - iRow}></td>);
+                        tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index} rowSpan={maxRowCount - iRow}></td>);
                     }
                 })
 
-                rows.push(<tr>{tdElements}</tr>);
+                rows.push(<tr key={"r" + hour + "_" + iRow}>{tdElements}</tr>);
             }
         });
 
@@ -153,19 +182,17 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }]
 
         return (
-            <table className="table table-bordered table-condensed" style={{textAlign:"center"}}>
+            <table className="table table-bordered table-condensed" style={{textAlign:"center", fontSize:12}}>
                 <colgroup>
                     {colWidthElements}
                 </colgroup>
-                <tr>
-                    <th></th>
-                    {
-                        this.data.programs.map( (p, idx) => (<th style={titleStyles[idx % 2]}>{p.name}</th>) )
-                    }
-                </tr>
-                {
-                    rows
-                }
+                <thead>
+                    <tr>
+                        <th></th>
+                        {this.data.programs.map( (p, idx) => (<th key={"h" + idx} style={titleStyles[idx % 2]}>{p.name}</th>) )}
+                    </tr>
+                    </thead>
+                <tbody>{rows}</tbody>
             </table>
         )
     }
@@ -189,7 +216,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 <RB.Row>
                     <div className="form-horizontal">
                         <RB.Col md={6} mdOffset={0}>
-                            <RB.Input type="text" {... p.date} value={moment(this.state.selectedDate).format("MM/DD/YYYY")}>
+                            <RB.Input type="text" {... p.date} value={moment(this.state.selectedDate).format("MM/DD/YYYY")} onChange={this.onDateEdit}>
                             </RB.Input>
                         </RB.Col>
                         <RB.Col  md={6} mdOffset={0}>
