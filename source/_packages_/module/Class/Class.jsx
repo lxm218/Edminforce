@@ -90,15 +90,21 @@ let Class = class extends Base{
     * return number of class
     * @param - data
     *        - session
-    *        - flag : if true, calcalte number from now to session ending
+    *        - flag : if true, calculate number from now to session ending
+    *        - date : when flag is true, calculate number from date to session ending
     * @return numberOfClass
     * */
-    calculateNumberOfClass(data, session, flag){
+    calculateNumberOfClass(data, session, flag, date){
         let start = moment(session.startDate),
             end = moment(session.endDate).endOf('day');
 
         if(flag){
             let now = moment(new Date());
+
+            if(date){
+                now = moment(new Date(date));
+            }
+
             if(now.isAfter(start, 'day')){
                 start = now;
             }
@@ -234,7 +240,6 @@ let Class = class extends Base{
 
 
 
-    //TODO change to publish meteor data method like ClassStudent
     getAll(query){
         //if(Meteor.isClient){
         //    let s1 = Meteor.subscribe('EF-Program');
@@ -472,8 +477,10 @@ let Class = class extends Base{
                 let m = KG.DataHelper.getDepModule();
                 let cd = this.getAll({_id : opts.classID})[0];
 
+
                 let tuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
-                let tuiPer = cd.leftOfClass/cd.numberOfClass;
+
+
 
 
                 let d = m.Order.getDB().findOne({
@@ -490,6 +497,10 @@ let Class = class extends Base{
                 else{
                     let cs = m.ClassStudent.getDB().findOne({_id : opts.ClassStudentID});
                     //let tmp = (tuition*cs.discounted/(cs.fee||allTuition)).toFixed(2);
+
+                    let number = this.calculateNumberOfClass(cd, cd.session, true, cs.createTime);
+                    let tuiPer = cd.leftOfClass/number;
+
                     let tmp = ((cs.fee)*tuiPer).toFixed(2);
 
                     return {
@@ -712,6 +723,85 @@ let Class = class extends Base{
                 }
 
                 return self._db.remove({_id : id});
+            },
+
+            getAllByQuery(query={}, option={}){
+                let m = KG.DataHelper.getDepModule();
+
+                option = KG.util.setDBOption(option);
+                query = KG.util.setDBQuery(query);
+                let list = self._db.find(query, option).fetch(),
+                    count = self._db.find(query).count();
+                list = _.map(list, (item)=>{
+
+                    item.session = m.Session.getDB().findOne({_id:item.sessionID});
+                    item.program = m.Program.getDB().findOne({_id : item.programID});
+
+
+                    let tn = item.program.name;
+                    tn += ' '+item.session.name;
+                    tn += ' '+item.schedule.day+' '+item.schedule.time;
+
+                    item.nickName = tn;
+                    return item;
+                });
+
+                return {
+                    list : list,
+                    count : count
+                };
+            },
+
+            registerClassForReady(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                //if already have a record of this data, return
+                let one = m.ClassStudent.getDB().findOne({
+                    studentID : opts.studentID,
+                    classID : opts.classID,
+                    type : 'register',
+                    status : {$in : ['pending', 'checkouted', 'wait']}
+                });
+
+                if(one){
+                    if(one.status === 'pending'){
+                        return KG.result.out(true, one._id);
+                    }
+                    if(one.status === 'checkouted'){
+                        return KG.result.out(false, new Meteor.Error('error', 'record is exist.'));
+                    }
+                }
+
+                let student = m.Student.getDB().findOne({_id : opts.studentID}),
+                    cls = m.Class.getDB().findOne({_id : opts.classID});
+
+                let data = {
+                    accountID : student.accountID,
+                    studentID : student._id,
+                    programID : cls.programID,
+                    classID : cls._id
+                };
+                //check number
+                let currentRegisterNumber = m.ClassStudent.getDB().find({
+                    classID : data.classID,
+                    type : 'register',
+                    'status' : {$in : ['pending', 'checkouted']}
+                }).count(),
+                    maxRegisterNumber = cls.maxStudent;
+                if(currentRegisterNumber >= maxRegisterNumber){
+                    return KG.result.out(false, new Meteor.Error('error', 'class registration is full'));
+                }
+
+                data.type = 'register';
+                data.status = 'pending';
+
+                let vd = m.ClassStudent.validateWithSchema(data);
+                if(vd !== true){
+                    return KG.result.out(false, vd, vd.reason);
+                }
+
+                let rs = m.ClassStudent.getDB().insert(data);
+                return KG.result.out(true, rs);
             }
         };
     }

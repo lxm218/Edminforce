@@ -597,6 +597,7 @@ console.log(orderData);
 				if(self.coupon){
 					self.module.Coupon.useOnce(self.coupon, self.data.student.accountID);
 				}
+				self.m.ClassStudent.callMeteorMethod('updateClassFeeByOrderID', [id, cid], {});
 
 				if(self.fee === 0 || cash){
 					self.module.ClassStudent.updateStatus('checkouted', cid);

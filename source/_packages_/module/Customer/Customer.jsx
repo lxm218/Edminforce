@@ -316,8 +316,8 @@ console.log(option);
 
                     //calculate totalAmount & actualPayment
                     try{
-                        item.totalAmount = item.amount + Math.abs(item.discount) - item.registrationFee;
-                        item.actualPayment = item.totalAmount - Math.abs(item.discount);
+                        item.totalAmount = item.amount - item.registrationFee + Math.abs(item.discount) + item.schoolCredit||0;
+                        item.actualPayment = item.amount;
                     }catch(e){}
 
 
