@@ -182,7 +182,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }]
 
         return (
-            <table className="table table-bordered table-condensed" style={{textAlign:"center", fontSize:12}}>
+            <table className="table table-bordered table-condensed2" style={{textAlign:"center", fontSize:12}}>
                 <colgroup>
                     {colWidthElements}
                 </colgroup>
