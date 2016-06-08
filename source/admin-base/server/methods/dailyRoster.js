@@ -16,8 +16,6 @@ Meteor.methods({
         let requestDate = moment.tz(dateStr, "YYYYMMDD",schoolTz);
         let weekDay = requestDate.format("ddd");
 
-console.log(dateStr, requestDate.toString(), weekDay);
-
         // convert request date to UTC for mongodb query
         let requestDateUtc = requestDate.tz("Etc/UTC");
         // find requested session

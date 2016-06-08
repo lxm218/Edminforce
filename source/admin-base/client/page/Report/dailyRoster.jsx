@@ -42,8 +42,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.setState({loading:true});
         Meteor.call('dailyRoster.getData', moment(this.state.selectedDate).format("YYYYMMDD"),(function(err,result){
             this.data = result;
+            //this.data.date = moment(this.selectedDate);
             // group by programs
-            this.setState({loading:false});
+            this.setState({loading:false, error: err && err.reason});
         }).bind(this))
     }
 
@@ -52,6 +53,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         if (!this.data) return null;
         if (!this.data.programs || !this.data.programs.length)
             return (<div>No data available for the selected date</div>);
+        if (this.state.error)
+            return (<div>{this.state.error}</div>);
 
         let programTitleColor = "#1AB394";
         let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];

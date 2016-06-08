@@ -62,7 +62,7 @@ edminforce:log
 edminforce:email
 
 edminforce:datahelper
-#force-ssl
+force-ssl
 
 momentjs:moment@=2.13.1
 aldeed:moment-timezone
