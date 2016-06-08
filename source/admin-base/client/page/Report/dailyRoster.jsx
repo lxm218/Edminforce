@@ -53,6 +53,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         if (!this.data.programs || !this.data.programs.length)
             return (<div>No data available for the selected date</div>);
 
+        let programTitleColor = "#1AB394";
+        let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];
+
         // group classes in each program by starting hour
         let hours = [];
         this.data.programs.forEach( (p) => {
@@ -80,8 +83,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         // create table rows
         let rows = [];
         // currentHour stores rows from each program for the current hour
-        let currentHour = new Array[this.data.programs.length];
-        currentHour.fill({});
+        let currentHour = new Array(this.data.programs.length);
         hours.forEach( (hour) => {
             // max number of rows in all program columns
             let maxRowCount = 0;
@@ -92,13 +94,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 let currentHourClasses = _.filter(p.classes, (c) => c.classTime.hours() == hour);
 
                 // generate rows for all classes, and teachers
-                currentHour[index].rows = [];
+                currentHour[index] = {rows:[]}
                 // sort classes by start time
                 if (currentHourClasses.length > 0) {
                     currentHourClasses.sort( (a,b) => a.classTime.valueOf() - b.classTime.valueOf());
                     currentHourClasses.forEach( (c) => {
-                        currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm ") + c.teacher});
-                        currentHour[index].rows.concat(c.students);
+                        currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + c.teacher});
+                        currentHour[index].rows = currentHour[index].rows.concat(c.students);
                     })
                 }
 
@@ -109,14 +111,14 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             // generate table rows
             for (let iRow = 0; iRow < maxRowCount; iRow++) {
                 let tdElements = [];
-                iRow == 0 && (tdElements.push( <td rowSpan={maxRowCount}>{moment().hours(hour).format("hh a")}</td> ))
+                iRow == 0 && (tdElements.push( <td rowSpan={maxRowCount}>{moment().hours(hour).format("hh:00 A")}</td> ))
 
-                currentHour.forEach( (p) => {
+                currentHour.forEach( (p, index) => {
                     if (iRow < p.rows.length) {
                         // class name or student name
                         if (p.rows[iRow].teacher) {
                             // show class time and teacher in a "th" style
-                            tdElements.push(<th>{p.rows[iRow].teacher}</th>);
+                            tdElements.push(<th style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>{p.rows[iRow].teacher}</th>);
                         }
                         else {
                             let tdContent = p.rows[iRow].name;
@@ -130,7 +132,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         }
                     }
                     else
-                    if (iRow == p.rows.length && iRow < maxRowCount-1) {
+                    if (iRow == p.rows.length && iRow < maxRowCount) {
                         // merged cell to show empty space
                         tdElements.push(<td rowSpan={maxRowCount - iRow}></td>);
                     }
@@ -140,16 +142,22 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             }
         });
 
+        let titleStyles = [{
+            textAlign:"center",
+            background: programTitleColor
+        }, {
+            textAlign:"center"
+        }]
 
         return (
-            <table className="table table-bordered table-condensed">
+            <table className="table table-bordered table-condensed" style={{textAlign:"center"}}>
                 <colgroup>
                     {colWidthElements}
                 </colgroup>
                 <tr>
                     <th></th>
                     {
-                        this.data.programs.map( (p) => (<th>{p.name}</th>) )
+                        this.data.programs.map( (p, idx) => (<th style={titleStyles[idx % 2]}>{p.name}</th>) )
                     }
                 </tr>
                 {
@@ -186,7 +194,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         </RB.Col>
                     </div>
                 </RB.Row>
-                <RC.Div>
+                <RC.Div style={{marginTop:20}}>
                     {this.renderRoster()}
                 </RC.Div>
             </RC.Div>
