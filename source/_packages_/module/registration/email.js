@@ -38,7 +38,8 @@ EdminForce.Registration.getClassesForEmail = function(classStudentIDs) {
             fields: {
                 classID:1, 
                 studentID:1, 
-                type: 1
+                type: 1,
+                fee:1
             }
         });
         
@@ -51,16 +52,16 @@ EdminForce.Registration.getClassesForEmail = function(classStudentIDs) {
         let session = Collections.session.findOne({_id: classData.sessionID});
         let program = Collections.program.findOne({_id: classData.programID});
 
-        let classFee = 0;
-        if (sc.type === 'makeup') {
-            classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
-        }
-        else {
-            classFee = EdminForce.Registration.calculateRegistrationFee(classData, session);
-        }
+        // let classFee = 0;
+        // if (sc.type === 'makeup') {
+        //     classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
+        // }
+        // else {
+        //     classFee = EdminForce.Registration.calculateRegistrationFee(classData, session);
+        // }
         
         let className = EdminForce.utils.getClassName(program.name, session.name, classData);
-        doc[className] = classFee;
+        doc[className] = sc.fee;
     }
 
     return res
@@ -78,7 +79,7 @@ EdminForce.Registration.getMakeupClassesForEmail = function (classStudentIDs) {
         let program = Collections.program.findOne({_id: classData.programID});
 
         let className = EdminForce.utils.getClassName(program.name, session.name, classData);
-        doc[className] = [classData.makeupClassFee, moment(sc.lessonDate).format('YYYY-MM-DD')];
+        doc[className] = [classData.makeupClassFee, moment(sc.lessonDate).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD')];
     }
     return res
 }
@@ -108,14 +109,14 @@ EdminForce.Registration.getTrialConfirmationEmailTemplate = function (data) {
                 var line = [
                     '<tr>',
                     '<td>', name, '</td>',
-                    '<td>', moment(chosenClass[name]).format('YYYY-MM-DD'), '</td>',
+                    '<td>', moment(chosenClass[name]).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD'), '</td>',
                     '</tr>',
                 ].join('')
                 l = l + line
             } else {
                 var line = [
                     '<td>', name, '</td>',
-                    '<td>', moment(chosenClass[name]).format('YYYY-MM-DD'), '</td>',
+                    '<td>', moment(chosenClass[name]).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD'), '</td>',
                     '</tr>',
                 ].join('')
                 l = l + line

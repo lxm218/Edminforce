@@ -684,6 +684,7 @@ KUI.Registration_Page = class extends KUI.Page{
 
 
 	submit(){
+		let self = this;
 		let s = this.refs.sf.getValue(),
 			c = this.refs.cf.getValue();
 
@@ -696,6 +697,27 @@ KUI.Registration_Page = class extends KUI.Page{
 			return false;
 		}
 
+		//validate student can register class
+		this.m.Class.callMeteorMethod('registerClassForReady', [{
+			studentID : s._id,
+			classID : c._id
+		}], {
+			success : function(rs){
+				self.doResult(rs);
+			}
+		});
+	}
 
+	doResult(result){
+		let self = this;
+		console.log(result);
+		KG.result.handle(result, {
+			success : function(cid){
+
+			},
+			error : function(err){
+				util.toast.showError(err.reason);
+			}
+		});
 	}
 };
