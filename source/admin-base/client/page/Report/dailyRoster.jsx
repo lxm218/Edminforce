@@ -65,7 +65,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     hours.push(c.classTime.hours());
             })
         });
-        hours.sort();
+        hours.sort((a,b) => (a-b));
 
         // calculate column width, the first column is smaller, the rest of the columns are equally sized
         let colWidth = Math.floor(100 / this.data.programs.length);
@@ -97,7 +97,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 currentHour[index] = {rows:[]}
                 // sort classes by start time
                 if (currentHourClasses.length > 0) {
-                    currentHourClasses.sort( (a,b) => a.classTime.valueOf() - b.classTime.valueOf());
+                    currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
                     currentHourClasses.forEach( (c) => {
                         currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + c.teacher});
                         currentHour[index].rows = currentHour[index].rows.concat(c.students);
