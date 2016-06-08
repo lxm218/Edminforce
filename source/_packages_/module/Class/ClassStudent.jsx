@@ -289,6 +289,52 @@ let ClassStudent = class extends Base{
                 self._db.update({_id : id}, {'$set' : data});
 
                 return true;
+            },
+
+            getPenddingTypeList : function(opts={}){
+                let m = KG.DataHelper.getDepModule();
+
+                let studentID = opts.studentID;
+                let classID = opts.classID;
+
+                let student = m.Student.getDB().findOne({_id:studentID}),
+                    accountID = student.accountID;
+
+                //get list
+                let rs = m.ClassStudent.getDB().find({
+                    accountID : accountID,
+                    type : 'register',
+                    status : 'pending'
+                }, {
+                    sort : {
+                        createTime : -1
+                    }
+                }).fetch();
+
+                let total = 0;
+                rs = _.map(rs, (item)=>{
+                    item.customer = m.Customer.getDB().findOne({_id : item.accountID});
+                    item.student = m.Student.getDB().findOne({_id : item.studentID});
+                    item.class = m.Class.getAll({_id : item.classID})[0];
+
+                    item.amount = 0;
+                    if(item.class.tuition.type === 'class'){
+                        item.amount = item.class.leftOfClass*item.class.tuition.money;
+                    }
+                    else{
+                        item.amount = item.class.tuition.money * (item.class.leftOfClass/item.class.numberOfClass);
+                    }
+
+                    total += item.amount;
+
+                    return item;
+                });
+
+                return {
+                    flag : true,
+                    list : rs,
+                    total : total
+                };
             }
         };
     }

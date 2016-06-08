@@ -68,6 +68,17 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/summary', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Registration | Summary",
+                bodyTmpl: <KUI.Registration_SummaryPage />
+            });
+        }
+    });
+
+
+
 
 
 

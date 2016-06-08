@@ -42,6 +42,7 @@ let StudentFilter = class extends RC.CSS{
 
 			this.m.Student.callMeteorMethod('getStudentListByQuery', [{_id:this.props.studentID}, {}], {
 				success : function(rs){
+					console.log(rs);
 					if(rs.count>0){
 						self.setState({
 							loading : false,
@@ -703,17 +704,17 @@ KUI.Registration_Page = class extends KUI.Page{
 			classID : c._id
 		}], {
 			success : function(rs){
-				self.doResult(rs);
+				self.doResult(rs, s, c);
 			}
 		});
 	}
 
-	doResult(result){
+	doResult(result, s, c){
 		let self = this;
 		console.log(result);
 		KG.result.handle(result, {
 			success : function(cid){
-
+				FlowRouter.go('/registration/summary?studentID='+s._id+'&classID='+c._id);
 			},
 			error : function(err){
 				util.toast.showError(err.reason);
