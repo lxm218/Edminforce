@@ -38,6 +38,7 @@ edminforce:coupon@0.0.1
 edminforce:customer@0.0.1
 edminforce:datahelper@0.0.1
 edminforce:email@0.0.1
+edminforce:log@0.0.1
 edminforce:mobile-context@0.0.1
 edminforce:order@0.0.1
 edminforce:registration@0.0.1

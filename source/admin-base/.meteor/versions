@@ -2,6 +2,7 @@ accounts-base@1.2.2
 accounts-password@1.1.4
 alanning:roles@1.2.14
 aldeed:collection2@2.3.3
+aldeed:moment-timezone@0.4.0
 aldeed:simple-schema@1.5.3
 aramk:tinycolor@1.1.0_1
 autoupdate@1.2.4

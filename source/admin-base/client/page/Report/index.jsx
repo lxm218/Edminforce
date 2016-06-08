@@ -11,6 +11,7 @@ KUI.Report_Index = class extends RC.CSS{
 
 				<RC.URL href="/report/customer/schoolcredit"><p>View School Credit Report</p></RC.URL>
 				<RC.URL href="/report/coupon"><p>View Coupon Report</p></RC.URL>
+				<RC.URL href="/report/dailyRoster"><p>View Daily Roster</p></RC.URL>
 			</RC.Div>
 		);
 	}
