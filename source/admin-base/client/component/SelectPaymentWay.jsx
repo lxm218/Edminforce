@@ -15,6 +15,8 @@ KUI.Comp.SelectPaymentWay = class extends RC.CSS{
 				<RB.Input onChange={function(){}} ref="s22" name="cgroup" type="radio" label="Cash" />
 				<RB.Input onChange={function(){}} ref="s23" name="cgroup" type="radio" label="Check" />
 
+				<RB.Input onChange={function(){}} ref="s26" name="cgroup" type="radio" label="Pay Later" />
+
 			</RC.Div>
 		);
 	}
@@ -24,17 +26,19 @@ KUI.Comp.SelectPaymentWay = class extends RC.CSS{
 			cc : this.refs.s21,
 			ec : this.refs.s24,
 			cash : this.refs.s22,
-			check : this.refs.s23
+			check : this.refs.s23,
+			pl : this.refs.s26
 		};
 	}
 
 	getValue(){
-		let {cc, ec, cash, check} = this.getRefs();
+		let {cc, ec, cash, check, pl} = this.getRefs();
 
 		let s21 = $(cc.getInputDOMNode()).prop('checked'),
 			s24 = $(ec.getInputDOMNode()).prop('checked'),
 			s22 = $(cash.getInputDOMNode()).prop('checked'),
-			s23 = $(check.getInputDOMNode()).prop('checked');
+			s23 = $(check.getInputDOMNode()).prop('checked'),
+			s26 = $(pl.getInputDOMNode()).prop('checked');
 
 		if(s21){
 			return 'credit card';
@@ -47,6 +51,9 @@ KUI.Comp.SelectPaymentWay = class extends RC.CSS{
 		}
 		if(s23){
 			return 'check';
+		}
+		else if(s26){
+			return 'pay later';
 		}
 
 		return null;

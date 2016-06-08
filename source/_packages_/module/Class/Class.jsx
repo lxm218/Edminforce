@@ -802,6 +802,10 @@ let Class = class extends Base{
 
                 let rs = m.ClassStudent.getDB().insert(data);
                 return KG.result.out(true, rs);
+            },
+
+            registerClassList : function(opts){
+
             }
         };
     }
