@@ -470,8 +470,12 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 				left: 'prev,next today',
 				center: 'title',
 				//right: 'month,basicWeek,basicDay'
-				right: 'month,agendaWeek,agendaDay'
+				right: 'month,agendaWeek,agendaDay, timelineDay'
 			},
+
+			resourceLabelText:'Teacher',
+			resourceAreaWidth:100,
+			slotWidth:30,
 
 			resources: function(callback) {
 				console.log('in resources function')
