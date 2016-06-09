@@ -85,17 +85,13 @@ EdminForce.Components.Students = class extends RC.CSS {
 
             return (
                 <TableRow key={student._id}>
-                    <TableRowColumn style={{width: "25%", whiteSpace:"normal"}}>
+                    <TableRowColumn style={{width: "40%", whiteSpace:"normal"}}>
                         <p onClick={self.selectStudent.bind(self, student)}>
                             {student.name}
                         </p>
                     </TableRowColumn>
                     <TableRowColumn style={{width: "60%", whiteSpace:"normal"}}>
                         {classElements}
-                    </TableRowColumn>
-                    <TableRowColumn style={{width: "15%", whiteSpace:"normal"}}>
-                        <i onClick={self.selectStudent.bind(self, student)} className="fa fa-arrow-right"
-                           style={{display:'block'}}></i>
                     </TableRowColumn>
                 </TableRow>
             )
@@ -112,7 +108,6 @@ EdminForce.Components.Students = class extends RC.CSS {
                             <TableRow>
                                 <TableHeaderColumn>Student</TableHeaderColumn>
                                 <TableHeaderColumn>Class</TableHeaderColumn>
-                                <TableHeaderColumn>Go</TableHeaderColumn>
                             </TableRow>
                         </TableHeader>
                         <TableBody displayRowCheckbox={false} onRowSelection={self.selectStudent}>
