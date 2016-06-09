@@ -1,0 +1,251 @@
+tests:
+  - name: 1A.regional domain request
+    des: regional domain request with matching Sc & Sv
+    url: /net_device/get_mapping
+    input:
+      QueueNum: 12345
+      Sc: d52aa0612e9108a934051b4f5070920d
+      Sv: 085a48d31f479f350ecda31084909f67
+      QueueNum: 123
+      IDPS:
+        Ptl: com.jiuan.GW01
+        Name: iHealth
+        FVer: 1.0.2
+        HVer: 1.1.1
+        MFR: iHealth
+        Model: HS6 11070
+        SN: 0000000001
+    expected:
+      Result: 1
+      TS: 1450915147468
+      QueueNum: 12345
+      ResultMessage: 100
+      ReturnValue:
+        Region: US
+        UrlVar: https://www.ihealth.com:8080
+        TimeZone: -8
+
+  - name: 1B.regional domain request
+    des: regional domain request with unrecognized Sc & Sv
+    url: /net_device/get_mapping
+    input:
+      QueueNum: 12345
+      Sc: abcdef
+      Sv: abcdef
+      QueueNum: 123
+      IDPS:
+        Ptl: com.jiuan.GW01
+        Name: iHealth
+        FVer: 1.0.2
+        HVer: 1.1.1
+        MFR: iHealth
+        Model: HS6 11070
+        SN: 0000000001
+    expected:
+      Result: 2
+      TS: 1450915147468
+      QueueNum: 12345
+      ResultMessage: 200.01
+      ReturnValue: Sc/Sv not found in Region Map
+
+  - name: 1C.regional domain request
+    des: regional domain request with bad request format
+    url: /net_device/get_mapping
+    # input: badly formatted request
+    expected:
+      Result: 4
+      TS: 1450915147468
+      ResultMessage: 201
+      QueueNum: 12345
+      ReturnValue: Bad request format
+
+  - name: '2.3.1 Certification request'
+    des: '2.3.1 Certification request - no info provided'
+    url: '/net_device/auth'
+    input:
+      QueueNum: 12345
+      Sc: d52aa0612e9108a934051b4f5070920d
+      Sv: 085a48d31f479f350ecda31084909f67
+      QueueNum: 123
+      IDPS:
+        Ptl: com.jiuan.GW01
+        Name: iHealth
+        FVer: 1.0.2
+        HVer: 1.1.1
+        MFR: iHealth
+        Model: HS6 11070
+        SN: 0000000001
+      Command: FA
+    expected:
+      Result: 1
+      TS: 1450915147468
+      ResultMessage: 100.1
+      QueueNum: 12345
+      ReturnValue: FAF00310FAF00310FAF00310FAF00310
+
+# HHH not sure how this works
+  - name: 2.3.2 returnedto cloud encrypted random number
+    des: 2.3.2 returnedto cloud encrypted random number
+    url: /net_device/auth
+    input:
+      QueueNum: 12345
+      Sc: d52aa0612e9108a934051b4f5070920d
+      Sv: 085a48d31f479f350ecda31084909f67
+      QueueNum: 123
+      IDPS:
+        Ptl: com.jiuan.GW01
+        Name: iHealth
+        FVer: 1.0.2
+        HVer: 1.1.1
+        MFR: iHealth
+        Model: HS6 11070
+        SN: 0000000001
+      Command: FB
+    	DeviceID: 00000021
+    	RNCoded: FAF00310FAF00310FAF00310FAF00310
+    	RN1: FAF00310FAF00310FAF00310FAF00310
+    expected:
+      Result: 1
+      TS: 1450915147468
+      ResultMessage: 100.1
+      QueueNum: 12345
+      ReturnValue: FAF00310FAF00310FAF00310FAF0031
+
+# HHH what is UserProfiles?
+  - name: 3. Get Product Configuration Information
+    des: 3. Get Product Configuration Information
+    url: /net_device/product_set
+    input:
+      QueueNum: 12345
+      Sc: d52aa0612e9108a934051b4f5070920d
+      Sv: 085a48d31f479f350ecda31084909f67
+      QueueNum: 123
+      IDPS:
+        Ptl: com.jiuan.GW01
+        Name: iHealth
+        FVer: 1.0.2
+        HVer: 1.1.1
+        MFR: iHealth
+        Model: HS6 11070
+        SN: 000000000
+      ConfigTs: 19923928382000
+    expectedJSON: |
+      {
+        "Result": 1,
+        "TS": 1450915659162,
+        "QueueNum": 12345,
+        "ResultMessage": 100,
+        "ReturnValue": {
+          "IsEncrypted": 0,
+          "UserProfiles": "MTAxMTAwMTExMDAxMTAxMDExMTAwMTAwMTAwMDAw"
+        }
+      }
+
+# HHH what is UserProfiles?
+  - name: 4. Product data communications
+    des: 4. Product data communications
+    url: /net_device/product_data
+    input:
+      QueueNum: 12345
+      Sc: d52aa0612e9108a934051b4f5070920d
+      Sv: 085a48d31f479f350ecda31084909f67
+      QueueNum: 123
+      IDPS:
+        Ptl: com.jiuan.GW01
+        Name: iHealth
+        FVer: 1.0.2
+        HVer: 1.1.1
+        MFR: iHealth
+        Model: HS6 11070
+        SN: 000000000
+      IsEncrypted: 0
+      Data: MTAwMTExMTExMDAwMDAxMDAxMDAxMDAxMTAwMDExMDAxMDEw
+    expectedJSON: |
+      {
+        "Result": 1,
+        "TS": 1450915659162,
+        "QueueNum": 12345,
+        "ResultMessage": 100,
+        "ReturnValue": 0
+      }
+
+  - name: 5. Networking equipment upgrade license inquiries
+    des: 5. Networking equipment upgrade license inquiries
+    url: /net_device/upgrage_auth
+    input:
+      QueueNum: 12345
+      Sc: d52aa0612e9108a934051b4f5070920d
+      Sv: 085a48d31f479f350ecda31084909f67
+      QueueNum: 123
+      IDPS:
+        Ptl: com.jiuan.GW01
+        Name: iHealth
+        FVer: 1.0.2
+        HVer: 1.1.1
+        MFR: iHealth
+        Model: HS6 11070
+        SN: 000000000
+      UpgradeVer: 1.3.4
+    expectedJSON: |
+      {
+        "Result": 1,
+        "TS": 1450915659167,
+        "QueueNum": 12345,
+        "ResultMessage": 100,
+        "ReturnValue": {
+          "Auth": 0
+        }
+      }
+
+# need more info on the authentication process
+  - name: HS6 1. User login authentication
+    des: HS6 1. User login authentication
+    url: /verify.htm
+    input:
+      Un: abc@gmail.com
+      Pw: abc123
+      client_id: 123
+      client_secret: abcdef
+      AppNum: xxx
+      UUId: uuid
+    expectedJSON: |
+      {
+        "Result": 1,
+        "TS": 1450915659168,
+        "QueueNum": 12345,
+        "ResultMessage": 100,
+        "ReturnValue": {
+          "AccessToken": "nPBECdZ-Ur86T41OFhmxHcxqJDO4ZvRdmLVFRBuUT-UZSCcMEzQZc4ogsfRJrXmGweXqXiW6QCX95ONZtHlFKsLHKF6EAUYkxxReCGVtH6X2Ew1h5A6ZkVmdMHJL7XtFQFx04l9fWuOru2ugzoKc9A",
+          "Expires": 1435137013,
+          "ID": 749553,
+          "RefreshToken": "x1hQYTF9vnMC7ECHDjx6a3dJKgDTf0uojxKmx1VpboFU-YWfDdflv2zYRgo0NwnUEI4O9FuFLDIR9bNqfu16AvVCwEcZJwc3rGkpGWBdqDE8D1ir7JCS3Wi9EkngyrVWCce92d5fbuUnkbB5BSSA0w",
+          "RegionHost": "https://api.ihealthlabs.com:8443",
+          "RegionFlag": 1
+        }
+      }
+  - name: HS6 2.  Binding networked devices
+    des: HS6 2.  Binding networked devices
+    url: /user_netdevice_bind.htm
+    input:
+      Un: abc@gmail.com
+      VerifyToken: abc123
+      UploadData:
+        - MAC: xxxyyyzzz
+          Model: HS3
+          Position: 'HHH gelocation?'
+          TS: 123456
+    expectedJSON: |
+      {
+        "Result": 1,
+        "TS": 1450915659175,
+        "QueueNum": 12345,
+        "ResultMessage": 100,
+        "ReturnValue": {
+          "MAC": "DeviceMac",
+          "Status": 1,
+          "Action": 1,
+          "Position": 1
+          "SetWifi": 1
+          "BindNum": 1
+        }
+      }

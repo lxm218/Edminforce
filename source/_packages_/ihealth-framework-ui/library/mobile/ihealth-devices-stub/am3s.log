@@ -1,0 +1,117 @@
+setDisconnectCallback success - {
+  "msg" : "disconnect",
+  "address" : "004D32034C82",
+  "type" : "AM3S"
+}
+
+setRandom success - {
+  "msg" : "setRandomOK",
+  "address" : "004D320418A6"
+}
+
+connectDevice success - {
+  "msg" : "connected",
+  "address" : "004D320418A6",
+  "name" : "AM3S"
+}
+
+getIDPS success - {
+  "HardwareVersion" : "1.0.0",
+  "msg" : "IDPS",
+  "address" : "004D320418A6",
+  "FirmwareVersion" : "1.0.1"
+}
+
+getPicture success - {
+  "msg" : "picture",
+  "address" : "004D320418A6",
+  "value" : 1
+}
+
+getHourType success - {
+  "msg" : "getHourType",
+  "address" : "004D320418A6",
+  "value" : 1
+}
+
+getRealTimeMessage success - {
+  "msg" : "realtime",
+  "address" : "004D320418A6",
+  "value" : {
+    "Step" : 0,
+    "Calories" : 0
+  }
+}
+
+getBattery success - {
+  "msg" : "battery",
+  "address" : "004D320418A6",
+  "value" : 20
+}
+
+getClocktotal success - {
+  "msg" : "alarmlock number",
+  "address" : "004D320418A6",
+  "value" : 0
+}
+
+getSleepMessage success - {
+  "msg" : "sleep",
+  "address" : "004D320418A6",
+  "value" : [
+
+  ]
+}
+
+getUserMessage success - {
+  "msg" : "user info",
+  "address" : "004D320418A6",
+  "value" : {
+    "TotalStep2" : 34835,
+    "Step" : 50,
+    "TotalStep3" : 50185,
+    "Gender" : 1,
+    "Weight" : 20608,
+    "Unit" : 1,
+    "TotalStep1" : 4135,
+    "Height" : 175,
+    "Age" : 20
+  }
+}
+
+getActivityMessage success - {
+  "msg" : "activity",
+  "address" : "004D320418A6",
+  "value" : [
+
+  ]
+}
+
+getRemind success - {
+  "msg" : "remindInfo",
+  "address" : "004D320418A6",
+  "value" : [
+    {
+      "Switch" : false,
+      "Time" : "00:00"
+    }
+  ]
+}
+
+getUserId success - {
+  "msg" : "user id",
+  "address" : "004D320418A6",
+  "value" : 0
+}
+
+startDiscovery success - {
+  "msg" : "discovery doing",
+  "address" : "004D3203AB5F",
+  "name" : "AM3S"
+}
+
+startDiscovery success - {
+  "msg" : "discovery doing",
+  "address" : "004D320418A6",
+  "name" : "AM3S"
+}

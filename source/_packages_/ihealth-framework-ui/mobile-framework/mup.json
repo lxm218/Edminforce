@@ -1,0 +1,27 @@
+{
+  // https://github.com/iHealthLab/framework-iHealth/tree/master/mobile-framework
+  // Server authentication info
+  "servers": [
+    {
+      "host": "52.26.116.131",
+      "username": "ubuntu",
+      "pem": "~/.ec2/vivian-ihealth-or.pem"
+    }
+  ],
+
+  "setupMongo": false,
+  "setupNode": false,
+  "nodeVersion": "0.10.40",
+  "setupPhantom": false,
+  "appName": "Framework",
+  "app": ".",
+
+  "env": {
+    "ROOT_URL": "http://52.26.116.131",
+//    "MONGO_URL": "mongodb://vivian:yr6oP@tw0@c325.candidate.2.mongolayer.com:10325,candidate.3.mongolayer.com:10287,candidate.2.mongolayer.com:10325/framework-temp?replicaSet=set-5580764dfc2b3f7b5f00001b"
+    "MONGO_URL": "mongodb://doctor:BloodPressure80@candidate.4.mongolayer.com:10279,candidate.3.mongolayer.com:10639/framework-pilot?replicaSet=set-5590b83e1b3e0baa1b00024b",
+    "MONGO_OPLOG_URL": "mongodb://doctor:BloodPressure80@candidate.4.mongolayer.com:10279,candidate.3.mongolayer.com:10639/local?authSource=framework-pilot"
+  },
+
+  "deployCheckWaitTime": 15
+}

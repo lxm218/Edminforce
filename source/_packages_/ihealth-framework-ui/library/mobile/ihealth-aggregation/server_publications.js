@@ -1,0 +1,4 @@
+
+Meteor.publish('', function(appId){
+
+});

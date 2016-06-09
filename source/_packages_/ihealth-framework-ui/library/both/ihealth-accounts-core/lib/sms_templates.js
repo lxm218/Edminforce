@@ -1,0 +1,7 @@
+
+IH.Accounts.smsTemplates = {
+
+
+  verifyPhone: {
+  }
+};
