@@ -13,7 +13,7 @@ KG.define('EF-Coupon', class extends Base{
     }
 
     defineMeteorMethod(){
-
+        let self = this;
 
         return {
             checkRecordById(id){
@@ -21,7 +21,7 @@ KG.define('EF-Coupon', class extends Base{
             },
 
             checkCouponCodeValidByCustomerID(opts){
-                let m = this.getDepModule();
+                let m = KG.DataHelper.getDepModule();
 
                 opts = _.extend({
                     accountID : null,
@@ -97,6 +97,88 @@ KG.define('EF-Coupon', class extends Base{
 
 
                 return KG.result.out(true, one);
+            },
+
+            checkCouponCodeValidByClassList : function(opts){
+                let m = KG.DataHelper.getDepModule();
+                opts = _.extend({
+                    accountID : null,
+                    couponCode : null,
+                    overRequire : 0,
+                    classList : [],
+                    amount : []
+                }, opts);
+
+                let rs = {
+                    discountClass : [],
+                    total : 0
+                };
+                let total = opts.overRequire,
+                    coupon = null;
+                _.each(opts.classList, (cid, i)=>{
+                    let co = m.Class.getDB().findOne({_id : cid});
+                    let param = {
+                        accountID : opts.accountID,
+                        couponCode : opts.couponCode,
+                        overRequire : opts.overRequire,
+                        programID : co.programID,
+                        weekdayRequire : co.schedule.day
+                    };
+
+                    let tmp = self.callMeteorMethod('checkCouponCodeValidByCustomerID', [param]);
+
+                    rs[cid] = {
+                        fee : opts.amount[i]
+                    };
+                    if(tmp.status){
+                        rs.discountClass.push(cid);
+                        coupon = tmp.data;
+                        rs[cid].valid = true;
+                    }
+                    else{
+                        rs[cid].valid = false;
+                    }
+                });
+
+                if(rs.discountClass.length < 1){
+                    return {
+                        flag : false,
+                        error : 'Coupon Code is not valid'
+                    };
+                }
+
+                let reg = /^([0-9\.]+)([%/\$]{1})$/,
+                    match = coupon.discount.match(reg);
+                let n = match[1],
+                    unit = match[2];
+
+                _.each(opts.classList, (cid, i)=>{
+                    if(!rs[cid].valid){
+                        rs[cid].discount = 0;
+                    }
+                    else if(unit === '$'){
+                        rs[cid].discount = parseFloat((n/rs.discountClass.length).toFixed(2));
+                    }
+                    else if(unit === '%'){
+                        rs[cid].discount = parseFloat(rs[cid].fee*(1-(n/100))).toFixed(2);
+                    }
+
+                    rs[cid].pay = rs[cid].fee - rs[cid].discount;
+                    if(rs[cid].pay < 0){
+                        rs[cid].pay = 0;
+                    }
+
+                    rs.total += rs[cid].pay;
+
+                });
+
+                if(unit === '$'){
+                    rs.total = opts.overRequire - n;
+                }
+
+                rs.flag = true;
+                rs.coupon = coupon;
+                return rs;
             }
         };
     }
