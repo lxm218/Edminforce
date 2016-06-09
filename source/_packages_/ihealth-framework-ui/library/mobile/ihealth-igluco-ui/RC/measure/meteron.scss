@@ -1,0 +1,80 @@
+@import '../base';
+
+.primaryContainer {
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 100%;
+    width: 100%;
+    max-width: none;
+    position: relative;
+}
+
+#ButtonText {
+    color: rgb(102, 187, 106);
+    font-family: 'Helvetica Neue';
+    font-size: 0.8790718124999999em;
+    font-weight: 100;
+    margin-left: 3%;
+    /*float: left;
+    width: auto;
+    height: auto;
+    text-align: left;
+    line-height: normal;
+    font-style: normal;
+    letter-spacing: normal;
+    text-decoration: none;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    margin-top: -15px;
+    clear: both;*/
+}
+
+/*#PencilIcon {
+    float: left;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    color: rgb(0, 0, 0);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 101;
+    margin-top: 6.65625px;
+    margin-left: 9.476631%;
+    clear: none;
+}*/
+
+#FooterButton {
+    background-color: rgb(255, 255, 255);
+    border-radius: 6.44122px;
+    border: 1px solid rgb(102, 187, 106);
+    z-index: 99;
+    display: -webkit-flex;
+    -webkit-justify-content: center;
+    width: 90%;
+    padding: 2%;
+    // margin: 4% 3%;
+}
+
+#PhoneContainer {
+  @extend .column;
+  -webkit-justify-content: space-between;
+  height: 100vh;
+  width: 100%;
+  max-height: 736px;
+  max-width: 414px;
+  min-height: 480px;
+  min-width: 320px;
+  position: static;
+  background-color: #FAFAFA;
+}
+
+.footer {
+  height: 11%;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -webkit-justify-content: center;
+}

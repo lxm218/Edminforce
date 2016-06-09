@@ -1,0 +1,2 @@
+
+ChatDispatcher = new MeteorFlux.Dispatcher();

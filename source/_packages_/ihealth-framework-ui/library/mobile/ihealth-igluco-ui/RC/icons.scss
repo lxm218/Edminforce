@@ -1,0 +1,84 @@
+
+@import 'base';
+
+#Icons {
+  margin-top: 4%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  display: -webkit-flex;
+  -webkit-justify-content: space-between;
+}
+
+.iconRingBase {
+  @extend .center;
+  border-radius: 50%;
+  z-index: 82;
+  // margin-bottom: 3%;
+  width: 22%;
+  height: 0;
+  padding-bottom: 21%;
+  background-color: white;
+  position: relative;
+}
+.iconRingBase::after {
+  content: '';
+  display: block;
+  z-index: 83;
+
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.content:before {
+  content: '';
+  vertical-align: middle;
+  display: inline-block;
+  width: 0;
+  height: 100%;
+}
+
+.content img {
+  vertical-align: middle;
+  display: inline-block;
+  max-width: 40%;
+  z-index: 100;
+  color: white;
+}
+.iconRing {
+  @extend .iconRingBase;
+  border: 2px solid rgba(158, 158, 158, 0.6);
+  box-shadow: 0 0 blue;
+  position: relative;
+}
+
+.iconRingActive {
+  @extend .iconRingBase;
+  border: 2px solid rgba(65, 181, 232, 0.6);
+  box-shadow: 0 0 12px 0 rgb(65, 181, 232);
+}
+
+#IconRingActive {
+    float: left;
+    height: 57.859375px;
+    width: 85.441143%;
+    background-color: rgb(255, 255, 255);
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border: 2px solid rgba(65, 181, 232, 0.6);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    z-index: 87;
+    margin-top: 5.125px;
+    margin-left: 7.577153%;
+    clear: none;
+}
