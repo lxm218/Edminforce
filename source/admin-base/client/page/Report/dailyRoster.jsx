@@ -48,6 +48,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             
             // sort student names alphabetically, move trial & makeup to the end
             if (this.data.programs && this.data.programs.length > 0) {
+                // sort programs by order
+                this.data.programs.sort((a,b) => (a.displayOrder > b.displayOrder));
+
                 this.data.programs.forEach( (p) => {
                     p.classes.forEach( (c) => {
                         if (!c.students || c.students.length == 0) return;
@@ -64,7 +67,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         regulars.length > 0 && regulars.sort( (a,b) => (a.name > b.name));
                         makeups.length > 0 && makeups.sort( (a,b) => (a.name > b.name));
                         trials.length > 0 && trials.sort( (a,b) => (a.name > b.name));
-                        c.students = regulars.concat(trials).concat(makeups);
+                        c.students = [...regulars, ...trials, ...makeups];
                     })
                 });
             }
@@ -131,8 +134,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 if (currentHourClasses.length > 0) {
                     currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
                     currentHourClasses.forEach( (c) => {
-                        currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + c.teacher});
-                        currentHour[index].rows = currentHour[index].rows.concat(c.students);
+                        currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + c.teacher + " (" + c.students.length + ")"});
+                        currentHour[index].rows = [...currentHour[index].rows,...c.students];
                     })
                 }
 
