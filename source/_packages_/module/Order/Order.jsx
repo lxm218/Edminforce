@@ -20,5 +20,26 @@ KG.define('EF-Order', class extends Base{
         return super.insert(data);
     }
 
+    defineMeteorMethod(){
+        let self = this;
+
+        return {
+            insertData : function(data, classListObj){
+                let m = KG.DataHelper.getDepModule();
+
+                let way = data.paymentType;
+                if(way === 'pay later'){
+                    //
+                }
+                else if(way === 'cash' || way === 'check'){
+
+                }
+                else{
+
+                }
+            }
+        };
+    }
+
 
 });

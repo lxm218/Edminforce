@@ -393,9 +393,16 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		else if(way === 'cash' || way === 'check'){
 			orderData.paymentType = way;
 			orderData.status = 'success';
+			orderData.poundage = (way==='cash'?App.config.poundage.cash:App.config.poundage.check);
+		}
+		else{
+			orderData.paymentType = way;
+			orderData.status = 'wait';
+			orderData.poundage = (way==='echeck'?App.config.poundage.echeck:App.config.poundage.credit);
 		}
 
 		console.log(orderData);
+
 
 	}
 };
