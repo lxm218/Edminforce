@@ -38,8 +38,10 @@ tmeasday:publish-counts
 fourseven:scss@=3.2.0
 fortawesome:fontawesome
 
-#ihealth:utils
-ihealth:framework-webapp
+ihealth:utils
+ihealth:framework-engine
+ihealth:framework-mobile
+ihealth:dev-tools
 
 aldeed:simple-schema
 
