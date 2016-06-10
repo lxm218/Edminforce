@@ -274,6 +274,7 @@ KUI.Coupon_add = class extends KUI.Page{
         console.log(data);
 
         KG.get('EF-Coupon').insertWithCallback(data, function(rs){
+            console.log(rs);
             KG.result.handle(rs, {
                 success : function(){
                     util.dialog.alert('insert success');

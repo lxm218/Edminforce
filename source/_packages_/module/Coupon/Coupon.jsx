@@ -12,12 +12,13 @@ KG.define('EF-Coupon', class extends Base{
         };
     }
 
+
     defineMeteorMethod(){
         let self = this;
 
         return {
             checkRecordById(id){
-                return !!this._db.findOne({_id: id});
+                return !!this._db.findOne({_id: id.toUpperCase()});
             },
 
             checkCouponCodeValidByCustomerID(opts){
@@ -31,7 +32,10 @@ KG.define('EF-Coupon', class extends Base{
                     weekdayRequire : null
                 }, opts);
 
-                let one = this._db.findOne({_id:opts.couponCode});
+                let one = this._db.findOne({_id:opts.couponCode.toUpperCase()});
+                if(!one){
+                    one = this._db.findOne({_id : (new RegExp('^'+opts.couponCode+'$', 'i'))});
+                }
                 if(!one){
                     return KG.result.out(false, new Meteor.Error('-1', 'Coupon Code is not valid'));
                 }

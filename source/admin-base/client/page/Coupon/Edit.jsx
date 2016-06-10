@@ -41,6 +41,7 @@ KUI.Coupon_Edit = class extends KUI.Page{
         delete data._id;
 
         let rs = KG.get('EF-Coupon').updateById(data, this.data.id);
+        console.log(rs);
         KG.result.handle(rs, {
             success : function(){
                 util.toast.alert('update success');

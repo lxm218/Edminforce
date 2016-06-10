@@ -118,6 +118,7 @@ console.log(date, query);
 		}
 		console.log(this.data.classList);
 
+		let self = this;
 		let titleArray = [
 			{
 				title : 'Name',
@@ -125,7 +126,12 @@ console.log(date, query);
 			},
 			{
 				title : 'Trial Number',
-				key : 'trialStudent'
+				//key : 'trialStudent',
+				reactDom(doc){
+					let c = doc.trial['d'+moment(self.state.query.date).format('YYYYMMDD')];
+					if(!c) c = 0;
+					return c+' / '+doc.trialStudent;
+				}
 			},
 			{
 				title : 'Teacher',
@@ -149,7 +155,11 @@ console.log(date, query);
 		if(this.props.type === 'makeup'){
 			titleArray[1] = {
 				title : 'Makeup Number',
-				key : 'makeupStudent'
+				reactDom : function(doc){
+					let c = doc.makeup['d'+moment(self.state.query.date).format('YYYYMMDD')];
+					if(!c) c = 0;
+					return c+' / '+doc.makeupStudent;
+				}
 			};
 		}
 
@@ -255,6 +265,7 @@ KUI.Student_TrailClass = class extends KUI.Page{
 		m.Class.callMeteorMethod('checkStudentCanBeTrailClass', [data], {
 			context : this,
 			success : function(json){
+				console.log(json);
 				KG.result.handle(json, {
 					success : function(){
 						self.insertTailData(data);
@@ -268,6 +279,7 @@ KUI.Student_TrailClass = class extends KUI.Page{
 	}
 
 	insertTailData(json){
+		let self = this;
 		let data = {
 			classID : json.classID,
 			studentID : json.studentID,
@@ -283,8 +295,16 @@ KUI.Student_TrailClass = class extends KUI.Page{
 			success : function(cid){
 				//TODO how to pay?
 				console.log(cid);
-				util.toast.alert('Trial Class Success');
-				util.goPath('/student/'+data.studentID);
+
+				self.module.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [cid], {
+					success : function(json){
+console.log(json);
+						util.toast.alert('Trial Class Success');
+						util.goPath('/student/'+data.studentID);
+					}
+				});
+
+
 			},
 			error : function(e, error){
 				console.log(e);
@@ -439,21 +459,21 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 
 		data.studentID = this.data.student._id;
 
-		self.insertTailData(data);
+		//self.insertTailData(data);
 
-		//m.Class.callMeteorMethod('checkStudentCanBeMakeupClass', [data], {
-		//	context : this,
-		//	success : function(json){
-		//		KG.result.handle(json, {
-		//			success : function(){
-		//				self.insertTailData(data);
-		//			},
-		//			error : function(e){
-		//				util.toast.showError(e.reason);
-		//			}
-		//		});
-		//	}
-		//});
+		m.Class.callMeteorMethod('checkStudentCanBeMakeupClass', [data], {
+			context : this,
+			success : function(json){
+				KG.result.handle(json, {
+					success : function(){
+						self.insertTailData(data);
+					},
+					error : function(e){
+						util.toast.showError(e.reason);
+					}
+				});
+			}
+		});
 	}
 
 	insertTailData(json){
@@ -600,8 +620,14 @@ console.log(orderData);
 				self.m.ClassStudent.callMeteorMethod('updateClassFeeByOrderID', [id, cid], {});
 
 				if(self.fee === 0 || cash){
+
 					self.module.ClassStudent.updateStatus('checkouted', cid);
-					util.goPath('/student/'+orderData.studentID);
+					self.module.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [cid], {
+						success : function(json){
+							util.goPath('/student/'+orderData.studentID);
+						}
+					});
+
 				}
 				else{
 					Session.set('KG-Class-Makeup-Fn', 'makeup');

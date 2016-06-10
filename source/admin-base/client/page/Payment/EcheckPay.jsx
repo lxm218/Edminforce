@@ -137,7 +137,11 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
             if(makeup){
                 //TODO makeup
                 KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.data.details[0]);
-                util.goPath('/student/'+this.data.data.studentID);
+                self.m.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [self.data.data.details[0]], {
+                    success : function(json){
+                        util.goPath('/student/'+self.data.data.studentID);
+                    }
+                })
 
             }
             else{

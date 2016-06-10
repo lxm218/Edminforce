@@ -181,7 +181,9 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			return false;
 		}
 
+
 		this.setState({
+			coupon : false,
 			step : 2
 		});
 

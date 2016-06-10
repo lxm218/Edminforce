@@ -328,9 +328,8 @@ let Class = class extends Base{
                 query = {
                     studentID : studentID,
                     classID : classID,
-                    type : 'trail',
-                    status : {'$in' : SUCCESSSTATUS},
-                    lessonDate : date
+                    type : 'trial',
+                    status : {'$in' : SUCCESSSTATUS}
                 };
                 let z1 = m.ClassStudent.getDB().find(query).count();
                 if(z1 > 0){
@@ -345,7 +344,7 @@ let Class = class extends Base{
                     }).count(),
                     n1 = m.ClassStudent.getDB().find({
                         classID : classID,
-                        type : 'trail',
+                        type : 'trial',
                         lessonDate : date,
                         status : {'$in' : SUCCESSSTATUS}
                     }).count();
@@ -364,7 +363,7 @@ let Class = class extends Base{
                 n1 = m.ClassStudent.getDB().find({
                     studentID : studentID,
                     classID : {'$in' : _.map(classList, (o)=>{return o._id;})},
-                    type : 'trail',
+                    type : 'trial',
                     status : {'$in' : SUCCESSSTATUS}
                 }).count();
                 if(n1 > 0){
@@ -387,9 +386,9 @@ let Class = class extends Base{
                     status : {'$in' : SUCCESSSTATUS}
                 };
                 let one = m.ClassStudent.getDB().findOne(query);
-                if(!one){
-                    return KG.result.out(false, new Meteor.Error('-601', 'can not register, can not makeup'));
-                }
+                //if(!one){
+                //    return KG.result.out(false, new Meteor.Error('-601', 'can not register, can not makeup'));
+                //}
 
                 query = {
                     studentID : studentID,
@@ -691,6 +690,9 @@ let Class = class extends Base{
                     });
                 }
 
+                //sync number
+                m.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [ClassStudentID]);
+
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
                 KG.RequestLog.addByType('cancel makeup class', {
@@ -804,8 +806,53 @@ let Class = class extends Base{
                 return KG.result.out(true, rs);
             },
 
-            registerClassList : function(opts){
 
+            //sync class trial number and makeup number
+            syncClassTrialOrMakeupNumber : function(csID, opts){
+                opts = opts || {};
+                let isDelete = opts.isDelete || false;
+                let m = KG.DataHelper.getDepModule();
+
+                let cs = m.ClassStudent.getDB().findOne({_id : csID});
+                console.log(cs);
+
+                let zone = m.School.getDB().findOne().timezone || 0;
+                let ld = 'd'+moment.utc(new Date(cs.lessonDate)).utcOffset(zone).format('YYYYMMDD');
+                let cc = 0;
+
+                let incData = {};
+                if(cs.type === 'trial'){
+                    cc = m.ClassStudent.getDB().find({
+                        studentID : cs.studentID,
+                        classID : cs.classID,
+                        type : 'trial',
+                        status : 'checkouted',
+                        lessonDate : cs.lessonDate
+                    }).count();
+                    if(isDelete) cc--;
+                    if(cc<0) cc = 0;
+                    incData['trial.'+ld] = cc;
+                }
+                else if(cs.type === 'makeup'){
+                    cc = m.ClassStudent.getDB().find({
+                        studentID : cs.studentID,
+                        classID : cs.classID,
+                        type : 'makeup',
+                        status : 'checkouted',
+                        lessonDate : cs.lessonDate
+                    }).count();
+                    if(isDelete) cc--;
+                    if(cc<0) cc = 0;
+                    incData['makeup.'+ld] = cc;
+                }
+                else{
+                    return true;
+                }
+
+                console.log('count === ' +cc);
+                return m.Class.getDB().update({_id : cs.classID}, {
+                    $set : incData
+                });
             }
         };
     }

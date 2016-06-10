@@ -77,12 +77,12 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
         console.log(data);
 
         this.refs.btn.loading(true);
-        Meteor.call('postPaymentByCreditCard', data, (error, rs)=>{
+        //Meteor.call('postPaymentByCreditCard', data, (error, rs)=>{
             this.refs.btn.loading(false);
-            if(error){
-                util.toast.showError(error.reason);
-                return;
-            }
+            //if(error){
+            //    util.toast.showError(error.reason);
+            //    return;
+            //}
             util.toast.alert('Pay Success');
 
             if(self.orderType === 'register'){
@@ -105,7 +105,12 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             if(makeup){
                 //TODO makeup
                 KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.data.details[0]);
-                util.goPath('/student/'+this.data.data.studentID);
+                self.m.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [self.data.data.details[0]], {
+                    success : function(json){
+                        util.goPath('/student/'+self.data.data.studentID);
+                    }
+                });
+
 
             }
             else{
@@ -115,7 +120,7 @@ KUI.Payment_CreditCardPay = class extends KUI.Page{
             }
 
 
-        });
+        //});
     }
 
     getFormValue(){

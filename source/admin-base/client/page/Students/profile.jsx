@@ -502,8 +502,16 @@ KUI.Student_profile = class extends KUI.Page{
                                 confirmButtonText: "Yes, delete it!",
                                 closeOnConfirm: false
                             }, function(){
-                                self.m.ClassStudent.getDB().remove({_id : doc._id});
-                                swal("cancel class success.", "", "success");
+                                self.m.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [doc._id, {
+                                    isDelete : true
+                                }], {
+                                    success : function(){
+                                        self.m.ClassStudent.getDB().remove({_id : doc._id});
+                                        swal("cancel class success.", "", "success");
+                                    }
+                                });
+
+
                             });
 
                         };

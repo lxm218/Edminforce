@@ -2,8 +2,26 @@
 Schema = {};
 Validate = {};
 
+Validate.Coupon = {
+    '500' : 'Coupon code is exist.'
+};
 Schema.Coupon = {
-    _id : KG.schema.default({}),
+    _id : KG.schema.default({
+        custom : function(){
+            let val = this.value.toUpperCase();
+            let x = KG.get('EF-Coupon').getDB().find({_id : val}).count();
+            if(x>0){
+                return '500';
+            }
+
+        },
+        autoValue : function(doc){
+            if(this.isInsert){
+                return this.value.toUpperCase();
+            }
+
+        }
+    }),
     discount : KG.schema.default(),
     maxCount : KG.schema.default({
         type : Number,
