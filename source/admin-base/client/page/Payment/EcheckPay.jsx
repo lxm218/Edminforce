@@ -2,10 +2,14 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
     constructor(p){
         super(p);
         this.total = 0;
+
+        this.m = KG.DataHelper.getDepModule();
     }
 
 
     getMeteorData() {
+        this.orderType = FlowRouter.getQueryParam('type')||'';
+
         let orderID = FlowRouter.getParam('orderID');
         let x = Meteor.subscribe('EF-Order', {
             query : {
@@ -97,6 +101,7 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
     }
 
     pay(){
+        let self = this;
         let makeup = Session.get('KG-Class-Makeup-Fn') && Session.get('KG-Class-Makeup-Fn')==='makeup';
 
         let json = this.data.data;
@@ -111,6 +116,16 @@ KUI.Payment_ECheckPay = class extends KUI.Page{
                 return;
             }
             util.toast.alert('Pay Success');
+
+            if(self.orderType === 'register'){
+                self.m.Order.callMeteorMethod('paySuccessByOrder', [self.data.orderID], {
+                    success : function(oid){
+                        FlowRouter.go('/registration/register/success?orderID='+oid);
+                    }
+                });
+
+                return;
+            }
 
             //update order db
             let nd = {

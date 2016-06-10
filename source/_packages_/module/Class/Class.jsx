@@ -501,7 +501,7 @@ let Class = class extends Base{
                     let number = this.calculateNumberOfClass(cd, cd.session, true, cs.createTime);
                     let tuiPer = cd.leftOfClass/number;
 
-                    let tmp = ((cs.fee)*tuiPer).toFixed(2);
+                    let tmp = ((cs.fee-(cs.discounted||0))*tuiPer).toFixed(2);
 
                     return {
                         tuition : 0-tmp,

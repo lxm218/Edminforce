@@ -27,16 +27,73 @@ KG.define('EF-Order', class extends Base{
             insertData : function(data, classListObj){
                 let m = KG.DataHelper.getDepModule();
 
+                console.log(data, classListObj);
                 let way = data.paymentType;
-                if(way === 'pay later'){
-                    //
-                }
-                else if(way === 'cash' || way === 'check'){
 
-                }
-                else{
+                if(data.type === 'register class'){
 
+                    _.each(data.details, function(csID){
+                        //each dettails
+                        let p = {
+                            fee : classListObj[csID].fee,
+                            discounted : classListObj[csID].discount
+                        };
+                        if(way === 'holding'){
+                            p.pendingFlag = true;
+                        }
+
+                        m.ClassStudent.getDB().update({
+                            _id : csID
+                        }, {$set : p});
+                    });
                 }
+
+                //insert data to order
+                data.paymentSource = 'admin';
+                return self._db.insert(data);
+            },
+
+            getAllByQuery : function(query){
+                let m = KG.DataHelper.getDepModule();
+                let list = m.Order.getDB().find(query, {sort : {updateTime:-1}}).fetch();
+
+                return _.map(list, (item)=>{
+                    item.customer = m.Customer.getDB().findOne({_id : item.accountID});
+                    item.details = _.map(item.details, (csID)=>{
+                        let d = m.ClassStudent.callMeteorMethod('getAllByQuery', [{_id:csID}])[0];
+                        return d;
+                    });
+                    return item;
+                });
+            },
+
+            paySuccessByOrder : function(orderID){
+                let m = KG.DataHelper.getDepModule();
+
+                let order = m.Order.getDB().findOne({_id : orderID});
+                _.each(order.details, (csID)=>{
+                    m.ClassStudent.getDB().update({
+                        _id : csID
+                    }, {$set : {
+                        status : 'checkouted',
+                        orderID : orderID
+                    }});
+                });
+
+                if(order.couponID || order.customerCouponID){
+                    m.Coupon.useOnce((order.couponID || order.customerCouponID), order.accountID);
+                }
+
+                if(order.registrationFee){
+                    m.Customer.callMeteorMethod('changeRegistrationFeeStatusById', [order.accountID]);
+                }
+
+                m.Order.getDB().update({_id : orderID}, {$set : {
+                    status : 'success'
+                }});
+
+
+                return orderID;
             }
         };
     }

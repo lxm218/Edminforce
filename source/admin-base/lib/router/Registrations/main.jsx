@@ -77,7 +77,14 @@ if(Meteor.isClient){
         }
     });
 
-
+    Route.route('/register/success', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle: "Registration | success",
+                bodyTmpl: <KUI.Registration_SuccessPage />
+            })
+        }
+    });
 
 
 

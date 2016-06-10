@@ -30,7 +30,9 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			registrationFee : 0,
 			schoolCredit : 0,
 
-			couponResult : null
+			couponResult : null,
+
+			ClassStudentObj : {}
 		};
 	}
 
@@ -332,6 +334,25 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		this.setState({step:1});
 	}
 	toStep3(){
+		//set class fee list
+		this.C.ClassStudentObj = {};
+		if(this.state.coupon){
+			_.each(this.state.summaryList.list, (item)=>{
+				this.C.ClassStudentObj[item._id] = this.C.couponResult[item.classID];
+			});
+
+		}
+		else{
+			_.each(this.state.summaryList.list, (item)=>{
+				this.C.ClassStudentObj[item._id] = {
+					amount : item.amount,
+					fee : item.amount,
+					discount : 0
+				};
+			});
+		}
+
+
 		this.setState({step : 3});
 	}
 
@@ -354,6 +375,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 	}
 
 	submitPayment(){
+		let self = this;
 		let way = this.refs.payway.getValue();
 		if(!way){
 			swal({
@@ -369,8 +391,9 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		let orderData = {
 			accountID : customer._id,
 			studentID : (_.map(list, (item)=>{return item.studentID})).join(','),
-			details : _.map(list, (item)=>{return item.classID}),
+			details : _.map(list, (item)=>{return item._id}),
 			amount : this.C.actualPayment,
+			type : 'register class',
 			registrationFee : this.C.registrationFee,
 			schoolCredit : this.C.schoolCredit,
 			discount : this.state.coupon ? (this.C.totalFee - this.C.couponResult.total) : 0
@@ -392,17 +415,47 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		}
 		else if(way === 'cash' || way === 'check'){
 			orderData.paymentType = way;
-			orderData.status = 'success';
+			orderData.status = 'waiting';
 			orderData.poundage = (way==='cash'?App.config.poundage.cash:App.config.poundage.check);
 		}
 		else{
 			orderData.paymentType = way;
-			orderData.status = 'wait';
+			orderData.status = 'waiting';
 			orderData.poundage = (way==='echeck'?App.config.poundage.echeck:App.config.poundage.credit);
 		}
 
-		console.log(orderData);
+		let total = orderData.amount*(1+(parseFloat(orderData.poundage||0)));
+		if(orderData.poundage){
+			orderData.poundage = orderData.poundage.toString();
+		}
+		orderData.paymentTotal = total;
 
+		console.log(orderData);
+		console.log(this.C.ClassStudentObj);
+
+		this.m.Order.callMeteorMethod('insertData', [orderData, this.C.ClassStudentObj], {
+			success : function(cid){
+				console.log(cid);
+				if(way === 'cash' || way === 'check'){
+					self.m.Order.callMeteorMethod('paySuccessByOrder', [cid], {
+						success : function(oid){
+							FlowRouter.go('/registration/register/success?orderID='+oid);
+						}
+					});
+				}
+				else if(way === 'pay later'){
+					FlowRouter.go('/student/'+self.studentID);
+				}
+				else{
+					if(way === 'echeck'){
+						FlowRouter.go('/payment/echeck/'+cid+'?type=register');
+					}
+					else{
+						FlowRouter.go('/payment/creditcard/'+cid+'?type=register');
+					}
+				}
+			}
+		});
 
 	}
 };

@@ -231,7 +231,7 @@ KUI.Class_detail = class extends KUI.Page{
 
         return (
             <RC.Div style={{textAlign:'right'}}>
-                {flag?<KUI.YesButton href={`/registration/index/class/${classID}`} label="Register"></KUI.YesButton>:null}
+                {flag?<KUI.YesButton href={`/registration/register?classID=${classID}`} label="Register"></KUI.YesButton>:null}
                 {!flag?<KUI.YesButton href={`/registration/index/class/${classID}`} label="Waitlist"></KUI.YesButton>:null}
 
             </RC.Div>
