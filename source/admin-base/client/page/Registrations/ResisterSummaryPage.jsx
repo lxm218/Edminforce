@@ -166,7 +166,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 				<p>Total Amount : {this.state.summaryList.total}</p>
 
 				<KUI.YesButton href={`/registration/register?studentID=${one.studentID}`} style={sy.ml} label="Register More Class"></KUI.YesButton>
-				<KUI.YesButton href={`/registration/register?classID=${one.classID}`} style={sy.ml} label="Register More Student"></KUI.YesButton>
+				<KUI.YesButton href={`/registration/register`} style={sy.ml} label="Register More Student"></KUI.YesButton>
 				{this.state.summaryList.list.length>0?<KUI.YesButton onClick={this.toStep2.bind(this)} style={sy.ml} label="Check Out"></KUI.YesButton>:null}
 			</RC.Div>
 		);
@@ -208,7 +208,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 		let dl = [
 			{
-				item : 'Total Registration Fee',
+				item : 'Total Tuition',
 				value : total
 			}
 		];
@@ -229,7 +229,12 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		if(this.state.coupon){
 			dl.push({
 				item : 'Coupon',
-				value : this.state.coupon.discount
+				value : this.state.coupon.discount + ' off'
+			});
+
+			dl.push({
+				item : 'Coupon discount',
+				value : '-' + this.C.couponResult.discountTotal
 			});
 
 			total = this.C.couponResult.total;
@@ -237,6 +242,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 
 		// school credit
+		if(total < 0) total = 0;
 		if(this.state.useSchoolCredit){
 			this.C.schoolCredit = customer.schoolCredit || 0;
 			if(this.C.schoolCredit > total){
@@ -363,7 +369,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 		return (
 			<RC.Div>
-				<h4>Your payment is : {this.C.actualPayment}$, Please select below.</h4>
+				<h4>Your payment is : ${this.C.actualPayment} {this.C.actualPayment>0?', Please select below.':null}</h4>
 
 
 				{this.C.actualPayment>0?<KUI.Comp.SelectPaymentWay ref="payway"></KUI.Comp.SelectPaymentWay>:null}
@@ -378,13 +384,9 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 	submitPayment(){
 		let self = this;
-		let way = this.refs.payway.getValue();
-		if(!way){
-			swal({
-				type : 'warning',
-				title : 'Please select payment method'
-			});
-			return false;
+		let way = 'cash';
+		if(this.C.actualPayment > 0){
+			way = this.refs.payway.getValue();
 		}
 
 		let customer = this.state.summaryList.list[0].customer;

@@ -482,13 +482,16 @@ KUI.Report_Finance = class extends KUI.Page{
 			{
 				title : 'Amount($)',
 				reactDom(doc){
+					let rs = 0;
 					if(_.contains(['register class', 'makeup class'], doc.order.type)){
-						return doc.fee - Math.abs(doc.discounted);
+						rs = doc.fee - Math.abs(doc.discounted);
+					}
+					else{
+						rs = doc.order.amount;
 					}
 
-					return doc.order.amount;
-
-
+					if(rs < 0) rs = 0;
+					return rs;
 				}
 			}
 		];

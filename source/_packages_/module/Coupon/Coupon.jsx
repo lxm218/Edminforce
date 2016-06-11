@@ -42,8 +42,10 @@ KG.define('EF-Coupon', class extends Base{
 
                 let count = one.maxCount,
                     forNewUser = one.validForNoBooked;
+console.log(one);
 
-                if(!_.contains(one.useFor, 'all') && !_.contains(one.userFor, opts.programID)){
+                if(!_.contains(one.useFor, 'all') && !_.contains(one.useFor, opts.programID)){
+                    console.log(one.useFor, opts.programID);
                     return KG.result.out(false, new Meteor.Error('-1', 'Coupon code can not be used for this program'));
                 }
                 if(!_.contains(one.weekdayRequire, 'all') && !_.contains(one.weekdayRequire, opts.weekdayRequire)){
@@ -164,7 +166,7 @@ KG.define('EF-Coupon', class extends Base{
                         rs[cid].discount = parseFloat((n/rs.discountClass.length).toFixed(2));
                     }
                     else if(unit === '%'){
-                        rs[cid].discount = parseFloat(rs[cid].fee*(1-(n/100))).toFixed(2);
+                        rs[cid].discount = parseFloat(rs[cid].fee*(n/100)).toFixed(2);
                     }
 
                     rs[cid].pay = rs[cid].fee - rs[cid].discount;
@@ -179,6 +181,14 @@ KG.define('EF-Coupon', class extends Base{
                 if(unit === '$'){
                     rs.total = opts.overRequire - n;
                 }
+
+
+
+                if(rs.total < 0){
+                    rs.total = 0;
+                }
+
+                rs.discountTotal = opts.overRequire - rs.total;
 
                 rs.flag = true;
                 rs.coupon = coupon;

@@ -7,9 +7,12 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 
 		this.state = {
 			list : [],
+			query : {},
 
 			refresh : null
 		};
+
+		this.page = 1;
 	}
 
 	getMeteorData(){
