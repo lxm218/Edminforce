@@ -82,7 +82,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             validForNew : {
                 ref : 'validForNew',
                 onChange : function(){},
-                label : 'valid for new customers who haven\'t booked bofore'
+                label : 'valid for new customers who haven\'t booked before'
             }
 
         };

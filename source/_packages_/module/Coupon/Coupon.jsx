@@ -204,13 +204,13 @@ KG.define('EF-Coupon', class extends Base{
         let self = this;
         if(!data._id){
             //data._id = Meteor.uuid();
-            return callback(KG.result.out(false, new Meteor.Error(-601, 'Coupon Code is require')));
+            return callback(KG.result.out(false, new Meteor.Error(-601, 'Coupon Code is required')));
         }
         this.callMeteorMethod('checkRecordById', [data._id], {
             context : this,
             success : function(flag){
                 if(flag){
-                    return callback(KG.result.out(false, new Meteor.Error(-602, 'Coupon Code is exist')));
+                    return callback(KG.result.out(false, new Meteor.Error(-602, 'Coupon Code already existed')));
                 }
                 else{
                     return callback(this.insert(data));
