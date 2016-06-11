@@ -56,7 +56,8 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             });
         let x4 = Meteor.subscribe('EF-AdminUser', {
             query : {
-                role : 'teacher'
+                role : 'teacher',
+                status : 'active'
             }
         });
 

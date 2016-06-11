@@ -303,7 +303,8 @@ let ClassFilter = class extends KUI.Page{
 		});
 		let x4 = Meteor.subscribe('EF-AdminUser', {
 			query : {
-				role : 'teacher'
+				role : 'teacher',
+				status : 'active'
 			}
 		});
 		if(!x2.ready() || !x3.ready() || !x4.ready()) return {ready : false};
