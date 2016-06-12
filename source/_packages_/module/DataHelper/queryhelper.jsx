@@ -315,24 +315,79 @@ console.log(start.format(), end.format());
                 return {list, total};
             },
 
-            getProgramRegistrationDailyReport : function(query){
+            getProgramRegistrationDailyReport : function(opts){
                 let m = this.getDepModule();
 
-                let rs = m.ClassStudent.getDB().aggregate([
+                let zone = m.School.getDB().findOne().timezone || 0;
+                let start = KG.util.getZoneDateByString(opts.startDate, zone),
+                    end = KG.util.getZoneDateByString(opts.endDate, zone).add(1, 'days');
+
+                let rs = [];
+                let list = m.ClassStudent.getDB().aggregate([
                     {
                         $match : {
                             status : 'checkouted',
-                            type : 'register'
+                            type : 'register',
+                            createTime : {
+                                '$gte' : start.toDate(),
+                                '$lte' : end.toDate()
+                            }
+                        }
+                    },
+                    {
+                        $sort : {
+                            createTime : -1
                         }
                     },
                     {
                         $group : {
                             _id : {
-                                $dateToString : {format : '%m/%d/%Y', date : '$updateTime'}
-                            }
+                                $dateToString : {format : '%m/%d/%Y', date : '$createTime'}
+                            },
+                            count : { $sum : 1 },
+                            list : { $push : '$$ROOT' }
+                        }
+                    },
+                    {
+                        $sort : {
+                            _id : -1
                         }
                     }
                 ]);
+
+                let plist = m.Program.getDB().find().fetch();
+                let loop = function(date){
+                    let ds = moment(date).format(KG.const.dateFormat);
+
+                    let tmp = {};
+                    _.each(plist, (p)=>{
+                        tmp[p._id] = {
+                            count : 0,
+                            name : p.name
+                        };
+                    });
+                    tmp.total = 0;
+
+                    let one = _.find(list, (x)=>{
+                        return x._id === ds;
+                    });
+                    if(one){
+                        _.each(one.list, function(item){
+                            tmp[item.programID].count++;
+                            tmp.total++;
+                        });
+                    }
+
+                    rs.unshift({
+                        date : ds,
+                        data : tmp
+                    });
+                };
+
+                do{
+                    loop(start);
+                    start = start.add(1, 'days');
+                }while(end.isAfter(start, 'day'));
 
                 return rs;
             },

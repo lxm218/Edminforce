@@ -90,34 +90,59 @@ KUI.Report_ClassStudent_ProgramRegistration = class extends KUI.Page{
 	}
 
 	getMeteorData(){
+		let x = Meteor.subscribe('EF-Program');
+
 		return {
-			ready : true
+			ready : x.ready(),
+			programList : this.m.Program.getDB().find().fetch()
 		};
 	}
 
 	getStateData(){
 
-		KG.DataHelper.callMeteorMethod('getProgramRegistrationDailyReport', [{}], {
+		let self = this;
+		self.setState({result : 'loading'});
+
+		let param = this.refs.filter.getValue();
+		KG.DataHelper.callMeteorMethod('getProgramRegistrationDailyReport', [param], {
 			success : function(rs){
 console.log(rs);
+				self.setState({
+					result : rs
+				});
 			}
 		});
 	}
 
 	runOnceAfterDataReady(){
-		this.getStateData();
+
 	}
 
 	render(){
-
-
+		if(!this.data.ready){
+			return util.renderLoading();
+		}
 		return (
 			<RC.Div>
 				<Filter ref="filter" />
+				<RC.Div style={{textAlign:'right'}}>
+					<KUI.YesButton onClick={this.search.bind(this)}
+					              label="Search"></KUI.YesButton>
+				</RC.Div>
 				<hr/>
 				{this.renderTable()}
 			</RC.Div>
 		);
+	}
+
+	search(){
+		let param = this.refs.filter.getValue();
+		if(!param.startDate || !param.endDate){
+			util.toast.showError('Please select date');
+			return false;
+		}
+
+		this.getStateData();
 	}
 
 	renderTable(){
@@ -128,10 +153,59 @@ console.log(rs);
 			return util.renderLoading();
 		}
 
-		console.log(this.state.result);
+		let self = this;
+
+		let list = this.state.result;
+
+		let titleArray = [
+			{
+				title : 'Date',
+				key : 'date'
+			}
+		];
+
+		let tt = {
+			total : 0
+		};
+		_.each(this.data.programList, (item)=>{
+			titleArray.push({
+				title : item.name,
+				reactDom : function(doc){
+					return doc.data[item._id].count;
+				}
+			});
+
+			tt[item._id] = {
+				count : 0
+			};
+		});
+		titleArray.push({
+			title : 'Total',
+			reactDom : function(doc){
+				return doc.data.total;
+			}
+		});
+
+		_.each(list, (l)=>{
+			_.each(self.data.programList, (p)=>{
+				tt[p._id].count += l.data[p._id].count;
+			});
+
+			tt['total'] += l.data.total;
+		});
+
+		list.push({
+			date : 'Total',
+			data : tt
+		});
+
 
 		return (
-			<RC.Div></RC.Div>
+			<KUI.Table
+				style={{}}
+				list={list}
+				title={titleArray}
+				ref="table"></KUI.Table>
 		);
 	}
 
