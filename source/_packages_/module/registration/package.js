@@ -29,9 +29,7 @@ Package.onUse(function(api) {
     ], ["server"]);
 
     api.addAssets([
-        'emailTemplates/cca/cancel.html',
-        'emailTemplates/cca/makeup.html',
+        'emailTemplates/cca/trial.html',
         'emailTemplates/cca/registration.html',
-        'emailTemplates/cca/reminder.html',
     ], 'server');
 });
