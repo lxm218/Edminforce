@@ -26,6 +26,102 @@
 
  */
 
+function extractTemplate(htmlWithTemplate, tag) {
+    let startMark = `<!--${tag}-->`;
+    let endMark = `<!--${tag}End-->`;
+    
+    console.log(startMark, endMark);
+
+    let startMarkPos = htmlWithTemplate.indexOf(startMark);
+    let endMarkPos = htmlWithTemplate.lastIndexOf(endMark);
+
+    console.log(startMarkPos, endMarkPos);
+
+    return {
+        template: htmlWithTemplate.substring(startMarkPos + startMark.length, endMarkPos),
+        start: startMarkPos,
+        end: endMarkPos+endMark.length-1
+    }
+}
+
+EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
+    let emailTemplate = Assets.getText('emailTemplates/cca/registration.html');
+    if (!emailTemplate) return;
+    
+    let scs = Collections.classStudent.find({
+        _id: {$in: order.details}
+    },{
+        fields: {
+            classID:1,
+            studentID:1,
+            type:1,
+            lessonDate:1
+        }
+    }).fetch();
+
+    let sessions=[], programs =[];
+    scs.forEach( (sc) => {
+        let student = Collections.student.findOne({_id: sc.studentID}, {fields:{name:1}});
+        sc.student = student || {name:''};
+        let classData = Collections.class.findOne({_id: sc.classID});
+        sc.session = getDocumentFromCache('session', classData.sessionID, sessions);
+        sc.program = getDocumentFromCache('program', classData.programID, programs);
+        sc.schedule = classData.schedule;
+        sc.sessionID = sc.session._id;
+    });
+
+    let groupBySession = _.groupBy(scs, "sessionID");
+    
+    let template = extractTemplate(emailTemplate, 'template');
+    let tSession = extractTemplate(template, 'session');
+    let tRegular = extractTemplate(template, 'regular');
+    let tMakeup = extractTemplate(template, 'makeup');
+    let tRegularStudent = extractTemplate(tRegular.template, 'student');
+    let tMakeupStudent = extractTemplate(tMakeup.template, 'student');
+
+    let emailBody = '';
+    _.forOwn(groupBySession, (sessionClasses, sessionID) => {
+        let s = sessionClasses[0].session;
+        let sessionDateRange = moment(s.startDate).tz(EdminForce.Settings.timeZone).format("MMM D") + " - " + moment(s.endtDate).tz(EdminForce.Settings.timeZone).format("MMM D");
+        let sessionHtml = tSession.template.replace('{sessionDateRange}', sessionDateRange);
+        emailBody += sessionHtml;
+
+        let regularClasses = _.filter(sessionClasses, {type:'register'});
+        if (regularClasses.length > 0) {
+            let studentHtml = '';
+            regularClasses.forEach( (cls) => {
+                let className = cls.program.name + ',' + cls.schedule.day + ' ' + cls.schedule.time;
+                studentHtml += tRegularStudent.template.replace("{name}", cls.student.name).replace("{className}", className);
+            })
+
+            emailBody += tRegular.template.substring(0, tRegularStudent.start) +
+                studentHtml +
+                tRegular.template.substr(tRegularStudent.end+1);
+        }
+        
+        let makeupClasses = _.filter(sessionClasses, {type:'makeup'});
+        if (makeupClasses.length >0) {
+            let studentHtml = '';
+            makeupClasses.forEach( (cls) => {
+                let lessonDate = moment(cls.lessonDate).tz(EdminForce.Settings.timeZone).format("dddd,MMMM D,YYYY ") + cls.schedule.time;
+                studentHtml += tRegularStudent.template.replace("{name}", cls.student.name)
+                    .replace("{className}", cls.program.name)
+                    .replace("{lessonDate}", lessonDate);
+            })
+
+            emailBody += tMakeup.template.substring(0, tMakeupStudent.start) +
+                studentHtml +
+                tMakeup.template.substr(tMakeupStudent.end+1);
+        }
+    });
+
+    let emailHeader = emailTemplate.substring(0, template.start);
+    let emailFooter = emailTemplate.substr(template.end+1);
+    //emailFooter = emailFooter.replace('{totalCost}', order);
+
+    return emailHeader + emailBody + emailFooter;
+}
+
 /*
  * Get class data for email
  */

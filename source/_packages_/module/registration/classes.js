@@ -714,29 +714,31 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSour
     }
 
     // send confirmation email
-    let emailData = {
-        "amount": order.amount,
-        //"classes": classes,
-        "registrationFee" : order.registrationFee || 0,
-        "couponDiscount": order.discount || 0,
-        "processFee": paymentTotal - order.amount,
-        "total": paymentTotal
-    };
-
-    let content;
-    let subject;
-    let sc0 = Collections.classStudent.findOne({_id: order.details[0]}, {fields:{type:1}});
-    if (sc0.type === 'makeup') {
-        emailData.classes = EdminForce.Registration.getMakeupClassesForEmail(order.details);
-        content = EdminForce.Registration.getMakeupConfirmEmailTemplate(emailData);
-        subject = "Make Up Class Booking Confirmation";
-    }
-    else {
-        emailData.classes = EdminForce.Registration.getClassesForEmail(order.details);
-        content = EdminForce.Registration.getRegularClassConfirmEmailTemplate(emailData);
-        subject = "Registration Confirmation";
-    }
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, subject,content);
+    EdminForce.Registration.sendRegistrationConfirmationEmail(order);
+    
+    // let emailData = {
+    //     "amount": order.amount,
+    //     //"classes": classes,
+    //     "registrationFee" : order.registrationFee || 0,
+    //     "couponDiscount": order.discount || 0,
+    //     "processFee": paymentTotal - order.amount,
+    //     "total": paymentTotal
+    // };
+    //
+    // let content;
+    // let subject;
+    // let sc0 = Collections.classStudent.findOne({_id: order.details[0]}, {fields:{type:1}});
+    // if (sc0.type === 'makeup') {
+    //     emailData.classes = EdminForce.Registration.getMakeupClassesForEmail(order.details);
+    //     content = EdminForce.Registration.getMakeupConfirmEmailTemplate(emailData);
+    //     subject = "Make Up Class Booking Confirmation";
+    // }
+    // else {
+    //     emailData.classes = EdminForce.Registration.getClassesForEmail(order.details);
+    //     content = EdminForce.Registration.getRegularClassConfirmEmailTemplate(emailData);
+    //     subject = "Registration Confirmation";
+    // }
+    // EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, subject,content);
 
     return result;
 }
@@ -1237,3 +1239,4 @@ EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
 EdminForce.Registration.payWithSchoolCredit = payWithSchoolCredit;
 EdminForce.Registration.getOrderInfoFromRegistration = getOrderInfoFromRegistration;
+EdminForce.Registration.getDocumentFromCache = getDocumentFromCache;

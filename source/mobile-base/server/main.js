@@ -115,4 +115,5 @@ function updateClassStudentDiscountedFee() {
 
 Meteor.startup( () => {
     //EdminForce.Registration.syncClassRegistrationCount();
+    EdminForce.Registration.sendRegistrationConfirmationEmail();
 })
