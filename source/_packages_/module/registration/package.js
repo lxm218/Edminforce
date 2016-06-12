@@ -27,4 +27,9 @@ Package.onUse(function(api) {
         'classes.js',
         'email.js'
     ], ["server"]);
+
+    api.addAssets([
+        'emailTemplates/cca/trial.html',
+        'emailTemplates/cca/registration.html',
+    ], 'server');
 });

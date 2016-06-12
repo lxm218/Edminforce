@@ -314,12 +314,15 @@ function bookTrial(userId, studentID, classID, className, lessonDate) {
             type: "trial",
             createTime: new Date()
         });
-        
-        let trialData = {};
-        trialData[student.name] = {};
-        trialData[student.name][className] = lessonDate;
-        let html = EdminForce.Registration.getTrialConfirmationEmailTemplate(trialData);
-        EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
+
+        EdminForce.Registration.sendTrialClassConfirmationEmail(studentID, classID, lessonDate);
+
+        // let trialData = {};
+        // trialData[student.name] = {};
+        // trialData[student.name][className] = lessonDate;
+        // let html = EdminForce.Registration.getTrialConfirmationEmailTemplate(trialData);
+        //
+        // EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'Trial Class Booking Confirmation',html);
         
         return scID;
     }
