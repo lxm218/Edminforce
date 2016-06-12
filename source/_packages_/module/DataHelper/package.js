@@ -16,7 +16,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'queryhelper.jsx',
-        'RequestLog.jsx'
+        'RequestLog.jsx',
+        'shell.jsx'
     ], ["client","server"]);
 
 

@@ -313,6 +313,83 @@ console.log(start.format(), end.format());
                 });
 
                 return {list, total};
+            },
+
+            getProgramRegistrationDailyReport : function(query){
+                let m = this.getDepModule();
+
+                let rs = m.ClassStudent.getDB().aggregate([
+                    {
+                        $match : {
+                            status : 'checkouted',
+                            type : 'register'
+                        }
+                    },
+                    {
+                        $group : {
+                            _id : {
+                                $dateToString : {format : '%m/%d/%Y', date : '$updateTime'}
+                            }
+                        }
+                    }
+                ]);
+
+                return rs;
+            },
+
+
+            //edit wrong data for admin
+            shellForGetClassStudentWrongDataForAdmin : function(){
+                let m = this.getDepModule();
+
+                let pipeline = [
+                    {
+                        '$match' : {
+                            type : 'register class',
+                            status : 'success',
+                            paymentSource : 'admin'
+                        }
+
+                    },
+                    {
+                        '$sort' : {
+                            updateTime : -1
+                        }
+                    },
+                    {
+                        '$unwind' : {
+                            path : '$details',
+                            includeArrayIndex : 'index'
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.ClassStudent.getDBName(),
+                            localField : 'details',
+                            foreignField : '_id',
+                            as : 'list'
+                        }
+                    }
+                ];
+
+                let list = m.Order.getDB().aggregate(pipeline);
+
+                let rs = [];
+                _.each(list, (order)=>{
+                    order.FEE = order.amount+(order.schoolCredit||0) + Math.abs(order.discount) - order.registrationFee||0;
+                    order.ACTUAL = order.amount + (order.schoolCredit||0) - order.registrationFee||0;
+
+                    let cs = order.list[0];
+                    order.cs = cs;
+
+                    if(order.FEE === cs.fee && order.ACTUAL === cs.discounted){
+                        return true;
+                    }
+
+                    rs.push(order);
+                });
+
+                return rs;
             }
         };
     }

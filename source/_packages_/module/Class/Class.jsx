@@ -500,7 +500,7 @@ let Class = class extends Base{
                     let number = this.calculateNumberOfClass(cd, cd.session, true, cs.createTime);
                     let tuiPer = cd.leftOfClass/number;
 
-                    let tmp = ((cs.fee-(cs.discounted||0))*tuiPer).toFixed(2);
+                    let tmp = ((cs.discounted||0)*tuiPer).toFixed(2);
 
                     return {
                         tuition : 0-tmp,
@@ -520,8 +520,13 @@ let Class = class extends Base{
                     status : 'success'
                 });
 
-                if(d){
-                    return d.paymentTotal;
+                let cso = m.ClassStudent.getDB().findOne({_id : opts.ClassStudentID});
+
+                if(cso && cso.discounted){
+                    return cso.discounted;
+                }
+                else if(d){
+                    return d.amount;
                 }
                 else{
                     let cd = this.getAll({_id : opts.classID})[0];

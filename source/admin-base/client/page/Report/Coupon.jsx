@@ -119,7 +119,7 @@ let Filter = class extends KUI.Page{
 			rs.startDate = moment(rs.startDate, 'MM/DD/YYYY').toDate();
 		}
 		if(rs.endDate){
-			rs.endDate = moment(rs.endDate+' 23:59:59', 'MM/DD/YYYY hh:mm:ss').toDate();
+			rs.endDate = moment(rs.endDate+' 23:59:59', 'MM/DD/YYYY HH:mm:ss').toDate();
 		}
 
 		return rs;

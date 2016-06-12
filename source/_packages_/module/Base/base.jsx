@@ -209,6 +209,10 @@ console.log('['+this._name+':'+methodName+' call]');
         return this._db;
     }
 
+    getDBName(){
+        return this._db._name;
+    }
+
     initDBEnd(){}
 
     initVar(){

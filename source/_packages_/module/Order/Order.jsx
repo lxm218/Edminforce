@@ -36,7 +36,7 @@ KG.define('EF-Order', class extends Base{
                         //each dettails
                         let p = {
                             fee : classListObj[csID].fee,
-                            discounted : classListObj[csID].discount
+                            discounted : classListObj[csID].pay
                         };
                         if(way === 'holding'){
                             p.pendingFlag = true;

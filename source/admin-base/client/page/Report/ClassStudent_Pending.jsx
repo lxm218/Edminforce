@@ -27,7 +27,8 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 		console.log('--- once ---');
 		let self = this;
 		this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{status : 'pending'}, {
-			sort : {updateTime : -1}
+			sort : {updateTime : -1},
+			page : this.page
 		}], {
 			success : function(list){
 				self.setState({

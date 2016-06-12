@@ -19,6 +19,7 @@ Package.onUse(function(api) {
         "matb33:collection-hooks@0.7.13",
 
         "reywood:publish-composite",
+        'meteorhacks:aggregate@1.3.0',
 
         // Utilities
         // "standard-minifiers", // Add this after Meteor 1.2
@@ -26,9 +27,7 @@ Package.onUse(function(api) {
         "react",
         "underscore",  //verison is 1.5.2, oldest
         "momentjs:moment",
-        "reactive-var@1.0.6",
-
-        "monbro:mongodb-mapreduce-aggregation"
+        "reactive-var@1.0.6"
     ];
     api.use(packages, ["client","server"]);
     api.imply(packages, ["client","server"]);

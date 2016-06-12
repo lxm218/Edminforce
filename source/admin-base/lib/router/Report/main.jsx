@@ -73,4 +73,24 @@ if(Meteor.isClient){
 		}
 	});
 
+	Route.route('/classstudent/program_registration', {
+		action : function(p){
+			App.routeHandler(p, {
+				pageTitle: "Report | Program Registration",
+				bodyTmpl: <KUI.Report_ClassStudent_ProgramRegistration />
+			});
+		}
+	});
+
+
+	//for shell
+	Route.route('/shell/aaa', {
+		action : function(p){
+			App.routeHandler(p, {
+				pageTitle: "Shell",
+				bodyTmpl: <KUI.Shell_editClassStudentFeeAndDiscountedForAdmin />
+			});
+		}
+	});
+
 }

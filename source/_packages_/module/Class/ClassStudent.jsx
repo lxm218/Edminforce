@@ -266,6 +266,34 @@ let ClassStudent = class extends Base{
 
             getAllByQuery(query={}, option={}){
                 let m = KG.DataHelper.getDepModule();
+                //option = KG.util.setDBOption(option);
+
+                //let pipeline = [
+                //    { $match : query },
+                //    { $limit : option.limit },
+                //    { $skip : option.skip },
+                //    { $sort : option.sort },
+                //    { $lookup : {
+                //        from : m.Class.getDBName(),
+                //        localField : 'classID',
+                //        foreignField : '_id',
+                //        as : 'class'
+                //    } },
+                //    { $lookup : {
+                //        from : m.Student.getDBName(),
+                //        localField : 'studentID',
+                //        foreignField : '_id',
+                //        as : 'student'
+                //    } }
+                //];
+                //
+                //let list = m.ClassStudent.getDB().aggregate(pipeline);
+                //
+                //return {
+                //    list : list,
+                //    count : m.ClassStudent.getDB().find(query).count()
+                //}
+
                 let list = self._db.find(query, option).fetch();
                 list = _.map(list, (item)=>{
                     item.class = m.Class.getAll({_id : item.classID})[0] || {};
@@ -282,8 +310,8 @@ let ClassStudent = class extends Base{
 
                 //update fee and discounted
                 let data = {
-                    fee : order.amount + (order.schoolCredit||0) - order.registrationFee||0,
-                    discounted : order.discount,
+                    fee : order.amount + (order.schoolCredit||0) + Math.abs(order.discount) - order.registrationFee||0,
+                    discounted : order.amount + (order.schoolCredit||0) - order.registrationFee||0,
                     orderID:orderID
                 };
                 self._db.update({_id : id}, {'$set' : data});
