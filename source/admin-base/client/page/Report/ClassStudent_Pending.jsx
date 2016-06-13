@@ -1,3 +1,43 @@
+const sy = {
+	td : {
+		textAlign : 'left'
+	},
+	ml : {
+		marginLeft : '20px'
+	},
+	rd : {
+		textAlign : 'right'
+	}
+};
+let Filter = class extends RC.CSS{
+	render(){
+		let p = {
+			sname : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-6',
+				ref : 'sname',
+				label : 'Search Student'
+			}
+		};
+
+
+		return (
+			<form className="form-horizontal">
+				<RB.Row>
+					<RB.Col md={12} mdOffset={0}>
+						<RB.Input type="text" {... p.sname} />
+
+					</RB.Col>
+				</RB.Row>
+			</form>
+		);
+	}
+
+	getValue(){
+		return this.refs.sname.getValue();
+	}
+};
+
 KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 
 	constructor(p){
@@ -6,10 +46,8 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 		this.m = KG.DataHelper.getDepModule();
 
 		this.state = {
-			list : [],
-			query : {},
-
-			refresh : null
+			list : null,
+			query : {}
 		};
 
 		this.page = 1;
@@ -18,17 +56,32 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 	getMeteorData(){
 
 		return {
-			ready : true,
-			data : []
+			ready : true
 		};
 	}
 
 	runOnceAfterDataReady(){
-		console.log('--- once ---');
+		this.getStateData();
+	}
+
+	getStateData(){
 		let self = this;
-		this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{status : 'pending'}, {
+		console.log(this.page);
+		self.setState({list : 'loading'});
+		let s = this.refs.filter.getValue() || '';
+		let query = {
+			status : 'pending'
+		};
+		if(s){
+			query.student = {
+				type : 'RegExp',
+				value : s
+			}
+		}
+		this.m.ClassStudent.callMeteorMethod('getAllByQuery', [query, {
 			sort : {updateTime : -1},
-			page : this.page
+			pageNum : this.page,
+			pageSize : 10
 		}], {
 			success : function(list){
 				self.setState({
@@ -39,19 +92,52 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 	}
 
 	render(){
+
+		return (
+			<RC.Div>
+				<h3></h3>
+				<Filter ref="filter" />
+				<RC.Div style={sy.rd}>
+					<KUI.YesButton style={sy.ml} onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
+				</RC.Div>
+				<hr/>
+				{this.renderTable()}
+			</RC.Div>
+		);
+	}
+
+	search(){
+		this.page = 1;
+		this.getStateData();
+	}
+
+	renderTable(){
+		if(!this.state.list) return null;
+		if('loading' === this.state.list) return util.renderLoading();
+
 		let self = this;
 		let titleArray = [
 			{
 				title : 'Class',
-				key : 'class.nickName'
+				reactDom(doc){
+					return doc.class[0].nickName;
+				}
 			},
 			{
 				title : 'Student',
-				key : 'student.name'
+				reactDom(doc){
+					return doc.student[0].name;
+				}
 			},
 			{
 				title : 'Teacher',
-				key : 'class.teacher'
+				reactDom(doc){
+					return doc.class[0].teacher;
+				}
+			},
+			{
+				title : 'Type',
+				key : 'type'
 			},
 
 			{
@@ -112,12 +198,26 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 		let list = this.state.list;
 		console.log(list);
 		return (
-			<KUI.Table
-				style={{}}
-				list={list}
-				title={titleArray}
-				ref="table1"></KUI.Table>
+			<RC.Div>
+				<p>result : {list.count} matches</p>
+				<KUI.PageTable
+					style={{}}
+					list={list.list}
+					total={list.count}
+					pagesize={10}
+					onSelectPage={this.selectPage.bind(this)}
+					page={this.page}
+					title={titleArray}
+					ref="table1">
+				</KUI.PageTable>
+			</RC.Div>
+
 		);
+	}
+
+	selectPage(page){
+		this.page = page;
+		this.getStateData();
 	}
 
 	removeById(id){

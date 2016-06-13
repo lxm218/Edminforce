@@ -266,42 +266,58 @@ let ClassStudent = class extends Base{
 
             getAllByQuery(query={}, option={}){
                 let m = KG.DataHelper.getDepModule();
-                //option = KG.util.setDBOption(option);
 
-                //let pipeline = [
-                //    { $match : query },
-                //    { $limit : option.limit },
-                //    { $skip : option.skip },
-                //    { $sort : option.sort },
-                //    { $lookup : {
-                //        from : m.Class.getDBName(),
-                //        localField : 'classID',
-                //        foreignField : '_id',
-                //        as : 'class'
-                //    } },
-                //    { $lookup : {
-                //        from : m.Student.getDBName(),
-                //        localField : 'studentID',
-                //        foreignField : '_id',
-                //        as : 'student'
-                //    } }
-                //];
-                //
-                //let list = m.ClassStudent.getDB().aggregate(pipeline);
-                //
-                //return {
-                //    list : list,
-                //    count : m.ClassStudent.getDB().find(query).count()
-                //}
 
-                let list = self._db.find(query, option).fetch();
-                list = _.map(list, (item)=>{
-                    item.class = m.Class.getAll({_id : item.classID})[0] || {};
-                    item.student = m.Student.getAll({_id : item.studentID})[0];
-                    return item;
+                option = KG.util.setDBOption(option);
+                query = KG.util.setDBQuery(query);
+
+                if(query.student){
+                    query.studentID = {
+                        '$in' : _.map(m.Student.getDB().find({name : query.student}).fetch(), (s)=>{
+                            return s._id;
+                        })
+                    };
+                    delete query.student;
+                }
+
+                let pipeline = [
+                    { $match : query },
+                    { $sort : option.sort },
+                    { $skip : option.skip },
+                    { $limit : option.limit },
+                    { $lookup : {
+                        from : m.Class.getDBName(),
+                        localField : 'classID',
+                        foreignField : '_id',
+                        as : 'class'
+                    } },
+                    { $lookup : {
+                        from : m.Student.getDBName(),
+                        localField : 'studentID',
+                        foreignField : '_id',
+                        as : 'student'
+                    } }
+                ];
+
+                let list = m.ClassStudent.getDB().aggregate(pipeline);
+
+                _.each(list, (item)=>{
+                    item.class[0] = m.Class.getAll({_id : item.classID})[0];
                 });
 
-                return list;
+                return {
+                    list : list,
+                    count : m.ClassStudent.getDB().find(query).count()
+                };
+
+                //let list = self._db.find(query, option).fetch();
+                //list = _.map(list, (item)=>{
+                //    item.class = m.Class.getAll({_id : item.classID})[0] || {};
+                //    item.student = m.Student.getAll({_id : item.studentID})[0];
+                //    return item;
+                //});
+                //
+                //return list;
             },
 
             updateClassFeeByOrderID : function(orderID, id){
