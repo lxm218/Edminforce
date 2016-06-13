@@ -157,14 +157,16 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         }
                         else {
                             let tdContent = p.rows[iRow].name;
+
+                            // show unpaid for pending registration
+                            (p.rows[iRow].pendingFlag && p.rows[iRow].status=='pending') && (tdContent += ' (Unpaid)');
+
                             if (p.rows[iRow].type == 'trial')
                                 tdContent += ' (trial)';
                             else
                             if (p.rows[iRow].type == 'makeup')
                                 tdContent += ' (make up)';
                             
-                            (p.rows[iRow].pendingFlag && p.rows[iRow].status=='pending') && (tdContent += ' (unpaid)');
-
                             tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index}>{tdContent}</td>);
                         }
                     }
