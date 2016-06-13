@@ -94,7 +94,7 @@ KUI.Report_ClassStudent_ProgramRegistration = class extends KUI.Page{
 
 		return {
 			ready : x.ready(),
-			programList : this.m.Program.getDB().find().fetch()
+			programList : this.m.Program.getDB().find({}, {sort : {displayOrder:1}}).fetch()
 		};
 	}
 

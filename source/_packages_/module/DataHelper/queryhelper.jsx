@@ -378,7 +378,7 @@ console.log(start.format(), end.format());
                         });
                     }
 
-                    rs.unshift({
+                    rs.push({
                         date : ds,
                         data : tmp
                     });
