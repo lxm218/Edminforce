@@ -333,6 +333,7 @@ console.log(option)
                 <form className="form-horizontal">
                     <RB.Col md={6} mdOffset={0}>
                         {false ? <RB.Input type="text" {... p.name} /> : null}
+
                         <RB.Input type="select" {... p.status}>
                             {
                                 _.map(option.status, (item, index)=>{
@@ -340,13 +341,25 @@ console.log(option)
                                 })
                             }
                         </RB.Input>
-                        <RB.Input type="select" {... p.teacher}>
+
+                        <div style={dis}>
+                            <RB.Input type="select" {... p.session}>
+                                {
+                                    _.map(option.session, (item, index)=>{
+                                        return <option key={index} value={item._id}>{item.name}</option>;
+                                    })
+                                }
+                            </RB.Input>
+                        </div>
+
+                        <RB.Input type="select" {... p.scheduleDay}>
                             {
-                                _.map(option.teacher, (item, index)=>{
-                                    return <option key={index} value={item.nickName}>{item.nickName}</option>;
+                                _.map(option.scheduleDay, (item, index)=>{
+                                    return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
+
 
                         <RB.Input type="select" {... p.lengthOfClass}>
                             {
@@ -358,16 +371,12 @@ console.log(option)
 
                         {false ? <RB.Input type="text" {... p.numberOfClass} /> : ''}
 
-                        <RB.Input type="select" {... p.level}>
-                            {
-                                _.map(option.level, (item, index)=>{
-                                    return <option key={index} value={item}>{item}</option>;
-                                })
-                            }
-                        </RB.Input>
+
 
                         <RB.Input type="text" {... p.minAge} />
-                        <RB.Input type="text" {... p.maxAge} />
+
+                        <RB.Input type="text" {... p.tuitionMoney} />
+
 
                         <RB.Input type="select" {... p.gender}>
                             {
@@ -376,35 +385,34 @@ console.log(option)
                                 })
                             }
                         </RB.Input>
-                        <RB.Input type="text" {... p.makeupFee} />
+
+                        <RB.Input type="text" {... p.minStudent} />
+
+                        <RB.Input type="text" {... p.trialStudent} />
+
+                        <RB.Input type="text" {... p.makeupStudent} />
 
                     </RB.Col>
 
                     <RB.Col md={6} mdOffset={0}>
                         <div style={dis}>
-                        <RB.Input type="select" {... p.program}>
-                            {
-                                _.map(option.program, (item, index)=> {
-                                    return <option key={index} value={item._id}>{item.name}</option>;
-                                })
-                            }
-                        </RB.Input>
-                        <RB.Input type="select" {... p.session}>
-                            {
-                                _.map(option.session, (item, index)=>{
-                                    return <option key={index} value={item._id}>{item.name}</option>;
-                                })
-                            }
-                        </RB.Input>
+                            <RB.Input type="select" {... p.program}>
+                                {
+                                    _.map(option.program, (item, index)=> {
+                                        return <option key={index} value={item._id}>{item.name}</option>;
+                                    })
+                                }
+                            </RB.Input>
                         </div>
 
-                        <RB.Input type="select" {... p.scheduleDay}>
+                        <RB.Input type="select" {... p.teacher}>
                             {
-                                _.map(option.scheduleDay, (item, index)=>{
-                                    return <option key={index} value={item}>{item}</option>;
+                                _.map(option.teacher, (item, index)=>{
+                                    return <option key={index} value={item.nickName}>{item.nickName}</option>;
                                 })
                             }
                         </RB.Input>
+
 
                         <RB.Input type="select" {... p.scheduleTime}>
                             {
@@ -413,8 +421,16 @@ console.log(option)
                                 })
                             }
                         </RB.Input>
+                        <RB.Input type="select" {... p.level}>
+                            {
+                                _.map(option.level, (item, index)=>{
+                                    return <option key={index} value={item}>{item}</option>;
+                                })
+                            }
+                        </RB.Input>
+                        <RB.Input type="text" {... p.maxAge} />
 
-                        <RB.Input type="text" {... p.tuitionMoney} />
+
                         <RB.Input type="select" {... p.tuitionType}>
                             {
                                 _.map(option.tuitionType, (item, index)=>{
@@ -423,11 +439,12 @@ console.log(option)
                             }
                         </RB.Input>
 
-                        <RB.Input type="text" {... p.minStudent} />
+                        <div style={{height:'50px'}}></div>
                         <RB.Input type="text" {... p.maxStudent} />
 
-                        <RB.Input type="text" {... p.trialStudent} />
-                        <RB.Input type="text" {... p.makeupStudent} />
+                        <div style={{height:'50px'}}></div>
+                        <RB.Input type="text" {... p.makeupFee} />
+
 
 
                     </RB.Col>

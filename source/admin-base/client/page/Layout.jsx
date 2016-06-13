@@ -11,6 +11,7 @@ KUI.Layout = class extends RC.CSS{
         };
 
         this._tm = null;
+        this._tm1 = null;
 
 
         let self = this;
@@ -58,6 +59,10 @@ KUI.Layout = class extends RC.CSS{
     }
 
     renderErrorMsg(){
+        if(this._tm1){
+            window.clearTimeout(this._tm1);
+            this._tm1 = null;
+        }
         //let error = Session.get('KG:show-error-message');
         let error = this.state.errorMessage;
         if(!error){
@@ -72,7 +77,7 @@ KUI.Layout = class extends RC.CSS{
             transitionLeaveTimeout: 300
         };
 
-        this._tm = window.setTimeout(this.hideErrorMsg.bind(this), 3000);
+        this._tm1 = window.setTimeout(this.hideErrorMsg.bind(this), 3000);
 
         return (
             <RC.Animate {... trans}>

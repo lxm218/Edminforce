@@ -134,6 +134,7 @@ KUI.Email_AddTemplate = class extends RC.CSS{
         );
     }
 
+
     save(){
         let self = this;
         let data = this.refs.form.getValue();
@@ -158,6 +159,8 @@ KUI.Email_AddTemplate = class extends RC.CSS{
 KUI.Email_EditTemplate = class extends KUI.Page{
 
     getMeteorData(){
+        this.m = KG.DataHelper.getDepModule();
+
         var id = FlowRouter.getParam('emailID');
         let x = Meteor.subscribe('EF-EmailTemplate', {
             _id : id
@@ -197,10 +200,30 @@ KUI.Email_EditTemplate = class extends KUI.Page{
                 <hr/>
                 <KUI.Email_AddTemplate_comp ref="form" />
                 <RC.Div style={{textAlign:'right'}}>
+                    <KUI.NoButton style={{marginRight:'30px'}} onClick={this.delete.bind(this)} label="Delete"></KUI.NoButton>
                     <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>
             </RC.Div>
         );
+    }
+
+    delete(){
+        let self = this;
+        swal({
+            type : 'warning',
+            title : 'Delete this email template?',
+            showCancelButton : true,
+            closeOnCancel : true,
+            closeOnConfirm : false,
+            confirmButtonText : 'Confirm',
+            confirmButtonColor : '#1ab394'
+        }, function(f){
+            if(f){
+                self.m.EmailTemplate.getDB().remove({_id : self.data.id});
+                swal.close();
+                util.goPath('/email');
+            }
+        });
     }
 
     runOnceAfterDataReady(){
