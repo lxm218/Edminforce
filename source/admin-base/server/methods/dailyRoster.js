@@ -45,13 +45,15 @@ Meteor.methods({
         classes.forEach( (c) => {
             let students = KG.get('EF-ClassStudent').getDB().find({
                 classID: c._id,
-                status: 'checkouted',
+                $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
                 type: {$in : ['trial', 'register', 'makeup']}
             }, {
                 fields: {
                     studentID:1,
                     lessonDate:1,
-                    type:1
+                    type:1,
+                    status:1,
+                    pendingFlag:1
                 }
             }).fetch();
 

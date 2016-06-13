@@ -162,6 +162,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             else
                             if (p.rows[iRow].type == 'makeup')
                                 tdContent += ' (make up)';
+                            
+                            (p.rows[iRow].pendingFlag && p.rows[iRow].status=='pending') && (tdContent += ' (unpaid)');
 
                             tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index}>{tdContent}</td>);
                         }
