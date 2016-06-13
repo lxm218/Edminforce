@@ -72,10 +72,11 @@ KUI.Layout = class extends RC.CSS{
             transitionLeaveTimeout: 300
         };
 
+        this._tm = window.setTimeout(this.hideErrorMsg.bind(this), 3000);
 
         return (
             <RC.Animate {... trans}>
-                <div className="alert alert-danger alert-dismissable">
+                <div className="kg-toast-msg alert alert-danger alert-dismissable">
                     <button aria-hidden="true" data-dismiss="alert" onClick={this.hideErrorMsg.bind(this)} className="close" type="button">×</button>
                     {error}
                 </div>
@@ -107,7 +108,7 @@ KUI.Layout = class extends RC.CSS{
 
         return (
             <RC.Animate {... trans}>
-                <div className="alert alert-success alert-dismissable">
+                <div className="kg-toast-msg alert alert-success alert-dismissable">
                     <button aria-hidden="true" data-dismiss="alert" onClick={this.hideToastMsg.bind(this)} className="close" type="button">×</button>
                     {msg}
                 </div>

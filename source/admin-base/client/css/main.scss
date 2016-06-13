@@ -39,3 +39,11 @@ body.modal-open{
 .table-condensed2 > tfoot > tr > td {
     padding: 2px;
 }
+
+.kg-toast-msg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}

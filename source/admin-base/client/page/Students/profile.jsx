@@ -9,7 +9,10 @@ KUI.Student_profile = class extends KUI.Page{
         this.state = {
             waitForPayList : [],
 
-            refresh : null
+            refresh : null,
+
+
+            editCommentID : null
         };
     }
 
@@ -180,6 +183,8 @@ KUI.Student_profile = class extends KUI.Page{
             }
         };
 
+        let text = this.state.editCommentID ? 'Save' : 'Add Comment';
+
         return (
             <form className="form-horizontal">
                 <RB.Row>
@@ -188,7 +193,7 @@ KUI.Student_profile = class extends KUI.Page{
                     </RB.Col>
                 </RB.Row>
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton style={sy.ml} onClick={this.sendComment.bind(this)} label="Add Comment"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} onClick={this.sendComment.bind(this)} label={text}></KUI.YesButton>
                 </RC.Div>
             </form>
         );
@@ -197,6 +202,25 @@ KUI.Student_profile = class extends KUI.Page{
 
     sendComment(){
         let self = this;
+
+        if(this.state.editCommentID){
+            //edit
+            let data = {
+                comment : this.refs.sendCommentText.getValue()
+            };
+            this.m.StudentComment.getDB().update({
+                _id : this.state.editCommentID
+            }, {
+                $set : data
+            });
+            util.toast.alert('update Comment success');
+            self.refs.sendCommentText.getInputDOMNode().value = '';
+            this.setState({
+                editCommentID : null
+            });
+            return;
+        }
+
         let data = {
             studentID : this.getProfileId(),
             studentName : this.data.profile.name,
@@ -415,7 +439,9 @@ KUI.Student_profile = class extends KUI.Page{
         this.setDefaultValue();
         console.log(this.data.profile);
         this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{studentID : this.data.id, status : 'pending', pendingFlag:true}, {
-            sort : {updateTime : -1}
+            sort : {updateTime : -1},
+            pageNum : 1,
+            pageSize : 999
         }], {
             success : function(list){
                 self.setState({
@@ -590,7 +616,7 @@ KUI.Student_profile = class extends KUI.Page{
                 reactDom(doc){
 
                     const ml = {
-                        //marginLeft : '10px',
+                        marginLeft : '10px',
                         cursor : 'pointer'
                     };
 
@@ -598,9 +624,22 @@ KUI.Student_profile = class extends KUI.Page{
                         self.m.StudentComment.getDB().remove({_id : doc._id});
                     };
 
+                    let edit = function(){
+                        console.log(doc)
+                        self.setState({
+                            editCommentID : doc._id
+                        });
+
+                        _.delay(function(){
+                            self.refs.sendCommentText.getInputDOMNode().value = doc.comment;
+                        }, 500);
+
+
+                    };
+
                     return (
                         <RC.Div style={{textAlign:'center'}}>
-
+                            <KUI.Icon icon="edit" font="18px" onClick={edit} color="#1ab394" style={ml}></KUI.Icon>
                             <KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>
                         </RC.Div>
                     );
@@ -623,15 +662,21 @@ KUI.Student_profile = class extends KUI.Page{
         let titleArray = [
             {
                 title : 'Class',
-                key : 'class.nickName'
+                reactDom(doc){
+                    return doc.class[0].nickName;
+                }
             },
             {
                 title : 'Teacher',
-                key : 'class.teacher'
+                reactDom(doc){
+                    return doc.class[0].teacher;
+                }
             },
             {
                 title : 'Session',
-                key : 'class.sessionName'
+                reactDom(doc){
+                    return doc.class[0].sessionName;
+                }
             },
 
             {
@@ -683,7 +728,7 @@ KUI.Student_profile = class extends KUI.Page{
         return (
             <KUI.Table
                 style={{}}
-                list={list}
+                list={list.list}
                 title={titleArray}
                 ref="table1"></KUI.Table>
         );
