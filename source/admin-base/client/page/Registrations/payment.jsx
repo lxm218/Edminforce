@@ -32,6 +32,7 @@ KUI.Registration_payment = class extends KUI.Page{
 
 
 
+
         if(!s1.ready()){
             return {
                 ready : false

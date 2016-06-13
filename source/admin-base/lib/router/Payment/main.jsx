@@ -29,7 +29,14 @@ if(Meteor.isClient){
     });
 
 
-
+    Route.route('/makeup', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle : 'Payment | makeup',
+                bodyTmpl : <KUI.Payment_PayMakeup />
+            });
+        }
+    });
 
 
 

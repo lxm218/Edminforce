@@ -843,7 +843,13 @@ let Class = class extends Base{
                         studentID : cs.studentID,
                         classID : cs.classID,
                         type : 'makeup',
-                        status : 'checkouted',
+                        '$or' : [
+                            {status : 'checkouted'},
+                            {
+                                status : 'pending',
+                                pendingFlag : true
+                            }
+                        ],
                         lessonDate : cs.lessonDate
                     }).count();
                     if(isDelete) cc--;
@@ -858,7 +864,27 @@ let Class = class extends Base{
                 return m.Class.getDB().update({_id : cs.classID}, {
                     $set : incData
                 });
-            }
+            },
+
+            syncNumberOfRegister(classID){
+                let m = KG.DataHelper.getDepModule();
+                let n = m.ClassStudent.getDB().find({
+                    classID : classID,
+                    type : 'register',
+                    status : {
+                        '$in' : ['checkouted', 'pending']
+                    }
+                }).count();
+                console.log(n);
+                return m.Class._db.update({
+                    _id : classID
+                }, {
+                    '$set' : {
+                        numberOfRegistered : n
+                    }
+                });
+
+            },
         };
     }
 

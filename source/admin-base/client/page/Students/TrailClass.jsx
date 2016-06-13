@@ -377,7 +377,9 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 	constructor(p){
 		super(p);
 		this.state = {
-			fee : 0
+			fee : 0,
+
+			refresh : null
 		};
 
 		this.fee = 0;
@@ -461,6 +463,7 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 
 		//self.insertTailData(data);
 
+		self.setState({fee : 'loading'});
 		m.Class.callMeteorMethod('checkStudentCanBeMakeupClass', [data], {
 			context : this,
 			success : function(json){
@@ -470,6 +473,7 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 					},
 					error : function(e){
 						util.toast.showError(e.reason);
+						self.setState({fee : null});
 					}
 				});
 			}
@@ -487,31 +491,11 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			status : 'pending'
 		};
 
-		if(false && fee === 0){
-			data.status = 'checkouted';
-			console.log(data);
-			let rs = this.module.ClassStudent.insert(data);
-			console.log(rs);
-			KG.result.handle(rs, {
-				success : function(cid){
-					//TODO how to pay?
-					console.log(cid);
-					util.toast.alert('Makeup Class Success');
-					util.goPath('/student/'+data.studentID);
-				},
-				error : function(e, error){
-					console.log(e);
-					util.toast.showError(error.statusText);
-				}
-			});
-		}
-		else{
-			this.setState({
-				fee : fee
-			});
+		this.fee = fee;
+		this.setState({
+			fee : fee
+		});
 
-			this.fee = fee;
-		}
 
 	}
 
@@ -566,13 +550,17 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			accountID : this.data.student.accountID,
 			studentID : this.data.student._id,
 			details : [cid],
-			paymentType : this.refs.payway.getValue(),
 			type : 'makeup class',
 			status : 'waiting',
 			amount : this.fee
 		};
 
-		let way = this.refs.payway.getValue();
+		let way = 'cash';
+		if(this.refs.payway.getValue()){
+			way = this.refs.payway.getValue();
+		}
+		orderData.paymentType = way;
+
 		let total = this.fee;
 		let cash = false;
 
@@ -596,6 +584,24 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			else if(way === 'echeck'){
 				orderData.poundage = App.config.poundage.echeck;
 				total = parseFloat(total)*(1+(parseFloat(orderData.poundage||0)));
+			}
+			else if(way === 'pay later'){
+				//only insert to ClassStudent
+				self.m.ClassStudent.getDB().update({_id : cid}, {
+					$set : {
+						fee : self.state.fee,
+						discounted : self.state.fee,
+						pendingFlag : true
+					}
+				});
+
+				self.module.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [cid], {
+					success : function(json){
+						util.goPath('/student/'+orderData.studentID);
+					}
+				});
+
+				return false;
 			}
 			else{
 				orderData.status = 'success';
@@ -689,6 +695,8 @@ console.log(orderData);
 						util.getReactJQueryObject(self.refs.fee).html('total : $'+fee);
 						self.fee = fee;
 						self.coupon = code;
+
+						self.checkPaymentWayShowOrHide();
 					},
 					error : function(err){
 						util.toast.showError(err.reason);
@@ -698,8 +706,24 @@ console.log(orderData);
 		});
 	}
 
+	checkPaymentWayShowOrHide(){
+		let jq = util.getReactJQueryObject(this.refs.payway);
+		if(this.fee > 0){
+			jq.show();
+		}
+		else{
+			jq.hide();
+		}
+	}
+
 	renderPaymentBox(){
 		let tuition = this.state.fee;
+		if(tuition === 'loading'){
+			return util.renderLoading();
+		}
+		else if(null === tuition){
+			return null;
+		}
 		let h = '';
 		if (tuition > 0) {
 			h = (

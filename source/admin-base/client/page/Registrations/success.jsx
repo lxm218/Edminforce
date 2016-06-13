@@ -166,7 +166,7 @@ KUI.Registration_success = class extends KUI.Page{
 
         KG.get('EF-ClassStudent').updateStatus('checkouted', this.data.id);
         //sync data
-        KG.get('EF-ClassStudent').callMeteorMethod('syncNumberOfRegister', [this.data.class._id], {
+        KG.get('EF-Class').callMeteorMethod('syncNumberOfRegister', [this.data.class._id], {
             success : function(rs){
                 console.log(rs);
             }

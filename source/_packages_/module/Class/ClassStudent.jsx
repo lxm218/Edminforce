@@ -244,25 +244,6 @@ let ClassStudent = class extends Base{
     defineMeteorMethod(){
         let self = this;
         return {
-            syncNumberOfRegister(classID){
-                let m = KG.DataHelper.getDepModule();
-                let n = self.getDB().find({
-                    classID : classID,
-                    type : 'register',
-                    status : {
-                        '$in' : ['checkouted', 'pending']
-                    }
-                }).count();
-                console.log(n);
-                return m.Class._db.update({
-                    _id : classID
-                }, {
-                    '$set' : {
-                        numberOfRegistered : n
-                    }
-                });
-
-            },
 
             getAllByQuery(query={}, option={}){
                 let m = KG.DataHelper.getDepModule();
@@ -278,6 +259,12 @@ let ClassStudent = class extends Base{
                         })
                     };
                     delete query.student;
+                }
+
+                if(_.size(option.sort) < 1){
+                    option.sort = {
+                        createTime : -1
+                    };
                 }
 
                 let pipeline = [

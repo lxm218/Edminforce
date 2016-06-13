@@ -40,11 +40,15 @@ KG.define('EF-Order', class extends Base{
                         };
                         if(way === 'holding'){
                             p.pendingFlag = true;
+                            p.discounted = p.fee;
                         }
 
                         m.ClassStudent.getDB().update({
                             _id : csID
                         }, {$set : p});
+
+                        let cs = m.ClassStudent.getDB().findOne({_id : csID});
+                        m.Class.callMeteorMethod('syncNumberOfRegister', [cs.classID]);
                     });
                 }
 
