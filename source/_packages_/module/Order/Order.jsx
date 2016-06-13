@@ -64,7 +64,7 @@ KG.define('EF-Order', class extends Base{
                 return _.map(list, (item)=>{
                     item.customer = m.Customer.getDB().findOne({_id : item.accountID});
                     item.details = _.map(item.details, (csID)=>{
-                        let d = m.ClassStudent.callMeteorMethod('getAllByQuery', [{_id:csID}])[0];
+                        let d = m.ClassStudent.callMeteorMethod('getAllByQuery', [{_id:csID}]).list[0];
                         return d;
                     });
                     return item;

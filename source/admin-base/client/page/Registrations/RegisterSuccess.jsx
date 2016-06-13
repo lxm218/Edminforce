@@ -95,15 +95,21 @@ KUI.Registration_SuccessPage = class extends KUI.Page{
 		let titleArray = [
 			{
 				title : 'Student',
-				key : 'student.name'
+				reactDom(doc){
+					return doc.student[0].name;
+				}
 			},
 			{
 				title : 'Class',
-				key : 'class.nickName'
+				reactDom(doc){
+					return doc.class[0].nickName;
+				}
 			},
 			{
 				title : 'Teacher',
-				key : 'class.teacher'
+				reactDom(doc){
+					return doc.class[0].teacher;
+				}
 			}
 		];
 

@@ -214,7 +214,7 @@ KUI.Student_profile = class extends KUI.Page{
                 $set : data
             });
             util.toast.alert('update Comment success');
-
+            self.refs.sendCommentText.getInputDOMNode().value = '';
             this.setState({
                 editCommentID : null
             });
