@@ -365,7 +365,7 @@ let ClassFilter = class extends KUI.Page{
 				labelClassName : 'col-xs-2',
 				wrapperClassName : 'wrapper',
 				ref : 'Class',
-				label : 'lesson'
+				label : 'Class'
 			}
 		};
 
