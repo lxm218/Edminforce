@@ -16,13 +16,11 @@ Meteor.methods({
         let requestDate = moment.tz(dateStr, "YYYYMMDD",schoolTz);
         let weekDay = requestDate.format("ddd");
 
-        // convert request date to UTC for mongodb query
-        let requestDateUtc = requestDate.tz("Etc/UTC");
         // find requested session
         result.session = KG.get('EF-Session').getDB().findOne({
                 $and: [
-                    {startDate:{$lte: requestDateUtc.toDate()}},
-                    {endDate: {$gte: requestDateUtc.toDate()}}
+                    {startDate:{$lte: requestDate.toDate()}},
+                    {endDate: {$gte: requestDate.toDate()}}
                 ]
             });
 
@@ -77,7 +75,8 @@ Meteor.methods({
                 stdInfo && (s.name = stdInfo.name);
                 c.students.push({
                     name: stdInfo ? stdInfo.name : '',
-                    type: s.type
+                    type: s.type,
+                    unpaid: s.status == 'pending' && s.pendingFlag
                 })
             });
         })
