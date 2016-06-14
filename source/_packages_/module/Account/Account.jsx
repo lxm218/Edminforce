@@ -143,22 +143,39 @@ KG.define('Account', class extends Base{
 
             if(Meteor.user()){
 
-                //add log
-                KG.RequestLog.addByType('login', {
-                    operatorID : Meteor.user()._id,
-                    operatorName : opts.username
-                });
-
                 // status must be admin
                 if(Meteor.user().role !== 'admin'){
-
+                    //TODO add error message
                 }
 
-                if(!opts.keepLogin){
-                    Accounts._unstoreLoginToken();
-                }
+                KG.DataHelper.getDepModule().AdminUser.callMeteorMethod('getUserById', [Meteor.user()._id], {
+                    success : function(u){
+                        console.log(u);
 
-                opts.success(Meteor.user());
+                        if(u.status === 'inactive'){
+                            return opts.error(new Meteor.Error(600, 'This account is not active, please check.'))
+                        }
+
+                        if(!opts.keepLogin){
+                            Accounts._unstoreLoginToken();
+                        }
+
+                        //add log
+                        KG.RequestLog.addByType('login', {
+                            operatorID : Meteor.user()._id,
+                            operatorName : opts.username
+                        });
+
+                        opts.success(Meteor.user());
+                    }
+                });
+
+
+
+
+
+
+
             }
 
 
@@ -186,6 +203,14 @@ KG.define('Account', class extends Base{
                 opts.error(err);
                 return false;
             }
+
+            //update adminUser password
+            let _id = Meteor.user()._id;
+            KG.DataHelper.getDepModule().AdminUser.getDB().update({_id : _id}, {
+                $set : {
+                    password : opts.newPassword
+                }
+            });
 
             opts.success();
         });

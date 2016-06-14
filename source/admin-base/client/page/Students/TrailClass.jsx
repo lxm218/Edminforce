@@ -708,11 +708,14 @@ console.log(orderData);
 
 	checkPaymentWayShowOrHide(){
 		let jq = util.getReactJQueryObject(this.refs.payway);
+		let pb = util.getReactJQueryObject(this.refs.paynow);
 		if(this.fee > 0){
 			jq.show();
+			pb.html('Pay Now');
 		}
 		else{
 			jq.hide();
+			pb.html('Confirm');
 		}
 	}
 
@@ -742,7 +745,7 @@ console.log(orderData);
 
 					</RB.Input>
 					<RC.Div style={{textAlign:'right'}}>
-						<KUI.YesButton onClick={this.payNow.bind(this)} label="Pay Now"></KUI.YesButton>
+						<KUI.YesButton onClick={this.payNow.bind(this)} ref="paynow" label="Pay Now"></KUI.YesButton>
 					</RC.Div>
 				</RC.Div>
 			);
