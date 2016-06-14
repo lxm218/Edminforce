@@ -1,6 +1,9 @@
 let sy = {
     rd : {
         textAlign : 'right'
+    },
+    a : {
+
     }
 };
 let PendingBox = class extends RC.CSS{
@@ -47,7 +50,7 @@ let PendingBox = class extends RC.CSS{
             {
                 title : 'Student',
                 reactDom(doc){
-                    return doc.student[0].name;
+                    return <RC.URL style={sy.a} href={`/student/${doc.student[0]._id}`}>{doc.student[0].name}</RC.URL>
                 }
             },
             {
@@ -174,7 +177,8 @@ let TrialOrMakeupBox = class extends RC.CSS{
 
         this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{
             status : 'checkouted',
-            type : {$in : ['trial', 'makeup']}
+            type : {$in : ['trial', 'makeup']},
+            lessonDate : { '$gte' : moment(new Date()).toDate() }
         }, {
             sort : {updateTime : -1},
             pageNum : this.page,
@@ -202,7 +206,7 @@ let TrialOrMakeupBox = class extends RC.CSS{
             {
                 title : 'Student',
                 reactDom(doc){
-                    return doc.student[0].name;
+                    return <RC.URL style={sy.a} href={`/student/${doc.student[0]._id}`}>{doc.student[0].name}</RC.URL>
                 }
             },
             {
@@ -225,10 +229,6 @@ let TrialOrMakeupBox = class extends RC.CSS{
                 }
             },
 
-            {
-                title : 'Status',
-                key : 'status'
-            },
             {
                 title : 'Book Date',
                 reactDom(doc){
@@ -312,7 +312,7 @@ let WaitingBox = class extends RC.CSS{
             {
                 title : 'Student',
                 reactDom(doc){
-                    return doc.student[0].name;
+                    return <RC.URL style={sy.a} href={`/student/${doc.student[0]._id}`}>{doc.student[0].name}</RC.URL>
                 }
             },
             {
@@ -321,12 +321,6 @@ let WaitingBox = class extends RC.CSS{
                     return doc.class[0].teacher;
                 }
             },
-            {
-                title : 'Type',
-                key : 'type'
-            },
-
-
             {
                 title : 'Book Date',
                 reactDom(doc){
