@@ -326,10 +326,7 @@ let WaitingBox = class extends RC.CSS{
                 key : 'type'
             },
 
-            {
-                title : 'Status',
-                key : 'status'
-            },
+
             {
                 title : 'Book Date',
                 reactDom(doc){
