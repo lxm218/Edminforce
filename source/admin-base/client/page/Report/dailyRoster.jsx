@@ -159,7 +159,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             let tdContent = p.rows[iRow].name;
 
                             // show unpaid for pending registration
-                            (p.rows[iRow].pendingFlag && p.rows[iRow].status=='pending') && (tdContent += ' (Unpaid)');
+                            (p.rows[iRow].unpaid) && (tdContent += ' (Unpaid)');
 
                             if (p.rows[iRow].type == 'trial')
                                 tdContent += ' (trial)';
