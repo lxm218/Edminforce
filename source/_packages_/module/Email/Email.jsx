@@ -20,8 +20,8 @@ KG.define('EF-Email', class extends Base{
         let self = this;
         return {
             sendEmail(data){
-
-                let from = 'help@calcoloracademy.com',
+                data = data || {};
+                let from = data.from || 'help@calcoloracademy.com',
                     domain = KG.util.email.getDomain(from);
 
                 data = _.extend({
@@ -58,6 +58,78 @@ KG.define('EF-Email', class extends Base{
                     html : html,
                     to : account.email,
                     subject : 'Registration Confirmation'
+                }]);
+            },
+
+            sendTrialClassConfirmEmail : function(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let csID = opts.classStudentID;
+
+                let school = m.School.getInfo(),
+                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmTrialClassTemplate'});
+
+                let cs = m.ClassStudent.getDB().findOne({_id : csID}),
+                    co = m.Class.getAll({_id : cs.classID})[0],
+                    so = m.Student.getDB().findOne({_id : cs.studentID}),
+                    customer = m.Customer.getDB().findOne({_id : so.accountID});
+
+                //console.log(co);
+                let html = template.compile(decodeURIComponent(tpl.html))({
+                    customer : customer,
+                    lesson : co,
+                    student : so,
+                    school : school,
+                    lessonDate : moment(cs.lessonDate).format(KG.const.dateFormat)
+                });
+
+                //console.log(html);
+
+                return self.callMeteorMethod('sendEmail', [{
+                    from : school.email,
+                    to : customer.email,
+                    html : html,
+                    subject : 'Trial Class Confirm'
+                }]);
+            },
+
+            sendRegistrationClassConfirmEmail : function(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let orderID = opts.orderID;
+
+                let order = m.Order.getDB().findOne({_id : orderID});
+                let school = m.School.getInfo(),
+                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmRegistrationClassTemplate'});
+
+                let CSList = _.map(order.details, (csID)=>{
+                    let cs = m.ClassStudent.getDB().findOne({_id : csID});
+                    cs.student = m.Student.getDB().findOne({_id : cs.studentID});
+                    cs.class = m.Class.getAll({_id : cs.classID})[0];
+                    //cs.session = cs.class.session;
+
+                    return cs;
+                });
+                let customer = m.Customer.getDB().findOne({_id : order.accountID});
+                let ss = CSList[0].class.session;
+                ss.startDate = moment(ss.startDate).format('MMM D');
+                ss.endDate = moment(ss.endDate).format('MMM D');
+                let html = template.compile(decodeURIComponent(tpl.html))({
+                    customer : customer,
+                    session : ss,
+                    CSList : CSList,
+                    school : school,
+                    totalCost : (order.amount + order.discount).toFixed(2),
+                    grandTotal : order.amount.toFixed(2),
+                    discount : order.discount.toFixed(2)
+                });
+
+                //console.log(html);
+                return self.callMeteorMethod('sendEmail', [{
+                    from : school.email,
+                    to : customer.email,
+                    html : html,
+                    subject : 'Register Class Confirm'
                 }]);
             }
         };

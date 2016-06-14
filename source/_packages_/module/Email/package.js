@@ -21,8 +21,12 @@ Package.onUse(function(api) {
     ], ["client","server"]);
 
     api.addFiles([
+        'lib/artTemplate.js',
         'server.jsx'
     ], ["server"]);
 
-
+    api.addAssets([
+        'tpl/ConfirmTrialClass.html',
+        'tpl/ConfirmRegistrationClass.html'
+    ], 'server');
 });

@@ -93,8 +93,12 @@ KG.define('EF-Order', class extends Base{
                 }
 
                 m.Order.getDB().update({_id : orderID}, {$set : {
-                    status : 'success'
+                    status : 'success',
+                    paymentSource : 'admin'
                 }});
+
+                //send email
+                m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : orderID}]);
 
 
                 return orderID;

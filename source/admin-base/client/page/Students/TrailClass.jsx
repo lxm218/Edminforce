@@ -197,17 +197,9 @@ console.log(date, query);
 
 
 KUI.Student_TrailClass = class extends KUI.Page{
-	getDepModule(){
-		return {
-			Student : KG.get('EF-Student'),
-			Class : KG.get('EF-Class'),
-			Program : KG.get('EF-Program'),
-			ClassStudent : KG.get('EF-ClassStudent')
-		};
-	}
 
 	getMeteorData(){
-		this.module = this.getDepModule();
+		this.module = KG.DataHelper.getDepModule();
 		let studentID = FlowRouter.getParam('studentID'),
 			x = Meteor.subscribe('EF-Student', {
 				query : {_id : studentID}
@@ -252,7 +244,7 @@ KUI.Student_TrailClass = class extends KUI.Page{
 
 	trial(){
 		let self = this;
-		let m = this.getDepModule();
+		let m = this.module;
 		let data = this.refs.result.getSelectValue();
 
 		if(!data){
@@ -296,6 +288,13 @@ KUI.Student_TrailClass = class extends KUI.Page{
 				//TODO how to pay?
 				console.log(cid);
 
+				//send confirm email
+				self.module.Email.callMeteorMethod('sendTrialClassConfirmEmail', [{
+					classStudentID : cid
+				}], {
+					success : function(){}
+				});
+
 				self.module.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [cid], {
 					success : function(json){
 console.log(json);
@@ -303,6 +302,8 @@ console.log(json);
 						util.goPath('/student/'+data.studentID);
 					}
 				});
+
+
 
 
 			},

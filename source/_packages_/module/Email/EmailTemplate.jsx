@@ -5,6 +5,11 @@ KG.define('EF-EmailTemplate', class extends Base{
         return {
             name : KG.schema.default(),
             html : KG.schema.default(),
+            canNotDelete : KG.schema.default({
+                type : Boolean,
+                optional : true,
+                defaultValue : false
+            }),
             createTime : KG.schema.createTime(),
             updateTime : KG.schema.updateTime()
         };
@@ -24,6 +29,44 @@ KG.define('EF-EmailTemplate', class extends Base{
             return KG.result.out(true, rs);
         }catch(e){
             return KG.result.out(false, e, e.toString());
+        }
+    }
+
+    initEnd(){
+        if(Meteor.isClient) return false;
+        // insert trial class template
+        let html = Assets.getText('tpl/ConfirmTrialClass.html');
+        let _id = 'ConfirmTrialClassTemplate';
+
+        //this._db.remove({_id : _id});
+        let one = this._db.findOne({_id : _id});
+        let data = {};
+
+        if(!one){
+            data = {
+                _id : _id,
+                name : _id,
+                canNotDelete : true,
+                html : html
+            };
+            this.insert(data);
+        }
+
+        // insert makeup class template
+        html = Assets.getText('tpl/ConfirmRegistrationClass.html');
+        _id = 'ConfirmRegistrationClassTemplate';
+
+        //this._db.remove({_id : _id});
+        one = this._db.findOne({_id : _id});
+
+        if(!one){
+            data = {
+                _id : _id,
+                name : _id,
+                canNotDelete : true,
+                html : html
+            };
+            this.insert(data);
         }
     }
 

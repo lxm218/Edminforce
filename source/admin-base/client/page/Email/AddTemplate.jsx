@@ -91,6 +91,7 @@ KUI.Email_AddTemplate_comp = class extends RC.CSS{
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
+                ['view', ['codeview']],
                 ['height', ['height']]
             ]
         });
@@ -200,7 +201,7 @@ KUI.Email_EditTemplate = class extends KUI.Page{
                 <hr/>
                 <KUI.Email_AddTemplate_comp ref="form" />
                 <RC.Div style={{textAlign:'right'}}>
-                    <KUI.NoButton style={{marginRight:'30px'}} onClick={this.delete.bind(this)} label="Delete"></KUI.NoButton>
+                    {this.data.data.canNotDelete ? null : <KUI.NoButton style={{marginRight:'30px'}} onClick={this.delete.bind(this)} label="Delete"></KUI.NoButton> }
                     <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>
             </RC.Div>
