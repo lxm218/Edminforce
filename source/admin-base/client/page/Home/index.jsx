@@ -1,3 +1,370 @@
+let sy = {
+    rd : {
+        textAlign : 'right'
+    }
+};
+let PendingBox = class extends RC.CSS{
+    constructor(p){
+        super(p);
+        this.m = KG.DataHelper.getDepModule();
+
+        this.state = {
+            list : null
+        };
+    }
+
+    getStateData(){
+        let self = this;
+        self.setState({list : 'loading'});
+
+        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{
+            status : 'pending',
+            pendingFlag : true
+        }, {
+            sort : {updateTime : -1},
+            pageNum : 1,
+            pageSize : 5
+        }], {
+            success : function(list){
+                self.setState({
+                    list : list
+                });
+            }
+        });
+    }
+
+    render() {
+        if (!this.state.list) return null;
+        if ('loading' === this.state.list) return util.renderLoading();
+
+        let titleArray = [
+            {
+                title : 'Class',
+                reactDom(doc){
+                    return doc.class[0].nickName;
+                }
+            },
+            {
+                title : 'Student',
+                reactDom(doc){
+                    return doc.student[0].name;
+                }
+            },
+            {
+                title : 'Teacher',
+                reactDom(doc){
+                    return doc.class[0].teacher;
+                }
+            },
+            {
+                title : 'Type',
+                key : 'type'
+            },
+            {
+                title : 'Lesson Date',
+                reactDom(doc){
+                    if(doc.lessonDate){
+                        return moment(doc.lessonDate).format(KG.const.dateFormat);
+                    }
+                    return '';
+                }
+            },
+
+            {
+                title : 'Status',
+                key : 'status'
+            },
+            {
+                title : 'Book Date',
+                reactDom(doc){
+                    return moment(doc.createTime).format(util.const.dateFormat);
+                }
+            },
+            {
+                title : 'Action',
+                style : {
+                    textAlign : 'center',
+                    width : '178px'
+                },
+                reactDom(doc){
+                    let sy = {
+                        lineHeight : '24px',
+                        height : '24px',
+                        fontSize : '12px',
+                        padding : '0 12px',
+                        marginRight: '10px'
+                    };
+
+                    let del = function(){
+                        swal({
+                            title : 'Delete this registration?',
+                            type : 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: "#1ab394",
+                            confirmButtonText: "Yes",
+                            cancelButtonText: "No",
+                            closeOnConfirm: true,
+                            closeOnCancel: true
+                        }, function(f){
+                            if(f){
+                                self.removeById(doc._id);
+                            }
+                        });
+                    };
+
+
+                    let goToPay = function(){
+                        if(doc.type === 'register'){
+                            util.goPath(`/registration/payment/${doc._id}`);
+                        }
+                        else if(doc.type === 'makeup'){
+                            util.goPath('/payment/makeup?classstudentID='+doc._id);
+                        }
+                    };
+
+                    return (
+                        <RC.Div style={{textAlign:'center'}}>
+                            <KUI.NoButton style={sy} onClick={goToPay}
+                                          label="pay now"></KUI.NoButton>
+                            <KUI.NoButton style={sy} onClick={del}
+                                          label="Cancel"></KUI.NoButton>
+
+                        </RC.Div>
+                    );
+                }
+            }
+        ];
+
+        let list = this.state.list;
+        console.log(list);
+        return (
+            <RC.Div>
+                <KUI.Table
+                    style={{}}
+                    list={list.list}
+                    title={titleArray}
+                    ref="table"></KUI.Table>
+                <p style={sy.rd}><RC.URL href={`/report/classstudent/pending`}>View More</RC.URL></p>
+            </RC.Div>
+
+        );
+    }
+
+    componentDidMount(){
+        this.getStateData();
+
+    }
+};
+
+let TrialOrMakeupBox = class extends RC.CSS{
+    constructor(p){
+        super(p);
+        this.m = KG.DataHelper.getDepModule();
+
+        this.state = {
+            list : null
+        };
+
+        this.page = 1;
+    }
+
+    getStateData(){
+        let self = this;
+        self.setState({list : 'loading'});
+
+        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{
+            status : 'checkouted',
+            type : {$in : ['trial', 'makeup']}
+        }, {
+            sort : {updateTime : -1},
+            pageNum : this.page,
+            pageSize : 5
+        }], {
+            success : function(list){
+                self.setState({
+                    list : list
+                });
+            }
+        });
+    }
+
+    render() {
+        if (!this.state.list) return null;
+        if ('loading' === this.state.list) return util.renderLoading();
+
+        let titleArray = [
+            {
+                title : 'Class',
+                reactDom(doc){
+                    return doc.class[0].nickName;
+                }
+            },
+            {
+                title : 'Student',
+                reactDom(doc){
+                    return doc.student[0].name;
+                }
+            },
+            {
+                title : 'Teacher',
+                reactDom(doc){
+                    return doc.class[0].teacher;
+                }
+            },
+            {
+                title : 'Type',
+                key : 'type'
+            },
+            {
+                title : 'Lesson Date',
+                reactDom(doc){
+                    if(doc.lessonDate){
+                        return moment(doc.lessonDate).format(KG.const.dateFormat);
+                    }
+                    return '';
+                }
+            },
+
+            {
+                title : 'Status',
+                key : 'status'
+            },
+            {
+                title : 'Book Date',
+                reactDom(doc){
+                    return moment(doc.updateTime).format(KG.const.dateFormat);
+                }
+            }
+        ];
+
+        let list = this.state.list;
+        console.log(list);
+        return (
+            <RC.Div>
+                <KUI.PageTable
+                    style={{}}
+                    list={list.list}
+                    total={list.count}
+                    pagesize={5}
+                    onSelectPage={this.selectPage.bind(this)}
+                    page={this.page}
+                    title={titleArray}
+                    ref="table"></KUI.PageTable>
+
+            </RC.Div>
+
+        );
+    }
+    selectPage(page){
+        this.page = page;
+        this.getStateData();
+    }
+
+    componentDidMount(){
+        this.getStateData();
+    }
+};
+
+
+let WaitingBox = class extends RC.CSS{
+    constructor(p){
+        super(p);
+        this.m = KG.DataHelper.getDepModule();
+
+        this.state = {
+            list : null
+        };
+
+        this.page = 1;
+    }
+
+    getStateData(){
+        let self = this;
+        self.setState({list : 'loading'});
+
+        this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{
+            status : 'checkouted',
+            type : 'wait'
+        }, {
+            sort : {updateTime : -1},
+            pageNum : this.page,
+            pageSize : 5
+        }], {
+            success : function(list){
+                self.setState({
+                    list : list
+                });
+            }
+        });
+    }
+
+    render() {
+        if (!this.state.list) return null;
+        if ('loading' === this.state.list) return util.renderLoading();
+
+        let titleArray = [
+            {
+                title : 'Class',
+                reactDom(doc){
+                    return doc.class[0].nickName;
+                }
+            },
+            {
+                title : 'Student',
+                reactDom(doc){
+                    return doc.student[0].name;
+                }
+            },
+            {
+                title : 'Teacher',
+                reactDom(doc){
+                    return doc.class[0].teacher;
+                }
+            },
+            {
+                title : 'Type',
+                key : 'type'
+            },
+
+            {
+                title : 'Status',
+                key : 'status'
+            },
+            {
+                title : 'Book Date',
+                reactDom(doc){
+                    return moment(doc.updateTime).format(KG.const.dateFormat);
+                }
+            }
+        ];
+
+        let list = this.state.list;
+        console.log(list);
+        return (
+            <RC.Div>
+                <KUI.PageTable
+                    style={{}}
+                    list={list.list}
+                    total={list.count}
+                    pagesize={5}
+                    onSelectPage={this.selectPage.bind(this)}
+                    page={this.page}
+                    title={titleArray}
+                    ref="table"></KUI.PageTable>
+
+            </RC.Div>
+
+        );
+    }
+    selectPage(page){
+        this.page = page;
+        this.getStateData();
+    }
+
+    componentDidMount(){
+        this.getStateData();
+    }
+};
 
 KUI.Home_index = class extends KUI.Page{
 
@@ -10,7 +377,7 @@ KUI.Home_index = class extends KUI.Page{
     getMeteorData(){
 
         return {
-
+            ready : true
         };
     }
 
@@ -20,77 +387,15 @@ KUI.Home_index = class extends KUI.Page{
         return (
             <RC.Div>
                 <h3>Pending Registration</h3>
-
+                <PendingBox />
                 <hr/>
                 <h3>Trial / Makeup Class</h3>
+                <TrialOrMakeupBox />
                 <hr/>
 
                 <h3>Waitlist</h3>
-
+                <WaitingBox />
             </RC.Div>
         );
     }
 };
-
-//
-//KUI.Home_index = KUI.Class.define('ui.Home_index', {
-//
-//    initStyle : function(){
-//
-//
-//        return {
-//
-//        };
-//    },
-//
-//    getTableBody : function(){
-//        var user = KG.user.current;
-//
-//        return (
-//            <tbody>
-//                <tr>
-//                    <td>Name</td>
-//                    <td>{user.userProfile.nickName}</td>
-//                    <td></td>
-//                </tr>
-//                <tr>
-//                    <td>Email</td>
-//                    <td>{user.userID}</td>
-//                    <td></td>
-//                </tr>
-//                <tr>
-//                    <td>Title</td>
-//                    <td>{user.userProfile.title}</td>
-//                    <td></td>
-//                </tr>
-//
-//            </tbody>
-//        );
-//    },
-//
-//    toChangePassword : function(){
-//        FlowRouter.go('/home/changepassword');
-//    },
-//
-//
-//
-//    getRender : function(style){
-//
-//        return (
-//            <div>
-//                <RB.Table striped bordered condensed hover>
-//
-//                    {
-//                        this.getTableBody()
-//                    }
-//                </RB.Table>
-//
-//                <RB.ButtonToolbar>
-//                    <RB.Button onClick={this.toChangePassword} bsStyle="primary">Change Password</RB.Button>
-//                </RB.ButtonToolbar>
-//            </div>
-//        );
-//
-//    }
-//
-//}, 'Base');
