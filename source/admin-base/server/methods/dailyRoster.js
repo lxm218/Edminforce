@@ -25,7 +25,14 @@ Meteor.methods({
             });
 
         if (!result.session) return result;
-        
+
+        // check if the requested date is a blockout day
+        let isBlockoutDay = false;
+        if (result.session.blockOutDay && result.session.blockOutDay.length > 0) {
+            isBlockoutDay = _.find(result.session.blockOutDay, (bd) => moment(bd).tz(schoolTz).format("YYYYMMDD") === dateStr);
+        }
+        if (isBlockoutDay) return result;
+
         // find all classes in this session
         let classes = KG.get('EF-Class').getDB().find({
             sessionID: result.session._id,
