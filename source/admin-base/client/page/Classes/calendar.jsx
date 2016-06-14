@@ -477,6 +477,9 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 			resourceAreaWidth:100,
 			slotWidth:30,
 
+			minTime:'08:00:00',
+			maxTime:'22:00:00',
+
 			resources: function(callback) {
 				console.log('in resources function')
 
