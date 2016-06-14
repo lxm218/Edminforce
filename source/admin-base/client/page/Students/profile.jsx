@@ -14,6 +14,8 @@ KUI.Student_profile = class extends KUI.Page{
 
             editCommentID : null
         };
+
+        this.cmBoxShown = false;
     }
 
     baseStyles(){
@@ -188,7 +190,7 @@ KUI.Student_profile = class extends KUI.Page{
         return (
             <form className="form-horizontal">
                 <RB.Row>
-                    <RB.Col md={12}>
+                    <RB.Col ref="cmBox" md={12}>
                         <RB.Input type="textarea" {... p.comment} />
                     </RB.Col>
                 </RB.Row>
@@ -203,6 +205,12 @@ KUI.Student_profile = class extends KUI.Page{
     sendComment(){
         let self = this;
 
+        if(!this.cmBoxShown){
+            util.getReactJQueryObject(this.refs.cmBox).show();
+            this.cmBoxShown = true;
+            return;
+        }
+
         if(this.state.editCommentID){
             //edit
             let data = {
@@ -215,6 +223,8 @@ KUI.Student_profile = class extends KUI.Page{
             });
             util.toast.alert('update Comment success');
             self.refs.sendCommentText.getInputDOMNode().value = '';
+            self.cmBoxShown = false;
+            util.getReactJQueryObject(self.refs.cmBox).hide();
             this.setState({
                 editCommentID : null
             });
@@ -235,6 +245,8 @@ KUI.Student_profile = class extends KUI.Page{
             success : function(){
                 util.toast.alert('Send Comment success');
                 self.refs.sendCommentText.getInputDOMNode().value = '';
+                self.cmBoxShown = false;
+                util.getReactJQueryObject(self.refs.cmBox).hide();
             }
         });
     }
@@ -449,6 +461,8 @@ KUI.Student_profile = class extends KUI.Page{
                 });
             }
         });
+
+        util.getReactJQueryObject(this.refs.cmBox).hide();
     }
 
 
@@ -630,6 +644,9 @@ KUI.Student_profile = class extends KUI.Page{
                             editCommentID : doc._id
                         });
 
+                        self.cmBoxShown = true;
+                        util.getReactJQueryObject(self.refs.cmBox).show();
+
                         _.delay(function(){
                             self.refs.sendCommentText.getInputDOMNode().value = doc.comment;
                         }, 500);
@@ -682,6 +699,15 @@ KUI.Student_profile = class extends KUI.Page{
             {
                 title : 'Type',
                 key : 'type'
+            },
+            {
+                title : 'Lesson Date',
+                reactDom(doc){
+                    if(doc.lessonDate){
+                        return moment(doc.lessonDate).format(KG.const.dateFormat);
+                    }
+                    return '';
+                }
             },
 
             {

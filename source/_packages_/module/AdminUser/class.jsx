@@ -6,6 +6,9 @@ let AdminUserSchema = new SimpleSchema({
         regEx: SimpleSchema.RegEx.Email,
         label : 'User ID'
     }),
+    password : KG.schema.default({
+        optional : true
+    }),
     title : KG.schema.default({
         optional : true,
         defaultValue : 'Administrator'
@@ -147,7 +150,7 @@ let AdminUser = class extends Base{
     insert(data, callback){
 
         let pwd = data.password || null;
-        delete data.password;
+        //delete data.password;
 
         let vd = this.validateWithSchema(data);
         if(vd !== true){
@@ -187,6 +190,20 @@ let AdminUser = class extends Base{
             return callback(KG.result.out(false, e));
         }
 
+
+
+    }
+
+    defineMeteorMethod(){
+        let self = this;
+
+        return {
+            getUserById : function(id){
+                let m = KG.DataHelper.getDepModule();
+
+                return self._db.findOne({_id : id});
+            }
+        };
 
 
     }

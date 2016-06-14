@@ -139,6 +139,15 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 				title : 'Type',
 				key : 'type'
 			},
+			{
+				title : 'Lesson Date',
+				reactDom(doc){
+					if(doc.lessonDate){
+						return moment(doc.lessonDate).format(KG.const.dateFormat);
+					}
+					return '';
+				}
+			},
 
 			{
 				title : 'Status',
@@ -182,10 +191,19 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 						});
 					};
 
+					let goToPay = function(){
+						if(doc.type === 'register'){
+							util.goPath(`/registration/payment/${doc._id}`);
+						}
+						else if(doc.type === 'makeup'){
+							util.goPath('/payment/makeup?classstudentID='+doc._id);
+						}
+					};
+
 
 					return (
 						<RC.Div style={{textAlign:'center'}}>
-							<KUI.NoButton style={sy} href={`/registration/payment/${doc._id}`}
+							<KUI.NoButton style={sy} onClick={goToPay}
 							              label="pay now"></KUI.NoButton>
 							<KUI.NoButton style={sy} onClick={del}
 							              label="Cancel"></KUI.NoButton>
