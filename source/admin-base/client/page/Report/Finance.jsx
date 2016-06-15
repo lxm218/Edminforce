@@ -170,49 +170,43 @@ KUI.Report_Finance = class extends KUI.Page{
 	}
 
 	exportPeriod(){
-		let list = _.map(this.state.result, (item)=>{
-				item['Date'] = moment(item.date).format(util.const.dateFormat)
-				delete item.date
-				item['E-Check'] = item.echeck
-				delete item.echeck
-				item['Cash'] = item.cash
-				delete item.cash
-				item['Check'] = item.check
-				delete item.check
-				item['Total'] = item.total
-				delete item.total
-				delete item['credit card']
-				delete item.detail
-				return item;
-			})
-
+		let list = []
+		for (var i = 0; i != this.state.result.length; i++) {	
+			var res = this.state.result[i]
+			var item = {}
+			item['Date'] = res['date']
+			item['Credit Card'] = this.serializeReportOutput(res['credit card'])
+			item['E-Check'] = this.serializeReportOutput(res.echeck)
+			item['Cash'] = this.serializeReportOutput(res.cash)
+			item['Check'] = this.serializeReportOutput(res.check)
+			item['School Credit'] = this.serializeReportOutput(res['school credit'])
+			item['Total'] = this.serializeReportOutput(res.total)
+			list.push(item)
+		}
 		let csv = Papa.unparse(list)
 		var blob = new Blob([csv], {type: "text/plain;charset=utf-8"});
 		saveAs(blob, "FinancialReport.csv");
 	}
 
+	serializeReportOutput(arrayOfTwo) {
+		return arrayOfTwo[0].toString() + '/' + arrayOfTwo[1].toString()
+	}
+
 	exportDay(){
-		let list = _.map(this.state.dateResult, (item)=>{
-				item['Student'] = item.student.name
-				item['Class'] = item.class.nickName
-				item['Type'] = item.type
-				item['Payment'] = item.order.paymentType
-				item['Amount'] = item.order.paymentTotal
-				delete item.student
-				delete item.class
-				delete item.type
-				delete item.order
-				delete item._id
-				delete item.studentID
-				delete item.accountID
-				delete item.programID
-				delete item.classID
-				delete item.status
-				delete item.createTime
-				delete item.updateTime
-				delete item.orderID
-				return item;
-			})
+		let list = []
+		for (var i = 0; i != this.state.dateResult.length; i++) {
+			var res = this.state.dateResult[i]
+			var item = {}
+			item['Date'] = res.dateline
+			item['Family'] = res.customer.name;
+			item['Type'] = res.type
+			item['Payment'] = res.paymentType
+			item['Total Amount'] = res.totalAmount
+			item['Registration Fee'] = res.registrationFee
+			item['School Credit'] = res.schoolCredit
+			item['Coupon Discount'] = res.discount
+			list.push(item)
+		}
 
 		let csv = Papa.unparse(list)
 		var blob = new Blob([csv], {type: "text/plain;charset=utf-8"});
