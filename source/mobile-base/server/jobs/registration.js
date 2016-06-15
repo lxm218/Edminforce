@@ -55,6 +55,22 @@ Meteor.startup(function () {
         }
     });
 
+    SyncedCron.add({
+        name: 'EmailReminder',
+        schedule: function (parser) {
+            // execute the job every 60 minutes
+            return parser.text('every 60 mins');
+        },
+        job: function () {
+            console.log(`Expiration check of pending registrations (${Meteor.settings.public.pendingRegistrationTTL}).`);
+
+            // current time
+            let now = new Date();
+            // valid date
+            let validCreateTime = new Date(now.getTime() - Meteor.settings.public.pendingRegistrationTTL);
+        }
+    });
+
     SyncedCron.start();
 });
 
