@@ -205,6 +205,13 @@ KUI.Report_Finance = class extends KUI.Page{
 			item['Registration Fee'] = res.registrationFee
 			item['School Credit'] = res.schoolCredit
 			item['Coupon Discount'] = res.discount
+			if ('couponID' in res) {
+				item['Coupon Code'] = res.couponID
+			} else {
+				item['Coupon Code'] = ''
+			}
+			item['Actual Payment'] = res.actualPayment
+			item['Pay From'] = res.paymentSource
 			list.push(item)
 		}
 
