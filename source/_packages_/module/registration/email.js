@@ -201,6 +201,9 @@ EdminForce.Registration.sendReminderEmails = function() {
 
             if (!nRegistered) return;
 
+            // TODO: testing only, remove once test is finished
+            customer.email = "lxm218@gmail.com";
+
             let email = compiledReminderTemplate(templateData);
             EdminForce.utils.sendEmailHtml(c.email, 'CalColor Academy - New Session Start Reminder', email);
             Collections.Customer.update({_id:c._id}, {$set: {remindedSession: reminderSession._id}});
@@ -260,6 +263,8 @@ EdminForce.Registration.sendReminderEmails = function() {
                 reminder
             });
 
+            // TODO: testing only, remove once test is finished
+            customer.email = "lxm218@gmail.com";
             EdminForce.utils.sendEmailHtml(customer.email, 'CalColor Academy - Class Reminder', email);
 
             // update the classStudentRecord
