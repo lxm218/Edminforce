@@ -43,7 +43,7 @@ Schema.Customer = {
         optional : true
     }),
     email : KG.schema.default({
-        regEx: SimpleSchema.RegEx.Email,
+        regEx: SimpleSchema.RegEx.Email
         //optional : true
     }),
     phone : KG.schema.default({
