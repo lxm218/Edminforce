@@ -87,6 +87,12 @@ Schema.Customer = {
         optional : true,
         defaultValue : true
     },
+    
+    // the session id that this customer is sent a reminder email
+    remindedSession: {
+        type: String,
+        optional: true
+    },
 
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()

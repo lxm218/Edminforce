@@ -67,19 +67,57 @@ Meteor.startup(function () {
             let reminderHours = settings.public.reminderHours || 24;
             let now = moment();
             let reminderTime = now.add(reminderHours, 'h');
-            
+
+            let reminderTemplate = Assets.getText('emailTemplates/cca/reminder.html');
+            let compiledReminderTemplate = template.compile(decodeURIComponent(reminderTemplate));
+
             // session reminder
             let reminderSession = Collections.session.findOne( {
                 startTime: {$gte: now, $lte: reminderTime},
             });
             
             if (reminderSession) {
-                let customers = Collections.customer.find({
+
+                let sessionClasses = Collections.class.find({
+                    sessionID: reminderSession._id
+                }, {
+                    fields: {
+                        status:1
+                    }
+                }).fetch();
+                let classIDs = sessionClasses.map ((cls) => cls._id);
+                
+                let customers = Collections.Customer.find({
                     remindedSession: {$ne: reminderSession._id}
                 }, {
                     fields: {
                         email: 1
-                    }
+                    },
+                    limit: 100
+                }).fetch();
+
+                customers.forEach( (c) => {
+                    // check if this customer has class in current session
+                    let nRegistered = Collections.classStudent.find({
+                        accountID: c._id,
+                        classID: {$in: classIDs}
+                    }).count();
+
+                    if (!nRegistered) return;
+
+                    //our Summer 2016 Session starts on Saturday, April 2, 2016 at CalColor Academy.
+                    let sessionDate = moment.tz(reminderSession.startDate,EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY");
+                    let reminder = `our ${reminderSession.name} Session starts on ${sessionDate} at CalColor Academy.`;
+                    let email = compiledReminderTemplate({
+                        studentName: '',
+                        reminderType: 'New Session Start',
+                        reminder
+                    });
+                    // testing only
+                    c.email = 'jinlie@gmail.com';
+
+                    EdminForce.utils.sendEmailHtml(c.email, 'CalColor Academy - New Session Start Reminder', email);
+                    Collections.Customer.update({_id:c._id}, {$set: {remindedSession: reminderSession._id}});
                 })
             }
             
@@ -97,10 +135,8 @@ Meteor.startup(function () {
                     studentID:1,
                     accountID:1
                 }
-            });
+            }).fetch();
 
-            let reminderTemplate = Assets.getText('emailTemplates/cca/reminder.html');
-            let compiledReminderTemplate = template.compile(decodeURIComponent(reminderTemplate));
             trialAndMakeups.forEach( (lesson) => {
                 let student = Collections.student.findOne({
                     _id: lesson.studentID
