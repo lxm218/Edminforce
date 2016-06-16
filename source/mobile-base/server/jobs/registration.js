@@ -64,7 +64,7 @@ Meteor.startup(function () {
         job: function () {
             console.log('Process reminder emails');
 
-            let reminderHours = settings.public.reminderHours || 24;
+            let reminderHours = Meteor.settings.public.reminderHours || 24;
             let now = moment();
             let reminderTime = now.add(reminderHours, 'h');
 
@@ -75,9 +75,7 @@ Meteor.startup(function () {
             let reminderSession = Collections.session.findOne( {
                 startTime: {$gte: now, $lte: reminderTime},
             });
-            
             if (reminderSession) {
-
                 let sessionClasses = Collections.class.find({
                     sessionID: reminderSession._id
                 }, {
@@ -86,7 +84,8 @@ Meteor.startup(function () {
                     }
                 }).fetch();
                 let classIDs = sessionClasses.map ((cls) => cls._id);
-                
+
+                // send maximum of 100 emails in each run
                 let customers = Collections.Customer.find({
                     remindedSession: {$ne: reminderSession._id}
                 }, {
@@ -96,23 +95,26 @@ Meteor.startup(function () {
                     limit: 100
                 }).fetch();
 
+                //our Summer 2016 Session starts on Saturday, April 2, 2016 at CalColor Academy.
+                let sessionDate = moment.tz(reminderSession.startDate,EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY");
+                let templateData = {
+                    studentName: '',
+                    reminderType: 'New Session Start',
+                    reminder:`our ${reminderSession.name} Session starts on ${sessionDate} at CalColor Academy.`
+                }
+
                 customers.forEach( (c) => {
                     // check if this customer has class in current session
                     let nRegistered = Collections.classStudent.find({
                         accountID: c._id,
+                        $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+                        type: {$in: ['trial','register']},
                         classID: {$in: classIDs}
                     }).count();
 
                     if (!nRegistered) return;
 
-                    //our Summer 2016 Session starts on Saturday, April 2, 2016 at CalColor Academy.
-                    let sessionDate = moment.tz(reminderSession.startDate,EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY");
-                    let reminder = `our ${reminderSession.name} Session starts on ${sessionDate} at CalColor Academy.`;
-                    let email = compiledReminderTemplate({
-                        studentName: '',
-                        reminderType: 'New Session Start',
-                        reminder
-                    });
+                    let email = compiledReminderTemplate(templateData);
                     // testing only
                     c.email = 'jinlie@gmail.com';
 
