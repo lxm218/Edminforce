@@ -211,7 +211,7 @@ EdminForce.Registration.sendReminderEmails = function() {
     let trialAndMakeups = Collections.classStudent.find({
         lessonDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
         type: {$in: ['trial','makeup']},
-        reminded: false,
+        reminded: {$ne:true},
         $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
     },{
         fields: {
