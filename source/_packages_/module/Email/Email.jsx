@@ -34,6 +34,9 @@ KG.define('EF-Email', class extends Base{
 
                 return self.mailgun.send(data);
             },
+            sendToCustomer : function(customer, data){
+                //TODO
+            },
 
             sendClassRegistrationCReceiptAndSchedule(opts){
                 let accountID = opts.accountID,
