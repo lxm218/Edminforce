@@ -55,6 +55,18 @@ Meteor.startup(function () {
         }
     });
 
+    SyncedCron.add({
+        name: 'EmailReminder',
+        schedule: function (parser) {
+            // execute the job every 15 minutes
+            return parser.text('every 15 mins');
+        },
+        job: function () {
+            console.log('Process reminder emails');
+            EdminForce.Registration.sendReminderEmails();
+        }
+    });
+
     SyncedCron.start();
 });
 

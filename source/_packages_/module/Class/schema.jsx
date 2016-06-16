@@ -252,5 +252,11 @@ Schema.ClassStudent = {
     updateTime : KG.schema.updateTime(),
     dynamicKey : KG.schema.default({
         optional : true
-    })
+    }),
+    
+    // for trial & makeup class reminder
+    reminded: {
+        type : Boolean,
+        optional : true
+    }
 };
