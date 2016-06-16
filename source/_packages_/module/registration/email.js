@@ -145,3 +145,125 @@ EdminForce.Registration.sendSessionStartReminderEmail = function() {
 EdminForce.Registration.sendClassReminderEmail = function(classStudent) {
     
 }
+
+// send reminder email for session start and trial & makeup classes
+EdminForce.Registration.sendReminderEmails = function() {
+
+    let reminderHours = Meteor.settings.public.reminderHours || 24;
+
+    let now = moment();
+    let reminderTime = moment().add(reminderHours, 'h');
+
+    let reminderTemplate = Assets.getText('emailTemplates/cca/reminder.html');
+    let compiledReminderTemplate = template.compile(decodeURIComponent(reminderTemplate));
+
+    // session reminder
+    let reminderSession = Collections.session.findOne( {
+        startDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
+    });
+
+    if (reminderSession) {
+        let sessionClasses = Collections.class.find({
+            sessionID: reminderSession._id
+        }, {
+            fields: {
+                status:1
+            }
+        }).fetch();
+        let classIDs = sessionClasses.map ((cls) => cls._id);
+
+        // send maximum of 100 emails in each run
+        let customers = Collections.Customer.find({
+            remindedSession: {$ne: reminderSession._id}
+        }, {
+            fields: {
+                email: 1
+            },
+            limit: 400
+        }).fetch();
+
+        //our Summer 2016 Session starts on Saturday, April 2, 2016 at CalColor Academy.
+        let sessionDate = moment.tz(reminderSession.startDate,EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY");
+        let templateData = {
+            studentName: '',
+            reminderType: 'New Session Start',
+            reminder:`our ${reminderSession.name} Session starts on ${sessionDate} at CalColor Academy.`
+        }
+
+        customers.forEach( (c) => {
+            // check if this customer has class in current session
+            let nRegistered = Collections.classStudent.find({
+                accountID: c._id,
+                $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+                type: {$in: ['trial','register']},
+                classID: {$in: classIDs}
+            }).count();
+
+            if (!nRegistered) return;
+
+            let email = compiledReminderTemplate(templateData);
+            EdminForce.utils.sendEmailHtml(c.email, 'CalColor Academy - New Session Start Reminder', email);
+            Collections.Customer.update({_id:c._id}, {$set: {remindedSession: reminderSession._id}});
+        })
+    }
+
+    // trial & makeup reminder
+    let trialAndMakeups = Collections.classStudent.find({
+        lessonDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
+        type: {$in: ['trial','makeup']},
+        reminded: false,
+        $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+    },{
+        fields: {
+            type:1,
+            lessonDate:1,
+            classID:1,
+            studentID:1,
+            accountID:1
+        }
+    }).fetch();
+
+    trialAndMakeups.forEach( (lesson) => {
+        let student = Collections.student.findOne({
+            _id: lesson.studentID
+        }, {
+            fields:{
+                name:1
+            }
+        });
+        let classData = Collections.class.findOne({
+            _id: lesson.classID
+        }, {
+            fields: {
+                schedule:1
+            }
+        });
+
+        let customer = Collections.Customer.findOne({
+            _id: lesson.accountID
+        }, {
+            fields: {
+                email:1,
+                alternativeContact:1,
+                emergencyContact:1
+            }
+        });
+
+        if (student && classData && customer) {
+            let classType = lesson.type == 'trial' ? 'trial' : 'make up';
+            let lessonDate = moment.tz(lesson.lessonDate, EdminForce.Settings.timeZone).format('dddd, MMMM D, YYYY');
+            let reminder = `your ${classType} class with CalColor Academy on ${lessonDate} ${classData.schedule.time}.`;
+
+            let email = compiledReminderTemplate({
+                studentName: student.name,
+                reminderType: 'Class',
+                reminder
+            });
+
+            EdminForce.utils.sendEmailHtml(customer.email, 'CalColor Academy - Class Reminder', email);
+
+            // update the classStudentRecord
+            Collections.classStudent.update({_id:lesson._id}, {$set: {reminded:true}});
+        }
+    })    
+}
