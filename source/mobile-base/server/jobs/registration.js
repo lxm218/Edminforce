@@ -58,16 +58,93 @@ Meteor.startup(function () {
     SyncedCron.add({
         name: 'EmailReminder',
         schedule: function (parser) {
-            // execute the job every 60 minutes
-            return parser.text('every 60 mins');
+            // execute the job every 15 minutes
+            return parser.text('every 15 mins');
         },
         job: function () {
-            console.log(`Expiration check of pending registrations (${Meteor.settings.public.pendingRegistrationTTL}).`);
+            console.log('Process reminder emails');
 
-            // current time
-            let now = new Date();
-            // valid date
-            let validCreateTime = new Date(now.getTime() - Meteor.settings.public.pendingRegistrationTTL);
+            let reminderHours = settings.public.reminderHours || 24;
+            let now = moment();
+            let reminderTime = now.add(reminderHours, 'h');
+            
+            // session reminder
+            let reminderSession = Collections.session.findOne( {
+                startTime: {$gte: now, $lte: reminderTime},
+            });
+            
+            if (reminderSession) {
+                let customers = Collections.customer.find({
+                    remindedSession: {$ne: reminderSession._id}
+                }, {
+                    fields: {
+                        email: 1
+                    }
+                })
+            }
+            
+            // trial & makeup reminder
+            let trialAndMakeups = Collections.classStudent.find({
+                lessonDate: {$gte: now, $lte: reminderTime},
+                type: {$in: ['trial','makeup']},
+                reminded: false,
+                $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+            },{
+                fields: {
+                    type:1,
+                    lessonDate:1,
+                    classID:1,
+                    studentID:1,
+                    accountID:1
+                }
+            });
+
+            let reminderTemplate = Assets.getText('emailTemplates/cca/reminder.html');
+            let compiledReminderTemplate = template.compile(decodeURIComponent(reminderTemplate));
+            trialAndMakeups.forEach( (lesson) => {
+                let student = Collections.student.findOne({
+                    _id: lesson.studentID
+                }, {
+                    fields:{
+                        name:1
+                    }
+                });
+                let classData = Collections.class.findOne({
+                    _id: lesson.classID
+                }, {
+                    fields: {
+                        schedule:1
+                    }
+                });
+
+                let customer = Collections.Customer.findOne({
+                    _id: lesson.accountID
+                }, {
+                    fields: {
+                        email:1,
+                        alternativeContact:1,
+                        emergencyContact:1
+                    }
+                });
+
+                if (student && classData && customer) {
+                    let classType = lesson.type == 'trial' ? 'trial' : 'make up';
+                    let lessonDate = moment.tz(lesson.lessonDate, EdminForce.Settings.timeZone).format('dddd, MMMM D, YYYY');
+                    let reminder = `your ${classType} class with CalColor Academy on ${lessonDate} ${classData.schedule.time}.`;
+
+                    let email = compiledReminderTemplate({
+                        studentName: student.name,
+                        reminderType: 'Class',
+                        reminder
+                    });
+console.log(email);
+                    customer.email = 'jinlie@gmail.com';
+                    EdminForce.utils.sendEmailHtml(customer.email, 'CalColor Academy - Class Reminder', email);
+
+                    // update the classStudentRecord
+                    Collections.classStudent.update({_id:lesson._id}, {$set: {reminded:true}});
+                }
+            })
         }
     });
 
