@@ -36,7 +36,11 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
     }).fetch();
 
     let sessions=[], programs =[];
+    let makeupOnly = true;
     scs.forEach( (sc) => {
+        
+        if (sc.type != 'makeup') makeupOnly = false;
+        
         let student = Collections.student.findOne({_id: sc.studentID}, {fields:{name:1}});
         sc.student = student || {name:''};
         let classData = Collections.class.findOne({_id: sc.classID});
@@ -57,12 +61,17 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
 
     let emailBody = '';
     lodash.forOwn(groupBySession, (sessionClasses, sessionID) => {
-        let s = sessionClasses[0].session;
-        let sessionDateRange = s.name + ' ' + moment(s.startDate).tz(EdminForce.Settings.timeZone).format("MMM D") + " - " + moment(s.endtDate).tz(EdminForce.Settings.timeZone).format("MMM D");
-        let sessionHtml = tSession.template.replace('{sessionDateRange}', sessionDateRange);
-        emailBody += sessionHtml;
-
         let regularClasses = lodash.filter(sessionClasses, {type:'register'});
+        let makeupClasses = lodash.filter(sessionClasses, {type:'makeup'});
+
+        // only show session part if there are regular classes
+        if (!makeupOnly) {
+            let s = sessionClasses[0].session;
+            let sessionDateRange = s.name + ' ' + moment(s.startDate).tz(EdminForce.Settings.timeZone).format("MMM D") + " - " + moment(s.endtDate).tz(EdminForce.Settings.timeZone).format("MMM D");
+            let sessionHtml = tSession.template.replace('{sessionDateRange}', sessionDateRange);
+            emailBody += sessionHtml;
+        }
+
         if (regularClasses.length > 0) {
             let studentHtml = '';
             regularClasses.forEach( (cls) => {
@@ -75,7 +84,6 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
                 tRegular.template.substr(tRegularStudent.end+1);
         }
         
-        let makeupClasses = lodash.filter(sessionClasses, {type:'makeup'});
         if (makeupClasses.length >0) {
             let studentHtml = '';
             makeupClasses.forEach( (cls) => {
@@ -91,10 +99,13 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
     });
 
     let emailHeader = emailHtml.substring(0, emailTemplate.start);
+    emailHeader = emailHeader.replace('{confirmationType}', makeupOnly ? 'Make up Class' : 'Registration');
+
     let emailFooter = emailHtml.substr(emailTemplate.end+1);
 
     //amount = orderTotal(including registrationFee) - discount
     //paymentTotal = amount + paymentFee (depends on paymentType) - schoolCredit
+    order.discount = order.discount || 0;
     let total = order.amount + order.discount;
     emailFooter = emailFooter.replace('{totalCost}', total.toFixed(2));
     emailFooter = emailFooter.replace('{discount}', order.discount.toFixed(2));
