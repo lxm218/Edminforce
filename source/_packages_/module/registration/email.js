@@ -113,7 +113,7 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
 
     let emailContent = emailHeader + emailBody + emailFooter;
     
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy Registration Confirmation!', emailContent);
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, makeupOnly ? 'CalColor Academy Make up Class Confirmation!':'CalColor Academy Registration Confirmation!', emailContent);
 }
 
 EdminForce.Registration.sendTrialClassConfirmationEmail = function(studentID, classID, lessonDate) {
