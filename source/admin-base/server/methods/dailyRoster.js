@@ -81,6 +81,7 @@ Meteor.methods({
                 let stdInfo = _.find(names, {_id:s.studentID});
                 stdInfo && (s.name = stdInfo.name);
                 c.students.push({
+                    studentID: s.studentID,
                     name: stdInfo ? stdInfo.name : '',
                     type: s.type,
                     unpaid: s.status == 'pending' && s.pendingFlag
