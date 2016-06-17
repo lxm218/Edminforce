@@ -79,7 +79,7 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
         if (makeupClasses.length >0) {
             let studentHtml = '';
             makeupClasses.forEach( (cls) => {
-                studentHtml += tRegularStudent.template.replace("{name}", cls.student.name)
+                studentHtml += tMakeupStudent.template.replace("{name}", cls.student.name)
                     .replace("{className}", cls.program.name)
                     .replace("{lessonDate}", formatLessonDate(cls.lessonDate,cls.schedule) );
             })
