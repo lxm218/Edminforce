@@ -118,6 +118,35 @@ console.log(rs);
 
 	}
 
+	showExportButton(){
+		if(this.state.result != null) {
+			return (<KUI.NoButton onClick={this.exportResult.bind(this)} style={{marginLeft : '15px'}} label="Export Report" ></KUI.NoButton>);
+		}
+	}
+
+	exportResult(){
+		let list = []
+		for (var i = 0; i != this.state.result.length; i++) {
+			var res = this.state.result[i]
+			var item = {}
+			item['Date'] = res['date']
+			item['Art Exploration'] = res.data.ap_art.count
+			item['Test'] = res.data.QPG6NDtGmFRDtzFpP.count
+			item['Art Foundation'] = res.data.art_foundation.count
+			item['Art Advancement'] = res.data.art_advancement.count
+			item['Art AP'] = res.data.art_exploration.count
+			item['Digital Art'] = res.data.digital_art.count
+			item['Clay'] = res.data.clay.count
+			item['Total'] = res.data.total
+			list.push(item)
+		}
+
+		let csv = Papa.unparse(list)
+		var blob = new Blob([csv], {type: "text/plain;charset=utf-8"})
+		saveAs(blob, "FinancialReport.csv")
+
+	}
+
 	render(){
 		if(!this.data.ready){
 			return util.renderLoading();
@@ -128,6 +157,7 @@ console.log(rs);
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.YesButton onClick={this.search.bind(this)}
 					              label="Search"></KUI.YesButton>
+					{this.showExportButton()}
 				</RC.Div>
 				<hr/>
 				{this.renderTable()}

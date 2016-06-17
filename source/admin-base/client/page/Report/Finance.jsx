@@ -216,8 +216,8 @@ KUI.Report_Finance = class extends KUI.Page{
 		}
 
 		let csv = Papa.unparse(list)
-		var blob = new Blob([csv], {type: "text/plain;charset=utf-8"});
-		saveAs(blob, "FinancialReport.csv");
+		var blob = new Blob([csv], {type: "text/plain;charset=utf-8"})
+		saveAs(blob, "FinancialReport.csv")
 	}
 
 	renderResultTable(){
