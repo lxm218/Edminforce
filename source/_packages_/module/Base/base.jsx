@@ -102,19 +102,22 @@ let Base = class{
 console.log('['+this._name+':'+methodName+' call]');
 
         if(Meteor.isServer){
-            let tmpRs = Meteor.apply(this._name+':'+methodName, args);
-            console.log(tmpRs);
+            //let tmpRs = Meteor.apply(this._name+':'+methodName, args);
+            //console.log(tmpRs);
             return Meteor.apply(this._name+':'+methodName, args);
         }
+        else{
+            Meteor.apply(this._name+':'+methodName, args, function(error, rs){
+                if(error){
+                    opts.error.call(opts.context, error);
+                    return;
+                }
 
-        Meteor.apply(this._name+':'+methodName, args, function(error, rs){
-            if(error){
-                opts.error.call(opts.context, error);
-                return;
-            }
+                opts.success.call(opts.context, rs);
+            });
+        }
 
-            opts.success.call(opts.context, rs);
-        });
+
     }
     //callMeteorMethodAsync(methodName, args){
     //    let fn = (param, callback)=>{

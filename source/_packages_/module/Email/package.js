@@ -27,6 +27,8 @@ Package.onUse(function(api) {
 
     api.addAssets([
         'tpl/ConfirmTrialClass.html',
-        'tpl/ConfirmRegistrationClass.html'
+        'tpl/ConfirmRegistrationClass.html',
+        'tpl/ConfirmCancelClass.html',
+        'tpl/ConfirmChangeClass.html'
     ], 'server');
 });

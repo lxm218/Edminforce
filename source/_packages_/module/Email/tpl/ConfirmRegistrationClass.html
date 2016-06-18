@@ -31,8 +31,8 @@
 								<td style="font-size:1em;font-weight:bold;padding:5px 10px">Student</td>
 								<td style="font-size:1em;font-weight:bold;padding:5px 10px">Class</td>
 							</tr>
-							<!--student-->
 
+							<!--student-->
 							{{each CSList as cs}}
 							<tr>
 								<td style="font-weight:normal;padding:5px;font-size:1em">{{cs.student.name}}</td>
@@ -43,6 +43,8 @@
 							</tr>
 							{{/each}}
 							<!--studentEnd-->
+
+
 							<tr>
 								<td style="font-size:0.9em;padding:5px 20px"><br></td>
 								<td style="font-size:0.9em;padding:5px 20px"><br></td>
@@ -71,6 +73,9 @@
 							</table>
 						</div>
 					</div>
+
+
+
 					<div style="margin:1em 0px">
                         <span style="line-height:1.5">If you need to change your schedule, please feel free to contact us by email at <a
 	                        href="mailto:{{school.email}}" rel="nofollow" target="_blank">{{school.email}}</a>.

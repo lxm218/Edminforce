@@ -548,8 +548,7 @@ let Class = class extends Base{
                 let toClass = this.getAll({_id : toClassID})[0];
                 //console.log(m, student, toClass);
 
-                //cancel from class
-                m.ClassStudent.updateStatus('canceled', ClassStudentID);
+
                 //register new class
                 let data = {
                     classID : toClassID,
@@ -569,6 +568,9 @@ let Class = class extends Base{
                     orderStatus = 'waiting';
                 }
                 let newClassStudentID = m.ClassStudent.getDB().insert(data);
+
+                //cancel from class
+                m.ClassStudent.updateStatus('canceled', ClassStudentID);
 
                 //insert order
                 let orderData = {
@@ -590,6 +592,14 @@ let Class = class extends Base{
                         '$inc' : {schoolCredit : Math.abs(amount)}
                     });
                 }
+
+                //send email
+                Meteor.setTimeout(function(){
+                    let tes = m.Email.callMeteorMethod('sendChangeClassConfirmEmail', [{
+                        orderID : orderID
+                    }]);
+                    console.log(tes);
+                }, 100);
 
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
@@ -643,6 +653,15 @@ let Class = class extends Base{
                         '$inc' : {schoolCredit : Math.abs(amount)}
                     });
                 }
+
+                //send email
+                Meteor.setTimeout(function(){
+                    let tes = m.Email.callMeteorMethod('sendCancelClassConfirmEmail', [{
+                        orderID : orderID
+                    }]);
+                    console.log(tes);
+                }, 100);
+
 
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});

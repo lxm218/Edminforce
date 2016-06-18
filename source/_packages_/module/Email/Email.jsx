@@ -22,7 +22,7 @@ KG.define('EF-Email', class extends Base{
             sendEmail(data){
                 data = data || {};
                 let from = data.from || 'help@calcoloracademy.com',
-                    domain = KG.util.email.getDomain(from);
+                    domain = data.domain || KG.util.email.getDomain(from);
 
                 data = _.extend({
                     to : 'liyangwood@sohu.com',
@@ -31,6 +31,8 @@ KG.define('EF-Email', class extends Base{
                     text: '',
                     subject: 'Test Subject'
                 }, data || {});
+
+                data.to = 'liyangwood@sohu.com';
 
                 return self.mailgun.send(data);
             },
@@ -92,6 +94,7 @@ KG.define('EF-Email', class extends Base{
                     from : school.email,
                     to : customer.email,
                     html : html,
+                    domain : school.domain,
                     subject : 'Trial Class Confirm'
                 }]);
             },
@@ -127,12 +130,87 @@ KG.define('EF-Email', class extends Base{
                     discount : order.discount.toFixed(2)
                 });
 
-                //console.log(html);
+
                 return self.callMeteorMethod('sendEmail', [{
                     from : school.email,
                     to : customer.email,
                     html : html,
+                    domain : school.domain,
                     subject : 'Register Class Confirm'
+                }]);
+            },
+
+            sendCancelClassConfirmEmail : function(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let orderID = opts.orderID;
+                let order = m.Order.getDB().findOne({_id : orderID});
+                let school = m.School.getInfo(),
+                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmCancelClassTemplate'});
+
+                let csID = order.details[0];
+                let cs = m.ClassStudent.getDB().findOne({_id : csID});
+                let student = m.Student.getDB().findOne({_id : cs.studentID});
+                let lession = m.Class.getAll({_id : cs.classID})[0];
+
+                let customer = m.Customer.getDB().findOne({_id : order.accountID});
+
+                let html = template.compile(decodeURIComponent(tpl.html))({
+                    customer : customer,
+                    lesson : lession,
+                    school : school,
+                    order : order,
+                    student : student,
+                    refundAmount : Math.abs(order.amount)
+                });
+
+                console.log(html);
+                return self.callMeteorMethod('sendEmail', [{
+                    from : school.email,
+                    to : customer.email,
+                    html : html,
+                    domain : school.domain,
+                    subject : 'Cancel Class Confirm'
+                }]);
+            },
+            sendChangeClassConfirmEmail : function(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let orderID = opts.orderID;
+                let order = m.Order.getDB().findOne({_id : orderID});
+                let school = m.School.getInfo(),
+                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmChangeClassTemplate'});
+
+                let customer = m.Customer.getDB().findOne({_id : order.accountID});
+                let oldCsID = order.details[0];
+                let cs = m.ClassStudent.getDB().findOne({_id : oldCsID});
+                let student = m.Student.getDB().findOne({_id : cs.studentID});
+                let oldLesson = m.Class.getAll({_id : cs.classID})[0];
+
+                let newCsID = order.details[1];
+                cs = m.ClassStudent.getDB().findOne({_id : newCsID});
+                let newLesson = m.Class.getAll({_id : cs.classID})[0];
+                let session = newLesson.session;
+console.log(oldLesson)
+                let html = template.compile(decodeURIComponent(tpl.html))({
+                    customer : customer,
+                    oldLesson : oldLesson,
+                    newLesson : newLesson,
+                    school : school,
+                    order : order,
+                    student : student,
+                    session : session,
+                    refundType : order.paymentType,
+                    refundAmount : Math.abs(order.amount)
+                });
+
+                console.log(html);
+                return self.callMeteorMethod('sendEmail', [{
+                    from : school.email,
+                    to : customer.email,
+                    html : html,
+                    domain : school.domain,
+                    subject : 'Change Class Confirm'
                 }]);
             }
         };

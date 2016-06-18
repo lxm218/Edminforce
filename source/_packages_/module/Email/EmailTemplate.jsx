@@ -34,40 +34,43 @@ KG.define('EF-EmailTemplate', class extends Base{
 
     initEnd(){
         if(Meteor.isClient) return false;
-        // insert trial class template
-        let html = Assets.getText('tpl/ConfirmTrialClass.html');
-        let _id = 'ConfirmTrialClassTemplate';
 
-        //this._db.remove({_id : _id});
-        let one = this._db.findOne({_id : _id});
-        let data = {};
+        const TplList = [
+            {
+                id : 'ConfirmTrialClassTemplate',
+                tpl : 'tpl/ConfirmTrialClass.html'
+            },
+            {
+                id : 'ConfirmRegistrationClassTemplate',
+                tpl : 'tpl/ConfirmRegistrationClass.html'
+            },
+            {
+                id : 'ConfirmCancelClassTemplate',
+                tpl : 'tpl/ConfirmCancelClass.html'
+            },
+            {
+                id : 'ConfirmChangeClassTemplate',
+                tpl : 'tpl/ConfirmChangeClass.html'
+            }
+        ];
 
-        if(!one){
-            data = {
-                _id : _id,
-                name : _id,
-                canNotDelete : true,
-                html : html
-            };
-            this.insert(data);
-        }
+        _.each(TplList, (item)=>{
+            let html = Assets.getText(item.tpl);
+            let _id = item.id;
 
-        // insert makeup class template
-        html = Assets.getText('tpl/ConfirmRegistrationClass.html');
-        _id = 'ConfirmRegistrationClassTemplate';
+            this._db.remove({_id : _id});
+            let one = this._db.findOne({_id : _id});
 
-        //this._db.remove({_id : _id});
-        one = this._db.findOne({_id : _id});
-
-        if(!one){
-            data = {
-                _id : _id,
-                name : _id,
-                canNotDelete : true,
-                html : html
-            };
-            this.insert(data);
-        }
+            if(!one){
+                data = {
+                    _id : _id,
+                    name : _id,
+                    canNotDelete : true,
+                    html : html
+                };
+                this.insert(data);
+            }
+        });
     }
 
 

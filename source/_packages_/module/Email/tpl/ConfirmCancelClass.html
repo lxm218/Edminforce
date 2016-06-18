@@ -1,0 +1,43 @@
+<div style="margin:0;background-color:#fff;text-align:center;font-size:14px;line-height:1.5;color:#333;font-family:Arial;font-weight:normal">
+	<div style="padding:5px;margin:0 auto;width:auto;text-align:left">
+		<img src="https://appointycdn.azureedge.net/images/99702/LogoImage.png?r=3D360029" alt=""/>
+	</div>
+	<div style="padding:5px;background-color:#f0f0f0;font-size:1em">
+		<div style="margin:0 auto;text-align:left;width:auto;background-color:#fff;border-radius:8px;padding:12px;border-top:solid 8px #742894;border-bottom:solid 8px #742894;border-left:solid 1px #e3e3e3;border-right:solid 1px #e3e3e3">
+			<div>
+				<div style="font-size:1.4em;white-space:nowrap"><strong>CalColor Academy - Cancel Class Confirmation</strong></div>
+				<div>
+					<div style="margin:1em 0px"><strong>Hello </strong>{{student.name}}<strong>,</strong></div>
+					<div style="margin:1em 0px">Your class <strong>{{lesson.nickName}}</strong> has been canceled.</div>
+					<div style="border-radius:5px;margin:1em 0px;border:1px solid #e3e3e3;padding:10px;background-color:#f6f6f6;white-space:nowrap">
+						<table border="0" cellpadd=ing="0" cellspacing="0" style="font-size:1em;line-height:1.5">
+							<tbody>
+							<tr>
+								<td style="font-weight:bold;padding:5px;font-size:1em">Cash Refund (or School Credit Refund):</td>
+								<td style="font-weight:bold;padding:5px;font-size:1em">${{refundAmount}}</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div style="margin:1em 0px">
+                        <span style="line-height:1.5">If you need to change your schedule, please feel free to contact us by email at <a
+	                        href="mailto:{{school.email}}" rel="nofollow" target="_blank">{{school.email}}</a>.
+                        </span>
+						<span style="font-size:1em;line-height:1.5">or by phone</span>
+						<a href="tel:{{school.phone}}"
+						   value="+1{{school.phone}}"
+						   style="font-size:1em;line-height:1.5"
+						   target="_blank">{{school.phone}}</a>
+						<span style="font-size:1em;line-height:1.5"> during our normal business hours.</span>
+					</div>
+					<div style="margin:1em 0px"><strong>Address:</strong>{{school.allAddress}}</div>
+					<div style="border-top:1px solid #dcdcdc"></div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
