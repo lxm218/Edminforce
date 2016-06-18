@@ -29,6 +29,7 @@ Package.onUse(function(api) {
         'tpl/ConfirmTrialClass.html',
         'tpl/ConfirmRegistrationClass.html',
         'tpl/ConfirmCancelClass.html',
-        'tpl/ConfirmChangeClass.html'
+        'tpl/ConfirmChangeClass.html',
+        'tpl/ConfirmMakeupClass.html'
     ], 'server');
 });

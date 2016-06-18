@@ -32,7 +32,7 @@ KG.define('EF-Email', class extends Base{
                     subject: 'Test Subject'
                 }, data || {});
 
-                //data.to = 'liyangwood@sohu.com';
+                data.to = 'liyangwood@sohu.com';
 
                 return self.mailgun.send(data);
             },
@@ -95,6 +95,7 @@ KG.define('EF-Email', class extends Base{
                     to : customer.email,
                     html : html,
                     domain : school.domain,
+                    customer : customer,
                     subject : 'Trial Class Confirm'
                 }]);
             },
@@ -136,6 +137,7 @@ KG.define('EF-Email', class extends Base{
                     to : customer.email,
                     html : html,
                     domain : school.domain,
+                    customer : customer,
                     subject : 'Register Class Confirm'
                 }]);
             },
@@ -170,6 +172,7 @@ KG.define('EF-Email', class extends Base{
                     to : customer.email,
                     html : html,
                     domain : school.domain,
+                    customer : customer,
                     subject : 'Cancel Class Confirm'
                 }]);
             },
@@ -210,8 +213,58 @@ console.log(oldLesson)
                     to : customer.email,
                     html : html,
                     domain : school.domain,
+                    customer : customer,
                     subject : 'Change Class Confirm'
                 }]);
+            },
+
+            sendMakeupClassConfirmEmail : function(opts){
+                let h = ['{{each CSList as cs}}',
+                        '<tr><td style="font-weight:normal;padding:5px;font-size:1em">{{cs.student.name}}</td>',
+                        '<td style="font-size:1em;font-weight:bold;padding:10px;color:rgb(177,16,22);">{{cs.class.nickName}}</td></tr>',
+        '<tr><td colspan="2" style="border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgb(0,0,0);padding:5px 0px 0px"></td></tr>',
+        '{{/each}}'].join('');
+
+                let m = KG.DataHelper.getDepModule();
+
+                let orderID = opts.orderID;
+
+                let order = m.Order.getDB().findOne({_id : orderID});
+                let school = m.School.getInfo(),
+                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmMakeupClassTemplate'});
+
+                let CSList = _.map(order.details, (csID)=>{
+                    let cs = m.ClassStudent.getDB().findOne({_id : csID});
+                    cs.student = m.Student.getDB().findOne({_id : cs.studentID});
+                    cs.class = m.Class.getAll({_id : cs.classID})[0];
+                    //cs.session = cs.class.session;
+
+                    return cs;
+                });
+                let customer = m.Customer.getDB().findOne({_id : order.accountID});
+                let ss = CSList[0].class.session;
+                ss.startDate = moment(ss.startDate).format('MMM D');
+                ss.endDate = moment(ss.endDate).format('MMM D');
+                let html = template.compile(decodeURIComponent(tpl.html).replace('<!--classbody-->', h))({
+                    customer : customer,
+                    session : ss,
+                    CSList : CSList,
+                    school : school,
+                    totalCost : (order.amount + order.discount).toFixed(2),
+                    grandTotal : order.amount.toFixed(2),
+                    discount : order.discount.toFixed(2)
+                });
+
+                console.log(html);
+                return self.callMeteorMethod('sendEmail', [{
+                    from : school.email,
+                    to : customer.email,
+                    html : html,
+                    domain : school.domain,
+                    customer : customer,
+                    subject : 'Makeup Class Confirm'
+                }]);
+
             }
         };
     }

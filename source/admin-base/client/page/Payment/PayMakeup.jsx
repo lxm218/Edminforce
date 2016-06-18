@@ -165,6 +165,7 @@ KUI.Payment_PayMakeup = class extends KUI.Page{
 				if(self.C.fee === 0 || cash){
 
 					self.m.ClassStudent.updateStatus('checkouted', cid);
+					self.module.Email.callMeteorMethod('sendMakeupClassConfirmEmail', [{orderID : id}]);
 					self.m.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [cid], {
 						success : function(json){
 							util.goPath('/student/'+orderData.studentID);
