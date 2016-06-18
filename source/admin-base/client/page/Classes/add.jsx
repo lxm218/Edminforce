@@ -171,7 +171,7 @@ console.log(x2.ready(), x3.ready(), x1.ready());
             scheduleDay : KG.get('EF-Class').getDBSchema().schema('schedule.day').allowedValues,
             scheduleTime : TIME,
             tuitionType : KG.get('EF-Class').getDBSchema().schema('tuition.type').allowedValues,
-            level : KG.get('EF-Class').getDBSchema().schema('level').allowedValues,
+            level : [], //KG.get('EF-Class').getDBSchema().schema('level').allowedValues,
             gender : KG.get('EF-Class').getDBSchema().schema('genderRequire').allowedValues,
             teacher : this.data.teacherList
         };
@@ -260,8 +260,8 @@ console.log(x2.ready(), x3.ready(), x1.ready());
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleTime',
-                label : ' ',
-                disabled : edit
+                label : ' '
+                //disabled : edit
             },
             tuitionMoney : {
                 labelClassName : 'col-xs-4',

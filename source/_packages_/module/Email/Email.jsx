@@ -32,7 +32,7 @@ KG.define('EF-Email', class extends Base{
                     subject: 'Test Subject'
                 }, data || {});
 
-                data.to = 'liyangwood@sohu.com';
+                //data.to = 'liyangwood@sohu.com';
 
                 return self.mailgun.send(data);
             },
