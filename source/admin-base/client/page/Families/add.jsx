@@ -79,10 +79,10 @@ KUI.Family_add = class extends RC.CSSMeteorData{
         let school = KG.get('EF-School').getInfo();
         let html = this.getRegisterConfirmEmailTemplate(data);
 
-        let domain = util.email.getDomain(school.email);
+        let domain = school.domain || util.email.getDomain(school.email);
         //console.log(html);
         KG.get('EF-Email').send({
-            //from : `${domain}<${school.email}>`,
+            from : `${domain}<${school.email}>`,
             to : data.email,
             html : html,
             subject : 'Thank for Creating an Account'
