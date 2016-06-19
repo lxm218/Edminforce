@@ -117,57 +117,29 @@ let Class = class extends Base{
             }
         }
 
-        // align endDate to be the same weekday as start date, so we can use moment.diff to calculate
-        // the number of weeks in between
-        let weeklyAlignedOffset = start.day() - end.day();
-        weeklyAlignedOffset < 0 && (weeklyAlignedOffset += 7);
-        let weeklyAlignedEndDate = weeklyAlignedOffset == 0 ? end.clone() : end.clone().add(weeklyAlignedOffset, 'd');
-        let numWeeks = weeklyAlignedEndDate.diff(start, 'w');
-        let numClasses = numWeeks;
+        start.startOf('d');
+        end.endOf('d');
 
-        let classDay = data.schedule.day.toLower();
-        if (weeklyAlignedOffset) {
-            // adjust the number introduced by alignment
-            while (weeklyAlignedEndDate.day() > end.day()) {
-                if (weeklyAlignedEndDate.format('ddd').toLower() == classDay)
-                    numClasses--;
-                weeklyAlignedEndDate.add(-1,'d');
+        let format = 'YYYYMMDD';
+        let rs = 0,
+            cur = start;
+
+        let blockDay = _.map(session.blockOutDay || [], (item)=>{
+            return moment.tz(item, schoolTz).format(format);
+        });
+        let classDay = data.schedule.day.toLowerCase();
+
+        while(end.isAfter(cur)){
+            if(cur.format('ddd').toLowerCase() === classDay){
+                if(_.indexOf(blockDay, cur.format(format)) < 0){
+                    rs++;
+                }
             }
+
+            cur = cur.add(1, 'd');
         }
 
-        // exclude blockOutDays
-        session.blockOutDay.forEach( (bd) => {
-            let tzbd = moment.tz(bd, schoolTz);
-            if (tzbd.format('ddd').toLower() == classDay && tzbd.isBetween(start, end, 'd', '[]'))
-                numClasses--;
-        });
-
-        // let day = this.getDBSchema().schema('schedule.day').allowedValues;
-        // day = _.indexOf(day, data.schedule.day);
-        //
-        // let format = 'YYYYMMDD';
-        //
-        // let rs = 0,
-        //     cur = start;
-        //
-        // let blockDay = _.map(session.blockOutDay || [], (item)=>{
-        //     return moment.tz(item, schoolTz).format(format);
-        // });
-        //
-        // while(end.isAfter(cur)){
-        //     if(cur.day() === day){
-        //         if(_.indexOf(blockDay, cur.format(format)) < 0){
-        //             rs++;
-        //         }
-        //     }
-        //
-        //     cur = cur.add(1, 'd');
-        // }
-        //
-        // return rs;
-        //
-        
-        return numClasses;
+        return rs;
     }
 
     getClassLessonDate(data, session){
