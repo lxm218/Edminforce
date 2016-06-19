@@ -1,5 +1,10 @@
 {
   "public" : {
-    "debug" : true
+    "debug" : true,
+
+    "LeftNav" : [
+      "Home", "Families", "Students", "Programs", "Registrations",
+      "Teachers", "Emails", "Daily Roser", "Reports", "Calendar"
+    ]
   }
 }
