@@ -102,35 +102,42 @@ KUI.Student_index = class extends RC.CSSMeteorData{
                     };
 
                     var del = function(){
-                        //swal({
-                        //    title : 'Delete this student?',
-                        //    text : '',
-                        //    type : 'warning',
-                        //    showCancelButton : true,
-                        //    closeOnCancel : true,
-                        //    closeOnConfirm : false,
-                        //    confirmButtonText : 'Confirm',
-                        //    confirmButtonColor : '#1ab394'
-                        //}, function(f){
-                        //    if(!f) return false;
-                        //
-                        //});
-                        self.m.Student.callMeteorMethod('removeById', [item._id], {
-                            success : function(rs){
+
+                        self.m.Student.callMeteorMethod('checkCanBeRemoveById', [item._id], {
+                            success : function(f){
                                 console.log(rs);
-                                if(!rs){
+                                if(f){
+                                    swal({
+                                        title : 'Delete this student?',
+                                        text : '',
+                                        type : 'warning',
+                                        showCancelButton : true,
+                                        closeOnCancel : true,
+                                        closeOnConfirm : false,
+                                        confirmButtonText : 'Confirm',
+                                        confirmButtonColor : '#1ab394'
+                                    }, function(f){
+                                        if(!f) return false;
+                                        self.m.Student.callMeteorMethod('removeById', [item._id], {
+                                            success : function(){
+                                                swal({
+                                                    title : 'Delete success',
+                                                    text : '',
+                                                    type : 'success'
+                                                });
+                                            }
+                                        });
+                                    });
+                                }
+                                else{
                                     swal({
                                         title : 'Delete Fail',
                                         text : 'student already register class.',
                                         type : 'error'
                                     });
-                                }
-                                else{
-                                    swal({
-                                        title : 'Delete success',
-                                        text : '',
-                                        type : 'success'
-                                    });
+
+
+
                                 }
                             }
                         });

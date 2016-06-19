@@ -26,13 +26,14 @@ KG.define('EF-Email', class extends Base{
 
                 data = _.extend({
                     to : 'liyangwood@sohu.com',
-                    from : `${domain} <${from}>`,
+                    from : '',
                     html : '',
                     text: '',
                     subject: 'Test Subject'
                 }, data || {});
 
                 //data.to = 'liyangwood@sohu.com';
+                data.from = `${domain} <${from}>`;
 
                 return self.mailgun.send(data);
             },
@@ -205,6 +206,7 @@ console.log(oldLesson)
                     student : student,
                     session : session,
                     refundType : order.paymentType,
+                    orderType : order.amount<0?'refund':'payment',
                     refundAmount : Math.abs(order.amount)
                 });
 
