@@ -26,7 +26,7 @@ KG.define('EF-Email', class extends Base{
 
                 data = _.extend({
                     to : 'liyangwood@sohu.com',
-                    from : `${domain}<${from}>`,
+                    from : `${domain} <${from}>`,
                     html : '',
                     text: '',
                     subject: 'Test Subject'
@@ -96,7 +96,7 @@ KG.define('EF-Email', class extends Base{
                     html : html,
                     domain : school.domain,
                     customer : customer,
-                    subject : 'Trial Class Confirm'
+                    subject : 'Trial Class Confirmation'
                 }]);
             },
 
@@ -138,7 +138,7 @@ KG.define('EF-Email', class extends Base{
                     html : html,
                     domain : school.domain,
                     customer : customer,
-                    subject : 'Register Class Confirm'
+                    subject : 'Register Class Confirmation'
                 }]);
             },
 
@@ -163,7 +163,8 @@ KG.define('EF-Email', class extends Base{
                     school : school,
                     order : order,
                     student : student,
-                    refundAmount : Math.abs(order.amount)
+                    refundAmount : Math.abs(order.amount),
+                    refundType : order.paymentType
                 });
 
                 console.log(html);
@@ -173,7 +174,7 @@ KG.define('EF-Email', class extends Base{
                     html : html,
                     domain : school.domain,
                     customer : customer,
-                    subject : 'Cancel Class Confirm'
+                    subject : 'Cancel Class Confirmation'
                 }]);
             },
             sendChangeClassConfirmEmail : function(opts){
@@ -214,7 +215,7 @@ console.log(oldLesson)
                     html : html,
                     domain : school.domain,
                     customer : customer,
-                    subject : 'Change Class Confirm'
+                    subject : 'Change Class Confirmation'
                 }]);
             },
 
@@ -262,7 +263,7 @@ console.log(oldLesson)
                     html : html,
                     domain : school.domain,
                     customer : customer,
-                    subject : 'Makeup Class Confirm'
+                    subject : 'Makeup Class Confirmation'
                 }]);
 
             }
