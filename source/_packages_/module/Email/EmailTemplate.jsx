@@ -62,7 +62,7 @@ KG.define('EF-EmailTemplate', class extends Base{
             let html = Assets.getText(item.tpl);
             let _id = item.id;
 
-            //this._db.remove({_id : _id});
+            this._db.remove({_id : _id});
             let one = this._db.findOne({_id : _id});
 
             if(!one){
