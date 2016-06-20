@@ -274,14 +274,14 @@ function calculateRegistrationFee(classData, session) {
 }
 
 
-function getDocumentFromCache(documentName, id, cache) {
-    let doc = lodash.find(cache, {_id:id});
-    if (!doc) {
-        doc = Collections[documentName].findOne({_id:id});
-        doc && (cache.push(doc));
-    }
-    return doc;
-}
+// function getDocumentFromCache(documentName, id, cache) {
+//     let doc = lodash.find(cache, {_id:id});
+//     if (!doc) {
+//         doc = Collections[documentName].findOne({_id:id});
+//         doc && (cache.push(doc));
+//     }
+//     return doc;
+// }
 
 /*
  * Apply a coupon to shopping cart
@@ -450,10 +450,10 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
             let classData = Collections.class.findOne({_id: sc.classID}, {fields:{schedule:1,programID:1,sessionID:1,tuition:1}});
             if (!classData) return;
 
-            let session = getDocumentFromCache('session', classData.sessionID, sessions);
+            let session = EdminForce.utils.getDocumentFromCache('session', classData.sessionID, sessions);
             if (!session) throw new Meteor.Error(500, 'Session not found','Invalid session id: ' + classData.sessionID);
 
-            let program = getDocumentFromCache('program', classData.programID, programs);
+            let program = EdminForce.utils.getDocumentFromCache('program', classData.programID, programs);
             if (!program) throw new Meteor.Error(500, 'Program not found','Invalid program id: ' + classData.programID);
 
             sc.name = EdminForce.utils.getClassName(program.name, session.name, classData);
@@ -740,9 +740,9 @@ function getExpiredRegistrations(userId, expiredRegistrationIDs) {
         let session = null;
         let student = null;
         if (classData) {
-            session = getDocumentFromCache('session', classData.sessionID, sessions);
-            program = getDocumentFromCache('program', classData.programID, programs);
-            student = getDocumentFromCache('student', sc.studentID, students);
+            session = EdminForce.utils.getDocumentFromCache('session', classData.sessionID, sessions);
+            program = EdminForce.utils.getDocumentFromCache('program', classData.programID, programs);
+            student = EdminForce.utils.getDocumentFromCache('student', sc.studentID, students);
         }
        
         if (classData && program && session) {
@@ -1215,4 +1215,4 @@ EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
 EdminForce.Registration.payWithSchoolCredit = payWithSchoolCredit;
 EdminForce.Registration.getOrderInfoFromRegistration = getOrderInfoFromRegistration;
-EdminForce.Registration.getDocumentFromCache = getDocumentFromCache;
+//EdminForce.Registration.getDocumentFromCache = EdminForce.utils.getDocumentFromCache;

@@ -44,8 +44,8 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
         let student = Collections.student.findOne({_id: sc.studentID}, {fields:{name:1}});
         sc.student = student || {name:''};
         let classData = Collections.class.findOne({_id: sc.classID});
-        sc.session = EdminForce.Registration.getDocumentFromCache('session', classData.sessionID, sessions);
-        sc.program = EdminForce.Registration.getDocumentFromCache('program', classData.programID, programs);
+        sc.session = EdminForce.utils.getDocumentFromCache('session', classData.sessionID, sessions);
+        sc.program = EdminForce.utils.getDocumentFromCache('program', classData.programID, programs);
         sc.schedule = classData.schedule;
         sc.sessionID = sc.session._id;
     });

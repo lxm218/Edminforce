@@ -33,4 +33,13 @@ EdminForce = {
 };
 
 
+// context settings
+Meteor.startup(function () {
+    // get school time zone setting from db
+    var school = Collections.school.findOne({});
+    if (school) {
+        EdminForce.Settings.timeZone = school.timezoneString;
+    }
+});
+
 

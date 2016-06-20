@@ -16,10 +16,4 @@ Meteor.startup(function () {
         return " To reset your password, simply click the link below:\n\n"
             + url;
     };
-    
-    // get time zone setting from db
-    let school = Collections.school.findOne({});
-    if (school) {
-        EdminForce.Settings.timeZone = school.timezoneString;
-    }
 });

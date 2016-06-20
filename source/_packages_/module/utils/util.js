@@ -62,3 +62,35 @@ EdminForce.utils.parseLessonDate = function(lessons) {
         l.lessonDate = moment(l.lessonDate, EdminForce.utils.dateFormat).toDate();
     })
 }
+
+EdminForce.utils.getDocumentFromCache = function(documentName, id, cache) {
+    let doc = lodash.find(cache, {_id:id});
+    if (!doc) {
+        doc = Collections[documentName].findOne({_id:id});
+        doc && (cache.push(doc));
+    }
+    return doc;
+}
+
+
+/*
+ * getSessionByDate
+ *  Find a single session that covers the specified date. If date is specified, current date is used instead.
+ */
+EdminForce.utils.getSessionByDate = function(date) {
+    let dateTz = moment.tz(date || new Date(), EdminForce.Settings.timeZone).toDate();
+    return Collections.session.findOne({
+        $and: [
+            {startDate:{$lte: dateTz}},
+            {endDate: {$gte: dateTz}}
+        ]
+    });
+}
+
+/*
+ * registration query
+ */
+EdminForce.utils.registrationQuery = {
+    type: {$in: ['register', 'trial', 'makeup']},
+    $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+}

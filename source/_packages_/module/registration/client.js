@@ -11,23 +11,41 @@ function getStudentstWithClasses(userId, studentID, studentClassID) {
     if (studentID)
         query._id = studentID;
 
+    let currentSession = EdminForce.utils.getSessionByDate();
+    let currentClassIDs = [];
+    if (currentSession) {
+        let currentClasses = Collections.class.find({
+            sessionID: currentSession._id
+        }, {
+            fields: {
+                _id:1
+            }
+        }).fetch();
+
+        currentClassIDs = currentClasses.map( (c) => c._id);
+    }
+
+    let programs = [], classes = [];
+
     let students = Collections.student.find(query).fetch();
     return students.map((student) => {
         let studentClasses = Collections.classStudent.find({
             studentID: student._id,
-            type: {$in: ['register', 'trial', 'makeup']}
+            classID: {$in: currentClassIDs},
+            ...EdminForce.utils.registrationQuery
         }).fetch();
 
         // separate all classes into current & completed
-        let currentTime = new Date().getTime();
         student.currentClasses = [];
         student.completedClasses = [];
         studentClasses.forEach((studentClass) => {
             // find class session & program
-            studentClass.class = Collections.class.findOne({_id: studentClass.classID});
+            //studentClass.class = Collections.class.findOne({_id: studentClass.classID});
+            studentClass.class = EdminForce.utils.getDocumentFromCache('class', studentClass.classID, classes);
             if (studentClass.class) {
-                studentClass.program = Collections.program.findOne({_id: studentClass.class.programID});
-                studentClass.session = Collections.session.findOne({_id: studentClass.class.sessionID});
+                //studentClass.program = Collections.program.findOne({_id: studentClass.class.programID});
+                studentClass.program = EdminForce.utils.getDocumentFromCache('program', studentClass.class.programID, programs);
+                studentClass.session = currentSession;
                 if (!studentClass.programID)
                     studentClass.programID = studentClass.class.programID;
             }
@@ -37,16 +55,8 @@ function getStudentstWithClasses(userId, studentID, studentClassID) {
                 studentClass.class.name = EdminForce.utils.getClassName(studentClass.program.name, studentClass.session.name, studentClass.class);
                 studentClass.class.shortName = EdminForce.utils.getShortClassName(studentClass.session.name, studentClass.class);
 
-                //TODO: how to check end date of trial or makeup ?
-
-                if (studentClass.session.endDate.getTime() < currentTime) {
-                    //studentClass.completed = true;
-                    student.completedClasses.push(studentClass);
-                }
-                else {
-                    if (!studentClassID || studentClassID == studentClass._id)
-                        student.currentClasses.push(studentClass);
-                }
+                if (!studentClassID || studentClassID == studentClass._id)
+                    student.currentClasses.push(studentClass);
             }
         });
 
