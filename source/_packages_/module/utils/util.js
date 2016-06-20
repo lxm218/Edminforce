@@ -88,6 +88,16 @@ EdminForce.utils.getSessionByDate = function(date) {
 }
 
 /*
+ * Get sessions that ends after a the given date, if date is not available, current date is used
+ */
+EdminForce.utils.getSessionsAfterDate = function(date) {
+    let dateTz = moment.tz(date || new Date(), EdminForce.Settings.timeZone).toDate();
+    return Collections.session.find({
+        endDate: {$gte: dateTz},
+    }).fetch();
+}
+
+/*
  * registration query
  */
 EdminForce.utils.registrationQuery = {

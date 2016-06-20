@@ -1215,4 +1215,3 @@ EdminForce.Registration.getHistoryOrderDetails = getHistoryOrderDetails;
 EdminForce.Registration.syncClassRegistrationCount = syncClassRegistrationCount;
 EdminForce.Registration.payWithSchoolCredit = payWithSchoolCredit;
 EdminForce.Registration.getOrderInfoFromRegistration = getOrderInfoFromRegistration;
-//EdminForce.Registration.getDocumentFromCache = EdminForce.utils.getDocumentFromCache;

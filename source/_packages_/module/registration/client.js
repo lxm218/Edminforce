@@ -1,6 +1,6 @@
 /*
  * Returns a list of students for a user, or a single student if studentID is provided.
- * Each student has a list of current classes, and completed classes
+ * Each student has a list of classes in current session and upcoming sessions.
  * If studentClassID is provided, current classes will be filtered by studentClassID  
  */
 function getStudentstWithClasses(userId, studentID, studentClassID) {
@@ -11,19 +11,17 @@ function getStudentstWithClasses(userId, studentID, studentClassID) {
     if (studentID)
         query._id = studentID;
 
-    let currentSession = EdminForce.utils.getSessionByDate();
+    let sessions = EdminForce.utils.getSessionsAfterDate();
+    let sessionIDs = sessions.map( (s) => s._id);
     let currentClassIDs = [];
-    if (currentSession) {
-        let currentClasses = Collections.class.find({
-            sessionID: currentSession._id
-        }, {
-            fields: {
-                _id:1
-            }
-        }).fetch();
-
-        currentClassIDs = currentClasses.map( (c) => c._id);
-    }
+    let currentClasses = Collections.class.find({
+        sessionID: {$in: sessionIDs}
+    }, {
+        fields: {
+            _id:1
+        }
+    }).fetch();
+    currentClassIDs = currentClasses.map( (c) => c._id);
 
     let programs = [], classes = [];
 
@@ -40,12 +38,10 @@ function getStudentstWithClasses(userId, studentID, studentClassID) {
         student.completedClasses = [];
         studentClasses.forEach((studentClass) => {
             // find class session & program
-            //studentClass.class = Collections.class.findOne({_id: studentClass.classID});
             studentClass.class = EdminForce.utils.getDocumentFromCache('class', studentClass.classID, classes);
             if (studentClass.class) {
-                //studentClass.program = Collections.program.findOne({_id: studentClass.class.programID});
                 studentClass.program = EdminForce.utils.getDocumentFromCache('program', studentClass.class.programID, programs);
-                studentClass.session = currentSession;
+                studentClass.session = EdminForce.utils.getDocumentFromCache('session', studentClass.class.sessionID, sessions);
                 if (!studentClass.programID)
                     studentClass.programID = studentClass.class.programID;
             }
