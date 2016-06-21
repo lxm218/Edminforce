@@ -260,8 +260,8 @@ console.log(x2.ready(), x3.ready(), x1.ready());
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleTime',
-                label : ' ',
-                disabled : edit
+                label : ' '
+                //disabled : edit
             },
             tuitionMoney : {
                 labelClassName : 'col-xs-4',

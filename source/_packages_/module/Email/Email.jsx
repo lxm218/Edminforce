@@ -206,7 +206,7 @@ console.log(oldLesson)
                     student : student,
                     session : session,
                     refundType : order.paymentType,
-                    orderType : order.amount<0?'refund':'payment',
+                    orderType : order.amount<0?'Refund':'Payment',
                     refundAmount : Math.abs(order.amount)
                 });
 

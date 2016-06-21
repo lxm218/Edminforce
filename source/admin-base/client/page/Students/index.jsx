@@ -105,7 +105,6 @@ KUI.Student_index = class extends RC.CSSMeteorData{
 
                         self.m.Student.callMeteorMethod('checkCanBeRemoveById', [item._id], {
                             success : function(f){
-                                console.log(rs);
                                 if(f){
                                     swal({
                                         title : 'Delete this student?',
