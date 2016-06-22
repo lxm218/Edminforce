@@ -55,7 +55,7 @@ EdminForce.Components.Student = class extends RC.CSS {
 
     render() {
         let student = {...this.props.student, ...this.editedStudent};
-        let isValid = student.name && student.gender;
+        let isValid = student.name && student.gender && student.school;
         
         return (
             <div>
