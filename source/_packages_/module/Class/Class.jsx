@@ -339,7 +339,7 @@ let Class = class extends Base{
                 };
                 let z1 = m.ClassStudent.getDB().find(query).count();
                 if(z1 > 0){
-                    return KG.result.out(false, new Meteor.Error('-602', 'already trail'));
+                    //return KG.result.out(false, new Meteor.Error('-602', 'already trail'));
                 }
 
                 let co = self._db.findOne({_id : classID}),
