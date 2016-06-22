@@ -505,6 +505,13 @@ KUI.Family_profile = class extends KUI.Page{
 
     changeSchoolCredit(){
         let self = this;
+
+        //check permission
+        if(!util.user.checkPermission('schoolCreidt', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+
         let param = {
             title : 'Change School Credit',
             text : [
@@ -604,6 +611,13 @@ KUI.Family_profile = class extends KUI.Page{
     }
 
     save(){
+
+        //check permission
+        if(!util.user.checkPermission('customer', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+
         let param = this.refs.form.getValue();
         console.log(param);
 

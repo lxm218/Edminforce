@@ -189,7 +189,7 @@ util.user = {
         //    return true;
         //}
 
-        let p = user.permission[type+'Permisson'];
+        let p = user.permission[type+'Permission'];
         if(!p) return false;
 
         return p[permission];

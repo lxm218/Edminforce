@@ -45,10 +45,30 @@ KG.define('EF-AdminPermission', class extends Base{
 		//add admin role
 		this._db.remove({role : 'admin'});
 
+		let f = false;
 		this._db.insert({
 			role : 'admin',
 			nickName : 'Admin',
-			canBeDelete : false
+			canBeDelete : false,
+
+			viewPermission : {
+				customer : f,
+				student : f
+			},
+			editPermission : {
+				customer : f,
+				schoolCredit : f,
+
+				student : f,
+				studentComment : f
+			},
+			insertPermission : {
+				studentComment : f
+			},
+			deletePermission : {
+				student : f,
+				studentComment : f
+			}
 		});
 
 		// add teacher role

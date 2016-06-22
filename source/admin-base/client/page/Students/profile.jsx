@@ -203,6 +203,10 @@ KUI.Student_profile = class extends KUI.Page{
     }
 
     sendComment(){
+        if(!util.user.checkPermission('studentComment', 'insert')){
+            return swal(util.const.NoOperatorPermission, '', 'error');
+        }
+
         let self = this;
 
         if(!this.cmBoxShown){
@@ -434,6 +438,12 @@ KUI.Student_profile = class extends KUI.Page{
 
 
     save(){
+        //check permission
+        if(!util.user.checkPermission('student', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+
         let sd = this.refs.form.getValue();
 
         console.log(sd);
@@ -635,10 +645,18 @@ KUI.Student_profile = class extends KUI.Page{
                     };
 
                     let del = function(){
+                        if(!util.user.checkPermission('studentComment', 'delete')){
+                            return swal(util.const.NoOperatorPermission, '', 'error');
+                        }
+
                         self.m.StudentComment.getDB().remove({_id : doc._id});
                     };
 
                     let edit = function(){
+                        if(!util.user.checkPermission('studentComment', 'edit')){
+                            return swal(util.const.NoOperatorPermission, '', 'error');
+                        }
+
                         console.log(doc)
                         self.setState({
                             editCommentID : doc._id

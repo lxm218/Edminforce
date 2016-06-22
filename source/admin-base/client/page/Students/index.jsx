@@ -102,6 +102,9 @@ KUI.Student_index = class extends RC.CSSMeteorData{
                     };
 
                     var del = function(){
+                        if(!util.user.checkPermission('student', 'delete')){
+                            return swal(util.const.NoOperatorPermission, '', 'error');
+                        }
 
                         self.m.Student.callMeteorMethod('checkCanBeRemoveById', [item._id], {
                             success : function(f){
