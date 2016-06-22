@@ -1,6 +1,10 @@
 KUI.Report_Index = class extends RC.CSS{
 
 	render(){
+		if(!util.user.checkPermission('report', 'view')){
+			util.render.stop(this);
+			return util.renderNoViewPermission();
+		}
 
 		let nav = Session.get('OtherLeftNav');
 		console.log(nav);

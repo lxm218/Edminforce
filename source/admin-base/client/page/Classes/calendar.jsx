@@ -265,6 +265,10 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 	//}
 
 	render(){
+		if(!util.user.checkPermission('calendar', 'view')){
+			util.render.stop(this);
+			return util.renderNoViewPermission();
+		}
 
 		if(!this.data.ready){
 			//return util.renderLoading();

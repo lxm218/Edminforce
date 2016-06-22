@@ -141,6 +141,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                     };
 
                     var del = function(){
+                        if(!util.user.checkPermission('class', 'delete')){
+                            return swal(util.const.NoOperatorPermission, '', 'error');
+                        }
 
                         swal({
                             title : 'Delete this class?',

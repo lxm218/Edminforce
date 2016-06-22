@@ -250,6 +250,10 @@ KUI.Coupon_add = class extends KUI.Page{
     }
 
     render(){
+        if(!util.user.checkPermission('coupon', 'view')){
+            return util.renderNoViewPermission();
+        }
+
         return (
             <RC.Div>
                 <KUI.Coupon_comp_add ref="form" />

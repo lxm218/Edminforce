@@ -496,6 +496,9 @@ KUI.Class_add = class extends RC.CSS{
 
 
     render(){
+        if(!util.user.checkPermission('class', 'view')){
+            return util.renderNoViewPermission();
+        }
 
         const sy = {
             rd : {

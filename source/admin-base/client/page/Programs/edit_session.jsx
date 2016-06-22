@@ -26,6 +26,11 @@ KUI.Session_edit = class extends KUI.Page{
     }
 
     render(){
+        if(!util.user.checkPermission('session', 'view')){
+            util.render.stop(this);
+            return util.renderNoViewPermission();
+        }
+
         if(!this.data.ready){
             util.renderLoading({isReady:this.data.ready});
         }
