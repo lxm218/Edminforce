@@ -373,7 +373,7 @@ let Class = class extends Base{
                     status : {'$in' : SUCCESSSTATUS}
                 }).count();
                 if(n1 > 0){
-                    return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
+                    //return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
                 }
 
                 return KG.result.out(true, 'ok');
