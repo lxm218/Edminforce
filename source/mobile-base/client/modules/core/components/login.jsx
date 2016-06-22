@@ -58,7 +58,8 @@ EdminForce.Components.User = React.createClass({
     return {
       "pwFormatError": "Password shoud have at least 8 characters, containing Capital Letters AND Numbers.",
       "termError": "Please accept the following terms of use.",
-      "emailError": "Entered E-mail is not in record."
+      "emailError": "Entered E-mail is not in record.",
+      "phoneRequired": "Please enter phone number"
     }
   },
   /**
@@ -81,30 +82,36 @@ EdminForce.Components.User = React.createClass({
     let test = _.every( _.values(form), function(t){
       return t.length && t.length>0
     })
-    if (this.state.action == 'register' && form.pwRepeat){
-      if (!checkPassword(form.pw)) {
-        var message = this.state.msg ? this.state.msg : []
-        message.push(this.messageInfo()['pwFormatError'])
-        this.setState({
-          msg: message,
-          buttonActive: false
-        })
-        return
-      } else if (this.state.msg) {
-        this.setState({ msg: [] })
-      }
-      if (form.term == '1'){
-        var message = this.state.msg ? this.state.msg : []
-        var index = message.indexOf(this.messageInfo()['termError'])
-        if (index != -1) {
-          message = message.slice(0, index) + message.slice(index + 1, message.length)
-          this.setState({
-            msg: message,
-            buttonActive: true
-          })
+
+    if (this.state.action == 'register'){
+        if (this.state.msg) {
+          this.setState({ msg: [] })
         }
-      }
     }
+    // if (this.state.action == 'register' && form.pwRepeat){
+    //   if (!checkPassword(form.pw)) {
+    //     var message = this.state.msg ? this.state.msg : []
+    //     message.push(this.messageInfo()['pwFormatError'])
+    //     this.setState({
+    //       msg: message,
+    //       buttonActive: false
+    //     })
+    //     return
+    //   } else if (this.state.msg) {
+    //     this.setState({ msg: [] })
+    //   }
+    //   if (form.term == '1'){
+    //     var message = this.state.msg ? this.state.msg : []
+    //     var index = message.indexOf(this.messageInfo()['termError'])
+    //     if (index != -1) {
+    //       message = message.slice(0, index) + message.slice(index + 1, message.length)
+    //       this.setState({
+    //         msg: message,
+    //         buttonActive: true
+    //       })
+    //     }
+    //   }
+    // }
     if (this.state.action == 'login' && form.password){
       if (this.state.msg) {
         this.setState({ msg: [] })
@@ -256,6 +263,13 @@ EdminForce.Components.User = React.createClass({
       return null
     }
 
+    if (!form.phone) {
+      this.setState({
+        msg: this.messageInfo()['phoneRequired'],
+      })
+      return
+    }
+
     if (form.pw==form.pwRepeat) {
       if (!checkPassword(form.pw)) {
         var message = this.state.msg ? this.state.msg : []
@@ -275,7 +289,7 @@ EdminForce.Components.User = React.createClass({
       }, function(err) {
         if (!err){
             // add data to Customer DB
-            Meteor.call('account.addCustomer', uName, form.email, function(methodErr,result){
+            Meteor.call('account.addCustomer', uName, form.email, form.phone, function(methodErr,result){
               methodErr && console.log(methodErr);
               if(!methodErr){
                 Dispatcher.dispatch({
@@ -462,6 +476,7 @@ EdminForce.Components.User = React.createClass({
           <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" value=""/>
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
+          <RC.Input name="phone" label="Phone" theme={inputTheme} ref="regPhone" placeholder="800-1234567" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" placeholder="Edm1n!"/>
           <RC.URL style={styles.url} color={linkColor} colorHover={linkColorHover} onClick={this.showPolicy}>
