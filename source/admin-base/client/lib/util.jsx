@@ -40,6 +40,10 @@ _.extend(util, {
         else{
             return '$'+tmp;
         }
+    },
+
+    renderNoViewPermission : function(){
+        return <h3>{util.const.NoViewPermission}</h3>
     }
 });
 
@@ -77,7 +81,10 @@ util.const = {
 
     dateFormat : 'MM/DD/YYYY',
 
-    PageSize : 10
+    PageSize : 10,
+
+    NoViewPermission : 'Sorry, You have no permission to view this page. please contact school administrator.',
+    NoOperatorPermission : 'Sorry, You have no permission to operator.'
 };
 
 util.dialog = {
@@ -163,6 +170,31 @@ util.toast = {
     }
 };
 
+util.user = {
+    get : function(){
+        let user = App.user;
+        return user;
+    },
+
+    /*
+    * @permission
+    * @type [view, edit, delete, insert]
+    * */
+    checkPermission : function(permission, type='view'){
+        let user = App.user;
+        if(!user){
+            return false;
+        }
+        //if(user.role === 'admin'){
+        //    return true;
+        //}
+
+        let p = user.permission[type+'Permission'];
+        if(!p) return false;
+
+        return p[permission];
+    }
+};
 
 
 

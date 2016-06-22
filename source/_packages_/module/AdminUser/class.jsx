@@ -87,10 +87,6 @@ let AdminUser = class extends Base{
         return AdminUserSchema;
     }
 
-    initEnd(){
-
-
-    }
 
     addTestData(){
         //this._db.remove({});
@@ -110,6 +106,11 @@ let AdminUser = class extends Base{
 
     }
 
+    initEnd(){
+
+        this.pm = KG.create('EF-AdminPermission');
+    }
+
     getAll(query, option){
         let rs = this._db.find(query||{}, option||{}).fetch();
 
@@ -123,14 +124,9 @@ let AdminUser = class extends Base{
         return result;
     }
 
-    defineDepModule(){
-        return {
-            Account : KG.get('Account'),
-            School : KG.get('EF-School')
-        };
-    }
 
     updateById(data, id){
+        this.module = KG.DataHelper.getDepModule();
 
         if(data.school){
             let school = data.school;
@@ -148,6 +144,7 @@ let AdminUser = class extends Base{
     }
 
     insert(data, callback){
+        this.module = KG.DataHelper.getDepModule();
 
         let pwd = data.password || null;
         //delete data.password;
@@ -202,11 +199,28 @@ let AdminUser = class extends Base{
                 let m = KG.DataHelper.getDepModule();
 
                 return self._db.findOne({_id : id});
+            },
+
+            getCurrentUser : function(callback){
+                let m = KG.DataHelper.getDepModule();
+
+                let user = Meteor.user();
+                if(!user){
+                    return false;
+                }
+                else{
+                    let u = self._db.findOne({_id : user._id});
+                    let role = self.pm.getDB().findOne({role : u.role});
+                    u.permission = role;
+
+                    return u;
+                }
             }
         };
 
 
     }
+
 
 
 

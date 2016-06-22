@@ -6,8 +6,12 @@ KUI.Class_detail = class extends KUI.Page{
         this.state = {
             classTableReady : false,
             classTableData : [],
-            checkCanBeRegister : false
+            checkCanBeRegister : false,
+
+            co : {}
         };
+
+        this.m = KG.DataHelper.getDepModule();
     }
 
     getClassId(){
@@ -16,22 +20,23 @@ KUI.Class_detail = class extends KUI.Page{
 
     getMeteorData(){
 
+        let cid = FlowRouter.current().params.id;
+
         let x = Meteor.subscribe('EF-Class', {
             query : {
-                _id : this.getClassId()
+                _id : cid
             }
         });
 
 
 
-        let id = this.getClassId();
         let data = KG.get('EF-Class').getDB().findOne();
         console.log(x.ready());
 
         return {
             ready : x.ready(),
             data : data,
-            id : id,
+            id : cid,
 
             checkCanBeRegister : true
         };
@@ -57,7 +62,7 @@ KUI.Class_detail = class extends KUI.Page{
 
         return (
             <RC.Div>
-                <h3>Edit Class</h3>
+                <h3>Edit Class - <b>{this.state.co.nickName||''}</b></h3>
                 <hr/>
                 <KUI.Class_comp_add edit={true} init-data={data} ref="form"></KUI.Class_comp_add>
                 <RC.Div style={{textAlign:'right'}}>
@@ -83,8 +88,8 @@ KUI.Class_detail = class extends KUI.Page{
         let rs = KG.get('EF-Class').updateById(data, this.getClassId());
         KG.result.handle(rs, {
             success : function(json){
-                console.log(json);
-                alert('update success');
+                util.toast.alert('update success');
+                util.goPath('/program/class');
 
             }
         });
@@ -248,6 +253,13 @@ KUI.Class_detail = class extends KUI.Page{
                 classTableReady:true,
                 classTableData : data
             });
+        });
+
+        this.m.Class.callMeteorMethod('getAllByQuery', [{_id:this.data.id}, {}], {
+            success : function(rs){
+                console.log(rs);
+                self.setState({co : rs.list[0]});
+            }
         });
 
     }
