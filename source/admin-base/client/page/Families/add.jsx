@@ -17,6 +17,12 @@ KUI.Family_add = class extends RC.CSSMeteorData{
     }
 
     render(){
+
+        if(!util.user.checkPermission('customer', 'view')){
+            return util.renderNoViewPermission();
+        }
+
+
         return(
             <RC.Div>
                 <h3>Add Family</h3>
