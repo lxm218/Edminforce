@@ -45,7 +45,7 @@ KG.define('EF-AdminPermission', class extends Base{
 		//add admin role
 		this._db.remove({role : 'admin'});
 
-		let f = true;
+		let f = false;
 		this._db.insert({
 			role : 'admin',
 			nickName : 'Admin',
@@ -72,6 +72,13 @@ KG.define('EF-AdminPermission', class extends Base{
 		});
 
 		// add teacher role
-
+		let one = this._db.findOne({role : 'teacher'});
+		if(!one){
+			this._db.insert({
+				role : 'teacher',
+				nickName : 'Teacher',
+				canBeDelete : false
+			});
+		}
 	}
 });
