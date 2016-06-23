@@ -355,7 +355,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 				this.C.ClassStudentObj[item._id] = {
 					amount : item.amount,
 					fee : item.amount,
-					discount : 0
+					pay : item.amount
 				};
 			});
 		}
