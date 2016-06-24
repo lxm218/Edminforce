@@ -14,7 +14,7 @@ EdminForce.Components.Student = class extends RC.CSS {
         super(p);
         this.state = {
             studentVersion: 0,
-            birthdayErrorText: ''
+            validationError: ''
         };
         this.editedStudent = {}
 
@@ -26,13 +26,15 @@ EdminForce.Components.Student = class extends RC.CSS {
         this.editedStudent[event.target.id] = event.target.value;
         this.setState({
             studentVersion: this.state.studentVersion+1,
-            birthdayErrorText: ''
+            validationError: ''
         });
     }
     
     onSave() {
-        // validate birthday
         let student = {...this.props.student, ...this.editedStudent};
+
+        // validate
+        // validate birthday
         let validBirthday = false;
         try {
             if (EdminForce.utils.isValidDate(student.birthday)) {
@@ -42,25 +44,25 @@ EdminForce.Components.Student = class extends RC.CSS {
             }
         } catch (e) {
         }
+        !validBirthday && (this.editedStudent.birthday = '');
 
-        if (!validBirthday) {
-            this.setState({
-                    birthdayErrorText: "Please type correct birthday, mm/dd/yyyy"
-                });
-            return;
-        }
+        let validationError = !student.name ? "Please enter name" :
+                !student.gender ? "Please select gender" :
+                !validBirthday ? "Please enter birthday" :
+                !student.school ? "Please enter school" : null;
 
-        this.props.actions.upsertStudent(student, this.props.redirectUrl);
+        validationError ?
+            this.setState({validationError}) :
+            this.props.actions.upsertStudent(student, this.props.redirectUrl);
     }
 
     render() {
         let student = {...this.props.student, ...this.editedStudent};
-        let isValid = student.name && student.gender && student.school;
-        
+
         return (
             <div>
                 <RC.VerticalAlign center={true} className="padding" height="300px"></RC.VerticalAlign>
-                {EdminForce.utils.renderError(this.props.error || this.state.birthdayErrorText)}
+                {EdminForce.utils.renderError(this.props.error || this.state.validationError)}
                 <RC.Div style={{padding: "20px"}}>
                     <RC.Input style={{paddingLeft:6}} id="name" name="name" label="Student Name" value={student.name} onChange={this.onChange}/>
                     <RC.Select id="gender" name="gender" label="Gender" options={["", "Male","Female"]} value={student.gender} onChange={this.onChange}/>
@@ -74,8 +76,7 @@ EdminForce.Components.Student = class extends RC.CSS {
                         primary={true}
                         fullWidth={true}
                         style={{marginTop:20}}
-                        onTouchTap={this.onSave}
-                        disabled = {!isValid} />
+                        onTouchTap={this.onSave} />
                 </div>
             </div>
         );
