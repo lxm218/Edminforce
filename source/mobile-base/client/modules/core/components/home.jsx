@@ -2,6 +2,9 @@ EdminForce.Components.Home = ({actions}) => (
     <RC.Div>
         <RC.List style={{padding: "30px"}}>
             <RC.Item style={{border: "none", padding: 0}}>
+                <p className="font_8" style={{textAlign:"center"}}>Welcome! Please select following options to continue</p>
+            </RC.Item>
+            <RC.Item style={{border: "none", padding: 0}}>
                 <RC.Button bgColor="brand2" bgColorHover="dark" onClick={actions.goToPrograms}>Trial Class</RC.Button>
             </RC.Item>
             <RC.Item style={{border: "none", padding: 0}}>
@@ -19,6 +22,8 @@ EdminForce.Components.Home = ({actions}) => (
         </RC.List>
 
         <RC.Div style={{"textAlign": "center"}}>
+            <p/>
+            <p className="font_8"><a href="http://classforth.com/tutorial-students/" target="_blank">If you have any questions regarding how to use this site, please watch video tutorial here</a></p>
             <p/>
             <p className="font_9">47816 Warm Springs Blvd, Fremont, CA</p>
             <p className="font_9">help@CalColorAcademy.com</p>
