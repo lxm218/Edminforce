@@ -456,8 +456,12 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		this.module.Class.callMeteorMethod('changeClass', [data], {
 			success : function(rs){
 				if(rs){
+					console.log(rs);
 					callback(rs, data);
 				}
+			},
+			error : function(e){
+				util.toast.showError(e.reason);
 			}
 		});
 	}

@@ -1,11 +1,12 @@
 
 Meteor.methods({
     // create a customer record after a new user registration
-    'account.addCustomer': function(name, email) {
+    'account.addCustomer': function(name, email, phone) {
         Collections.Customer.insert({
             _id: this.userId,
             name,
-            email
+            email,
+            phone
         })
     },
 

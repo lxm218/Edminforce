@@ -31,5 +31,8 @@ Package.onUse(function(api) {
     api.addAssets([
         'emailTemplates/cca/trial.html',
         'emailTemplates/cca/registration.html',
+        'emailTemplates/cca/cancel.html',
+        'emailTemplates/cca/change.html',
+        'emailTemplates/cca/reminder.html',
     ], 'server');
 });

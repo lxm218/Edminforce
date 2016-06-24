@@ -125,7 +125,8 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 		});
 		let x4 = Meteor.subscribe('EF-AdminUser', {
 			query : {
-				role : 'teacher'
+				role : 'teacher',
+				status:'active',
 			}
 		});
 
@@ -190,8 +191,8 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 			teacher : []
 		};
 
-		option.teacher = this.m.AdminUser.getAll({});
-
+		option.teacher = this.m.AdminUser.getAll({});//params does not work?
+		//option.teacher = option.teacher.filter(function(item){ return item.status=='active' }) //下拉框
 
 		return (
 			<RB.Row>
@@ -264,6 +265,10 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 	//}
 
 	render(){
+		if(!util.user.checkPermission('calendar', 'view')){
+			util.render.stop(this);
+			return util.renderNoViewPermission();
+		}
 
 		if(!this.data.ready){
 			//return util.renderLoading();
@@ -473,20 +478,42 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 				right: 'month,agendaWeek,agendaDay, timelineDay'
 			},
 
+			//General Display
+			contentHeight:'auto',
+			//height:'auto',
+			//aspectRatio: 0.2,
+
 			resourceLabelText:'Teacher',
 			resourceAreaWidth:100,
 			slotWidth:30,
 
+			//Agenda Options
+			slotDuration:'00:15:00',
 			minTime:'08:00:00',
 			maxTime:'22:00:00',
+			slotEventOverlap:true,
+
 
 			resources: function(callback) {
 				console.log('in resources function')
 
-				var resources=[]
-				if(self.data.teachers){
 
-					_.each(self.data.teachers,function(item){
+				var resources=[]
+
+				if(self.data.teachers){
+					let teachers = self.data.teachers
+					//let teachers = self.data.teachers.filter(function(item){ return item.status=='active' })
+					teachers = teachers.sort(function(item1,item2){
+						 let a = item1.nickName && item1.nickName.toLowerCase()
+						 let b = item2.nickName && item2.nickName.toLowerCase()
+						 if(a === b){return 0}
+						 if(a > b){return 1}
+						 if(a < b){return -1}
+
+					})
+
+
+					_.each(teachers,function(item){
 						resources.push({
 							id:item._id,
 							title:item.nickName

@@ -125,6 +125,17 @@ let Student = class extends Base{
             },
 
 
+            checkCanBeRemoveById : function(id){
+                let m = KG.DataHelper.getDepModule();
+
+                //check can be delete
+                let f = m.ClassStudent.getDB().findOne({
+                    studentID : id,
+                    //type : {'$in':['register', 'wait', 'makeup']},
+                    status : {'$in':['pending', 'checkouted']}
+                });
+                return !f;
+            },
             removeById : function(id){
                 let m = KG.DataHelper.getDepModule();
 

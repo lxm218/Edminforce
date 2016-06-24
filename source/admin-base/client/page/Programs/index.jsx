@@ -136,6 +136,10 @@ KUI.Program_index = class extends RC.CSSMeteorData{
                     };
 
                     var del = function(){
+                        if(!util.user.checkPermission('program', 'delete')){
+                            return swal(util.const.NoOperatorPermission, '', 'error');
+                        }
+
                         util.dialog.confirm({
                             msg : 'Delete this Program?',
                             YesFn : function(){
@@ -205,6 +209,10 @@ KUI.Program_index = class extends RC.CSSMeteorData{
     }
 
     showAddBox(){
+        if(!util.user.checkPermission('program', 'view')){
+            return swal(util.const.NoOperatorPermission, '', 'error');
+        }
+
         this.setState({
             showAddBox : true
         });

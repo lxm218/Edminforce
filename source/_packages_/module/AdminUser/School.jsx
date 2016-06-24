@@ -24,6 +24,9 @@ KG.define('EF-School', class extends Base{
             'zipcode' : KG.schema.default({
                 optional : true
             }),
+            domain : KG.schema.default({
+                optional : true
+            }),
             timezone : KG.schema.default({
                 optional : true,
                 type : Number,

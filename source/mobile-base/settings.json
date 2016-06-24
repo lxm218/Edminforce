@@ -2,6 +2,7 @@
   "public": {
     "appName": "Classforth",
     "appDesc": "Classforth",
-    "pendingRegistrationTTL": 900000
+    "pendingRegistrationTTL": 900000,
+    "reminderHours" : 24
   }
 }

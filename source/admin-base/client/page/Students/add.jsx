@@ -143,6 +143,10 @@ KUI.Student_add = class extends RC.CSS{
     }
 
     render(){
+        //check permission
+        if(!util.user.checkPermission('student', 'view')){
+            return util.renderNoViewPermission();
+        }
 
         return (
             <RC.Div>

@@ -268,6 +268,10 @@ let RSTable = class extends KUI.Page{
 
 KUI.RequestLog_Index = class extends RC.CSS{
 	render(){
+		if(!util.user.checkPermission('log', 'view')){
+			return util.renderNoViewPermission();
+		}
+
 		return (
 			<RC.Div>
 				<h3>Request Log</h3>

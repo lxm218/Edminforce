@@ -92,13 +92,20 @@ KG.define('EF-Order', class extends Base{
                     m.Customer.callMeteorMethod('changeRegistrationFeeStatusById', [order.accountID]);
                 }
 
+                if(order.schoolCredit){
+                    m.Customer.callMeteorMethod('useSchoolCreditById', [order.schoolCredit, order.accountID]);
+                }
+
                 m.Order.getDB().update({_id : orderID}, {$set : {
                     status : 'success',
                     paymentSource : 'admin'
                 }});
 
                 //send email
-                m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : orderID}]);
+                Meteor.setTimeout(function(){
+                    m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : orderID}]);
+                }, 100);
+
 
 
                 return orderID;

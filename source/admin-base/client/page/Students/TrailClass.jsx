@@ -629,6 +629,7 @@ console.log(orderData);
 				if(self.fee === 0 || cash){
 
 					self.module.ClassStudent.updateStatus('checkouted', cid);
+					self.module.Email.callMeteorMethod('sendMakeupClassConfirmEmail', [{orderID : id}]);
 					self.module.Class.callMeteorMethod('syncClassTrialOrMakeupNumber', [cid], {
 						success : function(json){
 							util.goPath('/student/'+orderData.studentID);

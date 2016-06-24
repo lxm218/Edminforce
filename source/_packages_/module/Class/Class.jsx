@@ -95,14 +95,21 @@ let Class = class extends Base{
     * @return numberOfClass
     * */
     calculateNumberOfClass(data, session, flag, date){
-        let start = moment(session.startDate),
-            end = moment(session.endDate).endOf('day');
+        // get school timezone
+        let school = KG.get('EF-School').getDB().findOne();
+        let schoolTz = school && school.timezoneString ? school.timezoneString : 'America/Los_Angeles';
+
+        // figure out start & end date
+        let start = moment.tz(session.startDate, schoolTz),
+            end = moment.tz(session.endDate, schoolTz);
 
         if(flag){
-            let now = moment(new Date());
+            let now = moment.tz(date || new Date(), schoolTz);
 
-            if(date){
-                now = moment(new Date(date));
+            // skip the "now" day, if time is after class time
+            let classTime = moment(data.schedule.time, 'hh:mma');
+            if (now.hours() * 60 + now.minutes() >= classTime.hours() * 60 + classTime.minutes()) {
+                now.add(1,'day');
             }
 
             if(now.isAfter(start, 'day')){
@@ -110,20 +117,20 @@ let Class = class extends Base{
             }
         }
 
-        let day = this.getDBSchema().schema('schedule.day').allowedValues;
-        day = _.indexOf(day, data.schedule.day);
+        start.startOf('d');
+        end.endOf('d');
 
         let format = 'YYYYMMDD';
-
         let rs = 0,
             cur = start;
 
         let blockDay = _.map(session.blockOutDay || [], (item)=>{
-            return moment(item).format(format);
+            return moment.tz(item, schoolTz).format(format);
         });
+        let classDay = data.schedule.day.toLowerCase();
 
         while(end.isAfter(cur)){
-            if(cur.day() === day){
+            if(cur.format('ddd').toLowerCase() === classDay){
                 if(_.indexOf(blockDay, cur.format(format)) < 0){
                     rs++;
                 }
@@ -133,7 +140,6 @@ let Class = class extends Base{
         }
 
         return rs;
-
     }
 
     getClassLessonDate(data, session){
@@ -333,7 +339,7 @@ let Class = class extends Base{
                 };
                 let z1 = m.ClassStudent.getDB().find(query).count();
                 if(z1 > 0){
-                    return KG.result.out(false, new Meteor.Error('-602', 'already trail'));
+                    //return KG.result.out(false, new Meteor.Error('-602', 'already trail'));
                 }
 
                 let co = self._db.findOne({_id : classID}),
@@ -367,7 +373,7 @@ let Class = class extends Base{
                     status : {'$in' : SUCCESSSTATUS}
                 }).count();
                 if(n1 > 0){
-                    return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
+                    //return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
                 }
 
                 return KG.result.out(true, 'ok');
@@ -548,8 +554,7 @@ let Class = class extends Base{
                 let toClass = this.getAll({_id : toClassID})[0];
                 //console.log(m, student, toClass);
 
-                //cancel from class
-                m.ClassStudent.updateStatus('canceled', ClassStudentID);
+
                 //register new class
                 let data = {
                     classID : toClassID,
@@ -569,6 +574,9 @@ let Class = class extends Base{
                     orderStatus = 'waiting';
                 }
                 let newClassStudentID = m.ClassStudent.getDB().insert(data);
+
+                //cancel from class
+                m.ClassStudent.updateStatus('canceled', ClassStudentID);
 
                 //insert order
                 let orderData = {
@@ -590,6 +598,14 @@ let Class = class extends Base{
                         '$inc' : {schoolCredit : Math.abs(amount)}
                     });
                 }
+
+                //send email
+                Meteor.setTimeout(function(){
+                    let tes = m.Email.callMeteorMethod('sendChangeClassConfirmEmail', [{
+                        orderID : orderID
+                    }]);
+                    console.log(tes);
+                }, 100);
 
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
@@ -643,6 +659,15 @@ let Class = class extends Base{
                         '$inc' : {schoolCredit : Math.abs(amount)}
                     });
                 }
+
+                //send email
+                Meteor.setTimeout(function(){
+                    let tes = m.Email.callMeteorMethod('sendCancelClassConfirmEmail', [{
+                        orderID : orderID
+                    }]);
+                    console.log(tes);
+                }, 100);
+
 
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});

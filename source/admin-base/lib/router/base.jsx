@@ -47,15 +47,19 @@ if(Meteor.isClient){
 
     App.checkLogin = function(callback){
 
-        let user = KG.Account.checkIsLogin();
+        KG.get('EF-AdminUser').callMeteorMethod('getCurrentUser', [], {
+            success : function(user){
+                App.user = user;
+                callback(user);
+            }
+        });
 
-        callback(user);
+
 
     };
 
     let cacheUrl = '';
     FlowRouter.triggers.enter([function(param){
-        console.log(param);
         App.checkLogin(function(flag){
             if(!flag){
                 if(param.path !== '/home/login')

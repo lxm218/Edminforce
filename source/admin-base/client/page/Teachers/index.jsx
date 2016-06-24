@@ -326,6 +326,11 @@ KUI.Teachers_index = class extends RC.CSS {
 
     render() {
 
+        if(!util.user.checkPermission('teacher', 'view')){
+            util.render.stop(this);
+            return util.renderNoViewPermission();
+        }
+
         if (this.state.loading)
             return util.renderLoading();
 

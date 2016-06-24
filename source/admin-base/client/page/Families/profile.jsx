@@ -2,16 +2,7 @@ KUI.Family_add_comp = class extends RC.CSS{
 
     getRefs(){
 
-        return {
-            name : this.refs.name,
-            email : this.refs.email,
-            phone : this.refs.phone,
-            location : this.refs.location,
-            al_name : this.refs.al_name,
-            al_phone : this.refs.al_phone,
-            em_name : this.refs.em_name,
-            em_phone : this.refs.em_phone
-        };
+        return this.refs;
     }
 
     render(){
@@ -71,11 +62,46 @@ KUI.Family_add_comp = class extends RC.CSS{
                 label : 'School Credit($)',
                 ref : 'credit',
                 disabled : true
+            },
+
+            alternativeEmail : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'al_email',
+                label : 'Email'
+            },
+            alternativeShip : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'al_ship',
+                label : 'Relation'
+            },
+            emergencyEmail : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'em_email',
+                label : 'Email'
+            },
+            emergencyShip : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'em_ship',
+                label : 'Relation'
             }
         };
 
         const sy = {
             rd : {
+                textAlign : 'right'
+            },
+            p : {
+                textAlign : 'right',
+                marginTop : '65px'
+            },
+            checkout : {
+                position : 'relative',
+                left : '-15px',
+                top : '-14px',
                 textAlign : 'right'
             }
         };
@@ -89,24 +115,43 @@ KUI.Family_add_comp = class extends RC.CSS{
                         <RB.Input type="text" {... p.name} />
                         <RB.Input type="text" {... p.phone} />
                         {type==='edit'?<RB.Input type="text" {... p.credit} />:null}
+
                         <p style={sy.rd}>Alternative Contact</p>
                         <RB.Input type="text" {... p.alternativeName} />
+                        <RB.Input type="text" {... p.alternativeEmail} />
                         <RB.Input type="text" {... p.alternativePhone} />
+                        <RB.Input type="text" {... p.alternativeShip} />
+
+                        <div style={sy.checkout}>
+                            <RB.Input onChange={this.changeCheckout} ref="receive" type="checkbox" label="Receive Communications" />
+                        </div>
                     </RB.Col>
                     <RB.Col md={6} mdOffset={0}>
                         <RB.Input type="text" {... p.email} />
                         <RB.Input type="text" {... p.location} />
-                        <p style={sy.rd}>Emergency Contact</p>
+
+                        <p style={type==='edit'?sy.p:sy.rd}>Emergency Contact</p>
                         <RB.Input type="text" {... p.emergencyName} />
+                        <RB.Input type="text" {... p.emergencyEmail} />
                         <RB.Input type="text" {... p.emergencyPhone} />
+                        <RB.Input type="text" {... p.emergencyShip} />
                     </RB.Col>
                 </RB.Row>
             </form>
         );
     }
 
+    changeCheckout(){
+
+    }
+
     getValue(){
-        let {name, email, phone, location, al_name, al_phone, em_name, em_phone} = this.getRefs();
+        let {
+            name, email, phone, location,
+            al_name, al_phone, al_email, al_ship,
+            em_name, em_phone, em_email, em_ship,
+            receive
+            } = this.getRefs();
 
         return {
             name : name.getValue(),
@@ -115,17 +160,27 @@ KUI.Family_add_comp = class extends RC.CSS{
             location : location.getValue(),
             alternativeContact : {
                 name : al_name.getValue(),
-                phone : al_phone.getValue()
+                phone : al_phone.getValue(),
+                email : al_email.getValue() || null,
+                relation : al_ship.getValue(),
+                receive : $(receive.getInputDOMNode()).prop('checked')
             },
             emergencyContact : {
                 name : em_name.getValue(),
-                phone : em_phone.getValue()
+                phone : em_phone.getValue(),
+                email : em_email.getValue() || null,
+                relation : em_ship.getValue()
             }
         };
     }
 
     setDefaultValue(data){
-        let {name, email, phone, location, al_name, al_phone, em_name, em_phone} = this.getRefs();
+        let {
+            name, email, phone, location,
+            al_name, al_phone, al_email, al_ship,
+            em_name, em_phone, em_email, em_ship,
+            receive
+            } = this.getRefs();
 
         let al = data.alternativeContact || {},
             em = data.emergencyContact || {};
@@ -137,6 +192,14 @@ KUI.Family_add_comp = class extends RC.CSS{
         al_phone.getInputDOMNode().value = al.phone || '';
         em_name.getInputDOMNode().value = em.name || '';
         em_phone.getInputDOMNode().value = em.phone || '';
+
+        al_email.getInputDOMNode().value = al.email || '';
+        al_ship.getInputDOMNode().value = al.relation || '';
+
+        em_email.getInputDOMNode().value = em.email || '';
+        em_ship.getInputDOMNode().value = em.relation || '';
+
+        $(receive.getInputDOMNode()).prop('checked', al.receive||false);
 
         //if(data.schoolCredit){
             this.refs.credit.getInputDOMNode().value  = (data.schoolCredit||0);
@@ -360,13 +423,17 @@ let BillingTable = class extends RC.CSS{
             {
                 title : 'Amount($)',
                 reactDom(doc){
+                    let rs = 0;
                     if(_.contains(['register class', 'makeup class'], doc.order.type)){
-                        return doc.fee+doc.discounted;
+                        rs = Math.abs(doc.fee);
+                    }
+                    else{
+                        rs = doc.order.amount;
                     }
 
-                    return doc.order.amount;
-
-
+                    if(rs < 0) rs = 0;
+                    return rs;
+                    
                 }
             }
         ];
@@ -438,6 +505,13 @@ KUI.Family_profile = class extends KUI.Page{
 
     changeSchoolCredit(){
         let self = this;
+
+        //check permission
+        if(!util.user.checkPermission('schoolCreidt', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+
         let param = {
             title : 'Change School Credit',
             text : [
@@ -537,6 +611,13 @@ KUI.Family_profile = class extends KUI.Page{
     }
 
     save(){
+
+        //check permission
+        if(!util.user.checkPermission('customer', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+
         let param = this.refs.form.getValue();
         console.log(param);
 

@@ -36,12 +36,16 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
     }).fetch();
 
     let sessions=[], programs =[];
+    let makeupOnly = true;
     scs.forEach( (sc) => {
+        
+        if (sc.type != 'makeup') makeupOnly = false;
+        
         let student = Collections.student.findOne({_id: sc.studentID}, {fields:{name:1}});
         sc.student = student || {name:''};
         let classData = Collections.class.findOne({_id: sc.classID});
-        sc.session = EdminForce.Registration.getDocumentFromCache('session', classData.sessionID, sessions);
-        sc.program = EdminForce.Registration.getDocumentFromCache('program', classData.programID, programs);
+        sc.session = EdminForce.utils.getDocumentFromCache('session', classData.sessionID, sessions);
+        sc.program = EdminForce.utils.getDocumentFromCache('program', classData.programID, programs);
         sc.schedule = classData.schedule;
         sc.sessionID = sc.session._id;
     });
@@ -57,12 +61,17 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
 
     let emailBody = '';
     lodash.forOwn(groupBySession, (sessionClasses, sessionID) => {
-        let s = sessionClasses[0].session;
-        let sessionDateRange = s.name + ' ' + moment(s.startDate).tz(EdminForce.Settings.timeZone).format("MMM D") + " - " + moment(s.endtDate).tz(EdminForce.Settings.timeZone).format("MMM D");
-        let sessionHtml = tSession.template.replace('{sessionDateRange}', sessionDateRange);
-        emailBody += sessionHtml;
-
         let regularClasses = lodash.filter(sessionClasses, {type:'register'});
+        let makeupClasses = lodash.filter(sessionClasses, {type:'makeup'});
+
+        // only show session part if there are regular classes
+        if (!makeupOnly) {
+            let s = sessionClasses[0].session;
+            let sessionDateRange = s.name + ' ' + moment(s.startDate).tz(EdminForce.Settings.timeZone).format("MMM D") + " - " + moment(s.endtDate).tz(EdminForce.Settings.timeZone).format("MMM D");
+            let sessionHtml = tSession.template.replace('{sessionDateRange}', sessionDateRange);
+            emailBody += sessionHtml;
+        }
+
         if (regularClasses.length > 0) {
             let studentHtml = '';
             regularClasses.forEach( (cls) => {
@@ -75,11 +84,10 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
                 tRegular.template.substr(tRegularStudent.end+1);
         }
         
-        let makeupClasses = lodash.filter(sessionClasses, {type:'makeup'});
         if (makeupClasses.length >0) {
             let studentHtml = '';
             makeupClasses.forEach( (cls) => {
-                studentHtml += tRegularStudent.template.replace("{name}", cls.student.name)
+                studentHtml += tMakeupStudent.template.replace("{name}", cls.student.name)
                     .replace("{className}", cls.program.name)
                     .replace("{lessonDate}", formatLessonDate(cls.lessonDate,cls.schedule) );
             })
@@ -91,10 +99,13 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
     });
 
     let emailHeader = emailHtml.substring(0, emailTemplate.start);
+    emailHeader = emailHeader.replace('{confirmationType}', makeupOnly ? 'Make up Class' : 'Registration');
+
     let emailFooter = emailHtml.substr(emailTemplate.end+1);
 
     //amount = orderTotal(including registrationFee) - discount
     //paymentTotal = amount + paymentFee (depends on paymentType) - schoolCredit
+    order.discount = order.discount || 0;
     let total = order.amount + order.discount;
     emailFooter = emailFooter.replace('{totalCost}', total.toFixed(2));
     emailFooter = emailFooter.replace('{discount}', order.discount.toFixed(2));
@@ -102,7 +113,7 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
 
     let emailContent = emailHeader + emailBody + emailFooter;
     
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy Registration Confirmation!', emailContent);
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, makeupOnly ? 'CalColor Academy Make up Class Confirmation!':'CalColor Academy Registration Confirmation!', emailContent);
 }
 
 EdminForce.Registration.sendTrialClassConfirmationEmail = function(studentID, classID, lessonDate) {
@@ -128,274 +139,147 @@ EdminForce.Registration.sendTrialClassConfirmationEmail = function(studentID, cl
     EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy Trial Class Confirmation!',email);
 }
 
-// /*
-//  * Get class data for email
-//  */
-// EdminForce.Registration.getClassesForEmail = function(classStudentIDs) {
-//     let res = {}
-//     for (let i = 0; i < classStudentIDs.length; i++) {
-//         let sc = Collections.classStudent.findOne({
-//             _id: classStudentIDs[i]
-//         }, {
-//             fields: {
-//                 classID:1, 
-//                 studentID:1, 
-//                 type: 1,
-//                 fee:1
-//             }
-//         });
-//        
-//         let student = Collections.student.findOne({_id: sc.studentID}, {fields:{name:1}});
-//         res[student.name] = res[student.name] || {};
-//        
-//         let doc = res[student.name];
-//        
-//         let classData = Collections.class.findOne({_id: sc.classID});
-//         let session = Collections.session.findOne({_id: classData.sessionID});
-//         let program = Collections.program.findOne({_id: classData.programID});
-//
-//         // let classFee = 0;
-//         // if (sc.type === 'makeup') {
-//         //     classFee = _.isNumber(classData.makeupClassFee) ? classData.makeupClassFee : 5;
-//         // }
-//         // else {
-//         //     classFee = EdminForce.Registration.calculateRegistrationFee(classData, session);
-//         // }
-//        
-//         let className = EdminForce.utils.getClassName(program.name, session.name, classData);
-//         doc[className] = sc.fee;
-//     }
-//
-//     return res
-// }
-//
-// EdminForce.Registration.getMakeupClassesForEmail = function (classStudentIDs) {
-//     let res = {}
-//     for (let i = 0; i < classStudentIDs.length; i++) {
-//         let sc = Collections.classStudent.findOne({_id: classStudentIDs[i]});
-//         let student = Collections.student.findOne({_id: sc.studentID});
-//         res[student.name] = res[student.name] || {};
-//         var doc = res[student.name];
-//         var classData= Collections.class.findOne({_id: sc.classID});
-//         let session = Collections.session.findOne({_id: classData.sessionID});
-//         let program = Collections.program.findOne({_id: classData.programID});
-//
-//         let className = EdminForce.utils.getClassName(program.name, session.name, classData);
-//         doc[className] = [classData.makeupClassFee, moment(sc.lessonDate).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD')];
-//     }
-//     return res
-// }
-//
-//
-// EdminForce.Registration.getTrialConfirmationEmailTemplate = function (data) {
-//     let school = {
-//         "name": "CalColor Academy"
-//     }
-//     let tpl = [
-//         '<h4>Hello,</h4>',
-//         '<p>Thank for booking trial class. The following course is successfully booked.</p>',
-//         '<table border=\"1\">',
-//         '<tr>',
-//         '<td>Name</td>',
-//         '<td>Class</td>',
-//         '<td>Date</td>',
-//         '</tr>'
-//     ].join('')
-//
-//     for (var studentName in data) {
-//         var count = 0
-//         var l = ""
-//         var chosenClass = data[studentName]
-//         for (var name in chosenClass) {
-//             if (count != 0) {
-//                 var line = [
-//                     '<tr>',
-//                     '<td>', name, '</td>',
-//                     '<td>', moment(chosenClass[name]).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD'), '</td>',
-//                     '</tr>',
-//                 ].join('')
-//                 l = l + line
-//             } else {
-//                 var line = [
-//                     '<td>', name, '</td>',
-//                     '<td>', moment(chosenClass[name]).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD'), '</td>',
-//                     '</tr>',
-//                 ].join('')
-//                 l = l + line
-//             }
-//             count++
-//         }
-//         var fCol = [
-//             '<tr>',
-//             '<td rowspan=', count, '>', studentName, '</td>',
-//         ].join('')
-//         tpl = tpl + fCol + l
-//     }
-//
-//     tpl = tpl + [
-//             '</table>',
-//             '<br/><br/>',
-//             '<b>', school.name, '</b>'
-//         ].join('')
-//     return tpl
-// }
-//
-//
-// EdminForce.Registration.getMakeupConfirmEmailTemplate = function (data) {
-//     let school = {
-//         "name": "CalColor Academy"
-//     }
-//     let tpl = [
-//         '<h3>Hello,</h3>',
-//         '<p>This is your Make Up Class detail: </p>',
-//         '<table border=\"1\">',
-//         '<tr>',
-//         '<td>Name</td>',
-//         '<td>Class</td>',
-//         '<td>Date</td>',
-//         '<td>Fee</td>',
-//         '</tr>'
-//     ].join('')
-//     var classes = data.classes
-//
-//     for (var studentName in classes) {
-//         var count = 0
-//         var l = ""
-//         var chosenClass = classes[studentName]
-//         for (var name in chosenClass) {
-//             if (count != 0) {
-//                 var line = [
-//                     '<tr>',
-//                     '<td>', name, '</td>',
-//                     '<td>', chosenClass[name][1], '</td>',
-//                     '<td>$', chosenClass[name][0], '</td>',
-//                     '</tr>',
-//                 ].join('')
-//                 l = l + line
-//             } else {
-//                 var line = [
-//                     '<td>', name, '</td>',
-//                     '<td>', chosenClass[name][1], '</td>',
-//                     '<td>$', chosenClass[name][0], '</td>',
-//                     '</tr>',
-//                 ].join('')
-//                 l = l + line
-//             }
-//             count++
-//         }
-//         var fCol = [
-//             '<tr>',
-//             '<td rowspan=', count, '>', studentName, '</td>',
-//         ].join('')
-//         tpl = tpl + fCol + l
-//     }
-//
-//     if (data.couponDiscount != 0) {
-//         tpl = tpl + [
-//                 '<tr>',
-//                 '<td colspan=\"3\">Coupon Discount</td>',
-//                 '<td>-$', data.couponDiscount.toFixed(2), '</td>',
-//                 '</tr>',].join('')
-//     }
-//     if (data.registrationFee != 0) {
-//         tpl = tpl + [
-//                 '<tr>',
-//                 '<td colspan=\"3\">Registration</td>',
-//                 '<td>$', data.registrationFee.toFixed(2), '</td>',
-//                 '</tr>',].join('')
-//     }
-//     tpl = tpl + [
-//             '<tr>',
-//             '<td colspan=\"3\">Credit Process Fee</td>',
-//             '<td>$', data.processFee.toFixed(2), '</td>',
-//             '</tr>',
-//             '<tr>',
-//             '<td colspan=\"3\">Total</td>',
-//             '<td>$', data.total.toFixed(2), '</td>',
-//             '</tr>',
-//
-//             '</table>',
-//
-//             '<h4>See details, please <a href="https://calcolor.classforth.com/" target="_blank">Login Your Account</a></h4>',
-//
-//             '<br/><br/>',
-//             '<b>', school.name, '</b>'
-//         ].join('')
-//     return tpl
-// }
-//
-//
-// EdminForce.Registration.getRegularClassConfirmEmailTemplate = function (data) {
-//     let school = {
-//         "name": "CalColor Academy"
-//     }
-//     let tpl = [
-//         '<h3>Hello,</h3>',
-//         '<p>This is your registration detail: </p>',
-//         '<table border=\"1\">',
-//     ].join('')
-//     var classes = data.classes
-//
-//     for (var studentName in classes) {
-//         var count = 0
-//         var l = ""
-//         var chosenClass = classes[studentName]
-//         for (var name in chosenClass) {
-//             if (count != 0) {
-//                 var line = [
-//                     '<tr>',
-//                     '<td>', name, '</td>',
-//                     '<td>$', chosenClass[name], '</td>',
-//                     '</tr>',
-//                 ].join('')
-//                 l = l + line
-//             } else {
-//                 var line = [
-//                     '<td>', name, '</td>',
-//                     '<td>$', chosenClass[name], '</td>',
-//                     '</tr>',
-//                 ].join('')
-//                 l = l + line
-//             }
-//             count++
-//         }
-//         var fCol = [
-//             '<tr>',
-//             '<td rowspan=', count, '>', studentName, '</td>',
-//         ].join('')
-//         tpl = tpl + fCol + l
-//     }
-//
-//     if (data.couponDiscount != 0) {
-//         tpl = tpl + [
-//                 '<tr>',
-//                 '<td colspan=\"2\">Coupon Discount</td>',
-//                 '<td>-$', data.couponDiscount.toFixed(2), '</td>',
-//                 '</tr>',].join('')
-//     }
-//     if (data.registrationFee != 0) {
-//         tpl = tpl + [
-//                 '<tr>',
-//                 '<td colspan=\"2\">Registration</td>',
-//                 '<td>$', data.registrationFee.toFixed(2), '</td>',
-//                 '</tr>',].join('')
-//     }
-//     tpl = tpl + [
-//             '<tr>',
-//             '<td colspan=\"2\">Credit Process Fee</td>',
-//             '<td>$', data.processFee.toFixed(2), '</td>',
-//             '</tr>',
-//             '<tr>',
-//             '<td colspan=\"2\">Total</td>',
-//             '<td>$', data.total.toFixed(2), '</td>',
-//             '</tr>',
-//
-//             '</table>',
-//
-//             '<h4>See details, please <a href="https://calcolor.classforth.com/" target="_blank">Login Your Account</a></h4>',
-//
-//             '<br/><br/>',
-//             '<b>', school.name, '</b>'
-//         ].join('')
-//     return tpl
-// }
+EdminForce.Registration.sendChangeClassEmail = function(order) {
+    let email = ''
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy - Change Class Confirmation',email);
+}
+
+EdminForce.Registration.sendCancelClassEmail = function(order) {
+    let email = ''
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy - Cancel Class Confirmation',email);
+}
+
+EdminForce.Registration.sendSessionStartReminderEmail = function() {
+    
+}
+
+EdminForce.Registration.sendClassReminderEmail = function(classStudent) {
+    
+}
+
+// send reminder email for session start and trial & makeup classes
+EdminForce.Registration.sendReminderEmails = function() {
+
+    let reminderHours = Meteor.settings.public.reminderHours || 24;
+
+    let now = moment();
+    let reminderTime = moment().add(reminderHours, 'h');
+
+    let reminderTemplate = Assets.getText('emailTemplates/cca/reminder.html');
+    let compiledReminderTemplate = template.compile(decodeURIComponent(reminderTemplate));
+
+    // session reminder
+    let reminderSession = Collections.session.findOne( {
+        startDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
+    });
+
+    if (reminderSession) {
+        let sessionClasses = Collections.class.find({
+            sessionID: reminderSession._id
+        }, {
+            fields: {
+                status:1
+            }
+        }).fetch();
+        let classIDs = sessionClasses.map ((cls) => cls._id);
+
+        // send maximum of 100 emails in each run
+        let customers = Collections.Customer.find({
+            remindedSession: {$ne: reminderSession._id}
+        }, {
+            fields: {
+                email: 1
+            },
+            limit: 400
+        }).fetch();
+
+        //our Summer 2016 Session starts on Saturday, April 2, 2016 at CalColor Academy.
+        let sessionDate = moment.tz(reminderSession.startDate,EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY");
+        let templateData = {
+            studentName: '',
+            reminderType: 'New Session Start',
+            reminder:`our ${reminderSession.name} Session starts on ${sessionDate} at CalColor Academy.`
+        }
+
+        customers.forEach( (c) => {
+            // check if this customer has class in current session
+            let nRegistered = Collections.classStudent.find({
+                accountID: c._id,
+                $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+                type: {$in: ['trial','register']},
+                classID: {$in: classIDs}
+            }).count();
+
+            if (!nRegistered) return;
+
+            // TODO: testing only, remove once test is finished
+            customer.email = "lxm218@gmail.com";
+
+            let email = compiledReminderTemplate(templateData);
+            EdminForce.utils.sendEmailHtml(c.email, 'CalColor Academy - New Session Start Reminder', email);
+            Collections.Customer.update({_id:c._id}, {$set: {remindedSession: reminderSession._id}});
+        })
+    }
+
+    // trial & makeup reminder
+    let trialAndMakeups = Collections.classStudent.find({
+        lessonDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
+        type: {$in: ['trial','makeup']},
+        reminded: {$ne:true},
+        $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+    },{
+        fields: {
+            type:1,
+            lessonDate:1,
+            classID:1,
+            studentID:1,
+            accountID:1
+        }
+    }).fetch();
+
+    trialAndMakeups.forEach( (lesson) => {
+        let student = Collections.student.findOne({
+            _id: lesson.studentID
+        }, {
+            fields:{
+                name:1
+            }
+        });
+        let classData = Collections.class.findOne({
+            _id: lesson.classID
+        }, {
+            fields: {
+                schedule:1
+            }
+        });
+
+        let customer = Collections.Customer.findOne({
+            _id: lesson.accountID
+        }, {
+            fields: {
+                email:1,
+                alternativeContact:1,
+                emergencyContact:1
+            }
+        });
+
+        if (student && classData && customer) {
+            let classType = lesson.type == 'trial' ? 'trial' : 'make up';
+            let lessonDate = moment.tz(lesson.lessonDate, EdminForce.Settings.timeZone).format('dddd, MMMM D, YYYY');
+            let reminder = `your ${classType} class with CalColor Academy on ${lessonDate} ${classData.schedule.time}.`;
+
+            let email = compiledReminderTemplate({
+                studentName: student.name,
+                reminderType: 'Class',
+                reminder
+            });
+
+            // TODO: testing only, remove once test is finished
+            customer.email = "lxm218@gmail.com";
+            EdminForce.utils.sendEmailHtml(customer.email, 'CalColor Academy - Class Reminder', email);
+
+            // update the classStudentRecord
+            Collections.classStudent.update({_id:lesson._id}, {$set: {reminded:true}});
+        }
+    })    
+}

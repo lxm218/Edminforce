@@ -43,7 +43,7 @@ Schema.Customer = {
         optional : true
     }),
     email : KG.schema.default({
-        regEx: SimpleSchema.RegEx.Email,
+        regEx: SimpleSchema.RegEx.Email
         //optional : true
     }),
     phone : KG.schema.default({
@@ -86,6 +86,12 @@ Schema.Customer = {
         type : Boolean,
         optional : true,
         defaultValue : true
+    },
+    
+    // the session id that this customer is sent a reminder email
+    remindedSession: {
+        type: String,
+        optional: true
     },
 
     createTime : KG.schema.createTime(),
