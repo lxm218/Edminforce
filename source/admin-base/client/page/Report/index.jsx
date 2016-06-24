@@ -30,6 +30,7 @@ KUI.Report_Index = class extends RC.CSS{
 				<RC.URL href="/report/coupon"><p>View Coupon Report</p></RC.URL>
 
 				<RC.URL href="/report/classstudent/program_registration"><p>View Program Registration Report</p></RC.URL>
+				<RC.URL href="/report/classstudent/trialormakeup"><p>View Trial/Makeup Class Report</p></RC.URL>
 
 				{h}
 
