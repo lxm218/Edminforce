@@ -476,7 +476,7 @@ EdminForce.Components.User = React.createClass({
           <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" value=""/>
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
-          <RC.Input name="phone" label="Phone" theme={inputTheme} ref="regPhone" placeholder="800-1234567" />
+          <RC.Input name="phone" label="Phone" theme={inputTheme} ref="regPhone" placeholder="8001234567" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" placeholder="Edm1n!"/>
           <RC.URL style={styles.url} color={linkColor} colorHover={linkColorHover} onClick={this.showPolicy}>

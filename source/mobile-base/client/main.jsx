@@ -23,7 +23,7 @@ Dependency.add('auth.store', new function () {
             case "AUTH_REGISTER_SUCCESS":{
                 FlowRouter.LastRoute
                 FlowRouter.LastRoute=[];
-                postLoginAction(payload.redirectUrl || {r:'/account'});
+                postLoginAction(payload.redirectUrl && payload.redirectUrl.r || {r:'/student?r=%2F'});
 
                 break;
             }
