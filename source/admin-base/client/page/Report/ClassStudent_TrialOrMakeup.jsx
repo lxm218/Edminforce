@@ -67,7 +67,7 @@ KUI.Report_ClassStudent_TrialOrMakeup = class extends KUI.Page{
 		self.setState({list : 'loading'});
 		let s = this.refs.filter.getValue() || '';
 		let query = {
-			status : 'checkouted',
+			status : {$in : ['checkouted', 'canceled']},
 			type : {$in : ['trial', 'makeup']}
 		};
 		if(s){
@@ -144,6 +144,12 @@ KUI.Report_ClassStudent_TrialOrMakeup = class extends KUI.Page{
 						return moment(doc.lessonDate).format(KG.const.dateFormat);
 					}
 					return '';
+				}
+			},
+			{
+				title : 'Note',
+				reactDom(doc){
+					return doc.status === 'canceled' ? 'canceled' : '';
 				}
 			}
 		];
