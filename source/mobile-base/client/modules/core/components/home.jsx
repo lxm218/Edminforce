@@ -23,7 +23,7 @@ EdminForce.Components.Home = ({actions}) => (
 
         <RC.Div style={{"textAlign": "center"}}>
             <p/>
-            <p className="font_8"><a href="http://classforth.com/tutorial-students/" target="_blank">If you have any questions regarding how to use this site, please watch video tutorial here</a></p>
+            <p className="font_8">If you have any questions regarding how to use this site, please watch tutorial video <a href="http://classforth.com/tutorial-students/" className="color_19" target="_blank">here</a>.</p>
             <p/>
             <p className="font_9">47816 Warm Springs Blvd, Fremont, CA</p>
             <p className="font_9">help@CalColorAcademy.com</p>
