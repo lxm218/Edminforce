@@ -47,9 +47,10 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         return (
             <div>
                 {EdminForce.utils.renderError(this.props.error)}
-                <RC.VerticalAlign center={true} style={{paddingTop:20}} height="80px" key="title">
-                    <p>Please select the preferred day first and one of classes listed below.</p>
-                    <p>Only available classes are listed here. If you need to book trial class on a particular date which is not shown here, please call the school.</p>
+                <RC.VerticalAlign center={true} style={{paddingTop:20}} height="100px" key="title">
+                    <p className="font_8">Please select the preferred day first and one of classes listed below.</p>
+                    <p className="font_8">Only available classes are listed here. If you need to book trial class on a particular date which is not shown here, please call the school.</p>
+                    <br></br>
                 </RC.VerticalAlign>
 
                 <EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay} />
