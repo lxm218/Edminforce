@@ -69,8 +69,12 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
         );
 
         let confirmButton = students.length === 0 ?
-            (<RC.Button bgColor="brand2" onClick={this.registration}>Sorry, no trial class is available for your account. Please go to registration directly</RC.Button>) :
+            null:
             (<RC.Button bgColor="brand2" onClick={this.confirm}>Confirm</RC.Button>);
+
+        let errorMessage = students.length === 0 ?
+            (<p className='font_8'>You don’t have any student eligible for the selected class. Please add new student or try another class.</p>):
+            null;
 
         return (
             <RC.Div style={{padding:"10px"}}>
@@ -79,6 +83,7 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
                     <h2>Trial Class Booking</h2>
                 </RC.VerticalAlign>
                 <RC.List>
+                    <RC.Item>{errorMessage}</RC.Item>
                     <RC.Item title="Student">
                         <RadioButtonGroup name="selectStudent" onChange={this.selectStudent}>
                             {studentItems}
@@ -87,10 +92,10 @@ EdminForce.Components.BookTrial = class extends RC.CSS {
                             <RC.Button bgColor="brand2" key='_add_button_' theme="inline"
                                        onClick={this.addStudent}>Add</RC.Button> : null}
                     </RC.Item>
-                    <RC.Item title="Class">
+                    <RC.Item title="Selected Class">
                         {program.name}
                     </RC.Item>
-                    <RC.Item title="Date">
+                    <RC.Item title="Selected Date">
                         {moment(this.classDateTime).format("dddd, MMMM Do YYYY, h:mm a")}
                     </RC.Item>
                 </RC.List>
