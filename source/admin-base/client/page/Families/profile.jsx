@@ -552,10 +552,10 @@ KUI.Family_profile = class extends KUI.Page{
             }
 
             let old = self.refs.form.getSchoolCreditNumber();
-            if(num+old < 0){
-                swal.showInputError('school credit change error');
-                return false;
-            }
+            //if(num+old < 0){
+            //    swal.showInputError('school credit change error');
+            //    return false;
+            //}
 
             let orderData = {
                 accountID : self.data.id,
