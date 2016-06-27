@@ -107,10 +107,10 @@ console.log(m.Customer.getAll()[0])
         let student = this.data.student,
             cls = this.data.class,
             one = this.data.data;
-
+console.log(one)
         let C = {
             credit : customer.schoolCredit || 0,
-            classFee : cls.tuition.type==='class'?cls.tuition.money*cls.leftOfClass : cls.tuition.money,
+            classFee : one.fee?one.fee:(cls.tuition.type==='class'?cls.tuition.money*cls.leftOfClass : cls.tuition.money),
             registrationFee : registrationFee
         };
 
@@ -313,7 +313,7 @@ console.log(m.Customer.getAll()[0])
                 {<RB.Input onChange={function(){}} ref="s22" name="cgroup" type="radio" label="Cash" />}
                 {<RB.Input onChange={function(){}} ref="s23" name="cgroup" type="radio" label="Check" />}
 
-                <RB.Input onChange={function(){}} ref="s_unpaid" name="cgroup" type="radio" label="Pay Later" />
+                {/* <RB.Input onChange={function(){}} ref="s_unpaid" name="cgroup" type="radio" label="Pay Later" /> */}
 
                 {/*<RB.Input onChange={function(){}} ref="s25" type="checkbox" label="Gift Card" />*/}
                 <RC.Div style={{textAlign:'right'}}>
@@ -348,7 +348,7 @@ console.log(m.Customer.getAll()[0])
             s22 = $(this.refs.s22.getInputDOMNode()).prop('checked'),
             s23 = $(this.refs.s23.getInputDOMNode()).prop('checked');
 
-        let s_np = $(this.refs.s_unpaid.getInputDOMNode()).prop('checked');
+        //let s_np = $(this.refs.s_unpaid.getInputDOMNode()).prop('checked');
 
         Session.set('_register_class_money_total_', this.total.get());
 
@@ -401,16 +401,16 @@ console.log(m.Customer.getAll()[0])
             orderData.status = 'success';
             orderData.poundage = App.config.poundage.check;
         }
-        else if(s_np){
-            //TODO unpaid
-            path = '/student/'+this.data.student._id;
-            orderData.paymentType = 'holding';
-            orderData.status = 'waiting';
-
-            this.m.ClassStudent.getDB().update({_id : this.data.id}, {
-                $set : {pendingFlag : true}
-            })
-        }
+        //else if(s_np){
+        //    //TODO unpaid
+        //    path = '/student/'+this.data.student._id;
+        //    orderData.paymentType = 'holding';
+        //    orderData.status = 'waiting';
+        //
+        //    this.m.ClassStudent.getDB().update({_id : this.data.id}, {
+        //        $set : {pendingFlag : true}
+        //    })
+        //}
         else{
             flag = false;
             util.toast.showError('Please select the mode of payment')
