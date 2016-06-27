@@ -9,7 +9,7 @@ KG.define('EF-Log', class extends Base {
                 optional: true,
                 blackbox: true
             },
-            createTime : KG.schema.createTime(),
+            createTime : KG.schema.createTime()
         }        
     }
 });

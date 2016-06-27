@@ -325,7 +325,12 @@ KG.define('EF-Customer', class extends Base{
                         createTime : -1
                     }
                 }).fetch();
-                return rs;
+                return _.map(rs, (item)=>{
+                    if(item.type === 'change school credit'){
+                        item.note = self.csc.getDB().findOne({_id : item._id});
+                    }
+                    return item;
+                });
             },
 
             getOrderInfoByAccountID(id, option){
