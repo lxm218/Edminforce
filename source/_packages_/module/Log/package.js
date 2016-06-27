@@ -14,6 +14,6 @@ Package.onUse(function(api) {
     ], ["client","server"]);
 
     api.addFiles([
-        'Log.jsx',
+        'Log.jsx'
     ], ["client","server"]);
 });
