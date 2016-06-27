@@ -344,6 +344,15 @@ let BillingTable = class extends RC.CSS{
                 title : 'Pay From',
                 key : 'paymentSource'
             },
+            {
+                title : 'Note',
+                reactDom : function(doc){
+                    if(doc.note){
+                        return doc.note.note || '';
+                    }
+                    return '';
+                }
+            }
 
         ];
 
@@ -548,11 +557,6 @@ KUI.Family_profile = class extends KUI.Page{
                 return false;
             }
 
-            self.m.Customer.getDB().update({_id : self.data.id}, {
-                '$set' : {
-                    schoolCredit : parseFloat(num+old)
-                }
-            });
             let orderData = {
                 accountID : self.data.id,
                 details : [],
@@ -563,22 +567,38 @@ KUI.Family_profile = class extends KUI.Page{
                 paymentTotal : 0,
                 schoolCredit : num
             };
-            self.m.Order.insert(orderData);
-
-            self.refs.form.setSchoolCreditNumber(num+old);
-
-            //add to log
-            KG.RequestLog.addByType('change school credit', {
-                data : {
-                    customer : self.data.profile,
-                    credit : num,
+            let oid = self.m.Order.insert(orderData);
+            if(oid.status){
+                oid = oid.data;
+                console.log(oid);
+                self.m.Customer.callMeteorMethod('changeSchoolCredit', [{
+                    schoolCredit : num,
+                    orderID : oid,
                     note : note
-                }
-            });
+                }, self.data.id], {
+                    success : function(){
+                        console.log(oid, arguments)
+                        self.refs.form.setSchoolCreditNumber(num+old);
 
-            self.refs.billingTable.getStateData(self.data.id, 1);
+                        //add to log
+                        KG.RequestLog.addByType('change school credit', {
+                            data : {
+                                customer : self.data.profile,
+                                credit : num,
+                                note : note
+                            }
+                        });
 
-            swal.close();
+                        self.refs.billingTable.getStateData(self.data.id, 1);
+
+                        swal.close();
+                    },
+                    error : function(){
+                        console.log(arguments)
+                    }
+                });
+            }
+
         });
     }
 
