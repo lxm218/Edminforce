@@ -51,7 +51,7 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 			currentClassID : null
 		};
 
-		this.titleText = "Please select student whom you'd like to book make up class for.";
+		this.titleText = "Please select a student whom you'd like to book a make-up for.";
 		this.process(this.props);
 	}
 
@@ -77,7 +77,7 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 
 	}
 	onSelectStudent(v){
-		this.titleText = "Please select current class which you'd like to book make up class for.";
+		this.titleText = "Please select a current class which you'd like to book a make-up for.";
 		this.setState({
 			currentStudentID : v,
 			currentClassID : null
@@ -98,7 +98,7 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 
 		if(!this.state.currentStudentID) return null;
 		if(!cs || cs.length < 1){
-			return this.renderErrorMessage('You are not eligible for making up class at this moment. ');
+			return this.renderErrorMessage('You are not eligible for booking a make-up at this moment. ');
 		}
 
 		if(!this.state.currentClassID && cs.length === 1){
