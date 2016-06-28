@@ -94,7 +94,7 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
         return (
             <RC.Div>
                 <RC.Div style={{borderBottom:"1px solid #e0e0e0", paddingBottom:8}}>
-                    <h3 style={{"textAlign": "center"}}>Make up Class</h3>
+                    {this.props.title?this.props.title : <h3 style={{"textAlign": "center"}}>Make up Class</h3>}
                     <div className="students-detail-make-up">
                         <div className="make-up-step-1" style={{display: "block"}}>
                             <div>

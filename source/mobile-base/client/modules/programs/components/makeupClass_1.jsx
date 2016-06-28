@@ -4,7 +4,7 @@ const sy = {
 		textAlign : 'center'
 	},
 	pd : {
-		padding : '0 15px'
+		padding : '20px 15px'
 	}
 };
 
@@ -51,7 +51,7 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 			currentClassID : null
 		};
 
-
+		this.titleText = "Please select student whom you'd like to book make up class for.";
 		this.process(this.props);
 	}
 
@@ -77,6 +77,7 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 
 	}
 	onSelectStudent(v){
+		this.titleText = "Please select current class which you'd like to book make up class for.";
 		this.setState({
 			currentStudentID : v,
 			currentClassID : null
@@ -121,6 +122,7 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 	}
 
 	onSelectClass(e, i, v){
+		this.titleText = '';
 		this.setState({
 			currentClassID : v
 		});
@@ -131,15 +133,13 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 	}
 
 	render(){
-		console.log(this.props)
 		if(this.studentList.length < 1){
 			return this.renderErrorMessage('No Student.');
 		}
 
-
-
 		return (
 			<RC.Div style={sy.pd}>
+				<p style={sy.tac}>{this.titleText}</p>
 				{this.renderSelectStudent()}
 				{this.renderSelectClass()}
 				{this.renderClassList()}
@@ -164,6 +164,7 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 				studentID={q.studentID}
 				studentName={q.studentName}
 				classID={q.classID}
+				title={<p style={sy.tac}>Please select preferred day and class.</p>}
 				context={EdminForce.Contexts.Programs}
 				actions={EdminForce.Actions.Programs} />
 		);
