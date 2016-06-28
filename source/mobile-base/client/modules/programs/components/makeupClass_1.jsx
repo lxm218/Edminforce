@@ -98,11 +98,13 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 
 		if(!this.state.currentStudentID) return null;
 		if(!cs || cs.length < 1){
+			this.titleText = '';
 			return this.renderErrorMessage('You are not eligible for booking a make-up at this moment. ');
 		}
 
 		if(!this.state.currentClassID && cs.length === 1){
 			this.state.currentClassID = cs[0].class._id;
+			this.titleText = '';
 		}
 
 		return (
