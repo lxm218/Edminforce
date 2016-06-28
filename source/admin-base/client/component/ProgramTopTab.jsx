@@ -13,6 +13,7 @@ KUI.ProgramTopTab = class extends RC.CSS{
             <RC.URL href="/program">Program</RC.URL>
             <RC.URL href="/program/session">Session</RC.URL>
             <RC.URL href="/program/class">Class</RC.URL>
+            <RC.URL href="/program/classlevel">Class Level</RC.URL>
             <RC.URL href="/program/coupon">Coupon</RC.URL>
         </RC.TabsSlider>
     }
