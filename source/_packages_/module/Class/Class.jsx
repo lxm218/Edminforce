@@ -262,6 +262,8 @@ let Class = class extends Base{
             updateTime : -1
         };
 
+        let m = KG.DataHelper.getDepModule();
+
         let data = this._db.find(query, {sort : sort}).fetch();
         data = _.map(data, (item)=>{
 
@@ -285,6 +287,10 @@ let Class = class extends Base{
             if(!smp){
                 smp = KG.get('EF-Program').getDB().findOne({_id : item.programID});
                 item.program = smp;
+            }
+
+            if(item.teacherID){
+                item.teacher = m.AdminUser.getDB().findOne({_id : item.teacherID}).nickName;
             }
 
             //nickName

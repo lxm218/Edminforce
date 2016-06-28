@@ -16,12 +16,11 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'queryhelper.jsx',
-        'RequestLog.jsx',
-        'shell.jsx'
+        'RequestLog.jsx'
     ], ["client","server"]);
 
+    api.addFiles([
+        'shell.jsx'
+    ], ["server"]);
 
-    //api.export([
-    //
-    //], ["client","server"]);
 });

@@ -22,15 +22,19 @@ KUI.Class_detail = class extends KUI.Page{
 
         let cid = FlowRouter.current().params.id;
 
-        let x = Meteor.subscribe('EF-Class', {
-            query : {
-                _id : cid
-            }
+        let x = KG.get('EF-Class').subscribeClassByQuery({
+            classID : cid
+        }, {
+            pageSize : 10,
+            pageNum : 1
         });
 
 
 
-        let data = KG.get('EF-Class').getDB().findOne();
+        let data = {};
+        if(x){
+            data = x.data[0];
+        }
         console.log(x.ready());
 
         return {
