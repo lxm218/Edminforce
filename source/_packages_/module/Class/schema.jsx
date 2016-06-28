@@ -53,6 +53,9 @@ Schema.Class = {
         defaultValue : 'Beginner'
     }),
     teacher : KG.schema.default({}),
+    teacherID : KG.schema.default({
+        optional : true
+    }),
     schedule : {
         type : new SimpleSchema(Schema.ClassSchedule)
     },
