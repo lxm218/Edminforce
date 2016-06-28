@@ -95,19 +95,19 @@ EdminForce.Components.MakeupClasses_1 = class extends RC.CSS{
 	renderSelectClass(){
 		let cs = this.studentMap[this.state.currentStudentID];
 		console.log(cs);
-		util.getReactJQueryObject(this.refs.title_ref).show();
+		$(this.refs.title_ref).show();
 
 		if(!this.state.currentStudentID) return null;
 		if(!cs || cs.length < 1){
 			//this.titleText = '';
-			util.getReactJQueryObject(this.refs.title_ref).hide();
+			$(this.refs.title_ref).hide();
 			return this.renderErrorMessage('You are not eligible for booking a make-up at this moment. ');
 		}
 
 		if(!this.state.currentClassID && cs.length === 1){
 			this.state.currentClassID = cs[0].class._id;
 			//this.titleText = '';
-			util.getReactJQueryObject(this.refs.title_ref).hide();
+			$(this.refs.title_ref).hide();
 		}
 
 		return (
