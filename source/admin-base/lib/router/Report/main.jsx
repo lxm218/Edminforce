@@ -82,6 +82,15 @@ if(Meteor.isClient){
 		}
 	});
 
+	Route.route('/classstudent/trialormakeup', {
+		action : function(p){
+			App.routeHandler(p, {
+				pageTitle: "Report | Trial/Makeup Class",
+				bodyTmpl: <KUI.Report_ClassStudent_TrialOrMakeup />
+			});
+		}
+	});
+
 
 	//for shell
 	Route.route('/shell/aaa', {

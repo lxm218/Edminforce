@@ -271,6 +271,10 @@ KUI.Program_session = class extends RC.CSSMeteorData{
     }
 
     showAddBox(){
+        if(!util.user.checkPermission('session', 'view')){
+            return swal(util.const.NoOperatorPermission, '', 'error');
+        }
+
         this.setState({
             showAddBox : true
         });

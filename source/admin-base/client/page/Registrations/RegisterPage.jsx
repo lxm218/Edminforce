@@ -669,6 +669,10 @@ KUI.Registration_Page = class extends KUI.Page{
 	}
 
 	render(){
+		if(!util.user.checkPermission('register class', 'view')){
+			util.render.stop(this);
+			return util.renderNoViewPermission();
+		}
 
 		return (
 			<RC.Div>

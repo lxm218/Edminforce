@@ -32,6 +32,9 @@ EdminForce.Components.Programs = class extends RC.CSS {
         return (
             <RC.Div style={{padding: "10px"}}>
                 {EdminForce.utils.renderError(this.props.error)}
+                <RC.VerticalAlign center={true} className="padding" height="80px" key="title">
+                    <p>Please click the following programs to check which one matches best with your age group and skills.</p>
+                </RC.VerticalAlign>
                 {programs}
             </RC.Div>
         );

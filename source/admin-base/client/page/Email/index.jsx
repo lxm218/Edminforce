@@ -64,6 +64,11 @@ KUI.Email_index = class extends KUI.Page{
     }
 
     render(){
+        if(!util.user.checkPermission('email', 'view')){
+            util.render.stop(this);
+            return util.renderNoViewPermission();
+        }
+
         if(!this.data.ready){
             return util.renderLoading();
         }

@@ -185,14 +185,25 @@ util.user = {
         if(!user){
             return false;
         }
-        //if(user.role === 'admin'){
-        //    return true;
-        //}
+        if(user.role === 'admin'){
+            return true;
+        }
 
         let p = user.permission[type+'Permission'];
         if(!p) return false;
 
         return p[permission];
+    }
+};
+
+util.render = {
+    stop : function(obj){
+        if(obj.componentDidMount){
+            obj.componentDidMount = _.noop;
+        }
+        if(obj.runOnceAfterDataReady){
+            obj.runOnceAfterDataReady = _.noop;
+        }
     }
 };
 

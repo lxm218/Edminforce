@@ -6,8 +6,8 @@ deployAdminBase(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-staging;
-    #sudo mup setup;
-    sudo ${ADMIN_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${ADMIN_ENV} mupx deploy;
     cd ../;
     echo "link : https://scalcolor-admin.classforth.com/home";
     echo "*************************************************";
@@ -20,8 +20,8 @@ deployMobileBase(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-staging;
-    sudo mup setup;
-    sudo ${MOBILE_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${MOBILE_ENV} mupx deploy;
     cd ../;
     echo "link : https://scalcolor.classforth.com";
     echo "*************************************************";

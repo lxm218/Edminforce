@@ -262,6 +262,8 @@ let Class = class extends Base{
             updateTime : -1
         };
 
+        let m = KG.DataHelper.getDepModule();
+
         let data = this._db.find(query, {sort : sort}).fetch();
         data = _.map(data, (item)=>{
 
@@ -285,6 +287,10 @@ let Class = class extends Base{
             if(!smp){
                 smp = KG.get('EF-Program').getDB().findOne({_id : item.programID});
                 item.program = smp;
+            }
+
+            if(item.teacherID){
+                item.teacher = m.AdminUser.getDB().findOne({_id : item.teacherID}).nickName;
             }
 
             //nickName
@@ -339,7 +345,7 @@ let Class = class extends Base{
                 };
                 let z1 = m.ClassStudent.getDB().find(query).count();
                 if(z1 > 0){
-                    return KG.result.out(false, new Meteor.Error('-602', 'already trail'));
+                    //return KG.result.out(false, new Meteor.Error('-602', 'already trail'));
                 }
 
                 let co = self._db.findOne({_id : classID}),
@@ -373,7 +379,7 @@ let Class = class extends Base{
                     status : {'$in' : SUCCESSSTATUS}
                 }).count();
                 if(n1 > 0){
-                    return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
+                    //return KG.result.out(false, new Meteor.Error('-605', 'already trail class in the program'));
                 }
 
                 return KG.result.out(true, 'ok');

@@ -132,6 +132,14 @@ console.log(x2.ready(), x3.ready(), x1.ready());
         let stmp = KG.get('EF-Session').getDB().findOne({_id : data.sessionID});
         data.numberOfClass = KG.get('EF-Class').calculateNumberOfClass(data, stmp);
 
+        let tmp = _.find(this.data.teacherList, (t)=>{
+            return t.nickName === data.teacher;
+        });
+        if(tmp){
+            data.teacherID = tmp._id;
+        }
+
+
         return data;
     }
 
@@ -496,6 +504,9 @@ KUI.Class_add = class extends RC.CSS{
 
 
     render(){
+        if(!util.user.checkPermission('class', 'view')){
+            return util.renderNoViewPermission();
+        }
 
         const sy = {
             rd : {

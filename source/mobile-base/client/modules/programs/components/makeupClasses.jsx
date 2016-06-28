@@ -29,7 +29,7 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
 
     makeupClass() {
         if (!this.state.selectedLesson) return;
-        
+
         let path = FlowRouter.path('/makeupClassSummary', null, {
             studentID: this.props.studentID,
             classID: this.state.selectedLesson._id,
@@ -44,7 +44,7 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
         if (this.props.classes.length == 0)
             return (
                 <RC.Div><p style={{textAlign:"center", padding: 0, paddingBottom: 8, paddingTop: 8}}>No class available
-                    for make up</p></RC.Div>
+                    for make-ups</p></RC.Div>
             )
 
         let lesseonsFilteredByDay = this.props.classes;
@@ -94,7 +94,7 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
         return (
             <RC.Div>
                 <RC.Div style={{borderBottom:"1px solid #e0e0e0", paddingBottom:8}}>
-                    <h3 style={{"textAlign": "center"}}>Make up Class</h3>
+                    {this.props.title?this.props.title : <h3 style={{"textAlign": "center"}}>Make up Class</h3>}
                     <div className="students-detail-make-up">
                         <div className="make-up-step-1" style={{display: "block"}}>
                             <div>

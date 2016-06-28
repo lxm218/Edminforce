@@ -15,6 +15,10 @@ EdminForce.Actions.Home = {
     
     goToAccount() {
         EdminForce.utils.authGo('/account');
+    },
+
+    goToMakeup(){
+        EdminForce.utils.authGo('/student/makeup');
     }
 }
 

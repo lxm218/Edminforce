@@ -65,7 +65,14 @@ if(Meteor.isClient){
     });
 
 
-
+    Route.route('/permission/edit', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Setting | Edit Permission",
+                bodyTmpl: <KUI.Setting_EditPermission />
+            });
+        }
+    });
 
 
 

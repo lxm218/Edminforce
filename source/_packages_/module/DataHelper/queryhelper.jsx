@@ -164,6 +164,10 @@ console.log(start.format(), end.format());
 
                     item.dateline = moment.utc(new Date(item.updateTime)).utcOffset(zone).format(KG.const.dateAllFormat);
 
+                    if(item.type === 'change school credit'){
+                        item.note = m.Customer.csc.getDB().findOne({_id : item._id});
+                    }
+
                     return item;
                 });
 

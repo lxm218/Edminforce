@@ -8,4 +8,8 @@ star-classforth.csr is the application form when generating certificate.
 
 The cert is for *.classforth.com, no secondary subdomain is allowed.
 
+star-classforth_x.crt is the certificate used by mupx
+
+star-classforth.csr is the certificate used by mup. The difference is that mupx cert does NOT have private key at the bottome of it.
+
 private-key.pem is the private key.

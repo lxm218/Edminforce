@@ -16,6 +16,7 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'schema.jsx',
+        'CustomerSchoolCredit.jsx',
         'Customer.jsx'
     ], ["client","server"]);
 

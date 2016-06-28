@@ -15,6 +15,11 @@ KUI.Coupon_Edit = class extends KUI.Page{
     }
 
     render(){
+        if(!util.user.checkPermission('coupon', 'user')){
+            util.render.stop(this);
+            return util.renderNoViewPermission();
+        }
+
         if(!this.data.ready){
             return util.renderLoading();
         }

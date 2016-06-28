@@ -215,6 +215,38 @@ let AdminUser = class extends Base{
 
                     return u;
                 }
+            },
+
+            getAllPermissionList : function(role){
+                let o = self.pm.getDB().findOne({role : 'admin'}),
+                    s = self.pm.getDB().findOne({role : role});
+                if(!s){
+                    throw new Meteor.Error('error', `${role} is not valid`);
+                }
+
+
+                let rs = {};
+
+
+                let loop = function(type){
+                    let pmStr = type+'Permission';
+                    rs[pmStr] = {};
+                    _.each(o[pmStr], (val, key)=>{
+                        rs[pmStr][key] = s[pmStr][key] || false;
+                    });
+                }
+
+                _.each(['view', 'edit', 'insert', 'delete'], (key)=>{
+                    loop(key);
+                });
+
+                return rs;
+            },
+            updatePermissionByRole : function(role, data){
+                let nd = this.pm.getDB().update({role : role}, {
+                    $set : data
+                });
+                return nd;
             }
         };
 

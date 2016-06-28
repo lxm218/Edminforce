@@ -269,6 +269,12 @@ EdminForce.Components.User = React.createClass({
       })
       return
     }
+    if(!/^[0-9]*$/.test(form.phone)){
+      this.setState({
+        msg : 'Phone must be a number.'
+      });
+      return;
+    }
 
     if (form.pw==form.pwRepeat) {
       if (!checkPassword(form.pw)) {
@@ -287,44 +293,86 @@ EdminForce.Components.User = React.createClass({
         password: form.pw,
         role : 'user'
       }, function(err) {
+
+        if(err && err.error){
+          self.setState({
+            msg: (ph.errorMsgs[err.error] || err.reason),
+            buttonActive: false,
+            waiting: false
+          });
+
+          return false;
+        }
+
         if (!err){
+
             // add data to Customer DB
             Meteor.call('account.addCustomer', uName, form.email, form.phone, function(methodErr,result){
               methodErr && console.log(methodErr);
               if(!methodErr){
+
+
+                self.setState({
+                  msg: <p>Thank you for registering!</p>,
+                  buttonActive: false,
+                  waiting: false
+                });
+
+                if (_.isFunction(self.props.registerCallback))
+                  self.props.registerCallback()
+
+                self.resetForm();
+
+                let data = {
+                  "name": form.fName
+                }
+                let html = self.getRegisterConfirmEmailTemplate(data);
+                Meteor.call('sendEmailHtml',
+                    form.email,
+                    'Thanks for Creating an Account',
+                    html);
+
                 Dispatcher.dispatch({
                   actionType: "AUTH_REGISTER_SUCCESS",
                   redirectUrl: self.props.redirectUrl
                 });
               }
+              else{
+                self.setState({
+                  msg: methodErr.reason,
+                  buttonActive: false,
+                  waiting: false
+                });
+              }
             });
-            self.resetForm()
+
+
         }
 
-        let passedMsg = err && err.error
-            ? (ph.errorMsgs[err.error] || err.reason)
-            : <p>Thank you for registering!</p>
-
-        if (_.isFunction(self.props.registerCallback))
-          self.props.registerCallback()
-
-        if (!err){
-          // let school = KG.get('EF-School').getInfo();
-          let data = {
-            "name": form.fName
-          }
-          let html = self.getRegisterConfirmEmailTemplate(data);
-          Meteor.call('sendEmailHtml',
-                  form.email,
-                  'Thanks for Creating an Account',
-                  html);
-        }
-
-        self.setState({
-          msg: passedMsg,
-          buttonActive: false,
-          waiting: false,
-        })
+        //let passedMsg = err && err.error
+        //    ? (ph.errorMsgs[err.error] || err.reason)
+        //    : <p>Thank you for registering!</p>
+        //
+        //if (_.isFunction(self.props.registerCallback))
+        //  self.props.registerCallback()
+        //
+        //if (!err){
+        //  // let school = KG.get('EF-School').getInfo();
+        //  let data = {
+        //    "name": form.fName
+        //  }
+        //  let html = self.getRegisterConfirmEmailTemplate(data);
+        //  Meteor.call('sendEmailHtml',
+        //          form.email,
+        //          'Thanks for Creating an Account',
+        //          html);
+        //}
+        //
+        //self.setState({
+        //  msg: passedMsg,
+        //  buttonActive: false,
+        //  waiting: false,
+        //})
       })
     } else
       this.setState({
@@ -476,7 +524,7 @@ EdminForce.Components.User = React.createClass({
           <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" value=""/>
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
-          <RC.Input name="phone" label="Phone" theme={inputTheme} ref="regPhone" placeholder="800-1234567" />
+          <RC.Input name="phone" label="Phone" theme={inputTheme} ref="regPhone" placeholder="8001234567" />
           <RC.Input name="pw" label="Password" type="password" theme={inputTheme} ref="regPw" placeholder="Edm1n!"/>
           <RC.Input name="pwRepeat" label="Repeat Password" type="password" theme={inputTheme} ref="regPwRepeat" placeholder="Edm1n!"/>
           <RC.URL style={styles.url} color={linkColor} colorHover={linkColorHover} onClick={this.showPolicy}>

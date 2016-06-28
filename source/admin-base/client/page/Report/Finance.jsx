@@ -405,6 +405,15 @@ KUI.Report_Finance = class extends KUI.Page{
 				title : 'Pay From',
 				key : 'paymentSource'
 			},
+			{
+				title : 'Note',
+				reactDom : function(doc){
+					if(doc.note){
+						return doc.note.note || '';
+					}
+					return '';
+				}
+			}
 
 		];
 

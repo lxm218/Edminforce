@@ -71,6 +71,10 @@ KUI.Program_edit = class extends KUI.Page{
     }
 
     render(){
+        if(!util.user.checkPermission('program', 'view')){
+            util.render.stop(this);
+            return util.renderNoViewPermission();
+        }
 
         if(!this.data.ready){
             return util.renderLoading();

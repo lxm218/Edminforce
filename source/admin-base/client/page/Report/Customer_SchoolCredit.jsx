@@ -191,6 +191,15 @@ KUI.Report_Customer_SchoolCredit = class extends KUI.Page{
 
 					return doc.schoolCredit;
 				}
+			},
+			{
+				title : 'Note',
+				reactDom : function(doc){
+					if(doc.note){
+						return doc.note.note || '';
+					}
+					return '';
+				}
 			}
 		];
 

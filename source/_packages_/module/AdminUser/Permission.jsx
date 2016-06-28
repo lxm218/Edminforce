@@ -45,7 +45,7 @@ KG.define('EF-AdminPermission', class extends Base{
 		//add admin role
 		this._db.remove({role : 'admin'});
 
-		let f = true;
+		let f = false;
 		this._db.insert({
 			role : 'admin',
 			nickName : 'Admin',
@@ -53,7 +53,19 @@ KG.define('EF-AdminPermission', class extends Base{
 
 			viewPermission : {
 				customer : f,
-				student : f
+				student : f,
+				class : f,
+				program : f,
+				session : f,
+				coupon : f,
+
+				'register class' : f,
+
+				teacher : f,
+				email : f,
+				report : f,
+				calendar : f,
+				log : f
 			},
 			editPermission : {
 				customer : f,
@@ -67,11 +79,21 @@ KG.define('EF-AdminPermission', class extends Base{
 			},
 			deletePermission : {
 				student : f,
-				studentComment : f
+				studentComment : f,
+
+				program : f,
+				class : f
 			}
 		});
 
 		// add teacher role
-
+		let one = this._db.findOne({role : 'teacher'});
+		if(!one){
+			this._db.insert({
+				role : 'teacher',
+				nickName : 'Teacher',
+				canBeDelete : false
+			});
+		}
 	}
 });

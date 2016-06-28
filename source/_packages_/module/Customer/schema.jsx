@@ -97,3 +97,25 @@ Schema.Customer = {
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };
+
+Schema.CustomerSchoolCredit = {
+    // _id is same to order _id
+    customerID : KG.schema.default(),
+    type : KG.schema.default({}),
+    note : KG.schema.default({
+        optional : true
+    }),
+    num : KG.schema.default({
+        type : Number,
+        optional : true,
+        decimal : true,
+        defaultValue : 0
+    }),
+    balance : KG.schema.default({
+        type : Number,
+        optional : true,
+        decimal : true,
+        defaultValue : 0
+    }),
+    createTime : KG.schema.createTime()
+};

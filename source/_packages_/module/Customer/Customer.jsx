@@ -36,6 +36,10 @@ KG.define('EF-Customer', class extends Base{
         return Validate.Customer;
     }
 
+    initEnd(){
+        this.csc = KG.create('EF-CustomerSchoolCredit');
+    }
+
     getAll(query, option){
 
         let rs = this._db.find(query||{}, option||{}).fetch();
@@ -243,6 +247,7 @@ KG.define('EF-Customer', class extends Base{
     }
 
     defineMeteorMethod(){
+        let self = this;
         return {
             changeRegistrationFeeStatusById(id){
                 let one = this._db.findOne({_id:id});
@@ -263,6 +268,40 @@ KG.define('EF-Customer', class extends Base{
                     schoolCredit : (credit*-1)
                 }});
                 return rs;
+            },
+
+            changeSchoolCredit(param, accountID){
+                let m = KG.DataHelper.getDepModule();
+
+                let credit = param.schoolCredit,
+                    orderID = param.orderID,
+                    note = param.note;
+
+                let cu = self._db.findOne({_id : accountID});
+                let order = m.Order.getDB().findOne({_id : orderID});
+                let b = cu.schoolCredit,
+                    balance = b + credit;
+                console.log(b, balance)
+                let nd = self._db.update({_id : accountID}, {$set : {
+                    schoolCredit : balance
+                }});
+
+                //insert note
+                if(nd){
+                    self.csc.getDB().insert({
+                        _id : orderID,
+                        customerID : accountID,
+                        note : note,
+                        num : credit,
+                        balance : balance,
+                        type : order.type
+                    });
+
+                    return true;
+                }
+
+                return false;
+
             },
 
             getSchoolCreditDetailById(id){
@@ -286,7 +325,12 @@ KG.define('EF-Customer', class extends Base{
                         createTime : -1
                     }
                 }).fetch();
-                return rs;
+                return _.map(rs, (item)=>{
+                    if(item.type === 'change school credit'){
+                        item.note = self.csc.getDB().findOne({_id : item._id});
+                    }
+                    return item;
+                });
             },
 
             getOrderInfoByAccountID(id, option){
@@ -319,6 +363,10 @@ console.log(option);
                         item.totalAmount = item.amount - item.registrationFee + Math.abs(item.discount) + item.schoolCredit||0;
                         item.actualPayment = item.amount;
                     }catch(e){}
+
+                    if(item.type === 'change school credit'){
+                        item.note = self.csc.getDB().findOne({_id : item._id});
+                    }
 
 
                     return item;

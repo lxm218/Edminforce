@@ -110,7 +110,7 @@ function processClassLessonInDateRange(classItem, classSession, program, startDt
     }
     // set to class time
     classDate.hour(classTime.hour());
-    classDate.minute(classTime.hour());
+    classDate.minute(classTime.minute());
     classDate.second(0);
     classDate.millisecond(0);
 
