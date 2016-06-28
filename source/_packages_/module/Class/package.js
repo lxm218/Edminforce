@@ -22,7 +22,7 @@ Package.onUse(function(api) {
         'Session.jsx',
         'Class.jsx',
         'ClassStudent.jsx',
-        'classLevel.jsx'
+        'ClassLevel.jsx'
     ], ["client","server"]);
 
 

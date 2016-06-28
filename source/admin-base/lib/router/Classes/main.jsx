@@ -47,9 +47,32 @@ if(Meteor.isClient){
     });
 
 
+    FlowRouter.route('/program/classlevel', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle : 'Class Level | Index',
+                bodyTmpl : <KUI.ClassLevel_Index />
+            });
+        }
+    });
 
+    FlowRouter.route('/program/classlevel/add', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle : 'Class Level | Index',
+                bodyTmpl : <KUI.ClassLevel_Add />
+            });
+        }
+    });
 
-
+    FlowRouter.route('/program/classlevel/:id', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle : 'Class Level | Edit',
+                bodyTmpl : <KUI.ClassLevel_Edit />
+            });
+        }
+    });
 
 
 

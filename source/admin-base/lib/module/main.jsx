@@ -16,3 +16,5 @@ KG.create('EF-StudentComment');
 KG.create('EF-Order', {
     DBName : 'EF-Orders'
 });
+
+KG.create('EF-ClassLevel');

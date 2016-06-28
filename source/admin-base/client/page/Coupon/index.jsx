@@ -102,7 +102,7 @@ KUI.Coupon_index = class extends KUI.Page{
 
         return (
             <RC.Div>
-                <KUI.ProgramTopTab select={3} />
+                <KUI.ProgramTopTab select={4} />
                 <hr/>
                 {this.renderTable()}
                 <RC.Div style={{textAlign:'right'}}>

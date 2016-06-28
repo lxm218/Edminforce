@@ -7,6 +7,7 @@ KG.define('EF-DataHelper', class extends Base{
         return {
             ClassStudent : KG.get('EF-ClassStudent'),
             Class : KG.get('EF-Class'),
+            ClassLevel : KG.get('EF-ClassLevel'),
             Student : KG.get('EF-Student'),
             Customer : KG.get('EF-Customer'),
             Order : KG.get('EF-Order'),
