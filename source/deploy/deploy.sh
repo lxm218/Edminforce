@@ -34,8 +34,8 @@ deployMobileProduction(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-production;
-    sudo mup setup;
-    sudo ${MOBILE_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${MOBILE_ENV} mupx deploy;
     cd ../;
     echo "link : https://calcolor.classforth.com/";
     echo "*************************************************";
@@ -48,8 +48,8 @@ deployAdminProduction(){
 	 . ./ENV.inc
 	 echo ${ADMIN_ENV};
 	 cd admin-production;
-    #sudo mup setup;
-	 sudo ${ADMIN_ENV} mup deploy;
+    sudo mupx setup;
+	 sudo ${ADMIN_ENV} mupx deploy;
 	 cd ../;
  	 echo "link : https://calcolor-admin.classforth.com/home";
     echo "*************************************************";
