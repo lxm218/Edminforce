@@ -15,7 +15,9 @@ Schema.const = {
 
 Schema.ClassSchedule = {
     days: {
-        type:[String]
+        type:[String],
+        optional : true,
+        defaultValue : []
     },
     // obsolete, will be removed when the multi-days feature is complete
     day : KG.schema.default({
@@ -62,9 +64,8 @@ Schema.Class = {
 
     // obsolete, will be removed when the multi-level feature is complete
     level : KG.schema.default({
-        allowedValues : Schema.const.level,
         optional : true,
-        defaultValue : 'Beginner'
+        defaultValue : ''
     }),
     teacher : KG.schema.default({}),
     teacherID : KG.schema.default({

@@ -289,7 +289,7 @@ let Class = class extends Base{
                 item.program = smp;
             }
 
-            if(item.teacherID){
+            if(Meteor.isServer && item.teacherID){
                 item.teacher = m.AdminUser.getDB().findOne({_id : item.teacherID}).nickName;
             }
 

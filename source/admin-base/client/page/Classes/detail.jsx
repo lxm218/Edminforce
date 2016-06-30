@@ -97,9 +97,13 @@ KUI.Class_detail = class extends KUI.Page{
         let rs = KG.get('EF-Class').updateById(data, this.getClassId());
         KG.result.handle(rs, {
             success : function(json){
+console.log(arguments)
                 util.toast.alert('update success');
                 util.goPath('/program/class');
 
+            },
+            error : function(error){
+                console.log(error)
             }
         });
     }

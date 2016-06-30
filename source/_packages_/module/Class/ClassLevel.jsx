@@ -23,7 +23,9 @@ KG.define('EF-ClassLevel', class extends Base{
 					levels : {$in : [id]}
 				}).count();
 
-				if(x.length > 0) return false;
+				console.log(x);
+
+				if(x > 0) return false;
 
 				self._db.remove({_id : id});
 				return true;
