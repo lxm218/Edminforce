@@ -372,7 +372,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 				<h4>Your payment is : ${this.C.actualPayment} {this.C.actualPayment>0?', Please select below.':null}</h4>
 
 
-				{this.C.actualPayment>0?<KUI.Comp.SelectPaymentWay ref="payway"></KUI.Comp.SelectPaymentWay>:null}
+				{this.C.actualPayment>0?<KUI.Comp.AllSelectPaymentWay ref="payway"></KUI.Comp.AllSelectPaymentWay>:null}
 
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.NoButton onClick={this.toStep2.bind(this)} label="Back"></KUI.NoButton>
@@ -385,8 +385,13 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 	submitPayment(){
 		let self = this;
 		let way = 'cash';
+		let note = '';
 		if(this.C.actualPayment > 0){
-			way = this.refs.payway.getValue();
+			let tp = this.refs.payway.getValue();
+			console.log(tp);
+			if(!tp[0]) return false;
+			way = tp[0];
+			note = tp[1];
 		}
 
 		let customer = this.state.summaryList.list[0].customer;
@@ -419,8 +424,13 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		}
 		else if(way === 'cash' || way === 'check'){
 			orderData.paymentType = way;
-			orderData.status = 'waiting';
+			orderData.status = 'success';
 			orderData.poundage = (way==='cash'?App.config.poundage.cash:App.config.poundage.check);
+		}
+		else if(way === 'pos'){
+			orderData.paymentType = way;
+			orderData.status = 'success';
+			orderData.poundage = '';
 		}
 		else{
 			orderData.paymentType = way;
@@ -433,6 +443,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			orderData.poundage = orderData.poundage.toString();
 		}
 		orderData.paymentTotal = total;
+		orderData.note = note;
 
 		console.log(orderData);
 		console.log(this.C.ClassStudentObj);
@@ -440,7 +451,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		this.m.Order.callMeteorMethod('insertData', [orderData, this.C.ClassStudentObj], {
 			success : function(cid){
 				console.log(cid);
-				if(way === 'cash' || way === 'check'){
+				if(way === 'cash' || way === 'check' || way==='pos'){
 					self.m.Order.callMeteorMethod('paySuccessByOrder', [cid], {
 						success : function(oid){
 							FlowRouter.go('/registration/register/success?orderID='+oid);

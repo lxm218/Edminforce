@@ -347,10 +347,10 @@ let BillingTable = class extends RC.CSS{
             {
                 title : 'Note',
                 reactDom : function(doc){
-                    if(doc.note){
+                    if(doc.note && doc.note.note){
                         return doc.note.note || '';
                     }
-                    return '';
+                    return doc.note || '';
                 }
             }
 
@@ -565,7 +565,8 @@ KUI.Family_profile = class extends KUI.Page{
                 status : 'success',
                 amount : 0,
                 paymentTotal : 0,
-                schoolCredit : num
+                schoolCredit : num,
+                note : note
             };
             let oid = self.m.Order.insert(orderData);
             if(oid.status){

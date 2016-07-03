@@ -9,7 +9,7 @@ Schema.Order = {
         type:[String]   // ClassStudentID
     },
     paymentType : KG.schema.default({
-        allowedValues : ['credit card', 'echeck', 'check', 'cash', 'school credit', 'holding']
+        allowedValues : ['credit card', 'echeck', 'check', 'cash', 'school credit', 'holding', 'pos']
     }),
     paymentSource : KG.schema.default({
         allowedValues : ['admin', 'mobile']
@@ -64,6 +64,10 @@ Schema.Order = {
         optional: true,
         defaultValue : 0
     },
+    note : KG.schema.default({
+        optional : true,
+        defaultValue : ''
+    }),
     createTime: KG.schema.createTime(),
     updateTime: KG.schema.updateTime()
 };

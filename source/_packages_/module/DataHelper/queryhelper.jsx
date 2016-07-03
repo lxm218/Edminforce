@@ -57,7 +57,7 @@ KG.define('EF-DataHelper', class extends Base{
                         status : 'success',
                         //type : {$in:['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit']},
                         paymentType : {
-                            $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
+                            $in : ['credit card', 'echeck', 'check', 'cash', 'school credit', 'pos']
                         },
                         updateTime : {
                             '$gte' : min.toDate(),
@@ -74,6 +74,7 @@ KG.define('EF-DataHelper', class extends Base{
                         'cash' : [0, 0],
                         'check' : [0, 0],
                         'school credit' : [0, 0],
+                        'pos' : [0, 0],
                         detail : [],
                         total : []
                     };
@@ -137,7 +138,7 @@ console.log(start.format(), end.format());
                 let query = {
                     status : 'success',
                     paymentType : {
-                        $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
+                        $in : ['credit card', 'echeck', 'check', 'cash', 'school credit', 'pos']
                     },
                     updateTime : {
                         '$gte' : min.toDate(),

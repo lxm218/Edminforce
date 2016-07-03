@@ -340,7 +340,7 @@ KG.define('EF-Customer', class extends Base{
                 let query = {
                     status : 'success',
                     paymentType : {
-                        $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
+                        $in : ['credit card', 'echeck', 'check', 'cash', 'school credit', 'pos']
                     },
                     accountID : id
                 };

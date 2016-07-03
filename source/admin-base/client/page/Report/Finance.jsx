@@ -267,6 +267,12 @@ KUI.Report_Finance = class extends KUI.Page{
 				}
 			},
 			{
+				title : 'POS ($)',
+				reactDom(doc){
+					return `${doc['pos'][0]}/${doc['pos'][1]}`;
+				}
+			},
+			{
 				title : 'School Credit ($)',
 				reactDom(doc){
 					return `${doc['school credit'][0]}/${doc['school credit'][1]}`;
@@ -408,9 +414,10 @@ KUI.Report_Finance = class extends KUI.Page{
 			{
 				title : 'Note',
 				reactDom : function(doc){
-					if(doc.note){
+					if(doc.note && doc.note.note){
 						return doc.note.note || '';
 					}
+					//return doc.note || '';
 					return '';
 				}
 			}
