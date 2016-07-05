@@ -9,6 +9,12 @@ KUI.ClassLevel_Add_Comp = class extends RC.CSS{
 				ref : 'name',
 				placeholder : 'Level Name'
 			},
+			alias : {
+				//labelClassName : 'col-xs-3',
+				wrapperClassName : 'col-xs-12',
+				ref : 'alias',
+				placeholder : 'Level Abbrev'
+			},
 			desc : {
 				//labelClassName : 'col-xs-3',
 				wrapperClassName : 'col-xs-12',
@@ -33,6 +39,7 @@ KUI.ClassLevel_Add_Comp = class extends RC.CSS{
 						<form className="form-horizontal">
 
 							<RB.Input type="text" {... p.name} />
+							<RB.Input type="text" {... p.alias} />
 							<RB.Input type="text" {... p.sort} />
 							<RB.Input type="textarea" {... p.desc} >
 
@@ -48,6 +55,7 @@ KUI.ClassLevel_Add_Comp = class extends RC.CSS{
 	getValue(){
 		let data = {
 			name : this.refs.name.getValue(),
+			alias : this.refs.alias.getValue(),
 			description : this.refs.desc.getValue() || '',
 			order : parseInt(this.refs.sort.getValue(), 10) || 0
 		};
@@ -57,6 +65,7 @@ KUI.ClassLevel_Add_Comp = class extends RC.CSS{
 
 	setDefaultValue(data){
 		this.refs.name.getInputDOMNode().value = data.name;
+		this.refs.alias.getInputDOMNode().value = data.alias || data.name || '';
 		this.refs.desc.getInputDOMNode().value = data.description;
 		this.refs.sort.getInputDOMNode().value = data.order;
 	}
