@@ -133,7 +133,7 @@ case "$1" in
 		;;
 	calphin)
       deployAdminCalphin
-		deployMobileCalphin
+#deployMobileCalphin
 		;;
    all)
       deployAdminBase
