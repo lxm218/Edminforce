@@ -684,7 +684,7 @@ console.log(orderData);
 			couponCode : code,
 			overRequire : this.state.fee,
 			programID : json.classData.programID,
-			weekdayRequire : json.classData.schedule.day
+			weekdayRequire : json.classData.schedule.days
 		};
 		console.log(param);
 		m.Coupon.callMeteorMethod('checkCouponCodeValidByCustomerID', [param], {

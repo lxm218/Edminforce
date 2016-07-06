@@ -619,7 +619,12 @@ let ClassFilter = class extends KUI.Page{
 				title : 'Schedule',
 				reactDom(doc){
 					let d = doc.schedule;
-					return `${d.day} ${d.time}`;
+					try{
+						return `${d.days.join(' ')} ${d.time}`;
+					}catch(e){
+						return `${d.day} ${d.time}`;
+					}
+
 				}
 			},
 			{
