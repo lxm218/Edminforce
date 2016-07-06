@@ -31,6 +31,10 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
 
         let lessons = this.props.classes || [];
         this.state.selectedDay && (lessons = _.filter(lessons,(lesson) => lesson.schedule && lesson.schedule.day.toLowerCase() === this.state.selectedDay.toLowerCase()));
+
+        // sort lessons by week day + lesson date
+        EdminForce.utils.sortLessonsByWeekDay(lessons);
+        
         let lessonElements = lessons.map( (item) => (
             <RC.Item key={item.key} theme="divider" onClick={self.getTrialStudents.bind(self, item)}>
                 <h3>{item.name}</h3>
