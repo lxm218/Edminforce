@@ -352,7 +352,7 @@ KUI.Class_calendar = class extends RC.CSSMeteorData{
 		let arr=[]
 		classesData.forEach(function(classItem){
 			if(
-				classItem.schedule.day == m.format('ddd')  //周
+				_.contains(classItem.schedule.days ,m.format('ddd')) //周
 				&& m.isBetween(classItem.session.startDate, classItem.session.endDate,null,'[]')  //在session的时间里
 
 			){

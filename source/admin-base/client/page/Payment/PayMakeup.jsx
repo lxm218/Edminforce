@@ -217,7 +217,7 @@ KUI.Payment_PayMakeup = class extends KUI.Page{
 			couponCode : code,
 			overRequire : this.C.totalFee,
 			programID : cs.class[0].programID,
-			weekdayRequire : cs.class[0].schedule.day
+			weekdayRequire : cs.class[0].schedule.days
 		};
 		console.log(param);
 		m.Coupon.callMeteorMethod('checkCouponCodeValidByCustomerID', [param], {

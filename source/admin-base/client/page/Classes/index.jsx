@@ -90,7 +90,12 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         let list = this.data.list;
         _.map(list, (item)=>{
             let s = item.schedule;
-            item.scheduleAll = `${s.day} ${s.time}`;
+            try{
+                item.scheduleAll = `${s.days.join(' ')} ${s.time}`;
+            }catch(e){
+                item.scheduleAll = `${s.day} ${s.time}`;
+            }
+
 
             return item;
         });

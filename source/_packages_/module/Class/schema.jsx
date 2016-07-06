@@ -17,11 +17,12 @@ Schema.ClassSchedule = {
     days: {
         type:[String],
         optional : true,
-        defaultValue : []
+        defaultValue : Schema.const.day
     },
     // obsolete, will be removed when the multi-days feature is complete
     day : KG.schema.default({
-        allowedValues : Schema.const.day
+        allowedValues : Schema.const.day,
+        optional : true
     }),
     time : KG.schema.default()
 };

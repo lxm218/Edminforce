@@ -128,7 +128,7 @@ console.log(one);
                         couponCode : opts.couponCode,
                         overRequire : opts.overRequire,
                         programID : co.programID,
-                        weekdayRequire : co.schedule.day
+                        weekdayRequire : co.schedule.days
                     };
 
                     let tmp = self.callMeteorMethod('checkCouponCodeValidByCustomerID', [param]);

@@ -135,7 +135,7 @@ KUI.Class_comp_add = class extends KUI.Page{
                 money : tuitionMoney.getValue()
             },
             schedule : {
-                day : scheduleDay.getValue(),
+                days : scheduleDay.getValue(),
                 time : scheduleTime.getValue()
             },
             makeupClassFee : makeupFee.getValue()
@@ -178,7 +178,7 @@ KUI.Class_comp_add = class extends KUI.Page{
         max.getInputDOMNode().value = '';
         tuitionMoney.getInputDOMNode().value = '';
         tuitionType.getInputDOMNode().value = opt.tuitionType[0];
-        scheduleDay.getInputDOMNode().value = opt.scheduleDay[0];
+        util.getReactJQueryObject(scheduleDay.getInputDOMNode()).val(opt.scheduleDay[0]);
         scheduleTime.getInputDOMNode().value = opt.scheduleTime[0];
         makeup.getInputDOMNode().value = '';
         makeupFee.getInputDOMNode().value = '';
@@ -276,7 +276,8 @@ KUI.Class_comp_add = class extends KUI.Page{
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleDay',
                 label : 'Schedule',
-                disabled : edit
+                disabled : edit,
+                multiple : true
             },
             scheduleTime : {
                 labelClassName : 'col-xs-4',
@@ -382,15 +383,15 @@ console.log(option)
                                 })
                             }
                         </RB.Input>
-
-
-                        <RB.Input type="select" {... p.lengthOfClass}>
+                        <RB.Input type="select" {... p.scheduleTime}>
                             {
-                                _.map(option.lengthOfClass, (item, index)=>{
+                                _.map(option.scheduleTime, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
+
+
 
                         {false ? <RB.Input type="text" {... p.numberOfClass} /> : ''}
 
@@ -409,13 +410,15 @@ console.log(option)
 
                         <RB.Input type="text" {... p.makeupStudent} />
 
-                        <RB.Input type="select" {... p.level}>
+                        <RB.Input type="select" {... p.lengthOfClass}>
                             {
-                                _.map(option.level, (item, index)=>{
-                                    return <option key={index} value={item._id}>{item.name}</option>;
+                                _.map(option.lengthOfClass, (item, index)=>{
+                                    return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
+
+
 
                     </RB.Col>
 
@@ -438,14 +441,14 @@ console.log(option)
                             }
                         </RB.Input>
 
-
-                        <RB.Input type="select" {... p.scheduleTime}>
+                        <RB.Input type="select" {... p.level}>
                             {
-                                _.map(option.scheduleTime, (item, index)=>{
-                                    return <option key={index} value={item}>{item}</option>;
+                                _.map(option.level, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.name}</option>;
                                 })
                             }
                         </RB.Input>
+
 
                         <RB.Input type="select" {... p.gender}>
                             {
@@ -497,7 +500,6 @@ console.log(option)
         maxAge.getInputDOMNode().value = data.maxAgeRequire || 0;
         minAge.getInputDOMNode().value = data.minAgeRequire || 0;
 
-        console.log(data.levels)
         util.getReactJQueryObject(level.getInputDOMNode()).val(data.levels);
 
         gender.getInputDOMNode().value = data.genderRequire;
@@ -506,7 +508,7 @@ console.log(option)
         max.getInputDOMNode().value = data.maxStudent || '';
         tuitionMoney.getInputDOMNode().value = data.tuition.money || '';
         tuitionType.getInputDOMNode().value = data.tuition.type;
-        scheduleDay.getInputDOMNode().value = data.schedule.day;
+        util.getReactJQueryObject(scheduleDay.getInputDOMNode()).val(data.schedule.days);
         scheduleTime.getInputDOMNode().value = data.schedule.time.replace(/ /g, '').toUpperCase();
         makeup.getInputDOMNode().value = data.makeupStudent || '';
         makeupFee.getInputDOMNode().value = data.makeupClassFee;
@@ -514,8 +516,12 @@ console.log(option)
 
     runOnceAfterDataReady(){
 console.log(this.props['init-data'])
-        if(this.props['init-data'])
+        if(this.props['init-data']){
             this.setValue(this.props['init-data']);
+        }
+        else{
+            this.reset();
+        }
     }
 };
 

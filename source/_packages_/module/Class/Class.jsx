@@ -127,10 +127,13 @@ let Class = class extends Base{
         let blockDay = _.map(session.blockOutDay || [], (item)=>{
             return moment.tz(item, schoolTz).format(format);
         });
-        let classDay = data.schedule.day.toLowerCase();
+        //let classDay = data.schedule.day.toLowerCase();
+        let classDay = _.map(data.schedule.days, (day)=>{
+            return day.toLowerCase();
+        });
 
         while(end.isAfter(cur)){
-            if(cur.format('ddd').toLowerCase() === classDay){
+            if(_.contains(classDay, cur.format('ddd').toLowerCase())){
                 if(_.indexOf(blockDay, cur.format(format)) < 0){
                     rs++;
                 }
@@ -141,6 +144,7 @@ let Class = class extends Base{
 
         return rs;
     }
+
 
     getClassLessonDate(data, session){
         session = session || data.session;
@@ -154,7 +158,7 @@ let Class = class extends Base{
         }
 
         let day = this.getDBSchema().schema('schedule.day').allowedValues;
-        day = _.indexOf(day, data.schedule.day);
+        day = _.findIndex(data.schedule.days, day);
 
         let format = 'YYYYMMDD';
 
@@ -292,24 +296,53 @@ let Class = class extends Base{
             if(Meteor.isServer && item.teacherID){
                 item.teacher = m.AdminUser.getDB().findOne({_id : item.teacherID}).nickName;
             }
+            item.levels = _.map(item.levels, (id)=>{
+                return m.ClassLevel.getDB().findOne({_id:id});
+            });
 
             //nickName
-            let tn = item.program.name;
-            item.programName = tn;
-
-            tn += ' '+item.sessionName;
-
-            //if(item.level){
-            //    tn += ' '+item.level;
-            //}
-            tn += ' '+item.schedule.day+' '+item.schedule.time;
-
-            item.nickName = tn;
+            item.nickName = this.getClassNickName(item);
             return item;
 
         });
 
         return data;
+    }
+
+    getClassNickName(data){
+
+        let map = {};
+
+        let loop = (l)=>{
+            if(!l) return false;
+            let f = false;
+            if(!l.alias) return f;
+            let n = l.alias.split(' ');
+            if(n.length !== 2) return f;
+            if(!/^[1-9]$/.test(n[1])) return f;
+            if(map[n[0]] && map[n[0]].flag){
+                map[n[0]].value+='/'+n[1];
+            }
+            else{
+                map[n[0]]={flag : true, value : n[1]};
+            }
+
+            return true;
+        };
+
+        let x = '';
+        _.each(data.levels, (l)=> {
+            let n = loop(l);
+            if (!n && l) {
+                x += (l.alias||l.name) + '/';
+            }
+        });
+        console.log(map)
+        _.each(map, (v, k)=>{
+            x += (k+' '+v.value+' ');
+        });
+
+        return `${data.session.name} ${x} ${data.schedule.days?data.schedule.days.join(' '):''} ${data.schedule.time}`;
     }
 
     defineMeteorMethod(){
@@ -774,13 +807,12 @@ let Class = class extends Base{
 
                     item.session = m.Session.getDB().findOne({_id:item.sessionID});
                     item.program = m.Program.getDB().findOne({_id : item.programID});
+                    item.levels = _.map(item.levels, (id)=>{
+                        return m.ClassLevel.getDB().findOne({_id:id});
+                    });
 
 
-                    let tn = item.program.name;
-                    tn += ' '+item.session.name;
-                    tn += ' '+item.schedule.day+' '+item.schedule.time;
-
-                    item.nickName = tn;
+                    item.nickName = self.getClassNickName(item);
                     return item;
                 });
 
@@ -1013,6 +1045,11 @@ console.log(option)
                 option = KG.util.setDBOption(option);
                 console.log(query, option);
                 let dbName = 'EF-Class-By-Query';
+
+                if(query['schedule.day']){
+                    query['schedule.days'] = query['schedule.day'];
+                    delete query['schedule.day'];
+                }
 
                 let x = Meteor.subscribe(dbName, query, option);
                 if(!tmpDB){
