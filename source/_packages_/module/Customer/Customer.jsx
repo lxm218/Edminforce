@@ -243,7 +243,7 @@ KG.define('EF-Customer', class extends Base{
     }
 
     getRegistrationFee(){
-        return 25;
+        return 20;
     }
 
     defineMeteorMethod(){
