@@ -2,7 +2,7 @@
   // Server authentication info
   "servers": [
     {
-      "host": "ec2-184-72-196-200.compute-1.amazonaws.com",
+      "host": "ec2-184-72-198-103.compute-1.amazonaws.com",
       "username": "ubuntu",
       //"password": "password",
       // or pem file (ssh based authentication)
@@ -24,7 +24,7 @@
   "nodeVersion": "0.10.40",
 
   // Application name (no spaces).
-  "appName": "ClassForthAdminCalphin",
+  "appName": "ClassForthAdminCalphinStaging",
 
   // Location of app (local directory). This can reference '~' as the users home directory.
   // i.e., "app": "~/Meteor/my-app",
@@ -34,9 +34,9 @@
   // Configure environment
   // ROOT_URL must be set to your correct domain (https or http)
   "env": {
-    "MONGO_URL" : "mongodb://calphin:Icalphin123!@aws-us-east-1-portal.13.dblayer.com:10587/calphin?ssl=true",
+    "MONGO_URL" : "mongodb://calphin:Icalphin123!@aws-us-east-1-portal.12.dblayer.com:10048/calphin-stage?ssl=true",
     "PORT" : 80,
-    "ROOT_URL": "https://calphin-admin.classforth.com"
+    "ROOT_URL": "https://scalphin-admin.classforth.com"
   },
 
   "ssl":{

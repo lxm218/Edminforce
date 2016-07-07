@@ -90,10 +90,25 @@ deployAdminCalphin(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-calphin;
-    sudo mup setup;
-    sudo ${ADMIN_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${ADMIN_ENV} mupx deploy;
     cd ../;
     echo "link : https://calphin-admin.classforth.com/home";
+    echo "*************************************************";
+    echo "";
+
+}
+
+deployAdminCalphinStaging(){
+    echo "*************************************************";
+	 echo "---- start to deploy EF Admin Calphin Staging----";
+    . ./ENV.inc
+    echo ${ADMIN_ENV};
+    cd admin-calphin-staging;
+    sudo mupx setup;
+    sudo ${ADMIN_ENV} mupx deploy;
+    cd ../;
+    echo "link : https://scalphin-admin.classforth.com/home";
     echo "*************************************************";
     echo "";
 
@@ -131,9 +146,11 @@ case "$1" in
 	admin-production)
 		deployAdminProduction
 		;;
-	calphin)
+	calphin-production)
       deployAdminCalphin
-#deployMobileCalphin
+		;;
+	calphin-staging)
+      deployAdminCalphinStaging
 		;;
    all)
       deployAdminBase
