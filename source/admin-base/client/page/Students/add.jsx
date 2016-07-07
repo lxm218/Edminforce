@@ -1,5 +1,19 @@
 
-KUI.Student_comp_add = class extends RC.CSS{
+KUI.Student_comp_add = class extends KUI.Page{
+    constructor(p){
+        super(p);
+
+        this.m = KG.DataHelper.getDepModule();
+    }
+
+    getMeteorData(){
+
+        let x = Meteor.subscribe('EF-ClassLevel');
+
+        return {
+            ready : x.ready()
+        };
+    }
 
     render(){
 
@@ -21,6 +35,12 @@ KUI.Student_comp_add = class extends RC.CSS{
                 wrapperClassName : 'col-xs-4',
                 ref : 'birthday',
                 label : 'Birthday'
+            },
+            level : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-4',
+                ref : 'level',
+                label : 'Level'
             },
             status : {
                 labelClassName : 'col-xs-3',
@@ -55,8 +75,10 @@ KUI.Student_comp_add = class extends RC.CSS{
             }
         };
 
-        let op_status = KG.get('EF-Student').getDBSchema().schema('status').allowedValues,
-            op_gender = KG.get('EF-Student').getDBSchema().schema('profile.gender').allowedValues;
+        let op_status = this.m.Student.getDBSchema().schema('status').allowedValues,
+            op_gender = this.m.Student.getDBSchema().schema('profile.gender').allowedValues;
+
+        let op_level = this.m.ClassLevel.getDB().find().fetch();
 
         return (
             <form className="form-horizontal">
@@ -71,6 +93,14 @@ KUI.Student_comp_add = class extends RC.CSS{
                             }
                         </RB.Input>
                         <RB.Input type="text" {... p.birthday} />
+
+                        <RB.Input type="select" {... p.level}>
+                            {
+                                _.map(op_level, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.alias||item.name}</option>;
+                                })
+                            }
+                        </RB.Input>
 
                         <RB.Input type="select" {... p.status}>
                             {
@@ -106,6 +136,7 @@ KUI.Student_comp_add = class extends RC.CSS{
         let sd = {
             name : name.getValue(),
             status : status.getValue(),
+            level : this.refs.level.getValue(),
             profile : {
                 birthday : moment(birthday.getValue(), util.const.dateFormat).toDate(),
                 gender : gender.getValue(),
@@ -117,10 +148,15 @@ KUI.Student_comp_add = class extends RC.CSS{
         return sd;
     }
 
-    componentDidMount(){
-        super.componentDidMount();
+    runOnceAfterDataReady(){
         let {birthday} = this.getRefs();
         $(birthday.getInputDOMNode()).datepicker({});
+    }
+
+    componentDidUpdate(){
+        if(this.props['init-data']){
+            this.setDefaultValue(this.props['init-data']);
+        }
     }
 
     setDefaultValue(data){
@@ -133,6 +169,7 @@ console.log(data);
         $(birthday.getInputDOMNode()).datepicker('setDate', data.profile.birthday);
         status.getInputDOMNode().value = data.status;
         note.getInputDOMNode().value = data.profile.note || '';
+        this.refs.level.getInputDOMNode().value = data.level || '';
     }
 };
 

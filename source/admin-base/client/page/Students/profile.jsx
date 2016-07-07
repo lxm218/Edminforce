@@ -426,7 +426,7 @@ KUI.Student_profile = class extends KUI.Page{
 
         return (
             <RC.Div>
-                <KUI.Student_comp_add ref="form" />
+                <KUI.Student_comp_add init-data={this.data.profile} ref="form" />
                 <RC.Div style={sy.rd}>
 
                     <KUI.YesButton onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
@@ -478,9 +478,9 @@ KUI.Student_profile = class extends KUI.Page{
 
     setDefaultValue(){
 
-        let data = this.data.profile;
-        console.log(data);
-        this.refs.form.setDefaultValue(data);
+        //let data = this.data.profile;
+        //console.log(data);
+        //this.refs.form.setDefaultValue(data);
 
     }
 
