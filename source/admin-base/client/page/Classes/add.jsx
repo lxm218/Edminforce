@@ -275,7 +275,7 @@ KUI.Class_comp_add = class extends KUI.Page{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleDay',
-                label : 'Schedule',
+                label : 'Day',
                 disabled : edit,
                 multiple : true
             },
@@ -283,7 +283,7 @@ KUI.Class_comp_add = class extends KUI.Page{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleTime',
-                label : ' '
+                label : 'Time'
                 //disabled : edit
             },
             tuitionMoney : {
@@ -410,14 +410,14 @@ console.log(option)
 
                         <RB.Input type="text" {... p.makeupStudent} />
 
-                        <RB.Input type="select" {... p.lengthOfClass}>
+
+                        <RB.Input type="select" {... p.gender}>
                             {
-                                _.map(option.lengthOfClass, (item, index)=>{
+                                _.map(option.gender, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
-
 
 
                     </RB.Col>
@@ -450,13 +450,14 @@ console.log(option)
                         </RB.Input>
 
 
-                        <RB.Input type="select" {... p.gender}>
+                        <RB.Input type="select" {... p.lengthOfClass}>
                             {
-                                _.map(option.gender, (item, index)=>{
+                                _.map(option.lengthOfClass, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
+
 
                         <RB.Input type="text" {... p.maxAge} />
 

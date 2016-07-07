@@ -45,9 +45,10 @@ Schema.Student = {
     status : KG.schema.default({
         allowedValues : ['Active', 'Inactive']
     }),
-    skillLevel : KG.schema.default({
+
+    level : KG.schema.default({
         //TODO
-        //allowedValue : ['']
+        defaultValue : '',
         optional : true
     }),
 
