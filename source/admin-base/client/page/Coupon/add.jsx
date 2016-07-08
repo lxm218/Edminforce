@@ -83,6 +83,12 @@ KUI.Coupon_comp_add = class extends KUI.Page{
                 ref : 'validForNew',
                 onChange : function(){},
                 label : 'valid for new customers who haven\'t booked before'
+            },
+
+            orderType : {
+                ref : 'orderType',
+                onChange : function(){},
+                label : 'Valid for booking make-up only'
             }
 
         };
@@ -147,6 +153,9 @@ KUI.Coupon_comp_add = class extends KUI.Page{
                         <div style={sy.checkout} className="col-md-9 col-md-offset-3">
                             <RB.Input type="checkbox" {... p.validForNew} />
                         </div>
+                        <div style={sy.checkout} className="col-md-9 col-md-offset-3">
+                            <RB.Input type="checkbox" {... p.orderType} />
+                        </div>
 
                     </RB.Col>
                 </RB.Row>
@@ -170,7 +179,8 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             startDateJq : $(date).find('input').eq(0),
             endDateJq : $(date).find('input').eq(1),
 
-            validForNew : this.refs.validForNew
+            validForNew : this.refs.validForNew,
+            orderType : this.refs.orderType
         };
     }
 
@@ -188,7 +198,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             couponCode,
             discount, dis_unit, description, workover,
             forP, weekday, count, startDateJq, endDateJq,
-            validForNew
+            validForNew, orderType
 
             } = this.getRefs();
 
@@ -203,7 +213,8 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             startDate : moment(startDateJq.val(), util.const.dateFormat).toDate(),
             endDate : moment(endDateJq.val(), util.const.dateFormat).toDate(),
 
-            validForNoBooked : $(validForNew.getInputDOMNode()).prop('checked')
+            validForNoBooked : $(validForNew.getInputDOMNode()).prop('checked'),
+            orderType : util.getReactJQueryObject(orderType.getInputDOMNode()).prop('checked')?'makeup':''
         };
     }
 
@@ -213,7 +224,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             couponCode,
             discount, dis_unit, description, workover,
             forP, weekday, count, startDateJq, endDateJq,
-            validForNew
+            validForNew, orderType
 
             } = this.getRefs();
         let len = data.discount.length;
@@ -229,6 +240,9 @@ KUI.Coupon_comp_add = class extends KUI.Page{
         startDateJq.datepicker('setDate', data.startDate);
         endDateJq.datepicker('setDate', data.endDate);
         $(validForNew.getInputDOMNode()).prop('checked', data.validForNoBooked);
+
+        if(data.orderType && data.orderType === 'makeup')
+            util.getReactJQueryObject(orderType.getInputDOMNode()).prop('checked', true);
     }
 
     setDefaultValue(data){

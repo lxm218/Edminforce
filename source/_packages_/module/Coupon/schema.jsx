@@ -54,6 +54,11 @@ Schema.Coupon = {
         type : Boolean,
         defaultValue : false
     },
+    orderType : KG.schema.default({
+        optional : true,
+        defaultValue : '',
+        allowedValues : ['makeup']
+    }),
 
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()

@@ -38,6 +38,7 @@ KUI.Coupon_Edit = class extends KUI.Page{
     }
 
     runOnceAfterDataReady(){
+        console.log(this.data.data);
         this.refs.form.setDefaultValue(this.data.data);
     }
 
