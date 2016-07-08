@@ -17,7 +17,7 @@ EdminForce.Components.Home = ({actions}) => (
                 <RC.Button bgColor="brand2" bgColorHover="dark" onClick={actions.goToAccount}>My Account</RC.Button>
             </RC.Item>
             <RC.Item style={{border: "none", padding: 0}}>
-                <RC.Button bgColor="brand2" bgColorHover="dark" onClick={actions.goToStudents}>My Students</RC.Button>
+                <RC.Button bgColor="brand2" bgColorHover="dark" onClick={actions.goToStudents}>Booking Records</RC.Button>
             </RC.Item>
         </RC.List>
 
