@@ -63,6 +63,22 @@ EdminForce.utils.parseLessonDate = function(lessons) {
     })
 }
 
+// In-place sort lessons (trial &makeup) by week day + time.
+EdminForce.utils.sortLessonsByWeekDay = function(lessons) {
+    if (!lessons || lessons.length <2 ) return;
+    lessons.sort( (a, b) => {
+        let aDay = a.lessonDate.getDay();
+        let bDay = b.lessonDate.getDay();
+        if (aDay == bDay) {
+            return a.lessonDate.getTime() - b.lessonDate.getTime();
+        }
+
+        aDay = aDay == 0 ? 7 : aDay;
+        bDay = bDay == 0 ? 7 : bDay;
+        return  aDay - bDay;
+    });
+}
+
 EdminForce.utils.getDocumentFromCache = function(documentName, id, cache) {
     let doc = lodash.find(cache, {_id:id});
     if (!doc) {

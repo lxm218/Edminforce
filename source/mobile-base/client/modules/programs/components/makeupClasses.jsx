@@ -59,6 +59,9 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
             //     )
         }
 
+        // sort lessons by week day + lesson date
+        EdminForce.utils.sortLessonsByWeekDay(lesseonsFilteredByDay);
+
         let lessons = lesseonsFilteredByDay.map(function (item, index) {
             let style = this.state.selectedLesson == item ? {
                 backgroundColor: "#e0e0e0"

@@ -67,7 +67,7 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
         // only show session part if there are regular classes
         if (!makeupOnly) {
             let s = sessionClasses[0].session;
-            let sessionDateRange = s.name + ' ' + moment(s.startDate).tz(EdminForce.Settings.timeZone).format("MMM D") + " - " + moment(s.endtDate).tz(EdminForce.Settings.timeZone).format("MMM D");
+            let sessionDateRange = s.name + ' ' + moment(s.startDate).tz(EdminForce.Settings.timeZone).format("MMM D") + " - " + moment(s.endDate).tz(EdminForce.Settings.timeZone).format("MMM D");
             let sessionHtml = tSession.template.replace('{sessionDateRange}', sessionDateRange);
             emailBody += sessionHtml;
         }
