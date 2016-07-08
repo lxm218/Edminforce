@@ -313,6 +313,7 @@ KUI.Setting_addAccount = class extends RC.CSS{
         console.log(data);
 
         KG.get('EF-AdminUser').insert(data, function(rs){
+            console.log(rs);
             KG.result.handle(rs, {
                 success : function(){
                     util.toast.alert('Insert Success');

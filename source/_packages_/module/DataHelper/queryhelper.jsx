@@ -5,6 +5,7 @@ KG.define('EF-DataHelper', class extends Base{
 
     getDepModule(){
         return {
+            Account : KG.get('Account'),
             ClassStudent : KG.get('EF-ClassStudent'),
             Class : KG.get('EF-Class'),
             Student : KG.get('EF-Student'),
