@@ -28,27 +28,17 @@ let TIME = [
 
 KUI.Class_comp_add = class extends KUI.Page{
 
-    constructor(p){
-        super(p);
-        this.m = KG.DataHelper.getDepModule();
-
-        this.C = {
-            Program : util.getModuleName('Program'),
-            Session : util.getModuleName('Session'),
-            AdminUser : util.getModuleName('AdminUser'),
-            ClassLevel : util.getModuleName('ClassLevel')
-        };
-    }
-
     getProgramData(){
 
-        return this.m.Program.getDB().find({}, {sort:{
+        let m = KG.get('EF-Program');
+        return m.getDB().find({}, {sort:{
             createTime : -1
         }}).fetch();
     }
     getSessionData(){
 
-        return this.m.Session.getDB().find({}, {
+        let m = KG.get('EF-Session');
+        return m.getDB().find({}, {
             sort : {
                 updateTime : -1
             }
@@ -56,31 +46,27 @@ KUI.Class_comp_add = class extends KUI.Page{
     }
 
     getMeteorData(){
-
-
-        let x1 = Meteor.subscribe(this.C.Program),
-            x2 = Meteor.subscribe(this.C.Session, {
+        let x1 = Meteor.subscribe('EF-Program'),
+            x2 = Meteor.subscribe('EF-Session', {
                 query : {
                     registrationStatus : 'Yes'
                 }
             });
 
-        let x3 = Meteor.subscribe(this.C.AdminUser, {
+        let x3 = Meteor.subscribe('EF-AdminUser', {
             query : {
                 role : 'teacher',
                 status : 'active'
             }
         });
 
-        let x4 = Meteor.subscribe(this.C.ClassLevel);
-
+        console.log(x2.ready(), x3.ready(), x1.ready());
 
         return {
-            ready : x1.ready() && x2.ready() && x3.ready() && x4.ready,
+            ready : x1.ready() && x2.ready() && x3.ready(),
             program : this.getProgramData(),
             session : this.getSessionData(),
-            teacherList : this.m.AdminUser.getDB().find({status : 'active'}).fetch(),
-            classLevelList : this.m.ClassLevel.getDB().find({}).fetch()
+            teacherList : KG.get('EF-AdminUser').getDB().find({status : 'active'}).fetch()
         };
     }
 
@@ -127,7 +113,7 @@ KUI.Class_comp_add = class extends KUI.Page{
             length : len.getValue(),
             maxAgeRequire : maxAge.getValue(),
             minAgeRequire : minAge.getValue(),
-            levels : level.getValue(),
+            level : level.getValue(),
             genderRequire : gender.getValue(),
             trialStudent : trial.getValue(),
             minStudent : min.getValue(),
@@ -138,14 +124,14 @@ KUI.Class_comp_add = class extends KUI.Page{
                 money : tuitionMoney.getValue()
             },
             schedule : {
-                days : scheduleDay.getValue(),
+                day : scheduleDay.getValue(),
                 time : scheduleTime.getValue()
             },
             makeupClassFee : makeupFee.getValue()
         };
 
-        let stmp = this.m.Session.getDB().findOne({_id : data.sessionID});
-        data.numberOfClass = this.m.Class.calculateNumberOfClass(data, stmp);
+        let stmp = KG.get('EF-Session').getDB().findOne({_id : data.sessionID});
+        data.numberOfClass = KG.get('EF-Class').calculateNumberOfClass(data, stmp);
 
         let tmp = _.find(this.data.teacherList, (t)=>{
             return t.nickName === data.teacher;
@@ -172,16 +158,14 @@ KUI.Class_comp_add = class extends KUI.Page{
         len.getInputDOMNode().value = opt.lengthOfClass[0];
         maxAge.getInputDOMNode().value = '';
         minAge.getInputDOMNode().value = '';
-
-        util.getReactJQueryObject(level.getInputDOMNode()).val('');
-
+        level.getInputDOMNode().value = opt.level[0];
         gender.getInputDOMNode().value = opt.gender[0];
         trial.getInputDOMNode().value = '';
         min.getInputDOMNode().value = '';
         max.getInputDOMNode().value = '';
         tuitionMoney.getInputDOMNode().value = '';
         tuitionType.getInputDOMNode().value = opt.tuitionType[0];
-        util.getReactJQueryObject(scheduleDay.getInputDOMNode()).val(opt.scheduleDay[0]);
+        scheduleDay.getInputDOMNode().value = opt.scheduleDay[0];
         scheduleTime.getInputDOMNode().value = opt.scheduleTime[0];
         makeup.getInputDOMNode().value = '';
         makeupFee.getInputDOMNode().value = '';
@@ -196,7 +180,7 @@ KUI.Class_comp_add = class extends KUI.Page{
             scheduleDay : KG.get('EF-Class').getDBSchema().schema('schedule.day').allowedValues,
             scheduleTime : TIME,
             tuitionType : KG.get('EF-Class').getDBSchema().schema('tuition.type').allowedValues,
-            level : this.data.classLevelList,
+            level : [], //KG.get('EF-Class').getDBSchema().schema('level').allowedValues,
             gender : KG.get('EF-Class').getDBSchema().schema('genderRequire').allowedValues,
             teacher : this.data.teacherList
         };
@@ -278,15 +262,14 @@ KUI.Class_comp_add = class extends KUI.Page{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleDay',
-                label : 'Day',
-                disabled : edit,
-                multiple : true
+                label : 'Schedule',
+                disabled : edit
             },
             scheduleTime : {
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'scheduleTime',
-                label : 'Time'
+                label : ' '
                 //disabled : edit
             },
             tuitionMoney : {
@@ -306,8 +289,7 @@ KUI.Class_comp_add = class extends KUI.Page{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'level',
-                label : 'Level',
-                multiple : true
+                label : 'Level'
             },
 
             minStudent : {
@@ -350,7 +332,7 @@ KUI.Class_comp_add = class extends KUI.Page{
         };
 
         let option = this.getSelectOption();
-console.log(option)
+        console.log(option)
         let dis = {
             display : (edit ? 'none' : 'block')
         };
@@ -386,15 +368,15 @@ console.log(option)
                                 })
                             }
                         </RB.Input>
-                        <RB.Input type="select" {... p.scheduleTime}>
+
+
+                        <RB.Input type="select" {... p.lengthOfClass}>
                             {
-                                _.map(option.scheduleTime, (item, index)=>{
+                                _.map(option.lengthOfClass, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
-
-
 
                         {false ? <RB.Input type="text" {... p.numberOfClass} /> : ''}
 
@@ -405,15 +387,6 @@ console.log(option)
                         <RB.Input type="text" {... p.tuitionMoney} />
 
 
-
-
-                        <RB.Input type="text" {... p.minStudent} />
-
-                        <RB.Input type="text" {... p.trialStudent} />
-
-                        <RB.Input type="text" {... p.makeupStudent} />
-
-
                         <RB.Input type="select" {... p.gender}>
                             {
                                 _.map(option.gender, (item, index)=>{
@@ -422,6 +395,11 @@ console.log(option)
                             }
                         </RB.Input>
 
+                        <RB.Input type="text" {... p.minStudent} />
+
+                        <RB.Input type="text" {... p.trialStudent} />
+
+                        <RB.Input type="text" {... p.makeupStudent} />
 
                     </RB.Col>
 
@@ -444,24 +422,21 @@ console.log(option)
                             }
                         </RB.Input>
 
-                        <RB.Input type="select" {... p.level}>
-                            {
-                                _.map(option.level, (item, index)=>{
-                                    return <option key={index} value={item._id}>{item.name}</option>;
-                                })
-                            }
-                        </RB.Input>
 
-
-                        <RB.Input type="select" {... p.lengthOfClass}>
+                        <RB.Input type="select" {... p.scheduleTime}>
                             {
-                                _.map(option.lengthOfClass, (item, index)=>{
+                                _.map(option.scheduleTime, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
-
-
+                        <RB.Input type="select" {... p.level}>
+                            {
+                                _.map(option.level, (item, index)=>{
+                                    return <option key={index} value={item}>{item}</option>;
+                                })
+                            }
+                        </RB.Input>
                         <RB.Input type="text" {... p.maxAge} />
 
 
@@ -473,6 +448,7 @@ console.log(option)
                             }
                         </RB.Input>
 
+                        <div style={{height:'50px'}}></div>
                         <RB.Input type="text" {... p.maxStudent} />
 
                         <div style={{height:'50px'}}></div>
@@ -503,29 +479,23 @@ console.log(option)
         //number.getInputDOMNode().value = data.numberOfClass;
         maxAge.getInputDOMNode().value = data.maxAgeRequire || 0;
         minAge.getInputDOMNode().value = data.minAgeRequire || 0;
-
-        util.getReactJQueryObject(level.getInputDOMNode()).val(data.levels);
-
+        level.getInputDOMNode().value = data.level;
         gender.getInputDOMNode().value = data.genderRequire;
         trial.getInputDOMNode().value = data.trialStudent || '';
         min.getInputDOMNode().value = data.minStudent || '';
         max.getInputDOMNode().value = data.maxStudent || '';
         tuitionMoney.getInputDOMNode().value = data.tuition.money || '';
         tuitionType.getInputDOMNode().value = data.tuition.type;
-        util.getReactJQueryObject(scheduleDay.getInputDOMNode()).val(data.schedule.days);
+        scheduleDay.getInputDOMNode().value = data.schedule.day;
         scheduleTime.getInputDOMNode().value = data.schedule.time.replace(/ /g, '').toUpperCase();
         makeup.getInputDOMNode().value = data.makeupStudent || '';
         makeupFee.getInputDOMNode().value = data.makeupClassFee;
     }
 
     runOnceAfterDataReady(){
-console.log(this.props['init-data'])
-        if(this.props['init-data']){
+        console.log(this.props['init-data'])
+        if(this.props['init-data'])
             this.setValue(this.props['init-data']);
-        }
-        else{
-            this.reset();
-        }
     }
 };
 
