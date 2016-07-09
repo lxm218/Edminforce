@@ -158,7 +158,10 @@ let Class = class extends Base{
         }
 
         let day = this.getDBSchema().schema('schedule.day').allowedValues;
-        day = _.findIndex(data.schedule.days, day);
+        //day = _.findIndex(data.schedule.days, day);
+        day = _.map(data.schedule.days, (d)=>{
+            return _.indexOf(day, d);
+        });
 
         let format = 'YYYYMMDD';
 
@@ -170,7 +173,7 @@ let Class = class extends Base{
         });
 
         while(end.isAfter(cur, 'day')){
-            if(cur.day() === day){
+            if(_.contains(day, cur.day())){
                 if(_.indexOf(blockDay, cur.format(format)) < 0){
 
                     //clone a date object
