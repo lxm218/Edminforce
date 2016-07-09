@@ -51,10 +51,13 @@ function getStudentstWithClasses(userId, studentID, studentClassID) {
                 studentClass.class.shortName = EdminForce.utils.getShortClassName(studentClass.session.name, studentClass.class);
 
                 if (!studentClassID || studentClassID == studentClass._id) {
-                    if (moment(studentClass.session.endDate).isBefore(today, 'd'))
-                        student.completedClasses.push(studentClass)
-                    else
+                    if (moment(studentClass.session.endDate).isBefore(today, 'd')) {
+                        // for completed class, only return regular classes, exclude trial & makeup
+                        studentClass.type == 'register' && student.completedClasses.push(studentClass)
+                    }
+                    else {
                         student.currentClasses.push(studentClass);
+                    }
                 }
             }
         });

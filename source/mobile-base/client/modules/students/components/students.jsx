@@ -27,7 +27,7 @@ const StudentClassTable = (props) => (
     <Table selectable={false}>
         <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
             <TableRow>
-                <TableHeaderColumn>Category</TableHeaderColumn>
+                <TableHeaderColumn>{props.categoryHeader}</TableHeaderColumn>
                 <TableHeaderColumn>Class</TableHeaderColumn>
             </TableRow>
         </TableHeader>
@@ -149,10 +149,10 @@ EdminForce.Components.Students = class extends RC.CSS {
                                onChange={this.onStudentChanged}/>
                     <Tabs>
                         <Tab key="current" label="Current or upcoming classes" value="current">
-                            <StudentClassTable categories={currentClassesByCategory} student={this.state.selectedStudent}></StudentClassTable>
+                            <StudentClassTable categoryHeader="Category/session" categories={currentClassesByCategory} student={this.state.selectedStudent}></StudentClassTable>
                         </Tab>
                         <Tab key="history" label="History classes" value="history">
-                            <StudentClassTable categories={historyClassesByCategory} student={this.state.selectedStudent}></StudentClassTable>
+                            <StudentClassTable categoryHeader="Session" categories={historyClassesByCategory} student={this.state.selectedStudent}></StudentClassTable>
                         </Tab>
                     </Tabs>
             </RC.Div>

@@ -77,9 +77,7 @@ EdminForce.Components.Account = class extends RC.CSS {
         return (
             <RC.Div>
                 <RC.VerticalAlign center={true} className="padding" height="300px">
-                    <h1>
-                    Account Settings
-                    </h1>
+                    <h1>My Account</h1>
                 </RC.VerticalAlign>
 
                 {EdminForce.utils.renderError(this.props.error)}
