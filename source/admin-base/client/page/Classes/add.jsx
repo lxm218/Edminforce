@@ -65,7 +65,8 @@ KUI.Class_comp_add = class extends KUI.Page{
 
         let x3 = Meteor.subscribe(this.C.AdminUser, {
             query : {
-                role : 'teacher'
+                role : 'teacher',
+                status : 'active'
             }
         });
 
@@ -76,7 +77,7 @@ KUI.Class_comp_add = class extends KUI.Page{
             ready : x1.ready() && x2.ready() && x3.ready() && x4.ready,
             program : this.getProgramData(),
             session : this.getSessionData(),
-            teacherList : this.m.AdminUser.getDB().find().fetch(),
+            teacherList : this.m.AdminUser.getDB().find({status : 'active'}).fetch(),
             classLevelList : this.m.ClassLevel.getDB().find({}).fetch()
         };
     }
