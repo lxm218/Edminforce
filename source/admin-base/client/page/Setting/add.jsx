@@ -33,6 +33,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
             schoolName : this.refs.schoolName,
             schoolEmail : this.refs.schoolEmail,
             schoolPhone : this.refs.schoolPhone,
+            schoolDomain : this.refs.schoolDomain,
             schoolAddress : this.refs.schoolAddress,
             schoolCity : this.refs.schoolCity,
             schoolState : this.refs.schoolState,
@@ -95,6 +96,12 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 wrapperClassName : 'col-xs-10',
                 ref : 'schoolEmail',
                 label : 'School Email'
+            },
+            s_domain : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-10',
+                ref : 'schoolDomain',
+                label : 'School Domain'
             },
             s_phone : {
                 labelClassName : 'col-xs-2',
@@ -163,6 +170,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
 
                         <RB.Input type="text" {... p.s_name} />
                         <RB.Input type="text" {... p.s_email} />
+                        <RB.Input type="text" {... p.s_domain} />
                         <RB.Input type="text" {... p.s_phone} />
 
                         <RB.Input {... p.s_address}>
@@ -218,7 +226,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 address : schoolAddress.value,
                 city : schoolCity.value,
                 state : schoolState.value,
-                zipcode : schoolZip.value
+                zipcode : schoolZip.value,
+                domain : this.refs.schoolDomain.getValue()
             }
         };
 
@@ -237,7 +246,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
     setDefaultValue(data){
         let {
             name, email, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
-            schoolAddress, schoolCity, schoolState, schoolZip, timezone
+            schoolAddress, schoolCity, schoolState, schoolZip, timezone, schoolDomain
             } = this.getRefs();
         name.getInputDOMNode().value = data.nickName;
         email.getInputDOMNode().value = data.email || '';
@@ -251,13 +260,14 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolCity.value = data.school.city || '';
         schoolState.value = data.school.state || '';
         schoolZip.value = data.school.zipcode || '';
+        schoolDomain.getInputDOMNode().value = data.school.domain || '';
 
         util.getReactJQueryObject(timezone).find('select').val(data.school.timezoneString);
     }
     reset(){
         let {
             name, email, pwd, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
-            schoolAddress, schoolCity, schoolState, schoolZip
+            schoolAddress, schoolCity, schoolState, schoolZip, schoolDomain
             } = this.getRefs();
         name.getInputDOMNode().value = '';
         email.getInputDOMNode().value = '';
@@ -272,6 +282,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolCity.value = '';
         schoolState.value = '';
         schoolZip.value = '';
+        schoolDomain.getInputDOMNode().value = '';
     }
 
     componentDidMount(){

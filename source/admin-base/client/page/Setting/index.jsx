@@ -65,6 +65,7 @@ KUI.Setting_index = class extends KUI.Page{
             {title : 'Phone', key : 'phone'},
             {title : 'School Name', key : function(data){return school.name;}},
             {title : 'School Email', key : function(data){return school.email;}},
+            {title : 'School Domain', key : function(data){return school.domain;}},
             {title : 'School Phone', key : function(data){return school.phone;}},
             {title : 'School Address', key : function(data){return school.allAddress;}},
             {title : 'School Timezone', key : function(data){return school.timezoneString||''}}
