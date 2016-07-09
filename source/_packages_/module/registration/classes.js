@@ -309,6 +309,14 @@ function applyCoupon(userId, couponId, cart) {
     // $ or %
     let couponType = result[2];
 
+    // if coupon is for makeup only, check if there are any makeup classes
+    if (coupon.orderType == 'makeup') {
+        let makeupExists = _.find(cart.students, s =>  _.find(s.classes, c => c.type == 'makeup'));
+        if (!makeupExists) {
+            cart.couponMsg = 'The coupon is only valid for make up class';
+            return;
+        }
+    }
 
     // check coupon time
     coupon.startDate = coupon.startDate || new Date(1900,1,1);
@@ -364,8 +372,13 @@ function applyCoupon(userId, couponId, cart) {
     cart.students.forEach( (student) => {
         student.classes.forEach( (classData) => {
             let valid = true;
+
+            // validate for makeup
+            if (coupon.orderType == 'makeup' && classData.type != 'makeup') {
+                valid = false;
+            }
             // validate class program
-            if (!forAllPrograms) {
+            if (valid && !forAllPrograms) {
                 if (coupon.useFor.indexOf(classData.programID)<0)
                     valid = false;
             }
@@ -375,14 +388,12 @@ function applyCoupon(userId, couponId, cart) {
                 if (coupon.weekdayRequire.indexOf(classData.schedule.day.toLowerCase()) < 0)
                     valid = false;
             }
-
             if (valid) {
                 cart.totalDiscountable += classData.classFee;
                 discountedClasses.push(classData);
             }
         })
     })
-
     // calculate discount amount for the entire order
     let discountAmount = 0;
     if (couponType == "$") {
@@ -416,6 +427,7 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
     let result = {
         // isNewCustomer
         // registrationFee
+        // numMakeups
         // couponMsg
         // appliedCouponId
         students:[],

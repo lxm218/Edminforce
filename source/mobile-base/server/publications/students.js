@@ -18,13 +18,8 @@ Meteor.publishComposite("StudentsWithClasses", function(studentID) {
                 // registered classes for each student (not started, in-session, or completed )
                 find (student) {
                     return Collections.classStudent.find({
+                        ...EdminForce.utils.registrationQuery,
                         studentID: student._id,
-                        type: {
-                            $in: ['register', 'trial', 'makeup']
-                        },
-                        status: {
-                            $in: ['checkouted']
-                        },
                         $or:[{lessonDate:{$exists:false}}, {lessonDate:{$gte:new Date()}}]
                     })
                 },
