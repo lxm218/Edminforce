@@ -56,6 +56,8 @@ KUI.Class_comp_add = class extends KUI.Page{
     }
 
     getMeteorData(){
+
+
         let x1 = Meteor.subscribe(this.C.Program),
             x2 = Meteor.subscribe(this.C.Session, {
                 query : {
