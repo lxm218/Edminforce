@@ -7,9 +7,10 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             loading:false,
             selectedDate: new Date()
         };
-        this.data = null;
+        this.data = {};
 
         this.onDateChange = this.onDateChange.bind(this);
+        this.onProgramChange = this.onProgramChange.bind(this);
         this.getDailyRoster = this.getDailyRoster.bind(this);
     }
 
@@ -39,6 +40,12 @@ KUI.Report_DailyRoster = class extends RC.CSS {
     onDateChange(e) {
         let  newDate = e.date;
         this.setState({selectedDate:newDate});
+    }
+
+    onProgramChange(e) {
+        this.setState({
+            selectedProgram: e.target.value
+        })
     }
 
     getDailyRoster() {
@@ -74,7 +81,11 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
             //this.data.date = moment(this.selectedDate);
             // group by programs
-            this.setState({loading:false, error: err && err.reason});
+            this.setState({
+                loading:false, 
+                error: err && err.reason,
+                selectedProgram: ''
+            });
         }).bind(this))
     }
 
@@ -94,8 +105,11 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.data.programs.forEach( (p) => {
             p.classes.forEach( (c) => {
                 c.classTime = moment(c.schedule.time, 'hh:mma');
-                if (hours.indexOf(c.classTime.hours()) < 0)
-                    hours.push(c.classTime.hours());
+                // filter by program
+                if (this.state.selectedProgram == '' || p._id == this.state.selectedProgram) {
+                    if (hours.indexOf(c.classTime.hours()) < 0)
+                        hours.push(c.classTime.hours());
+                }
             })
         });
         hours.sort((a,b) => (a-b));
@@ -217,6 +231,12 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 ref : 'selectedDate',
                 label : 'Date'
             },
+            program: {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'selectedProgram',
+                label : 'Program'
+            },
         };
 
         return (
@@ -230,6 +250,20 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         </RB.Col>
                         <RB.Col  md={6} mdOffset={0}>
                             <KUI.YesButton onClick={this.getDailyRoster} label="Show"></KUI.YesButton>
+                        </RB.Col>
+                    </div>
+                </RB.Row>
+                <RB.Row>
+                    <div className="form-horizontal">
+                        <RB.Col md={6} mdOffset={0}>
+                            <RB.Input type="select" {... p.program} value={this.state.selectedProgram} onChange={this.onProgramChange}>
+                                <option key={-1} value="">All</option>
+                                {
+                                    (this.data.programs || []).map((item, index)=>{
+                                        return <option key={index} value={item._id}>{item.name}</option>;
+                                    })
+                                }
+                            </RB.Input>
                         </RB.Col>
                     </div>
                 </RB.Row>
