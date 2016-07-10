@@ -43,7 +43,10 @@ Meteor.methods({
         // find all classes in this session
         let classes = KG.get('EF-Class').getDB().find({
             sessionID: result.session._id,
-            'schedule.days': weekDay
+            //'schedule.days': {$elemMatch: {$eq:weekDay}}
+            // use $or to search both schedule.day and schedule.days
+            // once all classes are updated to use schedule.days, we can remove the 'schedule.day' part
+            $or: [{'schedule.day':weekDay},{'schedule.days': {$elemMatch: {$eq:weekDay}}}]
         }, {
             fields: {
                 programID:1,

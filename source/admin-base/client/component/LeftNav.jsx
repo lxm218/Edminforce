@@ -8,7 +8,7 @@ let LIST = {
     'Emails' : '/email',
     'Reports' : '/report',
     'Calendar' : '/classCalendar',
-    'Daily Roster' : '/dailyroser',
+    'Daily Roster' : '/dailyroster',
     'Log' : '/requestlog'
 };
 

@@ -139,7 +139,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     if (!grp) {
                         grp={
                             id: levelName.toLowerCase(),
-                            name: levelName,
+                            name: levelName == '' ? 'Level N/A' : levelName,
                             order: levelOrder,
                             classes: []
                         }

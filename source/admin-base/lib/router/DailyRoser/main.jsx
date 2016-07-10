@@ -1,7 +1,7 @@
 if(Meteor.isClient){
 
 	let Route = FlowRouter.group({
-		prefix: '/dailyroser',
+		prefix: '/dailyroster',
 		triggersEnter: [function (context) {
 
 		}],
