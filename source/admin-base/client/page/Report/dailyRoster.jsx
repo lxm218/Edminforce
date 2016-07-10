@@ -102,6 +102,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         // group classes in each program by starting hour
         let hours = [];
+        let levels = [];
         this.data.programs.forEach( (p) => {
             p.classes.forEach( (c) => {
                 c.classTime = moment(c.schedule.time, 'hh:mma');
@@ -114,31 +115,72 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         });
         hours.sort((a,b) => (a-b));
 
+        let classGroups = [];
+        if (this.state.selectedProgram != '') {
+            // filter class by program, group classes by level, show one level in each column
+            let program = _.find(this.data.programs, {_id:this.state.selectedProgram});
+            if (program) {
+                program.classes.forEach( (c) => {
+                    let levelName = '', levelOrder = -1;
+                    if (c.levels && c.levels.length > 0) {
+                        let level = _.find(this.data.levels, {_id: c.levels[0]});
+                        if (level) {
+                            levelName = level.name;
+                            // remove the sub level number.
+                            let idxSpace = levelName.lastIndexOf(' ');
+                            if (idxSpace > 0) {
+                                levelName = levelName.substring(0, idxSpace).trim();
+                            }
+                            levelOrder = level.order;
+                        }
+                    }
+
+                    let grp = _.find(classGroups, {id: levelName.toLowerCase()});
+                    if (!grp) {
+                        grp={
+                            id: levelName.toLowerCase(),
+                            name: levelName,
+                            order: levelOrder,
+                            classes: []
+                        }
+                        classGroups.push(grp);
+                    }
+                    grp.classes.push(c);
+                })
+
+                classGroups.sort( (a,b) => (a.order - b.order) );
+            }
+        }
+        else {
+            // show all classes, grouped by program, show one program in each column
+            classGroups = this.data.programs;
+        }
+
         // calculate column width, the first column is smaller, the rest of the columns are equally sized
-        let colWidth = Math.floor(100 / this.data.programs.length);
-        let timeColWidth = 100 - colWidth * this.data.programs.length;
-        while (timeColWidth + this.data.programs.length < colWidth - 1) {
+        let colWidth = Math.floor(100 / classGroups.length);
+        let timeColWidth = 100 - colWidth * classGroups.length;
+        while (timeColWidth + classGroups.length < colWidth - 1) {
             colWidth--;
-            timeColWidth+=this.data.programs.length;
+            timeColWidth+=classGroups.length;
         }
 
         // create table column width elements
-        let colWidthElements = new Array(this.data.programs.length);
+        let colWidthElements = [];
         colWidthElements.push(<col key="cw" width={timeColWidth + "%"} />);
-        this.data.programs.forEach( (p,index) => {
+        classGroups.forEach( (p,index) => {
             colWidthElements.push(<col key={"cw"+index} width={colWidth + "%"} />);
         })
 
         // create table rows
         let rows = [];
         // currentHour stores rows from each program for the current hour
-        let currentHour = new Array(this.data.programs.length);
+        let currentHour = new Array(classGroups.length);
         hours.forEach( (hour) => {
             // max number of rows in all program columns
             let maxRowCount = 0;
 
             // iterate through all programs, generate table columns for all classes in each program
-            this.data.programs.forEach( (p, index) => {
+            classGroups.forEach( (p, index) => {
                 // classes from each program, start in the current hour
                 let currentHourClasses = _.filter(p.classes, (c) => c.classTime.hours() == hour);
 
@@ -212,7 +254,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 <thead>
                     <tr>
                         <th></th>
-                        {this.data.programs.map( (p, idx) => (<th key={"h" + idx} style={titleStyles[idx % 2]}>{p.name}</th>) )}
+                        {classGroups.map( (p, idx) => (<th key={"h" + idx} style={titleStyles[idx % 2]}>{p.name}</th>) )}
                     </tr>
                     </thead>
                 <tbody>{rows}</tbody>
