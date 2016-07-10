@@ -24,34 +24,21 @@
 							</tbody>
 						</table>
 						<!--sessionEnd-->
-						<!--regular-->
-						<table border="0" cellpadding="0" cellspacing="0">
-							<tbody>
-							<tr>
-								<td style="font-size:1em;font-weight:bold;padding:5px 10px">Student</td>
-								<td style="font-size:1em;font-weight:bold;padding:5px 10px">Class</td>
-							</tr>
 
-							<!--student-->
+
+
+						<div>
+							<dt>Student</dt>
+							<dt>Class</dt>
 							{{each CSList as cs}}
-							<tr>
-								<td style="font-weight:normal;padding:5px;font-size:1em">{{cs.student.name}}</td>
-								<td style="font-size:1em;font-weight:bold;padding:10px;color:rgb(177,16,22);">{{cs.class.nickName}}</td>
-							</tr>
-							<tr>
-								<td colspan="2" style="border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgb(0,0,0);padding:5px 0px 0px"></td>
-							</tr>
+								<dd>
+									<p style="font-weight:normal;padding:5px;font-size:1em">{{cs.student.name}}</p>
+									<p style="font-size:1em;font-weight:bold;padding:10px;color:rgb(177,16,22);">{{cs.class.nickName}}</p>
+								</dd>
+
 							{{/each}}
-							<!--studentEnd-->
 
-
-							<tr>
-								<td style="font-size:0.9em;padding:5px 20px"><br></td>
-								<td style="font-size:0.9em;padding:5px 20px"><br></td>
-							</tr>
-							</tbody>
-						</table>
-						<!--regularEnd-->
+						</div>
 
 						<!--templateEnd-->
 						<div style="margin:10px 0px;border-bottom-style:dotted;border-bottom-width:1px;border-bottom-color:rgb(128,128,128)">
