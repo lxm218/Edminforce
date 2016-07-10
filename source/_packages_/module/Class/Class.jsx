@@ -986,7 +986,7 @@ let Class = class extends Base{
                 delete query.classID;
             }
             if(query.dayOfClass){
-                query['schedule.day'] = query.dayOfClass;
+                query['schedule.days'] = query.dayOfClass;
                 delete query.dayOfClass;
             }
 

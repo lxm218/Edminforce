@@ -5,10 +5,10 @@ let FilterBox = class extends KUI.Page{
 	getMeteorData(){
 		this.module = KG.DataHelper.getDepModule();
 
-		let x = Meteor.subscribe('EF-Program');
+		let x = Meteor.subscribe('EF-Session');
 		return {
 			ready : x.ready(),
-			programList : this.module.Program.getDB().find().fetch()
+			programList : this.module.Session.getDB().find().fetch()
 		};
 	}
 
@@ -21,7 +21,7 @@ let FilterBox = class extends KUI.Page{
 				labelClassName : 'col-xs-3',
 				wrapperClassName : 'col-xs-6',
 				ref : 'program',
-				label : 'Select Program'
+				label : 'Select Session'
 			},
 			date : {
 				labelClassName : 'col-xs-3',
@@ -63,7 +63,7 @@ let FilterBox = class extends KUI.Page{
 	search(){
 		let {program, week} = this.getRefs();
 		let query = {
-			programID : program.getValue(),
+			sessionID : program.getValue(),
 			dayOfClass : week.getValue()
 		};
 		console.log(query)

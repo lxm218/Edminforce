@@ -36,7 +36,7 @@ Meteor.methods({
         // find all classes in this session
         let classes = KG.get('EF-Class').getDB().find({
             sessionID: result.session._id,
-            'schedule.day': weekDay
+            'schedule.days': weekDay
         }, {
             fields: {
                 programID:1,
