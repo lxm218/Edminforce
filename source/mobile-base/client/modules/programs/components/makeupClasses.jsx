@@ -8,7 +8,6 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
         };
 
         this.onSelectDay = this.onSelectDay.bind(this);
-        this.makeupClass = this.makeupClass.bind(this);
     }
 
     onSelectDay(day) {
@@ -22,20 +21,12 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
     }
 
     onSelectLesson(classData) {
-        this.setState({
-            selectedLesson: classData
-        })
-    }
-
-    makeupClass() {
-        if (!this.state.selectedLesson) return;
-
         let path = FlowRouter.path('/makeupClassSummary', null, {
             studentID: this.props.studentID,
-            classID: this.state.selectedLesson._id,
+            classID: classData._id,
             studentName: this.props.studentName,
-            lessonDate: this.state.selectedLesson.lessonDate.getTime(),
-            makeupFee: this.state.selectedLesson.makeupClassFee
+            lessonDate: classData.lessonDate.getTime(),
+            makeupFee: classData.makeupClassFee
         })
         FlowRouter.go(path);
     }
@@ -104,11 +95,6 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
                                 <EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay}/>
                             </div>
                             { this.renderClasses() }
-                            <div style={{margin:"0 20px"}}>
-                                <RC.Button {... attributes} style={processButtonStyle} bgColor="brand2"
-                                                            bgColorHover="dark"
-                                                            onClick={this.makeupClass}>Continue</RC.Button>
-                            </div>
                         </div>
                     </div>
                 </RC.Div>
