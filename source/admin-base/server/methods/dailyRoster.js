@@ -3,7 +3,14 @@ Meteor.methods({
         let result = {
             //session
             //programs
+            //levels
         }
+
+        // get all levels
+        result.levels = KG.get('EF-ClassLevel').getDB().find({}, {fields: {
+            name:1,
+            order:1
+        }}).fetch();
 
         // get all programs
         let programs = KG.get('EF-Program').getDB().find({}).fetch();
