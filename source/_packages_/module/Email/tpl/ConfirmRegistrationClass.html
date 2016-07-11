@@ -28,12 +28,11 @@
 
 
 						<div>
-							<dt>Student</dt>
-							<dt>Class</dt>
+
 							{{each CSList as cs}}
 								<dd>
-									<p style="font-weight:normal;padding:5px;font-size:1em">{{cs.student.name}}</p>
-									<p style="font-size:1em;font-weight:bold;padding:10px;color:rgb(177,16,22);">{{cs.class.nickName}}</p>
+									<p style="font-weight:normal;font-size:1em">Student : {{cs.student.name}}</p>
+									<p style="font-size:1em;font-weight:bold;color:rgb(177,16,22);">Class : {{cs.class.nickName}}</p>
 								</dd>
 
 							{{/each}}
