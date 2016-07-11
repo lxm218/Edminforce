@@ -204,6 +204,10 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 				_id : csData.studentID
 			}
 		});
+		let xx = Meteor.subscribe(util.getModuleName('ClassLevel'));
+		if(!xx.ready()){
+			return {ready : false};
+		}
 		let cx = Meteor.subscribe('EF-Class', {
 			query : {
 				_id : csData.classID
