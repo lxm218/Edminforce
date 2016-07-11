@@ -848,6 +848,11 @@ let Class = class extends Base{
                 let student = m.Student.getDB().findOne({_id : opts.studentID}),
                     cls = m.Class.getDB().findOne({_id : opts.classID});
 
+                console.log(cls.levels, student.level);
+                if(!_.contains(cls.levels, student.level)){
+                    return KG.result.out(false, new Meteor.Error('error', 'student level isn\'t match class level'));
+                }
+
                 let data = {
                     accountID : student.accountID,
                     studentID : student._id,
