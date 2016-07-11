@@ -52,6 +52,8 @@ Meteor.methods({
                 programID:1,
                 sessionID: 1,
                 teacher: 1,
+                level:1,
+                levels:1,
                 schedule: 1
             }
         }).fetch();
