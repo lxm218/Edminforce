@@ -32,12 +32,12 @@ KUI.Student_index = class extends RC.CSSMeteorData{
                 }
             });
 
-
+        let x3 = Meteor.subscribe(util.getModuleName('ClassLevel'));
 
         let list = this.getStudentModule().getAll({});
 
         return {
-            ready : x1.ready() && x2.ready(),
+            ready : x1.ready() && x2.ready() && x3.ready(),
             list,
             count : x2.ready()?util.data.getMaxCount(x2):0
         };
@@ -82,8 +82,11 @@ KUI.Student_index = class extends RC.CSSMeteorData{
             },
             {
                 title : 'Level',
-                key : 'skillLevel',
-                style : {}
+                reactDom : function(doc){
+                    if(!doc.level) return '';
+                    let clo = self.m.ClassLevel.getDB().findOne({_id : doc.level});
+                    return clo.name;
+                }
             },
             {
                 title : 'Action',

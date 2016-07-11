@@ -417,8 +417,8 @@ KUI.Report_Finance = class extends KUI.Page{
 					if(doc.note && doc.note.note){
 						return doc.note.note || '';
 					}
-					//return doc.note || '';
-					return '';
+					return doc.note || '';
+					//return '';
 				}
 			}
 
