@@ -243,7 +243,7 @@ KG.define('EF-Customer', class extends Base{
     }
 
     getRegistrationFee(){
-        return 20;
+        return App.config.RegisterClass ? App.config.RegisterClass.fee : 20;
     }
 
     defineMeteorMethod(){
@@ -376,6 +376,20 @@ console.log(option);
                     count : m.Order.getDB().find(query).count(),
                     data : result
                 };
+            },
+
+            checkRegistrationFee : function(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let config = App.config.RegisterClass;
+
+                let list = opts.ClassStudentList;
+
+                let rs = {};
+                if(config.frequency === 'year'){
+                    //TODO
+                }
+
             }
         };
     }
