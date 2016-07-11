@@ -261,7 +261,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			},
 			{
 				title : 'Program',
-				key : 'programName'
+				key : 'program.name'
 			},
 			{
 				title : 'Session',
@@ -269,10 +269,12 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			},
 			{
 				title : 'Weekday',
-				key : 'schedule.day'
+				reactDom : function(doc){
+					return doc['schedule'].days.join(' ');
+				}
 			}
 		];
-
+console.log(this.data.classData);
 		return (
 			<KUI.Table
 				style={{}}

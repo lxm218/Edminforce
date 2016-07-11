@@ -82,7 +82,7 @@ KUI.Student_CancelClass = class extends KUI.Page{
 			},
 			{
 				title : 'Program',
-				key : 'programName'
+				key : 'program.name'
 			},
 			{
 				title : 'Session',
@@ -90,7 +90,9 @@ KUI.Student_CancelClass = class extends KUI.Page{
 			},
 			{
 				title : 'Weekday',
-				key : 'schedule.day'
+				reactDom : function(doc){
+					return doc['schedule'].days.join(' ');
+				}
 			}
 		];
 
