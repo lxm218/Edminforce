@@ -850,7 +850,7 @@ let Class = class extends Base{
 
                 console.log(cls.levels, student.level);
                 if(!_.contains(cls.levels, student.level)){
-                    return KG.result.out(false, new Meteor.Error('error', 'student level isn\'t match class level'));
+                    return KG.result.out(false, new Meteor.Error('error', 'student level doesn\'t match class level'));
                 }
 
                 let data = {
