@@ -5,6 +5,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         this.state = {
             loading:false,
+            selectedProgram: '',
+            programs: [],
             selectedDate: new Date()
         };
         this.data = {};
@@ -26,7 +28,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
     // set up date picker
     componentDidMount() {
         super.componentDidMount && super.componentDidMount();
-        this.setupDatePicker()
+        this.setupDatePicker();
+        Meteor.call('dailyRoster.getPrograms', (function(err,result){
+            result.unshift({_id:'',name:'All'});
+            this.setState({
+                programs:result
+            })
+        }).bind(this));
     }
     componentDidUpdate(prevProps, prevState) {
         super.componentDidUpdate && super.componentDidUpdate(prevProps, prevState);
@@ -89,6 +97,38 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }).bind(this))
     }
 
+    getClassLevelName(classData, levels) {
+        // to be compatible with single level
+        if (classData.level && (!classData.levels || !classData.levels.length)) {
+            classData.levels = [classData.level];
+        }
+
+        if (!classData.levels || !classData.levels.length)
+            return '';
+
+        let classLevels = _.filter(levels, (level) => classData.levels.indexOf(level._id)>=0);
+        classLevels.sort( (a,b) => (a.order - b.order));
+        let curAlias = '';
+        let classLevelName = ''
+        classLevels.forEach( (level) => {
+            let idx = level.alias.lastIndexOf(' ');
+            if (idx > 0) {
+                let subLevel = level.alias.substr(idx+1);
+                let alias = level.alias.substring(0,idx).trim();
+                if (alias != curAlias) {
+                    curAlias != '' && (classLevelName += ' ');
+                    classLevelName += alias + ' ';
+                    curAlias = alias;
+                }
+
+                classLevelName[classLevelName.length-1] != ' ' && (classLevelName += '/');
+                classLevelName += subLevel;
+            }
+        });
+
+        return classLevelName;
+    }
+
     // render daily roster as a HTML table
     renderRoster() {
         if (!this.data) return null;
@@ -102,7 +142,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         // group classes in each program by starting hour
         let hours = [];
-        let levels = [];
+        //let levels = [];
         this.data.programs.forEach( (p) => {
             p.classes.forEach( (c) => {
                 c.classTime = moment(c.schedule.time, 'hh:mma');
@@ -113,6 +153,11 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 }
             })
         });
+
+        if  (hours.length == 0) {
+            return (<div>No class available for the selected program</div>);
+        }
+
         hours.sort((a,b) => (a-b));
 
         let classGroups = [];
@@ -190,7 +235,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 if (currentHourClasses.length > 0) {
                     currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
                     currentHourClasses.forEach( (c) => {
-                        currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + c.teacher + " (" + c.students.length + ")"});
+                        let classLevelName = this.getClassLevelName(c, this.data.levels);
+                        classLevelName != '' && (classLevelName += ' ');
+                        currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + classLevelName + c.teacher + " (" + c.students.length + ")"});
                         currentHour[index].rows = [...currentHour[index].rows,...c.students];
                     })
                 }
@@ -299,9 +346,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     <div className="form-horizontal">
                         <RB.Col md={6} mdOffset={0}>
                             <RB.Input type="select" {... p.program} value={this.state.selectedProgram} onChange={this.onProgramChange}>
-                                <option key={-1} value="">All</option>
                                 {
-                                    (this.data.programs || []).map((item, index)=>{
+                                    (this.state.programs || []).map((item, index)=>{
                                         return <option key={index} value={item._id}>{item.name}</option>;
                                     })
                                 }

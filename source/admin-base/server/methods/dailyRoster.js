@@ -1,4 +1,9 @@
 Meteor.methods({
+    'dailyRoster.getPrograms': function() {
+        let programs = KG.get('EF-Program').getDB().find({}, {fields:{name:1}}).fetch();
+        return programs;
+    },
+
     'dailyRoster.getData': function (dateStr) {
         let result = {
             //session
@@ -9,6 +14,7 @@ Meteor.methods({
         // get all levels
         result.levels = KG.get('EF-ClassLevel').getDB().find({}, {fields: {
             name:1,
+            alias:1,
             order:1
         }}).fetch();
 
