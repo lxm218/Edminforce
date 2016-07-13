@@ -96,7 +96,7 @@ KUI.Teachers_index = class extends RC.CSS {
             // class name
             this.classes.forEach( (c) => {
                 let p = _.find(this.programs, {_id: c.programID});
-                p && (c.name = p.name + " " + c.schedule.day + " " + c.schedule.time);
+                p && (c.name = p.name + " " + c.schedule.days.join("/") + " " + c.schedule.time);
             })
 
             this.filterClassBySelectedTeacher(this.state.selectedTeacherIdx, this.state.selectedDate);
@@ -186,8 +186,8 @@ KUI.Teachers_index = class extends RC.CSS {
     // filter class by selected teacher
     filterClassBySelectedTeacher(teacherIdx, selectedDate) {
         let weekDay = moment(selectedDate).format('ddd');
-        let selectedTeacher = teacherIdx < this.teachers.length ? this.teachers[teacherIdx].nickName : '';
-        this.teacherClasses = _.filter(this.classes, (c) => c.teacher == selectedTeacher && c.schedule.day == weekDay);
+        let selectedTeacher = teacherIdx < this.teachers.length ? this.teachers[teacherIdx]._id: '';
+        this.teacherClasses = _.filter(this.classes, (c) => c.teacherID == selectedTeacher && c.schedule.days.indexOf(weekDay)>=0);
     }
 
     // change teacher
@@ -228,7 +228,7 @@ KUI.Teachers_index = class extends RC.CSS {
             // if not, we need to switch to a different class
             let currentClass = this.teacherClasses.length > this.state.selectedClassIdx? this.teacherClasses[this.state.selectedClassIdx] : null;
             let weekDay = moment(newDate).format('ddd');
-            if (!currentClass || weekDay.toLowerCase() != currentClass.schedule.day.toLowerCase() ||
+            if (!currentClass || currentClass.schedule.days.indexOf(weekDay)<0 ||
                     newDate < this.currentSession.startDate ||
                     newDate > moment(this.currentSession.endDate).endOf('d').toDate()) {
                 let classIdx = 0;

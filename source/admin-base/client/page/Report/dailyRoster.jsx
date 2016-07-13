@@ -9,7 +9,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             programs: [],
             selectedDate: new Date()
         };
-        this.data = {};
+        this.data = null;
 
         this.onDateChange = this.onDateChange.bind(this);
         this.onProgramChange = this.onProgramChange.bind(this);
