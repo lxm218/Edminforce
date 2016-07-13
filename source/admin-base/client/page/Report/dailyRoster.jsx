@@ -91,8 +91,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             // group by programs
             this.setState({
                 loading:false, 
-                error: err && err.reason,
-                selectedProgram: ''
+                error: err && err.reason
             });
         }).bind(this))
     }
