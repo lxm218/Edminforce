@@ -13,6 +13,13 @@ Meteor.methods({
         // all programs
         result.programs = KG.get('EF-Program').getDB().find({}).fetch();
 
+        // get all levels
+        result.levels = KG.get('EF-ClassLevel').getDB().find({}, {fields: {
+            name:1,
+            alias:1,
+            order:1
+        }}).fetch();
+
         // teachers. 
         // admin can view all teachers, teacher can only view herself/himself
         let currentUser = KG.get('EF-AdminUser').getDB().findOne({_id: this.userId}) || {};

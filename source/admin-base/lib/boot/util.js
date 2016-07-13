@@ -43,3 +43,36 @@ App.getNextClassLevel=function(level){
     return levels[nIndex]
 
 }
+
+// get class level name using level alias and sub level number
+App.getClassLevelName = function(classData, levels) {
+    // to be compatible with single level
+    if (classData.level && (!classData.levels || !classData.levels.length)) {
+        classData.levels = [classData.level];
+    }
+
+    if (!classData.levels || !classData.levels.length)
+        return '';
+
+    let classLevels = _.filter(levels, (level) => classData.levels.indexOf(level._id)>=0);
+    classLevels.sort( (a,b) => (a.order - b.order));
+    let curAlias = '';
+    let classLevelName = ''
+    classLevels.forEach( (level) => {
+        let idx = level.alias.lastIndexOf(' ');
+        if (idx > 0) {
+            let subLevel = level.alias.substr(idx+1);
+            let alias = level.alias.substring(0,idx).trim();
+            if (alias != curAlias) {
+                curAlias != '' && (classLevelName += ' ');
+                classLevelName += alias + ' ';
+                curAlias = alias;
+            }
+
+            classLevelName[classLevelName.length-1] != ' ' && (classLevelName += '/');
+            classLevelName += subLevel;
+        }
+    });
+
+    return classLevelName;
+}

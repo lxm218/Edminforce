@@ -96,38 +96,6 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }).bind(this))
     }
 
-    getClassLevelName(classData, levels) {
-        // to be compatible with single level
-        if (classData.level && (!classData.levels || !classData.levels.length)) {
-            classData.levels = [classData.level];
-        }
-
-        if (!classData.levels || !classData.levels.length)
-            return '';
-
-        let classLevels = _.filter(levels, (level) => classData.levels.indexOf(level._id)>=0);
-        classLevels.sort( (a,b) => (a.order - b.order));
-        let curAlias = '';
-        let classLevelName = ''
-        classLevels.forEach( (level) => {
-            let idx = level.alias.lastIndexOf(' ');
-            if (idx > 0) {
-                let subLevel = level.alias.substr(idx+1);
-                let alias = level.alias.substring(0,idx).trim();
-                if (alias != curAlias) {
-                    curAlias != '' && (classLevelName += ' ');
-                    classLevelName += alias + ' ';
-                    curAlias = alias;
-                }
-
-                classLevelName[classLevelName.length-1] != ' ' && (classLevelName += '/');
-                classLevelName += subLevel;
-            }
-        });
-
-        return classLevelName;
-    }
-
     // render daily roster as a HTML table
     renderRoster() {
         if (!this.data) return null;
@@ -234,7 +202,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 if (currentHourClasses.length > 0) {
                     currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
                     currentHourClasses.forEach( (c) => {
-                        let classLevelName = this.getClassLevelName(c, this.data.levels);
+                        let classLevelName = App.getClassLevelName(c, this.data.levels);
                         classLevelName != '' && (classLevelName += ' ');
                         currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + classLevelName + c.teacher + " (" + c.students.length + ")"});
                         currentHour[index].rows = [...currentHour[index].rows,...c.students];

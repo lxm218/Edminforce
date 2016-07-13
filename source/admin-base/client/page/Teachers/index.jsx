@@ -35,19 +35,22 @@ KUI.Teachers_index = class extends RC.CSS {
             selectedTeacherIdx:0,
             selectedClassIdx: 0,
             selectedDate: new Date(),
+            selectedProgramIdx : 0,
             dirtyCount: 0
         };
 
         this.onSelectClass = this.onSelectClass.bind(this);
         this.onSelectTeacher = this.onSelectTeacher.bind(this);
         this.onClassDateChange = this.onClassDateChange.bind(this);
-        this.filterClassBySelectedTeacher = this.filterClassBySelectedTeacher.bind(this);
+        this.onSelectProgram = this.onSelectProgram.bind(this);
+        this.filterClassAndLoadAttendance = this.filterClassAndLoadAttendance.bind(this);
         this.getStudents = this.getStudents.bind(this);
         this.onSave = this.onSave.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.markAllAsPresent = this.markAllAsPresent.bind(this);
         this.clearAttendance = this.clearAttendance.bind(this);
         this.dismissMessages = this.dismissMessages.bind(this);
+        this.promptSave = this.promptSave.bind(this);
 
         this.teachers = [];
         this.classes = [];
@@ -95,14 +98,10 @@ KUI.Teachers_index = class extends RC.CSS {
 
             // class name
             this.classes.forEach( (c) => {
-                let p = _.find(this.programs, {_id: c.programID});
-                p && (c.name = p.name + " " + c.schedule.days.join("/") + " " + c.schedule.time);
+                c.name = App.getClassLevelName(c, result.levels) + " " + c.schedule.days.join("/") + " " + c.schedule.time
             })
 
-            this.filterClassBySelectedTeacher(this.state.selectedTeacherIdx, this.state.selectedDate);
-            this.getStudents(this.state.selectedClassIdx, () => {
-                this.setState({loading:false});
-            });
+            this.filterClassAndLoadAttendance(this.state.selectedTeacherIdx, this.state.selectedDate, this.state.selectedProgramIdx);
         }).bind(this))
     }
 
@@ -156,10 +155,9 @@ KUI.Teachers_index = class extends RC.CSS {
         if (classIdx < this.teacherClasses.length)
             seletedClassID = this.teacherClasses[classIdx]._id;
 
-        if (seletedClassID) {
-            !this.state.loading && this.setState({loading:true});
-            // prompt user for unsaved changes
-            this.promptSave( (err,result) => {
+        this.promptSave( (err,result) => {
+            if (seletedClassID) {
+                !this.state.loading && this.setState({loading:true});
                 Meteor.call('attendance.getStudents', seletedClassID, (function(err,result){
                     this.completeStudents = result;
 
@@ -174,35 +172,69 @@ KUI.Teachers_index = class extends RC.CSS {
 
                     cb && cb();
                 }).bind(this))
-            })
-        }
-        else {
-            this.completeStudents = [];
-            this.students = [];
-            cb && cb();
-        }
+            }
+            else {
+                this.completeStudents = [];
+                this.students = [];
+                cb && cb();
+            }
+        });
+
+        // if (seletedClassID) {
+        //     !this.state.loading && this.setState({loading:true});
+        //     // prompt user for unsaved changes
+        //     this.promptSave( (err,result) => {
+        //         Meteor.call('attendance.getStudents', seletedClassID, (function(err,result){
+        //             this.completeStudents = result;
+        //
+        //             // save attendance, so we can restore in cancel
+        //             this.completeStudents.forEach( (s) => {
+        //                 s.attendance = s.attendance || {};
+        //                 s.savedAttendance = {...s.attendance};
+        //             });
+        //
+        //             // filter out trial/makeup students that are not on the selected date
+        //             this.filterTrialMakeupStudentsByDate(this.state.selectedDate);
+        //
+        //             cb && cb();
+        //         }).bind(this))
+        //     })
+        // }
+        // else {
+        //     this.completeStudents = [];
+        //     this.students = [];
+        //     cb && cb();
+        // }
     }
 
     // filter class by selected teacher
-    filterClassBySelectedTeacher(teacherIdx, selectedDate) {
+    filterClassAndLoadAttendance(teacherIdx, selectedDate, programIdx) {
         let weekDay = moment(selectedDate).format('ddd');
         let selectedTeacher = teacherIdx < this.teachers.length ? this.teachers[teacherIdx]._id: '';
-        this.teacherClasses = _.filter(this.classes, (c) => c.teacherID == selectedTeacher && c.schedule.days.indexOf(weekDay)>=0);
+        let programID = programIdx < this.programs.length ? this.programs[programIdx]._id: '';
+        this.teacherClasses = _.filter(this.classes, (c) => c.teacherID == selectedTeacher &&
+                                                                    c.schedule.days.indexOf(weekDay)>=0 &&
+                                                                    c.programID == programID);
+
+        let classIdx = this.teacherClasses.length < this.state.selectedClassIdx ? 0 : this.state.selectedClassIdx;
+        // get attendance records
+        this.getStudents(classIdx, () => {
+            this.setState({
+                selectedTeacherIdx:teacherIdx,
+                selectedProgramIdx: programIdx,
+                selectedClassIdx: classIdx,
+                selectedDate,
+                dirtyCount: 0,
+                loading:false
+            });
+        })
     }
 
     // change teacher
     onSelectTeacher(event) {
         let teacherIdx = event.target.selectedIndex;
         let classIdx = 0;
-        this.filterClassBySelectedTeacher(teacherIdx, this.state.selectedDate);
-        this.getStudents(classIdx, () => {
-            this.setState({
-                selectedTeacherIdx:teacherIdx,
-                selectedClassIdx: classIdx,
-                dirtyCount: 0,
-                loading:false
-            });
-        });
+        this.filterClassAndLoadAttendance(teacherIdx, this.state.selectedDate, this.state.selectedProgramIdx);
     }
 
     // change class
@@ -215,6 +247,10 @@ KUI.Teachers_index = class extends RC.CSS {
                 loading:false
             });
         });
+    }
+
+    onSelectProgram(e) {
+        this.filterClassAndLoadAttendance(this.state.selectedTeacherIdx, this.state.selectedDate, e.target.selectedIndex);
     }
 
     // change date
@@ -231,18 +267,13 @@ KUI.Teachers_index = class extends RC.CSS {
             if (!currentClass || currentClass.schedule.days.indexOf(weekDay)<0 ||
                     newDate < this.currentSession.startDate ||
                     newDate > moment(this.currentSession.endDate).endOf('d').toDate()) {
-                let classIdx = 0;
-                this.filterClassBySelectedTeacher(classIdx, newDate);
-                this.getStudents(classIdx, () => {
-                    this.setState({
-                        selectedDate: newDate,
-                        selectedClassIdx: classIdx,
-                        dirtyCount: 0,
-                        loading:false
-                    });
-                })
+
+                this.filterClassAndLoadAttendance(this.state.selectedTeacherIdx, newDate, this.state.selectedProgramIdx);
+
             }
             else {
+                // class is available on the new date
+                // we need to re-filter trial & make up
                 this.filterTrialMakeupStudentsByDate(newDate);
                 this.setState({
                     selectedDate: newDate
@@ -356,6 +387,13 @@ KUI.Teachers_index = class extends RC.CSS {
                 wrapperClassName : 'col-xs-8',
                 ref : 'class',
                 label : 'Class'
+            },
+
+            program : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'program',
+                label : 'Program'
             }
         };
 
@@ -428,6 +466,15 @@ KUI.Teachers_index = class extends RC.CSS {
                                     this.teachers.map( (t) => (<option key={'t'+t._id} value={t._id}>{t.nickName}</option>))
                                 }
                             </RB.Input>
+                            <RB.Input type="select" {... p.program} onChange={this.onSelectProgram} value={this.programs.length > this.state.selectedProgramIdx ? this.programs[this.state.selectedProgramIdx]._id : null}>
+                                {
+                                    this.programs.map( (t) => (<option key={'t'+t._id} value={t._id}>{t.name}</option>))
+                                }
+                            </RB.Input>
+                        </RB.Col>
+                        <RB.Col md={6} mdOffset={0}>
+                            <RB.Input type="text" {... p.classDate} value={moment(this.state.selectedDate).format("MM/DD/YYYY")}>
+                            </RB.Input>
                             {
                                 this.teacherClasses.length > 0 ?
                                     (
@@ -439,12 +486,8 @@ KUI.Teachers_index = class extends RC.CSS {
                                     ) :
                                     (
                                         <RB.Input type="text" readOnly {... p.class} value={"No class"}></RB.Input>
-                                )
+                                    )
                             }
-                        </RB.Col>
-                        <RB.Col md={6} mdOffset={0}>
-                            <RB.Input type="text" {... p.classDate} value={moment(this.state.selectedDate).format("MM/DD/YYYY")}>
-                            </RB.Input>
                         </RB.Col>
                     </div>
                 </RB.Row>
