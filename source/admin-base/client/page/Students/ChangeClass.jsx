@@ -6,9 +6,11 @@ let FilterBox = class extends KUI.Page{
 		this.module = KG.DataHelper.getDepModule();
 
 		let x = Meteor.subscribe('EF-Session');
+		let x1 = Meteor.subscribe(util.getModuleName('ClassLevel'));
 		return {
-			ready : x.ready(),
-			programList : this.module.Session.getDB().find().fetch()
+			ready : x.ready() && x1.ready(),
+			programList : this.module.Session.getDB().find().fetch(),
+			levelList : this.module.ClassLevel.getDB().find().fetch()
 		};
 	}
 
@@ -22,6 +24,12 @@ let FilterBox = class extends KUI.Page{
 				wrapperClassName : 'col-xs-6',
 				ref : 'program',
 				label : 'Select Session'
+			},
+			level : {
+				labelClassName : 'col-xs-3',
+				wrapperClassName : 'col-xs-6',
+				ref : 'level',
+				label : 'Select Level'
 			},
 			date : {
 				labelClassName : 'col-xs-3',
@@ -44,6 +52,14 @@ let FilterBox = class extends KUI.Page{
 								})
 							}
 						</RB.Input>
+						<RB.Input onChange={function(){}} type="select" {... p.level}>
+							<option key={-1} value="all">All</option>
+							{
+								_.map(this.data.levelList, (item, index)=>{
+									return <option key={index} value={item._id}>{item.name}</option>;
+								})
+							}
+						</RB.Input>
 						<RB.Input onChange={function(){}} type="select" {... p.date}>
 							{
 								_.map(week_option, (item, index)=>{
@@ -61,11 +77,16 @@ let FilterBox = class extends KUI.Page{
 		);
 	}
 	search(){
-		let {program, week} = this.getRefs();
+		let {program, week, level} = this.getRefs();
 		let query = {
 			sessionID : program.getValue(),
 			dayOfClass : week.getValue()
 		};
+
+		if(level.getValue() !== 'all'){
+			query.levels = level.getValue();
+		}
+
 		console.log(query)
 		util.message.publish(MSG, {
 			query : query
@@ -75,6 +96,7 @@ let FilterBox = class extends KUI.Page{
 	getRefs(){
 		return {
 			program : this.refs.program,
+			level : this.refs.level,
 			week : this.refs.week
 		};
 	}

@@ -127,8 +127,8 @@ KG.define('EF-Email', class extends Base{
                     session : ss,
                     CSList : CSList,
                     school : school,
-                    totalCost : (order.amount + order.discount).toFixed(2),
-                    grandTotal : order.amount.toFixed(2),
+                    totalCost : (order.amount + order.discount + order.schoolCredit).toFixed(2),
+                    grandTotal : (order.amount + order.schoolCredit).toFixed(2),
                     discount : order.discount.toFixed(2)
                 });
 
