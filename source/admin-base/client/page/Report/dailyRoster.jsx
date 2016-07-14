@@ -1,3 +1,8 @@
+/*
+ * Daily Roster
+ * Displays all classes, each with teacher name, level, and all students, for
+ * a selected day and selected program or all programs
+ */
 
 KUI.Report_DailyRoster = class extends RC.CSS {
     constructor(p) {
@@ -25,7 +30,6 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }
     }
 
-    // set up date picker
     componentDidMount() {
         super.componentDidMount && super.componentDidMount();
         this.setupDatePicker();
@@ -56,16 +60,19 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         })
     }
 
+    // Retrieve daily roster data from server.
+    // Response has all classes, for selected program and date, grouped by program
+    // each class has all students (regular and makeup/trial)
     getDailyRoster() {
         this.setState({loading:true});
         Meteor.call('dailyRoster.getData', moment(this.state.selectedDate).format("YYYYMMDD"),(function(err,result){
             this.data = result;
             
-            // sort student names alphabetically, move trial & makeup to the end
+            // sort program by display order, sort student names alphabetically, move trial & makeup to the end
             if (this.data.programs && this.data.programs.length > 0) {
                 // sort programs by order
                 this.data.programs.sort((a,b) => (a.displayOrder > b.displayOrder));
-
+                // sort students in each class, each program
                 this.data.programs.forEach( (p) => {
                     p.classes.forEach( (c) => {
                         if (!c.students || c.students.length == 0) return;
@@ -87,8 +94,6 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 });
             }
 
-            //this.data.date = moment(this.selectedDate);
-            // group by programs
             this.setState({
                 loading:false, 
                 error: err && err.reason
@@ -96,7 +101,12 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }).bind(this))
     }
 
-    // render daily roster as a HTML table
+    // Renders daily roster as a HTML table
+    // Vertically, classes are grouped by hour, such as 9:00 AM - 10:00AM, 10:00AM - 11:00 AM, etc.
+    // Horizontally, each column is a major class level, when filtered by a program, or a program
+    // when "All" is selected in program filter.
+    // If a class has students from multiple major levels, these major level table cells are merged in
+    // a wider column.
     renderRoster() {
         if (!this.data) return null;
         if (!this.data.programs || !this.data.programs.length)
@@ -104,12 +114,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         if (this.state.error)
             return (<div>{this.state.error}</div>);
 
+        // color palette for columns and class title
         let programTitleColor = "#1AB394";
         let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];
 
-        // group classes in each program by starting hour
+        // find out how many "hours" all classes have, each hour is represented as an integer number
+        // in 24 hour format, such as 1 for 1:00AM, 13 for 1:00PM, etc.
         let hours = [];
-        //let levels = [];
         this.data.programs.forEach( (p) => {
             p.classes.forEach( (c) => {
                 c.classTime = moment(c.schedule.time, 'hh:mma');
@@ -124,42 +135,69 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         if  (hours.length == 0) {
             return (<div>No class available for the selected program</div>);
         }
-
+        // sort hours
         hours.sort((a,b) => (a-b));
 
+        // horizontal class groups, each class group is displayed in a table column.
+        // when filtered by a specific program, each class group is a major class level
+        // when not filtered by a program, each class group is a program.
         let classGroups = [];
         if (this.state.selectedProgram != '') {
-            // filter class by program, group classes by level, show one level in each column
+            // filter class by program, group classes by major class level
             let program = _.find(this.data.programs, {_id:this.state.selectedProgram});
             if (program) {
                 program.classes.forEach( (c) => {
-                    let levelName = '', levelOrder = -1;
+                    // find out how many major levels this class has
+                    let majorLevels = [];
                     if (c.levels && c.levels.length > 0) {
-                        let level = _.find(this.data.levels, {_id: c.levels[0]});
-                        if (level) {
-                            levelName = level.name;
-                            // remove the sub level number.
-                            let idxSpace = levelName.lastIndexOf(' ');
-                            if (idxSpace > 0) {
-                                levelName = levelName.substring(0, idxSpace).trim();
-                            }
-                            levelOrder = level.order;
-                        }
+                        let classLevels = this.data.levels.filter( (le) => c.levels.indexOf(le._id) >= 0 );
+                        classLevels = classLevels.map( (cl) => App.resolveClassLevel(cl));
+                        majorLevels = _.uniq(classLevels, (cl) => cl.name);
+                        majorLevels.sort( (a,b) => (a.order - b.order));
+                    }
+                    else {
+                        // all classes without level are put in the first column (column header is set to "Level N/A")
+                        majorLevels.push({
+                            name: '',
+                            alias: '',
+                            subLevel: 0,
+                            order: -1
+                        })
                     }
 
-                    let grp = _.find(classGroups, {id: levelName.toLowerCase()});
-                    if (!grp) {
-                        grp={
-                            id: levelName.toLowerCase(),
-                            name: levelName == '' ? 'Level N/A' : levelName,
-                            order: levelOrder,
-                            classes: []
+                    // add a class group for each level.
+                    // add the class to its group, if the class has students from multiple major levels
+                    // merge all major level columns into one.
+                    majorLevels.forEach( (majorLevel, index) => {
+                        let grp = _.find(classGroups, {id: majorLevel.name.toLowerCase()});
+                        if (!grp) {
+                            grp={
+                                id: majorLevel.name.toLowerCase(),
+                                name: majorLevel.name == '' ? 'Level N/A' : majorLevel.name,
+                                order: majorLevel.order,
+                                classes: []
+                            }
+                            classGroups.push(grp);
                         }
-                        classGroups.push(grp);
-                    }
-                    grp.classes.push(c);
+
+                        // to merge multiple major levels, only add class to the first column
+                        // for the second and subsequent columns, add a place holder
+                        if (index == 0) {
+                            c.colSpan = majorLevels.length;
+                            c.students.forEach( (s) => { s.colSpan =  majorLevels.length })
+                            grp.classes.push(c);
+                        }
+                        else {
+                            grp.classes.push({
+                                merged: true,
+                                classTime: c.classTime,
+                                nStudents: c.students.length
+                            });
+                        }
+                    })
                 })
 
+                // sort class groups by order
                 classGroups.sort( (a,b) => (a.order - b.order) );
             }
         }
@@ -171,9 +209,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         // calculate column width, the first column is smaller, the rest of the columns are equally sized
         let colWidth = Math.floor(100 / classGroups.length);
         let timeColWidth = 100 - colWidth * classGroups.length;
-        while (timeColWidth + classGroups.length < colWidth - 1) {
-            colWidth--;
-            timeColWidth+=classGroups.length;
+        while (timeColWidth + classGroups.length * 0.2 < colWidth - 0.2) {
+            colWidth-=0.2;
+            timeColWidth+=classGroups.length * 0.2;
         }
 
         // create table column width elements
@@ -185,13 +223,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         // create table rows
         let rows = [];
-        // currentHour stores rows from each program for the current hour
-        let currentHour = new Array(classGroups.length);
         hours.forEach( (hour) => {
-            // max number of rows in all program columns
+            // currentHour stores rows of each class group for the current hour
+            let currentHour = new Array(classGroups.length);
+            // max number of rows in all class groups.
             let maxRowCount = 0;
 
-            // iterate through all programs, generate table columns for all classes in each program
+            // iterate through all class groups(programs or levels), generate table columns for all classes in each program
             classGroups.forEach( (p, index) => {
                 // classes from each program, start in the current hour
                 let currentHourClasses = _.filter(p.classes, (c) => c.classTime.hours() == hour);
@@ -202,10 +240,21 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 if (currentHourClasses.length > 0) {
                     currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
                     currentHourClasses.forEach( (c) => {
-                        let classLevelName = App.getClassLevelName(c, this.data.levels);
-                        classLevelName != '' && (classLevelName += ' ');
-                        currentHour[index].rows.push({"teacher": c.classTime.format("hh:mm A ") + classLevelName + c.teacher + " (" + c.students.length + ")"});
-                        currentHour[index].rows = [...currentHour[index].rows,...c.students];
+                        if (c.merged) {
+                            // add null place holders for merged class
+                            let placeHolders = new Array(c.nStudents+1);
+                            currentHour[index].rows.push(...placeHolders);
+                        }
+                        else {
+                            let classLevelName = App.getClassLevelName(c, this.data.levels);
+                            classLevelName != '' && (classLevelName += ' ');
+                            currentHour[index].rows.push(
+                                {
+                                    "teacher": c.classTime.format("hh:mm A ") + classLevelName + c.teacher + " (" + c.students.length + ")",
+                                    colSpan: c.colSpan
+                                });
+                            currentHour[index].rows = [...currentHour[index].rows,...c.students];
+                        }
                     })
                 }
 
@@ -220,15 +269,23 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
                 currentHour.forEach( (p, index) => {
                     if (iRow < p.rows.length) {
-                        // class name or student name
-                        if (p.rows[iRow].teacher) {
+                        let colSpan = p.rows[iRow] && p.rows[iRow].colSpan > 1 ? {"colSpan":p.rows[iRow].colSpan} : {}
+                        if (!p.rows[iRow]) {
+                            // merged cell, do nothing
+                        }
+                        else if (p.rows[iRow].teacher) {
                             // show class time and teacher in a "th" style
-                            tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>
+                            //let colSpan = p.rows[iRow].colSpan > 1 ? {"colSpan":p.rows[iRow].colSpan} : {}
+                            tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} {...colSpan} style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>
                                 <a href="/teachers">{p.rows[iRow].teacher}</a>
                             </th>);
                         }
                         else {
+                            //let colSpan = p.rows[iRow].colSpan > 1 ? {"colSpan":p.rows[iRow].colSpan} : {}
                             let tdContent = p.rows[iRow].name;
+                            
+                            let studentLevel = _.find(this.data.levels, {_id:p.rows[iRow].level});
+                            studentLevel && (tdContent += ' (' + studentLevel.alias + ')');
 
                             // show unpaid for pending registration
                             (p.rows[iRow].unpaid) && (tdContent += ' (Unpaid)');
@@ -239,7 +296,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             if (p.rows[iRow].type == 'makeup')
                                 tdContent += ' (make up)';
                             
-                            tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index}><a href={"/student/" + p.rows[iRow].studentID}>{tdContent}</a></td>);
+                            tdElements.push(<td {...colSpan} key={"c"+hour+"_" + iRow + "_" + index}><a href={"/student/" + p.rows[iRow].studentID}>{tdContent}</a></td>);
                         }
                     }
                     else

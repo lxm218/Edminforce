@@ -91,7 +91,10 @@ Meteor.methods({
             let names = KG.get('EF-Student').getDB().find({
                 _id: {$in: studentIDs}
             },{
-                fields:{name:1}
+                fields:{
+                    name:1,
+                    level:1
+                }
             }).fetch();
 
             c.students = [];
@@ -102,7 +105,8 @@ Meteor.methods({
                     studentID: s.studentID,
                     name: stdInfo ? stdInfo.name : '',
                     type: s.type,
-                    unpaid: s.status == 'pending' && s.pendingFlag
+                    unpaid: s.status == 'pending' && s.pendingFlag,
+                    level: stdInfo ? stdInfo.level : '',
                 })
             });
         })
