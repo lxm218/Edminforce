@@ -44,6 +44,21 @@ App.getNextClassLevel=function(level){
 
 }
 
+App.resolveClassLevel = function(classLevel) {
+    let regExpr = /(.+?)(\s*)(\d+)$/
+    let matchName = classLevel.name.match(regExpr);
+    let matchAlias = classLevel.alias.match(regExpr);
+    return matchName && matchAlias ? {
+        name: matchName[1],
+        alias: matchAlias[1],
+        subLevel: matchName[3],
+        order: classLevel.order
+    } : {
+        subLevel: null,
+        ...classLevel
+    }
+}
+
 // get class level name using level alias and sub level number
 App.getClassLevelName = function(classData, levels) {
     // to be compatible with single level
