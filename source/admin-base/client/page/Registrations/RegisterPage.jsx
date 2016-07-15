@@ -12,7 +12,7 @@ let sy = {
 		fontSize : '16px'
 	}
 };
-let StudentFilter = class extends RC.CSS{
+let StudentFilter = class extends KUI.Page{
 	constructor(p){
 		super(p);
 
@@ -28,6 +28,14 @@ let StudentFilter = class extends RC.CSS{
 
 		this.showSelectButton = true;
 		this.page = 1;
+	}
+
+	getMeteorData(){
+		let x = Meteor.subscribe(util.getModuleName('ClassLevel'));
+
+		return {
+			ready : x.ready()
+		};
 	}
 
 	componentDidMount(){
@@ -102,6 +110,9 @@ let StudentFilter = class extends RC.CSS{
 	}
 
 	renderSelectModal(){
+		if(!this.data.ready){
+			return util.renderLoading();
+		}
 		let self = this;
 		let param = {
 			title : `Search Student`,
@@ -148,11 +159,41 @@ let StudentFilter = class extends RC.CSS{
 	}
 
 	renderDetailBody(){
+		let p = {
+			level : {
+				labelClassName : 'col-xs-4',
+				wrapperClassName : 'col-xs-8',
+				ref : 'search_level',
+				label : 'Student Level'
+			},
+			name : {
+				labelClassName : 'col-xs-4',
+				wrapperClassName : 'col-xs-8',
+				ref : 'search_input',
+				label : 'Student Name',
+				placeholder : 'Input student name'
+			}
+
+		};
+		let op_level = this.m.ClassLevel.getDB().find().fetch();
+
 		return (
 			<form className="form-horizontal">
 				<RB.Row>
+					<RB.Col xs={6} xsOffset={2}>
+						<RB.Input type="select" {... p.level}>
+							<option key={-1} value="all">All</option>
+							{
+								_.map(op_level, (item, index)=>{
+									return <option key={index} value={item._id}>{item.name}</option>
+								})
+							}
+						</RB.Input>
+					</RB.Col>
+				</RB.Row>
+				<RB.Row>
 					<RB.Col xsOffset={2} xs={6}>
-						<RB.Input ref="search_input" placeholder="Input student name" type="text" />
+						<RB.Input {... p.name} type="text" />
 					</RB.Col>
 					<RB.Col xs={2}>
 						<KUI.YesButton onClick={this.searchStudentByKeyword.bind(this)} label="Search"></KUI.YesButton>
@@ -176,6 +217,12 @@ let StudentFilter = class extends RC.CSS{
 				}
 			};
 		}
+		let level = this.refs.search_level.getValue();
+		if(level !== 'all'){
+			query.level = level;
+		}
+
+		console.log(query);
 
 		this.setState({
 			searchResult : 'loading'
@@ -239,6 +286,14 @@ let StudentFilter = class extends RC.CSS{
 			{
 				title : 'Age',
 				key : 'age'
+			},
+			{
+				title : 'Level',
+				reactDom(doc){
+					if(!doc.level) return '';
+					let clo = self.m.ClassLevel.getDB().findOne({_id : doc.level});
+					return clo.name;
+				}
 			}
 		];
 

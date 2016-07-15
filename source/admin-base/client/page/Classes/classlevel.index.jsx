@@ -57,8 +57,18 @@ KUI.ClassLevel_Index = class extends KUI.Page{
 				key : 'name'
 			},
 			{
+				title : 'Alias Name',
+				reactDom(doc){
+					return doc.alias || '';
+				}
+			},
+			{
 				title : 'Level Order',
 				key : 'order'
+			},
+			{
+				title : 'Description',
+				key : 'description'
 			},
 			{
 				title : 'Action',
