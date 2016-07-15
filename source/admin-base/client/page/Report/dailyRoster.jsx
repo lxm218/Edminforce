@@ -8,11 +8,17 @@ KUI.Report_DailyRoster = class extends RC.CSS {
     constructor(p) {
         super(p);
 
+        this.queryParams = {
+            p : FlowRouter.getQueryParam("p"),
+            d : FlowRouter.getQueryParam("d")
+        }
+        this.queryParams.d && (this.queryParams.d = moment(this.queryParams.d, 'YYYYMMDD').toDate());
+
         this.state = {
             loading:false,
-            selectedProgram: '',
+            selectedProgram: this.queryParams.p || '',
             programs: [],
-            selectedDate: new Date()
+            selectedDate: this.queryParams.d || new Date()
         };
         this.data = null;
 
@@ -38,6 +44,10 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             this.setState({
                 programs:result
             })
+
+            if (this.queryParams.d) {
+                this.getDailyRoster();
+            }
         }).bind(this));
     }
     componentDidUpdate(prevProps, prevState) {
@@ -52,12 +62,29 @@ KUI.Report_DailyRoster = class extends RC.CSS {
     onDateChange(e) {
         let  newDate = e.date;
         this.setState({selectedDate:newDate});
+
+        let qp = {
+            p: this.state.selectedProgram,
+            d: moment(e.date).format('YYYYMMDD')
+        }
+
+        FlowRouter.withReplaceState(function() {
+            FlowRouter.setQueryParams(qp);
+        });
     }
 
     onProgramChange(e) {
         this.setState({
             selectedProgram: e.target.value
         })
+        let qp = {
+            p: e.target.value,
+            d: moment(this.state.selectedDate).format('YYYYMMDD')
+        }
+
+        FlowRouter.withReplaceState(function() {
+            FlowRouter.setQueryParams(qp);
+        });
     }
 
     // Retrieve daily roster data from server.
