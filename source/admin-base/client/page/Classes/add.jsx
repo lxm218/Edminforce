@@ -181,7 +181,7 @@ KUI.Class_comp_add = class extends KUI.Page{
         max.getInputDOMNode().value = '';
         tuitionMoney.getInputDOMNode().value = '';
         tuitionType.getInputDOMNode().value = opt.tuitionType[0];
-        util.getReactJQueryObject(scheduleDay.getInputDOMNode()).val(opt.scheduleDay[0]);
+        util.getReactJQueryObject(scheduleDay.getInputDOMNode()).val([opt.scheduleDay[1],opt.scheduleDay[2],opt.scheduleDay[3],opt.scheduleDay[4]]);
         scheduleTime.getInputDOMNode().value = opt.scheduleTime[0];
         makeup.getInputDOMNode().value = '';
         makeupFee.getInputDOMNode().value = '';
