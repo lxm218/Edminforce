@@ -223,6 +223,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         // create table rows
         let rows = [];
+        let strCurrentDate = moment(this.state.selectedDate).format("YYYYMMDD");
         hours.forEach( (hour) => {
             // currentHour stores rows of each class group for the current hour
             let currentHour = new Array(classGroups.length);
@@ -251,7 +252,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             currentHour[index].rows.push(
                                 {
                                     "teacher": c.classTime.format("hh:mm A ") + classLevelName + c.teacher + " (" + c.students.length + ")",
-                                    colSpan: c.colSpan
+                                    "colSpan": c.colSpan,
+                                    "classID": c._id
                                 });
                             currentHour[index].rows = [...currentHour[index].rows,...c.students];
                         }
@@ -275,13 +277,11 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         }
                         else if (p.rows[iRow].teacher) {
                             // show class time and teacher in a "th" style
-                            //let colSpan = p.rows[iRow].colSpan > 1 ? {"colSpan":p.rows[iRow].colSpan} : {}
                             tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} {...colSpan} style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>
-                                <a href="/teachers">{p.rows[iRow].teacher}</a>
+                                <a href={"/teachers?c=" + p.rows[iRow].classID + "&d=" + strCurrentDate}>{p.rows[iRow].teacher}</a>
                             </th>);
                         }
                         else {
-                            //let colSpan = p.rows[iRow].colSpan > 1 ? {"colSpan":p.rows[iRow].colSpan} : {}
                             let tdContent = p.rows[iRow].name;
                             
                             let studentLevel = _.find(this.data.levels, {_id:p.rows[iRow].level});

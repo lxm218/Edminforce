@@ -30,11 +30,13 @@ KUI.Teachers_index = class extends RC.CSS {
     constructor(p) {
         super(p);
 
+        let dateStr = FlowRouter.getQueryParam("d");
+
         this.state = {
             loading:false,
             selectedTeacherIdx:0,
             selectedClassIdx: 0,
-            selectedDate: new Date(),
+            selectedDate: dateStr ? moment(dateStr, 'YYYYMMDD').toDate() : new Date(),
             selectedProgramIdx : 0,
             dirtyCount: 0
         };
@@ -101,7 +103,20 @@ KUI.Teachers_index = class extends RC.CSS {
                 c.name = App.getClassLevelName(c, result.levels) + " " + c.schedule.days.join("/") + " " + c.schedule.time
             })
 
-            this.filterClassAndLoadAttendance(this.state.selectedTeacherIdx, this.state.selectedDate, this.state.selectedProgramIdx);
+            let classID = FlowRouter.getQueryParam("c");
+            let preSelectedIDs = null;
+            if (classID) {
+                let preselectedClass = _.find(this.classes, {_id:classID});
+                if (preselectedClass) {
+                    preSelectedIDs = {
+                        classID,
+                        programID: preselectedClass.programID,
+                        teacherID: preselectedClass.teacherID
+                    }
+                }
+            }
+
+            this.filterClassAndLoadAttendance(this.state.selectedTeacherIdx,this.state.selectedDate,this.state.selectedProgramIdx,preSelectedIDs);
         }).bind(this))
     }
 
@@ -179,48 +194,40 @@ KUI.Teachers_index = class extends RC.CSS {
                 cb && cb();
             }
         });
-
-        // if (seletedClassID) {
-        //     !this.state.loading && this.setState({loading:true});
-        //     // prompt user for unsaved changes
-        //     this.promptSave( (err,result) => {
-        //         Meteor.call('attendance.getStudents', seletedClassID, (function(err,result){
-        //             this.completeStudents = result;
-        //
-        //             // save attendance, so we can restore in cancel
-        //             this.completeStudents.forEach( (s) => {
-        //                 s.attendance = s.attendance || {};
-        //                 s.savedAttendance = {...s.attendance};
-        //             });
-        //
-        //             // filter out trial/makeup students that are not on the selected date
-        //             this.filterTrialMakeupStudentsByDate(this.state.selectedDate);
-        //
-        //             cb && cb();
-        //         }).bind(this))
-        //     })
-        // }
-        // else {
-        //     this.completeStudents = [];
-        //     this.students = [];
-        //     cb && cb();
-        // }
     }
 
     // filter class by selected teacher
-    filterClassAndLoadAttendance(teacherIdx, selectedDate, programIdx) {
+    filterClassAndLoadAttendance(teacherIdx, selectedDate, programIdx, presetIDs) {
         let weekDay = moment(selectedDate).format('ddd');
+
+        let idx;
+        if (presetIDs && presetIDs.teacherID) {
+            idx = _.findIndex(this.teachers, {_id:presetIDs.teacherID});
+            teacherIdx = idx >=0 ? idx : teacherIdx;
+        }
+        if (presetIDs && presetIDs.programID) {
+            idx = _.findIndex(this.programs, {_id:presetIDs.programID});
+            programIdx = idx >= 0 ? idx : programIdx;
+        }
         let selectedTeacher = teacherIdx < this.teachers.length ? this.teachers[teacherIdx]._id: '';
         let programID = programIdx < this.programs.length ? this.programs[programIdx]._id: '';
+
         this.teacherClasses = _.filter(this.classes, (c) => c.teacherID == selectedTeacher &&
                                                                     c.schedule.days.indexOf(weekDay)>=0 &&
                                                                     c.programID == programID);
+        let classIdx;
+        if (presetIDs && presetIDs.classID) {
+            idx = _.findIndex(this.teacherClasses, {_id:presetIDs.classID});
+            classIdx = idx >=0 ? idx : 0;
+        }
+        else {
+            classIdx = this.teacherClasses.length < this.state.selectedClassIdx ? 0 : this.state.selectedClassIdx;
+        }
 
-        let classIdx = this.teacherClasses.length < this.state.selectedClassIdx ? 0 : this.state.selectedClassIdx;
         // get attendance records
         this.getStudents(classIdx, () => {
             this.setState({
-                selectedTeacherIdx:teacherIdx,
+                selectedTeacherIdx: teacherIdx,
                 selectedProgramIdx: programIdx,
                 selectedClassIdx: classIdx,
                 selectedDate,
