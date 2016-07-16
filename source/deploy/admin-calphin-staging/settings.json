@@ -5,6 +5,14 @@
     "LeftNav" : [
       "Home", "Families", "Students", "Programs", "Registrations",
       "Teachers", "Emails", "Daily Roster", "Reports", "Calendar"
-    ]
+    ],
+
+    "RegisterClass" : {
+      "fee" : 20,
+
+      "frequency" : "year",
+
+      "scope" : "student"
+    }
   }
 }

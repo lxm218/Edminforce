@@ -385,10 +385,53 @@ console.log(option);
 
                 let list = opts.ClassStudentList;
 
-                let rs = {};
+console.log(config);
+
+                let rs = 0;
                 if(config.frequency === 'year'){
-                    //TODO
+                    if(config.scope === 'student'){
+                        // calphin
+
+
+                        let loop = function(sid){
+                            let query = {
+                                type : 'register class',
+                                registrationFee : {$gt : 0},
+                                studentID : new RegExp(sid, 'i')
+                            };
+
+                            let od = m.Order.getDB().find(query, {
+                                sort : {updateTime : -1},
+                                limit : 1
+                            }).fetch()[0];
+console.log(od);
+                            if(od){
+
+                                if(moment().isBefore(moment(od.updateTime).add(1, 'year'))){
+                                    return 0;
+                                }
+                                else{
+                                    return config.fee;
+                                }
+                            }
+                            else{
+                                return config.fee;
+                            }
+                        };
+
+                        let tmp = {};
+                        _.each(list, (item)=>{
+                            if(tmp[item.studentID]) return true;
+                            rs+=loop(item.studentID);
+                            tmp[item.studentID] = true;
+                        });
+
+
+
+                    }
                 }
+
+                return rs;
 
             }
         };
