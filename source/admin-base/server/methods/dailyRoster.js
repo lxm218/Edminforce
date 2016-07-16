@@ -85,7 +85,6 @@ Meteor.methods({
                 return s.type == 'register' || moment.tz(s.lessonDate, schoolTz).format("YYYYMMDD") == dateStr;
             });
 
-
             // get students name
             let studentIDs = students.map( s => s.studentID);
             let names = KG.get('EF-Student').getDB().find({
@@ -99,14 +98,25 @@ Meteor.methods({
 
             c.students = [];
             students.forEach( (s) => {
+                // get student name and level
                 let stdInfo = _.find(names, {_id:s.studentID});
-                stdInfo && (s.name = stdInfo.name);
+
+                // get the number of classes this student has registered
+                // use this to determine if the student is new
+                let numClasses = KG.get('EF-ClassStudent').getDB().find({
+                    studentID: s.studentID,
+                    $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+                    type: 'register'
+                }).count();
+
+                //stdInfo && (s.name = stdInfo.name);
                 c.students.push({
                     studentID: s.studentID,
                     name: stdInfo ? stdInfo.name : '',
                     type: s.type,
                     unpaid: s.status == 'pending' && s.pendingFlag,
                     level: stdInfo ? stdInfo.level : '',
+                    numClasses
                 })
             });
         })
