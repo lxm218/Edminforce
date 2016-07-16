@@ -59,32 +59,32 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         // nothing, just to get rid of the react js warning about value is set, but missing onChange
     }
 
+    updateQueryParams(p, d) {
+
+        p = p || this.state.selectedProgram;
+        d = d || moment(this.state.selectedDate).format('YYYYMMDD');
+
+        FlowRouter.withReplaceState(function() {
+            FlowRouter.setQueryParams({
+                p,
+                d,
+            });
+        });
+    }
+
     onDateChange(e) {
         let  newDate = e.date;
         this.setState({selectedDate:newDate});
 
-        let qp = {
-            p: this.state.selectedProgram,
-            d: moment(e.date).format('YYYYMMDD')
-        }
-
-        FlowRouter.withReplaceState(function() {
-            FlowRouter.setQueryParams(qp);
-        });
+        this.updateQueryParams(null, moment(e.date).format('YYYYMMDD'));
     }
 
     onProgramChange(e) {
         this.setState({
             selectedProgram: e.target.value
         })
-        let qp = {
-            p: e.target.value,
-            d: moment(this.state.selectedDate).format('YYYYMMDD')
-        }
 
-        FlowRouter.withReplaceState(function() {
-            FlowRouter.setQueryParams(qp);
-        });
+        this.updateQueryParams(e.target.value);
     }
 
     // Retrieve daily roster data from server.
@@ -92,6 +92,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
     // each class has all students (regular and makeup/trial)
     getDailyRoster() {
         this.setState({loading:true});
+        this.updateQueryParams();
         Meteor.call('dailyRoster.getData', moment(this.state.selectedDate).format("YYYYMMDD"),(function(err,result){
             this.data = result;
             
