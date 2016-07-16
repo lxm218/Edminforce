@@ -82,7 +82,13 @@ let StudentFilter = class extends KUI.Page{
 			}
 		};
 
+		let self = this;
 		let so = this.state.student;
+		if(so){
+			so.levelName = self.m.ClassLevel.getDB().findOne({_id : so.level}).name;
+		}
+
+
 		return (
 			<form className="form-horizontal">
 				<RB.Row>
@@ -90,7 +96,7 @@ let StudentFilter = class extends KUI.Page{
 
 						<RB.Input {... p.student}>
 							<RB.Row>
-								{so?<RB.Col style={sy.col} xs={4}>{so.name}</RB.Col>:''}
+								{so?<RB.Col style={sy.col} xs={4}>{so.name} ({so.levelName})</RB.Col>:''}
 								<RB.Col xs={2}>
 									{this.showSelectButton?<KUI.YesButton onClick={this.openModal.bind(this)} label="Select"></KUI.YesButton>:null}
 								</RB.Col>
@@ -516,11 +522,13 @@ let ClassFilter = class extends KUI.Page{
 		let program = this.refs.program,
 			session = this.refs.session,
 			teacher = this.refs.teacher,
+			level = this.refs.search_level,
 			day = this.refs.day;
 		let query = {
 			programID : program.getValue(),
 			sessionID : session.getValue(),
-			'schedule.day' : day.getValue()
+			'schedule.day' : day.getValue(),
+			levels : level.getValue()
 		};
 		if(query.programID === 'all'){
 			delete query.programID;
@@ -530,6 +538,9 @@ let ClassFilter = class extends KUI.Page{
 		}
 		if(query['schedule.day'] === 'all'){
 			delete query['schedule.day'];
+		}
+		if(query.levels === 'all'){
+			delete query['levels'];
 		}
 
 		if(teacher.getValue() && teacher.getValue()!=='all'){
@@ -576,6 +587,12 @@ let ClassFilter = class extends KUI.Page{
 				wrapperClassName : 'col-xs-8',
 				ref : 'day',
 				label : 'Day Of Class'
+			},
+			level : {
+				labelClassName : 'col-xs-4',
+				wrapperClassName : 'col-xs-8',
+				ref : 'search_level',
+				label : 'Level'
 			}
 		};
 
@@ -583,7 +600,8 @@ let ClassFilter = class extends KUI.Page{
 			program : this.data.programList,
 			session : this.data.sessionList,
 			day : KG.get('EF-Class').getDBSchema().schema('schedule.day').allowedValues,
-			teacher : this.data.teacherList
+			teacher : this.data.teacherList,
+			level : this.m.ClassLevel.getDB().find().fetch()
 		};
 
 
@@ -604,6 +622,15 @@ let ClassFilter = class extends KUI.Page{
 							{
 								_.map(option.teacher, (item, index)=>{
 									return <option key={index} value={item.nickName}>{item.nickName}</option>;
+								})
+							}
+						</RB.Input>
+
+						<RB.Input type="select" {... p.level}>
+							<option key={-1} value="all">All</option>
+							{
+								_.map(option.level, (item, index)=>{
+									return <option key={index} value={item._id}>{item.name}</option>
 								})
 							}
 						</RB.Input>
