@@ -16,7 +16,7 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         this.props.actions.showTrialEligibleStudents(classItem);
     }
 
-    onSelectDay(day) {
+    onSelectDay(day) {debugger
         this.setState({selectedDay:day});
     }
 
@@ -30,8 +30,14 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         };
 
         let lessons = this.props.classes || [];
-        this.state.selectedDay && (lessons = _.filter(lessons,(lesson) => lesson.schedule && lesson.schedule.day.toLowerCase() === this.state.selectedDay.toLowerCase()));
+        //this.state.selectedDay && (lessons = _.filter(lessons,(lesson) => lesson.schedule && lesson.schedule.day.toLowerCase() === this.state.selectedDay.toLowerCase()));
 
+        this.state.selectedDay && (lessons = _.filter(lessons,
+          (lesson) =>lesson.lessonDate && moment(lesson.lessonDate).format("MM-DD-YYYY") === moment(this.state.selectedDay).format("MM-DD-YYYY")
+        ));
+
+
+      console.log(lessons)
         // sort lessons by week day + lesson date
         EdminForce.utils.sortLessonsByWeekDay(lessons);
         
@@ -48,7 +54,12 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
             </RC.Item>
         ));
 
-        return (
+      let lessonElementsEmpty=<p style={{textAlign:'center',marginTop:'1rem'}}>
+          No class available on this date.<br/>
+          Please select a different date.
+      </p>
+
+      return (
             <div>
                 {EdminForce.utils.renderError(this.props.error)}
                 <RC.VerticalAlign center={true} style={{paddingTop:20}} height="100px" key="title">
@@ -57,9 +68,15 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
                     <br></br>
                 </RC.VerticalAlign>
 
-                <EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay} />
+                <EdminForce.Components.DateSelector onSelectDate={this.onSelectDay} />
+
+                {
+                  //<EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay} />
+                }
                 <RC.List>
-                    {lessonElements}
+                    {
+                      lessons.length? lessonElements :lessonElementsEmpty
+                    }
                 </RC.List>
             </div>
         );

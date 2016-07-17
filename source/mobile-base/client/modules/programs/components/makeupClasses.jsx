@@ -40,9 +40,14 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
 
         let lesseonsFilteredByDay = this.props.classes;
         if (this.state.selectedDay) {
-            lesseonsFilteredByDay = _.filter(this.props.classes, (item) => {
-                return item.schedule && item.schedule.day.toLowerCase() == this.state.selectedDay.toLowerCase();
-            });
+            // lesseonsFilteredByDay = _.filter(this.props.classes, (item) => {
+            //     return item.schedule && item.schedule.day.toLowerCase() == this.state.selectedDay.toLowerCase();
+            // });
+
+            let lessons = this.props.classes || [];
+            lesseonsFilteredByDay = _.filter(lessons,
+              (lesson) =>lesson.lessonDate && moment(lesson.lessonDate).format("MM-DD-YYYY") === moment(this.state.selectedDay).format("MM-DD-YYYY")
+            )
             // if (lesseonsFilteredByDay.length == 0)
             //     return (
             //         <RC.Div><p style={{textAlign:"center", padding: 0, paddingBottom: 8, paddingTop: 8}}>No class
@@ -92,7 +97,12 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
                     <div className="students-detail-make-up">
                         <div className="make-up-step-1" style={{display: "block"}}>
                             <div>
-                                <EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay}/>
+                              {
+                                //<EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay}/>
+                              }
+
+                              <EdminForce.Components.DateSelector onSelectDate={this.onSelectDay} />
+
                             </div>
                             { this.renderClasses() }
                         </div>
