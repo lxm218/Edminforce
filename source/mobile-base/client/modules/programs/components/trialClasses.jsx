@@ -16,7 +16,7 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         this.props.actions.showTrialEligibleStudents(classItem);
     }
 
-    onSelectDay(day) {debugger
+    onSelectDay(day) {
         this.setState({selectedDay:day});
     }
 
