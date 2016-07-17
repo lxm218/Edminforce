@@ -76,7 +76,8 @@ Meteor.methods({
                     lessonDate:1,
                     type:1,
                     status:1,
-                    pendingFlag:1
+                    pendingFlag:1,
+                    updateTime:1
                 }
             }).fetch();
 
@@ -97,6 +98,7 @@ Meteor.methods({
             }).fetch();
 
             c.students = [];
+            let reportDate = moment(dateStr, "YYYYMMDD");
             students.forEach( (s) => {
                 // get student name and level
                 let stdInfo = _.find(names, {_id:s.studentID});
@@ -108,15 +110,20 @@ Meteor.methods({
                     $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
                     type: 'register'
                 }).count();
+                let newStudent = false;
+                if (numClasses == 1) {
+                    // if the student has only 1 registered class, and in the first week of the class, this student is considered "new"
+                    let numDays = reportDate.diff(result.session.startDate > s.updateTime ? result.session.startDate : s.updateTime, 'd');
+                    newStudent = numDays <= 7;
+                }
 
-                //stdInfo && (s.name = stdInfo.name);
                 c.students.push({
                     studentID: s.studentID,
                     name: stdInfo ? stdInfo.name : '',
                     type: s.type,
                     unpaid: s.status == 'pending' && s.pendingFlag,
                     level: stdInfo ? stdInfo.level : '',
-                    numClasses
+                    newStudent,
                 })
             });
         })

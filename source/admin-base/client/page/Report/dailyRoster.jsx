@@ -311,19 +311,27 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         }
                         else {
                             let tdContent = p.rows[iRow].name;
-                            
+
+                            let annotations = [];
+                            // show student level
                             let studentLevel = _.find(this.data.levels, {_id:p.rows[iRow].level});
-                            studentLevel && (tdContent += ' (' + studentLevel.alias + ')');
+                            studentLevel && annotations.push(studentLevel.alias);
+
+                            // show "new" student flag
+                            p.rows[iRow].newStudent && annotations.push("new");
 
                             // show unpaid for pending registration
-                            (p.rows[iRow].unpaid) && (tdContent += ' (Unpaid)');
+                            p.rows[iRow].unpaid && annotations.push('unpaid');
 
+                            // show trail / makeup
                             if (p.rows[iRow].type == 'trial')
-                                tdContent += ' (trial)';
+                                annotations.push('trial');
                             else
                             if (p.rows[iRow].type == 'makeup')
-                                tdContent += ' (make up)';
-                            
+                                annotations.push('make up');
+
+                            annotations.length > 0 && (tdContent += ' (' + annotations.join() + ')');
+
                             tdElements.push(<td {...colSpan} key={"c"+hour+"_" + iRow + "_" + index}><a href={"/student/" + p.rows[iRow].studentID}>{tdContent}</a></td>);
                         }
                     }
