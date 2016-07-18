@@ -17,7 +17,10 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
     }
 
     onSelectDay(day) {
-        this.setState({selectedDay:day});
+        day = moment(day).startOf('d');
+        if (!this.props.trialDate || day.diff(this.props.trialDate,'d') != 0) {
+            this.props.context.LocalState.set('trialDate', day.toDate());
+        }
     }
 
     render() {
@@ -30,17 +33,6 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         };
 
         let lessons = this.props.classes || [];
-        //this.state.selectedDay && (lessons = _.filter(lessons,(lesson) => lesson.schedule && lesson.schedule.day.toLowerCase() === this.state.selectedDay.toLowerCase()));
-
-        this.state.selectedDay && (lessons = _.filter(lessons,
-          (lesson) =>lesson.lessonDate && moment(lesson.lessonDate).format("MM-DD-YYYY") === moment(this.state.selectedDay).format("MM-DD-YYYY")
-        ));
-
-
-      console.log(lessons)
-        // sort lessons by week day + lesson date
-        EdminForce.utils.sortLessonsByWeekDay(lessons);
-        
         let lessonElements = lessons.map( (item) => (
             <RC.Item key={item.key} theme="divider" onClick={self.getTrialStudents.bind(self, item)}>
                 <h3>{item.name}</h3>
@@ -58,6 +50,8 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
           No class available on this date.<br/>
           Please select a different date.
       </p>
+        
+      if (!this.props.trialDate) lessonElementsEmpty = null;
 
       return (
             <div>
@@ -68,14 +62,10 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
                     <br></br>
                 </RC.VerticalAlign>
 
-                <EdminForce.Components.DateSelector onSelectDate={this.onSelectDay} />
-
-                {
-                  //<EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay} />
-                }
+                <EdminForce.Components.DateSelector onSelectDate={this.onSelectDay}  minDate={new Date()} initDate={this.props.trialDate} />
                 <RC.List>
                     {
-                      lessons.length? lessonElements :lessonElementsEmpty
+                      lessons.length ? lessonElements :lessonElementsEmpty
                     }
                 </RC.List>
             </div>
