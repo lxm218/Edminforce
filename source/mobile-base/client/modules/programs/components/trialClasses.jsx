@@ -6,7 +6,6 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
     constructor(p) {
         super(p);
         this.state = {
-            selectedDay: null
         }
 
         this.onSelectDay = this.onSelectDay.bind(this);
