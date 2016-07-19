@@ -6,7 +6,6 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
     constructor(p) {
         super(p);
         this.state = {
-            selectedDay: null
         }
 
         this.onSelectDay = this.onSelectDay.bind(this);
@@ -17,7 +16,10 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
     }
 
     onSelectDay(day) {
-        this.setState({selectedDay:day});
+        day = moment(day).startOf('d');
+        if (!this.props.trialDate || day.diff(this.props.trialDate,'d') != 0) {
+            this.props.context.LocalState.set('trialDate', day.toDate());
+        }
     }
 
     render() {
@@ -30,11 +32,6 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         };
 
         let lessons = this.props.classes || [];
-        this.state.selectedDay && (lessons = _.filter(lessons,(lesson) => lesson.schedule && lesson.schedule.day.toLowerCase() === this.state.selectedDay.toLowerCase()));
-
-        // sort lessons by week day + lesson date
-        EdminForce.utils.sortLessonsByWeekDay(lessons);
-        
         let lessonElements = lessons.map( (item) => (
             <RC.Item key={item.key} theme="divider" onClick={self.getTrialStudents.bind(self, item)}>
                 <h3>{item.name}</h3>
@@ -48,7 +45,14 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
             </RC.Item>
         ));
 
-        return (
+      let lessonElementsEmpty=<p style={{textAlign:'center',marginTop:'1rem'}}>
+          No class available on this date.<br/>
+          Please select a different date.
+      </p>
+        
+      if (!this.props.trialDate) lessonElementsEmpty = null;
+
+      return (
             <div>
                 {EdminForce.utils.renderError(this.props.error)}
                 <RC.VerticalAlign center={true} style={{paddingTop:20}} height="100px" key="title">
@@ -57,9 +61,11 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
                     <br></br>
                 </RC.VerticalAlign>
 
-                <EdminForce.Components.WeekDaySelector onSelectDay={this.onSelectDay} />
+                <EdminForce.Components.DateSelector onSelectDate={this.onSelectDay}  minDate={new Date()} initDate={this.props.trialDate} />
                 <RC.List>
-                    {lessonElements}
+                    {
+                      lessons.length ? lessonElements :lessonElementsEmpty
+                    }
                 </RC.List>
             </div>
         );
