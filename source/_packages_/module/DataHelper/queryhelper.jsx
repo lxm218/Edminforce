@@ -212,7 +212,7 @@ console.log(start.format(), end.format());
 
                 week = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][week];
                 let query = {
-                    'schedule.day' : week
+                    'schedule.days' : week
                 };
                 if(opts.teacher){
                     query.teacher = opts.teacher;
