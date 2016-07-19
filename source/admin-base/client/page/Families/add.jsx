@@ -47,12 +47,12 @@ KUI.Family_add = class extends RC.CSSMeteorData{
         self.refs.addBtn.loading(true);
         KG.get('EF-Customer').insert(_.clone(param), function(rs){
             KG.result.handle(rs, {
-                success : function(){
-
+                success : function(uid){
+console.log(arguments)
                     self.sendEmailToCustomer(param, function(){
                         util.toast.alert('Insert Success, and send password to ['+param.email+']');
                         self.refs.addBtn.loading(false);
-                        util.goPath('/family');
+                        util.goPath('/family/profile/'+uid);
                     });
 
                 },
