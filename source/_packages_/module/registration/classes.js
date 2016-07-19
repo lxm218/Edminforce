@@ -658,7 +658,8 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSour
         status: 'pending'
     }, {
         $set: {
-            status: 'checkouted'
+            status: 'checkouted',
+            orderID: order._id
         }
     });
 

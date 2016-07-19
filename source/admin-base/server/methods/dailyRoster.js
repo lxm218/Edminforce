@@ -89,7 +89,8 @@ Meteor.methods({
                     type:1,
                     status:1,
                     pendingFlag:1,
-                    updateTime:1
+                    updateTime:1,
+                    orderID:1
                 }
             }).fetch();
 
@@ -115,18 +116,28 @@ Meteor.methods({
                 // get student name and level
                 let stdInfo = _.find(names, {_id:s.studentID});
 
-                // get the number of classes this student has registered
-                // use this to determine if the student is new
-                let numClasses = KG.get('EF-ClassStudent').getDB().find({
-                    studentID: s.studentID,
-                    $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
-                    type: 'register'
-                }).count();
+                // if the student has only 1 registered class, and in the first week of the class, this student is considered "new"
+                // during the first week of class, we need to show "new" for new student, and "transfer" for change class student
                 let newStudent = false;
-                if (numClasses == 1) {
-                    // if the student has only 1 registered class, and in the first week of the class, this student is considered "new"
-                    let numDays = reportDate.diff(result.session.startDate > s.updateTime ? result.session.startDate : s.updateTime, 'd');
-                    newStudent = numDays <= 7;
+                let transferred = false;
+                let numDays = reportDate.diff(result.session.startDate > s.updateTime ? result.session.startDate : s.updateTime, 'd');
+
+                // in the first week of class, check if student is "new" or "transferred"
+                if (numDays <= 7) {
+                    // get the number of classes this student has registered
+                    // use this to determine if the student is new
+                    let numClasses = KG.get('EF-ClassStudent').getDB().find({
+                        studentID: s.studentID,
+                        $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+                        type: 'register'
+                    }).count();
+
+                    // if the student has only 1 registered class, and in the first week of the class,
+                    // this student is a "new" student
+                    newStudent = (numClasses == 1);
+
+                    // check if the student is transferred from another class
+                    s.orderID && (transferred = !!KG.get('EF-Orders').getDB().find({_id:s.orderID,type: 'change class'}).count())
                 }
 
                 c.students.push({
@@ -136,6 +147,7 @@ Meteor.methods({
                     unpaid: s.status == 'pending' && s.pendingFlag,
                     level: stdInfo ? stdInfo.level : '',
                     newStudent,
+                    transferred,
                 })
             });
         })
