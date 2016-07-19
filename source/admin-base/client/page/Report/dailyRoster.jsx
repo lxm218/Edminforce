@@ -10,14 +10,17 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         this.queryParams = {
             p : FlowRouter.getQueryParam("p"),
-            d : FlowRouter.getQueryParam("d")
+            d : FlowRouter.getQueryParam("d"),
+            t : FlowRouter.getQueryParam("t"),
         }
         this.queryParams.d && (this.queryParams.d = moment(this.queryParams.d, 'YYYYMMDD').toDate());
 
         this.state = {
             loading:false,
             selectedProgram: this.queryParams.p || '',
+            selectedTeacher: this.queryParams.t || '',
             programs: [],
+            teachers: [],
             selectedDate: this.queryParams.d || new Date()
         };
         this.data = null;
@@ -40,9 +43,11 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         super.componentDidMount && super.componentDidMount();
         this.setupDatePicker();
         Meteor.call('dailyRoster.getPrograms', (function(err,result){
-            result.unshift({_id:'',name:'All'});
+            result.programs.unshift({_id:'',name:'All'});
+            result.teachers.unshift({_id:'',name:'All'});
             this.setState({
-                programs:result
+                programs:result.programs,
+                teachers:result.teachers
             })
 
             if (this.queryParams.d) {
@@ -59,15 +64,17 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         // nothing, just to get rid of the react js warning about value is set, but missing onChange
     }
 
-    updateQueryParams(p, d) {
+    updateQueryParams(p, d, t) {
 
         p = p || this.state.selectedProgram;
         d = d || moment(this.state.selectedDate).format('YYYYMMDD');
+        t = t || this.state.selectedTeacher;
 
         FlowRouter.withReplaceState(function() {
             FlowRouter.setQueryParams({
                 p,
                 d,
+                t,
             });
         });
     }
@@ -87,6 +94,14 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.updateQueryParams(e.target.value);
     }
 
+    onTeacherChange(e) {
+        this.setState({
+            selectedTeacher: e.target.value
+        })
+
+        this.updateQueryParams(null,null,e.target.value);
+    }
+
     // Retrieve daily roster data from server.
     // Response has all classes, for selected program and date, grouped by program
     // each class has all students (regular and makeup/trial)
@@ -103,6 +118,9 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 // sort students in each class, each program
                 this.data.programs.forEach( (p) => {
                     p.classes.forEach( (c) => {
+                        // parse class time
+                        c.classTime = moment(c.schedule.time, 'hh:mma');
+
                         if (!c.students || c.students.length == 0) return;
 
                         let regulars = [], makeups = [], trials = [];
@@ -146,22 +164,36 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         let programTitleColor = "#1AB394";
         let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];
 
+        // filter classes by program, teacher
+        let classesByProgram = [];
+        this.data.programs.forEach( (p) => {
+            // filter by program
+            if (this.state.selectedProgram != '' && p._id != this.state.selectedProgram)
+                return;
+
+            // filter by teacher
+            if (this.state.selectedTeacher != '' ) {
+                let programFilteredByTeacher = {...p};
+                programFilteredByTeacher.classes = p.classes.filter( (c) => c.teacherID == this.state.selectedTeacher);
+                programFilteredByTeacher.classes.length > 0 && classesByProgram.push(programFilteredByTeacher)
+            }
+            else {
+                classesByProgram.push(p);
+            }
+        });
+
         // find out how many "hours" all classes have, each hour is represented as an integer number
         // in 24 hour format, such as 1 for 1:00AM, 13 for 1:00PM, etc.
         let hours = [];
-        this.data.programs.forEach( (p) => {
+        classesByProgram.forEach( (p) => {
             p.classes.forEach( (c) => {
-                c.classTime = moment(c.schedule.time, 'hh:mma');
-                // filter by program
-                if (this.state.selectedProgram == '' || p._id == this.state.selectedProgram) {
-                    if (hours.indexOf(c.classTime.hours()) < 0)
-                        hours.push(c.classTime.hours());
-                }
+                if (hours.indexOf(c.classTime.hours()) < 0)
+                    hours.push(c.classTime.hours());
             })
         });
 
         if  (hours.length == 0) {
-            return (<div>No class available for the selected program</div>);
+            return (<div>No class available for your selection</div>);
         }
         // sort hours
         hours.sort((a,b) => (a-b));
@@ -171,8 +203,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         // when not filtered by a program, each class group is a program.
         let classGroups = [];
         if (this.state.selectedProgram != '') {
-            // filter class by program, group classes by major class level
-            let program = _.find(this.data.programs, {_id:this.state.selectedProgram});
+            // group classes by major class level
+            let program = classesByProgram[0];
             if (program) {
                 program.classes.forEach( (c) => {
                     // find out how many major levels this class has
@@ -386,6 +418,12 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 ref : 'selectedProgram',
                 label : 'Program'
             },
+            teacher: {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'selectedTeacher',
+                label : 'Teacher'
+            },
         };
 
         return (
@@ -408,6 +446,19 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             <RB.Input type="select" {... p.program} value={this.state.selectedProgram} onChange={this.onProgramChange}>
                                 {
                                     (this.state.programs || []).map((item, index)=>{
+                                        return <option key={index} value={item._id}>{item.name}</option>;
+                                    })
+                                }
+                            </RB.Input>
+                        </RB.Col>
+                    </div>
+                </RB.Row>
+                <RB.Row>
+                    <div className="form-horizontal">
+                        <RB.Col md={6} mdOffset={0}>
+                            <RB.Input type="select" {... p.teacher} value={this.state.selectedTeacher} onChange={this.onTeacherChange}>
+                                {
+                                    (this.state.teachers || []).map((item, index)=>{
                                         return <option key={index} value={item._id}>{item.name}</option>;
                                     })
                                 }

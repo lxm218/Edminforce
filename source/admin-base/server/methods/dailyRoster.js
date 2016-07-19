@@ -1,7 +1,18 @@
 Meteor.methods({
     'dailyRoster.getPrograms': function() {
-        let programs = KG.get('EF-Program').getDB().find({}, {fields:{name:1}}).fetch();
-        return programs;
+        let result = {}
+        // all programs
+        result.programs = KG.get('EF-Program').getDB().find({}, {fields:{name:1}}).fetch();
+        // all teachers
+        result.teachers = KG.get('EF-AdminUser').getDB().find({
+            role : 'teacher', 
+            status: 'active'}, {
+            fields: {
+                nickName:1
+            }
+        }).fetch();
+        
+        return result;
     },
 
     'dailyRoster.getData': function (dateStr) {
@@ -58,6 +69,7 @@ Meteor.methods({
                 programID:1,
                 sessionID: 1,
                 teacher: 1,
+                teacherID:1,
                 level:1,
                 levels:1,
                 schedule: 1
@@ -134,7 +146,7 @@ Meteor.methods({
             p.classes = groupByPrograms[k];
             return p;
         })
-
+   
         return result;
     }
 });
