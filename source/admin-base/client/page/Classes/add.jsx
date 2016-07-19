@@ -76,7 +76,7 @@ KUI.Class_comp_add = class extends KUI.Page{
 
 
         return {
-            ready : x1.ready() && x2.ready() && x3.ready() && x4.ready,
+            ready : x1.ready() && x2.ready() && x3.ready() && x4.ready(),
             program : this.getProgramData(),
             session : this.getSessionData(),
             teacherList : this.m.AdminUser.getDB().find({status : 'active'}).fetch(),
@@ -504,7 +504,7 @@ console.log(option)
         maxAge.getInputDOMNode().value = data.maxAgeRequire || 0;
         minAge.getInputDOMNode().value = data.minAgeRequire || 0;
 
-        util.getReactJQueryObject(level.getInputDOMNode()).val(data.levels);
+        util.getReactJQueryObject(level.getInputDOMNode()).val(_.map(data.levels, (l)=>{return l._id;}));
 
         gender.getInputDOMNode().value = data.genderRequire;
         trial.getInputDOMNode().value = data.trialStudent || '';
