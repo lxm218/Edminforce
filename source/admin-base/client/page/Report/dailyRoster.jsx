@@ -148,13 +148,342 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }).bind(this))
     }
 
+    // generate daily roster data rows based on selected date and filters (program, teacher)
+    generateRosterData() {
+        if (!this.data) return null;
+        if (!this.data.programs || !this.data.programs.length)
+            return [];
+
+        // filter classes by program, teacher
+        let classesByProgram = [];
+        this.data.programs.forEach( (p) => {
+            // filter by program
+            if (this.state.selectedProgram != '' && p._id != this.state.selectedProgram)
+                return;
+
+            // filter by teacher
+            if (this.state.selectedTeacher != '' ) {
+                let programFilteredByTeacher = {...p};
+                programFilteredByTeacher.classes = p.classes.filter( (c) => c.teacherID == this.state.selectedTeacher);
+                programFilteredByTeacher.classes.length > 0 && classesByProgram.push(programFilteredByTeacher)
+            }
+            else {
+                classesByProgram.push(p);
+            }
+        });
+
+        // find out how many "hours" all classes have, each hour is represented as an integer number
+        // in 24 hour format, such as 1 for 1:00AM, 13 for 1:00PM, etc.
+        let hours = [];
+        classesByProgram.forEach( (p) => {
+            p.classes.forEach( (c) => {
+                if (hours.indexOf(c.classTime.hours()) < 0)
+                    hours.push(c.classTime.hours());
+            })
+        });
+
+        if  (hours.length == 0) return [];
+
+        // sort hours
+        hours.sort((a,b) => (a-b));
+
+        // horizontal class groups, each class group is displayed in a table column.
+        // when filtered by a specific program, each class group is a major class level
+        // when not filtered by a program, each class group is a program.
+        let classGroups = [];
+        if (this.state.selectedProgram != '') {
+            // group classes by major class level
+            let program = classesByProgram[0];
+            if (program) {
+                program.classes.forEach( (c) => {
+                    // find out how many major levels this class has
+                    let majorLevels = [];
+                    if (c.levels && c.levels.length > 0) {
+                        let classLevels = this.data.levels.filter( (le) => c.levels.indexOf(le._id) >= 0 );
+                        classLevels = classLevels.map( (cl) => App.resolveClassLevel(cl));
+                        majorLevels = _.uniq(classLevels, (cl) => cl.name);
+                        majorLevels.sort( (a,b) => (a.order - b.order));
+                    }
+                    else {
+                        // all classes without level are put in the first column (column header is set to "Level N/A")
+                        majorLevels.push({
+                            name: '',
+                            alias: '',
+                            subLevel: 0,
+                            order: -1
+                        })
+                    }
+
+                    // add a class group for each level.
+                    // add the class to its group, if the class has students from multiple major levels
+                    // merge all major level columns into one.
+                    majorLevels.forEach( (majorLevel, index) => {
+                        let grp = _.find(classGroups, {id: majorLevel.name.toLowerCase()});
+                        if (!grp) {
+                            grp={
+                                id: majorLevel.name.toLowerCase(),
+                                name: majorLevel.name == '' ? 'Level N/A' : majorLevel.name,
+                                order: majorLevel.order,
+                                classes: []
+                            }
+                            classGroups.push(grp);
+                        }
+
+                        // to merge multiple major levels, only add class to the first column
+                        // for the second and subsequent columns, add a place holder
+                        if (index == 0) {
+                            c.colSpan = majorLevels.length;
+                            c.students.forEach( (s) => { s.colSpan =  majorLevels.length })
+                            grp.classes.push(c);
+                        }
+                        else {
+                            grp.classes.push({
+                                merged: true,
+                                classTime: c.classTime,
+                                nStudents: c.students.length
+                            });
+                        }
+                    })
+                })
+
+                // sort class groups by order
+                classGroups.sort( (a,b) => (a.order - b.order) );
+            }
+        }
+        else {
+            // show all classes, grouped by program, show one program in each column
+            classGroups = this.data.programs;
+        }
+
+        // let rows = [];
+        // let strCurrentDate = moment(this.state.selectedDate).format("YYYYMMDD");
+
+        // create table rows
+        let rosterRows = [];
+        // header row
+        let headerRow = classGroups.map( (grp) => ({ type: 'header', text: grp.name}));
+        headerRow.unshift(null);
+        rosterRows.push(headerRow);
+
+        hours.forEach( (hour) => {
+            // currentHour stores rows of each class group for the current hour
+            let currentHour = new Array(classGroups.length);
+            // max number of rows in all class groups.
+            let maxRowCount = 0;
+
+            // iterate through all class groups(programs or levels), generate table columns for all classes in each program
+            classGroups.forEach( (p, index) => {
+                // classes from each program, start in the current hour
+                let currentHourClasses = _.filter(p.classes, (c) => c.classTime.hours() == hour);
+
+                // generate rows for all classes, and teachers
+                currentHour[index] = {rows:[]}
+                // sort classes by start time
+                if (currentHourClasses.length > 0) {
+                    currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
+                    currentHourClasses.forEach( (c) => {
+                        if (c.merged) {
+                            // add null place holders for merged class
+                            let placeHolders = new Array(c.nStudents+1);
+                            currentHour[index].rows.push(...placeHolders);
+                        }
+                        else {
+                            let classLevelName = App.getClassLevelName(c, this.data.levels);
+                            classLevelName != '' && (classLevelName += ' ');
+                            currentHour[index].rows.push(
+                                {
+                                    "teacher": c.classTime.format("hh:mm A ") + classLevelName + c.teacher + " (" + c.students.length + ")",
+                                    "colSpan": c.colSpan,
+                                    "classID": c._id
+                                });
+                            currentHour[index].rows = [...currentHour[index].rows,...c.students];
+                        }
+                    })
+                }
+
+                if (maxRowCount < currentHour[index].rows.length)
+                    maxRowCount = currentHour[index].rows.length;
+            });
+
+            // generate rows for the section of current hour
+            for (let iRow = 0; iRow < maxRowCount; iRow++) {
+                // a row is an array of column cells
+                let rosterRow = [];
+
+                // the hour cell, only has text for the first row in the hour section.
+                rosterRow.push(iRow == 0 ? {
+                    type: 'hour',
+                    text: moment().hours(hour).format("hh:00 A"),
+                    rowSpan : maxRowCount
+                } : null);
+
+                // for each column (program or level)
+                currentHour.forEach( (p, index) => {
+                    if (iRow < p.rows.length) {
+                        let colSpan = p.rows[iRow] && p.rows[iRow].colSpan > 1 ? {"colSpan":p.rows[iRow].colSpan} : {}
+                        if (!p.rows[iRow]) {
+                            // merged cell, do nothing
+                            rosterRow.push(null);
+                        }
+                        else if (p.rows[iRow].teacher) {
+                            // show class time and teacher in a "th" style
+                            // tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} {...colSpan} style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>
+                            //     <a href={"/teachers?c=" + p.rows[iRow].classID + "&d=" + strCurrentDate}>{p.rows[iRow].teacher}</a>
+                            // </th>);
+                            rosterRow.push({
+                                type: 'teacher',
+                                text: p.rows[iRow].teacher,
+                                classID: p.rows[iRow].classID,
+                                ...colSpan
+                            });
+                        }
+                        else {
+                            let tdContent = p.rows[iRow].name;
+
+                            let annotations = [];
+                            // show student level
+                            let studentLevel = _.find(this.data.levels, {_id:p.rows[iRow].level});
+                            studentLevel && annotations.push(studentLevel.alias);
+
+                            // show "new" student flag
+                            if (p.rows[iRow].transferred)
+                                annotations.push("transfer");
+                            else
+                            if (p.rows[iRow].newStudent)
+                                annotations.push("new");
+
+                            // show unpaid for pending registration
+                            p.rows[iRow].unpaid && annotations.push('unpaid');
+
+                            // show trail / makeup
+                            if (p.rows[iRow].type == 'trial')
+                                annotations.push('trial');
+                            else
+                            if (p.rows[iRow].type == 'makeup')
+                                annotations.push('make up');
+
+                            annotations.length > 0 && (tdContent += ' (' + annotations.join() + ')');
+
+                            //tdElements.push(<td {...colSpan} key={"c"+hour+"_" + iRow + "_" + index}><a href={"/student/" + p.rows[iRow].studentID}>{tdContent}</a></td>);
+                            rosterRow.push({
+                                type: 'student',
+                                text: tdContent,
+                                studentID: p.rows[iRow].studentID,
+                                ...colSpan
+                            });
+                        }
+                    }
+                    else {
+                        // merged cell to show empty space
+                        //tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index} rowSpan={maxRowCount - iRow}></td>);
+                        rosterRow.push(iRow == p.rows.length ? {
+                            type: 'rowspan',
+                            text:'',
+                            rowSpan: maxRowCount - iRow
+                        } : null);
+                    }
+                })
+
+                rosterRows.push(rosterRow);
+                //rows.push(<tr key={"r" + hour + "_" + iRow}>{tdElements}</tr>);
+            }
+        });
+
+        return rosterRows;
+    }
+
+    renderRoster(rosterRows) {
+        if (!rosterRows) return null;
+        if (rosterRows.length == 0)
+            return (<div>No data available for your selection</div>);
+        if (this.state.error)
+            return (<div>{this.state.error}</div>);
+
+        // color palette for columns and class title
+        let programTitleColor = "#1AB394";
+        let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];
+
+        let rows = [];
+        let strCurrentDate = moment(this.state.selectedDate).format("YYYYMMDD");
+        for (let iRow = 0; iRow < rosterRows.length; iRow++) {
+            let tdElements = [];
+            let rosterRow = rosterRows[iRow];
+            for (let iCol = 0; iCol < rosterRow.length; iCol++) {
+                if (!rosterRow[iCol]) continue;
+
+                let text = rosterRow[iCol].text || '';
+                let attrs = {
+                    key:iRow + '_' + iCol
+                };
+                (rosterRow[iCol].rowSpan && rosterRow[iCol].rowSpan > 1) && (attrs.rowSpan = rosterRow[iCol].rowSpan);
+                (rosterRow[iCol].colSpan && rosterRow[iCol].colSpan > 1) && (attrs.colSpan = rosterRow[iCol].colSpan);
+                switch (rosterRow[iCol].type) {
+                    case 'hour':
+                        tdElements.push(<td {...attrs}>{text}</td>);
+                        break;
+                    case 'student':
+                        tdElements.push(<td {...attrs}><a href={"/student/" + rosterRow[iCol].studentID}>{text}</a></td>);
+                        break;
+                    case 'teacher':
+                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length]}}>
+                            <a href={"/teachers?c=" + rosterRow[iCol].classID + "&d=" + strCurrentDate}>{text}</a>
+                        </th>);
+                        break;
+                    case 'rowspan':
+                        tdElements.push(<td {...attrs}></td>);
+                        break;
+                }
+            }
+
+            rows.push(<tr key={iRow}>{tdElements}</tr>);
+        }
+
+        let titleStyles = [
+            {
+                textAlign:"center"
+            },
+            {
+                textAlign:"center",
+                background: programTitleColor
+            }
+        ]
+
+        // calculate column width, the first column is smaller, the rest of the columns are equally sized
+        let nColumns = rosterRows[0].length - 1;
+        let colWidth = Math.floor(100 / nColumns);
+        let timeColWidth = 100 - colWidth * nColumns;
+        while (timeColWidth + nColumns * 0.2 < colWidth - 0.2) {
+            colWidth-=0.2;
+            timeColWidth+=nColumns * 0.2;
+        }
+        // create table column width elements
+        let colWidthElements = [];
+        rosterRows[0].forEach( (p,index) => {
+            colWidthElements.push(index == 0 ? (<col key="cw" width={timeColWidth + "%"} />) : (<col key={"cw"+index} width={colWidth + "%"} />) );
+        })
+
+        return (
+            <table className="table table-bordered table-condensed2" style={{textAlign:"center", fontSize:12}}>
+                <colgroup>
+                    {colWidthElements}
+                </colgroup>
+                <thead>
+                <tr>
+                    {rosterRows[0].map( (p, idx) => (<th key={"h" + idx} style={titleStyles[idx % 2]}>{p.text}</th>) )}
+                </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </table>
+        )
+    }
+
     // Renders daily roster as a HTML table
     // Vertically, classes are grouped by hour, such as 9:00 AM - 10:00AM, 10:00AM - 11:00 AM, etc.
     // Horizontally, each column is a major class level, when filtered by a program, or a program
     // when "All" is selected in program filter.
     // If a class has students from multiple major levels, these major level table cells are merged in
     // a wider column.
-    renderRoster() {
+    renderRoster0() {
         if (!this.data) return null;
         if (!this.data.programs || !this.data.programs.length)
             return (<div>No data available for the selected date</div>);
@@ -430,6 +759,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 label : 'Teacher'
             },
         };
+
+        let rosterRows = this.generateRosterData();
 
         return (
             <RC.Div>
