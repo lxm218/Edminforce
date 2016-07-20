@@ -37,7 +37,7 @@ KG.define('EF-Coupon', class extends Base{
                     one = this._db.findOne({_id : (new RegExp('^'+opts.couponCode+'$', 'i'))});
                 }
                 if(!one){
-                    return KG.result.out(false, new Meteor.Error('-1', 'Coupon Code is not valid'));
+                    return KG.result.out(false, new Meteor.Error('-1', 'Coupon Code is invalid'));
                 }
 
                 let count = one.maxCount,
@@ -49,12 +49,12 @@ console.log(one);
                     return KG.result.out(false, new Meteor.Error('-1', 'Coupon code can not be used for this program'));
                 }
                 if(!_.contains(one.weekdayRequire, 'all') && !_.contains(one.weekdayRequire, opts.weekdayRequire)){
-                    return KG.result.out(false, new Meteor.Error('-1', `Coupon code can not be used for ${opts.weekdayRequire}`));
+                    return KG.result.out(false, new Meteor.Error('-1', `Coupon code cannot be used for ${opts.weekdayRequire}`));
                 }
 
                 let over = parseFloat(one.overRequire||0) || 0;
                 if(opts.overRequire < over){
-                    return KG.result.out(false, new Meteor.Error('-1', `Coupon code only be used for more than $${over}`));
+                    return KG.result.out(false, new Meteor.Error('-1', `Coupon code is only used for more than $${over}`));
                 }
 
                 //level
@@ -70,7 +70,7 @@ console.log(one);
                     });
                 }
                 if(!f){
-                    return KG.result.out(false, new Meteor.Error('-1', `Coupon code level require doesn't match class level`));
+                    return KG.result.out(false, new Meteor.Error('-1', `Coupon code level doesn't match with class level`));
                 }
 
                 if(forNewUser){
@@ -89,7 +89,7 @@ console.log(one);
                     }).count();
                     if(ctp > 0){
                         return KG.result.out(false, new Meteor.Error('-1', 'Coupon code can not used because Customer' +
-                            ' booked class before'));
+                            'booked class before'));
                     }
 
                 }
@@ -166,7 +166,7 @@ console.log(one);
                 if(rs.discountClass.length < 1){
                     return {
                         flag : false,
-                        error : 'Coupon Code is not valid'
+                        error : 'Coupon Code is invalid'
                     };
                 }
 
