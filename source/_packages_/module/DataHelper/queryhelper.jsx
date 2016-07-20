@@ -258,6 +258,7 @@ console.log(start.format(), end.format());
                         one.student = m.Student.getAll({
                             _id : one.studentID
                         })[0];
+                        one.student.level = m.ClassLevel.getDB().findOne({_id : one.student.level});
                         return one;
                     });
 

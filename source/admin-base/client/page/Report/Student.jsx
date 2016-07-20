@@ -209,6 +209,10 @@ KUI.Report_Student = class extends KUI.Page{
 				key : 'student.name'
 			},
 			{
+				title : 'Level',
+				key : 'student.level.name'
+			},
+			{
 				title : 'Age',
 				key : 'student.age'
 			},
