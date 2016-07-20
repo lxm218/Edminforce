@@ -351,7 +351,11 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             studentLevel && annotations.push(studentLevel.alias);
 
                             // show "new" student flag
-                            p.rows[iRow].newStudent && annotations.push("new");
+                            if (p.rows[iRow].transferred)
+                                annotations.push("transfer");
+                            else
+                            if (p.rows[iRow].newStudent)
+                                annotations.push("new");
 
                             // show unpaid for pending registration
                             p.rows[iRow].unpaid && annotations.push('unpaid');
