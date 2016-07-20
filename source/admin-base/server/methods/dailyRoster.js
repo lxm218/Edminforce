@@ -137,7 +137,7 @@ Meteor.methods({
                     newStudent = (numClasses == 1);
 
                     // check if the student is transferred from another class
-                    s.orderID && (transferred = !!KG.get('EF-Orders').getDB().find({_id:s.orderID,type: 'change class'}).count())
+                    s.orderID && (transferred = !!KG.get('EF-Order').getDB().find({_id:s.orderID,type: 'change class'}).count())
                 }
 
                 c.students.push({

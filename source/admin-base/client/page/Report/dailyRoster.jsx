@@ -27,6 +27,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         this.onDateChange = this.onDateChange.bind(this);
         this.onProgramChange = this.onProgramChange.bind(this);
+        this.onTeacherChange = this.onTeacherChange.bind(this);
         this.getDailyRoster = this.getDailyRoster.bind(this);
     }
 
@@ -44,7 +45,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.setupDatePicker();
         Meteor.call('dailyRoster.getPrograms', (function(err,result){
             result.programs.unshift({_id:'',name:'All'});
-            result.teachers.unshift({_id:'',name:'All'});
+            result.teachers.unshift({_id:'',nickName:'All'});
             this.setState({
                 programs:result.programs,
                 teachers:result.teachers
@@ -459,7 +460,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             <RB.Input type="select" {... p.teacher} value={this.state.selectedTeacher} onChange={this.onTeacherChange}>
                                 {
                                     (this.state.teachers || []).map((item, index)=>{
-                                        return <option key={index} value={item._id}>{item.name}</option>;
+                                        return <option key={index} value={item._id}>{item.nickName}</option>;
                                     })
                                 }
                             </RB.Input>
