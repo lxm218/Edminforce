@@ -50,6 +50,10 @@ Schema.Coupon = {
         //allowedValues : ['all', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
         type : [String]
     }),
+    levelRequire : KG.schema.default({
+        type : [String],
+        defaultValue : ['all']
+    }),
     validForNoBooked : {
         type : Boolean,
         defaultValue : false

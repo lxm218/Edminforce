@@ -4,9 +4,10 @@ KUI.Coupon_comp_add = class extends KUI.Page{
 
     getMeteorData(){
         let x = Meteor.subscribe('EF-Program');
+        let x1 = Meteor.subscribe(util.getModuleName('ClassLevel'));
 
         return {
-            ready : x.ready(),
+            ready : x.ready() && x1.ready(),
             program : KG.get('EF-Program').getDB().find({}).fetch()
         };
     }
@@ -66,6 +67,13 @@ KUI.Coupon_comp_add = class extends KUI.Page{
                 label : 'For',
                 multiple : true
             },
+            levelRequire : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-4',
+                ref : 'level',
+                label : 'Level Require',
+                multiple : true
+            },
             weekday : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
@@ -89,7 +97,8 @@ KUI.Coupon_comp_add = class extends KUI.Page{
 
         let option = {
             program : this.data.program,
-            weekday : ['all', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            weekday : ['all', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            level : this.m.ClassLevel.getDB().find().fetch()
         };
 
 
@@ -119,6 +128,14 @@ KUI.Coupon_comp_add = class extends KUI.Page{
                             <option value="all">all</option>
                             {
                                 _.map(option.program, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.name}</option>;
+                                })
+                            }
+                        </RB.Input>
+                        <RB.Input type="select" {... p.levelRequire}>
+                            <option value="all">all</option>
+                            {
+                                _.map(option.level, (item, index)=>{
                                     return <option key={index} value={item._id}>{item.name}</option>;
                                 })
                             }
@@ -169,6 +186,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             date : date,
             startDateJq : $(date).find('input').eq(0),
             endDateJq : $(date).find('input').eq(1),
+            level : this.refs.level,
 
             validForNew : this.refs.validForNew
         };
@@ -188,7 +206,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             couponCode,
             discount, dis_unit, description, workover,
             forP, weekday, count, startDateJq, endDateJq,
-            validForNew
+            validForNew,level
 
             } = this.getRefs();
 
@@ -203,7 +221,8 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             startDate : moment(startDateJq.val(), util.const.dateFormat).toDate(),
             endDate : moment(endDateJq.val(), util.const.dateFormat).toDate(),
 
-            validForNoBooked : $(validForNew.getInputDOMNode()).prop('checked')
+            validForNoBooked : $(validForNew.getInputDOMNode()).prop('checked'),
+            levelRequire : level.getValue()
         };
     }
 
@@ -213,7 +232,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
             couponCode,
             discount, dis_unit, description, workover,
             forP, weekday, count, startDateJq, endDateJq,
-            validForNew
+            validForNew, level
 
             } = this.getRefs();
         let len = data.discount.length;
@@ -229,6 +248,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
         startDateJq.datepicker('setDate', data.startDate);
         endDateJq.datepicker('setDate', data.endDate);
         $(validForNew.getInputDOMNode()).prop('checked', data.validForNoBooked);
+        $(level.getInputDOMNode()).val(data.levelRequire);
     }
 
     setDefaultValue(data){

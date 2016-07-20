@@ -57,6 +57,22 @@ console.log(one);
                     return KG.result.out(false, new Meteor.Error('-1', `Coupon code only be used for more than $${over}`));
                 }
 
+                //level
+                let f = false;
+                if(_.contains(one.levelRequire), 'all'){
+                    f = true;
+                }
+                else{
+                    _.each(opts.levels, (l)=>{
+                        if(_.contains(one.levelRequire), l){
+                            f = true;
+                        }
+                    });
+                }
+                if(!f){
+                    return KG.result.out(false, new Meteor.Error('-1', `Coupon code level require doesn't match class level`));
+                }
+
                 if(forNewUser){
                     var order = m.Order.getDB().findOne({
                         accountID : opts.accountID,
@@ -128,7 +144,8 @@ console.log(one);
                         couponCode : opts.couponCode,
                         overRequire : opts.overRequire,
                         programID : co.programID,
-                        weekdayRequire : co.schedule.days
+                        weekdayRequire : co.schedule.days,
+                        levels : co.levels
                     };
 
                     let tmp = self.callMeteorMethod('checkCouponCodeValidByCustomerID', [param]);
