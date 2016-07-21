@@ -59,6 +59,11 @@ Schema.Student = {
     note: KG.schema.default({
         optional:true
     }),
+
+    lastRegistrationDate : {
+        type : Date,
+        optional : true
+    },
     
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
