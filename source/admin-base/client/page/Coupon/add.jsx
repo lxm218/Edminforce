@@ -64,14 +64,14 @@ KUI.Coupon_comp_add = class extends KUI.Page{
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
                 ref : 'forP',
-                label : 'For',
+                label : 'Program Applies For',
                 multiple : true
             },
             levelRequire : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
                 ref : 'level',
-                label : 'Level Require',
+                label : 'Level Applies For',
                 multiple : true
             },
             weekday : {
