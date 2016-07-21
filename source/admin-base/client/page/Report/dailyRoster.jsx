@@ -3,7 +3,6 @@
  * Displays all classes, each with teacher name, level, and all students, for
  * a selected day and selected program or all programs
  */
-
 KUI.Report_DailyRoster = class extends RC.CSS {
     constructor(p) {
         super(p);
@@ -103,27 +102,32 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.updateQueryParams(null,null,e.target.value);
     }
 
-    // Retrieve daily roster data from server.
-    // Response has all classes, for selected program and date, grouped by program
-    // each class has all students (regular and makeup/trial)
+    // Retrieve daily roster raw data from server.
+    // Response has classes of all programs on the selected date,
+    // grouped by program, each class with all students (regular and makeup/trial)
     getDailyRoster() {
         this.setState({loading:true});
         this.updateQueryParams();
         Meteor.call('dailyRoster.getData', moment(this.state.selectedDate).format("YYYYMMDD"),(function(err,result){
             this.data = result;
             
-            // sort program by display order, sort student names alphabetically, move trial & makeup to the end
+            // sort program by display order
+            // sort student names alphabetically
+            // move trial & makeup to the end
             if (this.data.programs && this.data.programs.length > 0) {
                 // sort programs by order
                 this.data.programs.sort((a,b) => (a.displayOrder > b.displayOrder));
-                // sort students in each class, each program
+                // sort students in each class in each program
                 this.data.programs.forEach( (p) => {
                     p.classes.forEach( (c) => {
-                        // parse class time
+                        // parse class time, we need the hour later in data transformation
                         c.classTime = moment(c.schedule.time, 'hh:mma');
 
                         if (!c.students || c.students.length == 0) return;
 
+                        // separate students into regular, trial, and makeups
+                        // sort students by names, then put all
+                        // students in a list in the order of regular, makeup, then trial
                         let regulars = [], makeups = [], trials = [];
                         c.students.forEach( (s) => {
                             if (s.type == 'makeup')
@@ -148,24 +152,21 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }).bind(this))
     }
 
-    // Renders daily roster as a HTML table
-    // Vertically, classes are grouped by hour, such as 9:00 AM - 10:00AM, 10:00AM - 11:00 AM, etc.
-    // Horizontally, each column is a major class level, when filtered by a program, or a program
-    // when "All" is selected in program filter.
-    // If a class has students from multiple major levels, these major level table cells are merged in
-    // a wider column.
-    renderRoster() {
+    // Transform roster data into a two dimensional table, in the same
+    // structure as the UI layout. This data then can be used to
+    // render the UI page or exported.
+    // If not filtered by a particular program, each roster column
+    // shows classes in a program, if filtered by a program, each
+    // roster columns shows classes of a major class level.
+    getRosterDataTable() {
+        // null means no data ever retrieved from server.
         if (!this.data) return null;
+        // an empty array means empty data set returned from server
         if (!this.data.programs || !this.data.programs.length)
-            return (<div>No data available for the selected date</div>);
-        if (this.state.error)
-            return (<div>{this.state.error}</div>);
-
-        // color palette for columns and class title
-        let programTitleColor = "#1AB394";
-        let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];
+            return [];
 
         // filter classes by program, teacher
+        // group classes by program
         let classesByProgram = [];
         this.data.programs.forEach( (p) => {
             // filter by program
@@ -193,9 +194,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             })
         });
 
-        if  (hours.length == 0) {
-            return (<div>No class available for your selection</div>);
-        }
+        if  (hours.length == 0) return [];
+
         // sort hours
         hours.sort((a,b) => (a-b));
 
@@ -267,31 +267,22 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             classGroups = this.data.programs;
         }
 
-        // calculate column width, the first column is smaller, the rest of the columns are equally sized
-        let colWidth = Math.floor(100 / classGroups.length);
-        let timeColWidth = 100 - colWidth * classGroups.length;
-        while (timeColWidth + classGroups.length * 0.2 < colWidth - 0.2) {
-            colWidth-=0.2;
-            timeColWidth+=classGroups.length * 0.2;
-        }
-
-        // create table column width elements
-        let colWidthElements = [];
-        colWidthElements.push(<col key="cw" width={timeColWidth + "%"} />);
-        classGroups.forEach( (p,index) => {
-            colWidthElements.push(<col key={"cw"+index} width={colWidth + "%"} />);
-        })
-
         // create table rows
-        let rows = [];
-        let strCurrentDate = moment(this.state.selectedDate).format("YYYYMMDD");
+        let rosterRows = [];
+        // header row
+        let headerRow = classGroups.map( (grp) => ({ type: 'header', text: grp.name}));
+        headerRow.unshift({text:''});
+        rosterRows.push(headerRow);
+
+        // iterate through all class hours
         hours.forEach( (hour) => {
-            // currentHour stores rows of each class group for the current hour
+            // the array "currentHour" stores rows in  each class group for the current hour
             let currentHour = new Array(classGroups.length);
-            // max number of rows in all class groups.
+            // max number of rows in the current hour
             let maxRowCount = 0;
 
-            // iterate through all class groups(programs or levels), generate table columns for all classes in each program
+            // iterate through all class groups(programs or levels)
+            // generate table columns for all classes in each group
             classGroups.forEach( (p, index) => {
                 // classes from each program, start in the current hour
                 let currentHourClasses = _.filter(p.classes, (c) => c.classTime.hours() == hour);
@@ -300,6 +291,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 currentHour[index] = {rows:[]}
                 // sort classes by start time
                 if (currentHourClasses.length > 0) {
+                    // in the current hour, sort classes by time
                     currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
                     currentHourClasses.forEach( (c) => {
                         if (c.merged) {
@@ -325,24 +317,38 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     maxRowCount = currentHour[index].rows.length;
             });
 
-            // generate table rows
+            // generate rows for current hour
             for (let iRow = 0; iRow < maxRowCount; iRow++) {
-                let tdElements = [];
-                iRow == 0 && (tdElements.push( <td key={"c"+hour} rowSpan={maxRowCount}>{moment().hours(hour).format("hh:00 A")}</td> ))
+                // a row is an array of column cells
+                let rosterRow = [];
 
+                // the hour cell, only has text for the first row in the hour section.
+                rosterRow.push(iRow == 0 ? {
+                    type: 'hour',
+                    text: moment().hours(hour).format("hh:00 A"),
+                    rowSpan : maxRowCount
+                } : null);
+
+                // for each column (program or level)
                 currentHour.forEach( (p, index) => {
                     if (iRow < p.rows.length) {
                         let colSpan = p.rows[iRow] && p.rows[iRow].colSpan > 1 ? {"colSpan":p.rows[iRow].colSpan} : {}
                         if (!p.rows[iRow]) {
-                            // merged cell, do nothing
+                            // null for merged cell
+                            rosterRow.push(null);
                         }
                         else if (p.rows[iRow].teacher) {
-                            // show class time and teacher in a "th" style
-                            tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} {...colSpan} style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>
-                                <a href={"/teachers?c=" + p.rows[iRow].classID + "&d=" + strCurrentDate}>{p.rows[iRow].teacher}</a>
-                            </th>);
+                            // teacher cell
+                            rosterRow.push({
+                                type: 'teacher',
+                                text: p.rows[iRow].teacher,
+                                // we need classID to render a URL
+                                classID: p.rows[iRow].classID,
+                                ...colSpan
+                            });
                         }
                         else {
+                            // student cell
                             let tdContent = p.rows[iRow].name;
 
                             let annotations = [];
@@ -350,7 +356,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             let studentLevel = _.find(this.data.levels, {_id:p.rows[iRow].level});
                             studentLevel && annotations.push(studentLevel.alias);
 
-                            // show "new" student flag
+                            // show "new" or "transfer" student flag
                             if (p.rows[iRow].transferred)
                                 annotations.push("transfer");
                             else
@@ -369,26 +375,110 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
                             annotations.length > 0 && (tdContent += ' (' + annotations.join() + ')');
 
-                            tdElements.push(<td {...colSpan} key={"c"+hour+"_" + iRow + "_" + index}><a href={"/student/" + p.rows[iRow].studentID}>{tdContent}</a></td>);
+                            rosterRow.push({
+                                type: 'student',
+                                text: tdContent,
+                                studentID: p.rows[iRow].studentID,
+                                ...colSpan
+                            });
                         }
                     }
-                    else
-                    if (iRow == p.rows.length && iRow < maxRowCount) {
+                    else {
                         // merged cell to show empty space
-                        tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index} rowSpan={maxRowCount - iRow}></td>);
+                        rosterRow.push(iRow == p.rows.length ? {
+                            type: 'rowspan',
+                            text:'',
+                            rowSpan: maxRowCount - iRow
+                        } : null);
                     }
                 })
 
-                rows.push(<tr key={"r" + hour + "_" + iRow}>{tdElements}</tr>);
+                rosterRows.push(rosterRow);
             }
         });
 
-        let titleStyles = [{
-            textAlign:"center",
-            background: programTitleColor
-        }, {
-            textAlign:"center"
-        }]
+        return rosterRows;
+    }
+
+    // Renders daily roster as a HTML table
+    // Vertically, classes are grouped by hour, such as 9:00 AM - 10:00AM, 10:00AM - 11:00 AM, etc.
+    // Horizontally, each column is a major class level, when filtered by a program, or a program
+    // when "All" is selected in program filter.
+    // If a class has students from multiple major levels, these major level table cells are merged in
+    // a wider column.
+    renderRoster(rosterRows) {
+        if (!rosterRows) return null;
+        if (rosterRows.length == 0)
+            return (<div>No data available for your selection</div>);
+        if (this.state.error)
+            return (<div>{this.state.error}</div>);
+
+        // color palette for columns and class title
+        let programTitleColor = "#1AB394";
+        let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];
+
+        let rows = [];
+        let strCurrentDate = moment(this.state.selectedDate).format("YYYYMMDD");
+        // skip the header row, then iterate through all table rows, create a th/tr for each row
+        for (let iRow = 1; iRow < rosterRows.length; iRow++) {
+            let tdElements = [];
+            let rosterRow = rosterRows[iRow];
+            // creates a "td" element for eachn non-null column
+            for (let iCol = 0; iCol < rosterRow.length; iCol++) {
+                if (!rosterRow[iCol]) continue;
+
+                let text = rosterRow[iCol].text || '';
+                let attrs = {
+                    key:iRow + '_' + iCol
+                };
+                // colSpan or rowSpan
+                (rosterRow[iCol].rowSpan && rosterRow[iCol].rowSpan > 1) && (attrs.rowSpan = rosterRow[iCol].rowSpan);
+                (rosterRow[iCol].colSpan && rosterRow[iCol].colSpan > 1) && (attrs.colSpan = rosterRow[iCol].colSpan);
+
+                switch (rosterRow[iCol].type) {
+                    case 'hour':
+                        tdElements.push(<td {...attrs}>{text}</td>);
+                        break;
+                    case 'student':
+                        tdElements.push(<td {...attrs}><a href={"/student/" + rosterRow[iCol].studentID}>{text}</a></td>);
+                        break;
+                    case 'teacher':
+                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length]}}>
+                            <a href={"/teachers?c=" + rosterRow[iCol].classID + "&d=" + strCurrentDate}>{text}</a>
+                        </th>);
+                        break;
+                    case 'rowspan':
+                        tdElements.push(<td {...attrs}></td>);
+                        break;
+                }
+            }
+
+            rows.push(<tr key={iRow}>{tdElements}</tr>);
+        }
+
+        let titleStyles = [
+            {
+                textAlign:"center"
+            },
+            {
+                textAlign:"center",
+                background: programTitleColor
+            }
+        ]
+
+        // calculate column width, the first column is smaller, the rest of the columns are equally sized
+        let nColumns = rosterRows[0].length - 1;
+        let colWidth = Math.floor(100 / nColumns);
+        let timeColWidth = 100 - colWidth * nColumns;
+        while (timeColWidth + nColumns * 0.2 < colWidth - 0.2) {
+            colWidth-=0.2;
+            timeColWidth+=nColumns * 0.2;
+        }
+        // create table column width elements
+        let colWidthElements = [];
+        rosterRows[0].forEach( (p,index) => {
+            colWidthElements.push(index == 0 ? (<col key="cw" width={timeColWidth + "%"} />) : (<col key={"cw"+index} width={colWidth + "%"} />) );
+        })
 
         return (
             <table className="table table-bordered table-condensed2" style={{textAlign:"center", fontSize:12}}>
@@ -396,11 +486,10 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     {colWidthElements}
                 </colgroup>
                 <thead>
-                    <tr>
-                        <th></th>
-                        {classGroups.map( (p, idx) => (<th key={"h" + idx} style={titleStyles[idx % 2]}>{p.name}</th>) )}
-                    </tr>
-                    </thead>
+                <tr>
+                    {rosterRows[0].map( (p, idx) => (<th key={"h" + idx} style={titleStyles[idx % 2]}>{p.text}</th>) )}
+                </tr>
+                </thead>
                 <tbody>{rows}</tbody>
             </table>
         )
@@ -472,7 +561,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     </div>
                 </RB.Row>
                 <RC.Div style={{marginTop:20}}>
-                    {this.renderRoster()}
+                    {this.renderRoster(this.getRosterDataTable())}
                 </RC.Div>
             </RC.Div>
         )
