@@ -153,10 +153,18 @@ KUI.Family_add_comp = class extends RC.CSS{
             receive
             } = this.getRefs();
 
+        let d_phone = phone.getValue();
+        if(/^[0-9]{10}$/g.test(d_phone)){
+            d_phone = d_phone.split('');
+            d_phone.splice(3, 0, '-');
+            d_phone.splice(7, 0, '-');
+            d_phone = d_phone.join('');
+        }
+
         return {
             name : name.getValue(),
             email : email.getValue(),
-            phone : phone.getValue(),
+            phone : d_phone,
             location : location.getValue(),
             alternativeContact : {
                 name : al_name.getValue(),
@@ -214,6 +222,34 @@ KUI.Family_add_comp = class extends RC.CSS{
     getSchoolCreditNumber(){
         let n = this.refs.credit.getValue()||0;
         return  parseFloat(n);
+    }
+
+    initPhoneEvent(){
+        let jq = util.getReactJQueryObject(this.refs.phone.getInputDOMNode());
+
+        jq.keyup(function(e){
+            let val = jq.val();
+            let v = val.replace(/[^0-9\-]/g, '');
+            jq.val(v);
+
+            if(/^[0-9]{3}$/g.test(v)){
+                v = v+'-';
+                jq.val(v);
+            }
+            else if(/^[0-9]{3}-[0-9]{3}$/g.test(v)){
+                v = v+'-';
+                jq.val(v);
+            }
+
+            if(v.length > 12){
+                jq.val(v.substring(0, 12));
+            }
+        });
+    }
+    componentDidMount(){
+        super.componentDidMount();
+
+        this.initPhoneEvent();
     }
 
 };
