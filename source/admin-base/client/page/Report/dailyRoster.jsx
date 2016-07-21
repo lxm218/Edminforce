@@ -271,7 +271,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         let rosterRows = [];
         // header row
         let headerRow = classGroups.map( (grp) => ({ type: 'header', text: grp.name}));
-        headerRow.unshift(null);
+        headerRow.unshift({text:''});
         rosterRows.push(headerRow);
 
         // iterate through all class hours
