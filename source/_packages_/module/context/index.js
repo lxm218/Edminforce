@@ -14,7 +14,8 @@ Collections = {
     orders : KG.create("EF-Order", {DBName : 'EF-Orders'})._db,
     customerCoupon : KG.create("EF-CustomerCoupon")._db,
     school : KG.create("EF-School")._db,
-    log: KG.create("EF-Log")._db
+    log: KG.create("EF-Log")._db,
+    classLevel: KG.create("EF-ClassLevel")._db
 };
 
 EdminForce = {

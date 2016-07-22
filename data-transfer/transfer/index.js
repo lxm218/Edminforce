@@ -7,6 +7,7 @@ let Q = require('q');
 let _ = require('lodash');
 let outPutFolder = "../update/private";
 let errorOutputFolder = "errorOutput";
+let crypto = require('crypto');
 
 // Change this value to decide how many items want to repeat. If value <=1, means no repeat, this should be default value
 let repeat_time_class= 1;
@@ -113,7 +114,8 @@ var classStudent = {
   "programID": "",
   "studentID": "",
   "status": "checkouted",
-  "type": "register"
+  "type": "register",
+  "attendance": {}
 };
 
 var school = {
@@ -133,31 +135,30 @@ var student = {
 
 var session = {
     "name": "",
-    "startDate": new Date("2016-03-31T21:00:00-0700"),
-    "endDate": new Date("2016-06-29T21:00:00-0700"),
-    "registrationStartDate": new Date("2016-01-31T21:00:00-0800"),
+    "startDate": new Date("2016-07-25T00:00:00"),
+    "endDate": new Date("2016-08-12T21:00:00"),
+    "registrationStartDate": new Date("2016-06-01T00:00:00"),
     "registrationStatus": "Yes",
-    "blockOutDay": [
-        new Date("2016-03-30T21:00:00-0700")
-    ],
-    "registrationEndDate": new Date("2016-06-29T21:00:00-0700")
+    "blockOutDay": [],
+    "registrationEndDate": new Date("2016-08-12T21:00:00")
 };
 
 var program = {
     name:"",
-    description: 'Need to add',
+    description: '',
     availableTrial: true
 };
 
 var classData = {
     programID: "",
     sessionID: "",
-    status: "",
+    status: "Active",
     length: "",
     levels: [],
     teacher: "",
+    teacherID: "",
     schedule: {
-        day: '',
+        days: [],
         time: ""
     },
     tuition: {
@@ -166,10 +167,10 @@ var classData = {
     },
     maxStudent: 9,
     minStudent: 0,
-    trialStudent: 2,
+    trialStudent: 0,
     minAgeRequire: 0,
     maxAgeRequire: 100,
-    makeupStudent: 1,
+    makeupStudent: 0,
     makeupClassFee: 5,
     genderRequire: "All",
     makeup:{},
@@ -262,8 +263,8 @@ function getSessionID(name){
     return _.snakeCase(name);
 }
 
-function getClassID(programName, sessionName, teacher, day, startTime){
-    let id = programName+ "-"+sessionName+ "-"+teacher+ "-"+transferDay(day)+ "-"+am_pm_to_hours(startTime);
+function getClassID(programName, sessionName, teacher, days, startTime){
+    let id = programName+ "-"+sessionName+ "-"+teacher+ "-"+days.join()+ "-"+am_pm_to_hours(startTime);
     return _.snakeCase(id);
 }
 
@@ -288,6 +289,10 @@ function getClassStudentID(classID, studentID){
     return _.snakeCase(classID+"_"+studentID);
 }
 
+function getRandomID() {
+    return crypto.randomBytes(12).toString('hex');
+}
+
 function insertToArray(array, data){
     // Make sure don't have duplicate data
 
@@ -302,13 +307,6 @@ function insertToArray(array, data){
 
     return item;
 }
-
-let programPrices = {};
-programPrices[getProgramID("Beginning")] = 25;
-programPrices[getProgramID("Intermediate")] = 30;
-programPrices[getProgramID("Pre/Advanced")] = 30;
-programPrices[getProgramID("Pre-AP/AP")] = 40;
-programPrices[getProgramID("Digital")] = 40;
 
 function updateNumberOfRegisteredInClass(){
   let classesData = jsonfile.readFileSync(outPutFolder+"/classes.json");
@@ -399,49 +397,365 @@ function cleanData(){
 
 }
 
-excel('data/cca/cca-class.xlsx', function (err, datas) {
-//excel('data/example-of-class.xlsx', function (err, datas) {
-    if (err) throw err;
 
-    // datas[0] is header, not used
-    datas = datas.splice(1);
+// excel('data/cca/cca-class.xlsx', function (err, datas) {
+// //excel('data/example-of-class.xlsx', function (err, datas) {
+//     if (err) throw err;
+//
+//     // datas[0] is header, not used
+//     datas = datas.splice(1);
+//
+//     let repeatDatas = [];
+//     repeatDatas=repeatDatas.concat(datas);
+//
+//     // repeat data for presure test
+//     for(let i=1;i < repeat_time_class; i++){
+//         let cloneDatas = _.cloneDeep(datas);
+//         let programName={
+//
+//         };
+//
+//         for(let j=0; j< cloneDatas.length; j++){
+//             let data = cloneDatas[j];
+//             if(!programName[_.kebabCase(data[0])]){
+//                 programName[_.kebabCase(data[0])] = data[0]+i;
+//                 data[0] = data[0]+i;
+//             }else{
+//                 data[0] = programName[_.kebabCase(data[0])];
+//             }
+//         }
+//
+//         repeatDatas = repeatDatas.concat(cloneDatas);
+//     }
+//
+//     datas = repeatDatas;
+//
+//     let programs = [];
+//     let classes = [];
+//     let sessions = [];
+//
+//     insertToArray(sessions, spring_2016_session);
+//
+//     // the first item is title, so skip first item
+//     for(let i=0; i<datas.length; i++){
+//         let data = datas[i];
+//
+//         //console.log(data);
+//
+//         // Generate programs
+//         let nProgram = _.cloneDeep(program);
+//         nProgram.name = data[0];
+//         nProgram._id = getProgramID(data[0]);
+//         insertToArray(programs, nProgram);
+//
+//         // Generate Session
+//         let nSession = _.cloneDeep(session);
+//         nSession.name = data[1];
+//         nSession._id = getSessionID(nSession.name);
+//         insertToArray(sessions, nSession);
+//
+//         // Generate Class
+//         let nClass = _.cloneDeep(classData);
+//         nClass.programID = nProgram._id ;
+//         nClass.sessionID = nSession._id;
+//         nClass.status = "Active";
+//         nClass.length = data[5];
+//         nClass.teacher = data[2];
+//         nClass.schedule.day = data[3];
+//         nClass.schedule.time = hours_am_pm(data[4]);
+//         nClass.tuition.money = programPrices[nProgram._id]||40;
+//         nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
+//         nClass.tuition.money = data[8];
+//         insertToArray(classes, nClass);
+//
+//         // Add all class for Spring 2016
+//         let spring2016Class = _.cloneDeep(nClass);
+//         spring2016Class._id = getClassID(data[0], spring_2016_session.name, data[2], data[3], data[4]);
+//         spring2016Class.sessionID = spring_2016_session._id;
+//         insertToArray(classes, spring2016Class);
+//
+//     }
+//
+//     jsonfile.writeFileSync(outPutFolder+'/programs.json', programs, {spaces: 2});
+//
+//     jsonfile.writeFileSync(outPutFolder+'/classes.json', classes, {spaces: 2});
+//
+//     jsonfile.writeFileSync(outPutFolder+'/sessions.json', sessions, {spaces: 2});
+//
+//
+//     console.log("===========================");
+//     console.log("Add Data summary");
+//     console.log("programs: ", programs.length);
+//     console.log("classes: ", classes.length);
+//     console.log("sessions: ", sessions.length);
+//
+//     excel('data/cca/cca-student.xlsx', function(err, datas){
+//         if (err) throw err;
+//
+//         // datas[0] is header, not used
+//         datas = datas.splice(2);
+//
+//         let repeatDatas = [];
+//         repeatDatas=repeatDatas.concat(datas);
+//         for(let i=1;i < repeat_time_student; i++){
+//             let cloneDatas = _.cloneDeep(datas);
+//             let programName={
+//
+//             };
+//
+//             let studentName={
+//
+//             };
+//
+//             let primaryEmail={
+//
+//             };
+//
+//             for(let j=0; j< cloneDatas.length; j++){
+//                 let data = cloneDatas[j];
+//                 if(!programName[_.kebabCase(data[9])]){
+//                     programName[_.kebabCase(data[9])] = data[9]+i;
+//                     data[9] = data[9]+i;
+//                 }else{
+//                     data[9] = programName[_.kebabCase(data[9])];
+//                 }
+//
+//                 if(!studentName[_.kebabCase(data[1])]){
+//                     studentName[_.kebabCase(data[1])] = data[1]+i;
+//                     data[1] = data[1]+i;
+//                 }else{
+//                     data[1] = studentName[_.kebabCase(data[1])];
+//                 }
+//
+//                 if(!primaryEmail[_.kebabCase(data[7])]){
+//                     primaryEmail[_.kebabCase(data[7])] = data[7]+i;
+//                     data[7] = i+data[7];
+//                 }else{
+//                     data[7] = primaryEmail[_.kebabCase(data[7])];
+//                 }
+//             }
+//
+//             repeatDatas = repeatDatas.concat(cloneDatas);
+//         }
+//
+//         datas = repeatDatas;
+//
+//
+//         let classStudents = [];
+//         let accounts = [];
+//         let customers = [];
+//         let students = [];
+//         let adminUsers = [];
+//
+//         // Add admin
+//         accounts.push(admin);
+//         adminUsers.push(adminUser);
+//
+//         for(var i=0; i<datas.length; i++){
+//             let data = datas[i];
+//
+//             if(!data[7]){
+//                 console.log("Canceled data, ", data);
+//                 continue;
+//             }
+//
+//             let nTeacherUser = _.cloneDeep(teacherUser);
+//             nTeacherUser.emails[0].address = _.camelCase(data[11])+"@classforth.com";
+//             nTeacherUser.username = nTeacherUser.emails[0].address;
+//             nTeacherUser._id = getTeacherID(nTeacherUser.emails[0].address);
+//             insertToArray(accounts, nTeacherUser);
+//
+//             let nTacherAdminUser = _.cloneDeep(tacherAdminUser);
+//             nTacherAdminUser.nickName = data[11];
+//             nTacherAdminUser.email = _.camelCase(data[11])+"@classforth.com";
+//             nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
+//             insertToArray(adminUsers, nTacherAdminUser);
+//
+//             let nUser = _.cloneDeep(user);
+//             nUser._id = getUserID(data[7]);
+//             nUser.username = data[7];
+//             nUser.username = nUser.username.toLowerCase();
+//             nUser.emails[0].address = nUser.username;
+//
+//             insertToArray(accounts, nUser);
+//
+//             let nCustomer = _.cloneDeep(customer);
+//             nCustomer._id = getUserID(data[7]);
+//             nCustomer.name = data[7];
+//             nCustomer.email = data[7];
+//             nCustomer.phone = getPhoneNumber(data[4]);
+//             nCustomer = insertToArray(customers, nCustomer);
+//             nCustomer.schoolCredit += Number(data[19]);
+//
+//             let nStudent = _.cloneDeep(student);
+//             nStudent._id = getStudentID(nUser._id, data[1]);
+//             nStudent.name = data[1];
+//             nStudent.accountID = nUser._id;
+//             if(data[4]){
+//                 nStudent.profile.gender = _.capitalize(data[4]);
+//             }else{// Add default value
+//                 nStudent.profile.gender = "Male";
+//             }
+//
+//             if(data[3]){
+//                 nStudent.profile.birthday = new Date(data[3]);
+//             }else{// Add default value
+//                 // This is the default value for student
+//                 nStudent.profile.birthday = default_birthday;
+//             }
+//             insertToArray(students, nStudent);
+//
+//             let nClassStudent = _.cloneDeep(classStudent);
+//             nClassStudent.accountID = nUser._id;
+//             nClassStudent.classID = getClassID(data[9], data[10], data[11], data[12], data[13]);
+//             nClassStudent.programID = getProgramID(data[9]);
+//             nClassStudent.studentID = nStudent._id;
+//             nClassStudent._id=getClassStudentID(nClassStudent.classID,nClassStudent.studentID);
+//             insertToArray(classStudents, nClassStudent);
+//
+//         }
+//
+//         jsonfile.writeFileSync(outPutFolder+'/accounts.json', accounts, {spaces: 2});
+//         jsonfile.writeFileSync(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2});
+//         jsonfile.writeFileSync(outPutFolder+'/customers.json', customers, {spaces: 2});
+//         jsonfile.writeFileSync(outPutFolder+'/students.json', students, {spaces: 2});
+//         jsonfile.writeFileSync(outPutFolder+'/classStudents.json', classStudents, {spaces: 2});
+//
+//         console.log("accounts: ", accounts.length);
+//         console.log("adminUsers: ", adminUsers.length);
+//         console.log("customers: ", customers.length);
+//         console.log("students: ", students.length);
+//         console.log("classStudents: ", classStudents.length);
+//         console.log("===========================");
+//         updateNumberOfRegisteredInClass();
+//         cleanData();
+//
+//     });
+//
+// });
 
-    let repeatDatas = [];
-    repeatDatas=repeatDatas.concat(datas);
+let classLevels = [];
+let classStudents = [];
+let accounts = [];
+let customers = [];
+let students = [];
+let adminUsers = [];
 
-    // repeat data for presure test
-    for(let i=1;i < repeat_time_class; i++){
-        let cloneDatas = _.cloneDeep(datas);
-        let programName={
+let programs = [];
+let classes = [];
+let sessions = [];
 
-        };
+function processClassLevel(data) {
+    // Level	sub-level	abbrev.	tuition per class	during	min age	max age	min student	max student
+    let levelOrder = 1;
+    for (let i=1; i<data.length; i++) {
+        let row = data[i];
+        let subLevels = row[1].split(',');
+        if (subLevels.length == 0) {
+            // no sub levels;
+            let name = row[0];
+            classLevels.push({
+                name,
+                alias: row[2],
+                order: levelOrder++,
+                majorName: row[0],
+                majorAlias: row[2],
+                subLevel: null,
 
-        for(let j=0; j< cloneDatas.length; j++){
-            let data = cloneDatas[j];
-            if(!programName[_.kebabCase(data[0])]){
-                programName[_.kebabCase(data[0])] = data[0]+i;
-                data[0] = data[0]+i;
-            }else{
-                data[0] = programName[_.kebabCase(data[0])];
-            }
+                tuition : row[3],
+                duration : row[4],
+                minAge : row[5] || 0,
+                maxAge : row[6] || 100,
+                minStudent : row[7],
+                maxStudent : row[8],
+                _id: _.snakeCase(name)
+            })
         }
+        else {
+            // add a classLevel for each sub level
+            _.forEach(subLevels, function(level) {
+                let name = row[0] + ' ' + level;
+                classLevels.push({
+                    name,
+                    alias: row[2] + ' ' + level,
+                    order: levelOrder++,
+                    majorName: row[0],
+                    majorAlias: row[2],
+                    subLevel: level,
 
-        repeatDatas = repeatDatas.concat(cloneDatas);
+                    tuition : row[3],
+                    duration : row[4],
+                    minAge : row[5] || 0,
+                    maxAge : row[6] || 100,
+                    minStudent : row[7],
+                    maxStudent : row[8],
+
+                    _id: _.snakeCase(name)
+                })
+            })
+        }
+    }
+}
+
+function processTeachers(data) {
+    for (let idx = 1; idx < data.length; idx++) {
+        let row = data[idx];
+
+        let nTeacherUser = _.cloneDeep(teacherUser)
+        nTeacherUser.username = nTeacherUser.emails[0].address = row[1];
+        nTeacherUser._id = getTeacherID(nTeacherUser.emails[0].address);
+        insertToArray(accounts, nTeacherUser);
+
+        let nTacherAdminUser = _.cloneDeep(tacherAdminUser);
+        nTacherAdminUser.nickName = row[0];
+        nTacherAdminUser.email = row[1];
+        nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
+        insertToArray(adminUsers, nTacherAdminUser);
+    }
+}
+
+function getClassLevels(levelStr) {
+    let nameAndLevels = levelStr.split(' ');
+    let levelIDs = [];
+    if (nameAndLevels.length == 1) {
+        // Sprinter/Racer
+        let levels = nameAndLevels[0].split('/');
+
+        _.forEach(classLevels, function(level) {
+            if (_.find(levels, level.majorName))
+                levelIDs.push(level._id);
+        })
+    }
+    else
+    if (nameAndLevels.length == 2) {
+        // Glider 1/2/3
+        let subLevels = nameAndLevels[1].split('/');
+        _.forEach(subLevels, function(subLevel){
+            let classLevel = _.find(classLevels, {name: nameAndLevels[0] + ' ' + subLevel});
+            classLevel && levelIDs.push(classLevel._id);
+        })
     }
 
-    datas = repeatDatas;
+    return levelIDs;
+}
 
-    let programs = [];
-    let classes = [];
-    let sessions = [];
+function getClassTeacherID(teacherName) {
+    let teacher = _.find( adminUsers, {nickName: teacherName});
+    if (!teacher) {
+        console.log('Teacher not found:' + teacherName);
+        return null;
+    }
+    return teacher._id;
+}
 
-    insertToArray(sessions, spring_2016_session);
+function getClassDays(days) {
+    return days.split(',')
+}
 
+function processClasses(rows) {
     // the first item is title, so skip first item
-    for(let i=0; i<datas.length; i++){
-        let data = datas[i];
-
-        //console.log(data);
+    for(let i=1; i<rows.length; i++){
+        let data = rows[i];
 
         // Generate programs
         let nProgram = _.cloneDeep(program);
@@ -457,180 +771,140 @@ excel('data/cca/cca-class.xlsx', function (err, datas) {
 
         // Generate Class
         let nClass = _.cloneDeep(classData);
+        nClass.levels = getClassLevels(data[2]);
         nClass.programID = nProgram._id ;
         nClass.sessionID = nSession._id;
         nClass.status = "Active";
-        nClass.length = data[5];
-        nClass.teacher = data[2];
-        nClass.schedule.day = data[3];
-        nClass.schedule.time = hours_am_pm(data[4]);
-        nClass.tuition.money = programPrices[nProgram._id]||40;
-        nClass._id = getClassID(data[0], data[1], data[2], data[3], data[4]);
-        nClass.tuition.money = data[8];
+        nClass.length = data[7];
+        nClass.teacher = data[3];
+        nClass.teacherID = getClassTeacherID(nClass.teacher);
+        nClass.schedule.days = getClassDays(data[4]);
+        nClass.schedule.time = hours_am_pm(data[5]);
+        nClass.tuition.money = Number(data[9]);
+
+        nClass._id = getClassID(nClass.programID, nClass.sessionID, nClass.teacher, nClass.schedule.days, nClass.schedule.time);
         insertToArray(classes, nClass);
-
-        // Add all class for Spring 2016
-        let spring2016Class = _.cloneDeep(nClass);
-        spring2016Class._id = getClassID(data[0], spring_2016_session.name, data[2], data[3], data[4]);
-        spring2016Class.sessionID = spring_2016_session._id;
-        insertToArray(classes, spring2016Class);
-
     }
+}
 
+function getStudentLevel(level) {
+    let classLevel = _.find(classLevels, {name: level});
+    return classLevel ? classLevel._id : null;
+}
+
+function processStudents(rows) {
+    for (let i=1; i<rows.length; i++) {
+        let data = rows[i];
+
+        let nUser = _.cloneDeep(user);
+        nUser._id = getUserID(data[9]);
+        nUser.username = data[9];
+        nUser.username = nUser.username.toLowerCase();
+        nUser.emails[0].address = nUser.username;
+
+        insertToArray(accounts, nUser);
+
+        let nCustomer = _.cloneDeep(customer);
+        nCustomer._id = getUserID(data[9]);
+        nCustomer.name = data[9];
+        nCustomer.email = data[9];
+        nCustomer.phone = getPhoneNumber(data[6]);
+        nCustomer = insertToArray(customers, nCustomer);
+        nCustomer.schoolCredit += Number(data[19]);
+
+        let nStudent = _.cloneDeep(student);
+        nStudent._id = getStudentID(nUser._id, data[1]);
+        nStudent.name = data[1];
+        nStudent.accountID = nUser._id;
+        if(data[4]){
+            nStudent.profile.gender = _.capitalize(data[4]);
+        }else{// Add default value
+            nStudent.profile.gender = "Male";
+        }
+        nStudent.level = getStudentLevel(data[3]);
+
+        if(data[5]){
+            nStudent.profile.birthday = new Date(data[5]);
+        }else{// Add default value
+            // This is the default value for student
+            nStudent.profile.birthday = default_birthday;
+        }
+        insertToArray(students, nStudent);
+
+        let nClassStudent = _.cloneDeep(classStudent);
+        nClassStudent.accountID = nUser._id;
+        nClassStudent.classID = getClassID(data[11], data[12], data[13], data[14].split(','), data[16]);
+        nClassStudent.programID = getProgramID(data[11]);
+        nClassStudent.studentID = nStudent._id;
+        nClassStudent._id =  getClassStudentID(nClassStudent.classID,nClassStudent.studentID);//getRandomID();
+        insertToArray(classStudents, nClassStudent);
+    }
+}
+
+function writeJsonFiles() {
     jsonfile.writeFileSync(outPutFolder+'/programs.json', programs, {spaces: 2});
-
     jsonfile.writeFileSync(outPutFolder+'/classes.json', classes, {spaces: 2});
-
     jsonfile.writeFileSync(outPutFolder+'/sessions.json', sessions, {spaces: 2});
 
+    jsonfile.writeFileSync(outPutFolder+'/classLevels.json', classLevels, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/accounts.json', accounts, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/customers.json', customers, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/students.json', students, {spaces: 2});
+    jsonfile.writeFileSync(outPutFolder+'/classStudents.json', classStudents, {spaces: 2});
 
+    console.log("accounts: ", accounts.length);
+    console.log("adminUsers: ", adminUsers.length);
+    console.log("customers: ", customers.length);
+    console.log("students: ", students.length);
+    console.log("classStudents: ", classStudents.length);
     console.log("===========================");
-    console.log("Add Data summary");
-    console.log("programs: ", programs.length);
-    console.log("classes: ", classes.length);
-    console.log("sessions: ", sessions.length);
 
-    excel('data/cca/cca-student.xlsx', function(err, datas){
-        if (err) throw err;
+    cleanData();
+    updateNumberOfRegisteredInClass();
+}
 
-        // datas[0] is header, not used
-        datas = datas.splice(2);
+// a helper function to parse excel file and return a Q promise
+function excelParse(path) {
+    var deferred = Q.defer();
+    excel(path, function(err,data) {
+        err ? deferred.reject(err) : deferred.resolve(data);
+    })
 
-        let repeatDatas = [];
-        repeatDatas=repeatDatas.concat(datas);
-        for(let i=1;i < repeat_time_student; i++){
-            let cloneDatas = _.cloneDeep(datas);
-            let programName={
+    return deferred.promise;
+}
 
-            };
+// load classLevels
+excelParse("data/calphi/classLevel.xlsx")
+    .then(function(data){
+        console.log('Processing class levels...');
+        processClassLevel(data);
 
-            let studentName={
+        // proceed to load teachers
+        return excelParse("data/calphi/teacher.xlsx")
+    })
+    .then(function(data){
+        console.log('Processing teacher data...');
+        processTeachers(data);
+        // proceed to load classes
+        return excelParse("data/calphi/class.xlsx")
+    })
+    .then(function(data){
+        console.log('Processing class data...');
+        processClasses(data);
+        // proceed to load students
+        return excelParse("data/calphi/student.xlsx")
+    })
+    .then(function(data){
+        console.log('Processing student data...');
+        processStudents(data);
 
-            };
+        console.log('Saving files');
+        writeJsonFiles();
 
-            let primaryEmail={
+        console.log("Data import complete");
+    })
+    .catch(function(err){
+        console.log(err);
+    })
 
-            };
-
-            for(let j=0; j< cloneDatas.length; j++){
-                let data = cloneDatas[j];
-                if(!programName[_.kebabCase(data[9])]){
-                    programName[_.kebabCase(data[9])] = data[9]+i;
-                    data[9] = data[9]+i;
-                }else{
-                    data[9] = programName[_.kebabCase(data[9])];
-                }
-
-                if(!studentName[_.kebabCase(data[1])]){
-                    studentName[_.kebabCase(data[1])] = data[1]+i;
-                    data[1] = data[1]+i;
-                }else{
-                    data[1] = studentName[_.kebabCase(data[1])];
-                }
-
-                if(!primaryEmail[_.kebabCase(data[7])]){
-                    primaryEmail[_.kebabCase(data[7])] = data[7]+i;
-                    data[7] = i+data[7];
-                }else{
-                    data[7] = primaryEmail[_.kebabCase(data[7])];
-                }
-            }
-
-            repeatDatas = repeatDatas.concat(cloneDatas);
-        }
-
-        datas = repeatDatas;
-
-
-        let classStudents = [];
-        let accounts = [];
-        let customers = [];
-        let students = [];
-        let adminUsers = [];
-
-        // Add admin
-        accounts.push(admin);
-        adminUsers.push(adminUser);
-
-        for(var i=0; i<datas.length; i++){
-            let data = datas[i];
-
-            if(!data[7]){
-                console.log("Canceled data, ", data);
-                continue;
-            }
-
-            let nTeacherUser = _.cloneDeep(teacherUser);
-            nTeacherUser.emails[0].address = _.camelCase(data[11])+"@classforth.com";
-            nTeacherUser.username = nTeacherUser.emails[0].address;
-            nTeacherUser._id = getTeacherID(nTeacherUser.emails[0].address);
-            insertToArray(accounts, nTeacherUser);
-
-            let nTacherAdminUser = _.cloneDeep(tacherAdminUser);
-            nTacherAdminUser.nickName = data[11];
-            nTacherAdminUser.email = _.camelCase(data[11])+"@classforth.com";
-            nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
-            insertToArray(adminUsers, nTacherAdminUser);
-
-            let nUser = _.cloneDeep(user);
-            nUser._id = getUserID(data[7]);
-            nUser.username = data[7];
-            nUser.username = nUser.username.toLowerCase();
-            nUser.emails[0].address = nUser.username;
-
-            insertToArray(accounts, nUser);
-
-            let nCustomer = _.cloneDeep(customer);
-            nCustomer._id = getUserID(data[7]);
-            nCustomer.name = data[7];
-            nCustomer.email = data[7];
-            nCustomer.phone = getPhoneNumber(data[4]);
-            nCustomer = insertToArray(customers, nCustomer);
-            nCustomer.schoolCredit += Number(data[16]);
-
-            let nStudent = _.cloneDeep(student);
-            nStudent._id = getStudentID(nUser._id, data[1]);
-            nStudent.name = data[1]||data[7];
-            nStudent.accountID = nUser._id;
-            if(data[2]){
-                nStudent.profile.gender = _.capitalize(data[2]);
-            }else{// Add default value
-                nStudent.profile.gender = "Male";
-            }
-
-            if(data[3]){
-                nStudent.profile.birthday = new Date(data[3]);
-            }else{// Add default value
-                // This is the default value for student
-                nStudent.profile.birthday = default_birthday;
-            }
-            insertToArray(students, nStudent);
-
-            let nClassStudent = _.cloneDeep(classStudent);
-            nClassStudent.accountID = nUser._id;
-            nClassStudent.classID = getClassID(data[9], data[10], data[11], data[12], data[13]);
-            nClassStudent.programID = getProgramID(data[9]);
-            nClassStudent.studentID = nStudent._id;
-            nClassStudent._id=getClassStudentID(nClassStudent.classID,nClassStudent.studentID);
-            insertToArray(classStudents, nClassStudent);
-
-        }
-
-        jsonfile.writeFileSync(outPutFolder+'/accounts.json', accounts, {spaces: 2});
-        jsonfile.writeFileSync(outPutFolder+'/adminUsers.json', adminUsers, {spaces: 2});
-        jsonfile.writeFileSync(outPutFolder+'/customers.json', customers, {spaces: 2});
-        jsonfile.writeFileSync(outPutFolder+'/students.json', students, {spaces: 2});
-        jsonfile.writeFileSync(outPutFolder+'/classStudents.json', classStudents, {spaces: 2});
-
-        console.log("accounts: ", accounts.length);
-        console.log("adminUsers: ", adminUsers.length);
-        console.log("customers: ", customers.length);
-        console.log("students: ", students.length);
-        console.log("classStudents: ", classStudents.length);
-        console.log("===========================");
-        updateNumberOfRegisteredInClass();
-        cleanData();
-
-    });
-
-});

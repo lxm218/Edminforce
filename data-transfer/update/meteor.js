@@ -9,6 +9,7 @@ if (Meteor.isServer) {
     let customer = Collections.Customer;
     let program = Collections.program;
     let classStudent = Collections.classStudent;
+    let classLevel = Collections.classLevel;
 
     let session = Collections.session;
     let student = Collections.student;
@@ -28,8 +29,12 @@ if (Meteor.isServer) {
       sunday: 'Sun'
     }
     classesData.forEach ( (cls) => {
-      if (cls.schedule && cls.schedule.day && weekDayMap[cls.schedule.day.toLowerCase()]) {
-        cls.schedule.day = weekDayMap[cls.schedule.day.toLowerCase()];
+      if (cls.schedule && cls.schedule.days && cls.schedule.days.length > 0) {
+        for (let i = 0; i<cls.schedule.days.length; i++) {
+          if (weekDayMap[cls.schedule.days[i].toLowerCase()]) {
+            cls.schedule.days[i] = weekDayMap[cls.schedule.days[i].toLowerCase()];
+          }
+        }
       }
     });
 
@@ -39,6 +44,7 @@ if (Meteor.isServer) {
     let sessionsData = JSON.parse(Assets.getText('sessions.json'));
     let studentsData = JSON.parse(Assets.getText('students.json'));
     let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
+    let classLevelData = JSON.parse(Assets.getText('classLevels.json'));
 
     var delay = 0;
 
@@ -77,7 +83,10 @@ if (Meteor.isServer) {
     function importDatas(){
       var F = {
         program : function(){
-          insertData('Program', programsData, program, null, F.session);
+          insertData('Program', programsData, program, null, F.classLevel);
+        },
+        classLevel: function(){
+          insertData('ClassLevel', classLevelData, classLevel, null, F.session);
         },
         session : function(){
           insertData('Session', sessionsData, session, null, F.account);

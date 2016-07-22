@@ -1,1570 +1,3430 @@
 [
   {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
-      "day": "Wednesday",
-      "time": "03:30PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_exploration_spring_2016_rachel_wednesday_15_30"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Amanda",
-    "schedule": {
-      "day": "Wednesday",
-      "time": "05:15PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_exploration_spring_2016_amanda_wednesday_17_15"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Tuesday",
-      "time": "03:45PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 3,
-    "_id": "art_exploration_spring_2016_rachel_tuesday_15_45"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Cynthia",
-    "schedule": {
-      "day": "Saturday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "25"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_exploration_spring_2016_cynthia_saturday_09_00"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Cynthia",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "10:15AM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "25"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_exploration_spring_2016_cynthia_saturday_10_15"
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Cynthia",
+    "length": "Fremont",
+    "levels": [
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "11:30AM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "25"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_exploration_spring_2016_cynthia_saturday_11_30"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Saturday",
-      "time": "01:30PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 6,
-    "_id": "art_exploration_spring_2016_rachel_saturday_13_30"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Saturday",
-      "time": "02:45PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 6,
-    "_id": "art_exploration_spring_2016_rachel_saturday_14_45"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Saturday",
-      "time": "04:00PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 6,
-    "_id": "art_exploration_spring_2016_rachel_saturday_16_00"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Thursday",
-      "time": "03:45PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 4,
-    "_id": "art_exploration_spring_2016_rachel_thursday_15_45"
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1 hr",
+    "length": "Fremont",
     "levels": [],
-    "teacher": "Robbie",
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
-      "day": "Thursday",
-      "time": "05:30PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_exploration_spring_2016_robbie_thursday_17_30"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Amanda",
-    "schedule": {
-      "day": "Sunday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "25"
+      "money": 21
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_exploration_spring_2016_amanda_sunday_09_00"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Sunday",
-      "time": "10:15AM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_exploration_spring_2016_rachel_sunday_10_15"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Sunday",
-      "time": "11:30AM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 5,
-    "_id": "art_exploration_spring_2016_rachel_sunday_11_30"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Sunday",
-      "time": "01:30PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 6,
-    "_id": "art_exploration_spring_2016_rachel_sunday_13_30"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Amanda",
-    "schedule": {
-      "day": "Sunday",
-      "time": "02:45PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_exploration_spring_2016_amanda_sunday_14_45"
-  },
-  {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Sunday",
-      "time": "04:30PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 3,
-    "_id": "art_exploration_spring_2016_rachel_sunday_16_30"
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "digital_art",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "2 hr",
+    "length": "Fremont",
     "levels": [],
-    "teacher": "Justin Ho",
+    "teacher": "Supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "06:00PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "25"
+      "money": 21
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "digital_art_spring_2016_justin_ho_saturday_18_00"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
-      "day": "Wednesday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_09_45"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_09_45"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_09_45"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_10_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_10_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Supriya",
+    "teacherID": "swimsupriya_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_10_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_10_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_10_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_10_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_10_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_11_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_11_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Supriya",
+    "teacherID": "swimsupriya_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:15AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_11_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Supriya",
+    "teacherID": "swimsupriya_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_02_45"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_02_45"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_02_45"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_02_45"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Aditi",
+    "teacherID": "aditidalii_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "03:00PM"
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_eli_wednesday_15_00"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_03_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Amanda",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
-      "day": "Wednesday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "03:30PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_foundation_spring_2016_amanda_wednesday_15_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_03_30"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Rachel",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
-      "day": "Wednesday",
-      "time": "04:45PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:30PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_foundation_spring_2016_rachel_wednesday_16_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_03_30"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
+    "length": "Fremont",
     "levels": [],
-    "teacher": "Rachel",
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
-      "day": "Tuesday",
-      "time": "05:00PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:00PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 21
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_rachel_tuesday_17_00"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_03_00"
   },
   {
-    "programID": "art_exploration",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1 hr",
+    "length": "Fremont",
     "levels": [],
-    "teacher": "Robbie",
+    "teacher": "Supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
-      "day": "Friday",
-      "time": "05:30PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:00PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 21
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_exploration_spring_2016_robbie_friday_17_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_03_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Robbie",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
-      "day": "Friday",
-      "time": "03:45PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_robbie_friday_15_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_04_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Amanda",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
-      "day": "Friday",
-      "time": "03:45PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_foundation_spring_2016_amanda_friday_15_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_04_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Amanda",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
-      "day": "Friday",
-      "time": "05:30PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 10,
-    "_id": "art_foundation_spring_2016_amanda_friday_17_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_04_15"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_3",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
-      "day": "Saturday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_04_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1"
+    ],
+    "teacher": "Aditi",
+    "teacherID": "aditidalii_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_04_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "",
+    "teacherID": null,
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_mon_tue_wed_thu_04_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_04_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Supriya",
+    "teacherID": "swimsupriya_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_04_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1",
+      "bubbler_2"
+    ],
+    "teacher": "Ashley",
+    "teacherID": "ashley_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_eli_saturday_09_00"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_2_ashley_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Nora",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
-      "day": "Saturday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_nora_saturday_09_00"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_stephanie_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Cynthia",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "01:30PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_cynthia_saturday_13_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_cierra_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Nora",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Emmy",
+    "teacherID": "emmy_classforth_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "01:30PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_nora_saturday_13_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_emmy_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Nora",
+    "length": "Fremont",
+    "levels": [
+      "glider_1",
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Manuel",
+    "teacherID": "manuel_classforth_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "03:15PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_nora_saturday_15_15"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_manuel_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
+    "length": "Fremont",
     "levels": [],
-    "teacher": "Nora",
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "05:00PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:00AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 21
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_foundation_spring_2016_nora_saturday_17_00"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_nicholas_mon_tue_wed_thu_09_00"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
+    "length": "Fremont",
     "levels": [],
-    "teacher": "Rachel",
+    "teacher": "Ashley",
+    "teacherID": "ashley_classforth_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "05:15PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:30AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_foundation_spring_2016_rachel_saturday_17_15"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_ashley_mon_tue_wed_thu_09_30"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Nora",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "10:45AM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:30AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 2,
-    "_id": "art_foundation_spring_2016_nora_saturday_10_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_stephanie_mon_tue_wed_thu_09_30"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Rachel",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Emmy",
+    "teacherID": "emmy_classforth_com",
     "schedule": {
-      "day": "Thursday",
-      "time": "05:00PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:45AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 5,
-    "_id": "art_foundation_spring_2016_rachel_thursday_17_00"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_2_emmy_mon_tue_wed_thu_09_45"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Robbie",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
-      "day": "Thursday",
-      "time": "03:45PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:45AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_foundation_spring_2016_robbie_thursday_15_45"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_2_cierra_mon_tue_wed_thu_09_45"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "glider_1",
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Manuel",
+    "teacherID": "manuel_classforth_com",
     "schedule": {
-      "day": "Sunday",
-      "time": "08:45AM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "09:45AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_foundation_spring_2016_eli_sunday_08_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_manuel_mon_tue_wed_thu_09_45"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Amanda",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
-      "day": "Sunday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_stephanie_mon_tue_wed_thu_10_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Ashley",
+    "teacherID": "ashley_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_ashley_mon_tue_wed_thu_10_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Ashley",
+    "teacherID": "ashley_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "10:30AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "art_foundation_spring_2016_amanda_sunday_10_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_ashley_mon_tue_wed_thu_10_30"
   },
   {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Amanda",
+    "length": "Fremont",
+    "levels": [
+      "glider_1"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
-      "day": "Sunday",
-      "time": "01:00PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_foundation_spring_2016_amanda_sunday_13_00"
-  },
-  {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Justin P",
-    "schedule": {
-      "day": "Sunday",
-      "time": "01:00PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_foundation_spring_2016_justin_p_sunday_13_00"
-  },
-  {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Rachel",
-    "schedule": {
-      "day": "Sunday",
-      "time": "02:45PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_foundation_spring_2016_rachel_sunday_14_45"
-  },
-  {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Eli",
-    "schedule": {
-      "day": "Wednesday",
-      "time": "04:45PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_advancement_spring_2016_eli_wednesday_16_45"
-  },
-  {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Justin P",
-    "schedule": {
-      "day": "Friday",
-      "time": "03:45PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_advancement_spring_2016_justin_p_friday_15_45"
-  },
-  {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Justin P",
-    "schedule": {
-      "day": "Friday",
-      "time": "05:30PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 5,
-    "_id": "art_advancement_spring_2016_justin_p_friday_17_30"
-  },
-  {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Eli",
-    "schedule": {
-      "day": "Saturday",
-      "time": "10:45AM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 11,
-    "_id": "art_advancement_spring_2016_eli_saturday_10_45"
-  },
-  {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Justin P",
-    "schedule": {
-      "day": "Saturday",
-      "time": "10:45AM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 5,
-    "_id": "art_advancement_spring_2016_justin_p_saturday_10_45"
-  },
-  {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Cynthia",
-    "schedule": {
-      "day": "Saturday",
-      "time": "03:15PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "30"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_advancement_spring_2016_cynthia_saturday_15_15"
-  },
-  {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Eli",
-    "schedule": {
-      "day": "Sunday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "10:30AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "art_advancement_spring_2016_eli_sunday_10_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_stephanie_mon_tue_wed_thu_10_30"
   },
   {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Justin P",
+    "length": "Fremont",
+    "levels": [
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Emmy",
+    "teacherID": "emmy_classforth_com",
     "schedule": {
-      "day": "Sunday",
-      "time": "10:45AM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:30AM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 2,
-    "_id": "art_advancement_spring_2016_justin_p_sunday_10_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_emmy_mon_tue_wed_thu_10_30"
   },
   {
-    "programID": "art_advancement",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "1.5 hr",
+    "length": "Fremont",
     "levels": [],
-    "teacher": "Justin P",
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
-      "day": "Sunday",
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_2_nicholas_mon_tue_wed_thu_10_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Manuel",
+    "teacherID": "manuel_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_manuel_mon_tue_wed_thu_10_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_cierra_mon_tue_wed_thu_10_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_cierra_mon_tue_wed_thu_11_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1",
+      "bubbler_2"
+    ],
+    "teacher": "Manuel",
+    "teacherID": "manuel_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_manuel_mon_tue_wed_thu_11_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Ashley",
+    "teacherID": "ashley_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:15AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_ashley_mon_tue_wed_thu_11_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1"
+    ],
+    "teacher": "Emmy",
+    "teacherID": "emmy_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:15AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_2_emmy_mon_tue_wed_thu_11_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:15AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_stephanie_mon_tue_wed_thu_11_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Nicholas",
+    "teacherID": "nickkshn_aol_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_nicholas_mon_tue_wed_thu_11_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Cierra",
+    "teacherID": "cierrabessler_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_cierra_mon_tue_wed_thu_11_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Manuel",
+    "teacherID": "manuel_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "11:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_manuel_mon_tue_wed_thu_11_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Charlie O.",
+    "teacherID": "olsoncharles_comcast_net",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Matthew",
+    "teacherID": "matttomng_2016_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1",
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Charles N.",
+    "teacherID": "charlienam_8_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_02_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_02_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Charlie O.",
+    "teacherID": "olsoncharles_comcast_net",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_02_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Matthew",
+    "teacherID": "matttomng_2016_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
       "time": "02:45PM"
     },
     "tuition": {
       "type": "class",
-      "money": "30"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "art_advancement_spring_2016_justin_p_sunday_14_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_02_45"
   },
   {
-    "programID": "ap_art",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "2 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
-      "day": "Wednesday",
-      "time": "06:30PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:45PM"
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 11,
-    "_id": "ap_art_spring_2016_eli_wednesday_18_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_02_45"
   },
   {
-    "programID": "ap_art",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "2 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "glider_1",
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Charles N.",
+    "teacherID": "charlienam_8_gmail_com",
     "schedule": {
-      "day": "Saturday",
-      "time": "01:30PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "02:45PM"
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "ap_art_spring_2016_eli_saturday_13_30"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_02_45"
   },
   {
-    "programID": "ap_art",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "2 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Charlie O.",
+    "teacherID": "olsoncharles_comcast_net",
     "schedule": {
-      "day": "Saturday",
-      "time": "03:45PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:00PM"
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "ap_art_spring_2016_eli_saturday_15_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_03_00"
   },
   {
-    "programID": "ap_art",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "2 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
     "schedule": {
-      "day": "Sunday",
-      "time": "01:00PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:00PM"
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
-    "_id": "ap_art_spring_2016_eli_sunday_13_00"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_03_00"
   },
   {
-    "programID": "ap_art",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "2 hr",
-    "levels": [],
-    "teacher": "Eli",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Charlie O.",
+    "teacherID": "olsoncharles_comcast_net",
     "schedule": {
-      "day": "Sunday",
-      "time": "03:15PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:30PM"
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "ap_art_spring_2016_eli_sunday_15_15"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_03_30"
   },
   {
-    "programID": "clay",
-    "sessionID": "spring_2016",
+    "programID": "intense",
+    "sessionID": "intense_2",
     "status": "Active",
-    "length": "2 hr",
-    "levels": [],
-    "teacher": "Amanda",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
     "schedule": {
-      "day": "Sunday",
-      "time": "04:45PM"
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:30PM"
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": 19
     },
     "maxStudent": 9,
     "minStudent": 0,
-    "trialStudent": 2,
+    "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
-    "makeupStudent": 1,
+    "makeupStudent": 0,
     "makeupClassFee": 5,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 4,
-    "_id": "clay_spring_2016_amanda_sunday_16_45"
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_03_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1",
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Matthew",
+    "teacherID": "matttomng_2016_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_03_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Andrew H.",
+    "teacherID": "andrew_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_andrew_h_mon_tue_wed_thu_03_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_03_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Charles N.",
+    "teacherID": "charlienam_8_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_03_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "03:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_03_30"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_1"
+    ],
+    "teacher": "Alexa",
+    "teacherID": "fordalexa_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_04_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "bubbler_2",
+      "bubbler_3"
+    ],
+    "teacher": "Charles N.",
+    "teacherID": "charlienam_8_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_04_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_1"
+    ],
+    "teacher": "Leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_04_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "crawler_2",
+      "crawler_3"
+    ],
+    "teacher": "Charlie O.",
+    "teacherID": "olsoncharles_comcast_net",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_04_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_1",
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Matthew",
+    "teacherID": "matttomng_2016_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_04_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Andrew H.",
+    "teacherID": "andrew_classforth_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_andrew_h_mon_tue_wed_thu_04_00"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_2",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [],
+    "teacher": "Marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 21
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_04_00"
   }
 ]
