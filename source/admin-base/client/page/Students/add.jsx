@@ -59,6 +59,13 @@ KUI.Student_comp_add = class extends KUI.Page{
                 wrapperClassName : 'col-xs-9',
                 ref : 'note',
                 label : 'Notes'
+            },
+
+            lastDate : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-4',
+                ref : 'lastDate',
+                label : 'Last Registration Date'
             }
         };
 
@@ -113,6 +120,8 @@ KUI.Student_comp_add = class extends KUI.Page{
 
                         <RB.Input type="textarea" {... p.note} />
 
+                        <RB.Input type="text" {... p.lastDate} />
+
                     </RB.Col>
                 </RB.Row>
             </form>
@@ -126,12 +135,14 @@ KUI.Student_comp_add = class extends KUI.Page{
             birthday : this.refs.birthday,
             status : this.refs.status,
             school : this.refs.school,
-            note : this.refs.note
+            note : this.refs.note,
+
+            lastDate : this.refs.lastDate
         };
     }
 
     getValue(){
-        let {name, gender, birthday, status, note, school} = this.getRefs();
+        let {name, gender, birthday, status, note, school, lastDate} = this.getRefs();
 
         let sd = {
             name : name.getValue(),
@@ -144,13 +155,17 @@ KUI.Student_comp_add = class extends KUI.Page{
                 note : note.getValue()
             }
         };
+        if(lastDate.getValue()){
+            sd.lastRegistrationDate = moment(lastDate.getValue(), util.const.dateFormat).toDate()
+        }
 
         return sd;
     }
 
     runOnceAfterDataReady(){
-        let {birthday} = this.getRefs();
+        let {birthday, lastDate} = this.getRefs();
         $(birthday.getInputDOMNode()).datepicker({});
+        $(lastDate.getInputDOMNode()).datepicker({});
     }
 
     componentDidUpdate(){
@@ -161,12 +176,16 @@ KUI.Student_comp_add = class extends KUI.Page{
 
     setDefaultValue(data){
 console.log(data);
-        let {name, gender, birthday, status, school, note} = this.getRefs();
+        let {name, gender, birthday, status, school, note, lastDate} = this.getRefs();
 
         school.getInputDOMNode().value = data.profile.school || '';
         name.getInputDOMNode().value = data.name || data.nickName;
         gender.getInputDOMNode().value = data.profile.gender;
         $(birthday.getInputDOMNode()).datepicker('setDate', data.profile.birthday);
+        if(data.lastRegistrationDate){
+            $(lastDate.getInputDOMNode()).datepicker('setDate', data.lastRegistrationDate);
+        }
+
         status.getInputDOMNode().value = data.status;
         note.getInputDOMNode().value = data.profile.note || '';
         this.refs.level.getInputDOMNode().value = data.level || '';

@@ -8,12 +8,7 @@ Schema.Contact = {
     }),
     phone : KG.schema.default({
         optional : true,
-        label : 'Contact Phone',
-        custom : function(){
-            if(this.value && !/^[0-9]*$/g.test(this.value)){
-                return '601';
-            }
-        }
+        label : 'Contact Phone'
     }),
     email: {
         type: String,
@@ -32,7 +27,7 @@ Schema.Contact = {
 };
 
 Validate.Customer = {
-    '601' : '[label] must be a number'
+
 };
 
 Schema.Customer = {
@@ -47,12 +42,7 @@ Schema.Customer = {
         //optional : true
     }),
     phone : KG.schema.default({
-        optional : true,
-        custom : function(){
-            if(this.value && !/^[0-9]*$/g.test(this.value)){
-                return '601';
-            }
-        }
+        optional : true
     }),
     location : KG.schema.default({
         optional : true
