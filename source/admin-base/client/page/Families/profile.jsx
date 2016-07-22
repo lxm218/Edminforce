@@ -24,6 +24,7 @@ KUI.Family_add_comp = class extends RC.CSS{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'phone',
+                placeholder : 'xxx-xxx-xxxx',
                 label : 'Phone'
             },
             location : {
@@ -42,6 +43,7 @@ KUI.Family_add_comp = class extends RC.CSS{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'al_phone',
+                placeholder : 'xxx-xxx-xxxx',
                 label : 'Phone'
             },
             emergencyName : {
@@ -54,6 +56,7 @@ KUI.Family_add_comp = class extends RC.CSS{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'em_phone',
+                placeholder : 'xxx-xxx-xxxx',
                 label : 'Phone'
             },
             credit : {
@@ -145,6 +148,17 @@ KUI.Family_add_comp = class extends RC.CSS{
 
     }
 
+    formatPhone(d_phone){
+        if(/^[0-9]{10}$/g.test(d_phone)){
+            d_phone = d_phone.split('');
+            d_phone.splice(3, 0, '-');
+            d_phone.splice(7, 0, '-');
+            d_phone = d_phone.join('');
+        }
+
+        return d_phone;
+    }
+
     getValue(){
         let {
             name, email, phone, location,
@@ -154,12 +168,7 @@ KUI.Family_add_comp = class extends RC.CSS{
             } = this.getRefs();
 
         let d_phone = phone.getValue();
-        if(/^[0-9]{10}$/g.test(d_phone)){
-            d_phone = d_phone.split('');
-            d_phone.splice(3, 0, '-');
-            d_phone.splice(7, 0, '-');
-            d_phone = d_phone.join('');
-        }
+        d_phone = this.formatPhone(d_phone);
 
         return {
             name : name.getValue(),
@@ -168,14 +177,14 @@ KUI.Family_add_comp = class extends RC.CSS{
             location : location.getValue(),
             alternativeContact : {
                 name : al_name.getValue(),
-                phone : al_phone.getValue(),
+                phone : this.formatPhone(al_phone.getValue()),
                 email : al_email.getValue() || null,
                 relation : al_ship.getValue(),
                 receive : $(receive.getInputDOMNode()).prop('checked')
             },
             emergencyContact : {
                 name : em_name.getValue(),
-                phone : em_phone.getValue(),
+                phone : this.formatPhone(em_phone.getValue()),
                 email : em_email.getValue() || null,
                 relation : em_ship.getValue()
             }
@@ -226,25 +235,33 @@ KUI.Family_add_comp = class extends RC.CSS{
 
     initPhoneEvent(){
         let jq = util.getReactJQueryObject(this.refs.phone.getInputDOMNode());
+        let jq1 = util.getReactJQueryObject(this.refs.al_phone.getInputDOMNode());
+        let jq2 = util.getReactJQueryObject(this.refs.em_phone.getInputDOMNode());
 
-        jq.keyup(function(e){
-            let val = jq.val();
-            let v = val.replace(/[^0-9\-]/g, '');
-            jq.val(v);
-
-            if(/^[0-9]{3}$/g.test(v)){
-                v = v+'-';
+        let loop = (jq)=>{
+            jq.keyup(function(e){
+                let val = jq.val();
+                let v = val.replace(/[^0-9\-]/g, '');
                 jq.val(v);
-            }
-            else if(/^[0-9]{3}-[0-9]{3}$/g.test(v)){
-                v = v+'-';
-                jq.val(v);
-            }
 
-            if(v.length > 12){
-                jq.val(v.substring(0, 12));
-            }
-        });
+                if(/^[0-9]{3}$/g.test(v)){
+                    v = v+'-';
+                    jq.val(v);
+                }
+                else if(/^[0-9]{3}-[0-9]{3}$/g.test(v)){
+                    v = v+'-';
+                    jq.val(v);
+                }
+
+                if(v.length > 12){
+                    jq.val(v.substring(0, 12));
+                }
+            });
+        };
+
+        loop(jq);
+        loop(jq1);
+        loop(jq2);
     }
     componentDidMount(){
         super.componentDidMount();

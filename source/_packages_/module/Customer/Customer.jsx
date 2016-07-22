@@ -417,7 +417,8 @@ console.log(od);
                             else{
                                 //check student lastRegistrationDate
                                 let lastDate = m.Student.getDB().findOne({_id : sid}).lastRegistrationDate;
-                                if(moment().isBefore(moment(lastDate).add(1, 'year'))){
+
+                                if(lastDate && moment().isBefore(moment(lastDate).add(1, 'year'))){
                                     return 0;
                                 }
 

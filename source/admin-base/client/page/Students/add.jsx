@@ -153,9 +153,11 @@ KUI.Student_comp_add = class extends KUI.Page{
                 gender : gender.getValue(),
                 school : school.getValue(),
                 note : note.getValue()
-            },
-            lastRegistrationDate : moment(lastDate.getValue(), util.const.dateFormat).toDate()
+            }
         };
+        if(lastDate.getValue()){
+            sd.lastRegistrationDate = moment(lastDate.getValue(), util.const.dateFormat).toDate()
+        }
 
         return sd;
     }
@@ -180,7 +182,10 @@ console.log(data);
         name.getInputDOMNode().value = data.name || data.nickName;
         gender.getInputDOMNode().value = data.profile.gender;
         $(birthday.getInputDOMNode()).datepicker('setDate', data.profile.birthday);
-        $(lastDate.getInputDOMNode()).datepicker('setDate', data.lastRegistrationDate);
+        if(data.lastRegistrationDate){
+            $(lastDate.getInputDOMNode()).datepicker('setDate', data.lastRegistrationDate);
+        }
+
         status.getInputDOMNode().value = data.status;
         note.getInputDOMNode().value = data.profile.note || '';
         this.refs.level.getInputDOMNode().value = data.level || '';
