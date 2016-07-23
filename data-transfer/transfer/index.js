@@ -373,15 +373,15 @@ function cleanData(){
   for(let i = 0; i< classStudentsData.length; i++){
     let item = classStudentsData[i];
 
-    let programExist = _.find(programsData, {_id: item.programID});
-    let accountExist = _.find(accountsData, {_id: item.accountID});
-    let classExist = _.find(classesData, {_id: item.classID});
-    let studentExist = _.find(studentsData, {_id: item.studentID});
+    let programExist = !!_.find(programsData, {_id: item.programID});
+    let accountExist = !!_.find(accountsData, {_id: item.accountID});
+    let classExist = !!_.find(classesData, {_id: item.classID});
+    let studentExist = !!_.find(studentsData, {_id: item.studentID});
 
     // this data should be removed
     if(!programExist || !accountExist || !classExist || !studentExist){
       let newItem = _.cloneDeep(item);
-      newItem.ef_removed_reason = "programID, accountID, classID, studentID doesn't exist";
+      newItem.ef_removed_reason = `programID(${programExist}), accountID(${accountExist}), classID(${classExist}), studentID(${studentExist}) doesn't exist` // "programID, accountID, classID, studentID doesn't exist";
       error_classStudents.push(newItem);
       // remove this data
       classStudentsData.splice(i, 1);
@@ -757,6 +757,14 @@ function processClasses(rows) {
     for(let i=1; i<rows.length; i++){
         let data = rows[i];
 
+        if (!data[0]) break;
+
+        let teacherID = getClassTeacherID(data[3]);
+        if (!teacherID) {
+            console.log('Row without teacher skipped: ', i);
+            continue;
+        }
+
         // Generate programs
         let nProgram = _.cloneDeep(program);
         nProgram.name = data[0];
@@ -777,12 +785,12 @@ function processClasses(rows) {
         nClass.status = "Active";
         nClass.length = data[7];
         nClass.teacher = data[3];
-        nClass.teacherID = getClassTeacherID(nClass.teacher);
+        nClass.teacherID = teacherID;
         nClass.schedule.days = getClassDays(data[4]);
         nClass.schedule.time = hours_am_pm(data[5]);
         nClass.tuition.money = Number(data[9]);
 
-        nClass._id = getClassID(nClass.programID, nClass.sessionID, nClass.teacher, nClass.schedule.days, nClass.schedule.time);
+        nClass._id = getClassID(nClass.programID, nClass.sessionID, nClass.teacher, nClass.schedule.days, data[5]);
         insertToArray(classes, nClass);
     }
 }
@@ -795,6 +803,14 @@ function getStudentLevel(level) {
 function processStudents(rows) {
     for (let i=1; i<rows.length; i++) {
         let data = rows[i];
+
+        if (!data[1]) break;
+
+        // skip students without primary email
+        if (!data[9]) {
+            console.log("Row without primary email skipped: ", i);
+            continue;
+        }
 
         let nUser = _.cloneDeep(user);
         nUser._id = getUserID(data[9]);

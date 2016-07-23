@@ -1,122 +1,122 @@
 [
   {
     "nickName": "Marcus",
-    "email": "ng.marcus.k@gmail.com ",
+    "email": "Marcus",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "ng_marcus_k_gmail_com"
+    "_id": "marcus"
   },
   {
     "nickName": "Nicholas",
-    "email": "nickkshn@aol.com",
+    "email": "Nicholas",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "nickkshn_aol_com"
+    "_id": "nicholas"
   },
   {
     "nickName": "Supriya",
-    "email": "swimsupriya@gmail.com",
+    "email": "Supriya",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "swimsupriya_gmail_com"
+    "_id": "supriya"
   },
   {
     "nickName": "Cierra",
-    "email": "cierrabessler@gmail.com",
+    "email": "Cierra",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "cierrabessler_gmail_com"
+    "_id": "cierra"
   },
   {
     "nickName": "Aditi",
-    "email": "aditidalii@gmail.com",
+    "email": "Aditi",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "aditidalii_gmail_com"
+    "_id": "aditi"
   },
   {
     "nickName": "Alexa",
-    "email": "fordalexa98@gmail.com",
+    "email": "Alexa",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "fordalexa_98_gmail_com"
+    "_id": "alexa"
   },
   {
     "nickName": "Stephanie",
-    "email": "stephanayagabo@gmail.com",
+    "email": "Stephanie",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "stephanayagabo_gmail_com"
+    "_id": "stephanie"
   },
   {
     "nickName": "Charles N.",
-    "email": "charlienam8@gmail.com",
+    "email": "Charles",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "charlienam_8_gmail_com"
+    "_id": "charles"
   },
   {
     "nickName": "Charlie O.",
-    "email": "olsoncharles@comcast.net",
+    "email": "Charlie O.",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "olsoncharles_comcast_net"
+    "_id": "charlie_o"
   },
   {
     "nickName": "Leslie",
-    "email": "leslieizabel98@gmail.com",
+    "email": "Leslie",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "leslieizabel_98_gmail_com"
+    "_id": "leslie"
   },
   {
     "nickName": "Matthew",
-    "email": "matttomng2016@gmail.com",
+    "email": "Matthew",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "matttomng_2016_gmail_com"
-  },
-  {
-    "nickName": "Andrew H.",
-    "email": "andrew@classforth.com",
-    "role": "teacher",
-    "supervisor": "teacher",
-    "title": "Administrator",
-    "_id": "andrew_classforth_com"
-  },
-  {
-    "nickName": "Ashley",
-    "email": "ashley@classforth.com",
-    "role": "teacher",
-    "supervisor": "teacher",
-    "title": "Administrator",
-    "_id": "ashley_classforth_com"
-  },
-  {
-    "nickName": "Emmy",
-    "email": "emmy@classforth.com",
-    "role": "teacher",
-    "supervisor": "teacher",
-    "title": "Administrator",
-    "_id": "emmy_classforth_com"
+    "_id": "matthew"
   },
   {
     "nickName": "Manuel",
-    "email": "manuel@classforth.com",
+    "email": "Manuel",
     "role": "teacher",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "manuel_classforth_com"
+    "_id": "manuel"
+  },
+  {
+    "nickName": "Emmy",
+    "email": "Emmy",
+    "role": "teacher",
+    "supervisor": "teacher",
+    "title": "Administrator",
+    "_id": "emmy"
+  },
+  {
+    "nickName": "Ashley",
+    "email": "Ashley",
+    "role": "teacher",
+    "supervisor": "teacher",
+    "title": "Administrator",
+    "_id": "ashley"
+  },
+  {
+    "nickName": "Andrew H.",
+    "email": "Andrew H.",
+    "role": "teacher",
+    "supervisor": "teacher",
+    "title": "Administrator",
+    "_id": "andrew_h"
   }
 ]

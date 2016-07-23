@@ -8,7 +8,7 @@
       "bubbler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -45,7 +45,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -82,7 +82,7 @@
       "glider_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -116,7 +116,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -150,7 +150,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Supriya",
-    "teacherID": "swimsupriya_gmail_com",
+    "teacherID": "supriya",
     "schedule": {
       "days": [
         "Mon",
@@ -186,7 +186,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -223,7 +223,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -259,7 +259,7 @@
       "glider_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -295,7 +295,7 @@
       "bubbler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -329,7 +329,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -363,7 +363,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Supriya",
-    "teacherID": "swimsupriya_gmail_com",
+    "teacherID": "supriya",
     "schedule": {
       "days": [
         "Mon",
@@ -399,7 +399,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -436,7 +436,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -472,7 +472,7 @@
       "glider_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -508,7 +508,7 @@
       "bubbler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -545,7 +545,7 @@
       "bubbler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -579,7 +579,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -616,7 +616,7 @@
       "crawler_3"
     ],
     "teacher": "Supriya",
-    "teacherID": "swimsupriya_gmail_com",
+    "teacherID": "supriya",
     "schedule": {
       "days": [
         "Mon",
@@ -652,7 +652,7 @@
       "bubbler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -676,8 +676,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_02_00"
+    "numberOfRegistered": 3,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -689,7 +689,7 @@
       "bubbler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -713,8 +713,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_02_00"
+    "numberOfRegistered": 3,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -726,7 +726,7 @@
       "crawler_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -751,7 +751,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_02_00"
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -762,7 +762,7 @@
       "glider_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -786,8 +786,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_02_00"
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -799,7 +799,7 @@
       "glider_3"
     ],
     "teacher": "Supriya",
-    "teacherID": "swimsupriya_gmail_com",
+    "teacherID": "supriya",
     "schedule": {
       "days": [
         "Mon",
@@ -823,8 +823,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_02_00"
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -833,7 +833,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -857,8 +857,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_02_00"
+    "numberOfRegistered": 4,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -869,7 +869,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -893,8 +893,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_02_45"
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_14_45"
   },
   {
     "programID": "intense",
@@ -906,7 +906,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -930,8 +930,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_02_45"
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_14_45"
   },
   {
     "programID": "intense",
@@ -942,7 +942,7 @@
       "glider_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -966,8 +966,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_02_45"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_14_45"
   },
   {
     "programID": "intense",
@@ -979,7 +979,7 @@
       "glider_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -1003,8 +1003,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_02_45"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_14_45"
   },
   {
     "programID": "intense",
@@ -1016,7 +1016,7 @@
       "bubbler_3"
     ],
     "teacher": "Aditi",
-    "teacherID": "aditidalii_gmail_com",
+    "teacherID": "aditi",
     "schedule": {
       "days": [
         "Mon",
@@ -1040,8 +1040,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_03_00"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_15_00"
   },
   {
     "programID": "intense",
@@ -1052,7 +1052,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -1076,8 +1076,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_03_30"
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_15_30"
   },
   {
     "programID": "intense",
@@ -1089,7 +1089,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -1113,8 +1113,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_03_30"
+    "numberOfRegistered": 3,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_15_30"
   },
   {
     "programID": "intense",
@@ -1123,7 +1123,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -1147,8 +1147,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_03_00"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_15_00"
   },
   {
     "programID": "intense",
@@ -1157,7 +1157,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Supriya",
-    "teacherID": "swimsupriya_gmail_com",
+    "teacherID": "supriya",
     "schedule": {
       "days": [
         "Mon",
@@ -1181,8 +1181,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_03_00"
+    "numberOfRegistered": 3,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_15_00"
   },
   {
     "programID": "intense",
@@ -1193,7 +1193,7 @@
       "bubbler_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -1217,8 +1217,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_04_00"
+    "numberOfRegistered": 1,
+    "_id": "intense_intense_3_alexa_mon_tue_wed_thu_16_00"
   },
   {
     "programID": "intense",
@@ -1230,7 +1230,7 @@
       "bubbler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -1254,8 +1254,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_04_00"
+    "numberOfRegistered": 3,
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_16_00"
   },
   {
     "programID": "intense",
@@ -1266,7 +1266,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -1290,8 +1290,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_04_15"
+    "numberOfRegistered": 2,
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_16_15"
   },
   {
     "programID": "intense",
@@ -1303,7 +1303,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -1327,8 +1327,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_04_15"
+    "numberOfRegistered": 3,
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_16_15"
   },
   {
     "programID": "intense",
@@ -1339,7 +1339,7 @@
       "glider_1"
     ],
     "teacher": "Aditi",
-    "teacherID": "aditidalii_gmail_com",
+    "teacherID": "aditi",
     "schedule": {
       "days": [
         "Mon",
@@ -1363,45 +1363,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_04_15"
-  },
-  {
-    "programID": "intense",
-    "sessionID": "intense_3",
-    "status": "Active",
-    "length": "Fremont",
-    "levels": [
-      "glider_2",
-      "glider_3"
-    ],
-    "teacher": "",
-    "teacherID": null,
-    "schedule": {
-      "days": [
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu"
-      ],
-      "time": "04:15PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": 19
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 0,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 0,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_mon_tue_wed_thu_04_15"
+    "numberOfRegistered": 5,
+    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_16_15"
   },
   {
     "programID": "intense",
@@ -1410,7 +1373,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -1434,8 +1397,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_04_00"
+    "numberOfRegistered": 8,
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_16_00"
   },
   {
     "programID": "intense",
@@ -1444,7 +1407,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Supriya",
-    "teacherID": "swimsupriya_gmail_com",
+    "teacherID": "supriya",
     "schedule": {
       "days": [
         "Mon",
@@ -1468,8 +1431,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 0,
-    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_04_00"
+    "numberOfRegistered": 4,
+    "_id": "intense_intense_3_supriya_mon_tue_wed_thu_16_00"
   },
   {
     "programID": "intense",
@@ -1481,7 +1444,7 @@
       "bubbler_2"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley_classforth_com",
+    "teacherID": "ashley",
     "schedule": {
       "days": [
         "Mon",
@@ -1505,7 +1468,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 1,
+    "numberOfRegistered": 0,
     "_id": "intense_intense_2_ashley_mon_tue_wed_thu_09_00"
   },
   {
@@ -1518,7 +1481,7 @@
       "bubbler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -1554,7 +1517,7 @@
       "crawler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -1591,7 +1554,7 @@
       "crawler_3"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy_classforth_com",
+    "teacherID": "emmy",
     "schedule": {
       "days": [
         "Mon",
@@ -1629,7 +1592,7 @@
       "glider_3"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel_classforth_com",
+    "teacherID": "manuel",
     "schedule": {
       "days": [
         "Mon",
@@ -1663,7 +1626,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -1697,7 +1660,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Ashley",
-    "teacherID": "ashley_classforth_com",
+    "teacherID": "ashley",
     "schedule": {
       "days": [
         "Mon",
@@ -1734,7 +1697,7 @@
       "bubbler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -1770,7 +1733,7 @@
       "crawler_1"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy_classforth_com",
+    "teacherID": "emmy",
     "schedule": {
       "days": [
         "Mon",
@@ -1794,7 +1757,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 1,
+    "numberOfRegistered": 0,
     "_id": "intense_intense_2_emmy_mon_tue_wed_thu_09_45"
   },
   {
@@ -1807,7 +1770,7 @@
       "crawler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -1831,7 +1794,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 1,
+    "numberOfRegistered": 0,
     "_id": "intense_intense_2_cierra_mon_tue_wed_thu_09_45"
   },
   {
@@ -1845,7 +1808,7 @@
       "glider_3"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel_classforth_com",
+    "teacherID": "manuel",
     "schedule": {
       "days": [
         "Mon",
@@ -1881,7 +1844,7 @@
       "bubbler_1"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -1918,7 +1881,7 @@
       "bubbler_3"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley_classforth_com",
+    "teacherID": "ashley",
     "schedule": {
       "days": [
         "Mon",
@@ -1954,7 +1917,7 @@
       "crawler_1"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley_classforth_com",
+    "teacherID": "ashley",
     "schedule": {
       "days": [
         "Mon",
@@ -1990,7 +1953,7 @@
       "glider_1"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -2027,7 +1990,7 @@
       "glider_3"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy_classforth_com",
+    "teacherID": "emmy",
     "schedule": {
       "days": [
         "Mon",
@@ -2061,7 +2024,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -2085,7 +2048,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 1,
+    "numberOfRegistered": 0,
     "_id": "intense_intense_2_nicholas_mon_tue_wed_thu_10_00"
   },
   {
@@ -2097,7 +2060,7 @@
       "bubbler_1"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel_classforth_com",
+    "teacherID": "manuel",
     "schedule": {
       "days": [
         "Mon",
@@ -2134,7 +2097,7 @@
       "bubbler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -2170,7 +2133,7 @@
       "bubbler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -2207,7 +2170,7 @@
       "bubbler_2"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel_classforth_com",
+    "teacherID": "manuel",
     "schedule": {
       "days": [
         "Mon",
@@ -2244,7 +2207,7 @@
       "crawler_3"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley_classforth_com",
+    "teacherID": "ashley",
     "schedule": {
       "days": [
         "Mon",
@@ -2280,7 +2243,7 @@
       "glider_1"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy_classforth_com",
+    "teacherID": "emmy",
     "schedule": {
       "days": [
         "Mon",
@@ -2304,7 +2267,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 1,
+    "numberOfRegistered": 0,
     "_id": "intense_intense_2_emmy_mon_tue_wed_thu_11_15"
   },
   {
@@ -2317,7 +2280,7 @@
       "glider_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanayagabo_gmail_com",
+    "teacherID": "stephanie",
     "schedule": {
       "days": [
         "Mon",
@@ -2351,7 +2314,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Nicholas",
-    "teacherID": "nickkshn_aol_com",
+    "teacherID": "nicholas",
     "schedule": {
       "days": [
         "Mon",
@@ -2385,7 +2348,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Cierra",
-    "teacherID": "cierrabessler_gmail_com",
+    "teacherID": "cierra",
     "schedule": {
       "days": [
         "Mon",
@@ -2422,7 +2385,7 @@
       "bubbler_3"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel_classforth_com",
+    "teacherID": "manuel",
     "schedule": {
       "days": [
         "Mon",
@@ -2458,7 +2421,7 @@
       "bubbler_1"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslieizabel_98_gmail_com",
+    "teacherID": "leslie",
     "schedule": {
       "days": [
         "Mon",
@@ -2483,7 +2446,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_02_00"
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -2494,7 +2457,7 @@
       "bubbler_1"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "olsoncharles_comcast_net",
+    "teacherID": "charlie_o",
     "schedule": {
       "days": [
         "Mon",
@@ -2519,7 +2482,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_02_00"
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -2530,7 +2493,7 @@
       "crawler_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -2555,7 +2518,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_02_00"
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -2567,7 +2530,7 @@
       "crawler_3"
     ],
     "teacher": "Matthew",
-    "teacherID": "matttomng_2016_gmail_com",
+    "teacherID": "matthew",
     "schedule": {
       "days": [
         "Mon",
@@ -2592,7 +2555,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_02_00"
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -2605,7 +2568,7 @@
       "glider_3"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charlienam_8_gmail_com",
+    "teacherID": "charles",
     "schedule": {
       "days": [
         "Mon",
@@ -2630,7 +2593,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_02_00"
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -2639,7 +2602,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -2664,7 +2627,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_02_00"
+    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_14_00"
   },
   {
     "programID": "intense",
@@ -2675,7 +2638,7 @@
       "bubbler_1"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslieizabel_98_gmail_com",
+    "teacherID": "leslie",
     "schedule": {
       "days": [
         "Mon",
@@ -2700,7 +2663,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_02_30"
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_14_30"
   },
   {
     "programID": "intense",
@@ -2712,7 +2675,7 @@
       "bubbler_3"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "olsoncharles_comcast_net",
+    "teacherID": "charlie_o",
     "schedule": {
       "days": [
         "Mon",
@@ -2737,7 +2700,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_02_30"
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_14_30"
   },
   {
     "programID": "intense",
@@ -2748,7 +2711,7 @@
       "crawler_1"
     ],
     "teacher": "Matthew",
-    "teacherID": "matttomng_2016_gmail_com",
+    "teacherID": "matthew",
     "schedule": {
       "days": [
         "Mon",
@@ -2773,7 +2736,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_02_45"
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_14_45"
   },
   {
     "programID": "intense",
@@ -2785,7 +2748,7 @@
       "crawler_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -2810,7 +2773,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_02_45"
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_14_45"
   },
   {
     "programID": "intense",
@@ -2823,7 +2786,7 @@
       "glider_3"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charlienam_8_gmail_com",
+    "teacherID": "charles",
     "schedule": {
       "days": [
         "Mon",
@@ -2848,7 +2811,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_02_45"
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_14_45"
   },
   {
     "programID": "intense",
@@ -2859,7 +2822,7 @@
       "bubbler_1"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "olsoncharles_comcast_net",
+    "teacherID": "charlie_o",
     "schedule": {
       "days": [
         "Mon",
@@ -2884,7 +2847,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_03_00"
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_15_00"
   },
   {
     "programID": "intense",
@@ -2896,7 +2859,7 @@
       "bubbler_3"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslieizabel_98_gmail_com",
+    "teacherID": "leslie",
     "schedule": {
       "days": [
         "Mon",
@@ -2921,7 +2884,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_03_00"
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_15_00"
   },
   {
     "programID": "intense",
@@ -2932,7 +2895,7 @@
       "crawler_1"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "olsoncharles_comcast_net",
+    "teacherID": "charlie_o",
     "schedule": {
       "days": [
         "Mon",
@@ -2957,7 +2920,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_03_30"
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_15_30"
   },
   {
     "programID": "intense",
@@ -2969,7 +2932,7 @@
       "crawler_3"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslieizabel_98_gmail_com",
+    "teacherID": "leslie",
     "schedule": {
       "days": [
         "Mon",
@@ -2994,7 +2957,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_03_30"
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_15_30"
   },
   {
     "programID": "intense",
@@ -3007,7 +2970,7 @@
       "glider_3"
     ],
     "teacher": "Matthew",
-    "teacherID": "matttomng_2016_gmail_com",
+    "teacherID": "matthew",
     "schedule": {
       "days": [
         "Mon",
@@ -3032,7 +2995,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_03_30"
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_15_30"
   },
   {
     "programID": "intense",
@@ -3041,7 +3004,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Andrew H.",
-    "teacherID": "andrew_classforth_com",
+    "teacherID": "andrew_h",
     "schedule": {
       "days": [
         "Mon",
@@ -3066,7 +3029,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_andrew_h_mon_tue_wed_thu_03_00"
+    "_id": "intense_intense_2_andrew_h_mon_tue_wed_thu_15_00"
   },
   {
     "programID": "intense",
@@ -3075,7 +3038,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -3100,7 +3063,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_03_00"
+    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_15_00"
   },
   {
     "programID": "intense",
@@ -3111,7 +3074,7 @@
       "bubbler_1"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charlienam_8_gmail_com",
+    "teacherID": "charles",
     "schedule": {
       "days": [
         "Mon",
@@ -3136,7 +3099,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_03_30"
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_15_30"
   },
   {
     "programID": "intense",
@@ -3148,7 +3111,7 @@
       "bubbler_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -3173,7 +3136,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_03_30"
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_15_30"
   },
   {
     "programID": "intense",
@@ -3184,7 +3147,7 @@
       "bubbler_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "fordalexa_98_gmail_com",
+    "teacherID": "alexa",
     "schedule": {
       "days": [
         "Mon",
@@ -3209,7 +3172,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_04_00"
+    "_id": "intense_intense_2_alexa_mon_tue_wed_thu_16_00"
   },
   {
     "programID": "intense",
@@ -3221,7 +3184,7 @@
       "bubbler_3"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charlienam_8_gmail_com",
+    "teacherID": "charles",
     "schedule": {
       "days": [
         "Mon",
@@ -3246,7 +3209,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_04_00"
+    "_id": "intense_intense_2_charles_n_mon_tue_wed_thu_16_00"
   },
   {
     "programID": "intense",
@@ -3257,7 +3220,7 @@
       "crawler_1"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslieizabel_98_gmail_com",
+    "teacherID": "leslie",
     "schedule": {
       "days": [
         "Mon",
@@ -3282,7 +3245,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_04_15"
+    "_id": "intense_intense_2_leslie_mon_tue_wed_thu_16_15"
   },
   {
     "programID": "intense",
@@ -3294,7 +3257,7 @@
       "crawler_3"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "olsoncharles_comcast_net",
+    "teacherID": "charlie_o",
     "schedule": {
       "days": [
         "Mon",
@@ -3319,7 +3282,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_04_15"
+    "_id": "intense_intense_2_charlie_o_mon_tue_wed_thu_16_15"
   },
   {
     "programID": "intense",
@@ -3332,7 +3295,7 @@
       "glider_3"
     ],
     "teacher": "Matthew",
-    "teacherID": "matttomng_2016_gmail_com",
+    "teacherID": "matthew",
     "schedule": {
       "days": [
         "Mon",
@@ -3357,7 +3320,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_04_15"
+    "_id": "intense_intense_2_matthew_mon_tue_wed_thu_16_15"
   },
   {
     "programID": "intense",
@@ -3366,7 +3329,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Andrew H.",
-    "teacherID": "andrew_classforth_com",
+    "teacherID": "andrew_h",
     "schedule": {
       "days": [
         "Mon",
@@ -3391,7 +3354,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_andrew_h_mon_tue_wed_thu_04_00"
+    "_id": "intense_intense_2_andrew_h_mon_tue_wed_thu_16_00"
   },
   {
     "programID": "intense",
@@ -3400,7 +3363,7 @@
     "length": "Fremont",
     "levels": [],
     "teacher": "Marcus",
-    "teacherID": "ng_marcus_k_gmail_com",
+    "teacherID": "marcus",
     "schedule": {
       "days": [
         "Mon",
@@ -3425,6 +3388,6 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 0,
-    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_04_00"
+    "_id": "intense_intense_2_marcus_mon_tue_wed_thu_16_00"
   }
 ]
