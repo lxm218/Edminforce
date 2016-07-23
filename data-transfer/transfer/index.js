@@ -829,6 +829,11 @@ function processStudents(rows) {
             // This is the default value for student
             nStudent.profile.birthday = default_birthday;
         }
+        // last registration date, used to calculate registration fee
+        if (data[20]) {
+            nStudent.lastRegistrationDate = new Date(data[20]);
+        }
+
         insertToArray(students, nStudent);
 
         let nClassStudent = _.cloneDeep(classStudent);
