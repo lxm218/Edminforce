@@ -28,6 +28,10 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.onProgramChange = this.onProgramChange.bind(this);
         this.onTeacherChange = this.onTeacherChange.bind(this);
         this.getDailyRoster = this.getDailyRoster.bind(this);
+        this.showExportButton = this.showExportButton.bind(this);
+        this.exportPeriod = this.exportPeriod.bind(this);
+        this.serializeCSV = this.serializeCSV.bind(this);
+        
     }
 
     // set up bootstrap datepicker control
@@ -495,6 +499,37 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         )
     }
 
+    exportPeriod(){
+        var data = this.getRosterDataTable()
+        var res = ''
+        for(var i = 0; i < data.length; i++) {
+            res = res + this.serializeCSV(data[i])
+        }
+        var blob = new Blob([res], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, "DailyRoster.csv");
+    }
+
+    serializeCSV(record){
+        var res = ''
+        if (record.length == 0) return res
+        for (var i=0; i < record.length; i++) {
+            if (record[i] == null) {
+                res = res + ' ,'
+            } else {
+                res = res + ' ' + record[i]['text'] + ','
+            }
+        }
+        res = res.slice(0,-1)
+        res = res + '\n'
+        return res
+    }
+
+    showExportButton(){
+        if(this.data) {
+            return (<KUI.YesButton onClick={this.exportPeriod.bind(this)} style={{marginLeft : '15px'}} label="Export Report" ></KUI.YesButton>);
+        }
+    }
+
     render() {
         if (this.state.loading)
             return util.renderLoading();
@@ -531,6 +566,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         </RB.Col>
                         <RB.Col  md={6} mdOffset={0}>
                             <KUI.YesButton onClick={this.getDailyRoster} label="Show"></KUI.YesButton>
+                            {this.showExportButton()}
                         </RB.Col>
                     </div>
                 </RB.Row>
