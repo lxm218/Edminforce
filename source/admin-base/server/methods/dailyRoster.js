@@ -106,7 +106,8 @@ Meteor.methods({
             },{
                 fields:{
                     name:1,
-                    level:1
+                    level:1,
+                    lastRegistrationDate:1
                 }
             }).fetch();
 
@@ -116,26 +117,15 @@ Meteor.methods({
                 // get student name and level
                 let stdInfo = _.find(names, {_id:s.studentID});
 
-                // if the student has only 1 registered class, and in the first week of the class, this student is considered "new"
-                // during the first week of class, we need to show "new" for new student, and "transfer" for change class student
                 let newStudent = false;
                 let transferred = false;
-                let numDays = reportDate.diff(result.session.startDate > s.updateTime ? result.session.startDate : s.updateTime, 'd');
 
-                // in the first week of class, check if student is "new" or "transferred"
+                // calculate the number of days from lastRegistrationDate to report date
+                // if the number of days <= 7, the student is "new" or "transferred"
+                let numDays = reportDate.diff(stdInfo.lastRegistrationDate || result.session.startDate, 'd');
+                // in the first week of class, student is marked as "new" or "transferred"
                 if (numDays <= 7) {
-                    // get the number of classes this student has registered
-                    // use this to determine if the student is new
-                    let numClasses = KG.get('EF-ClassStudent').getDB().find({
-                        studentID: s.studentID,
-                        $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
-                        type: 'register'
-                    }).count();
-
-                    // if the student has only 1 registered class, and in the first week of the class,
-                    // this student is a "new" student
-                    newStudent = (numClasses == 1);
-
+                    newStudent = true;
                     // check if the student is transferred from another class
                     s.orderID && (transferred = !!KG.get('EF-Order').getDB().find({_id:s.orderID,type: 'change class'}).count())
                 }
