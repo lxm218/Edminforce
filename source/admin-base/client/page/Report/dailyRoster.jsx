@@ -516,7 +516,22 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             if (record[i] == null) {
                 res = res + ' ,'
             } else {
-                res = res + ' ' + record[i]['text'] + ','
+                var field = ''
+                if (record[i]['text'].indexOf(',') == -1) {
+                    field = record[i]['text'] + ','
+                } else {
+                    field = '"' + record[i]['text'] + '",'
+                }
+                if (record[i]['colSpan']) {
+                    var rec = ''
+                    var j = 0
+                    for (; j < record[i]['colSpan']; j++) {
+                        rec = rec + field
+                    }
+                    field = rec
+                    i = i + record[i]['colSpan'] - 1
+                }
+                res = res + field
             }
         }
         res = res.slice(0,-1)
