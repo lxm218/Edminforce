@@ -15,7 +15,8 @@ Collections = {
     customerCoupon : KG.create("EF-CustomerCoupon")._db,
     school : KG.create("EF-School")._db,
     log: KG.create("EF-Log")._db,
-    classLevel: KG.create("EF-ClassLevel")._db
+    classLevel: KG.create("EF-ClassLevel")._db,
+    studentComment: KG.create("EF-StudentComment")._db
 };
 
 EdminForce = {

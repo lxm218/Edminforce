@@ -14,11 +14,13 @@ export PACKAGE_DIRS=$IHEALTH_ROOT/both:$IHEALTH_ROOT/mobile:$IHEALTH_ROOT/webapp
 PORT=4000
 
 # local db
-export MONGO_URL=mongodb://localhost:27017/EdminForce
+# export MONGO_URL=mongodb://localhost:27017/EdminForce
 
 # Prod DB
 #export MONGO_URL=mongodb://admin.classforth.com:27017/EdminForce
 
+#stage DB
+export MONGO_URL=mongodb://calphin:Icalphin123!@aws-us-east-1-portal.12.dblayer.com:10048/calphin-stage?ssl=true
 
 #=====================
 #Update MongoDB

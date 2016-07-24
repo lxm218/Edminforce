@@ -1,122 +1,144 @@
 [
   {
+    "_id": "admin_classforth_com",
+    "email": "admin@classforth.com",
+    "password": "admin",
+    "nickName": "ClassForth Administrator",
+    "role": "admin"
+  },
+  {
     "nickName": "Marcus",
-    "email": "Marcus",
+    "email": "ng.marcus.k@gmail.com ",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "marcus"
+    "_id": "ng_marcus_k_gmail_com"
   },
   {
     "nickName": "Nicholas",
-    "email": "Nicholas",
+    "email": "nickkshn@aol.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "nicholas"
+    "_id": "nickkshn_aol_com"
   },
   {
     "nickName": "Supriya",
-    "email": "Supriya",
+    "email": "swimsupriya@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "supriya"
+    "_id": "swimsupriya_gmail_com"
   },
   {
     "nickName": "Cierra",
-    "email": "Cierra",
+    "email": "cierrabessler@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "cierra"
+    "_id": "cierrabessler_gmail_com"
   },
   {
     "nickName": "Aditi",
-    "email": "Aditi",
+    "email": "aditidalii@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "aditi"
+    "_id": "aditidalii_gmail_com"
   },
   {
     "nickName": "Alexa",
-    "email": "Alexa",
+    "email": "fordalexa98@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "alexa"
+    "_id": "fordalexa_98_gmail_com"
   },
   {
     "nickName": "Stephanie",
-    "email": "Stephanie",
+    "email": "stephanayagabo@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "stephanie"
+    "_id": "stephanayagabo_gmail_com"
   },
   {
     "nickName": "Charles N.",
-    "email": "Charles",
+    "email": "charlienam8@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "charles"
+    "_id": "charlienam_8_gmail_com"
   },
   {
     "nickName": "Charlie O.",
-    "email": "Charlie O.",
+    "email": "olsoncharles@comcast.net",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "charlie_o"
+    "_id": "olsoncharles_comcast_net"
   },
   {
     "nickName": "Leslie",
-    "email": "Leslie",
+    "email": "leslieizabel98@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "leslie"
+    "_id": "leslieizabel_98_gmail_com"
   },
   {
     "nickName": "Matthew",
-    "email": "Matthew",
+    "email": "matttomng2016@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "matthew"
+    "_id": "matttomng_2016_gmail_com"
   },
   {
     "nickName": "Manuel",
-    "email": "Manuel",
+    "email": "manuel.perrone436@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "manuel"
+    "_id": "manuel_perrone_436_gmail_com"
   },
   {
     "nickName": "Emmy",
-    "email": "Emmy",
+    "email": "emontufar1@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "emmy"
+    "_id": "emontufar_1_gmail_com"
   },
   {
     "nickName": "Ashley",
-    "email": "Ashley",
+    "email": "ashleymarietolbertson@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "ashley"
+    "_id": "ashleymarietolbertson_gmail_com"
   },
   {
     "nickName": "Andrew H.",
-    "email": "Andrew H.",
+    "email": "h.andrew228@gmail.com",
     "role": "teacher",
+    "status": "active",
     "supervisor": "teacher",
     "title": "Administrator",
-    "_id": "andrew_h"
+    "_id": "h_andrew_228_gmail_com"
   }
 ]

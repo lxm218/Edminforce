@@ -5,15 +5,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Marcus",
+    "username": "admin@classforth.com",
     "emails": [
       {
-        "address": "Marcus",
+        "address": "admin@classforth.com",
         "verified": false
       }
     ],
-    "role": "admin",
-    "_id": "marcus"
+    "_id": "admin_classforth_com",
+    "role": "admin"
   },
   {
     "services": {
@@ -21,15 +21,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Nicholas",
+    "username": "ng.marcus.k@gmail.com ",
     "emails": [
       {
-        "address": "Nicholas",
+        "address": "ng.marcus.k@gmail.com ",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "nicholas"
+    "_id": "ng_marcus_k_gmail_com"
   },
   {
     "services": {
@@ -37,15 +37,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Supriya",
+    "username": "nickkshn@aol.com",
     "emails": [
       {
-        "address": "Supriya",
+        "address": "nickkshn@aol.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "supriya"
+    "_id": "nickkshn_aol_com"
   },
   {
     "services": {
@@ -53,15 +53,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Cierra",
+    "username": "swimsupriya@gmail.com",
     "emails": [
       {
-        "address": "Cierra",
+        "address": "swimsupriya@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "cierra"
+    "_id": "swimsupriya_gmail_com"
   },
   {
     "services": {
@@ -69,15 +69,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Aditi",
+    "username": "cierrabessler@gmail.com",
     "emails": [
       {
-        "address": "Aditi",
+        "address": "cierrabessler@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "aditi"
+    "_id": "cierrabessler_gmail_com"
   },
   {
     "services": {
@@ -85,15 +85,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Alexa",
+    "username": "aditidalii@gmail.com",
     "emails": [
       {
-        "address": "Alexa",
+        "address": "aditidalii@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "alexa"
+    "_id": "aditidalii_gmail_com"
   },
   {
     "services": {
@@ -101,15 +101,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Stephanie",
+    "username": "fordalexa98@gmail.com",
     "emails": [
       {
-        "address": "Stephanie",
+        "address": "fordalexa98@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "stephanie"
+    "_id": "fordalexa_98_gmail_com"
   },
   {
     "services": {
@@ -117,15 +117,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Charles",
+    "username": "stephanayagabo@gmail.com",
     "emails": [
       {
-        "address": "Charles",
+        "address": "stephanayagabo@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "charles"
+    "_id": "stephanayagabo_gmail_com"
   },
   {
     "services": {
@@ -133,15 +133,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Charlie O.",
+    "username": "charlienam8@gmail.com",
     "emails": [
       {
-        "address": "Charlie O.",
+        "address": "charlienam8@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "charlie_o"
+    "_id": "charlienam_8_gmail_com"
   },
   {
     "services": {
@@ -149,15 +149,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Leslie",
+    "username": "olsoncharles@comcast.net",
     "emails": [
       {
-        "address": "Leslie",
+        "address": "olsoncharles@comcast.net",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "leslie"
+    "_id": "olsoncharles_comcast_net"
   },
   {
     "services": {
@@ -165,15 +165,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Matthew",
+    "username": "leslieizabel98@gmail.com",
     "emails": [
       {
-        "address": "Matthew",
+        "address": "leslieizabel98@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "matthew"
+    "_id": "leslieizabel_98_gmail_com"
   },
   {
     "services": {
@@ -181,15 +181,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Manuel",
+    "username": "matttomng2016@gmail.com",
     "emails": [
       {
-        "address": "Manuel",
+        "address": "matttomng2016@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "manuel"
+    "_id": "matttomng_2016_gmail_com"
   },
   {
     "services": {
@@ -197,15 +197,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Emmy",
+    "username": "manuel.perrone436@gmail.com",
     "emails": [
       {
-        "address": "Emmy",
+        "address": "manuel.perrone436@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "emmy"
+    "_id": "manuel_perrone_436_gmail_com"
   },
   {
     "services": {
@@ -213,15 +213,15 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Ashley",
+    "username": "emontufar1@gmail.com",
     "emails": [
       {
-        "address": "Ashley",
+        "address": "emontufar1@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "ashley"
+    "_id": "emontufar_1_gmail_com"
   },
   {
     "services": {
@@ -229,15 +229,31 @@
         "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
       }
     },
-    "username": "Andrew H.",
+    "username": "ashleymarietolbertson@gmail.com",
     "emails": [
       {
-        "address": "Andrew H.",
+        "address": "ashleymarietolbertson@gmail.com",
         "verified": false
       }
     ],
     "role": "admin",
-    "_id": "andrew_h"
+    "_id": "ashleymarietolbertson_gmail_com"
+  },
+  {
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$ASUX6d8i21L/qT4oU7kzrOD76uop2S/M5TbDkQXWwQWfYGV0DvkqW"
+      }
+    },
+    "username": "h.andrew228@gmail.com",
+    "emails": [
+      {
+        "address": "h.andrew228@gmail.com",
+        "verified": false
+      }
+    ],
+    "role": "admin",
+    "_id": "h_andrew_228_gmail_com"
   },
   {
     "emails": [

@@ -8,7 +8,7 @@
       "bubbler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -22,13 +22,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -45,7 +45,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -59,13 +59,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -82,7 +82,7 @@
       "glider_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -96,13 +96,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -114,9 +114,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -130,13 +137,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -148,9 +155,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "racer_1",
+      "racer_2",
+      "racer_3",
+      "challenger_1",
+      "challenger_2",
+      "challenger_3"
+    ],
     "teacher": "Supriya",
-    "teacherID": "supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -164,13 +178,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -186,7 +200,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -200,13 +214,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -223,7 +237,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -237,13 +251,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -259,7 +273,7 @@
       "glider_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -273,13 +287,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -295,7 +309,7 @@
       "bubbler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -309,13 +323,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -327,9 +341,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -343,13 +364,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -361,9 +382,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "challenger_1",
+      "challenger_2",
+      "challenger_3",
+      "master_1",
+      "master_2",
+      "master_3"
+    ],
     "teacher": "Supriya",
-    "teacherID": "supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -377,13 +405,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -399,7 +427,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -413,13 +441,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -436,7 +464,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -450,13 +478,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -472,7 +500,7 @@
       "glider_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -486,13 +514,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -508,7 +536,7 @@
       "bubbler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -522,13 +550,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -545,7 +573,7 @@
       "bubbler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -559,13 +587,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -577,9 +605,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "racer_1",
+      "racer_2",
+      "racer_3",
+      "challenger_1",
+      "challenger_2",
+      "challenger_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -593,13 +628,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -616,7 +651,7 @@
       "crawler_3"
     ],
     "teacher": "Supriya",
-    "teacherID": "supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -630,13 +665,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -652,7 +687,7 @@
       "bubbler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -666,13 +701,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -689,7 +724,7 @@
       "bubbler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -703,13 +738,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -726,7 +761,7 @@
       "crawler_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -740,13 +775,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -762,7 +797,7 @@
       "glider_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -776,13 +811,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -799,7 +834,7 @@
       "glider_3"
     ],
     "teacher": "Supriya",
-    "teacherID": "supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -813,13 +848,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -831,9 +866,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -847,13 +889,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -869,7 +911,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -883,13 +925,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -906,7 +948,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -920,13 +962,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -942,7 +984,7 @@
       "glider_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -956,13 +998,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -979,7 +1021,7 @@
       "glider_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -993,13 +1035,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1016,7 +1058,7 @@
       "bubbler_3"
     ],
     "teacher": "Aditi",
-    "teacherID": "aditi",
+    "teacherID": "aditidalii_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1030,13 +1072,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1052,7 +1094,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1066,13 +1108,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1089,7 +1131,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1103,13 +1145,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1121,9 +1163,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1137,13 +1186,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1155,9 +1204,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "challenger_1",
+      "challenger_2",
+      "challenger_3",
+      "master_1",
+      "master_2",
+      "master_3"
+    ],
     "teacher": "Supriya",
-    "teacherID": "supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1171,13 +1227,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1193,7 +1249,7 @@
       "bubbler_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1207,13 +1263,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1230,7 +1286,7 @@
       "bubbler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1244,13 +1300,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1266,7 +1322,7 @@
       "crawler_1"
     ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1280,13 +1336,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1303,7 +1359,7 @@
       "crawler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1317,13 +1373,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1339,7 +1395,7 @@
       "glider_1"
     ],
     "teacher": "Aditi",
-    "teacherID": "aditi",
+    "teacherID": "aditidalii_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1353,13 +1409,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1371,9 +1427,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1387,13 +1450,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1405,9 +1468,16 @@
     "sessionID": "intense_3",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "racer_1",
+      "racer_2",
+      "racer_3",
+      "challenger_1",
+      "challenger_2",
+      "challenger_3"
+    ],
     "teacher": "Supriya",
-    "teacherID": "supriya",
+    "teacherID": "swimsupriya_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1421,13 +1491,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1444,7 +1514,7 @@
       "bubbler_2"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley",
+    "teacherID": "ashleymarietolbertson_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1458,13 +1528,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1481,7 +1551,7 @@
       "bubbler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1495,13 +1565,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1517,7 +1587,7 @@
       "crawler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1531,13 +1601,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1554,7 +1624,7 @@
       "crawler_3"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy",
+    "teacherID": "emontufar_1_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1568,13 +1638,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1592,7 +1662,7 @@
       "glider_3"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel",
+    "teacherID": "manuel_perrone_436_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1606,13 +1676,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1624,9 +1694,16 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1640,13 +1717,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1658,9 +1735,11 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "pre_bubbler"
+    ],
     "teacher": "Ashley",
-    "teacherID": "ashley",
+    "teacherID": "ashleymarietolbertson_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1674,13 +1753,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
+    "minAgeRequire": 3,
+    "maxAgeRequire": 4,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1697,7 +1776,7 @@
       "bubbler_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1711,13 +1790,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1733,7 +1812,7 @@
       "crawler_1"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy",
+    "teacherID": "emontufar_1_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1747,13 +1826,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1770,7 +1849,7 @@
       "crawler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1784,13 +1863,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1808,7 +1887,7 @@
       "glider_3"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel",
+    "teacherID": "manuel_perrone_436_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1822,13 +1901,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1844,7 +1923,7 @@
       "bubbler_1"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1858,13 +1937,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1881,7 +1960,7 @@
       "bubbler_3"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley",
+    "teacherID": "ashleymarietolbertson_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1895,13 +1974,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1917,7 +1996,7 @@
       "crawler_1"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley",
+    "teacherID": "ashleymarietolbertson_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1931,13 +2010,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1953,7 +2032,7 @@
       "glider_1"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -1967,13 +2046,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -1990,7 +2069,7 @@
       "glider_3"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy",
+    "teacherID": "emontufar_1_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2004,13 +2083,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2022,9 +2101,16 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2038,13 +2124,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2060,7 +2146,7 @@
       "bubbler_1"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel",
+    "teacherID": "manuel_perrone_436_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2074,13 +2160,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2097,7 +2183,7 @@
       "bubbler_3"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2111,13 +2197,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2133,7 +2219,7 @@
       "bubbler_1"
     ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2147,13 +2233,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2170,7 +2256,7 @@
       "bubbler_2"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel",
+    "teacherID": "manuel_perrone_436_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2184,13 +2270,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2207,7 +2293,7 @@
       "crawler_3"
     ],
     "teacher": "Ashley",
-    "teacherID": "ashley",
+    "teacherID": "ashleymarietolbertson_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2221,13 +2307,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2243,7 +2329,7 @@
       "glider_1"
     ],
     "teacher": "Emmy",
-    "teacherID": "emmy",
+    "teacherID": "emontufar_1_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2257,13 +2343,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2280,7 +2366,7 @@
       "glider_3"
     ],
     "teacher": "Stephanie",
-    "teacherID": "stephanie",
+    "teacherID": "stephanayagabo_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2294,13 +2380,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2312,9 +2398,19 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "racer_1",
+      "racer_2",
+      "racer_3",
+      "challenger_1",
+      "challenger_2",
+      "challenger_3",
+      "master_1",
+      "master_2",
+      "master_3"
+    ],
     "teacher": "Nicholas",
-    "teacherID": "nicholas",
+    "teacherID": "nickkshn_aol_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2328,13 +2424,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2346,9 +2442,11 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "pre_bubbler"
+    ],
     "teacher": "Cierra",
-    "teacherID": "cierra",
+    "teacherID": "cierrabessler_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2362,13 +2460,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
+    "minAgeRequire": 3,
+    "maxAgeRequire": 4,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2385,7 +2483,7 @@
       "bubbler_3"
     ],
     "teacher": "Manuel",
-    "teacherID": "manuel",
+    "teacherID": "manuel_perrone_436_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2399,13 +2497,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2421,7 +2519,7 @@
       "bubbler_1"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2435,13 +2533,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2457,7 +2555,7 @@
       "bubbler_1"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "charlie_o",
+    "teacherID": "olsoncharles_comcast_net",
     "schedule": {
       "days": [
         "Mon",
@@ -2471,13 +2569,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2493,7 +2591,7 @@
       "crawler_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2507,13 +2605,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2530,7 +2628,7 @@
       "crawler_3"
     ],
     "teacher": "Matthew",
-    "teacherID": "matthew",
+    "teacherID": "matttomng_2016_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2544,13 +2642,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2568,7 +2666,7 @@
       "glider_3"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charles",
+    "teacherID": "charlienam_8_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2582,13 +2680,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2600,9 +2698,16 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2616,13 +2721,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2638,7 +2743,7 @@
       "bubbler_1"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2652,13 +2757,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2675,7 +2780,7 @@
       "bubbler_3"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "charlie_o",
+    "teacherID": "olsoncharles_comcast_net",
     "schedule": {
       "days": [
         "Mon",
@@ -2689,13 +2794,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2711,7 +2816,7 @@
       "crawler_1"
     ],
     "teacher": "Matthew",
-    "teacherID": "matthew",
+    "teacherID": "matttomng_2016_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2725,13 +2830,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2748,7 +2853,7 @@
       "crawler_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2762,13 +2867,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2786,7 +2891,7 @@
       "glider_3"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charles",
+    "teacherID": "charlienam_8_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2800,13 +2905,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2822,7 +2927,7 @@
       "bubbler_1"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "charlie_o",
+    "teacherID": "olsoncharles_comcast_net",
     "schedule": {
       "days": [
         "Mon",
@@ -2836,13 +2941,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2859,7 +2964,7 @@
       "bubbler_3"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2873,13 +2978,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2895,7 +3000,7 @@
       "crawler_1"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "charlie_o",
+    "teacherID": "olsoncharles_comcast_net",
     "schedule": {
       "days": [
         "Mon",
@@ -2909,13 +3014,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2932,7 +3037,7 @@
       "crawler_3"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2946,13 +3051,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -2970,7 +3075,7 @@
       "glider_3"
     ],
     "teacher": "Matthew",
-    "teacherID": "matthew",
+    "teacherID": "matttomng_2016_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -2984,13 +3089,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3002,9 +3107,16 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Andrew H.",
-    "teacherID": "andrew_h",
+    "teacherID": "h_andrew_228_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3018,13 +3130,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3036,9 +3148,16 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "challenger_1",
+      "challenger_2",
+      "challenger_3",
+      "master_1",
+      "master_2",
+      "master_3"
+    ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3052,13 +3171,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3074,7 +3193,7 @@
       "bubbler_1"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charles",
+    "teacherID": "charlienam_8_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3088,13 +3207,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3111,7 +3230,7 @@
       "bubbler_3"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3125,13 +3244,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3147,7 +3266,7 @@
       "bubbler_1"
     ],
     "teacher": "Alexa",
-    "teacherID": "alexa",
+    "teacherID": "fordalexa_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3161,13 +3280,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3184,7 +3303,7 @@
       "bubbler_3"
     ],
     "teacher": "Charles N.",
-    "teacherID": "charles",
+    "teacherID": "charlienam_8_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3198,13 +3317,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 4,
+    "minStudent": 2,
     "trialStudent": 0,
-    "minAgeRequire": 0,
+    "minAgeRequire": 4,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3220,7 +3339,7 @@
       "crawler_1"
     ],
     "teacher": "Leslie",
-    "teacherID": "leslie",
+    "teacherID": "leslieizabel_98_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3234,13 +3353,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3257,7 +3376,7 @@
       "crawler_3"
     ],
     "teacher": "Charlie O.",
-    "teacherID": "charlie_o",
+    "teacherID": "olsoncharles_comcast_net",
     "schedule": {
       "days": [
         "Mon",
@@ -3271,13 +3390,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 6,
+    "minStudent": 3,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3295,7 +3414,7 @@
       "glider_3"
     ],
     "teacher": "Matthew",
-    "teacherID": "matthew",
+    "teacherID": "matttomng_2016_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3309,13 +3428,13 @@
       "type": "class",
       "money": 19
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 8,
+    "minStudent": 4,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3327,9 +3446,16 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "sprinter_1",
+      "sprinter_2",
+      "sprinter_3",
+      "racer_1",
+      "racer_2",
+      "racer_3"
+    ],
     "teacher": "Andrew H.",
-    "teacherID": "andrew_h",
+    "teacherID": "h_andrew_228_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3343,13 +3469,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 10,
+    "minStudent": 5,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
@@ -3361,9 +3487,16 @@
     "sessionID": "intense_2",
     "status": "Active",
     "length": "Fremont",
-    "levels": [],
+    "levels": [
+      "challenger_1",
+      "challenger_2",
+      "challenger_3",
+      "master_1",
+      "master_2",
+      "master_3"
+    ],
     "teacher": "Marcus",
-    "teacherID": "marcus",
+    "teacherID": "ng_marcus_k_gmail_com",
     "schedule": {
       "days": [
         "Mon",
@@ -3377,13 +3510,13 @@
       "type": "class",
       "money": 21
     },
-    "maxStudent": 9,
-    "minStudent": 0,
+    "maxStudent": 12,
+    "minStudent": 6,
     "trialStudent": 0,
     "minAgeRequire": 0,
     "maxAgeRequire": 100,
     "makeupStudent": 0,
-    "makeupClassFee": 5,
+    "makeupClassFee": 0,
     "genderRequire": "All",
     "makeup": {},
     "trial": {},

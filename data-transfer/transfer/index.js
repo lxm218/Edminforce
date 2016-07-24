@@ -76,6 +76,7 @@ let tacherAdminUser = {
     "nickName": "",
     "email": "",
     "role": "teacher",
+    "status":"active",
     "supervisor": "teacher",
     "title": "Administrator"
 };
@@ -171,7 +172,7 @@ var classData = {
     minAgeRequire: 0,
     maxAgeRequire: 100,
     makeupStudent: 0,
-    makeupClassFee: 5,
+    makeupClassFee: 0,
     genderRequire: "All",
     makeup:{},
     trial:{},
@@ -668,6 +669,9 @@ function processClassLevel(data) {
                 maxAge : row[6] || 100,
                 minStudent : row[7],
                 maxStudent : row[8],
+                maxTrial: row[9],
+                maxMakeup: row[10],
+                makeupFee: row[11],
                 _id: _.snakeCase(name)
             })
         }
@@ -689,6 +693,9 @@ function processClassLevel(data) {
                     maxAge : row[6] || 100,
                     minStudent : row[7],
                     maxStudent : row[8],
+                    maxTrial: row[9],
+                    maxMakeup: row[10],
+                    makeupFee: row[11],
 
                     _id: _.snakeCase(name)
                 })
@@ -702,13 +709,13 @@ function processTeachers(data) {
         let row = data[idx];
 
         let nTeacherUser = _.cloneDeep(teacherUser)
-        nTeacherUser.username = nTeacherUser.emails[0].address = row[1];
+        nTeacherUser.username = nTeacherUser.emails[0].address = row[2];
         nTeacherUser._id = getTeacherID(nTeacherUser.emails[0].address);
         insertToArray(accounts, nTeacherUser);
 
         let nTacherAdminUser = _.cloneDeep(tacherAdminUser);
         nTacherAdminUser.nickName = row[0];
-        nTacherAdminUser.email = row[1];
+        nTacherAdminUser.email = row[2];
         nTacherAdminUser._id = getTeacherID(nTacherAdminUser.email );
         insertToArray(adminUsers, nTacherAdminUser);
     }
@@ -720,9 +727,8 @@ function getClassLevels(levelStr) {
     if (nameAndLevels.length == 1) {
         // Sprinter/Racer
         let levels = nameAndLevels[0].split('/');
-
         _.forEach(classLevels, function(level) {
-            if (_.find(levels, level.majorName))
+            if (levels.indexOf(level.majorName) >= 0)
                 levelIDs.push(level._id);
         })
     }
@@ -780,6 +786,21 @@ function processClasses(rows) {
         // Generate Class
         let nClass = _.cloneDeep(classData);
         nClass.levels = getClassLevels(data[2]);
+        if (nClass.levels == null || nClass.levels.length == 0) {
+            console.log(`Class at row# ${i} has no level`)
+        }
+        else {
+            let classLevel = _.find(classLevels, {_id: nClass.levels[0]});
+
+            classLevel.maxStudent && (nClass.maxStudent = Number(classLevel.maxStudent));
+            classLevel.minStudent && (nClass.minStudent = Number(classLevel.minStudent));
+            classLevel.minAge && (nClass.minAgeRequire = Number(classLevel.minAge));
+            classLevel.maxAge && (nClass.maxAgeRequire = Number(classLevel.maxAge));
+            classLevel.maxTrial && (nClass.trialStudent = Number(classLevel.maxTrial));
+            classLevel.maxMakeup && (nClass.makeupStudent = Number(classLevel.maxMakeup));
+            classLevel.makeupFee && (nClass.makeupClassFee = Number(classLevel.makeupFee));
+        }
+
         nClass.programID = nProgram._id ;
         nClass.sessionID = nSession._id;
         nClass.status = "Active";
@@ -894,6 +915,10 @@ function excelParse(path) {
 
     return deferred.promise;
 }
+
+
+accounts.push(admin);
+adminUsers.push(adminUser);
 
 // load classLevels
 excelParse("data/calphi/classLevel.xlsx")

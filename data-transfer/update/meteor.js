@@ -137,6 +137,11 @@ if (Meteor.isServer) {
         }
       };
 
+      // clean up some extra tables
+      Collections.orders.remove({});
+      Collections.customerCoupon.remove({});
+      Collections.studentComment.remove({});
+
       F.program();
     }
 
