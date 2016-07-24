@@ -82,6 +82,10 @@ console.log(arguments)
     }
 
     sendEmailToCustomer(data, callback){
+
+        callback();
+        return false;
+
         let school = KG.get('EF-School').getInfo();
         let html = this.getRegisterConfirmEmailTemplate(data);
 
