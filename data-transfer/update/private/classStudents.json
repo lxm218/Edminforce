@@ -430,6 +430,16 @@
     "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_14_00_guohong_dong_gmail_com_kari_wu"
   },
   {
+    "accountID": "manling_2008_gmail_com",
+    "classID": "intense_intense_3_marcus_mon_tue_wed_thu_14_45",
+    "programID": "intense",
+    "studentID": "manling_2008_gmail_com_ethan_la",
+    "status": "checkouted",
+    "type": "register",
+    "attendance": {},
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_14_45_manling_2008_gmail_com_ethan_la"
+  },
+  {
     "accountID": "binal_shah_2009_hotmail_com",
     "classID": "intense_intense_3_marcus_mon_tue_wed_thu_14_45",
     "programID": "intense",
@@ -628,6 +638,16 @@
     "type": "register",
     "attendance": {},
     "_id": "intense_intense_3_cierra_mon_tue_wed_thu_16_00_joanna_hong_msn_com_cayden_kourtessis"
+  },
+  {
+    "accountID": "wangjun_mail_yahoo_com",
+    "classID": "intense_intense_3_cierra_mon_tue_wed_thu_16_00",
+    "programID": "intense",
+    "studentID": "wangjun_mail_yahoo_com_ivy_wang",
+    "status": "checkouted",
+    "type": "register",
+    "attendance": {},
+    "_id": "intense_intense_3_cierra_mon_tue_wed_thu_16_00_wangjun_mail_yahoo_com_ivy_wang"
   },
   {
     "accountID": "deeparao_72_yahoo_com",

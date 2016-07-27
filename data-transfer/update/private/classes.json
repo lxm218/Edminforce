@@ -935,7 +935,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 2,
+    "numberOfRegistered": 3,
     "_id": "intense_intense_3_marcus_mon_tue_wed_thu_14_45"
   },
   {
@@ -1310,7 +1310,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 3,
+    "numberOfRegistered": 4,
     "_id": "intense_intense_3_cierra_mon_tue_wed_thu_16_00"
   },
   {
@@ -1421,6 +1421,43 @@
     "trial": {},
     "numberOfRegistered": 5,
     "_id": "intense_intense_3_aditi_mon_tue_wed_thu_16_15"
+  },
+  {
+    "programID": "intense",
+    "sessionID": "intense_3",
+    "status": "Active",
+    "length": "Fremont",
+    "levels": [
+      "glider_2",
+      "glider_3"
+    ],
+    "teacher": "Charlie O.",
+    "teacherID": "olsoncharles_comcast_net",
+    "schedule": {
+      "days": [
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu"
+      ],
+      "time": "04:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": 19
+    },
+    "maxStudent": 8,
+    "minStudent": 4,
+    "trialStudent": 0,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 0,
+    "makeupClassFee": 0,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_15"
   },
   {
     "programID": "intense",

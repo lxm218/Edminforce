@@ -738,6 +738,22 @@
   {
     "emails": [
       {
+        "address": "manling2008@gmail.com",
+        "verified": false
+      }
+    ],
+    "username": "manling2008@gmail.com",
+    "role": "user",
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
+      }
+    },
+    "_id": "manling_2008_gmail_com"
+  },
+  {
+    "emails": [
+      {
         "address": "binal_shah2009@hotmail.com",
         "verified": false
       }
@@ -990,6 +1006,22 @@
       }
     },
     "_id": "joanna_hong_msn_com"
+  },
+  {
+    "emails": [
+      {
+        "address": "wangjun_mail@yahoo.com",
+        "verified": false
+      }
+    ],
+    "username": "wangjun_mail@yahoo.com",
+    "role": "user",
+    "services": {
+      "password": {
+        "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
+      }
+    },
+    "_id": "wangjun_mail_yahoo_com"
   },
   {
     "emails": [
