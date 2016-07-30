@@ -16,7 +16,8 @@ Package.onUse(function(api) {
 
     api.addFiles([
         'schema.jsx',
-        'Order.jsx'
+        'Order.jsx',
+        'Payment.jsx'
     ], ["client","server"]);
 
     api.addFiles([
