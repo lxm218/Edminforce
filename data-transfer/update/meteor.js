@@ -53,7 +53,8 @@ if (Meteor.isServer) {
       check = check || function(d){
             return d;
           };
-      db.remove({});
+
+      //db.remove({});
       //console.log('---- '+ name + ' is start ----');
       var len = data.length;
 
@@ -62,8 +63,15 @@ if (Meteor.isServer) {
           var td = check(data[x]);
 
           if(td){
-            console.log(td);
-            db.insert(td);
+            let cnt = db.find({_id: td._id}).count();
+            if (cnt > 0) {
+              console.log('skip existing record:', td);
+              //db.update({_id: td._id}, {$set: _.omit(td, '_id')});
+            }
+            else {
+              console.log('insert', td);
+              db.insert(td);
+            }
           }
 
           Meteor.setTimeout(function(){
@@ -98,7 +106,7 @@ if (Meteor.isServer) {
         },
         customer : function(){
           insertData('Customer', customersData, customer, null, F.adminuser);
-          customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
+          //customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
         },
         adminuser : function(){
           insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
@@ -138,9 +146,9 @@ if (Meteor.isServer) {
       };
 
       // clean up some extra tables
-      Collections.orders.remove({});
-      Collections.customerCoupon.remove({});
-      Collections.studentComment.remove({});
+      // Collections.orders.remove({});
+      // Collections.customerCoupon.remove({});
+      // Collections.studentComment.remove({});
 
       F.program();
     }
