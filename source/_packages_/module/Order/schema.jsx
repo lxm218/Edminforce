@@ -75,6 +75,10 @@ Schema.Order = {
         type: String,
         optional: true
     },
+    autoPaySubscriptionID: {
+        type: String,
+        optional: true
+    },
 
     createTime: KG.schema.createTime(),
     updateTime: KG.schema.updateTime()
