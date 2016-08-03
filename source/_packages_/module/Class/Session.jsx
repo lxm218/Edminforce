@@ -24,6 +24,12 @@ KG.define('EF-Session', class extends Base{
             registrationStatus : KG.schema.default({
                 allowedValues : ['Yes', 'No']
             }),
+            // recurring session, no start / end date
+            recurring: {
+                type: Boolean,
+                optional: true,
+                defaultValue: false
+            },
             createTime : KG.schema.createTime(),
             updateTime : KG.schema.updateTime()
         };
