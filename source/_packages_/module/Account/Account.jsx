@@ -55,18 +55,10 @@ KG.define('Account', class extends Base{
         let data = [
             {
                 profile : {a:1},
-                username : 'jacky@calphin.com',
-                email : 'jacky@calphin.com',
-                password : 'calphin',
-                schoolID : '1111111',
-                role : 'admin'
-            },
-            {
-                profile : {},
-                username : 'liyangwood@gmail.com',
-                email : 'liyangwood@gmail.com',
-                schoolID : '2222222',
-                password : 'aaaaaa',
+                username : 'admin1@classforth.com',
+                email : 'admin1@classforth.com',
+                password : 'admin',
+                schoolID : 'KidsArt',
                 role : 'admin'
             }
         ];
@@ -89,6 +81,7 @@ KG.define('Account', class extends Base{
                 try{
                     return Accounts.createUser(data);
                 }catch(e){
+                    console.log(e);
                     // error=403 email is already
                     // insert to Meteor.user directly
                     if(false && e.error === 403){

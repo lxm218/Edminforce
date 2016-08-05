@@ -37,11 +37,15 @@ KUI.Program_session = class extends RC.CSSMeteorData{
             },
             {
                 title : 'Start Date',
-                key : 'startDate'
+                reactDom(doc){
+                    return doc.recurring?'':doc.startDate;
+                }
             },
             {
                 title : 'End Date',
-                key : 'endDate'
+                reactDom(doc){
+                    return doc.recurring?'':doc.endDate;
+                }
             },
             {
                 title : 'Registration Start Date',
@@ -50,6 +54,12 @@ KUI.Program_session = class extends RC.CSSMeteorData{
             {
                 title : 'Registration Status',
                 key : 'registrationStatus'
+            },
+            {
+                title : 'isRecurring',
+                reactDom(doc){
+                    return doc.recurring ? 'Yes' : 'No';
+                }
             },
             {
                 title : 'Action',
@@ -182,6 +192,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
                 ref : 'sd1',
                 label : 'Registration Start Date'
             },
+
             ss : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-4',
@@ -240,9 +251,14 @@ KUI.Program_session = class extends RC.CSSMeteorData{
                                         <span className="input-group-addon">to</span>
                                         <input style={sy.td} type="text" className="input-sm form-control" name="end" />
                                     </div>
+
+
+                                    <RB.Input wrapperClassName="col-xs-9 col-xs-offset-3 kg-TR" onChange={this.changeRecurring.bind(this)} ref="recurring" type="checkbox" label="Recurring" />
                                 </div>
 
+
                             </div>
+
 
 
                             <RB.Input type="text" {... p.sd1} />
@@ -280,6 +296,17 @@ KUI.Program_session = class extends RC.CSSMeteorData{
         });
     }
 
+    changeRecurring(e){
+        let {sd2} = this.getAddBoxRefs();
+        let jq = $(e.target);
+        //console.log(jq.prop('checked'));
+
+
+        $(sd2).find('input').eq(0).attr('disabled', jq.prop('checked'));
+        $(sd2).find('input').eq(1).attr('disabled', jq.prop('checked'));
+
+    }
+
     getAddBoxRefs(){
         let arr = ['sd1', 'sd2', 'sname', 'ss', 'blockDay'];
         arr = _.map(arr, (item)=>{
@@ -314,6 +341,12 @@ KUI.Program_session = class extends RC.CSSMeteorData{
         data.endDate = moment(data.endDate, format).toDate();
         data.registrationStartDate = moment(data.registrationStartDate, format).toDate();
         data.blockOutDay = this.state.blockList;
+
+        if(util.getReactJQueryObject(this.refs.recurring.getInputDOMNode()).prop('checked')){
+            data.recurring = true;
+            data.startDate = new Date();
+            data.endDate = new Date();
+        }
 
         console.log(data);
 

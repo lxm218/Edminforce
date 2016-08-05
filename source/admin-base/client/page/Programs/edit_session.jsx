@@ -138,6 +138,7 @@ KUI.Session_edit = class extends KUI.Page{
                                         <span className="input-group-addon">to</span>
                                         <input style={sy.td} type="text" className="input-sm form-control" name="end" />
                                     </div>
+                                    <RB.Input wrapperClassName="col-xs-9 col-xs-offset-3 kg-TR" onChange={this.changeRecurring.bind(this)} ref="recurring" type="checkbox" label="Recurring" />
                                 </div>
 
                             </div>
@@ -189,6 +190,17 @@ KUI.Session_edit = class extends KUI.Page{
 
     }
 
+    changeRecurring(e){
+        let {sd2} = this.getAddBoxRefs();
+        let jq = $(e.target);
+        //console.log(jq.prop('checked'));
+
+
+        $(sd2).find('input').eq(0).attr('disabled', jq.prop('checked'));
+        $(sd2).find('input').eq(1).attr('disabled', jq.prop('checked'));
+
+    }
+
     setDefaultValue(){
         let data = this.data.data;
         if(!data) return;
@@ -197,8 +209,16 @@ KUI.Session_edit = class extends KUI.Page{
 
         $(sd1.getInputDOMNode()).datepicker('setDate', data.registrationStartDate);
         sname.getInputDOMNode().value = data.name;
-        $(sd2).find('input').eq(0).datepicker('setDate', data.startDate);
-        $(sd2).find('input').eq(1).datepicker('setDate', data.endDate);
+        if(!data.recurring){
+            $(sd2).find('input').eq(0).datepicker('setDate', data.startDate);
+            $(sd2).find('input').eq(1).datepicker('setDate', data.endDate);
+        }
+        else{
+            $(sd2).find('input').eq(0).attr('disabled', true);
+            $(sd2).find('input').eq(1).attr('disabled', true);
+            util.getReactJQueryObject(this.refs.recurring.getInputDOMNode()).prop('checked', true);
+        }
+
         ss.getInputDOMNode().value = data.registrationStatus;
 
         let day = data.blockOutDay || [];
@@ -281,6 +301,12 @@ KUI.Session_edit = class extends KUI.Page{
         data.endDate = moment(data.endDate, format).toDate();
         data.registrationStartDate = moment(data.registrationStartDate, format).toDate();
         data.blockOutDay = this.state.blockList;
+
+        if(util.getReactJQueryObject(this.refs.recurring.getInputDOMNode()).prop('checked')){
+            data.recurring = true;
+            data.startDate = new Date();
+            data.endDate = new Date();
+        }
 
         console.log(data);
 

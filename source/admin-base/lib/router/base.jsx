@@ -60,6 +60,10 @@ if(Meteor.isClient){
 
     let cacheUrl = '';
     FlowRouter.triggers.enter([function(param){
+        //console.log(param)
+        if(param.queryParams.needLogin === "false"){
+            return;
+        }
         App.checkLogin(function(flag){
             if(!flag){
                 if(param.path !== '/home/login')
