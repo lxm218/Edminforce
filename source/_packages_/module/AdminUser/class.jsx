@@ -90,18 +90,20 @@ let AdminUser = class extends Base{
 
     addTestData(){
         //this._db.remove({});
-        if(this._db.find({}).count() > 0){
+        if(true || this._db.find({}).count() > 0){
             return false;
         }
 
         let data = {
             email : 'admin@classforth.com',
             password : 'admin',
+            status : 'active',
             nickName : 'ClassForth Administrator',
             role : 'admin'
         };
+
         this.insert(data, function(rs){
-            console.log(rs);
+            console.log('[AdminUser]  ', rs);
         });
 
     }
@@ -163,9 +165,11 @@ let AdminUser = class extends Base{
             username : data.email,
             email : data.email,
             password : pwd,
-            profile : {},
-            role : 'admin'
+            profile : {a : 1},
+            role : 'admin',
+            schoolID : 'KidsArt'
         };
+console.log(accountData);
 
         try{
             this.module.Account.callMeteorMethod('createUser', [accountData], {
@@ -179,6 +183,7 @@ let AdminUser = class extends Base{
                     return callback(KG.result.out(true, rs));
                 },
                 error : function(err){
+
                     return callback(KG.result.out(false, new Meteor.Error('-1', err.toString())));
                 }
             });

@@ -47,6 +47,7 @@ KG.define('EF-Session', class extends Base{
                     let now = new Date();
                     self._db.update({
                         registrationStatus : 'Yes',
+                        recurring : false,
                         registrationEndDate : {
                             '$lt' : now
                         }
