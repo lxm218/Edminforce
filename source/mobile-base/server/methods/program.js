@@ -6,6 +6,11 @@ Meteor.methods({
         check([startDt,endDt] [Date]);
         return EdminForce.Registration.getAvailableTrialLessons(programID, startDt, endDt);
     },
+    'program.getTrialClassesSchedule':function(programID){
+        check(programID, String);
+        return EdminForce.Registration.getAvailableTrialLessonsSchedule(programID);
+
+    },
     
     // get a list of students who are eligible for trial class
     'program.getTrialStudents': function(classID) {
@@ -40,6 +45,12 @@ Meteor.methods({
         check([studentID,classID], [String]);
         check([startDt,endDt] [Date]);
         return EdminForce.Registration.getAvailableMakeupLessons(this.userId, studentID, classID, startDt, endDt);
+    },
+    'program.getMakeupClassesSchedule':function(studentID, classID){
+        check([studentID,classID], [String]);
+        check([startDt,endDt] [Date]);
+        return EdminForce.Registration.getAvailableMakeupLessonsSchedule(this.userId, studentID, classID);
+
     },
     
     'program.bookMakeup': function(studentID, classID, lessonDate) {
