@@ -209,7 +209,7 @@ EdminForce.Components.Checkout = class extends RC.CSS {
                             <TableRow>
                                 <TableHeaderColumn>Student</TableHeaderColumn>
                                 <TableHeaderColumn>Class</TableHeaderColumn>
-                                <TableHeaderColumn>Amount</TableHeaderColumn>
+                                <TableHeaderColumn>Current Month Due</TableHeaderColumn>
                                 <TableHeaderColumn></TableHeaderColumn>
                             </TableRow>
                         </TableHeader>

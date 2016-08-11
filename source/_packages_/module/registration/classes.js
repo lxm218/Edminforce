@@ -262,6 +262,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
     throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 }
 
+
 /*
  * return class registration fee
  * @param - classData
@@ -273,15 +274,35 @@ function calculateRegistrationFee(classData, session) {
     return classData.tuition.type==='class'? tuition * KG.get('EF-Class').calculateNumberOfClass(classData,session,true) : tuition
 }
 
+/*
+ * calculate number of classes in the month of "dt"
+ */
+function numberOfClassCurrentMonth(classData, dt) {
+    dt = dt || new Date();
 
-// function getDocumentFromCache(documentName, id, cache) {
-//     let doc = lodash.find(cache, {_id:id});
-//     if (!doc) {
-//         doc = Collections[documentName].findOne({_id:id});
-//         doc && (cache.push(doc));
-//     }
-//     return doc;
-// }
+    dt = moment(dt).tz(EdminForce.Settings.timeZone);
+
+    // find out the first class day from "dt"
+    let dtFirstClassDay = moment(dt);
+    dtFirstClassDay.day(classData.schedule.day);
+    if (dtFirstClassDay.isBefore(dt))
+        dtFirstClassDay.add(7,'d');
+
+    let numClasses = 0;
+    while (numClasses < 4 && dtFirstClassDay.month() == dt.month()) {
+        numClasses++;
+        dtFirstClassDay.add(7,'d');
+    }
+
+    return numClasses;
+}
+/*
+ * Calculate class fee of the current month, based on the number of classes left
+ */
+function calculateCurrentMonthClassFee(classData) {
+    let tuition = lodash.toNumber(classData.tuition.money);
+    return tuition * numberOfClassCurrentMonth(classData);
+}
 
 /*
  * Apply a coupon to shopping cart
@@ -477,7 +498,8 @@ function getRegistrationSummary(userId, studentClassIDs, couponId) {
                 result.totalDiscountable += sc.classFee;
             }
             else {
-                sc.classFee = calculateRegistrationFee(classData, session);
+                //sc.classFee = calculateRegistrationFee(classData, session);
+                sc.classFee = calculateCurrentMonthClassFee(classData);
                 result.totalDiscountable += sc.classFee;
             }
             sc.discounted = sc.classFee;
@@ -1212,6 +1234,7 @@ function syncClassRegistrationCount() {
 
 
 EdminForce.Registration.calculateRegistrationFee = calculateRegistrationFee;
+EdminForce.Registration.calculateCurrentMonthClassFee = calculateCurrentMonthClassFee;
 EdminForce.Registration.getLessonDateFieldName = getLessonDateFieldName;
 EdminForce.Registration.getClasesForRegistration = getClasesForRegistration;
 EdminForce.Registration.bookClasses = bookClasses;

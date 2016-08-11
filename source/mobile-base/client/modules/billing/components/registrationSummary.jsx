@@ -45,7 +45,7 @@ EdminForce.Components.RegistrationSummary = class extends RC.CSS {
                     <TableHeader adjustForCheckbox={false} displaySelectAll={false} enableSelectAll={false}>
                         <TableRow>
                             <TableHeaderColumn>Class</TableHeaderColumn>
-                            <TableHeaderColumn>Amount</TableHeaderColumn>
+                            <TableHeaderColumn>Tuition per Class</TableHeaderColumn>
                         </TableRow>
                     </TableHeader>
                     <TableBody displayRowCheckbox={false}>
