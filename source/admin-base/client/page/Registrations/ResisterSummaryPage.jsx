@@ -113,8 +113,8 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 				key : 'class.nickName'
 			},
 			{
-				title : 'Amount ($)',
-				key : 'amount'
+				title : 'Tuition per class ($)',
+				key : 'monthDue'
 			},
 			{
 				title : '',
@@ -198,7 +198,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 				key : 'item'
 			},
 			{
-				title : 'Amount ($)',
+				title : 'Current Month Due ($)',
 				key : 'value'
 			}
 		];
@@ -265,7 +265,6 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 		return (
 			<RC.Div>
-				<p>School Credit : {customer.schoolCredit || 0}</p>
 				<KUI.Table
 					style={{}}
 					list={dl}
@@ -283,7 +282,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 						</RB.Col>
 					</RB.Row>
 				</RB.Input>
-				<RB.Input onChange={this.checkSchoolCredit.bind(this)} type="checkbox" label="Apply school credit" />
+				<RB.Input onChange={this.checkSchoolCredit.bind(this)} type="checkbox" label={`Apply school credit : $${customer.schoolCredit || 0}`} />
 
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.NoButton onClick={this.toStep1.bind(this)} label="Back"></KUI.NoButton>
@@ -369,7 +368,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 		return (
 			<RC.Div>
-				<h4>Your payment is : ${this.C.actualPayment} {this.C.actualPayment>0?', Please select below.':null}</h4>
+				<h4>Your current monthly due is : ${this.C.actualPayment} {this.C.actualPayment>0?', Please select below.':null}</h4>
 
 
 				{this.C.actualPayment>0?<KUI.Comp.SelectPaymentWay ref="payway"></KUI.Comp.SelectPaymentWay>:null}

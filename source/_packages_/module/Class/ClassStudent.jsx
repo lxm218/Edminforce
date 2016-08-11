@@ -343,20 +343,29 @@ let ClassStudent = class extends Base{
                 }).fetch();
 
                 let total = 0;
+                let nextMonthPayment = 0;
                 rs = _.map(rs, (item)=>{
                     item.customer = m.Customer.getDB().findOne({_id : item.accountID});
                     item.student = m.Student.getDB().findOne({_id : item.studentID});
                     item.class = m.Class.getAll({_id : item.classID})[0];
 
-                    item.amount = 0;
-                    if(item.class.tuition.type === 'class'){
-                        item.amount = item.class.leftOfClass*item.class.tuition.money;
+                    //item.amount = 0;
+
+                    item.monthDue = 0;
+                    item.nextMonthPay = 0;
+
+                    //monthly payment
+                    if(true || item.class.tuition.type === 'class'){
+                        //item.amount = item.class.leftOfClass*item.class.tuition.money;
+                        item.monthDue = m.Class.calculateNumberOfClassForCurrentMonth(item.class, item.class.session)*item.class.tuition.money;
+                        item.nextMonthPay = 4*item.class.tuition.money;
                     }
                     else{
-                        item.amount = item.class.tuition.money * (item.class.leftOfClass/item.class.numberOfClass);
+                        //item.amount = item.class.tuition.money * (item.class.leftOfClass/item.class.numberOfClass);
                     }
 
-                    total += item.amount;
+                    total += item.monthDue;
+                    nextMonthPayment += item.nextMonthPay;
 
                     return item;
                 });
@@ -364,7 +373,8 @@ let ClassStudent = class extends Base{
                 return {
                     flag : true,
                     list : rs,
-                    total : total
+                    total : total,
+                    nextMonthPayment : nextMonthPayment
                 };
             }
         };
