@@ -289,7 +289,7 @@ function numberOfClassCurrentMonth(classData, dt) {
         dtFirstClassDay.add(7,'d');
 
     let numClasses = 0;
-    while (numClasses < 4 && dtFirstClassDay.month() == dt.month()) {
+    while (numClasses < EdminForce.Settings.numClassesPerMonth && dtFirstClassDay.month() == dt.month()) {
         numClasses++;
         dtFirstClassDay.add(7,'d');
     }

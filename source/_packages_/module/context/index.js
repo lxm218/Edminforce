@@ -20,7 +20,8 @@ Collections = {
 EdminForce = {
     //https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
     Settings: {
-        timeZone: "America/Los_Angeles"
+        timeZone: "America/Los_Angeles",
+        numClassesPerMonth: 4
     },
     utils: {},
     Components : {},
