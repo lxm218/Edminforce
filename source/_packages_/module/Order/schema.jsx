@@ -18,6 +18,7 @@ Schema.Order = {
         allowedValues : ['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit', 'mixed'],
         optional : true,
         defaultValue : 'register class'
+
     }),
     status: {
         type: String,

@@ -99,6 +99,10 @@ let Class = class extends Base{
         let school = KG.get('EF-School').getDB().findOne();
         let schoolTz = school && school.timezoneString ? school.timezoneString : 'America/Los_Angeles';
 
+        if(session.recurring){
+            return -1;
+        }
+
         // figure out start & end date
         let start = moment.tz(session.startDate, schoolTz),
             end = moment.tz(session.endDate, schoolTz);
@@ -129,6 +133,57 @@ let Class = class extends Base{
         });
         let classDay = data.schedule.day.toLowerCase();
 
+        while(end.isAfter(cur)){
+            if(cur.format('ddd').toLowerCase() === classDay){
+                if(_.indexOf(blockDay, cur.format(format)) < 0){
+                    rs++;
+                }
+            }
+
+            cur = cur.add(1, 'd');
+        }
+
+        return rs;
+    }
+
+    calculateNumberOfClassForCurrentMonth(data, session, date){
+        // get school timezone
+        let school = KG.get('EF-School').getDB().findOne();
+        let schoolTz = school && school.timezoneString ? school.timezoneString : 'America/Los_Angeles';
+
+
+        // figure out start & end date
+        let start = moment.tz(date || new Date(), schoolTz),
+            end = start.clone().add(1, 'month').date(1).subtract(1, 'days');
+
+        end = moment.tz(end, schoolTz);
+
+        let now = start;
+
+        if(true){
+
+            // skip the "now" day, if time is after class time
+            let classTime = moment(data.schedule.time, 'hh:mma');
+            if (now.hours() * 60 + now.minutes() >= classTime.hours() * 60 + classTime.minutes()) {
+                now.add(1,'day');
+            }
+
+            if(now.isAfter(start, 'day')){
+                start = now;
+            }
+        }
+
+        start.startOf('d');
+        end.endOf('d');
+
+        let format = 'YYYYMMDD';
+        let rs = 0,
+            cur = start;
+
+        let blockDay = _.map(session.blockOutDay || [], (item)=>{
+            return moment.tz(item, schoolTz).format(format);
+        });
+        let classDay = data.schedule.day.toLowerCase();
         while(end.isAfter(cur)){
             if(cur.format('ddd').toLowerCase() === classDay){
                 if(_.indexOf(blockDay, cur.format(format)) < 0){
