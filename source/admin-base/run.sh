@@ -8,7 +8,8 @@ PACKAGE_ROOT=$PWD/../_packages_
 RC_DIR=$PACKAGE_ROOT/ihealth-framework-ui/library
 ENV="PACKAGE_DIRS=$PACKAGE_ROOT/both:$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/module"
 
-MONGOURL=mongodb://127.0.0.1:27017/KidsArt
+MONGOURL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/demo?ssl=true
+#MONGOURL=mongodb://127.0.0.1:27017/KidsArt
 #MONGOURL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
 #MONGOURL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
 
@@ -24,7 +25,7 @@ stopProcess() {
 }
 runLocalHost(){
 
-    PORT=8000
+    PORT=8010
     #stopMongoDB
 
     tmp=`echo $1 |sed 's/[0-9]//g'`
