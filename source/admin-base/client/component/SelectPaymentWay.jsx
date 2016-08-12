@@ -15,7 +15,7 @@ KUI.Comp.SelectPaymentWay = class extends RC.CSS{
 				<RB.Input onChange={function(){}} ref="s22" name="cgroup" type="radio" label="Cash" />
 				<RB.Input onChange={function(){}} ref="s23" name="cgroup" type="radio" label="Check" />
 
-				<RB.Input onChange={function(){}} ref="s26" name="cgroup" type="radio" label="Pay Later" />
+				<div style={{display:'none'}}><RB.Input onChange={function(){}} ref="s26" name="cgroup" type="radio" label="Pay Later" /></div>
 
 			</RC.Div>
 		);
