@@ -2,14 +2,14 @@
 
 deployAdminBase(){
     echo "*************************************************";
-	 echo "---- start to deploy EF Admin Staging ----";
+	 echo "---- start to deploy EF Admin Demo ----";
     . ./ENV.inc
     echo ${ADMIN_ENV};
-    cd admin-staging;
-    sudo mupx setup;
-    sudo ${ADMIN_ENV} mupx deploy;
+    cd admin-demo;
+    sudo mup setup;
+    sudo ${ADMIN_ENV} mup deploy;
     cd ../;
-    echo "link : https://scalcolor-admin.classforth.com/home";
+    echo "link : https://demo-admin.classforth.com/home";
     echo "*************************************************";
     echo "";
 }
