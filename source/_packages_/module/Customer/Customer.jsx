@@ -376,6 +376,104 @@ console.log(option);
                     count : m.Order.getDB().find(query).count(),
                     data : result
                 };
+            },
+
+            checkRegistrationFee : function(opts){
+                let m = KG.DataHelper.getDepModule();
+
+                let config = App.config.RegisterClass;
+
+                let list = opts.ClassStudentList;
+
+                console.log(config);
+
+                let rs = 0;
+                if(config.frequency === 'year'){
+                    if(config.scope === 'student'){
+                        // calphin
+
+
+                        let loop = function(sid){
+                            let query = {
+                                type : 'register class',
+                                registrationFee : {$gt : 0},
+                                studentID : new RegExp(sid, 'i')
+                            };
+
+                            let od = m.Order.getDB().find(query, {
+                                sort : {updateTime : -1},
+                                limit : 1
+                            }).fetch()[0];
+                            console.log(od);
+                            if(od){
+
+                                if(moment().isBefore(moment(od.updateTime).add(1, 'year'))){
+                                    return 0;
+                                }
+                                else{
+                                    return config.fee;
+                                }
+                            }
+                            else{
+                                //check student lastRegistrationDate
+                                let lastDate = m.Student.getDB().findOne({_id : sid}).lastRegistrationDate;
+
+                                if(lastDate && moment().isBefore(moment(lastDate).add(1, 'year'))){
+                                    return 0;
+                                }
+
+                                return config.fee;
+                            }
+                        };
+
+                        let tmp = {};
+                        _.each(list, (item)=>{
+                            if(tmp[item.studentID]) return true;
+                            rs+=loop(item.studentID);
+                            tmp[item.studentID] = true;
+                        });
+
+
+
+                    }
+                }
+                else if(config.frequency === 'once'){
+                    if(config.scope === 'student'){
+                        //kidsart
+
+                        let loop = function(sid){
+                            let query = {
+                                type : 'register class',
+                                registrationFee : {$gt : 0},
+                                studentID : new RegExp(sid, 'i')
+                            };
+
+                            let od = m.Order.getDB().find(query, {
+                                sort : {updateTime : -1},
+                                limit : 1
+                            }).fetch()[0];
+                            console.log(od);
+                            if(od){
+
+                                return 0;
+                            }
+                            else{
+
+                                return config.fee;
+                            }
+                        };
+
+                        let tmp = {};
+                        _.each(list, (item)=>{
+                            if(tmp[item.studentID]) return true;
+                            rs+=loop(item.studentID);
+                            tmp[item.studentID] = true;
+                        });
+                    }
+                }
+
+                return rs;
+
             }
         };
     }

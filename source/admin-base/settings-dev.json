@@ -1,5 +1,13 @@
 {
     "public" : {
-        "debug" : true
+        "debug" : true,
+
+        "RegisterClass" : {
+            "fee" : 20,
+
+            "frequency" : "once",
+
+            "scope" : "student"
+        }
     }
 }

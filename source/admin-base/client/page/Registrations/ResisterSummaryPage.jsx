@@ -173,6 +173,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 	}
 
 	toStep2(){
+		let self = this;
 		if(this.state.summaryList.total === 0){
 			swal({
 				type : 'warning',
@@ -181,11 +182,18 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			return false;
 		}
 
-
-		this.setState({
-			coupon : false,
-			step : 2
+		this.m.Customer.callMeteorMethod('checkRegistrationFee', [{ClassStudentList : this.state.summaryList.list}], {
+			success : function(rf){
+				console.log(rf);
+				self.C.registrationFee = rf;
+				self.setState({
+					coupon : false,
+					step : 2
+				});
+			}
 		});
+
+
 
 	}
 
@@ -213,8 +221,8 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			}
 		];
 
-		if(customer.hasRegistrationFee){
-			this.C.registrationFee = this.m.Customer.getRegistrationFee();
+		if(this.C.registrationFee){
+			//this.C.registrationFee = this.m.Customer.getRegistrationFee();
 
 			dl.push({
 				item : 'Registration Fee',

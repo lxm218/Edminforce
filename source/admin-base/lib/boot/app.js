@@ -4,6 +4,8 @@ if(!App.debug && Meteor.isClient){
     console.log = function(){};
 }
 
+
+let config = Meteor.settings.public;
 App.config = {
     AppName : 'Edminforce Admin',
 
@@ -16,5 +18,5 @@ App.config = {
 
 };
 
-
+_.extend(App.config, config);
 
