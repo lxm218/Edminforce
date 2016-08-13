@@ -337,6 +337,22 @@ KUI.Student_profile = class extends KUI.Page{
                 title : 'Session',
                 key : 'session'
             },
+            {
+                title : 'Bill Schedule',
+                reactDom(doc){
+                    return doc.type==='register' ? 'monthly' : 'one time';
+                }
+            },
+            {
+                title : 'Next month billing date',
+                reactDom(doc){
+                    if(doc.type === 'register'){
+                        return moment(doc.updateTime).clone().add(1, 'month').date(1).format(KG.const.dateFormat);
+                    }
+
+                    return 'N/A';
+                }
+            },
             //{
             //    title : 'Type',
             //    key : 'type'
@@ -346,6 +362,12 @@ KUI.Student_profile = class extends KUI.Page{
                 //key : 'status'
                 reactDom(doc){
                     return doc.status==='checkouted'?'success':doc.status;
+                }
+            },
+            {
+                title : 'Registration Date',
+                reactDom(doc){
+                    return moment(doc.updateTime).format(KG.const.dateFormat);
                 }
             },
             {
