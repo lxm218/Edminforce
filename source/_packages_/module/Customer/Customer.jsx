@@ -353,8 +353,27 @@ KG.define('EF-Customer', class extends Base{
                 let result = [];
                 let data = m.Order.getDB().find(query, option).fetch();
 
+                let arr = [];
+                _.each(data, (item)=>{
+                    if(item.recurring){
+                        let ll = m.Payment.getDB().find({orderID : item._id}).fetch();
+
+                        _.each(ll, (l)=>{
+                            l._id = item._id;
+                            l.type = item.type;
+                            l.recurring = true;
+                            l.paymentSource = item.paymentSource;
+                            arr.push(l);
+                        });
+                    }
+                    else{
+                        arr.push(item);
+                    }
+
+                });
+
 console.log(option);
-                result = _.map(data, (item)=>{
+                result = _.map(arr, (item)=>{
                     //add customer
                     item.customer = m.Customer.getDB().findOne({_id : item.accountID});
 

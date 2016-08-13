@@ -308,6 +308,12 @@ let BillingTable = class extends RC.CSS{
                 key : 'type'
             },
             {
+                title : 'Is Monthly',
+                reactDom(doc){
+                    return doc.recurring ? 'Yes' : 'No';
+                }
+            },
+            {
                 title : 'Payment',
                 key : 'paymentType'
             },
@@ -337,7 +343,10 @@ let BillingTable = class extends RC.CSS{
             },
             {
                 title : 'Actual Payment($)',
-                key : 'actualPayment'
+                //key : 'actualPayment',
+                reactDom(doc){
+                    return doc.status === 'success' ? doc.actualPayment : 'outstanding';
+                }
             },
 
             {

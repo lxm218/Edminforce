@@ -114,6 +114,7 @@ KG.define('EF-Order', class extends Base{
                     amount : order.amount,
                     discount : order.discount,
                     paymentTotal : order.paymentTotal,
+                    registrationFee : order.registrationFee,
                     poundage : order.poundage,
                     couponID : order.couponID,
                     customerCouponID : order.customerCouponID,
