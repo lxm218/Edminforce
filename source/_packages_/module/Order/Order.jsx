@@ -5,6 +5,10 @@ KG.define('EF-Order', class extends Base{
         return Schema.Order;
     }
 
+    initEnd(){
+        this.payment = KG.create('EF-Payment');
+    }
+
 
     updateById(data, id){
         try{
@@ -100,6 +104,25 @@ KG.define('EF-Order', class extends Base{
                     status : 'success',
                     paymentSource : 'admin'
                 }});
+
+                //insert to EF-Payment
+                let paymentData = {
+                    orderID : orderID,
+                    accountID : order.accountID,
+                    paymentType : order.paymentType,
+                    status : 'success',
+                    amount : order.amount,
+                    discount : order.discount,
+                    paymentTotal : order.paymentTotal,
+                    poundage : order.poundage,
+                    couponID : order.couponID,
+                    customerCouponID : order.customerCouponID,
+                    schoolCredit : order.schoolCredit
+                };
+                paymentData = _.omit(paymentData, (v)=>{
+                    return _.isUndefined(v);
+                });
+                self.payment.insert(paymentData);
 
                 //send email
                 Meteor.setTimeout(function(){

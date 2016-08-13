@@ -11,6 +11,7 @@ KG.define('EF-DataHelper', class extends Base{
             Student : KG.get('EF-Student'),
             Customer : KG.get('EF-Customer'),
             Order : KG.get('EF-Order'),
+            Payment : KG.get('EF-Payment'),
             Program : KG.get('EF-Program'),
             Session : KG.get('EF-Session'),
             AdminUser : KG.get('EF-AdminUser'),

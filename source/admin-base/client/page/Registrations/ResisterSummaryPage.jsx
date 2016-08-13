@@ -403,6 +403,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			accountID : customer._id,
 			studentID : (_.map(list, (item)=>{return item.studentID})).join(','),
 			details : _.map(list, (item)=>{return item._id}),
+			recurring : true,
 			amount : this.C.actualPayment,
 			type : 'register class',
 			registrationFee : this.C.registrationFee,
