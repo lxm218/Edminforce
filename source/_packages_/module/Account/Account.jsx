@@ -55,8 +55,8 @@ KG.define('Account', class extends Base{
         let data = [
             {
                 profile : {a:1},
-                username : 'admin1@classforth.com',
-                email : 'admin1@classforth.com',
+                username : 'admin@classforth.com',
+                email : 'admin@classforth.com',
                 password : 'admin',
                 schoolID : 'KidsArt',
                 role : 'admin'

@@ -90,7 +90,7 @@ let AdminUser = class extends Base{
 
     addTestData(){
         //this._db.remove({});
-        if(true || this._db.find({}).count() > 0){
+        if(this._db.find({}).count() > 0){
             return false;
         }
 
