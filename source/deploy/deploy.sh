@@ -5,7 +5,7 @@ deployAdminBase(){
 	 echo "---- start to deploy EF Admin Demo ----";
     . ./ENV.inc
     echo ${ADMIN_ENV};
-    cd admin-demo;
+    cd admin-staging;
     sudo mup setup;
     sudo ${ADMIN_ENV} mup deploy;
     cd ../;
