@@ -102,6 +102,16 @@ KG.define('EF-Email', class extends Base{
             },
 
             sendRegistrationClassConfirmEmail : function(opts){
+                let h = [
+                    '{{each CSList as cs}}',
+                    '<tr>',
+                    '<td style="font-weight:normal;padding:5px;font-size:1em">{{cs.student.name}}</td>',
+                    '<td style="font-size:1em;font-weight:bold;padding:10px;color:rgb(177,16,22);">{{cs.class.nickName}}</td>',
+                    '</tr>',
+                    '<tr>',
+                    '<td colspan="2" style="border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:rgb(0,0,0);padding:5px 0px 0px"></td>',
+                    '</tr>',
+                    '{{/each}}'].join('');
                 let m = KG.DataHelper.getDepModule();
 
                 let orderID = opts.orderID;
@@ -122,7 +132,7 @@ KG.define('EF-Email', class extends Base{
                 let ss = CSList[0].class.session;
                 ss.startDate = moment(ss.startDate).format('MMM D');
                 ss.endDate = moment(ss.endDate).format('MMM D');
-                let html = template.compile(decodeURIComponent(tpl.html))({
+                let html = template.compile(decodeURIComponent(tpl.html).replace('<!--classbody-->', h))({
                     customer : customer,
                     session : ss,
                     CSList : CSList,
