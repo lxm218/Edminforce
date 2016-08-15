@@ -17,10 +17,17 @@ Meteor.methods({
         let weekDay = requestDate.format("ddd");
 
         // find requested session
-        result.session = KG.get('EF-Session').getDB().findOne({
-                $and: [
-                    {startDate:{$lte: requestDate.toDate()}},
-                    {endDate: {$gte: requestDate.toDate()}}
+        result.session = KG.get('EF-Session').getDB().findOne({   // why use findOne? -- jacky
+                $or : [
+                    {
+                        $and: [
+                            {startDate:{$lte: requestDate.toDate()}},
+                            {endDate: {$gte: requestDate.toDate()}}
+                        ]
+                    },
+                    {
+                        recurring : true
+                    }
                 ]
             });
 
