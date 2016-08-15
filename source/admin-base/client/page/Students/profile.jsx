@@ -300,7 +300,7 @@ KUI.Student_profile = class extends KUI.Page{
             item.teacher = cls.teacher;
             item.session = cls.sessionName;
 
-            if(moment().isAfter(moment(cls.session.endDate), 'day')){
+            if(false && moment().isAfter(moment(cls.session.endDate), 'day')){
                 json.push(item);
             }
 
@@ -415,7 +415,8 @@ KUI.Student_profile = class extends KUI.Page{
             item.teacher = cls.teacher;
             item.session = cls.sessionName;
 
-            if(moment().isBefore(moment(cls.session.endDate), 'day')){
+
+            if(true || moment().isBefore(moment(cls.session.endDate), 'day')){
                 json.push(item);
             }
 

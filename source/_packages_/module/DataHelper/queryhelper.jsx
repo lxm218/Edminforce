@@ -226,7 +226,7 @@ console.log(start.format(), end.format());
                 let format = 'YYYYMMDD';
                 _.each(classData, (item)=>{
 
-                    let cld = m.Class.getClassLessonDate(item);
+                    let cld = m.Class.getClassLessonDate(item, opts.date);
                     let tmp = _.find(cld, function(one){
                         return moment(one).format(format) === min.format(format);
                     });

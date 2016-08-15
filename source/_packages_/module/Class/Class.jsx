@@ -197,11 +197,16 @@ let Class = class extends Base{
         return rs;
     }
 
-    getClassLessonDate(data, session){
-        session = session || data.session;
+    getClassLessonDate(data, date){
+        let session = data.session;
+        date = date || new Date();
         let start = moment(session.startDate),
             end = moment(session.endDate);
 
+        if(session.recurring){
+            start = moment(date).clone().subtract(3, 'days');
+            end = moment(date).clone().add(3, 'days');
+        }
 
         let now = moment(new Date());
         if(now.isAfter(start, 'day')){
@@ -1111,7 +1116,7 @@ console.log(option)
 
                 console.log(list);
                 _.each(list, (item)=>{
-                    let lessonDate = self.getClassLessonDate(item);
+                    let lessonDate = self.getClassLessonDate(item, date);
                     //console.log(lessonDate)
                     let index = _.findIndex(lessonDate, function(one){
                         //console.log(moment(one).format(format), moment(date).format(format))
