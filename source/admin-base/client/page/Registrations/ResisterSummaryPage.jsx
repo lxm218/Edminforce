@@ -114,7 +114,10 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			},
 			{
 				title : 'Tuition per class ($)',
-				key : 'monthDue'
+				//key : 'monthDue',
+				reactDom(doc){
+					return doc.class.tuition.money;
+				}
 			},
 			{
 				title : '',
