@@ -54,7 +54,7 @@ const availableDates = ({context,actions,studentID,classID}, onData)=>{
     }
     else {
 
-        Meteor.call(methodName, programID, function(methodError, result) {
+        Meteor.call(methodName, studentID, classID, function(methodError, result) {
 
             console.log(result)
             onData(null,{
@@ -75,7 +75,7 @@ EdminForce.Containers.MakeupClasses = Composer.composeAll(
   Composer.composeWithTracker(reactiveFnMakeupClasses),
   Composer.composeWithTracker(availableDates)
 
-)(EdminForce.Components.TrialClasses)
+)(EdminForce.Components.MakeupClasses)
 
 //Composer.composeWithTracker(reactiveFnMakeupClasses)(EdminForce.Components.MakeupClasses);
 
