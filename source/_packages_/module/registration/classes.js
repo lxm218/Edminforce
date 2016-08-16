@@ -862,9 +862,13 @@ function payECheck(userId, checkPaymentInfo) {
     //      update custom coupon
     var paymentInfo = {
         "createTransactionRequest": {
+            // "merchantAuthentication": {
+            //     "name": "9XD2ru9Z",
+            //     "transactionKey": "5yZ52WCb2EC5et2c"
+            // },
             "merchantAuthentication": {
-                "name": "9XD2ru9Z",
-                "transactionKey": "5yZ52WCb2EC5et2c"
+                "name": "42ZZf53Hst",
+                "transactionKey": "3TH6yb6KN43vf76j"
             },
             "refId": "123461",
             "transactionRequest": {
@@ -906,7 +910,9 @@ function payECheck(userId, checkPaymentInfo) {
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
 
-    var URL = 'https://api.authorize.net/xml/v1/request.api'
+    //var URL = 'https://api.authorize.net/xml/v1/request.api'
+    var URL = 'https://apitest.authorize.net/xml/v1/request.api'
+
     var response = HTTP.call('POST',URL, {data: paymentInfo});
 
     //console.log(response);
@@ -943,10 +949,10 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     var paymentInfo = {
         "createTransactionRequest": {
             "merchantAuthentication": {
-                // "name": "42ZZf53Hst",
-                // "transactionKey": "3TH6yb6KN43vf76j"
-                "name": "9XD2ru9Z",
-                "transactionKey": "5yZ52WCb2EC5et2c"
+                "name": "42ZZf53Hst",
+                "transactionKey": "3TH6yb6KN43vf76j"
+                // "name": "9XD2ru9Z",
+                // "transactionKey": "5yZ52WCb2EC5et2c"
             },
             "refId": "123461",
             "transactionRequest": {
@@ -1004,8 +1010,8 @@ function payCreditCard(userId, creditCardPaymentInfo) {
     let paymentTotal = (order.amount-order.schoolCredit) * 1.03;
     paymentTotal = Number(paymentTotal.toFixed(2));
     paymentInfo.createTransactionRequest.transactionRequest.amount = paymentTotal;
-    let URL = 'https://api.authorize.net/xml/v1/request.api';
-    // let URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    // let URL = 'https://api.authorize.net/xml/v1/request.api';
+    let URL = 'https://apitest.authorize.net/xml/v1/request.api';
     let response = HTTP.call('POST',URL, {data: paymentInfo});
 
     if (response &&
@@ -1022,6 +1028,112 @@ function payCreditCard(userId, creditCardPaymentInfo) {
         logPaymentError(userId, creditCardPaymentInfo.orderId, "creditCard", userName, response.data);
         throw generatePaymentErrorException(response);
     }
+}
+
+function recurringPayCreditCard(userId, creditCardPaymentInfo) {
+    let order = Collections.orders.findOne({_id: creditCardPaymentInfo.orderId});
+    if (!order) throw new Meteor.Error(500, 'Order not found', 'Invalid order id: ' + creditCardPaymentInfo.orderId);
+
+
+    var paymentInfo = {
+        "ARBCreateSubscriptionRequest": {
+            "merchantAuthentication": {
+                "name": "42ZZf53Hst",
+                "transactionKey": "3TH6yb6KN43vf76j"
+                // "name": "9XD2ru9Z",
+                // "transactionKey": "5yZ52WCb2EC5et2c"
+            },
+            "refId": "Sample",
+            "subscription": {
+                "name": "Sample subscription",
+                "paymentSchedule": {
+                    "interval": {
+                        "length": "1",
+                        "unit": "months"
+                    },
+                    "startDate": "2020-08-30",
+                    "totalOccurrences": "12",
+                    "trialOccurrences": "1"
+                },
+                "amount": "10.29",
+                "trialAmount": "0.00",
+                "payment": {
+                    "creditCard": {
+                        "cardNumber": "4111111111111111",
+                        "expirationDate": "2020-12",
+                        "cardCode": "999"
+                    }
+                },
+                "customer": {
+                    "id": "99999456656"
+                },
+                "billTo": {
+                    "firstName": "Ellen",
+                    "lastName": "Johnson",
+                    "company": "Souveniropolis",
+                    "address": "14 Main Street",
+                    "city": "Pecan Springs",
+                    "state": "TX",
+                    "zip": "44628",
+                    "country": "USA"
+                }
+            }
+        }
+    };
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.payment.creditCard.cardNumber = creditCardPaymentInfo.creditCardNumber;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.payment.creditCard.expirationDate = creditCardPaymentInfo.expirationDate;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.payment.creditCard.cardCode = creditCardPaymentInfo.ccv;
+
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.billTo.firstName = creditCardPaymentInfo.firstName;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.billTo.lastName = creditCardPaymentInfo.lastName;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.billTo.address = creditCardPaymentInfo.address;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.billTo.city = creditCardPaymentInfo.city;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.billTo.state = creditCardPaymentInfo.state;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.billTo.zip = creditCardPaymentInfo.zip;
+
+    paymentInfo.ARBCreateSubscriptionRequest.refId = creditCardPaymentInfo.orderId;
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.customer.id = creditCardPaymentInfo.orderId;
+    let paymentTotal = (order.amount-order.schoolCredit) * 1.03;
+    paymentTotal = Number(paymentTotal.toFixed(2));
+    paymentInfo.ARBCreateSubscriptionRequest.subscription.amount = paymentTotal;
+    // let URL = 'https://api.authorize.net/xml/v1/request.api';
+    let URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    let response = HTTP.call('POST',URL, {data: paymentInfo});
+
+    if (response &&
+        response.data &&
+        response.data.messages &&
+        response.data.messages.message[0].code == "I00001") {
+
+        let result = postPaymentUpdate(userId, order, 'credit card', paymentTotal, creditCardPaymentInfo.paymentSource);
+        result.refId = response.refId;
+        result.subscriptionId = response.subscriptionId;
+        return result;
+    }
+    else {
+        let userName = creditCardPaymentInfo.firstName + ' ' + creditCardPaymentInfo.lastName;
+        logPaymentError(userId, creditCardPaymentInfo.orderId, "creditCard", userName, response.data);
+        throw generatePaymentErrorException(response);
+    }
+}
+
+function getSubscriptionStatus(subscriptionId) {
+    var request = {
+        "ARBGetSubscriptionStatusRequest": {
+            "merchantAuthentication": {
+                "name": "42ZZf53Hst",
+                "transactionKey": "3TH6yb6KN43vf76j"
+                // "name": "9XD2ru9Z",
+                // "transactionKey": "5yZ52WCb2EC5et2c"
+            },
+            "subscriptionId": "100748"
+        }
+    };
+    request.ARBGetSubscriptionStatusRequest.subscriptionId = subscriptionId;
+    // let URL = 'https://api.authorize.net/xml/v1/request.api';
+    let URL = 'https://apitest.authorize.net/xml/v1/request.api';
+    let response = HTTP.call('POST',URL, {data: paymentInfo});
+    return response.messages.resultCode
 }
 
 /*
