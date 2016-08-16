@@ -357,7 +357,10 @@ let Class = class extends Base{
             let tn = item.program.name;
             item.programName = tn;
 
-            tn += ' '+item.sessionName;
+            if(!item.session.recurring){
+                tn += ' '+item.sessionName;
+            }
+
 
             //if(item.level){
             //    tn += ' '+item.level;
