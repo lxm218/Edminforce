@@ -28,6 +28,13 @@ Schema.Order = {
         type: Number,
         decimal: true
     },
+
+    monthlyAmount : {
+        type : Number,
+        optional : true,
+        decimal : true
+    },
+
     discount:{
         type: Number,
         optional: true,
