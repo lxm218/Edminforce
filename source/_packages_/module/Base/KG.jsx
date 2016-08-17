@@ -73,6 +73,9 @@ KG.schema = {
             type: Date,
             optional : true,
             autoValue: function(){
+                if(this.value){
+                    return this.value;
+                }
                 if (this.isInsert){
                     return new Date();
                 }
