@@ -105,7 +105,6 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 		let titleArray = [
 			{
-
 				title : 'Student',
 				key : 'student.name'
 			},
