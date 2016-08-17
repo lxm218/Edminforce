@@ -44,7 +44,10 @@ KG.const = {
 
     dateFormat : 'MM/DD/YYYY',
     timeFormat : 'HH:mm:ss',
-    dateAllFormat : 'MM/DD/YYYY HH:mm:ss'
+    dateAllFormat : 'MM/DD/YYYY HH:mm:ss',
+    monthFormat : 'YYYY-MM',
+
+    ONLYCALLINSERVERSIDE : 'this method only call in server side'
 };
 
 KG.schema = {

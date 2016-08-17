@@ -118,7 +118,8 @@ KG.define('EF-Order', class extends Base{
                     poundage : order.poundage,
                     couponID : order.couponID,
                     customerCouponID : order.customerCouponID,
-                    schoolCredit : order.schoolCredit
+                    schoolCredit : order.schoolCredit,
+                    month : moment(order.createTime).format(KG.const.monthFormat)
                 };
                 paymentData = _.omit(paymentData, (v)=>{
                     return _.isUndefined(v);

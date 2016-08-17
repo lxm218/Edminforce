@@ -8,6 +8,8 @@
             "frequency" : "once",
 
             "scope" : "student"
-        }
+        },
+
+        "numberOfMonthClass" : 4
     }
 }

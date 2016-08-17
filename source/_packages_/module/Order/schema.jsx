@@ -146,6 +146,18 @@ Schema.Payment = {
         optional: true,
         defaultValue : 0
     },
+    month : KG.schema.default({
+        //2016-08
+        optional : true,
+        autoValue: function(){
+            if(this.value){
+                return this.value;
+            }
+            if(this.isInsert || this.isUpdate || this.isUpsert){
+                return moment(this.field('createTime').value || new Date()).format('YYYY-MM');
+            }
+        }
+    }),
     createTime: KG.schema.createTime(),
     updateTime: KG.schema.updateTime()
 }

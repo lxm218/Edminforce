@@ -308,6 +308,12 @@ let BillingTable = class extends RC.CSS{
                 key : 'type'
             },
             {
+                title : 'Month',
+                reactDom(doc){
+                    return doc.month || '';
+                }
+            },
+            {
                 title : 'Is Monthly',
                 reactDom(doc){
                     return doc.recurring ? 'Yes' : 'No';

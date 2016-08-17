@@ -404,6 +404,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 		let orderData = {
 			accountID : customer._id,
+			monthlyAmount : this.state.summaryList.nextMonthPayment,
 			studentID : (_.map(list, (item)=>{return item.studentID})).join(','),
 			details : _.map(list, (item)=>{return item._id}),
 			recurring : true,

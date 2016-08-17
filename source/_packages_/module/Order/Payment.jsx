@@ -23,7 +23,7 @@ KG.define('EF-Payment', class extends Base {
                         //find add recurring order
                         let orderList = m.Order.getDB().find({
                             recurring : true,
-                            type : 'register class',
+                            type : {$in : ['register class', 'change class'] },
                             status : 'success'
                         });
 
@@ -39,6 +39,10 @@ KG.define('EF-Payment', class extends Base {
     }
 
     checkAndCreatePaymentBillingByOrder(order){
+        if(Meteor.isClient){
+            throw KG.const.ONLYCALLINSERVERSIDE;
+        }
+
         let m = KG.DataHelper.getDepModule(),
             self = this;
 
@@ -52,40 +56,42 @@ KG.define('EF-Payment', class extends Base {
                 paymentType : 'holding',
                 status : 'waiting',
                 amount : order.monthlyAmount,
-                createTime : date,
-                updateTime : date
+                month : moment(date).format(KG.const.monthFormat)
             };
             self._db.insert(data);
         };
 
         //check current month
-        let now = moment(new Date());
-        let range = [now.clone().startOf('month').toDate(), now.clone().endOf('month').toDate()];
-
-        let currentBilling = self._db.findOne({
-            orderID : order._id,
-            createTime : {
-                $gt : range[0],
-                $lte : range[1]
-            }
-        });
-        if(!currentBilling){
-            autoCreate(order, now.toDate());
-        }
+        //if(!self.checkBillExistForDateMonth(order._id, new Date())){
+        //    autoCreate(order, new Date());
+        //}
 
         //check next month
-        let nd = now.clone().add(1, 'month');
-        range = [nd.clone().startOf('month').toDate(), nd.clone().endOf('month').toDate()];
-        let nextBilling = self._db.findOne({
-            orderID : order._id,
-            createTime : {
-                $gt : range[0],
-                $lte : range[1]
-            }
-        });
-        if(!nextBilling){
+        let nd = moment(new Date()).add(1, 'month');
+        if(!self.checkBillExistForDateMonth(order._id, nd)){
             autoCreate(order, nd.toDate());
         }
 
+    }
+
+    checkBillExistForDateMonth(orderID, date){
+        if(Meteor.isClient){
+            throw KG.const.ONLYCALLINSERVERSIDE;
+        }
+
+        data = date || new Date();
+
+        let m = KG.DataHelper.getDepModule(),
+            self = this;
+
+        let now = moment.isMoment(date) ? (date) : moment(date);
+        let month = now.format(KG.const.monthFormat);
+
+        let currentBilling = self._db.findOne({
+            orderID : orderID,
+            month : month
+        });
+
+        return !!currentBilling;
     }
 });

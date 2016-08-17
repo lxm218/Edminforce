@@ -554,7 +554,9 @@ let Class = class extends Base{
 
                 let tuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
 
+                if(cd.session.recurring){
 
+                }
 
 
                 let d = m.Order.getDB().findOne({
@@ -646,6 +648,8 @@ let Class = class extends Base{
 
                 //cancel from class
                 m.ClassStudent.updateStatus('canceled', ClassStudentID);
+
+                //TODO if recurring, cancel authrize order
 
                 //insert order
                 let orderData = {
