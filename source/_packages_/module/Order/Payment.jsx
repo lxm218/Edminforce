@@ -11,7 +11,8 @@ KG.define('EF-Payment', class extends Base {
             {
                 name : 'Create recurring order payment',
                 schedule: function (parser) {
-                    return parser.text('every 1 day');
+                    //return parser.text('every 1 day');
+                    return parser.text('every 10 min');
                 },
                 job : function(){
                     console.log('[cronjob -- Create recurring order payment]')
@@ -19,7 +20,7 @@ KG.define('EF-Payment', class extends Base {
                     const DAY = 20;
 
                     let now = moment(new Date());
-                    if(now.date() > DAY){
+                    if(true || now.date() > DAY){
                         //find add recurring order
                         let orderList = m.Order.getDB().find({
                             recurring : true,
