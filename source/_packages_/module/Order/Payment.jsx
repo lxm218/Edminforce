@@ -30,7 +30,10 @@ KG.define('EF-Payment', class extends Base {
 
 
                         _.each(orderList.fetch(), (order)=>{
-                            self.checkAndCreatePaymentBillingByOrder(order);
+                            try{
+                                self.checkAndCreatePaymentBillingByOrder(order);
+                            }catch(e){}
+
                         })
 
                     }
