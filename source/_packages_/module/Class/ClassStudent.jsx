@@ -358,7 +358,7 @@ let ClassStudent = class extends Base{
                     if(true || item.class.tuition.type === 'class'){
                         //item.amount = item.class.leftOfClass*item.class.tuition.money;
                         item.monthDue = m.Class.calculateNumberOfClassForCurrentMonth(item.class, item.class.session)*item.class.tuition.money;
-                        item.nextMonthPay = 4*item.class.tuition.money;
+                        item.nextMonthPay = App.config.numberOfMonthClass*item.class.tuition.money;
                     }
                     else{
                         //item.amount = item.class.tuition.money * (item.class.leftOfClass/item.class.numberOfClass);

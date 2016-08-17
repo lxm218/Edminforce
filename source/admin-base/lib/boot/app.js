@@ -14,8 +14,9 @@ App.config = {
         echeck : 0.0075,
         cash : 0,
         check : 0
-    }
+    },
 
+    numberOfMonthClass : 4
 };
 
 _.extend(App.config, config);
