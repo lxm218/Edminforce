@@ -3,7 +3,7 @@
  * Displays all classes, each with teacher name, level, and all students, for
  * a selected day and selected program or all programs
  */
-KUI.Report_DailyRoster = class extends RC.CSS {
+KUI.Report_RosterPrinter = class extends RC.CSS {
     constructor(p) {
         super(p);
 
@@ -31,6 +31,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.showExportButton = this.showExportButton.bind(this);
         this.exportPeriod = this.exportPeriod.bind(this);
         this.serializeCSV = this.serializeCSV.bind(this);
+        this.test = this.test.bind(this);
         
     }
 
@@ -500,11 +501,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
     }
 
     exportPeriod(){
-        var current = FlowRouter.current()
-        var url = current.path
-        url = url.replace("dailyroster","dailyroster/rosterPrinter")
-        FlowRouter.go(url);
-        /*
+
+    /*
         var data = this.getRosterDataTable()
         var res = ''
         for(var i = 0; i < data.length; i++) {
@@ -512,7 +510,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         }
         var blob = new Blob([res], {type: "text/plain;charset=utf-8"});
         saveAs(blob, "DailyRoster.csv");
-        */
+    */
     }
 
     serializeCSV(record){
@@ -550,6 +548,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             return (<KUI.YesButton onClick={this.exportPeriod.bind(this)} style={{marginLeft : '15px'}} label="Export Report" ></KUI.YesButton>);
         }
     }
+    test(){
+        console.log("in test")
+        debugger
+        this.setState({
+                showLeftNav:false
+            });
+    }
 
     render() {
         if (this.state.loading)
@@ -575,52 +580,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                 label : 'Teacher'
             },
         };
-
+        
         return (
             <RC.Div>
-                <h3 style={{"textAlign": "left"}}>Daily Roster</h3>
-                <RB.Row>
-                    <div className="form-horizontal">
-                        <RB.Col md={6} mdOffset={0}>
-                            <RB.Input type="text" {... p.date} value={moment(this.state.selectedDate).format("MM/DD/YYYY")} onChange={this.onDateEdit}>
-                            </RB.Input>
-                        </RB.Col>
-                        <RB.Col  md={6} mdOffset={0}>
-                            <KUI.YesButton onClick={this.getDailyRoster} label="Show"></KUI.YesButton>
-                            {this.showExportButton()}
-                        </RB.Col>
-                    </div>
-                </RB.Row>
-                <RB.Row>
-                    <div className="form-horizontal">
-                        <RB.Col md={6} mdOffset={0}>
-                            <RB.Input type="select" {... p.program} value={this.state.selectedProgram} onChange={this.onProgramChange}>
-                                {
-                                    (this.state.programs || []).map((item, index)=>{
-                                        return <option key={index} value={item._id}>{item.name}</option>;
-                                    })
-                                }
-                            </RB.Input>
-                        </RB.Col>
-                    </div>
-                </RB.Row>
-                <RB.Row>
-                    <div className="form-horizontal">
-                        <RB.Col md={6} mdOffset={0}>
-                            <RB.Input type="select" {... p.teacher} value={this.state.selectedTeacher} onChange={this.onTeacherChange}>
-                                {
-                                    (this.state.teachers || []).map((item, index)=>{
-                                        return <option key={index} value={item._id}>{item.nickName}</option>;
-                                    })
-                                }
-                            </RB.Input>
-                        </RB.Col>
-                    </div>
-                </RB.Row>
                 <RC.Div style={{marginTop:20}}>
                     {this.renderRoster(this.getRosterDataTable())}
                 </RC.Div>
             </RC.Div>
         )
-    }
+    } 
 }
