@@ -359,6 +359,7 @@ KG.define('EF-Customer', class extends Base{
                         let ll = m.Payment.getDB().find({orderID : item._id}).fetch();
 
                         _.each(ll, (l)=>{
+                            l.order = item;
                             l._id = item._id;
                             l.type = item.type;
                             l.recurring = true;
@@ -392,7 +393,7 @@ console.log(option);
                 });
 
                 return {
-                    count : m.Order.getDB().find(query).count(),
+                    count : result.length,
                     data : result
                 };
             },

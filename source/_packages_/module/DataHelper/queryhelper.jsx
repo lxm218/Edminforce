@@ -176,11 +176,12 @@ console.log(start.format(), end.format());
                 return result;
             },
 
-            getFinanceDetailByOrderID(orderID, dateline){
+            getFinanceDetailByOrderID(orderID, dateline, doc={}){
                 let m = KG.DataHelper.getDepModule();
                 let order = m.Order.getDB().findOne({_id : orderID});
 
                 let result = [];
+
 
                 let csID = order.details;
                 result = _.map(csID, (id)=>{
@@ -191,6 +192,12 @@ console.log(start.format(), end.format());
                     cs.class = m.Class.getAll({_id : cs.classID})[0];
                     cs.order = order;
                     cs.dateline = dateline;
+
+                    if(order.recurring){
+                        cs.month = doc.month;
+                        cs.type = 'Monthly Payment';
+                        cs.amount = doc.amount;
+                    }
 
                     return cs;
                 });

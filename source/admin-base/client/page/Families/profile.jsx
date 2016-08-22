@@ -288,7 +288,7 @@ let BillingTable = class extends RC.CSS{
                             detailReport : 'loading'
                         });
 
-                        KG.DataHelper.callMeteorMethod('getFinanceDetailByOrderID', [doc._id, dateline], {
+                        KG.DataHelper.callMeteorMethod('getFinanceDetailByOrderID', [doc._id, dateline, doc], {
                             success : function(rs){
                                 console.log(rs);
                                 self.setState({
@@ -305,7 +305,12 @@ let BillingTable = class extends RC.CSS{
             },
             {
                 title : 'Type',
-                key : 'type'
+                reactDom(doc){
+                    if(doc.month){
+                        return 'Monthly Bill';
+                    }
+                    return doc.type;
+                }
             },
             {
                 title : 'Month',
@@ -321,7 +326,17 @@ let BillingTable = class extends RC.CSS{
             },
             {
                 title : 'Payment',
-                key : 'paymentType'
+                reactDom(doc){
+                    if(doc.month){
+                        if(doc.order.autoPayRefID){
+                            return 'AutoPay';
+                        }
+                        else{
+                            return '';
+                        }
+                    }
+                    return doc.paymentType;
+                }
             },
             {
                 title : 'Total Amount($)',
@@ -357,11 +372,17 @@ let BillingTable = class extends RC.CSS{
 
             {
                 title : 'Pay From',
-                key : 'paymentSource'
+                reactDom(doc){
+                    return doc.status === 'success'?doc.paymentSource:'';
+                }
             },
             {
                 title : 'Note',
                 reactDom : function(doc){
+                    if(doc.status==='waiting' && doc.month && !doc.order.autoPayRefID){
+                        return <KUI.NoButton onClick={()=>{alert('comming soon')}} label="Pay Now" />
+                    }
+
                     if(doc.note){
                         return doc.note.note || '';
                     }
@@ -423,8 +444,14 @@ let BillingTable = class extends RC.CSS{
 
         let titleArray = [
             {
-                title : 'Date',
-                key : 'dateline'
+                title : 'Billing Date',
+                reactDom(doc){
+                    return doc.dateline.substring(0, 10);
+                }
+            },
+            {
+                title : 'Month',
+                key : 'month'
             },
             {
                 title : 'Student',
@@ -437,6 +464,9 @@ let BillingTable = class extends RC.CSS{
             {
                 title : 'Type',
                 reactDom(doc){
+                    if(doc.month){
+                        return doc.type;
+                    }
                     let rs = doc.order.type;
                     if(rs === 'mixed'){
                         rs = doc.type;
@@ -448,6 +478,9 @@ let BillingTable = class extends RC.CSS{
                 title : 'Amount($)',
                 reactDom(doc){
                     let rs = 0;
+                    if(doc.month){
+                        return doc.amount;
+                    }
                     if(_.contains(['register class', 'makeup class'], doc.order.type)){
                         rs = Math.abs(doc.fee);
                     }
