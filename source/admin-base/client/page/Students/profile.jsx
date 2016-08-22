@@ -361,7 +361,7 @@ KUI.Student_profile = class extends KUI.Page{
                 title : 'Status',
                 //key : 'status'
                 reactDom(doc){
-                    return doc.status==='checkouted'?'success':doc.status;
+                    return doc.status==='checkouted'?'active':doc.status;
                 }
             },
             {
