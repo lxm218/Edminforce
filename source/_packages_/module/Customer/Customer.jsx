@@ -360,6 +360,7 @@ KG.define('EF-Customer', class extends Base{
 
                         _.each(ll, (l)=>{
                             l.order = item;
+                            l.paymentID = l._id;
                             l._id = item._id;
                             l.type = item.type;
                             l.recurring = true;
