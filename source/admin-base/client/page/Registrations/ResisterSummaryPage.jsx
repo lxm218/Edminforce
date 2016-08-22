@@ -448,6 +448,11 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 					});
 				}
 				else if(way === 'pay later'){
+					Meteor.setTimeout(function(){
+						self.m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : cid}], {
+							success : function(){}
+						});
+					}, 100);
 					FlowRouter.go('/student/'+self.studentID);
 				}
 				else{
