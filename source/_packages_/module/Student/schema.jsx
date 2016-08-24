@@ -58,6 +58,10 @@ Schema.Student = {
     note: KG.schema.default({
         optional:true
     }),
+
+    schoolID : KG.schema.default({
+        optional : true
+    }),
     
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
@@ -69,6 +73,10 @@ Schema.StudentComment = {
     fromID : KG.schema.default(),
     fromName : KG.schema.default(),
     comment : KG.schema.default({
+        optional : true
+    }),
+
+    schoolID : KG.schema.default({
         optional : true
     }),
 

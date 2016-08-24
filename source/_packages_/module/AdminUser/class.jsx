@@ -53,30 +53,9 @@ let AdminUserSchema = new SimpleSchema({
         optional : true,
         type : Date
     }),
-    //school : {
-    //    type : Object
-    //},
-    //'school.name' : KG.schema.default({
-    //    optional : true
-    //}),
-    //'school.email' : KG.schema.default({
-    //    optional : true
-    //}),
-    //'school.phone' : KG.schema.default({
-    //    optional : true
-    //}),
-    //'school.address' : KG.schema.default({
-    //    optional : true
-    //}),
-    //'school.city' : KG.schema.default({
-    //    optional : true
-    //}),
-    //'school.state' : KG.schema.default({
-    //    optional : true
-    //}),
-    //'school.zipcode' : KG.schema.default({
-    //    optional : true
-    //}),
+    schoolID : KG.schema.default({
+        optional : true
+    }),
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 });

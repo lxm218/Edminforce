@@ -156,7 +156,9 @@ Schema.Class = {
       blackbox: true,
       defaultValue: {}
     },
-
+    schoolID : KG.schema.default({
+        optional : true
+    }),
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };
@@ -188,6 +190,9 @@ Validate.ClassStudent = {
 };
 Schema.ClassStudent = {
     classID : KG.schema.default(),
+    schoolID : KG.schema.default({
+        optional : true
+    }),
     studentID : KG.schema.default(),
     accountID : KG.schema.default({
         optional : true

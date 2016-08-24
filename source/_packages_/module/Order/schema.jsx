@@ -87,6 +87,9 @@ Schema.Order = {
         type: String,
         optional: true
     },
+    schoolID : KG.schema.default({
+        optional : true
+    }),
 
     createTime: KG.schema.createTime(),
     updateTime: KG.schema.updateTime()
@@ -157,6 +160,9 @@ Schema.Payment = {
                 return moment(this.field('createTime').value || new Date()).format('YYYY-MM');
             }
         }
+    }),
+    schoolID : KG.schema.default({
+        optional : true
     }),
     createTime: KG.schema.createTime(),
     updateTime: KG.schema.updateTime()

@@ -4,6 +4,9 @@ KG.define('EF-Program', class extends Base{
     defineDBSchema(){
         return {
             name : KG.schema.default(),
+            schoolID : KG.schema.default({
+                optional : true
+            }),
             description : KG.schema.default({
                 optional : true
             }),

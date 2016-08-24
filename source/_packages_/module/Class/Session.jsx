@@ -30,6 +30,9 @@ KG.define('EF-Session', class extends Base{
                 optional: true,
                 defaultValue: false
             },
+            schoolID : KG.schema.default({
+                optional : true
+            }),
             createTime : KG.schema.createTime(),
             updateTime : KG.schema.updateTime()
         };

@@ -5,6 +5,9 @@ KG.define('EF-EmailTemplate', class extends Base{
         return {
             name : KG.schema.default(),
             html : KG.schema.default(),
+            schoolID : KG.schema.default({
+                optional : true
+            }),
             canNotDelete : KG.schema.default({
                 type : Boolean,
                 optional : true,

@@ -39,6 +39,9 @@ Schema.Customer = {
     name : KG.schema.default({
         label : 'Account Name'
     }),
+    schoolID : KG.schema.default({
+        optional : true
+    }),
     nickName : KG.schema.default({
         optional : true
     }),

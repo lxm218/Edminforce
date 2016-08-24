@@ -59,6 +59,9 @@ Schema.Coupon = {
         defaultValue : '',
         allowedValues : ['makeup']
     }),
+    schoolID : KG.schema.default({
+        optional : true
+    }),
 
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
