@@ -39,7 +39,14 @@ if(Meteor.isClient){
     });
 
 
-
+    Route.route('/pay', {
+        action : function(p){
+            App.routeHandler(p, {
+                pageTitle : 'Payment | pay',
+                bodyTmpl : <KUI.Registration_PayOrder />
+            });
+        }
+    });
 
 
 }

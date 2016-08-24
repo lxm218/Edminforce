@@ -380,7 +380,7 @@ let BillingTable = class extends RC.CSS{
                 title : 'Note',
                 reactDom : function(doc){
                     if(doc.status==='waiting' && doc.month && !doc.order.autoPayRefID){
-                        return <KUI.NoButton onClick={()=>{alert('comming soon')}} label="Pay Now" />
+                        return <KUI.NoButton onClick={()=>{util.goPath(`/payment/pay?type=monthly&id=${doc.paymentID}&backurl=${location.pathname}`)}} label="Pay Now" />
                     }
 
                     if(doc.note){
