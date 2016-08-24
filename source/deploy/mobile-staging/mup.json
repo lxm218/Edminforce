@@ -22,7 +22,7 @@
   "nodeVersion": "0.10.40",
 
   // Application name (no spaces).
-  "appName": "KidsArtMobileStaging",
+  "appName": "ClassForthDemo",
 
   // Location of app (local directory). This can reference '~' as the users home directory.
   // i.e., "app": "~/Meteor/my-app",
