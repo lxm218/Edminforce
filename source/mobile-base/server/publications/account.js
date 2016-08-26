@@ -30,3 +30,7 @@ Meteor.publish('student', function(id) {
 
     return Collections.student.find(selector);
 });
+
+Meteor.publish('schools', function() {
+    return Collections.school.find({});
+});

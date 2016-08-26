@@ -46,11 +46,21 @@ EdminForce.Components.User = React.createClass({
   },
 
     getMeteorData(){
-        let x = Meteor.subscribe('EF-UserData');
-        //console.log(x.ready(), Meteor.user());
+        let x = Meteor.subscribe('schools');
+
+        let schools = [];
+        if (x.ready()) {
+          // get schools and add label & value properties, which are required by RC.Select
+          schools = Collections.school.find({}).fetch();
+          schools.forEach( (s) => {
+            s.value = s._id;
+            s.label = s.name;
+          })
+        }
 
         return {
-            userReady : x.ready()
+            schools,
+            ready : x.ready()
         };
     },
 
@@ -291,7 +301,8 @@ EdminForce.Components.User = React.createClass({
         username: form.email.toLowerCase(),
         email: form.email.toLowerCase(),
         password: form.pw,
-        role : 'user'
+        role : 'user',
+        schoolID: form.school
       }, function(err) {
 
         if(err && err.error){
@@ -519,8 +530,15 @@ EdminForce.Components.User = React.createClass({
 
       case "register":
         //<div>Create an Account</div>
+//                         style={{paddingLeft:0, paddingRight:12, paddingTop:6,paddingBottom:6}}
+
         return (<RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
+          <RC.Select name="school"
+                     ref="school"
+                     options={this.data.schools}
+                     label="School"
+                     theme={inputTheme} />
           <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" value=""/>
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
@@ -610,6 +628,11 @@ EdminForce.Components.User = React.createClass({
     }
   },
   render(){
+
+    if (!this.data.ready)
+      return (
+          <RC.Loading isReady={false}></RC.Loading>
+      )
 
     let styles = this.css.styles
     let linkColor = this.color.isDark ? "rgba(255,255,255,.7)" : "rgba(15,15,15,.7)"
@@ -720,7 +743,7 @@ EdminForce.Components.User = React.createClass({
       },
       input: {
         padding: "5px 0",
-      }
+      },
     }
   },
 })
