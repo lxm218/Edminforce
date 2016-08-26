@@ -17,6 +17,22 @@ const ph = {
   }
 }
 
+RC.Select3 = class extends RC.Select {
+    constructor(props) {
+        super(props)
+    }
+
+    baseStyles(np, ns) {
+        let styles = super.baseStyles(np,ns);
+
+        Object.assign(styles.label, {
+            paddingTop: styles.label.paddingTop, paddingRight: styles.label.paddingTop*2, paddingBottom: styles.label.paddingTop, paddingLeft: 0,
+        });
+
+        return styles;
+    }
+}
+
 EdminForce.Components.User = React.createClass({
   mixins: [RC.Mixins.CSS, ReactMeteorData],
   displayName: "Cal.User",
@@ -534,7 +550,7 @@ EdminForce.Components.User = React.createClass({
 
         return (<RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
-          <RC.Select name="school"
+          <RC.Select3 name="school"
                      ref="school"
                      options={this.data.schools}
                      label="School"
