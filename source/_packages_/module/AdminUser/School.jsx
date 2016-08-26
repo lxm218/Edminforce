@@ -49,8 +49,8 @@ KG.define('EF-School', class extends Base{
 
     addTestData(){
 
-        if(this._db.find({}).count() !== 1){
-            this._db.remove({});
+        if(this._db.find({}).count() < 1){
+            //this._db.remove({});
 
             let data = {
                 name : 'Class Forth',
