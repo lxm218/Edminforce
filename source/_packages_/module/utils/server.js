@@ -23,6 +23,32 @@ EdminForce.utils.sendEmailHtml = function (to, subject, html) {
     });
 }
 
+/**
+ * Get school for the current user
+ * @returns {*}
+ */
+EdminForce.utils.getSchool = function() {
+    if (Meteor.user()) {
+        return Collections.school.find({_id:Meteor.user().schoolID}).fetch();
+    }
+
+    return null;
+}
+
+/**
+ * get timezone from school of the currently logged in user
+ * @returns {string}
+ */
+EdminForce.utils.getTZ = function() {
+    let school = EdminForce.utils.getSchool();
+    if (school) {
+        EdminForce.Settings.timeZone = school.timezoneString;
+    }
+
+    return EdminForce.Settings.timeZone;
+}
+
+
 // EdminForce.utils.getPaymentConfirmEmailTemplate = function(data) {
 //     let school = {
 //         "name": "CalColor Academy"

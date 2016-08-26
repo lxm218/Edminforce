@@ -6,7 +6,8 @@ Meteor.methods({
             _id: this.userId,
             name,
             email,
-            phone
+            phone,
+            schoolID: Meteor.user().schoolID
         })
     },
 
