@@ -3,6 +3,8 @@
 // For each student, returns all classes, sessions, programs.
 Meteor.publishComposite("StudentsWithClasses", function(studentID) {
     const userId = this.userId;
+    let schoolID = EdminForce.utils.getSchoolIDByCustomerID(this.userId);
+
     return {
         // all students of the logged-in user
         find () {
@@ -33,13 +35,13 @@ Meteor.publishComposite("StudentsWithClasses", function(studentID) {
                             {
                                 // session info for the class
                                 find(classDoc) {
-                                    return Collections.session.find({_id:classDoc.sessionID})
+                                    return Collections.session.find({_id:classDoc.sessionID, schoolID})
                                 }
                             },
                             {
                                 // program info for the class
                                 find(classDoc) {
-                                    return Collections.program.find({_id:classDoc.programID})
+                                    return Collections.program.find({_id:classDoc.programID, schoolID})
                                 }
                             }
                         ]

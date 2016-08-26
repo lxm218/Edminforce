@@ -36,6 +36,15 @@ EdminForce.utils.getSchool = function() {
 }
 
 /**
+ * Get school ID from customer record
+ * @param customerId
+ */
+EdminForce.utils.getSchoolIDByCustomerID = function(customerID) {
+    let customer = Collections.Customer.findOne({_id:customerID});
+    return customer ? customer.schoolID : null;
+}
+
+/**
  * get timezone from school of the currently logged in user
  * @returns {string}
  */
