@@ -1,4 +1,4 @@
-KUI.Family_add = class extends RC.CSSMeteorData{
+KUI.Family_add = class extends KUI.Page{
 
     constructor(p){
         super(p);
@@ -17,6 +17,9 @@ KUI.Family_add = class extends RC.CSSMeteorData{
     }
 
     render(){
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
 
         if(!util.user.checkPermission('customer', 'view')){
             return util.renderNoViewPermission();
@@ -43,6 +46,8 @@ KUI.Family_add = class extends RC.CSSMeteorData{
         let pwd = Meteor.uuid().substring(0, 8);
         param.password = pwd;
         console.log(pwd);
+
+        param.schoolID = this.loginUser.schoolID;
 
         self.refs.addBtn.loading(true);
         KG.get('EF-Customer').insert(_.clone(param), function(rs){

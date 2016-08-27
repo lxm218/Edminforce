@@ -62,7 +62,8 @@ KG.define('EF-School', class extends Base{
     }
 
     getInfo(){
-        let rs = this._db.findOne({_id : this.id});
+        let id = Meteor.user() ? Meteor.user().schoolID : this.id;
+        let rs = this._db.findOne({_id : id});
         rs.allAddress = '';
         if(rs.address){
             rs.allAddress += rs.address+' ';

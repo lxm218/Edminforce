@@ -265,13 +265,12 @@ console.log('['+this._name+':'+methodName+' call]');
                 pageNum : 1,
                 field : null
             }, opts||{});
-            _.mapObject(opts.query || {}, (item, key)=>{
-                if(_.isObject(item)){
-                    if(item.type === 'RegExp'){
-                        opts.query[key] = new RegExp(item.value, 'i');
-                    }
-                }
-            });
+            opts.query = KG.util.setDBQuery(opts.query);
+
+            //add schoolID to query
+            if(this._name!=='EF-School' && this.userId){
+                opts.query.schoolID = Meteor.users.findOne({_id : this.userId}).schoolID;
+            }
 
             let skip = opts.pageSize * (opts.pageNum-1);
             let option = {

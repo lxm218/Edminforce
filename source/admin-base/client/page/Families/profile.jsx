@@ -689,6 +689,8 @@ KUI.Family_profile = class extends KUI.Page{
         let param = this.refs.form.getValue();
         console.log(param);
 
+        param.schoolID = this.loginUser.schoolID;
+
         let rs = KG.get('EF-Customer').updateById(param, this.data.id);
         KG.result.handle(rs, {
             success : function(){
