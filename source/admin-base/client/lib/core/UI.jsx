@@ -156,7 +156,7 @@ KUI.Page = class extends RC.CSSMeteorData{
         super(p);
 
         this.m = KG.DataHelper.getDepModule();
-        this.loginUser = this.m.AdminUser.user();
+        this.loginUser = this.m.AdminUser.user() || Meteor.user();
     }
 
     componentDidMount(){

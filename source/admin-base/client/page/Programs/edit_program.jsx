@@ -114,7 +114,8 @@ KUI.Program_edit = class extends KUI.Page{
         let rs = KG.get('EF-Program').updateById({
             name : name.getValue(),
             displayOrder : sort,
-            description : encodeURIComponent(desc)
+            description : encodeURIComponent(desc),
+            schoolID : this.loginUser.schoolID
         }, this.getProgramId());
 
         KG.result.handle(rs, {

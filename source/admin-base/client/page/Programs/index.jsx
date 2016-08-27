@@ -1,5 +1,5 @@
 
-KUI.Program_index = class extends RC.CSSMeteorData{
+KUI.Program_index = class extends KUI.Page{
 
     constructor(p){
         super(p);
@@ -242,7 +242,8 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         let rs = KG.get('EF-Program').insert({
             name : name,
             displayOrder : sort,
-            description : encodeURIComponent(desc)
+            description : encodeURIComponent(desc),
+            schoolID : self.loginUser.schoolID
         });
 
         KG.result.handle(rs, {
@@ -253,8 +254,7 @@ KUI.Program_index = class extends RC.CSSMeteorData{
         });
     }
 
-    componentDidMount(){
-        super.componentDidMount();
+    runOnceAfterDataReady(){
         $(this.refs.html).summernote({
             height : 280,
             resize : false,
