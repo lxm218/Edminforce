@@ -1,11 +1,11 @@
 
 
-KUI.Setting_add_comp = class extends RC.CSS{
+KUI.Setting_add_comp = class extends KUI.Page{
 
     constructor(p){
         super(p);
 
-        this.module = this.getDepModule();
+        this.module = this.m;
         this.formType = new ReactiveVar(this.props.type || 'edit');
 
         this.state = {
@@ -15,10 +15,18 @@ KUI.Setting_add_comp = class extends RC.CSS{
         this.tz = null;
     }
 
-    getDepModule(){
-        return {
-            AdminUser : KG.get('EF-AdminUser')
-        };
+    getMeteorData(){
+        let u = this.loginUser;
+        if(u.role === 'superadmin'){
+            let x = Meteor.subscribe(util.getModuleName('School'));
+            return {
+                ready : x.ready()
+            };
+        }
+        else{
+            return {ready : true};
+        }
+
     }
 
     getRefs(){
@@ -43,7 +51,9 @@ KUI.Setting_add_comp = class extends RC.CSS{
     }
 
     render(){
-
+        if(!this.data.ready){
+            return util.renderLoading();
+        }
 
 
         let p = {
@@ -84,6 +94,13 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 ref : 'supervisor',
                 label : 'Supervisor'
             },
+            s_id : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-10',
+                ref : 'schoolID',
+                label : 'School'
+            },
+
             s_name : {
                 labelClassName : 'col-xs-2',
                 wrapperClassName : 'col-xs-10',
@@ -123,15 +140,16 @@ KUI.Setting_add_comp = class extends RC.CSS{
         }
 
         let option = {
-            role : this.module.AdminUser.getDBSchema().schema('role').allowedValues,
-            status : ['active', 'inactive']
+            role : ['admin', 'teacher'],
+            status : ['active', 'inactive'],
+            school : this.m.School.getDB().find().fetch()
         };
 
         let formType = this.formType.get();
         if(formType === 'edit'){
             p.email.disabled = true;
         }
-
+console.log(option.school)
         return (
             <form className="form-horizontal">
                 <RB.Row>
@@ -155,6 +173,15 @@ KUI.Setting_add_comp = class extends RC.CSS{
                             }
                         </RB.Input>
                         <RB.Input type="text" {... p.supervisor} />
+
+                        {this.loginUser.role==='superadmin'?
+                            (<RB.Input type="select" {... p.s_id}>
+                            {
+                                _.map(option.school, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.name}</option>;
+                                })
+                            }
+                        </RB.Input>) : null}
                     </RB.Col>
                 </RB.Row>
 
@@ -211,6 +238,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
             role : role.getValue(),
             status : status.getValue(),
             supervisor : supervisor.getValue(),
+            schoolID : this.refs.schoolID.getValue(),
             school : {
                 name : schoolName.getValue(),
                 email : schoolEmail.getValue(),
@@ -247,6 +275,7 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolName.getInputDOMNode().value = data.school.name || '';
         schoolEmail.getInputDOMNode().value = data.school.email || '';
         schoolPhone.getInputDOMNode().value = data.school.phone || '';
+        this.refs.schoolID.getInputDOMNode().value = data.schoolID;
         schoolAddress.value = data.school.address || '';
         schoolCity.value = data.school.city || '';
         schoolState.value = data.school.state || '';
@@ -274,9 +303,10 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolZip.value = '';
     }
 
-    componentDidMount(){
-        super.componentDidMount();
+    runOnceAfterDataReady(){
         this.tz = util.getReactJQueryObject(this.refs.timezone).find('select').timezones();
+
+
     }
 };
 

@@ -48,7 +48,7 @@ KUI.Setting_profile = class extends KUI.Page{
         console.log(data);
         this.refs.form.setDefaultValue(data);
 
-        if(this.data.profile.role === 'admin'){
+        if(this.data.profile.role === 'admin' || this.data.profile.role === 'superadmin'){
             this.refs.form.showSchoolArea();
         }
     }

@@ -25,14 +25,17 @@ KG.define('Account', class extends Base{
 
 
         Meteor.publish('userData', function(){
+            let profile = KG.DataHelper.getDepModule().AdminUser.getDB().findOne({_id : this.userId});
             //console.log(this.userId);
-            return Meteor.users.find({
+            let one = Meteor.users.find({
                 _id : this.userId
             }, {
                 fields : _.object(_.map(Accounts._autopublishFields.loggedInUser, function(field){
                     return [field, 1];
                 }))
             });
+
+            return one;
         })
 
 
@@ -47,26 +50,6 @@ KG.define('Account', class extends Base{
     }
 
     addTestData(){
-        //this._db.remove({});
-        if(true || this._db.find().count() > 0){
-            return;
-        }
-
-        let data = [
-            {
-                profile : {a:1},
-                username : 'admin@classforth.com',
-                email : 'admin@classforth.com',
-                password : 'admin',
-                schoolID : 'KidsArt',
-                role : 'admin'
-            }
-        ];
-
-        _.each(data, (item)=>{
-            Accounts.createUser(item);
-        });
-
 
     }
 
@@ -79,9 +62,12 @@ KG.define('Account', class extends Base{
         return {
             createUser(data){
                 try{
-                    return Accounts.createUser(data);
+                    let uid = Accounts.createUser(data);
+                    console.log(uid);
+
+                    return uid;
                 }catch(e){
-                    console.log(e);
+                    //console.log(e);
                     // error=403 email is already
                     // insert to Meteor.user directly
                     if(false && e.error === 403){

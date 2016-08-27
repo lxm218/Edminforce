@@ -14,7 +14,7 @@ let AdminUserSchema = new SimpleSchema({
         defaultValue : 'Administrator'
     }),
     role : KG.schema.default({
-        allowedValues: ['admin', 'teacher'],
+        allowedValues: ['superadmin', 'admin', 'teacher'],
         defaultValue : 'teacher'
     }),
     status : KG.schema.default({
@@ -69,27 +69,43 @@ let AdminUser = class extends Base{
 
     addTestData(){
         //this._db.remove({});
-        if(this._db.find({}).count() > 0){
+        if(this._db.find({email : 'superadmin@classforth.com'}).count() > 0){
             return false;
         }
 
         let data = {
-            email : 'admin@classforth.com',
+            email : 'superadmin@classforth.com',
             password : 'admin',
             status : 'active',
             nickName : 'ClassForth Administrator',
-            role : 'admin'
+            role : 'superadmin'
         };
 
-        this.insert(data, function(rs){
-            console.log('[AdminUser]  ', rs);
-        });
+        let accountData = {
+            username : data.email,
+            email : data.email,
+            password : data.password,
+            profile : {},
+            role : 'admin',
+            schoolID : 'AdminSchoolID',
+            status : 'active'
+        };
+
+
+
+        let uid = this.module.Account.callMeteorMethod('createUser', [accountData]);
+        data._id = uid;
+        this._db.insert(data);
 
     }
 
     initEnd(){
 
         this.pm = KG.create('EF-AdminPermission');
+
+        if(Meteor.isClient){
+            Meteor.subscribe('AdminUserData');
+        }
     }
 
     getAll(query, option){
@@ -146,9 +162,15 @@ let AdminUser = class extends Base{
             password : pwd,
             profile : {a : 1},
             role : 'admin',
-            schoolID : 'KidsArt'
+            schoolID : data.schoolID || 'AdminSchoolID',
+            status : 'active'
         };
-console.log(accountData);
+
+
+        console.log(accountData);
+
+
+
 
         try{
             this.module.Account.callMeteorMethod('createUser', [accountData], {
@@ -173,6 +195,28 @@ console.log(accountData);
 
 
 
+    }
+
+    publishMeteorData(){
+        let self = this;
+        Meteor.publish('AdminUserData', function(){
+            if(this.userId){
+                return self._db.find({
+                    _id : this.userId
+                })
+            }
+        });
+    }
+
+    defineClientMethod(){
+        let self = this;
+        return {
+            user : function(){
+                let x = Meteor.subscribe('AdminUserData');
+                return Meteor.user()?self._db.findOne({_id : Meteor.user()._id}):null;
+
+            }
+        };
     }
 
     defineMeteorMethod(){
