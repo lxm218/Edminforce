@@ -24,7 +24,8 @@ const _studentFields = {
  * Lesson date field name used in trial & makeup count in class document
  */
  function getLessonDateFieldName(lessonDate) {
-    return 'd' + moment(lessonDate).tz(EdminForce.Settings.timeZone).format('YYYYMMDD');
+     EdminForce.utils.getTZ();
+     return 'd' + moment(lessonDate).tz(EdminForce.Settings.timeZone).format('YYYYMMDD');
 }
 
 /**
@@ -50,9 +51,13 @@ function getClasesForRegistration(userId, studentID, programID, sessionID) {
     }
     let currentDate = new Date();
 
+    let schoolID = Meteor.user().schoolID;
+
     result.students = Collections.student.find({accountID: userId},{fields:_studentFields}).fetch();
-    result.sessions = Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
-    result.programs = Collections.program.find({}).fetch();
+    result.sessions = Collections.session.find({schoolID,
+        registrationStartDate:{$lt:currentDate},
+        registrationEndDate:{$gt:currentDate}}).fetch();
+    result.programs = Collections.program.find({schoolID}).fetch();
 
     if (!studentID || !_.find(result.students, {_id:studentID})) {
         result.students.length > 0 && (result.studentID = studentID = result.students[0]._id);
@@ -173,6 +178,9 @@ function getClasesForRegistration(userId, studentID, programID, sessionID) {
 function bookClasses(userId, studentID, classIDs) {
 
     let bookedIDs = [];
+
+    let schoolID = Meteor.user().schoolID;
+
     classIDs.forEach( (classID) => {
         let classData = Collections.class.findOne({_id:classID}, {fields:{programID:1,maxStudent:1, numberOfRegistered:1}});
         
@@ -193,6 +201,7 @@ function bookClasses(userId, studentID, classIDs) {
                     studentID,
                     status: "pending",
                     type: 'register',
+                    schoolID
                 });
                 bookedIDs.push(classStudentID);
             }
@@ -245,6 +254,8 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
     if (!EdminForce.Registration.isAvailableForMakeup(classData, lessonDate))
         throw new Meteor.Error(500, 'The selected class does not have space for makeup','Class id: ' + classID);
 
+    let schoolID = Meteor.user().schoolID;
+
     if (updateMakeupCount(classID, lessonDate)> 0) {
         // insert a class student record
         return Collections.classStudent.insert({
@@ -255,6 +266,7 @@ function bookMakeup(userId, studentID, classID, lessonDate) {
             lessonDate,
             status: "pending",
             type: "makeup",
+            schoolID,
             createTime: new Date()
         });
     }
@@ -280,6 +292,7 @@ function calculateRegistrationFee(classData, session) {
 function numberOfClassCurrentMonth(classData, dt) {
     dt = dt || new Date();
 
+    EdminForce.utils.getTZ();
     dt = moment(dt).tz(EdminForce.Settings.timeZone);
 
     // find out the first class day from "dt"

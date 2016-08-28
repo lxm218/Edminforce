@@ -33,7 +33,9 @@ Meteor.methods({
             couponID: Match.Optional(String),
             schoolCredit: Number,
         });
-        
+
+        let schoolID = Meteor.user().schoolID;
+
         let newOrder = {
             accountID: this.userId,
             details: order.details,
@@ -44,7 +46,8 @@ Meteor.methods({
             discount: order.discount,
             registrationFee: order.registrationFee,
             couponID: order.couponID,
-            schoolCredit: order.schoolCredit
+            schoolCredit: order.schoolCredit,
+            schoolID,
         }
         // get studentIDs and order type from classStudent records
         EdminForce.Registration.getOrderInfoFromRegistration(order.details, newOrder);
