@@ -1,6 +1,6 @@
 
 
-KUI.Class_index = class extends RC.CSSMeteorData{
+KUI.Class_index = class extends KUI.Page{
 
     constructor(p){
         super(p);
@@ -42,8 +42,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         let query = this.state.query;
         let x1 = null;
         if(query){
+            query.schoolID = this.loginUser.schoolID;
 
-            x1 = KG.get('EF-Class').subscribeClassByQuery(query, {
+            x1 = this.m.Class.subscribeClassByQuery(query, {
                 pageSize : 10,
                 pageNum : this.state.page
             });

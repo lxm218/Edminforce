@@ -500,8 +500,11 @@ KUI.Class_comp_add = class extends KUI.Page{
 };
 
 
-KUI.Class_add = class extends RC.CSS{
+KUI.Class_add = class extends KUI.Page{
 
+    getMeteorData(){
+        return {ready : true}
+    }
 
 
     render(){
@@ -540,6 +543,7 @@ KUI.Class_add = class extends RC.CSS{
     save(){
         let data = this.refs.form.getValue();
         console.log(data);
+        data.schoolID = this.loginUser.schoolID;
 
         let rs = KG.get('EF-Class').insert(data);
         KG.result.handle(rs, {

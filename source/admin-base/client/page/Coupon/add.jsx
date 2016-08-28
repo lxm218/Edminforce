@@ -260,7 +260,7 @@ KUI.Coupon_comp_add = class extends KUI.Page{
 KUI.Coupon_add = class extends KUI.Page{
 
     getMeteorData(){
-        return {};
+        return {ready : true};
     }
 
     render(){
@@ -289,6 +289,7 @@ KUI.Coupon_add = class extends KUI.Page{
     save(){
 
         let data = this.refs.form.getValue();
+        data.schoolID = this.loginUser.schoolID;
         console.log(data);
 
         KG.get('EF-Coupon').insertWithCallback(data, function(rs){

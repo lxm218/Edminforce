@@ -1,5 +1,5 @@
 
-KUI.Program_session = class extends RC.CSSMeteorData{
+KUI.Program_session = class extends KUI.Page{
 
     constructor(p){
         super(p);
@@ -22,6 +22,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
         }).fetch();
 
         return {
+            ready : x.ready(),
             list : list
         };
     }
@@ -144,8 +145,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
         };
     }
 
-    componentDidMount(){
-        //super.componentDidMount();
+    runOnceAfterDataReady(){
 
         let {sd1, sd2, blockDay} = this.getAddBoxRefs();
         $(sd1.getInputDOMNode()).datepicker({});
@@ -334,7 +334,8 @@ KUI.Program_session = class extends RC.CSSMeteorData{
             startDate : $(sd2).find('input').eq(0).val(),
             endDate : $(sd2).find('input').eq(1).val(),
             registrationStartDate : sd1.getValue(),
-            registrationStatus : ss.getValue()
+            registrationStatus : ss.getValue(),
+            schoolID : self.loginUser.schoolID
         };
 
         data.startDate = moment(data.startDate, format).toDate();

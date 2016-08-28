@@ -45,6 +45,7 @@ KUI.Coupon_Edit = class extends KUI.Page{
     save(){
         let data = this.refs.form.getValue();
         delete data._id;
+        data.schoolID = this.loginUser.schoolID;
 
         let rs = KG.get('EF-Coupon').updateById(data, this.data.id);
         console.log(rs);

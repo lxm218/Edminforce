@@ -92,6 +92,7 @@ KUI.Class_detail = class extends KUI.Page{
     update(){
         let self = this;
         let data = this.refs.form.getValue();
+        data.schoolID = this.loginUser.schoolID;
         console.log(data);
 
         let rs = KG.get('EF-Class').updateById(data, this.getClassId());

@@ -294,7 +294,8 @@ KUI.Session_edit = class extends KUI.Page{
             startDate : $(sd2).find('input').eq(0).val(),
             endDate : $(sd2).find('input').eq(1).val(),
             registrationStartDate : sd1.getValue(),
-            registrationStatus : ss.getValue()
+            registrationStatus : ss.getValue(),
+            schoolID : self.loginUser.schoolID
         };
 
         data.startDate = moment(data.startDate, format).toDate();

@@ -12,7 +12,7 @@ let sy = {
 		fontSize : '16px'
 	}
 };
-let StudentFilter = class extends RC.CSS{
+let StudentFilter = class extends KUI.Page{
 	constructor(p){
 		super(p);
 
@@ -29,9 +29,11 @@ let StudentFilter = class extends RC.CSS{
 		this.showSelectButton = true;
 		this.page = 1;
 	}
+	getMeteorData(){
+		return {ready : true}
+	}
 
-	componentDidMount(){
-		super.componentDidMount();
+	runOnceAfterDataReady(){
 
 		let self = this;
 		if(this.props.studentID){
@@ -180,6 +182,8 @@ let StudentFilter = class extends RC.CSS{
 		this.setState({
 			searchResult : 'loading'
 		});
+
+		query.schoolID = this.loginUser.schoolID;
 		this.m.Student.callMeteorMethod('getStudentListByQuery', [query, {
 			pageNum : self.page,
 			sort : {
@@ -484,6 +488,8 @@ let ClassFilter = class extends KUI.Page{
 		self.setState({
 			searchResult : 'loading'
 		});
+
+		query.schoolID = this.loginUser.schoolID;
 		this.m.Class.callMeteorMethod('getAllByQuery', [query, {
 			pageNum : self.page
 		}], {
