@@ -17,13 +17,16 @@ function extractTemplate(htmlWithTemplate, tag) {
 }
 
 function formatLessonDate(lessonDate, classSchedule) {
+    EdminForce.utils.getTZ();
     return moment(lessonDate).tz(EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY  ") + classSchedule.time;    
 }
 
 EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
     let emailHtml = Assets.getText('emailTemplates/cca/registration.html');
     if (!emailHtml) return;
-    
+
+    EdminForce.utils.getTZ();
+
     let scs = Collections.classStudent.find({
         _id: {$in: order.details}
     },{
@@ -162,6 +165,8 @@ EdminForce.Registration.sendReminderEmails = function() {
 
     let reminderHours = Meteor.settings.public.reminderHours || 24;
 
+    EdminForce.utils.getTZ();
+
     let now = moment();
     let reminderTime = moment().add(reminderHours, 'h');
 
@@ -170,6 +175,7 @@ EdminForce.Registration.sendReminderEmails = function() {
 
     // session reminder
     let reminderSession = Collections.session.findOne( {
+        schoolID: Meteor.user().schoolID,
         startDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
     });
 
@@ -262,6 +268,7 @@ EdminForce.Registration.sendReminderEmails = function() {
 
         if (student && classData && customer) {
             let classType = lesson.type == 'trial' ? 'trial' : 'make up';
+            EdminForce.utils.getTZ();
             let lessonDate = moment.tz(lesson.lessonDate, EdminForce.Settings.timeZone).format('dddd, MMMM D, YYYY');
             let reminder = `your ${classType} class with CalColor Academy on ${lessonDate} ${classData.schedule.time}.`;
 

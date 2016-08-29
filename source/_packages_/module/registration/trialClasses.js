@@ -91,6 +91,8 @@ function isAvailableForMakeup(classItem, classDate) {
  */
 function processClassLessonInDateRange(classItem, classSession, program, startDt, endDt, resultArray, validateCb) {
 
+    EdminForce.utils.getTZ();
+
     // parse class schedule.day & time into momentjs
     // this is ok to be timezone ignorant, we only need to know the day & time.
     let classTime = moment(classItem.schedule.time, 'hh:mma');
@@ -162,6 +164,7 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
     // find sessions within the specified date range
     //!(session.startDate > endDt || session.endDate < startDt)  ==> session.startDate <= endDt && session.endDate >= startDt
     let sessions = Collections.session.find({
+        schoolID: Meteor.user().schoolID,
         $and: [{startDate : {$lte: endDt}},{ endDate : {$gte:startDt}}]
     }, {
         sort: {
@@ -354,6 +357,7 @@ function getAvailableMakeupLessons(userId, studentID, classID, startDt, endDt) {
     // find sessions within the specified date range
     //!(session.startDate > endDt || session.endDate < startDt)  ==> session.startDate <= endDt && session.endDate >= startDt
     let sessions = Collections.session.find({
+        schoolID: Meteor.user().schoolID,
         $and: [{startDate : {$lte: endDt}},{ endDate : {$gte:startDt}}]
     }, {
         sort: {
