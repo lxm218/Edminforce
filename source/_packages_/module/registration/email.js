@@ -53,6 +53,26 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
         sc.sessionID = sc.session._id;
     });
 
+    let school = EdminForce.utils.getSchoolByCustomerID(order.accountID);
+
+    // replace school info
+    /*
+     schoolName
+     schoolEmail
+     schoolPhone
+     schoolAddress
+     schoolCity
+     schoolState
+     schoolZip
+     */
+    emailHtml = emailHtml.replace(/\{schoolName\}/g, school.name);
+    emailHtml = emailHtml.replace(/\{schoolEmail\}/g, school.email);
+    emailHtml = emailHtml.replace(/\{schoolPhone\}/g, school.phone);
+    emailHtml = emailHtml.replace(/\{schoolAddress\}/g, school.address);
+    emailHtml = emailHtml.replace(/\{schoolCity\}/g, school.city);
+    emailHtml = emailHtml.replace(/\{schoolState\}/g, school.state);
+    emailHtml = emailHtml.replace(/\{schoolZip\}/g, school.zipcode);
+
     let groupBySession = lodash.groupBy(scs, "sessionID");
     
     let emailTemplate = extractTemplate(emailHtml, 'template');
@@ -116,12 +136,32 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
 
     let emailContent = emailHeader + emailBody + emailFooter;
     
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, makeupOnly ? 'CalColor Academy Make up Class Confirmation!':'CalColor Academy Registration Confirmation!', emailContent);
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, makeupOnly ? `${school.name} Make up Class Confirmation!`:`${school.name} Registration Confirmation!`, emailContent);
 }
 
 EdminForce.Registration.sendTrialClassConfirmationEmail = function(studentID, classID, lessonDate) {
     let emailHtml = Assets.getText('emailTemplates/cca/trial.html');
     if (!emailHtml) return;
+
+    let school = EdminForce.utils.getSchool();
+    // replace school info
+    /*
+     schoolName
+     schoolEmail
+     schoolPhone
+     schoolAddress
+     schoolCity
+     schoolState
+     schoolZip
+     */
+    emailHtml = emailHtml.replace(/\{schoolName\}/g, school.name);
+    emailHtml = emailHtml.replace(/\{schoolEmail\}/g, school.email);
+    emailHtml = emailHtml.replace(/\{schoolPhone\}/g, school.phone);
+    emailHtml = emailHtml.replace(/\{schoolAddress\}/g, school.address);
+    emailHtml = emailHtml.replace(/\{schoolCity\}/g, school.city);
+    emailHtml = emailHtml.replace(/\{schoolState\}/g, school.state);
+    emailHtml = emailHtml.replace(/\{schoolZip\}/g, school.zipcode);
+
 
     let classData = Collections.class.findOne({_id: classID}, {fields:{programID:1, schedule:1}}) || {};
     let program = Collections.program.findOne({_id: classData.programID}) || {};
@@ -139,7 +179,7 @@ EdminForce.Registration.sendTrialClassConfirmationEmail = function(studentID, cl
 
     let email = emailHeader + studentHtml + emailFooter;
     
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy Trial Class Confirmation!',email);
+    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, `${school.name} Trial Class Confirmation!`,email);
 }
 
 EdminForce.Registration.sendChangeClassEmail = function(order) {
@@ -174,12 +214,19 @@ EdminForce.Registration.sendReminderEmails = function() {
     let compiledReminderTemplate = template.compile(decodeURIComponent(reminderTemplate));
 
     // session reminder
-    let reminderSession = Collections.session.findOne( {
-        schoolID: Meteor.user().schoolID,
-        startDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
-    });
+    // get one session per school
+    let allSchools = Collections.school.find({}).fetch();
+    reminderSessions = [];
+    allSchools.forEach( (s) => {
+        let session = Collections.session.findOne( {
+            schoolID: s._id,
+            startDate: {$gte: now.toDate(), $lte: reminderTime.toDate()},
+        });
+        session && (reminderSessions.push(session));
+    })
 
-    if (reminderSession) {
+    reminderSessions.forEach( (reminderSession) => {
+        let school = _.find(allSchools, {_id: reminderSession.schoolID});
         let sessionClasses = Collections.class.find({
             sessionID: reminderSession._id
         }, {
@@ -201,10 +248,27 @@ EdminForce.Registration.sendReminderEmails = function() {
 
         //our Summer 2016 Session starts on Saturday, April 2, 2016 at CalColor Academy.
         let sessionDate = moment.tz(reminderSession.startDate,EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY");
+        /*
+         schoolName
+         schoolEmail
+         schoolPhone
+         schoolAddress
+         schoolCity
+         schoolState
+         schoolZip
+         */
+
         let templateData = {
             studentName: '',
             reminderType: 'New Session Start',
-            reminder:`our ${reminderSession.name} Session starts on ${sessionDate} at CalColor Academy.`
+            reminder:`our ${reminderSession.name} Session starts on ${sessionDate} at ${school.name}.`,
+            schoolName: school.name,
+            schoolEmail: school.email,
+            schoolPhone: school.phone,
+            schoolAddress: school.address,
+            schoolCity: school.city,
+            schoolState: school.state,
+            schoolZip: school.zipcode
         }
 
         customers.forEach( (c) => {
@@ -219,10 +283,55 @@ EdminForce.Registration.sendReminderEmails = function() {
             if (!nRegistered) return;
 
             let email = compiledReminderTemplate(templateData);
-            EdminForce.utils.sendEmailHtml(c.email, 'CalColor Academy - New Session Start Reminder', email);
+            EdminForce.utils.sendEmailHtml(c.email, `${school.name} - New Session Start Reminder`, email);
             Collections.Customer.update({_id:c._id}, {$set: {remindedSession: reminderSession._id}});
         })
-    }
+    })
+
+    // if (reminderSession) {
+    //     let sessionClasses = Collections.class.find({
+    //         sessionID: reminderSession._id
+    //     }, {
+    //         fields: {
+    //             status:1
+    //         }
+    //     }).fetch();
+    //     let classIDs = sessionClasses.map ((cls) => cls._id);
+    //
+    //     // send maximum of 100 emails in each run
+    //     let customers = Collections.Customer.find({
+    //         remindedSession: {$ne: reminderSession._id}
+    //     }, {
+    //         fields: {
+    //             email: 1
+    //         },
+    //         limit: 400
+    //     }).fetch();
+    //
+    //     //our Summer 2016 Session starts on Saturday, April 2, 2016 at CalColor Academy.
+    //     let sessionDate = moment.tz(reminderSession.startDate,EdminForce.Settings.timeZone).format("dddd, MMMM D, YYYY");
+    //     let templateData = {
+    //         studentName: '',
+    //         reminderType: 'New Session Start',
+    //         reminder:`our ${reminderSession.name} Session starts on ${sessionDate} at CalColor Academy.`
+    //     }
+    //
+    //     customers.forEach( (c) => {
+    //         // check if this customer has class in current session
+    //         let nRegistered = Collections.classStudent.find({
+    //             accountID: c._id,
+    //             $or: [ {status: 'checkouted'}, {$and:[{status: 'pending'}, {pendingFlag:true}]} ],
+    //             type: {$in: ['trial','register']},
+    //             classID: {$in: classIDs}
+    //         }).count();
+    //
+    //         if (!nRegistered) return;
+    //
+    //         let email = compiledReminderTemplate(templateData);
+    //         EdminForce.utils.sendEmailHtml(c.email, 'CalColor Academy - New Session Start Reminder', email);
+    //         Collections.Customer.update({_id:c._id}, {$set: {remindedSession: reminderSession._id}});
+    //     })
+    // }
 
     // trial & makeup reminder
     let trialAndMakeups = Collections.classStudent.find({

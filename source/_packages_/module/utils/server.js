@@ -29,11 +29,22 @@ EdminForce.utils.sendEmailHtml = function (to, subject, html) {
  */
 EdminForce.utils.getSchool = function() {
     if (Meteor.user()) {
-        return Collections.school.find({_id:Meteor.user().schoolID}).fetch();
+        return Collections.school.findOne({_id:Meteor.user().schoolID}) || {};
     }
 
-    return null;
+    return {};
 }
+
+/**
+ * Gets school by customer ID
+ * @param customerID
+ * @returns {*}
+ */
+EdminForce.utils.getSchoolByCustomerID = function(customerID) {
+    let customer = Collections.Customer.findOne({_id:customerID}) || {};
+    return Collections.school.findOne({_id:customer.schoolID}) || {};
+}
+
 
 /**
  * Get school ID from customer record
