@@ -24,6 +24,10 @@ KG.define('EF-School', class extends Base{
             'zipcode' : KG.schema.default({
                 optional : true
             }),
+            // class forth site url
+            'classforthUrl':KG.schema.default({
+                optional : true
+            }),
             domain : KG.schema.default({
                 optional : true
             }),
