@@ -860,8 +860,11 @@ let Class = class extends Base{
             registerClassForReady(opts){
                 let m = KG.DataHelper.getDepModule();
 
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
+
                 //if already have a record of this data, return
                 let one = m.ClassStudent.getDB().findOne({
+                    schoolID : schoolID,
                     studentID : opts.studentID,
                     classID : opts.classID,
                     type : 'register',
@@ -899,6 +902,7 @@ let Class = class extends Base{
 
                 data.type = 'register';
                 data.status = 'pending';
+                data.schoolID = schoolID;
 
                 let vd = m.ClassStudent.validateWithSchema(data);
                 if(vd !== true){

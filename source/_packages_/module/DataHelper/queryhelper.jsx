@@ -463,6 +463,24 @@ console.log(start.format(), end.format());
             }
         };
     }
+
+    getSchoolID(userId){
+        if(Meteor.isClient){
+            return Meteor.user().schoolID;
+        }
+        else{
+            if(!userId){
+                throw 'getSchoolID method is only called in client side, if call in serverside, param userId is' +
+                ' required';
+            }
+            else{
+                return Meteor.users.findOne({_id : userId}).schoolID;
+            }
+
+        }
+    }
+
+
 });
 
 

@@ -468,6 +468,7 @@ KUI.Student_profile = class extends KUI.Page{
         }
 
         let sd = this.refs.form.getValue();
+        sd.schoolID = this.loginUser.schoolID;
 
         console.log(sd);
 
