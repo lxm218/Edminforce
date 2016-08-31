@@ -42,19 +42,22 @@ KG.define('EF-DataHelper', class extends Base{
     }
 
     defineMeteorMethod(){
+        let self = this;
         return {
             getFinanceReport(opts){
-                let m = this.getDepModule();
+                let m = self.getDepModule();
+                let schoolID = self.getSchoolID(this.userId);
 
                 let result = [];
 
                 // date is moment object
-                let zone = m.School.getDB().findOne().timezone || 0;
+                let zone = m.School.getDB().findOne({_id : schoolID}).timezone || 0;
                 let loop = (date)=>{
                     let min = date.clone().hour(0).minute(0).second(0),
                         max = date.clone().hour(23).minute(59).second(59);
                     console.log(date.format(), min.format(), max.format());
                     let query = {
+                        schoolID : schoolID,
                         status : 'success',
                         //type : {$in:['register class', 'change class', 'cancel class', 'makeup class', 'cancel makeup', 'change school credit']},
                         paymentType : {
@@ -129,13 +132,15 @@ console.log(start.format(), end.format());
 
             getFinanceDetailByDate(date){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = self.getSchoolID(this.userId);
 
-                let zone = m.School.getDB().findOne().timezone || 0;
+                let zone = m.School.getDB().findOne({_id : schoolID}).timezone || 0;
                 date = KG.util.getZoneDateByString(date, zone);
                 let min = date.clone().hour(0).minute(0).second(0),
                     max = date.clone().hour(23).minute(59).second(59);
                 console.log(date.format(), min.format(), max.format());
                 let query = {
+                    schoolID : schoolID,
                     status : 'success',
                     paymentType : {
                         $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
@@ -209,7 +214,8 @@ console.log(start.format(), end.format());
             },
 
             getStudentReport(opts){
-                let m = this.getDepModule();
+                let m = self.getDepModule();
+                let schoolID = self.getSchoolID(this.userId);
 
                 let date = moment(opts.date),
                     week = date.day(),
@@ -226,6 +232,7 @@ console.log(start.format(), end.format());
                 if(opts.programID){
                     query.programID = opts.programID;
                 }
+                query.schoolID = schoolID;
 
                 let classData = m.Class.getAll(query),
                     rs = {};
@@ -277,12 +284,14 @@ console.log(start.format(), end.format());
             },
 
             getCouponReport(filter={}, option={}){
-                let m = this.getDepModule();
+                let m = self.getDepModule();
+                let schoolID = self.getSchoolID(this.userId);
 
                 //filter = KG.util.setDBQuery(query);
                 option = KG.util.setDBOption(option);
                 let query = {
                     status : 'success',
+                    schoolID : schoolID,
                     '$or' : [
                         {
                             couponID : {$exists : true}
@@ -331,9 +340,10 @@ console.log(start.format(), end.format());
             },
 
             getProgramRegistrationDailyReport : function(opts){
-                let m = this.getDepModule();
+                let m = self.getDepModule();
+                let schoolID = self.getSchoolID(this.userId);
 
-                let zone = m.School.getDB().findOne().timezone || 0;
+                let zone = m.School.getDB().findOne({_id : schoolID}).timezone || 0;
                 let start = KG.util.getZoneDateByString(opts.startDate, zone),
                     end = KG.util.getZoneDateByString(opts.endDate, zone).add(1, 'days');
 
@@ -341,6 +351,7 @@ console.log(start.format(), end.format());
                 let list = m.ClassStudent.getDB().aggregate([
                     {
                         $match : {
+                            schoolID : schoolID,
                             status : 'checkouted',
                             type : 'register',
                             createTime : {
@@ -370,7 +381,7 @@ console.log(start.format(), end.format());
                     }
                 ]);
 
-                let plist = m.Program.getDB().find().fetch();
+                let plist = m.Program.getDB().find({schoolID : schoolID}).fetch();
                 let loop = function(date){
                     let ds = moment(date).format(KG.const.dateFormat);
 
@@ -410,7 +421,7 @@ console.log(start.format(), end.format());
 
             //edit wrong data for admin
             shellForGetClassStudentWrongDataForAdmin : function(){
-                let m = this.getDepModule();
+                let m = self.getDepModule();
 
                 let pipeline = [
                     {
