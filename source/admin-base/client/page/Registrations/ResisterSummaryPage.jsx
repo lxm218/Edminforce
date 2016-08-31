@@ -414,6 +414,12 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			schoolCredit : this.C.schoolCredit,
 			discount : this.state.coupon ? (this.C.totalFee - this.C.couponResult.total) : 0
 		};
+		if(this.state.summaryList.payNextMonth){
+			orderData.dynamic = {
+				payNextMonth : true
+			};
+		}
+
 		if(this.state.coupon){
 			let cid = this.state.coupon._id;
 			if(this.C.couponResult.coupon.validForNoBooked){

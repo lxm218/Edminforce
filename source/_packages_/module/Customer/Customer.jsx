@@ -336,9 +336,11 @@ KG.define('EF-Customer', class extends Base{
             getOrderInfoByAccountID(id, option){
 
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let query = {
                     status : 'success',
+                    schoolID : schoolID,
                     paymentType : {
                         $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
                     },

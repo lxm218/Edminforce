@@ -91,6 +91,12 @@ Schema.Order = {
         optional : true
     }),
 
+    dynamic : {
+        type: Object,
+        optional: true,
+        blackbox: true
+    },
+
     createTime: KG.schema.createTime(),
     updateTime: KG.schema.updateTime()
 };

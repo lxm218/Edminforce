@@ -55,6 +55,7 @@ KG.define('EF-Payment', class extends Base {
         let autoCreate = (order, date)=>{
 
             let data = {
+                schoolID : order.schoolID,
                 accountID : order.accountID,
                 orderID : order._id,
                 paymentType : 'holding',
