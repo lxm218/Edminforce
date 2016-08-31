@@ -1,25 +1,25 @@
 
-EdminForce.utils.sendEmailText = function (to, subject, text) {
+EdminForce.utils.sendEmailText = function (from, to, subject, text) {
     check([to, subject, text], [String]);
     Email.send({
-        to: to,
+        to,
         // all we need to maintain is the domain name. We can change the user to whatever
         // from: "admin@sandbox581a4fe7e1b54295be84ebc6ec8d93ea.mailgun.org",
-        from: "CalColor Academy <help@calcoloracademy.com>",
-        subject: subject,
-        text: text
+        from,
+        subject,
+        text
     });
 }
 
-EdminForce.utils.sendEmailHtml = function (to, subject, html) {
+EdminForce.utils.sendEmailHtml = function (from, to, subject, html) {
     check([to, subject, html], [String]);
     Email.send({
-        to: to,
+        to,
         // all we need to maintain is the domain name. We can change the user to whatever
         // from: "admin@sandbox581a4fe7e1b54295be84ebc6ec8d93ea.mailgun.org",
-        from: "CalColor Academy <help@calcoloracademy.com>",
-        subject: subject,
-        html: html
+        from,
+        subject,
+        html
     });
 }
 
@@ -29,10 +29,19 @@ EdminForce.utils.sendEmailHtml = function (to, subject, html) {
  */
 EdminForce.utils.getSchool = function() {
     if (Meteor.user()) {
-        return Collections.school.findOne({_id:Meteor.user().schoolID}) || {};
+        return EdminForce.utils.getSchoolByID(Meteor.user().schoolID);
     }
 
     return {};
+}
+
+/**
+ * Get school by ID
+ * @param schoolID
+ * @returns {*|{}}
+ */
+EdminForce.utils.getSchoolByID = function(schoolID) {
+    return Collections.school.findOne({_id:schoolID}) || {};
 }
 
 /**

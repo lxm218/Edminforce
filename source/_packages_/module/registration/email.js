@@ -135,8 +135,9 @@ EdminForce.Registration.sendRegistrationConfirmationEmail = function(order) {
     emailFooter = emailFooter.replace('{grandTotal}', order.amount.toFixed(2));
 
     let emailContent = emailHeader + emailBody + emailFooter;
-    
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, makeupOnly ? `${school.name} Make up Class Confirmation!`:`${school.name} Registration Confirmation!`, emailContent);
+
+    let from = `${school.name} <${school.email}>`;
+    EdminForce.utils.sendEmailHtml(from, Meteor.user().emails[0].address, makeupOnly ? `${school.name} Make up Class Confirmation!`:`${school.name} Registration Confirmation!`, emailContent);
 }
 
 EdminForce.Registration.sendTrialClassConfirmationEmail = function(studentID, classID, lessonDate) {
@@ -178,27 +179,28 @@ EdminForce.Registration.sendTrialClassConfirmationEmail = function(studentID, cl
     let emailFooter = emailHtml.substr(tStudent.end+1);
 
     let email = emailHeader + studentHtml + emailFooter;
-    
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, `${school.name} Trial Class Confirmation!`,email);
+
+    let from = `${school.name} <${school.email}>`;
+    EdminForce.utils.sendEmailHtml(from, Meteor.user().emails[0].address, `${school.name} Trial Class Confirmation!`,email);
 }
 
-EdminForce.Registration.sendChangeClassEmail = function(order) {
-    let email = ''
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy - Change Class Confirmation',email);
-}
-
-EdminForce.Registration.sendCancelClassEmail = function(order) {
-    let email = ''
-    EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy - Cancel Class Confirmation',email);
-}
-
-EdminForce.Registration.sendSessionStartReminderEmail = function() {
-    
-}
-
-EdminForce.Registration.sendClassReminderEmail = function(classStudent) {
-    
-}
+// EdminForce.Registration.sendChangeClassEmail = function(order) {
+//     let email = ''
+//     EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy - Change Class Confirmation',email);
+// }
+//
+// EdminForce.Registration.sendCancelClassEmail = function(order) {
+//     let email = ''
+//     EdminForce.utils.sendEmailHtml(Meteor.user().emails[0].address, 'CalColor Academy - Cancel Class Confirmation',email);
+// }
+//
+// EdminForce.Registration.sendSessionStartReminderEmail = function() {
+//
+// }
+//
+// EdminForce.Registration.sendClassReminderEmail = function(classStudent) {
+//
+// }
 
 // send reminder email for session start and trial & makeup classes
 EdminForce.Registration.sendReminderEmails = function() {
@@ -283,7 +285,8 @@ EdminForce.Registration.sendReminderEmails = function() {
             if (!nRegistered) return;
 
             let email = compiledReminderTemplate(templateData);
-            EdminForce.utils.sendEmailHtml(c.email, `${school.name} - New Session Start Reminder`, email);
+            let from = `${school.name} <${school.email}>`;
+            EdminForce.utils.sendEmailHtml(from, c.email, `${school.name} - New Session Start Reminder`, email);
             Collections.Customer.update({_id:c._id}, {$set: {remindedSession: reminderSession._id}});
         })
     })
@@ -371,15 +374,17 @@ EdminForce.Registration.sendReminderEmails = function() {
             fields: {
                 email:1,
                 alternativeContact:1,
-                emergencyContact:1
+                emergencyContact:1,
+                schoolID,
             }
         });
 
         if (student && classData && customer) {
+            let school = EdminForce.utils.getSchoolByID(customer.schoolID);
             let classType = lesson.type == 'trial' ? 'trial' : 'make up';
             EdminForce.utils.getTZ();
             let lessonDate = moment.tz(lesson.lessonDate, EdminForce.Settings.timeZone).format('dddd, MMMM D, YYYY');
-            let reminder = `your ${classType} class with CalColor Academy on ${lessonDate} ${classData.schedule.time}.`;
+            let reminder = `your ${classType} class with ${school.name} on ${lessonDate} ${classData.schedule.time}.`;
 
             let email = compiledReminderTemplate({
                 studentName: student.name,
@@ -387,7 +392,8 @@ EdminForce.Registration.sendReminderEmails = function() {
                 reminder
             });
 
-            EdminForce.utils.sendEmailHtml(customer.email, 'CalColor Academy - Class Reminder', email);
+            let from = `${school.name} <${school.email}>`;
+            EdminForce.utils.sendEmailHtml(from, customer.email, `${school.name} - Class Reminder`, email);
 
             // update the classStudentRecord
             Collections.classStudent.update({_id:lesson._id}, {$set: {reminded:true}});
