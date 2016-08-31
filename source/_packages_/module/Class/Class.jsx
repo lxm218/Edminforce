@@ -384,12 +384,14 @@ let Class = class extends Base{
                 return rs > 0;
             },
             checkStudentCanBeTrailClass(opts){
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
                 let SUCCESSSTATUS = ['pending', 'checkouted'];
 
                 let {classID, studentID, date} = opts;
 
                 let m = self.getDepModule();
                 let query = {
+                    schoolID : schoolID,
                     studentID : studentID,
                     classID : classID,
                     type : 'register',
@@ -401,6 +403,7 @@ let Class = class extends Base{
                 }
 
                 query = {
+                    schoolID : schoolID,
                     studentID : studentID,
                     classID : classID,
                     type : 'trial',
@@ -413,11 +416,13 @@ let Class = class extends Base{
 
                 let co = self._db.findOne({_id : classID}),
                     n = m.ClassStudent.getDB().find({
+                        schoolID : schoolID,
                         classID : classID,
                         type : 'register',
                         status : {'$in' : SUCCESSSTATUS}
                     }).count(),
                     n1 = m.ClassStudent.getDB().find({
+                        schoolID : schoolID,
                         classID : classID,
                         type : 'trial',
                         lessonDate : date,
@@ -436,6 +441,7 @@ let Class = class extends Base{
                 }).fetch();
 
                 n1 = m.ClassStudent.getDB().find({
+                    schoolID : schoolID,
                     studentID : studentID,
                     classID : {'$in' : _.map(classList, (o)=>{return o._id;})},
                     type : 'trial',
@@ -449,12 +455,14 @@ let Class = class extends Base{
 
             },
             checkStudentCanBeMakeupClass(opts){
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
                 let SUCCESSSTATUS = ['pending', 'checkouted'];
 
                 let {classID, studentID, date} = opts;
 
                 let m = self.getDepModule();
                 let query = {
+                    schoolID : schoolID,
                     studentID : studentID,
                     classID : classID,
                     type : 'register',
@@ -466,6 +474,7 @@ let Class = class extends Base{
                 //}
 
                 query = {
+                    schoolID : schoolID,
                     studentID : studentID,
                     classID : classID,
                     type : 'makeup',
@@ -507,10 +516,10 @@ let Class = class extends Base{
 
             },
             checkCanBeRegister(classID){
-                let m = this.getDepModule();
+                let m = self.getDepModule();
 
                 let result = true;
-                let max = this._db.findOne({
+                let max = self._db.findOne({
                     _id : classID
                 }).maxStudent;
                 let nn = m.ClassStudent.getDB().find({
@@ -529,12 +538,14 @@ let Class = class extends Base{
 
             changeClassForReady(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
+
                 let fromClassID = opts.fromClassID,
                     toClassID = opts.toClassID,
                     studentID = opts.studentID;
 
-                let fromClass = this.getAll({_id : fromClassID})[0],
-                    toClass = this.getAll({_id : toClassID})[0];
+                let fromClass = self.getAll({_id : fromClassID})[0],
+                    toClass = self.getAll({_id : toClassID})[0];
 
                 let fromTuition = fromClass.tuition.type === 'class' ? fromClass.leftOfClass*fromClass.tuition.money : fromClass.tuition.money,
                     toTuition = toClass.tuition.type === 'class' ? toClass.leftOfClass*toClass.tuition.money : toClass.tuition.money;
@@ -549,7 +560,7 @@ let Class = class extends Base{
 
             cancelClassForReady(opts){
                 let m = KG.DataHelper.getDepModule();
-                let cd = this.getAll({_id : opts.classID})[0];
+                let cd = self.getAll({_id : opts.classID})[0];
 
 
                 let tuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
@@ -574,7 +585,7 @@ let Class = class extends Base{
                     let cs = m.ClassStudent.getDB().findOne({_id : opts.ClassStudentID});
                     //let tmp = (tuition*cs.discounted/(cs.fee||allTuition)).toFixed(2);
 
-                    let number = this.calculateNumberOfClass(cd, cd.session, true, cs.createTime);
+                    let number = self.calculateNumberOfClass(cd, cd.session, true, cs.createTime);
                     let tuiPer = cd.leftOfClass/number;
 
                     let tmp = ((cs.discounted||0)*tuiPer).toFixed(2);
@@ -590,8 +601,10 @@ let Class = class extends Base{
 
             cancelMakeupClassForReady(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let d = m.Order.getDB().findOne({
+                    schoolID : schoolID,
                     details : {$in:[opts.ClassStudentID]},
                     type : {$in:['makeup class']},
                     status : 'success'
@@ -606,7 +619,7 @@ let Class = class extends Base{
                     return d.amount;
                 }
                 else{
-                    let cd = this.getAll({_id : opts.classID})[0];
+                    let cd = self.getAll({_id : opts.classID})[0];
                     return cd.makeupClassFee;
                 }
             },
@@ -622,7 +635,7 @@ let Class = class extends Base{
 
                 let student = m.Student.getDB().findOne({_id : studentID});
 
-                let toClass = this.getAll({_id : toClassID})[0];
+                let toClass = self.getAll({_id : toClassID})[0];
                 //console.log(m, student, toClass);
 
 
@@ -713,8 +726,11 @@ let Class = class extends Base{
 
                 let orderStatus = 'success';
 
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
+
                 //insert order
                 let orderData = {
+                    schoolID : schoolID,
                     accountID : student.accountID,
                     studentID : studentID,
                     details : [ClassStudentID],
@@ -747,6 +763,7 @@ let Class = class extends Base{
                 KG.RequestLog.addByType('cancel class', {
                     id : ClassStudentID,
                     data : {
+                        schoolID : schoolID,
                         accountID : student.accountID,
                         studentID : studentID,
                         classID : cs.classID,
@@ -760,6 +777,8 @@ let Class = class extends Base{
 
             cancelMakeupClass(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
+
                 let ClassStudentID = opts.ClassStudentID,
                     studentID = opts.studentID;
 
@@ -775,6 +794,7 @@ let Class = class extends Base{
 
                 //insert order
                 let orderData = {
+                    schoolID : schoolID,
                     accountID : student.accountID,
                     studentID : studentID,
                     details : [ClassStudentID],
@@ -801,6 +821,7 @@ let Class = class extends Base{
                 KG.RequestLog.addByType('cancel makeup class', {
                     id : ClassStudentID,
                     data : {
+                        schoolID : schoolID,
                         accountID : student.accountID,
                         studentID : studentID,
                         classID : cs.classID,
@@ -815,9 +836,11 @@ let Class = class extends Base{
 
             removeById : function(id){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 //check can be delete
                 let f = m.ClassStudent.getDB().findOne({
+                    schoolID : schoolID,
                     classID : id,
                     //type : {'$in':['register', 'wait', 'makeup']},
                     status : {'$in':['pending', 'checkouted']}
@@ -832,9 +855,11 @@ let Class = class extends Base{
 
             getAllByQuery(query={}, option={}){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 option = KG.util.setDBOption(option);
                 query = KG.util.setDBQuery(query);
+                query.schoolID = schoolID;
                 let list = self._db.find(query, option).fetch(),
                     count = self._db.find(query).count();
                 list = _.map(list, (item)=>{
