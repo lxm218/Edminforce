@@ -446,6 +446,8 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		}
 		orderData.paymentTotal = total;
 
+		//orderData.schoolID = KG.DataHelper.getSchoolID();
+
 		console.log(orderData);
 		console.log(this.C.ClassStudentObj);
 

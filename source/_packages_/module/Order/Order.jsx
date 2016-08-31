@@ -30,6 +30,7 @@ KG.define('EF-Order', class extends Base{
         return {
             insertData : function(data, classListObj){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 console.log(data, classListObj);
                 let way = data.paymentType;
@@ -58,6 +59,7 @@ KG.define('EF-Order', class extends Base{
 
                 //insert data to order
                 data.paymentSource = 'admin';
+                data.schoolID = schoolID;
                 return self._db.insert(data);
             },
 

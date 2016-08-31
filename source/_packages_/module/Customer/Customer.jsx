@@ -250,21 +250,21 @@ KG.define('EF-Customer', class extends Base{
         let self = this;
         return {
             changeRegistrationFeeStatusById(id){
-                let one = this._db.findOne({_id:id});
+                let one = self._db.findOne({_id:id});
                 if(one){
                     let data = {
                         hasRegistrationFee : false
                     };
 
-                    let rs = this._db.update({_id : id}, {'$set' : data});
+                    let rs = self._db.update({_id : id}, {'$set' : data});
                     return rs;
                 }
             },
 
             useSchoolCreditById(credit, id){
-                let one = this._db.findOne({_id : id});
+                let one = self._db.findOne({_id : id});
                 //credit = credit;
-                let rs = this._db.update({_id : id}, {'$inc' : {
+                let rs = self._db.update({_id : id}, {'$inc' : {
                     schoolCredit : (credit*-1)
                 }});
                 return rs;
