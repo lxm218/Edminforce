@@ -7,29 +7,7 @@ KG.define('EF-Customer', class extends Base{
 
 
     addTestData(){
-        //this._db.remove({});
-        if(this._db.find().count() > 0){
-            return;
-        }
 
-        let data = [
-            {
-                name : 'Jacky Lee',
-                email : 'liyangwood@gmail.com',
-                phone : '1122334455',
-                location : 'AAAA'
-            },
-            {
-                name : 'Ying Zhang',
-                email : 'xxx@xxx.xxx',
-                phone : '5108897763',
-                location : 'BBBB'
-            }
-        ];
-
-        _.each(data, (item)=>{
-            this._db.insert(item);
-        });
     }
 
     defineSchemaValidateMessage(){
@@ -75,6 +53,9 @@ KG.define('EF-Customer', class extends Base{
             profile : {},
             role : 'user'
         };
+        let schoolID = KG.DataHelper.getSchoolID();
+        data.schoolID = schoolID;
+        accountData.schoolID = schoolID;
 
         try{
             KG.get('Account').callMeteorMethod('createUser', [accountData], {
@@ -150,6 +131,7 @@ KG.define('EF-Customer', class extends Base{
 
         Meteor.publish(LISTBYCLASSQUERY, function(query={}, option={}){
             let self = this;
+            let schoolID = KG.DataHelper.getSchoolID(self.userId);
 
             query = _.extend({
                 sessionID : null,
@@ -172,6 +154,8 @@ KG.define('EF-Customer', class extends Base{
                 query['schedule.day'] = query.dayOfClass;
                 delete query.dayOfClass;
             }
+
+            query.schoolID = schoolID;
 
             let refresher = function(id, type){
 
@@ -250,21 +234,21 @@ KG.define('EF-Customer', class extends Base{
         let self = this;
         return {
             changeRegistrationFeeStatusById(id){
-                let one = this._db.findOne({_id:id});
+                let one = self._db.findOne({_id:id});
                 if(one){
                     let data = {
                         hasRegistrationFee : false
                     };
 
-                    let rs = this._db.update({_id : id}, {'$set' : data});
+                    let rs = self._db.update({_id : id}, {'$set' : data});
                     return rs;
                 }
             },
 
             useSchoolCreditById(credit, id){
-                let one = this._db.findOne({_id : id});
+                let one = self._db.findOne({_id : id});
                 //credit = credit;
-                let rs = this._db.update({_id : id}, {'$inc' : {
+                let rs = self._db.update({_id : id}, {'$inc' : {
                     schoolCredit : (credit*-1)
                 }});
                 return rs;
@@ -336,9 +320,11 @@ KG.define('EF-Customer', class extends Base{
             getOrderInfoByAccountID(id, option){
 
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let query = {
                     status : 'success',
+                    schoolID : schoolID,
                     paymentType : {
                         $in : ['credit card', 'echeck', 'check', 'cash', 'school credit']
                     },

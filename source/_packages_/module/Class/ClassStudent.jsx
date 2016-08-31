@@ -325,6 +325,8 @@ let ClassStudent = class extends Base{
             getPenddingTypeList : function(opts={}){
                 let m = KG.DataHelper.getDepModule();
 
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
+
                 let studentID = opts.studentID;
                 let classID = opts.classID;
 
@@ -333,6 +335,7 @@ let ClassStudent = class extends Base{
 
                 //get list
                 let rs = m.ClassStudent.getDB().find({
+                    schoolID : schoolID,
                     accountID : accountID,
                     type : 'register',
                     status : 'pending'
@@ -367,15 +370,28 @@ let ClassStudent = class extends Base{
                     total += item.monthDue;
                     nextMonthPayment += item.nextMonthPay;
 
+                    //if total=0, pay next month
+
+
                     return item;
                 });
 
-                return {
+                let result = {
                     flag : true,
                     list : rs,
                     total : total,
                     nextMonthPayment : nextMonthPayment
                 };
+
+                if(result.total < 1){
+                    result.total += result.nextMonthPayment;
+                    result.payNextMonth = true;
+
+                }
+
+                return result;
+
+
             }
         };
     }

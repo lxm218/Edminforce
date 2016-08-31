@@ -5,11 +5,13 @@ Meteor.methods({
             //programs
         }
 
+        let schoolID = KG.DataHelper.getSchoolID(this.userId);
+
         // get all programs
-        let programs = KG.get('EF-Program').getDB().find({}).fetch();
+        let programs = KG.get('EF-Program').getDB().find({schoolID : schoolID}).fetch();
 
         // get school timezone setting
-        let school = KG.get('EF-School').getDB().findOne();
+        let school = KG.get('EF-School').getDB().findOne({_id : schoolID});
         let schoolTz = school && school.timezoneString ? school.timezoneString : 'America/Los_Angeles';
 
         // parse requestDate in school timezone
@@ -18,6 +20,7 @@ Meteor.methods({
 
         // find requested session
         result.session = KG.get('EF-Session').getDB().findOne({   // why use findOne? -- jacky
+                schoolID : schoolID,
                 $or : [
                     {
                         $and: [

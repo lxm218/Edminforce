@@ -164,6 +164,7 @@ KUI.Student_add = class extends RC.CSS{
         let data = this.refs.form.getValue();
 
         data.accountID = this.getAccountID();
+        data.schoolID = KG.DataHelper.getSchoolID();
 
         let rs = KG.get('EF-Student').insert(data);
         KG.result.handle(rs, {

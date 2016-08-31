@@ -30,6 +30,7 @@ KG.define('EF-Order', class extends Base{
         return {
             insertData : function(data, classListObj){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 console.log(data, classListObj);
                 let way = data.paymentType;
@@ -58,6 +59,7 @@ KG.define('EF-Order', class extends Base{
 
                 //insert data to order
                 data.paymentSource = 'admin';
+                data.schoolID = schoolID;
                 return self._db.insert(data);
             },
 
@@ -107,6 +109,7 @@ KG.define('EF-Order', class extends Base{
 
                 //insert to EF-Payment
                 let paymentData = {
+                    schoolID : order.schoolID,
                     orderID : orderID,
                     accountID : order.accountID,
                     paymentType : order.paymentType,
@@ -121,6 +124,12 @@ KG.define('EF-Order', class extends Base{
                     schoolCredit : order.schoolCredit,
                     month : moment(order.createTime).format(KG.const.monthFormat)
                 };
+
+                if(order.dynamic && order.dynamic.payNextMonth){
+                    //pay next month
+                    paymentData.month = moment(order.createTime).add(1, 'month').format(KG.const.monthFormat);
+                }
+
                 paymentData = _.omit(paymentData, (v)=>{
                     return _.isUndefined(v);
                 });

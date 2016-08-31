@@ -23,6 +23,7 @@ KG.define('EF-Coupon', class extends Base{
 
             checkCouponCodeValidByCustomerID(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 opts = _.extend({
                     accountID : null,
@@ -32,9 +33,17 @@ KG.define('EF-Coupon', class extends Base{
                     weekdayRequire : null
                 }, opts);
 
-                let one = this._db.findOne({_id:opts.couponCode.toUpperCase()});
+                let one = this._db.findOne({
+                    _id:opts.couponCode.toUpperCase(),
+                    schoolID : schoolID
+
+                });
                 if(!one){
-                    one = this._db.findOne({_id : (new RegExp('^'+opts.couponCode+'$', 'i'))});
+                    one = this._db.findOne({
+                        _id : (new RegExp('^'+opts.couponCode+'$', 'i')),
+                        schoolID : schoolID
+
+                    });
                 }
                 if(!one){
                     return KG.result.out(false, new Meteor.Error('-1', 'Coupon Code is not valid'));
@@ -67,6 +76,7 @@ console.log(one);
                     }
 
                     let ctp = m.ClassStudent.getDB().find({
+                        schoolID : schoolID,
                         accountID : opts.accountID,
                         type : 'register',
                         status : {'$in' : ['checkouted', 'pending']}
@@ -83,6 +93,7 @@ console.log(one);
                     }
                     else{
                         let tpt = m.CustomerCoupon.getDB().find({
+                            schoolID : schoolID,
                             customerID : opts.accountID,
                             couponID : opts.couponCode,
                             status : 'checkouted'
@@ -107,6 +118,7 @@ console.log(one);
 
             checkCouponCodeValidByClassList : function(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
                 opts = _.extend({
                     accountID : null,
                     couponCode : null,

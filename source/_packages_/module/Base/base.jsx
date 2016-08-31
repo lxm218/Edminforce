@@ -46,7 +46,7 @@ let Base = class{
             let mm = _.extend({}, this._defineMeteorMethod(), this.defineMeteorMethod());
             let mms = {};
             _.each(mm, (item, key)=>{
-                mms[this._name+':'+key] = item.bind(this);
+                mms[this._name+':'+key] = item;
             });
             Meteor.methods(mms);
         }

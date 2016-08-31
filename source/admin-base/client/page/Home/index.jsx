@@ -21,6 +21,7 @@ let PendingBox = class extends RC.CSS{
         self.setState({list : 'loading'});
 
         this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{
+            schoolID : KG.DataHelper.getSchoolID(),
             status : 'pending',
             pendingFlag : true
         }, {
@@ -176,6 +177,7 @@ let TrialOrMakeupBox = class extends RC.CSS{
         self.setState({list : 'loading'});
 
         this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{
+            schoolID : KG.DataHelper.getSchoolID(),
             status : 'checkouted',
             type : {$in : ['trial', 'makeup']},
             lessonDate : { '$gte' : moment(new Date()).toDate() }
@@ -283,6 +285,7 @@ let WaitingBox = class extends RC.CSS{
         self.setState({list : 'loading'});
 
         this.m.ClassStudent.callMeteorMethod('getAllByQuery', [{
+            schoolID : KG.DataHelper.getSchoolID(),
             status : 'checkouted',
             type : 'wait'
         }, {

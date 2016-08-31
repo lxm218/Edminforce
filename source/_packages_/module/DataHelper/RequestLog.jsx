@@ -27,6 +27,9 @@ KG.define('EF-Request', class extends Base{
 				blackbox : true,
 				defaultValue : {}
 			},
+			schoolID : KG.schema.default({
+				optional : true
+			}),
 			createTime : KG.schema.createTime(),
 			updateTime : KG.schema.updateTime()
 		};
@@ -40,6 +43,11 @@ KG.define('EF-Request', class extends Base{
 
 		data.type = type;
 		data.client = param.client || 'admin';
+
+		if(Meteor.isClient){
+			data.schoolID = KG.DataHelper.getSchoolID();
+		}
+
 		switch(type){
 			case 'login':
 				data.detail = {};

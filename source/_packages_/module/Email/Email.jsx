@@ -69,11 +69,15 @@ KG.define('EF-Email', class extends Base{
 
             sendTrialClassConfirmEmail : function(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let csID = opts.classStudentID;
 
-                let school = m.School.getInfo(),
-                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmTrialClassTemplate'});
+                let school = m.School.getInfo(schoolID),
+                    tpl = m.EmailTemplate.getDB().findOne({
+                        name : 'ConfirmTrialClassTemplate',
+                        schoolID : schoolID
+                    });
 
                 let cs = m.ClassStudent.getDB().findOne({_id : csID}),
                     co = m.Class.getAll({_id : cs.classID})[0],
@@ -113,12 +117,16 @@ KG.define('EF-Email', class extends Base{
                     '</tr>',
                     '{{/each}}'].join('');
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let orderID = opts.orderID;
 
                 let order = m.Order.getDB().findOne({_id : orderID});
-                let school = m.School.getInfo(),
-                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmRegistrationClassTemplate'});
+                let school = m.School.getInfo(schoolID),
+                    tpl = m.EmailTemplate.getDB().findOne({
+                        name : 'ConfirmRegistrationClassTemplate',
+                        schoolID : school
+                    });
 
                 let CSList = _.map(order.details, (csID)=>{
                     let cs = m.ClassStudent.getDB().findOne({_id : csID});
@@ -155,11 +163,15 @@ KG.define('EF-Email', class extends Base{
 
             sendCancelClassConfirmEmail : function(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let orderID = opts.orderID;
                 let order = m.Order.getDB().findOne({_id : orderID});
-                let school = m.School.getInfo(),
-                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmCancelClassTemplate'});
+                let school = m.School.getInfo(schoolID),
+                    tpl = m.EmailTemplate.getDB().findOne({
+                        name : 'ConfirmCancelClassTemplate',
+                        schoolID : schoolID
+                    });
 
                 let csID = order.details[0];
                 let cs = m.ClassStudent.getDB().findOne({_id : csID});
@@ -190,11 +202,15 @@ KG.define('EF-Email', class extends Base{
             },
             sendChangeClassConfirmEmail : function(opts){
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let orderID = opts.orderID;
                 let order = m.Order.getDB().findOne({_id : orderID});
-                let school = m.School.getInfo(),
-                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmChangeClassTemplate'});
+                let school = m.School.getInfo(schoolID),
+                    tpl = m.EmailTemplate.getDB().findOne({
+                        name : 'ConfirmChangeClassTemplate',
+                        schoolID : schoolID
+                    });
 
                 let customer = m.Customer.getDB().findOne({_id : order.accountID});
                 let oldCsID = order.details[0];
@@ -239,12 +255,16 @@ console.log(oldLesson)
         '{{/each}}'].join('');
 
                 let m = KG.DataHelper.getDepModule();
+                let schoolID = KG.DataHelper.getSchoolID(this.userId);
 
                 let orderID = opts.orderID;
 
                 let order = m.Order.getDB().findOne({_id : orderID});
-                let school = m.School.getInfo(),
-                    tpl = m.EmailTemplate.getDB().findOne({_id : 'ConfirmMakeupClassTemplate'});
+                let school = m.School.getInfo(schoolID),
+                    tpl = m.EmailTemplate.getDB().findOne({
+                        name : 'ConfirmMakeupClassTemplate',
+                        schoolID : schoolID
+                    });
 
                 let CSList = _.map(order.details, (csID)=>{
                     let cs = m.ClassStudent.getDB().findOne({_id : csID});
