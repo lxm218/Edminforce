@@ -139,6 +139,7 @@ KUI.Email_AddTemplate = class extends RC.CSS{
     save(){
         let self = this;
         let data = this.refs.form.getValue();
+        data.schoolID = KG.DataHelper.getSchoolID();
 
         let rs = KG.get('EF-EmailTemplate').insert(data);
         console.log(rs);

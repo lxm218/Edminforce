@@ -61,8 +61,11 @@ KG.define('EF-School', class extends Base{
         }
     }
 
-    getInfo(){
-        let id = Meteor.user() ? Meteor.user().schoolID : this.id;
+    getInfo(schoolID){
+        let id = schoolID || this.id;
+        if(!id){
+            id = Meteor.user().schoolID;
+        }
         let rs = this._db.findOne({_id : id});
         rs.allAddress = '';
         if(rs.address){

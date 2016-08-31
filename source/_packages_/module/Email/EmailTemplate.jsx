@@ -61,23 +61,40 @@ KG.define('EF-EmailTemplate', class extends Base{
             }
         ];
 
-        _.each(TplList, (item)=>{
-            let html = Assets.getText(item.tpl);
-            let _id = item.id;
+        let loop = (schoolID)=>{
+            _.each(TplList, (item)=>{
 
-            this._db.remove({_id : _id});
-            let one = this._db.findOne({_id : _id});
+                let html = Assets.getText(item.tpl);
+                let _id = item.id;
 
-            if(!one){
-                data = {
-                    _id : _id,
+                this._db.remove({
                     name : _id,
-                    canNotDelete : true,
-                    html : html
-                };
-                this.insert(data);
-            }
+                    schoolID : schoolID
+                });
+                let one = this._db.findOne({
+                    name : _id,
+                    schoolID : schoolID
+                });
+
+                if(!one){
+                    data = {
+                        //_id : _id,
+                        name : _id,
+                        canNotDelete : true,
+                        html : html,
+                        schoolID : schoolID
+                    };
+                    this.insert(data);
+                }
+            });
+        };
+
+        let sc = KG.get('EF-School');
+        let s_list = sc.getDB().find().fetch();
+        _.each(s_list, (s)=>{
+            loop(s._id);
         });
+
     }
 
 
@@ -88,7 +105,10 @@ KG.define('EF-EmailTemplate', class extends Base{
     *
     * */
     getHtml(id, opts={}){
-        let html = this._db.findOne({_id:id});
+        let html = this._db.findOne({
+            name:id,
+            schoolID : KG.DataHelper.getSchoolID()
+        });
 
         if(!html){
             return '';
