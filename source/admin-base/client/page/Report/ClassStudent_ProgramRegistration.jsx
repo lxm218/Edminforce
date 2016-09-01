@@ -153,6 +153,8 @@ console.log(rs);
 		}
 		return (
 			<RC.Div>
+				<h3>Program Registration Report</h3>
+				<hr/>
 				<Filter ref="filter" />
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.YesButton onClick={this.search.bind(this)}
