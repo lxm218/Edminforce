@@ -49,6 +49,7 @@ if(Meteor.isClient){
 
         KG.get('EF-AdminUser').callMeteorMethod('getCurrentUser', [], {
             success : function(user){
+                console.log(user);
                 App.user = user;
                 callback(user);
             }

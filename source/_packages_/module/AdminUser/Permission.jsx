@@ -43,7 +43,7 @@ KG.define('EF-AdminPermission', class extends Base{
 	}
 	addTestData(){
 		//add admin role
-		this._db.remove({role : 'admin'});
+		//this._db.remove({role : 'admin'});
 
 		let f = true;
 		this._db.insert({

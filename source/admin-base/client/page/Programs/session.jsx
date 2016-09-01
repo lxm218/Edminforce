@@ -104,7 +104,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
             }
         ];
 
-        let format = 'YYYY-MM-DD';
+        let format = KG.const.dateFormat;
         var list = _.map(this.data.list, (item)=>{
             item.startDate = moment(item.startDate).format(format);
             item.endDate = moment(item.endDate).format(format);

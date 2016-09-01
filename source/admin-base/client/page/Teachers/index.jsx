@@ -232,7 +232,7 @@ KUI.Teachers_index = class extends RC.CSS {
                     newDate < this.currentSession.startDate ||
                     newDate > moment(this.currentSession.endDate).endOf('d').toDate()) {
                 let classIdx = 0;
-                this.filterClassBySelectedTeacher(classIdx, newDate);
+                this.filterClassBySelectedTeacher(this.state.selectedTeacherIdx, newDate);
                 this.getStudents(classIdx, () => {
                     this.setState({
                         selectedDate: newDate,
