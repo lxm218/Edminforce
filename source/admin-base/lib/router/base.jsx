@@ -45,7 +45,11 @@ if(Meteor.isClient){
     };
 
 
-    App.checkLogin = function(callback){
+    App.checkLogin = function(callback, rediect, stop){
+        if(App.user){
+            callback(App.user);
+            return false;
+        }
 
         KG.get('EF-AdminUser').callMeteorMethod('getCurrentUser', [], {
             success : function(user){
@@ -56,11 +60,10 @@ if(Meteor.isClient){
         });
 
 
-
     };
 
     let cacheUrl = '';
-    FlowRouter.triggers.enter([function(param){
+    FlowRouter.triggers.enter([function(param, rediect, stop){
         App.checkLogin(function(flag){
             if(!flag){
                 if(param.path !== '/home/login')
@@ -75,7 +78,7 @@ if(Meteor.isClient){
 
             }
 
-        });
+        }, rediect, stop);
     }]);
     FlowRouter.triggers.exit([function(){
         try{
@@ -86,5 +89,15 @@ if(Meteor.isClient){
     }]);
 
 
+    FlowRouter.wait();
+
+    Meteor.startup(function(){
+        KG.get('EF-AdminUser').callMeteorMethod('getCurrentUser', [], {
+            success : function(user){
+                App.user = user;
+                FlowRouter.initialize();
+            }
+        });
+    })
 
 }
