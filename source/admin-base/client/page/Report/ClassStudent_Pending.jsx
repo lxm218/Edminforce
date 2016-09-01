@@ -96,6 +96,7 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 		return (
 			<RC.Div>
 				<h3>Pending Registration Report</h3>
+				<hr/>
 				<Filter ref="filter" />
 				<RC.Div style={sy.rd}>
 					<KUI.YesButton style={sy.ml} onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
