@@ -194,6 +194,8 @@ KUI.Report_Coupon = class extends KUI.Page{
 
 		return (
 			<RC.Div>
+				<h3>Coupon Report</h3>
+				<hr/>
 				<Filter ref="filter"></Filter>
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.YesButton onClick={this.search.bind(this)} label="Search"></KUI.YesButton>
