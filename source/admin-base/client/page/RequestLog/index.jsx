@@ -101,7 +101,7 @@ let RSTable = class extends KUI.Page{
 			{
 				title : ' ',
 				reactDom(doc){
-					return moment(doc.createTime).format('MM/DD/YYYY hh:mm:ss');
+					return moment(doc.createTime).format(KG.const.dateAllFormat);
 				}
 			},
 			{

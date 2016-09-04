@@ -31,14 +31,14 @@ KUI.Header = KUI.Class.define('ui.Header', {
 
         let user = Meteor.user();
 
+        //add log
+        KG.RequestLog.addByType('logout', {
+            schoolID : user.schoolID,
+            operatorID : user._id,
+            operatorName : user.username
+        });
+
         Meteor.logout(function(){
-
-            //add log
-            KG.RequestLog.addByType('logout', {
-                operatorID : user._id,
-                operatorName : user.username
-            });
-
             util.goPath('/home/login');
         });
 

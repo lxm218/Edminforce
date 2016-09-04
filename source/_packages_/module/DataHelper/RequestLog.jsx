@@ -44,7 +44,7 @@ KG.define('EF-Request', class extends Base{
 		data.type = type;
 		data.client = param.client || 'admin';
 
-		if(Meteor.isClient){
+		if(!data.schoolID && Meteor.isClient){
 			data.schoolID = KG.DataHelper.getSchoolID();
 		}
 
