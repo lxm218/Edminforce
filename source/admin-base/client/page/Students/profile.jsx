@@ -239,6 +239,7 @@ KUI.Student_profile = class extends KUI.Page{
         let data = {
             studentID : this.getProfileId(),
             studentName : this.data.profile.name,
+            schoolID : this.loginUser.schoolID,
             fromID : Meteor.user()._id,
             fromName : Meteor.user().username,
             comment : this.refs.sendCommentText.getValue()
