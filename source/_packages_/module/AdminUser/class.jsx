@@ -78,7 +78,8 @@ let AdminUser = class extends Base{
             password : 'admin',
             status : 'active',
             nickName : 'ClassForth Administrator',
-            role : 'superadmin'
+            role : 'superadmin',
+            schoolID : 'AdminSchoolID'
         };
 
         let accountData = {

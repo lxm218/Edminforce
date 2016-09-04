@@ -43,7 +43,7 @@ KUI.Setting_profile = class extends KUI.Page{
 
     runOnceAfterDataReady(){
         let data = this.data.profile;
-        data.school = KG.get('EF-School').getInfo();
+        data.school = KG.get('EF-School').getInfo(data.schoolID);
 
         console.log(data);
         this.refs.form.setDefaultValue(data);
@@ -120,7 +120,7 @@ KUI.Setting_EditUser = class extends KUI.Page{
 
     runOnceAfterDataReady(){
         let data = this.data.profile;
-        data.school = KG.get('EF-School').getInfo();
+        data.school = KG.get('EF-School').getInfo(data.schoolID);
         this.refs.form.setDefaultValue(data);
 
     }
