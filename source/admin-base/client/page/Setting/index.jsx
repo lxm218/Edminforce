@@ -30,6 +30,7 @@ KUI.Setting_index = class extends KUI.Page{
 
         let sy = this.css.get('styles');
 
+        let role = this.loginUser.role;
         return (
             <RC.Div>
                 {this.renderTable()}
@@ -40,6 +41,10 @@ KUI.Setting_index = class extends KUI.Page{
                     <KUI.YesButton style={sy.ml} href="/setting/changepassword" label="Change Password"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} href="/setting/account/edit" label="Edit"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} href="/setting/account/add" label="Add"></KUI.YesButton>
+                </RC.Div>
+
+                <RC.Div style={{textAlign:'right',marginTop:'12px'}}>
+                    {role==='superadmin' && <KUI.YesButton href="/setting/addschool" label="Add School"></KUI.YesButton>}
                 </RC.Div>
             </RC.Div>
         );

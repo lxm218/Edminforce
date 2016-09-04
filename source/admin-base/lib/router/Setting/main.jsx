@@ -74,6 +74,15 @@ if(Meteor.isClient){
         }
     });
 
+    Route.route('/addschool', {
+        action: function (p) {
+            App.routeHandler(p, {
+                pageTitle: "Setting | Add School",
+                bodyTmpl: <KUI.Setting_AddSchool />
+            });
+        }
+    });
+
 
 
 
