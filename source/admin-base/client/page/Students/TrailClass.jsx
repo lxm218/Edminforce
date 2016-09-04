@@ -523,6 +523,7 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 		data.type = 'makeup';
 		data.status = 'pending';
 		data.lessonDate = data.date;
+		data.schoolID = this.loginUser.schoolID;
 		delete data.date;
 
 		let rs = this.module.ClassStudent.insert(data);
@@ -553,7 +554,8 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			details : [cid],
 			type : 'makeup class',
 			status : 'waiting',
-			amount : this.fee
+			amount : this.fee,
+			schoolID : this.loginUser.schoolID
 		};
 
 		let way = 'cash';

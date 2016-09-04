@@ -62,6 +62,7 @@ KUI.Student_profile = class extends KUI.Page{
         }
 
         let cs = this.m.ClassStudent.getDB().find({status:'checkouted'}, sort).fetch();
+        console.log(cs);
         let classData = {};
         _.each(cs, (item)=>{
             let clsId = item.classID;

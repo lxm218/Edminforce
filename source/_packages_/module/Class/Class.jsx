@@ -202,7 +202,7 @@ let Class = class extends Base{
         date = date || new Date();
         let start = moment(session.startDate),
             end = moment(session.endDate);
-
+console.log(session)
         if(session.recurring){
             start = moment(date).clone().subtract(3, 'days');
             end = moment(date).clone().add(3, 'days');
