@@ -6,8 +6,8 @@ deployAdminBase(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-staging;
-    sudo mup setup;
-    sudo ${ADMIN_ENV} mup deploy;
+    sudo mupx_setup;
+    sudo ${ADMIN_ENV} mupx deploy;
     cd ../;
     echo "link : https://demo-admin.classforth.com/home";
     echo "*************************************************";
@@ -62,8 +62,8 @@ deployAdminDemo(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-demo;
-    sudo mup setup;
-    sudo ${ADMIN_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${ADMIN_ENV} mupx deploy;
     cd ../;
     echo "link : https://demo-admin.classforth.com/home";
     echo "*************************************************";
@@ -76,8 +76,8 @@ deployMobileDemo(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-demo;
-    sudo mup setup;
-    sudo ${MOBILE_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${MOBILE_ENV} mupx deploy;
     cd ../;
     echo "link : https://demo.classforth.com";
     echo "*************************************************";
@@ -90,8 +90,8 @@ deployAdminCalphin(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-calphin;
-    sudo mup setup;
-    sudo ${ADMIN_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${ADMIN_ENV} mupx deploy;
     cd ../;
     echo "link : https://calphin-admin.classforth.com/home";
     echo "*************************************************";
@@ -105,8 +105,8 @@ deployMobileCalphin(){
     . ./ENV.inc
     echo ${MOBILE_ENV};
     cd mobile-calphin;
-    sudo mup setup;
-    sudo ${MOBILE_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${MOBILE_ENV} mupx deploy;
     cd ../;
     echo "link : https://calphin.classforth.com";
     echo "*************************************************";
