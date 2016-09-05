@@ -330,16 +330,33 @@ console.log(start.format(), end.format());
                     end = KG.util.getZoneDateByString(opts.endDate, zone).add(1, 'days');
 
                 let rs = [];
+
+                let query = {
+                    status : 'checkouted',
+                    type : 'register',
+                    createTime : {
+                        '$gte' : start.toDate(),
+                        '$lte' : end.toDate()
+                    }
+                };
+
+                if(opts.session || opts.teacher){
+                    let tq = {};
+                    if(opts.session){
+                        tq.sessionID = opts.session;
+                    }
+                    if(opts.teacher){
+                        tq.teacherID = opts.teacher;
+                    }
+                    let tl = m.Class.getDB().find(tq).fetch();
+                    query.classID = {
+                        '$in' : _.map(tl, (l)=>{ return l._id })
+                    };
+                }
+
                 let list = m.ClassStudent.getDB().aggregate([
                     {
-                        $match : {
-                            status : 'checkouted',
-                            type : 'register',
-                            createTime : {
-                                '$gte' : start.toDate(),
-                                '$lte' : end.toDate()
-                            }
-                        }
+                        $match : query
                     },
                     {
                         $sort : {
