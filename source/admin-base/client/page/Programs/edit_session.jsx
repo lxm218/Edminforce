@@ -278,7 +278,7 @@ KUI.Session_edit = class extends KUI.Page{
         };
 
         data.startDate = moment(data.startDate, format).toDate();
-        data.endDate = moment(data.endDate, format).toDate();
+        data.endDate = moment(data.endDate, format).endOf('day').toDate();
         data.registrationStartDate = moment(data.registrationStartDate, format).toDate();
         data.blockOutDay = this.state.blockList;
 

@@ -311,7 +311,7 @@ KUI.Program_session = class extends RC.CSSMeteorData{
         };
 
         data.startDate = moment(data.startDate, format).toDate();
-        data.endDate = moment(data.endDate, format).toDate();
+        data.endDate = moment(data.endDate, format).endOf('day').toDate();
         data.registrationStartDate = moment(data.registrationStartDate, format).toDate();
         data.blockOutDay = this.state.blockList;
 
