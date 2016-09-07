@@ -94,7 +94,7 @@ let AdminUser = class extends Base{
 
 
 
-        let uid = this.module.Account.callMeteorMethod('createUser', [accountData]);
+        let uid = KG.get('Account').callMeteorMethod('createUser', [accountData]);
         data._id = uid;
         this._db.insert(data);
 
