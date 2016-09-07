@@ -51,7 +51,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         let x2 = Meteor.subscribe('EF-Program', {});
             x3 = Meteor.subscribe('EF-Session', {
                 query : {
-                    registrationStatus : 'Yes'
+                    //registrationStatus : 'Yes'
                 }
             });
         let x4 = Meteor.subscribe('EF-AdminUser', {
