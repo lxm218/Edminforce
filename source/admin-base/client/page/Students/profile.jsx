@@ -288,7 +288,7 @@ KUI.Student_profile = class extends KUI.Page{
 
         let json = [];
         _.each(this.data.classStudentData, (item)=>{
-            if(item.type !== 'register' && item.type !== 'wait'){
+            if(item.type !== 'register'){
                 return true;
             }
             if(item.status !== 'checkouted'){
