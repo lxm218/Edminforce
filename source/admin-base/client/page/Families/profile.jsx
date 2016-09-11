@@ -114,7 +114,7 @@ KUI.Family_add_comp = class extends RC.CSS{
                     <RB.Col md={6} mdOffset={0}>
                         <RB.Input type="text" {... p.name} />
                         <RB.Input type="text" {... p.phone} />
-                        {type==='edit'?<RB.Input type="text" {... p.credit} />:null}
+                        {type===false?<RB.Input type="text" {... p.credit} />:null}
 
                         <p style={sy.rd}>Alternative Contact</p>
                         <RB.Input type="text" {... p.alternativeName} />
@@ -202,19 +202,11 @@ KUI.Family_add_comp = class extends RC.CSS{
         $(receive.getInputDOMNode()).prop('checked', al.receive||false);
 
         //if(data.schoolCredit){
-            this.refs.credit.getInputDOMNode().value  = (data.schoolCredit||0);
+            //this.refs.credit.getInputDOMNode().value  = (data.schoolCredit||0);
         //}
     }
 
-    setSchoolCreditNumber(num){
 
-        this.refs.credit.getInputDOMNode().value = num||0;
-
-    }
-    getSchoolCreditNumber(){
-        let n = this.refs.credit.getValue()||0;
-        return  parseFloat(n);
-    }
 
 };
 
@@ -551,7 +543,7 @@ KUI.Family_profile = class extends KUI.Page{
                 return false;
             }
 
-            let old = self.refs.form.getSchoolCreditNumber();
+            let old = self.getSchoolCreditNumber();
             //if(num+old < 0){
             //    swal.showInputError('school credit change error');
             //    return false;
@@ -578,7 +570,102 @@ KUI.Family_profile = class extends KUI.Page{
                 }, self.data.id], {
                     success : function(){
                         console.log(oid, arguments)
-                        self.refs.form.setSchoolCreditNumber(num+old);
+                        self.setSchoolCreditNumber(num+old);
+
+                        //add to log
+                        KG.RequestLog.addByType('change school credit', {
+                            data : {
+                                customer : self.data.profile,
+                                credit : num,
+                                note : note
+                            }
+                        });
+
+                        self.refs.billingTable.getStateData(self.data.id, 1);
+
+                        swal.close();
+                    },
+                    error : function(){
+                        console.log(arguments)
+                    }
+                });
+            }
+
+        });
+    }
+
+    refundSchoolCredit(){
+        let self = this;
+
+        //check permission
+        if(!util.user.checkPermission('schoolCreidt', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+        let old = self.getSchoolCreditNumber();
+        if(old <= 0){
+            swal('You have no school credit to refund.', '', 'info');
+            return false;
+        }
+
+        let param = {
+            title : 'Refund School Credit',
+            text : [
+                '<fieldset>',
+                '<input class="form-control js_n1" type="text" disabled value="-'+old+'" style="display:block;" tabindex="3" placeholder="School Credit">',
+                '<input class="form-control js_r1" type="text" disabled value="Refund School Credit" style="display:block;"' +
+                ' tabindex="3"' +
+                ' placeholder="Note">',
+                '</fieldset>'
+            ].join(''),
+            confirmButtonText : 'Confirm',
+            cancelButtonText : 'Cancel',
+            showCancelButton : true,
+            confirmButtonColor : '#1ab394',
+            html : true,
+            closeOnConfirm : false,
+            animation : 'slide-from-top'
+
+        };
+
+        swal(param, function(){
+            let num = $('.js_n1').val(),
+                note = $('.js_r1').val();
+
+            num = parseFloat(num);
+            if(!num){
+                swal.showInputError('school credit must be a number');
+                return false;
+            }
+
+
+            //if(num+old < 0){
+            //    swal.showInputError('school credit change error');
+            //    return false;
+            //}
+
+            let orderData = {
+                accountID : self.data.id,
+                details : [],
+                paymentType : 'school credit',
+                type : 'change school credit',
+                status : 'success',
+                amount : 0,
+                paymentTotal : 0,
+                schoolCredit : num
+            };
+            let oid = self.m.Order.insert(orderData);
+            if(oid.status){
+                oid = oid.data;
+                console.log(oid);
+                self.m.Customer.callMeteorMethod('changeSchoolCredit', [{
+                    schoolCredit : num,
+                    orderID : oid,
+                    note : note
+                }, self.data.id], {
+                    success : function(){
+                        console.log(oid, arguments)
+                        self.setSchoolCreditNumber(num+old);
 
                         //add to log
                         KG.RequestLog.addByType('change school credit', {
@@ -610,7 +697,6 @@ KUI.Family_profile = class extends KUI.Page{
             <RC.Div>
                 <KUI.Family_add_comp type="edit" ref="form" />
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton style={sy.ml} onClick={this.changeSchoolCredit.bind(this)} label="Change School Credit"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>
                 <hr/>
@@ -622,6 +708,12 @@ KUI.Family_profile = class extends KUI.Page{
                 <hr/>
                 <h4>Billing</h4>
                 <BillingTable ref="billingTable"></BillingTable>
+                <hr/>
+                {this.renderSchoolCreditBox()}
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.changeSchoolCredit.bind(this)} label="Change School Credit"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} onClick={this.refundSchoolCredit.bind(this)} label="Refund School Credit"></KUI.YesButton>
+                </RC.Div>
             </RC.Div>
         );
     }
@@ -652,6 +744,7 @@ KUI.Family_profile = class extends KUI.Page{
     runOnceAfterDataReady(){
         let data = this.data.profile;
         this.refs.form.setDefaultValue(data);
+        this.setSchoolCreditNumber(data.schoolCredit);
 
         this.refs.billingTable.getStateData(this.data.id);
     }
@@ -700,6 +793,36 @@ KUI.Family_profile = class extends KUI.Page{
             </KUI.Table>
         );
 
+    }
+
+    renderSchoolCreditBox(){
+        let p = {
+            credit : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-6',
+                label : 'School Credit($)',
+                ref : 'credit',
+                disabled : true
+            }
+        };
+
+        return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Input type="text" {...p.credit} />
+                </RB.Row>
+
+            </form>
+        );
+    }
+
+    setSchoolCreditNumber(num){
+        this.refs.credit.getInputDOMNode().value = num||0;
+
+    }
+    getSchoolCreditNumber(){
+        let n = this.refs.credit.getValue()||0;
+        return  parseFloat(n);
     }
 
 
