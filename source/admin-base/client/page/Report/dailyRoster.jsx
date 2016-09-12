@@ -221,19 +221,25 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         return (
             <RC.Div>
-                <h3 style={{"textAlign": "left"}}>Daily Roster</h3>
+                <h3 style={{"textAlign": "left"}} className="print-hidden" >Daily Roster</h3>
                 <RB.Row>
                     <div className="form-horizontal">
                         <RB.Col md={6} mdOffset={0}>
                             <RB.Input type="text" {... p.date} value={moment(this.state.selectedDate).format("MM/DD/YYYY")} onChange={this.onDateEdit}>
                             </RB.Input>
                         </RB.Col>
-                        <RB.Col  md={6} mdOffset={0}>
+                        <RB.Col  md={6} mdOffset={0} className="print-hidden">
                             <KUI.YesButton onClick={this.getDailyRoster} label="Show"></KUI.YesButton>
                         </RB.Col>
                     </div>
                 </RB.Row>
                 <RC.Div style={{marginTop:20}}>
+                    {
+                        this.data && this.data.programs && this.data.programs.length &&
+                        <a className="print-hidden" href="javascript:print();" title="print this page">
+                            <RB.Button bsStyle="link"><RB.Glyphicon glyph="print" /></RB.Button>
+                        </a>
+                    }
                     {this.renderRoster()}
                 </RC.Div>
             </RC.Div>
