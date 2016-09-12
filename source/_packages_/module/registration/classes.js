@@ -369,10 +369,12 @@ function applyCoupon(userId, couponId, cart) {
         return;
     }
 
+    let schoolID = Meteor.user().schoolID;
     //  check how many times the coupon has been used
     let usedCoupons = Collections.customerCoupon.find({
         customerID: userId,
         couponID: couponId,
+        schoolID,
         status: {
             $nin: ['canceled']
         }
@@ -685,9 +687,11 @@ function postPaymentUpdate(userId, order, paymentType, paymentTotal, paymentSour
     };
 
     if (order.couponID) {
+        let schoolID = Meteor.user().schoolID;
         orderUpdate.customerCouponID = Collections.customerCoupon.insert({
             customerID: userId,
             couponID: order.couponID,
+            schoolID,
             status: 'checkouted'
         });
     }
