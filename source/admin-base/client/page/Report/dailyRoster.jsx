@@ -240,7 +240,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             <RB.Button bsStyle="link"><RB.Glyphicon glyph="print" /></RB.Button>
                         </a>
                     }
-                    <h2 className="print-show" style={{textAlign:'center'}}> Daily Roster {moment(this.state.selectedDate).format("MM/DD/YYYY")} </h2>
+                    <div className="print-show" style={{textAlign:'center',fontSize:'14px',margin:5}}> Daily Roster {moment(this.state.selectedDate).format("MM/DD/YYYY")} </div>
                     {this.renderRoster()}
                 </RC.Div>
             </RC.Div>
