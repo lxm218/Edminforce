@@ -139,7 +139,7 @@ EdminForce.Components.Students = class extends RC.CSS {
         return (
             <RC.Div>
                 <RC.Div style={{borderBottom:"1px solid #e0e0e0", paddingBottom:8}}>
-                    <h3 style={{"textAlign": "center"}}>Booking Records</h3></RC.Div>
+                    <h3 style={{"textAlign": "center"}}>Class Records</h3></RC.Div>
                     {EdminForce.utils.renderError(this.props.error)}
                     <RC.Select options={this.props.students}
                                style={{borderBottom:'none'}}
