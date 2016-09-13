@@ -153,7 +153,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         // class name or student name
                         if (p.rows[iRow].teacher) {
                             // show class time and teacher in a "th" style
-                            tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} style={{textAlign:"center",background:programPalette[index % programPalette.length]}}>
+                            tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} style={{textAlign:"center", background:programPalette[index % programPalette.length] + ' !important'}}>
                                 <a href="/teachers">{p.rows[iRow].teacher}</a>
                             </th>);
                         }
@@ -185,7 +185,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         let titleStyles = [{
             textAlign:"center",
-            background: programTitleColor
+            background: programTitleColor + ' !important'
         }, {
             textAlign:"center"
         }]
@@ -221,19 +221,26 @@ KUI.Report_DailyRoster = class extends RC.CSS {
 
         return (
             <RC.Div>
-                <h3 style={{"textAlign": "left"}}>Daily Roster</h3>
-                <RB.Row>
+                <h3 style={{"textAlign": "left"}} className="print-hidden" >Daily Roster</h3>
+                <RB.Row className="print-hidden">
                     <div className="form-horizontal">
                         <RB.Col md={6} mdOffset={0}>
                             <RB.Input type="text" {... p.date} value={moment(this.state.selectedDate).format("MM/DD/YYYY")} onChange={this.onDateEdit}>
                             </RB.Input>
                         </RB.Col>
-                        <RB.Col  md={6} mdOffset={0}>
+                        <RB.Col  md={6} mdOffset={0} >
                             <KUI.YesButton onClick={this.getDailyRoster} label="Show"></KUI.YesButton>
                         </RB.Col>
                     </div>
                 </RB.Row>
                 <RC.Div style={{marginTop:20}}>
+                    {
+                        this.data && this.data.programs && this.data.programs.length &&
+                        <a className="print-hidden" href="javascript:print();" title="print this page">
+                            <RB.Button bsStyle="link"><RB.Glyphicon glyph="print" /></RB.Button>
+                        </a>
+                    }
+                    <div className="print-show" style={{textAlign:'center',fontSize:'14px',margin:5}}> Daily Roster {moment(this.state.selectedDate).format("MM/DD/YYYY")} </div>
                     {this.renderRoster()}
                 </RC.Div>
             </RC.Div>
