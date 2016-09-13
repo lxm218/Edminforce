@@ -205,11 +205,15 @@ let AdminUser = class extends Base{
                 let m = KG.DataHelper.getDepModule();
 
                 let user = Meteor.user();
+                //console.log(user);
                 if(!user){
                     return false;
                 }
                 else{
                     let u = self._db.findOne({_id : user._id});
+                    if(u.role === 'superadmin'){
+                        u.role = 'admin';
+                    }
                     let role = self.pm.getDB().findOne({role : u.role});
                     u.permission = role;
 

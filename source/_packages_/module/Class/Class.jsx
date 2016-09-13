@@ -553,7 +553,12 @@ let Class = class extends Base{
                     studentID = opts.studentID;
 
                 let amount = opts.amount,
+                    schoolCredit = 0,
                     paymentType = opts.paymentType;
+                if(opts.credit){
+                    schoolCredit = opts.credit;
+                    amount = amount - opts.credit;
+                }
 
                 let student = m.Student.getDB().findOne({_id : studentID});
 
@@ -594,7 +599,8 @@ let Class = class extends Base{
                     status : orderStatus,
                     paymentSource : 'admin',
                     amount : amount,
-                    paymentTotal : amount.toString()
+                    schoolCredit : schoolCredit,
+                    paymentTotal : (amount).toString()
                 };
                 let orderID = m.Order.getDB().insert(orderData);
                 m.ClassStudent.updateOrderID(orderID, newClassStudentID);
@@ -603,6 +609,10 @@ let Class = class extends Base{
                     m.Customer.getDB().update({_id : student.accountID}, {
                         '$inc' : {schoolCredit : Math.abs(amount)}
                     });
+                }
+
+                if(opts.credit){
+                    m.Customer.callMeteorMethod('useSchoolCreditById', [opts.credit, student.accountID]);
                 }
 
                 //send email
