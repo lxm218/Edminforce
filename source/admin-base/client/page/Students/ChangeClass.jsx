@@ -433,6 +433,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 
 	payNow(){
 		let credit = 0;
+		let way = this.refs.payway.getValue();
 		if(this.state.changeResult.tuitionDifferent > 0){
 			credit = parseInt(this.refs.input_sc.getValue(), 10)||0;
 			if(credit > this.data.customer.schoolCredit){
@@ -441,14 +442,17 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			}
 			if(credit > this.state.changeResult.tuitionDifferent){
 				credit = this.state.changeResult.tuitionDifferent;
+				if(!way){
+					way = 'cash';
+				}
 			}
 		}
 
 
 
-		let way = this.refs.payway.getValue();
+
 		if(!way){
-			swal('Please select payment way', '', 'error');
+			swal('Please select payment type', '', 'error');
 			return false;
 		}
 
