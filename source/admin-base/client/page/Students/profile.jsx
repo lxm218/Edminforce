@@ -749,14 +749,18 @@ KUI.Student_profile = class extends KUI.Page{
                     let id = self.data.id;
 
                     let del = function(){
-                        self.m.ClassStudent.getDB().remove({_id:doc._id});
+                        self.m.ClassStudent.callMeteorMethod('removeById', [doc._id], {
+                            success : function(){
+                                self.state.waitForPayList.list.splice(index, 1);
 
-                        self.state.waitForPayList.list.splice(index, 1);
-
-                        self.setState({
-                            waitForPayList : self.state.waitForPayList,
-                            refresh : Meteor.uuid()
+                                self.setState({
+                                    waitForPayList : self.state.waitForPayList,
+                                    refresh : Meteor.uuid()
+                                });
+                            }
                         });
+
+
                     };
 
                     let goToPay = function(){

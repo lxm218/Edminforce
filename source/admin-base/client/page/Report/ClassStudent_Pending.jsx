@@ -240,12 +240,11 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 	}
 
 	removeById(id){
-		let list = this.state.list;
+		let list = this.state.list||[];
 		this.m.ClassStudent.callMeteorMethod('removeById', [id], {
-			context : this,
 			success : function(){
 				let n = _.findIndex(list, {_id:id});
-				console.log(list.length);
+				console.log(arguments);
 
 				list.splice(n, 1);
 				console.log(list.length);

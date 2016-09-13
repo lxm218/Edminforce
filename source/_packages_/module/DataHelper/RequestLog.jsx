@@ -15,7 +15,8 @@ KG.define('EF-Request', class extends Base{
 					'register class', 'change class', 'cancel class', 'trial class', 'makeup class',
 					'cancel makeup class',
 					'pay order',
-					'change school credit'
+					'change school credit',
+					'cancel pending class'
 				]
 			}),
 			client : KG.schema.default({
@@ -75,6 +76,7 @@ KG.define('EF-Request', class extends Base{
 				break;
 
 			case 'cancel class':
+			case 'cancel pending class':
 			case 'change class':
 			case 'cancel makeup class':
 			case 'makeup class':
@@ -83,6 +85,8 @@ KG.define('EF-Request', class extends Base{
 					data : param.data
 				};
 				break;
+
+
 
 			default :
 				throw new Meteor.Error('error', '[add log] '+type+' type is not valid');
