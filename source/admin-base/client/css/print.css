@@ -5,6 +5,9 @@
         display: none !important;
         height:0;
     }
+    .print-show{
+        display: block !important;
+    }
 
     nav.navbar, nav.navbar-static-side {
         display: none !important;
@@ -15,4 +18,8 @@
         min-height: auto !important;
     }
 
+}
+
+.print-show{
+    display:none;
 }
