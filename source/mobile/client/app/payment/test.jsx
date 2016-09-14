@@ -100,7 +100,7 @@ Cal.Payment = React.createClass({
 		        }
 		    }
 		}
-		var URL = 'https://api.authorize.net/xml/v1/request.api'
+		var URL = 'https://apitest.authorize.net/xml/v1/request.api'
 		HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
 			debug
 			if(!!error){
