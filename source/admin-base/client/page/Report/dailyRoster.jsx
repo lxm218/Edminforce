@@ -447,7 +447,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         tdElements.push(<td {...attrs}><a href={"/student/" + rosterRow[iCol].studentID}>{text}</a></td>);
                         break;
                     case 'teacher':
-                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length]}}>
+                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length] + ' !important'}}>
                             <a href={"/teachers?c=" + rosterRow[iCol].classID + "&d=" + strCurrentDate}>{text}</a>
                         </th>);
                         break;
@@ -466,7 +466,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             },
             {
                 textAlign:"center",
-                background: programTitleColor
+                background: programTitleColor + ' !important'
             }
         ]
 
@@ -618,6 +618,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     </div>
                 </RB.Row>
                 <RC.Div style={{marginTop:20}}>
+                    {
+                        this.data && this.data.programs && this.data.programs.length &&
+                        <a className="print-hidden" href="javascript:print();" title="print this page">
+                            <RB.Button bsStyle="link"><RB.Glyphicon glyph="print" /></RB.Button>
+                        </a>
+                    }
+                    <div className="print-show" style={{textAlign:'center',fontSize:'14px',margin:5}}> Daily Roster {moment(this.state.selectedDate).format("MM/DD/YYYY")} </div>
                     {this.renderRoster(this.getRosterDataTable())}
                 </RC.Div>
             </RC.Div>
