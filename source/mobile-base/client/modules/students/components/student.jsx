@@ -71,7 +71,7 @@ EdminForce.Components.Student = class extends RC.CSS {
                     <RC.Input style={{paddingLeft:6}} id="note" name="note" label="Note" value={student.note} onChange={this.onChange}/>
                 </RC.Div>
                 <div style={{padding: "20px"}}>
-                    <RC.VerticalAlign center={true}><RC.URL style={{fontWeight:"bold"}} href="/students">Booking Records</RC.URL></RC.VerticalAlign>
+                    <RC.VerticalAlign center={true}><RC.URL style={{fontWeight:"bold"}} href="/students">Class Records</RC.URL></RC.VerticalAlign>
                     <RaisedButton
                         label="Save"
                         primary={true}
