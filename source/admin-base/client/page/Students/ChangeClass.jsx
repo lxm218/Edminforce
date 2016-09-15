@@ -440,7 +440,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 				swal('You don\'t have enough school credit', '', 'error');
 				return false;
 			}
-			if(credit > this.state.changeResult.tuitionDifferent){
+			if(credit >= this.state.changeResult.tuitionDifferent){
 				credit = this.state.changeResult.tuitionDifferent;
 				if(!way){
 					way = 'cash';
