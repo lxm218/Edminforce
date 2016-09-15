@@ -448,6 +448,15 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 					});
 				}
 				else if(way === 'pay later'){
+					// add log
+					KG.RequestLog.addByType('register class', {
+						id : cid,
+						data : _.extend({}, list[0], {
+							order : orderData,
+							payment : 'Pay Later'
+						})
+					});
+
 					Meteor.setTimeout(function(){
 						self.m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : cid}], {
 							success : function(){}
