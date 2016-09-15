@@ -129,8 +129,10 @@ KG.define('EF-Email', class extends Base{
                     school : school,
                     totalCost : (order.amount + order.discount).toFixed(2),
                     grandTotal : order.amount.toFixed(2),
-                    discount : order.discount.toFixed(2)
+                    discount : order.discount.toFixed(2),
+                    paylater : opts.paylater || false
                 });
+                
 
 
                 return self.callMeteorMethod('sendEmail', [{

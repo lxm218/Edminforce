@@ -458,7 +458,10 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 					});
 
 					Meteor.setTimeout(function(){
-						self.m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : cid}], {
+						self.m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{
+							orderID : cid,
+							paylater : true
+						}], {
 							success : function(){}
 						});
 					}, 100);
