@@ -254,6 +254,10 @@ let RSTable = class extends KUI.Page{
 			list.push({item : 'Date', value : d.date});
 		}
 
+		if(d.payment){
+			list.push({item : 'Payment', value : d.payment});
+		}
+
 
 		return (
 			<KUI.Table
