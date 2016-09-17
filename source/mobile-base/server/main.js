@@ -19,33 +19,48 @@
  */
 function getStudentsBySession(sessionName) {
     let session = Collections.session.findOne({name:sessionName});
-    if (!session) return [];
+    if (!session) {
+        console.log(`Session ${sessionName} not found`);
+        return [];
+    }
+
+    console.log(`Loading students for session ${sessionName}`);
+
+    let programs = Collections.program.find({}).fetch();
 
     // get all classes for this session
-    let classes = Collections.class.find({sessionID:session._id}, {level:1}).fetch();
-    let students = [];
+    let classes = Collections.class.find({sessionID:session._id}).fetch();
+    let sessionStudents = [];
     classes.forEach( cls => {
-        let classStudents = Collections.classStudent.find({classID:cls._id}, {fields:{studentID:1, accountID:1}}).fetch();
-        let studentIDs = classStudents.map( classStudent => classStudent.studentID );
-        classStudents = Collections.student.find({_id: {$in: studentIDs}}, {fields:{name:1,accountID:1}}).fetch();
-        classStudents.forEach( clsStudent => {
-            if (_.find(students, {_id:clsStudent._id})) return;
+        let classStudents = Collections.classStudent.find({
+            classID:cls._id,
+            status:'checkouted',
+            type:'register'}).fetch();
 
-            let customer = Collections.Customer.findOne({_id:clsStudent.accountID});
+        let studentIDs = classStudents.map( classStudent => classStudent.studentID );
+        let students = Collections.student.find({_id: {$in: studentIDs}}, {fields:{name:1,accountID:1}}).fetch();
+        students.forEach( student => {
+            if (_.find(sessionStudents, {_id:student._id})) return;
+
+            let customer = Collections.Customer.findOne({_id:student.accountID});
             if (customer) {
-                clsStudent.phone = customer.phone;
-                clsStudent.email = customer.email;
-                students.push(clsStudent);
+                let program = _.find(programs, {_id:cls.programID});
+                student.phone = customer.phone;
+                student.email = customer.email;
+                student.className = EdminForce.utils.getClassName(program.name,session.name,cls);
+                sessionStudents.push(student);
             }
             else {
-                console.log(`Customer ${clsStudent.accountID} not found, studentID: ${clsStudent._id}`);
+                console.log(`Customer ${student.accountID} not found, studentID: ${student._id}`);
             }
 
-            console.log(clsStudent);
+            //console.log(student);
         });
     });
 
-    return students;
+    console.log(`${sessionStudents.length} students for session ${sessionName}`);
+
+    return sessionStudents;
 }
 
 /**
@@ -67,10 +82,11 @@ function generateReport() {
     })
 
     var buffer = new Buffer(JSON.stringify(nonReturningStudents)) ;
-    fs.writeFileSync( "report.json", buffer ) ;
+    fs.writeFileSync( "/vagrant/source/report.json", buffer ) ;
     console.log('Done');
 }
 
 Meteor.startup( () => {
     //EdminForce.Registration.syncClassRegistrationCount();
+    //generateReport();
 })
