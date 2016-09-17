@@ -444,11 +444,12 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         tdElements.push(<td {...attrs}>{text}</td>);
                         break;
                     case 'student':
-                        tdElements.push(<td {...attrs}><a href={"/student/" + rosterRow[iCol].studentID}>{text}</a></td>);
+                        tdElements.push(<td {...attrs}><a className="print-hidden" href={"/student/" + rosterRow[iCol].studentID}>{text}</a> <span className="print-show">{text}</span></td>);
                         break;
                     case 'teacher':
                         tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length] + ' !important'}}>
-                            <a href={"/teachers?c=" + rosterRow[iCol].classID + "&d=" + strCurrentDate}>{text}</a>
+                            <a className="print-hidden" href={"/teachers?c=" + rosterRow[iCol].classID + "&d=" + strCurrentDate}>{text}</a>
+                            <span className="print-show">{text}</span>
                         </th>);
                         break;
                     case 'rowspan':
