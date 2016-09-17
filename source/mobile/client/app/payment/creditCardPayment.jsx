@@ -162,7 +162,7 @@ Cal.CreditCard = React.createClass({
 	 	paymentInfo.createTransactionRequest.refId = Math.floor((Math.random() * 100000) + 1).toString()
 	 	console.log(paymentInfo.createTransactionRequest.refId)
 
-		var URL = 'https://api.authorize.net/xml/v1/request.api'
+		var URL = 'https://apitest.authorize.net/xml/v1/request.api'
 		HTTP.call('POST',URL, {data: paymentInfo}, function(error, response){
 			if(!!error){
 				console.log(error)
