@@ -35,7 +35,7 @@ KUI.Class_detail = class extends KUI.Page{
         if(x){
             data = x.data[0];
         }
-        console.log(x.ready());
+        console.log(x);
 
         return {
             ready : x.ready(),
