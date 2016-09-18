@@ -154,7 +154,8 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         if (p.rows[iRow].teacher) {
                             // show class time and teacher in a "th" style
                             tdElements.push(<th key={"c"+hour+"_" + iRow + "_" + index} style={{textAlign:"center", background:programPalette[index % programPalette.length] + ' !important'}}>
-                                <a href="/teachers">{p.rows[iRow].teacher}</a>
+                                <a className="print-hidden" href="/teachers">{p.rows[iRow].teacher}</a>
+                                <span className="print-show">{p.rows[iRow].teacher}</span>
                             </th>);
                         }
                         else {
@@ -169,7 +170,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             if (p.rows[iRow].type == 'makeup')
                                 tdContent += ' (make up)';
                             
-                            tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index}><a href={"/student/" + p.rows[iRow].studentID}>{tdContent}</a></td>);
+                            tdElements.push(<td key={"c"+hour+"_" + iRow + "_" + index}><a className="print-hidden" href={"/student/" + p.rows[iRow].studentID}>{tdContent}</a><span className="print-show">{tdContent}</span> </td>);
                         }
                     }
                     else
