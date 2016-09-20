@@ -335,8 +335,7 @@ let ClassStudent = class extends Base{
                 let rs = m.ClassStudent.getDB().find({
                     accountID : accountID,
                     type : 'register',
-                    status : 'pending',
-                    pendingFlag : true
+                    status : 'pending'
                 }, {
                     sort : {
                         createTime : -1
