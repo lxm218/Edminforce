@@ -4,7 +4,7 @@ FlowRouter.notFound = {
     }
 }
 
-DefaultRoutes.route('/', {
+DefaultRoutes.route('/:sid', {
     name: "home",
     triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p) {
@@ -16,7 +16,7 @@ DefaultRoutes.route('/', {
     }
 })
 
-DefaultRoutes.route('/login', {
+DefaultRoutes.route('/:sid/login', {
     name: "Log In",
     //triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p, q) {
@@ -35,7 +35,7 @@ DefaultRoutes.route('/login', {
     }
 })
 
-DefaultRoutes.route('/contact', {
+DefaultRoutes.route('/:sid/contact', {
     name: "contact",
     action: function(p) {
         EdminForce.utils.routeHandler(p, {

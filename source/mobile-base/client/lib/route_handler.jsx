@@ -37,7 +37,7 @@ EdminForce.utils.routeHandler = function (p, args) {
 
 EdminForce.utils.authCheckRouteTrigger = function (context, redirect) {
     if (!Meteor.userId()) {
-        redirect('/login');
+        redirect('/' + context.params.sid + '/login');
     }
 }
 
