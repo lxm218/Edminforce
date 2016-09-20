@@ -79,5 +79,14 @@ Meteor.methods({
 		});
 
 		return rs;
+	},
+
+	'DataShell:SyncNumberOfRegister' : function(){
+		let m = KG.DataHelper.getDepModule();
+
+		const cl = m.Class.getDB().find().fetch();
+		_.each(cl, (item)=>{
+			m.Class.callMeteorMethod('syncNumberOfRegister', [item._id]);
+		});
 	}
 });

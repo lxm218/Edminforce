@@ -70,7 +70,8 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 		self.setState({list : 'loading'});
 		let s = this.refs.filter.getValue() || '';
 		let query = {
-			status : 'pending'
+			status : 'pending',
+			pendingFlag : true
 		};
 		if(s){
 			query.student = {
