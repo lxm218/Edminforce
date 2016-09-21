@@ -233,7 +233,8 @@ EdminForce.Components.User = React.createClass({
         if(!err){
           Dispatcher.dispatch({
             actionType: "AUTH_LOGIN_SUCCESS",
-            redirectUrl: self.props.redirectUrl
+            redirectUrl: self.props.redirectUrl,
+            sid: self.props.sid
           });
           return;
         }
@@ -300,7 +301,7 @@ EdminForce.Components.User = React.createClass({
         email: form.email.toLowerCase(),
         password: form.pw,
         role : 'user',
-        schoolID: form.school
+        schoolID: this.props.sid
       }, function(err) {
 
         if(err && err.error){
@@ -336,7 +337,8 @@ EdminForce.Components.User = React.createClass({
 
                 Dispatcher.dispatch({
                   actionType: "AUTH_REGISTER_SUCCESS",
-                  redirectUrl: self.props.redirectUrl
+                  redirectUrl: self.props.redirectUrl,
+                  sid: self.props.sid
                 });
               }
               else{
@@ -525,11 +527,6 @@ EdminForce.Components.User = React.createClass({
 
         return (<RC.Form onSubmit={this.register} onKeyUp={this.checkButtonState} ref="registerForm">
           {this.printMsg()}
-          <RC.Select3 name="school"
-                     ref="school"
-                     options={this.data.schools}
-                     label="School"
-                     theme={inputTheme} />
           <RC.Input name="fName" label="First Name" theme={inputTheme} ref="fName" placeholder="John" value=""/>
           <RC.Input name="lName" label="Last Name" theme={inputTheme} ref="lName" placeholder="Doe" />
           <RC.Input name="email" label="E-Mail" theme={inputTheme} ref="regEmail" placeholder="john@example.net" />
@@ -624,6 +621,11 @@ EdminForce.Components.User = React.createClass({
       return (
           <RC.Loading isReady={false}></RC.Loading>
       )
+
+    // check if school id is valid
+    if (!_.find(this.data.schools, {schoolID:this.props.sid})) {
+        return (<div>Invalid school link</div>)
+    }
 
     let styles = this.css.styles
     let linkColor = this.color.isDark ? "rgba(255,255,255,.7)" : "rgba(15,15,15,.7)"

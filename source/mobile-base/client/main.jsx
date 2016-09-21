@@ -4,8 +4,7 @@ Dependency.add('auth.store', new function () {
     var self = this;
 
     function postLoginAction(redirectUrl) {
-        if (!EdminForce.utils.postActionRedirect(redirectUrl))
-            FlowRouter.go('/home');
+        EdminForce.utils.postActionRedirect(redirectUrl);
     }
 
     self.tokenId = Dispatcher.register(function (payload) {
@@ -16,14 +15,14 @@ Dependency.add('auth.store', new function () {
                         console.error(err) //todo UI side
                         return;
                     }
-                    FlowRouter.go('/login')
+                    FlowRouter.go('/' + payload.sid + '/login')
                 })
                 break;
             }
             case "AUTH_REGISTER_SUCCESS":{
                 FlowRouter.LastRoute
                 FlowRouter.LastRoute=[];
-                postLoginAction(payload.redirectUrl && payload.redirectUrl.r || {r:'/student?r=%2F'});
+                postLoginAction(payload.redirectUrl && payload.redirectUrl.r ? payload.redirectUrl : {r: '/' + payload.sid + '/student?r=%2F'});
 
                 break;
             }
@@ -34,7 +33,7 @@ Dependency.add('auth.store', new function () {
                 break;
             }
             case "AUTH_LOGIN_SUCCESS":{
-                postLoginAction(payload.redirectUrl);
+                postLoginAction(payload.redirectUrl && payload.redirectUrl.r ? payload.redirectUrl : {r:'/' + payload.sid});
                 break;
             }
         }

@@ -31,6 +31,9 @@ EdminForce.utils.routeHandler = function (p, args) {
         hideLeftNavToggle: args.hideLeftNavToggle,
         hideShoppingCartButton: args.hideShoppingCartButton,
 
+        // school id
+        sid: p.sid,
+
         body: args.bodyTmpl
     })
 }

@@ -4,7 +4,7 @@ injectTapEventPlugin();
 EdminForce.Components.AppMain = React.createClass({
     signout(){
         Dispatcher.dispatch({actionType: 'LEFT_NAV_CLOSE'})
-        Dispatcher.dispatch({actionType: 'AUTH_LOGOUT'})
+        Dispatcher.dispatch({actionType: 'AUTH_LOGOUT', sid: this.props.sid})
     },
 
     render: function () {
@@ -17,14 +17,14 @@ EdminForce.Components.AppMain = React.createClass({
                                                  useMiniNav={!this.props.user || !!this.props.headerNav}
                                                  shoppingCartCount={this.props.count}
                                                  shoppingCartUrl="/checkout">
-                    <RC.URL href="/">Home</RC.URL>
-                    <RC.URL href="/account">My Account</RC.URL>
-                    <RC.URL href="/students">Booking Records</RC.URL>
-                    <RC.URL href="/programs">Trial Class</RC.URL>
-                    <RC.URL href="/classes">Class Registration</RC.URL>
-                    <RC.URL href="/student/makeup">Make up Class</RC.URL>
-                    <RC.URL href="/billing">Billing</RC.URL>
-                    <RC.URL href="/contact">Contact Us</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/"}>Home</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/account"}>My Account</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/students"}>Booking Records</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/programs"}>Trial Class</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/classes"}>Class Registration</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/student/makeup"}>Make up Class</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/billing"}>Billing</RC.URL>
+                    <RC.URL href={"/" + this.props.sid + "/contact"}>Contact Us</RC.URL>
                     <RC.URL onClick={this.signout}>Sign Out</RC.URL>
                 </EdminForce.Components.HeaderNav>
 
