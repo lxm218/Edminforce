@@ -8,10 +8,11 @@ DefaultRoutes.route('/:sid', {
     name: "home",
     triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p) {
+        EdminForce.Contexts.Home.sid = p.sid;
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Components.Home sid={p.sid} actions = {EdminForce.Actions.Home}/>
+            bodyTmpl: <EdminForce.Components.Home sid={p.sid} context = {EdminForce.Contexts.Home} actions = {EdminForce.Actions.Home}/>
         })
     }
 })

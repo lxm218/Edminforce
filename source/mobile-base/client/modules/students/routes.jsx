@@ -1,7 +1,8 @@
 // show a list of students, each with registered classes
-DefaultRoutes.route('/students', {
+DefaultRoutes.route('/:sid/students', {
     name: "students",
     action: function(p) {
+        EdminForce.Contexts.Students.sid = p.sid;
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
