@@ -623,7 +623,7 @@ EdminForce.Components.User = React.createClass({
       )
 
     // check if school id is valid
-    if (!_.find(this.data.schools, {schoolID:this.props.sid})) {
+    if (!_.find(this.data.schools, {sid:this.props.sid})) {
         return (<div>Invalid school link</div>)
     }
 

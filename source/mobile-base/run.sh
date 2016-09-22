@@ -34,10 +34,11 @@ deploy(){
 runLocal(){
   #stopMongoDB
   #startMongoDB
-  #export MONGO_URL=mongodb://localhost:27017/EdminForce
 
+  #export MONGO_URL=mongodb://localhost:27017/EdminForce
+  export MONGO_URL=mongodb://kidsart:Ikidsart123!@aws-us-east-1-portal.13.dblayer.com:10587/kidsart?ssl=true
   #staging mongodb
-  export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
+  #export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
   #export MONGO_URL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
   #export NODE_OPTIONS='--debug'
 

@@ -28,6 +28,14 @@ KG.define('EF-School', class extends Base{
             'classforthUrl':KG.schema.default({
                 optional : true
             }),
+
+            // school id that is used as unique id in multi-tenant url
+            // such classforth.com/kidsart
+            // this is required
+            sid: KG.schema.default({
+                    optional : false
+            }),
+
             domain : KG.schema.default({
                 optional : true
             }),
