@@ -1,24 +1,24 @@
 
 
 EdminForce.Actions.Home = {
-    goToPrograms({sid}) {
-        FlowRouter.go(`/${sid}/programs`);
+    goToPrograms() {
+        FlowRouter.go(`/${EdminForce.sid}/programs`);
     },
     
-    goToRegistration({sid}) {
-        FlowRouter.go(`/${sid}/classes`);
+    goToRegistration() {
+        FlowRouter.go(`/${EdminForce.sid}/classes`);
     },
     
-    goToStudents({sid}) {
-        FlowRouter.go(`/${sid}/students`);
+    goToStudents() {
+        FlowRouter.go(`/${EdminForce.sid}/students`);
     },
     
-    goToAccount({sid}) {
-        EdminForce.utils.authGo(`/${sid}/account`);
+    goToAccount() {
+        EdminForce.utils.authGo(`/${EdminForce.sid}/account`);
     },
 
-    goToMakeup({sid}){
-        EdminForce.utils.authGo(`/${sid}/student/makeup`);
+    goToMakeup(){
+        EdminForce.utils.authGo(`/${EdminForce.sid}/student/makeup`);
     }
 }
 

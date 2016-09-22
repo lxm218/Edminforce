@@ -19,6 +19,9 @@ EdminForce.utils.routeHandler = function (p, args) {
     document.title = args.metaTitle
     document.description = args.metaDesc
 
+    // set sid
+    EdminForce.sid = p.sid;
+
     ReactLayout.render(args.layout, {
         title: args.pageTitle,
         //showGlobalNav: args.showGlobalNav,
@@ -30,9 +33,6 @@ EdminForce.utils.routeHandler = function (p, args) {
         hideBackButton: args.hideBackButton,
         hideLeftNavToggle: args.hideLeftNavToggle,
         hideShoppingCartButton: args.hideShoppingCartButton,
-
-        // school id
-        sid: p.sid,
 
         body: args.bodyTmpl
     })

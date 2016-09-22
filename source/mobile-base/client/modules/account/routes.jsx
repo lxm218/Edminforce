@@ -3,7 +3,6 @@ DefaultRoutes.route('/:sid/account', {
     name: "account",
     triggersEnter: [EdminForce.utils.authCheckRouteTrigger],
     action: function(p) {
-        EdminForce.Contexts.Account.sid = p.sid;
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,

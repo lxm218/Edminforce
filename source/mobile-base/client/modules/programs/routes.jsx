@@ -4,7 +4,7 @@ DefaultRoutes.route('/:sid/programs', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Containers.Programs sid={p.sid} context={EdminForce.Contexts.Programs} actions={EdminForce.Actions.Programs} />
+            bodyTmpl: <EdminForce.Containers.Programs context={EdminForce.Contexts.Programs} actions={EdminForce.Actions.Programs} />
         })
     }
 });
@@ -17,7 +17,6 @@ DefaultRoutes.route('/:sid/trialClasses/:programID', {
             pageTitle: "Edmin Force",
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.TrialClasses
-                        sid={p.sid}
                         programID={p.programID}
                         context={EdminForce.Contexts.Programs} 
                         actions={EdminForce.Actions.Programs} />
@@ -32,7 +31,6 @@ DefaultRoutes.route('/:sid/bookTrial', {
             pageTitle: "Edmin Force",
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.BookTrial
-                sid={p.sid}
                 classID={q.classID}
                 classDate={q.timestamp}
                 context={EdminForce.Contexts.Programs}
@@ -47,7 +45,7 @@ DefaultRoutes.route('/:sid/bookTrialSummary', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Components.BookTrialSummary  sid={p.sid}/>
+            bodyTmpl: <EdminForce.Components.BookTrialSummary />
         })
     }
 });
@@ -61,7 +59,7 @@ DefaultRoutes.route('/:sid/classes', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Containers.Classes sid={p.sid}
+            bodyTmpl: <EdminForce.Containers.Classes
                 context={EdminForce.Contexts.Programs}
                 actions={EdminForce.Actions.Programs} />
         })
@@ -76,7 +74,6 @@ DefaultRoutes.route('/:sid/makeupClasses', {
             pageTitle: "Edmin Force",
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.MakeupClasses
-                sid={p.sid}
                 studentID={q.studentID}
                 studentName={q.studentName}
                 classID={q.classID}
@@ -93,7 +90,6 @@ DefaultRoutes.route('/:sid/student/makeup', {
             pageTitle: "Edmin Force",
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.MakeupClasses_1
-                sid={p.sid}
                 context={EdminForce.Contexts.Students}
                 actions={EdminForce.Actions.Students} />
         })
@@ -107,7 +103,6 @@ DefaultRoutes.route('/:sid/makeupClassSummary', {
             pageTitle: "Edmin Force",
             headerNav: null,
             bodyTmpl: <EdminForce.Containers.MakeupClassSummary
-                sid={p.sid}
                 studentID={q.studentID}
                 studentName={q.studentName}
                 classID={q.classID}

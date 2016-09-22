@@ -233,8 +233,7 @@ EdminForce.Components.User = React.createClass({
         if(!err){
           Dispatcher.dispatch({
             actionType: "AUTH_LOGIN_SUCCESS",
-            redirectUrl: self.props.redirectUrl,
-            sid: self.props.sid
+            redirectUrl: self.props.redirectUrl
           });
           return;
         }
@@ -301,7 +300,7 @@ EdminForce.Components.User = React.createClass({
         email: form.email.toLowerCase(),
         password: form.pw,
         role : 'user',
-        schoolID: this.props.sid
+        schoolID: EdminForce.sid
       }, function(err) {
 
         if(err && err.error){
@@ -337,8 +336,7 @@ EdminForce.Components.User = React.createClass({
 
                 Dispatcher.dispatch({
                   actionType: "AUTH_REGISTER_SUCCESS",
-                  redirectUrl: self.props.redirectUrl,
-                  sid: self.props.sid
+                  redirectUrl: self.props.redirectUrl
                 });
               }
               else{
@@ -623,7 +621,7 @@ EdminForce.Components.User = React.createClass({
       )
 
     // check if school id is valid
-    if (!_.find(this.data.schools, {sid:this.props.sid})) {
+    if (!_.find(this.data.schools, {sid:EdminForce.sid})) {
         return (<div>Invalid school link</div>)
     }
 

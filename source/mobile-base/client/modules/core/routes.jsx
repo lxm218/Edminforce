@@ -12,7 +12,7 @@ DefaultRoutes.route('/:sid', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Components.Home sid={p.sid} context = {EdminForce.Contexts.Home} actions = {EdminForce.Actions.Home}/>
+            bodyTmpl: <EdminForce.Components.Home context = {EdminForce.Contexts.Home} actions = {EdminForce.Actions.Home}/>
         })
     }
 })
@@ -31,7 +31,7 @@ DefaultRoutes.route('/:sid/login', {
             hideLeftNavToggle: true,
             hideShoppingCartButton: true
         }
-        dynamicRoute.bodyTmpl = (<EdminForce.Components.User sid={p.sid} redirectUrl={q} fullHeight={true} theme="overlay-dark" bgColor="brand-light"></EdminForce.Components.User>);
+        dynamicRoute.bodyTmpl = (<EdminForce.Components.User redirectUrl={q} fullHeight={true} theme="overlay-dark" bgColor="brand-light"></EdminForce.Components.User>);
         EdminForce.utils.routeHandler(p, dynamicRoute)
     }
 })
@@ -42,7 +42,7 @@ DefaultRoutes.route('/:sid/contact', {
         EdminForce.utils.routeHandler(p, {
             pageTitle: "Edmin Force",
             headerNav: null,
-            bodyTmpl: <EdminForce.Components.Contact sid={p.sid} />
+            bodyTmpl: <EdminForce.Components.Contact />
         })
     }
 })
@@ -55,7 +55,7 @@ DefaultRoutes.route('/reset-password/:userToken', {
       headerNav: null,
       hideBackButton:true,
       showGlobalNav: false,
-      bodyTmpl: React.createElement(EdminForce.Components.ResetPasswordEmail, {sid:p.sid, userToken: p.userToken, themes: "overlay-dark", bgColor: "brand-light"},null)
+      bodyTmpl: React.createElement(EdminForce.Components.ResetPasswordEmail, {userToken: p.userToken, themes: "overlay-dark", bgColor: "brand-light"},null)
     }
     EdminForce.utils.routeHandler(p, dynamicRoute)
   }

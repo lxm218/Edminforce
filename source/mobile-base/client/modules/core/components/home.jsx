@@ -28,7 +28,7 @@ EdminForce.Components.Home = ({actions}) => (
             <p className="font_9">47816 Warm Springs Blvd, Fremont, CA</p>
             <p className="font_9">help@CalColorAcademy.com</p>
             <p className="font_9">Front-Desk: 510-580-6883</p>
-            <p className="font_9">School Director: 530-204-8869</p>
+            <p className="font_9">School Director: 530-204-8869</p>ww
         </RC.Div>
 
         <RC.Div style={{"textAlign": "center", marginTop: 20}}>

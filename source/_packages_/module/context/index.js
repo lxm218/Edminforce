@@ -31,6 +31,7 @@ EdminForce = {
     //Collections : Collections,
     Registration: {},
     VERSION : '0.0.1',
+    sid: null
 };
 
 

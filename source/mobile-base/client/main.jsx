@@ -15,25 +15,25 @@ Dependency.add('auth.store', new function () {
                         console.error(err) //todo UI side
                         return;
                     }
-                    FlowRouter.go('/' + payload.sid + '/login')
+                    FlowRouter.go(`/${EdminForce.sid}/login`)
                 })
                 break;
             }
             case "AUTH_REGISTER_SUCCESS":{
                 FlowRouter.LastRoute
                 FlowRouter.LastRoute=[];
-                postLoginAction(payload.redirectUrl && payload.redirectUrl.r ? payload.redirectUrl : {r: '/' + payload.sid + '/student?r=%2F'});
+                postLoginAction(payload.redirectUrl && payload.redirectUrl.r ? payload.redirectUrl : {r:  `/${EdminForce.sid}/student?r=%2F`});
 
                 break;
             }
             case "AUTH_RESET_SUCCESS":{
                 FlowRouter.LastRoute
                 FlowRouter.LastRoute=[];
-                FlowRouter.go('/home')
+                FlowRouter.go(`/${EdminForce.sid}`)
                 break;
             }
             case "AUTH_LOGIN_SUCCESS":{
-                postLoginAction(payload.redirectUrl && payload.redirectUrl.r ? payload.redirectUrl : {r:'/' + payload.sid});
+                postLoginAction(payload.redirectUrl && payload.redirectUrl.r ? payload.redirectUrl : {r: `/${EdminForce.sid}`});
                 break;
             }
         }
