@@ -1,37 +1,34 @@
 
 KUI.Setting_AdminUserList = class extends KUI.Page{
+
 	constructor(p){
 		super(p);
 
-		this.m = KG.DataHelper.getDepModule();
+		this.state = {
+			list : false
+		}
 	}
 
 	getMeteorData(){
-		let x = Meteor.subscribe('EF-AdminUser', {});
-
 		return {
-			ready : x.ready(),
-			list : this.m.AdminUser.getAll({}, {
-				sort : {createTime:-1}
-			})
+			ready : true
 		}
 	}
 
 	render(){
-		if(!this.data.ready){
+		if(!this.data.ready || !this.state.list){
 			return util.renderLoading();
 		}
 
-		let cu = this.m.AdminUser.getAll({_id : Meteor.user()._id})[0];
-		console.log(cu);
-		if(cu.role !== 'admin'){
+
+		if(this.loginUser.role !== 'admin'){
 			return (
 				<RC.Div><h3>Sorry, This page is only for Role admin</h3></RC.Div>
 			);
 		}
 
-		let list = this.data.list;
-
+		let list = this.state.list;
+console.log(list)
 		return (
 			<RC.Div>
 				<h3>Teacher List</h3>
@@ -124,5 +121,16 @@ KUI.Setting_AdminUserList = class extends KUI.Page{
 				title={titleArray}
 				ref="table"></KUI.Table>
 		);
+	}
+
+	runOnceAfterDataReady(){
+		let self = this;
+		let query = {}
+		query[`schoolID.${App.schoolID}`] = {$exists:true};
+		this.m.AdminUser.callMeteorMethod('getAll', [query], {
+			success : function(list){
+				self.setState({list : list});
+			}
+		})
 	}
 };

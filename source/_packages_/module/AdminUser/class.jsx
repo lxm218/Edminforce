@@ -132,7 +132,7 @@ let AdminUser = class extends Base{
 
     getAll(query, option){
         let rs = this._db.find(query||{}, option||{}).fetch();
-
+console.log(rs);
         let result = _.map(rs, (item)=>{
 
 
@@ -147,12 +147,24 @@ let AdminUser = class extends Base{
     updateById(data, id){
         this.module = KG.DataHelper.getDepModule();
 
+        const sid = data.schoolID;
+
+        let schoolInfo = {};
+        schoolInfo[sid] = {
+            nickName : data.nickName,
+            role : data.role,
+            status : 'active'
+        };
+        data.schoolID = schoolInfo;
+
         if(data.school){
             let school = data.school;
             delete data.school;
 
-            this.module.School.setInfo(school);
+            this.module.School.setInfo(school, sid);
         }
+
+
 
         try{
             let rs = this._db.update({_id : id}, {'$set' : data});
@@ -308,6 +320,11 @@ let AdminUser = class extends Base{
                     $set : data
                 });
                 return nd;
+            },
+
+            getAll : function(query, opt){
+
+                return self._db.find(query, opt||{}).fetch();
             }
         };
 

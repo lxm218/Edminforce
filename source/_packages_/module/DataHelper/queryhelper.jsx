@@ -477,6 +477,9 @@ console.log(start.format(), end.format());
 
     getSchoolID(userId){
         if(Meteor.isClient){
+            if(App && App.schoolID){
+                return App.schoolID;
+            }
             return Meteor.user()?Meteor.user().schoolID:null;
         }
         else{

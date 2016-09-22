@@ -98,8 +98,8 @@ KG.define('EF-School', class extends Base{
         return rs;
     }
 
-    setInfo(data){
-        let id = this.id;
+    setInfo(data, id){
+        id = id || this.id;
         try{
             let rs = this._db.update({_id : id}, {'$set' : data});
             return KG.result.out(true, rs);
