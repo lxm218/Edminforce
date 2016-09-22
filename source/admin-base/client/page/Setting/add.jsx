@@ -238,7 +238,6 @@ console.log(option.school)
             role : role.getValue(),
             status : status.getValue(),
             supervisor : supervisor.getValue(),
-            schoolID : this.refs.schoolID.getValue(),
             school : {
                 name : schoolName.getValue(),
                 email : schoolEmail.getValue(),
@@ -249,6 +248,12 @@ console.log(option.school)
                 zipcode : schoolZip.value
             }
         };
+        if(this.refs.schoolID){
+            data.schoolID = this.refs.schoolID.getValue();
+        }
+        else{
+            data.schoolID = App.schoolID;
+        }
 
         if(this.formType.get() === 'add'){
             data.password = pwd.getValue();
@@ -275,11 +280,15 @@ console.log(option.school)
         schoolName.getInputDOMNode().value = data.school.name || '';
         schoolEmail.getInputDOMNode().value = data.school.email || '';
         schoolPhone.getInputDOMNode().value = data.school.phone || '';
-        this.refs.schoolID.getInputDOMNode().value = data.schoolID;
+
         schoolAddress.value = data.school.address || '';
         schoolCity.value = data.school.city || '';
         schoolState.value = data.school.state || '';
         schoolZip.value = data.school.zipcode || '';
+
+        if(this.refs.schoolID){
+            this.refs.schoolID.getInputDOMNode().value = App.schoolID;
+        }
 
         util.getReactJQueryObject(timezone).find('select').val(data.school.timezoneString);
     }

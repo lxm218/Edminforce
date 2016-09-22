@@ -27,6 +27,10 @@ KUI.Setting_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
+        if(this.loginUser.role === 'superadmin'){
+            return <h3>Super Admin can not edit profile.</h3>;
+        }
+
         let sy = this.css.get('styles');
         return (
             <RC.Div>
@@ -43,7 +47,7 @@ KUI.Setting_profile = class extends KUI.Page{
 
     runOnceAfterDataReady(){
         let data = this.data.profile;
-        data.school = KG.get('EF-School').getInfo(data.schoolID);
+        data.school = KG.get('EF-School').getInfo(App.schoolID);
 
         console.log(data);
         this.refs.form.setDefaultValue(data);

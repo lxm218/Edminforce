@@ -45,10 +45,20 @@ if(Meteor.isClient){
     };
 
 
-    App.checkLogin = function(callback){
+    App.checkLogin = function(param, callback){
 
         KG.get('EF-AdminUser').callMeteorMethod('getCurrentUser', [], {
             success : function(user){
+                console.log(param, user);
+                if(param['sid'] && user.schoolID[param['sid']]){
+                    App.schoolID = param['sid'];
+                }
+                else if(user.currentSchoolID && user.schoolID[user.currentSchoolID]){
+                    App.schoolID = user.currentSchoolID;
+                }
+                else{
+                    App.schoolID = _.keys(user.schoolID)[0]
+                }
                 App.user = user;
                 callback(user);
             }
@@ -64,7 +74,7 @@ if(Meteor.isClient){
         if(param.queryParams.needLogin === "false"){
             return;
         }
-        App.checkLogin(function(flag){
+        App.checkLogin(param.params, function(flag){
             if(!flag){
                 if(param.path !== '/home/login')
                     Session.set(KG.const.CACHELOGINPATH, param.path);

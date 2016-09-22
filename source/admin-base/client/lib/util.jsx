@@ -7,6 +7,21 @@ _.extend(util, {
         FlowRouter.go(url);
     },
 
+    goPathWithSchoolID : function(absoluteUrl){
+        if(absoluteUrl[0]!=='/'){
+            alert('util.goPathWithSchoolID param is must be an absolute url');
+            return false;
+        }
+        FlowRouter.go('/'+App.schoolID+absoluteUrl);
+    },
+    getPathWithSchoolID : function(absoluteUrl){
+        if(absoluteUrl[0]!=='/'){
+            alert('util.getPathWithSchoolID param is must be an absolute url');
+            return false;
+        }
+        return '/'+App.schoolID+absoluteUrl;
+    },
+
     //renderLoading : function(opts){
     //    opts = _.extend({
     //        isReady : false

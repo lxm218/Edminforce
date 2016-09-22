@@ -168,6 +168,16 @@ let AdminUser = class extends Base{
         let pwd = data.password || null;
         //delete data.password;
 
+        const sid = data.schoolID;
+
+        let schoolInfo = {};
+        schoolInfo[sid] = {
+            nickName : data.nickName,
+            role : data.role,
+            status : 'active'
+        };
+        data.schoolID = schoolInfo;
+
         let vd = this.validateWithSchema(data);
         if(vd !== true){
             return callback(KG.result.out(false, vd));
@@ -177,15 +187,7 @@ let AdminUser = class extends Base{
             return callback(KG.result.out(false, new Meteor.Error(-1, 'password is required')));
         }
 
-        const sid = data.schoolID;
-
-        let schoolInfo = {};
-        schoolInfo[sid] = {
-            nickName : data.nickName,
-            role : data.role,
-            status : 'active'
-        };
-
+        
         //create account
         let accountData = {
             username : data.email,
@@ -200,7 +202,7 @@ let AdminUser = class extends Base{
 
         console.log(accountData);
 
-        data.schoolID = schoolInfo;
+
 
 
         try{
