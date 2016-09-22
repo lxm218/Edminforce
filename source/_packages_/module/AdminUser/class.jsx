@@ -53,7 +53,20 @@ let AdminUserSchema = new SimpleSchema({
         optional : true,
         type : Date
     }),
+
+    /*
+    * role
+    * status
+    * group
+    * employmentDate
+    * nickName
+    * */
     schoolID : KG.schema.default({
+        type: Object,
+        optional: true,
+        blackbox: true
+    }),
+    currentSchoolID : KG.schema.default({
         optional : true
     }),
     createTime : KG.schema.createTime(),
@@ -73,13 +86,21 @@ let AdminUser = class extends Base{
             return false;
         }
 
+        const schoolInfo = {
+            AdminSchoolID : {
+                role : 'superadmin',
+                nickName : 'Administrator',
+                status : 'active'
+            }
+        };
+
         let data = {
             email : 'superadmin@classforth.com',
             password : 'admin',
             status : 'active',
-            nickName : 'ClassForth Administrator',
+            nickName : 'Administrator',
             role : 'superadmin',
-            schoolID : 'AdminSchoolID'
+            schoolID : schoolInfo
         };
 
         let accountData = {
@@ -156,6 +177,15 @@ let AdminUser = class extends Base{
             return callback(KG.result.out(false, new Meteor.Error(-1, 'password is required')));
         }
 
+        const sid = data.schoolID;
+
+        let schoolInfo = {};
+        schoolInfo[sid] = {
+            nickName : data.nickName,
+            role : data.role,
+            status : 'active'
+        };
+
         //create account
         let accountData = {
             username : data.email,
@@ -163,14 +193,14 @@ let AdminUser = class extends Base{
             password : pwd,
             profile : {a : 1},
             role : 'admin',
-            schoolID : data.schoolID || 'AdminSchoolID',
+            schoolID : sid || 'AdminSchoolID',
             status : 'active'
         };
 
 
         console.log(accountData);
 
-
+        data.schoolID = schoolInfo;
 
 
         try{

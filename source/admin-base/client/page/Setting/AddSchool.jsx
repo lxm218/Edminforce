@@ -14,6 +14,7 @@ KUI.Setting_add_school_comp = class extends KUI.Page{
 
 	getRefs(){
 		return {
+			sid : this.refs.sid,
 			schoolName : this.refs.schoolName,
 			schoolEmail : this.refs.schoolEmail,
 			schoolPhone : this.refs.schoolPhone,
@@ -34,12 +35,13 @@ KUI.Setting_add_school_comp = class extends KUI.Page{
 
 		let p = {
 
-			s_id : {
+			sid : {
 				labelClassName : 'col-xs-2',
 				wrapperClassName : 'col-xs-10',
-				ref : 'schoolID',
-				label : 'School'
+				ref : 'sid',
+				label : 'Unique ID'
 			},
+
 
 			s_name : {
 				labelClassName : 'col-xs-2',
@@ -83,6 +85,7 @@ KUI.Setting_add_school_comp = class extends KUI.Page{
 					<RB.Col md={12}>
 
 
+						<RB.Input type="text" {... p.sid} />
 						<RB.Input type="text" {... p.s_name} />
 						<RB.Input type="text" {... p.s_email} />
 						<RB.Input type="text" {... p.s_phone} />
@@ -118,11 +121,12 @@ KUI.Setting_add_school_comp = class extends KUI.Page{
 
 	getValue(){
 		let {
-			schoolName, schoolEmail, schoolPhone,
+			sid, schoolName, schoolEmail, schoolPhone,
 			schoolAddress, schoolCity, schoolState, schoolZip, timezone
 			} = this.getRefs();
 
 		let data = {
+			sid : sid.getValue(),
 			name : schoolName.getValue(),
 			email : schoolEmail.getValue(),
 			phone : schoolPhone.getValue(),
@@ -183,14 +187,22 @@ KUI.Setting_AddSchool = class extends RC.CSS{
 		let self = this;
 		let data = this.refs.form.getValue();
 
+		data.sid = data.sid.replace(/ /g, '').toLowerCase();
+		data._id = data.sid;
+
 		console.log(data);
 
-		KG.get(util.getModuleName('School')).getDB().insert(data, function(err, rs){
-			if(!err){
+		KG.get(util.getModuleName('School')).callMeteorMethod('addSchool', [data], {
+			success : function(){
 				util.toast.alert('Insert Success');
 				util.goPath('/setting');
+			},
+			error : function(err){
+				console.error(err);
+				util.toast.showError('Add New School Error');
 			}
-		});
+		})
+
 
 
 	}

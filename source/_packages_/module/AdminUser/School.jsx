@@ -67,6 +67,7 @@ KG.define('EF-School', class extends Base{
             let data = {
                 name : 'Class Forth',
                 email : 'contract@classforth.com',
+                sid : this.id,
                 _id : this.id
             };
             this._db.insert(data);
@@ -105,5 +106,14 @@ KG.define('EF-School', class extends Base{
         }catch(e){
             return KG.result.out(false, e, e.reason);
         }
+    }
+
+    defineMeteorMethod(){
+        let self = this;
+        return {
+            addSchool : function(data){
+                return self._db.insert(data);
+            }
+        };
     }
 });
