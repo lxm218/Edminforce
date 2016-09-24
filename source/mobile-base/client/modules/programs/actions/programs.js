@@ -2,7 +2,7 @@
 EdminForce.Actions.Programs = {
     
     showTrialClasses({LocalState}, programID) {
-        let path = FlowRouter.path("/trialClasses/:programID", {programID});
+        let path = FlowRouter.path(`/${EdminForce.sid}/trialClasses/:programID`, {programID});
         FlowRouter.go(path);
     },
     
@@ -14,10 +14,10 @@ EdminForce.Actions.Programs = {
         
         let path;
         if (Meteor.user()) {
-            path = FlowRouter.path("/bookTrial", null,queryParams);
+            path = FlowRouter.path(`/${EdminForce.sid}/bookTrial`, null,queryParams);
         }
         else {
-            queryParams.r = "/bookTrial";
+            queryParams.r = `/${EdminForce.sid}/bookTrial`;
             path = FlowRouter.path("/login", null,queryParams);
         }
 
@@ -27,7 +27,7 @@ EdminForce.Actions.Programs = {
     bookTrial({LocalState}, studentID, classID, className, lessonDate) {
         LocalState.set('ERROR_PROGRAM_BOOKTRIAL', null);
         Meteor.call('program.bookTrial', studentID, classID, className, lessonDate, function (err) {
-            err ? LocalState.set('ERROR_PROGRAM_BOOKTRIAL', err.reason) : FlowRouter.go('/bookTrialSummary');
+            err ? LocalState.set('ERROR_PROGRAM_BOOKTRIAL', err.reason) : FlowRouter.go(`/${EdminForce.sid}/bookTrialSummary`);
         });
     },
     
@@ -35,7 +35,7 @@ EdminForce.Actions.Programs = {
         LocalState.set('ERROR_CLASSES', null);
         Meteor.call('program.bookClasses', studentID, classIDs, function(err,result){
             err ? LocalState.set('ERROR_CLASSES', err.reason) : 
-                FlowRouter.go(FlowRouter.path("/registrationSummary", null, {registrationIDs:result.join()}));
+                FlowRouter.go(FlowRouter.path(`/${EdminForce.sid}/registrationSummary`, null, {registrationIDs:result.join()}));
         });
     },
     
@@ -45,7 +45,7 @@ EdminForce.Actions.Programs = {
         // studentID, classID, lessonDate
         Meteor.call('program.bookMakeup', studentID, classID, lessonDate, function(err,result){
             err ? LocalState.set('ERROR_MAKEUPCLASSES', err.reason) :
-                FlowRouter.go("/checkout");
+                FlowRouter.go(`/${EdminForce.sid}/checkout`);
         });
     },
     

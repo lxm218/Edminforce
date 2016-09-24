@@ -2,7 +2,7 @@
 const reactiveFnPrograms = ({context,actions}, onData) => {
     const errorId = 'ERROR_PROGRAM';
     const error = context.LocalState.get(errorId);
-    if (Meteor.subscribe('programs').ready()) {
+    if (Meteor.subscribe('programs', EdminForce.sid).ready()) {
         onData(null, {
             programs: Collections.program.find({},{sort: {displayOrder: 1}}).fetch(),
             error

@@ -110,10 +110,10 @@ EdminForce.Components.Classes = class extends RC.CSS {
 
     addStudent() {
         let redirectQueryParams = {
-            r: '/classes'
+            r: `/${EdminForce.sid}/classes`
         };
 
-        FlowRouter.go(FlowRouter.path('/student', null, redirectQueryParams));
+        FlowRouter.go(FlowRouter.path(`/${EdminForce.sid}/student`, null, redirectQueryParams));
     }
 
     showSessionInfo(event) {

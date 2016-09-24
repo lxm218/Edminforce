@@ -16,7 +16,7 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
     }
 
     onSelectLesson(classData) {
-        let path = FlowRouter.path('/makeupClassSummary', null, {
+        let path = FlowRouter.path(`/${EdminForce.sid}/makeupClassSummary`, null, {
             studentID: this.props.studentID,
             classID: classData._id,
             studentName: this.props.studentName,

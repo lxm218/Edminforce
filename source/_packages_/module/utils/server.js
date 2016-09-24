@@ -77,6 +77,20 @@ EdminForce.utils.getTZ = function() {
     return EdminForce.Settings.timeZone;
 }
 
+let schoolCache = {};
+EdminForce.utils.sid2schoolID = function(sid) {
+    if (!schoolCache[sid]) {
+        let school = Collections.school.findOne({sid});
+        school && (schoolCache[sid] = school._id);
+console.log('no cache hit');
+    }
+
+console.log('cache hit');
+console.log(sid, schoolCache[sid]);
+
+    return schoolCache[sid];
+}
+
 
 // EdminForce.utils.getPaymentConfirmEmailTemplate = function(data) {
 //     let school = {

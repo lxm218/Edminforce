@@ -1,4 +1,4 @@
 // publish all programs
-Meteor.publish('programs', function() {
-    return Collections.program.find({schoolID:EdminForce.utils.getSchoolIDByCustomerID(this.userId)},{sort:{displayOrder:1}});
+Meteor.publish('programs', function(sid) {
+    return Collections.program.find({schoolID:EdminForce.utils.sid2schoolID(sid)},{sort:{displayOrder:1}});
 });
