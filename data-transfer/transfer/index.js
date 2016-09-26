@@ -722,6 +722,7 @@ function processTeachers(data) {
 }
 
 function getClassLevels(levelStr) {
+    levelStr = levelStr.trim();
     let nameAndLevels = levelStr.split(' ');
     let levelIDs = [];
     if (nameAndLevels.length == 1) {
@@ -767,8 +768,8 @@ function processClasses(rows) {
 
         let teacherID = getClassTeacherID(data[3]);
         if (!teacherID) {
-            console.log('Row without teacher skipped: ', i);
-            continue;
+            //console.log('Row without teacher skipped: ', i);
+            //continue;
         }
 
         // Generate programs
@@ -787,7 +788,8 @@ function processClasses(rows) {
         let nClass = _.cloneDeep(classData);
         nClass.levels = getClassLevels(data[2]);
         if (nClass.levels == null || nClass.levels.length == 0) {
-            console.log(`Class at row# ${i} has no level`)
+            console.log(`Class at row# ${i} has no level`, data[2])
+            process.exit();
         }
         else {
             let classLevel = _.find(classLevels, {_id: nClass.levels[0]});
@@ -804,8 +806,8 @@ function processClasses(rows) {
         nClass.programID = nProgram._id ;
         nClass.sessionID = nSession._id;
         nClass.status = "Active";
-        nClass.length = data[7];
-        nClass.teacher = data[3];
+        nClass.length = data[6];
+        nClass.teacher = teacherID ? data[3] : 'N/A';
         nClass.teacherID = teacherID;
         nClass.schedule.days = getClassDays(data[4]);
         nClass.schedule.time = hours_am_pm(data[5]);
