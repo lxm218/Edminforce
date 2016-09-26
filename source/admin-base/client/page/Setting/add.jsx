@@ -38,7 +38,9 @@ KUI.Setting_add_comp = class extends RC.CSS{
             schoolCity : this.refs.schoolCity,
             schoolState : this.refs.schoolState,
             schoolZip : this.refs.schoolZip,
-            timezone : this.refs.timezone
+            timezone : this.refs.timezone,
+            schoolRegistrationFee : this.refs.schoolRegistrationFee,
+            surcharge : this.refs.surcharge
 
         };
     }
@@ -120,6 +122,18 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 wrapperClassName : 'col-xs-10',
                 ref : 'timezone',
                 label : 'Timezone'
+            },
+            schoolRegistrationFee : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-6',
+                ref : 'schoolRegistrationFee',
+                label : 'Registration Fee'
+            },
+            surcharge : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-6',
+                ref : 'surcharge',
+                label : 'Surcharge (tax)'
             }
 
         };
@@ -191,9 +205,11 @@ KUI.Setting_add_comp = class extends RC.CSS{
                             </RB.Row>
                         </RB.Input>
 
-                        <RB.Input type="select" {... p.timezone}>
+                        <RB.Input type="select" {... p.timezone} />
 
-                        </RB.Input>
+
+                        <RB.Input type="text" {... p.schoolRegistrationFee} />
+                        <RB.Input type="text" {... p.surcharge} />
 
                     </RB.Col>
                 </RB.Row>
@@ -210,7 +226,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
     getValue(){
         let {
             name, email, pwd, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
-            schoolAddress, schoolCity, schoolState, schoolZip, timezone
+            schoolAddress, schoolCity, schoolState, schoolZip, timezone, schoolRegistrationFee,
+            surcharge
             } = this.getRefs();
 
         let data = {
@@ -227,7 +244,9 @@ KUI.Setting_add_comp = class extends RC.CSS{
                 city : schoolCity.value,
                 state : schoolState.value,
                 zipcode : schoolZip.value,
-                domain : this.refs.schoolDomain.getValue()
+                domain : this.refs.schoolDomain.getValue(),
+                registrationFee : parseInt(schoolRegistrationFee.getValue(), 10),
+                surcharge : parseInt(surcharge.getValue(), 10)
             }
         };
 
@@ -246,7 +265,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
     setDefaultValue(data){
         let {
             name, email, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
-            schoolAddress, schoolCity, schoolState, schoolZip, timezone, schoolDomain
+            schoolAddress, schoolCity, schoolState, schoolZip, timezone, schoolDomain,
+            schoolRegistrationFee, surcharge
             } = this.getRefs();
         name.getInputDOMNode().value = data.nickName;
         email.getInputDOMNode().value = data.email || '';
@@ -261,13 +281,16 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolState.value = data.school.state || '';
         schoolZip.value = data.school.zipcode || '';
         schoolDomain.getInputDOMNode().value = data.school.domain || '';
+        schoolRegistrationFee.getInputDOMNode().value = data.school.registrationFee || 0;
+        surcharge.getInputDOMNode().value = data.school.surcharge || 0;
 
         util.getReactJQueryObject(timezone).find('select').val(data.school.timezoneString);
     }
     reset(){
         let {
             name, email, pwd, role, status, supervisor, schoolName, schoolEmail, schoolPhone,
-            schoolAddress, schoolCity, schoolState, schoolZip, schoolDomain
+            schoolAddress, schoolCity, schoolState, schoolZip, schoolDomain,
+            schoolRegistrationFee, surcharge
             } = this.getRefs();
         name.getInputDOMNode().value = '';
         email.getInputDOMNode().value = '';
@@ -283,6 +306,8 @@ KUI.Setting_add_comp = class extends RC.CSS{
         schoolState.value = '';
         schoolZip.value = '';
         schoolDomain.getInputDOMNode().value = '';
+        schoolRegistrationFee.getInputDOMNode().value = 0;
+        surcharge.getInputDOMNode().value = 0;
     }
 
     componentDidMount(){

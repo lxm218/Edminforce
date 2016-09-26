@@ -68,7 +68,9 @@ KUI.Setting_index = class extends KUI.Page{
             {title : 'School Domain', key : function(data){return school.domain;}},
             {title : 'School Phone', key : function(data){return school.phone;}},
             {title : 'School Address', key : function(data){return school.allAddress;}},
-            {title : 'School Timezone', key : function(data){return school.timezoneString||''}}
+            {title : 'School Timezone', key : function(data){return school.timezoneString||''}},
+            {title : 'School Registration Fee', key : function(data){return school.registrationFee||0}},
+            {title : 'School Surcharge', key : function(data){return school.surcharge||0}}
         ];
 
         let profile = this.data.profile,
