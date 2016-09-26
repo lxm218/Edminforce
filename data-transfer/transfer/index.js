@@ -806,7 +806,7 @@ function processClasses(rows) {
         nClass.programID = nProgram._id ;
         nClass.sessionID = nSession._id;
         nClass.status = "Active";
-        nClass.length = data[7];
+        nClass.length = data[6];
         nClass.teacher = teacherID ? data[3] : 'N/A';
         nClass.teacherID = teacherID;
         nClass.schedule.days = getClassDays(data[4]);
