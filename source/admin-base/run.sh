@@ -9,8 +9,6 @@ RC_DIR=$PACKAGE_ROOT/ihealth-framework-ui/library
 ENV="PACKAGE_DIRS=$PACKAGE_ROOT/both:$RC_DIR/both:$RC_DIR/mobile:$RC_DIR/webapp:$PACKAGE_ROOT/module"
 
 #MONGOURL=mongodb://127.0.0.1:27017/Calphin
-#MONGOURL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true
-#MONGOURL=mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor?ssl=true
 MONGOURL=mongodb://calphin:Icalphin123!@aws-us-east-1-portal.12.dblayer.com:10048/calphin-stage?ssl=true
 
 #echo $ENV

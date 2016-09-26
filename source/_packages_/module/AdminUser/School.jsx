@@ -32,6 +32,16 @@ KG.define('EF-School', class extends Base{
                 type : Number,
                 defaultValue : 0
             }),
+            registrationFee : KG.schema.default({
+                optional : true,
+                type : Number,
+                defaultValue : 0
+            }),
+            surcharge : KG.schema.default({
+                optional : true,
+                type : Number,
+                defaultValue : 0
+            }),
             timezoneString : KG.schema.default({
                 optional : true,
                 defaultValue : ''

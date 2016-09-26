@@ -20,7 +20,9 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			step : 1,
 
 			coupon : null,
-			useSchoolCredit : false
+			useSchoolCredit : false,
+			registrationFee : 0,
+			surcharge : 0
 		};
 
 		this.C = {
@@ -40,10 +42,12 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		this.studentID = FlowRouter.getQueryParam('studentID');
 		this.classID = FlowRouter.getQueryParam('classID');
 
+		let xx = Meteor.subscribe(util.getModuleName('School'));
+
 
 
 		return {
-			ready : true
+			ready : xx.ready()
 		};
 	}
 
@@ -185,7 +189,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		this.m.Customer.callMeteorMethod('checkRegistrationFee', [{ClassStudentList : this.state.summaryList.list}], {
 			success : function(rf){
 				console.log(rf);
-				self.C.registrationFee = rf;
+				//self.state.registrationFee = rf;
 				self.setState({
 					coupon : false,
 					step : 2
@@ -222,16 +226,24 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			}
 		];
 
-		if(this.C.registrationFee){
-			//this.C.registrationFee = this.m.Customer.getRegistrationFee();
+		if(true || this.state.registrationFee){
+			this.C.registrationFee = this.state.registrationFee;
 
 			dl.push({
 				item : 'Registration Fee',
 				value : this.C.registrationFee
 			});
 
-			total = total + this.C.registrationFee;
+			total = Number(total) + Number(this.C.registrationFee);
 		}
+
+		//surcharge
+		dl.push({
+			item : 'Surcharge (tax)',
+			value : this.state.surcharge
+		})
+		total = total + Number(this.state.surcharge);
+
 		this.C.totalFee = total;
 
 		// coupon
@@ -272,9 +284,51 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		});
 		this.C.actualPayment = total;
 
+		let sc_fee_option = [0];
+		let s = this.m.School.getInfo();
+		if(s.registrationFee !== 0){
+			sc_fee_option.push(s.registrationFee);
+		}
+		let sc_charge_option = [0];
+		if(s.surcharge !== 0){
+			sc_charge_option.push(s.surcharge);
+		}
+		const PP = {
+			sc_fee  : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-8',
+				ref : 'sc_fee',
+				label : 'Select Regisgration Fee'
+			},
+			sc_charge : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-8',
+				ref : 'sc_charge',
+				label : 'Select Surcharge'
+			}
+		}
+
 		return (
 			<RC.Div>
 				<p>School Credit : {customer.schoolCredit || 0}</p>
+
+				<form className="form-horizontal">
+					<RB.Input onChange={()=>{this.setState({registrationFee:this.refs.sc_fee.getValue()})}} type="select" {...PP.sc_fee}>
+						{
+							_.map(sc_fee_option, (item, index)=>{
+								return <option key={index} value={item}>{item}</option>;
+							})
+						}
+					</RB.Input>
+					<RB.Input type="select" onChange={()=>{this.setState({surcharge:this.refs.sc_charge.getValue()})}}  {...PP.sc_charge}>
+						{
+							_.map(sc_charge_option, (item, index)=>{
+								return <option key={index} value={item}>{item}</option>;
+							})
+						}
+					</RB.Input>
+				</form>
+
 				<KUI.Table
 					style={{}}
 					list={dl}
