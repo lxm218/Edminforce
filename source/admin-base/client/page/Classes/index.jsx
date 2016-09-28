@@ -60,8 +60,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 status : 'active'
             }
         });
+        let x5 = Meteor.subscribe(util.getModuleName('ClassLevel'))
 
-        if(!x2.ready() || !x3.ready() || !x4.ready()) return {ready : false};
+        if(!x2.ready() || !x3.ready() || !x4.ready() || !x5.ready()) return {ready : false};
 
 
         let list = [];
@@ -247,6 +248,12 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 wrapperClassName : 'col-xs-8',
                 ref : 'day',
                 label : 'Day Of Class'
+            },
+            level : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'level',
+                label : 'Level'
             }
         };
 
@@ -255,7 +262,8 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             session : this.getSessionData(),
             status : KG.get('EF-Class').getDBSchema().schema('status').allowedValues,
             day : KG.get('EF-Class').getDBSchema().schema('schedule.day').allowedValues,
-            teacher : []
+            teacher : [],
+            level : this.m.ClassLevel.getDB().find().fetch()
         };
 
         option.teacher = this.m.AdminUser.getAll({});
@@ -297,6 +305,13 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                             <option key={-1} value="all">All</option>
                             {
                                 _.map(option.session, (item, index)=>{
+                                    return <option key={index} value={item._id}>{item.name}</option>;
+                                })
+                            }
+                        </RB.Input>
+                        <RB.Input type="select" {... p.level}>
+                            {
+                                _.map(option.level, (item, index)=>{
                                     return <option key={index} value={item._id}>{item.name}</option>;
                                 })
                             }
@@ -355,11 +370,13 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             session = this.refs.session,
             teacher = this.refs.teacher,
             status = this.refs.status,
+            level = this.refs.level,
             day = this.refs.day;
         let query = {
             programID : program.getValue(),
             sessionID : session.getValue(),
             status : status.getValue(),
+            levels : level.getValue(),
             'schedule.day' : day.getValue()
         };
         if(query.programID === 'all'){
