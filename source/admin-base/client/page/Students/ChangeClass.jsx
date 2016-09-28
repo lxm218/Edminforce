@@ -372,7 +372,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 				<RC.Div>
 					<KUI.Comp.SelectPaymentWayNoPayLater ref="payway" />
 					<RB.Col xs={6}>
-						<RB.Input type="text" ref="input_sc" placeholder={`School Credit`} />
+						<RB.Input type="text" ref="input_sc" placeholder={`Enter School Credit`} />
 					</RB.Col>
 
 					<RC.Div style={{textAlign:'right'}}>
