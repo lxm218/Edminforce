@@ -370,7 +370,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		if (tuition > 0) {
 			h = (
 				<RC.Div>
-					<KUI.Comp.SelectPaymentWay ref="payway" />
+					<KUI.Comp.SelectPaymentWayNoPayLater ref="payway" />
 					<RB.Col xs={6}>
 						<RB.Input type="text" ref="input_sc" placeholder={`School Credit`} />
 					</RB.Col>
