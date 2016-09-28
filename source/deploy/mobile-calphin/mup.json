@@ -2,7 +2,7 @@
   // Server authentication info
   "servers": [
     {
-      "host": "ec2-54-84-234-184.compute-1.amazonaws.com",
+      "host": "52.91.56.167",
       "username": "ubuntu",
       //"password": "password",
       // or pem file (ssh based authentication)
