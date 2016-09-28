@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "chimp",
+    "test2":"npm install && node_modules/.bin/chimp"
+
+  },
+  "devDependencies": {
+    "chimp": "^0.40.4"
+  }
+}
