@@ -34,7 +34,7 @@
   // Configure environment
   // ROOT_URL must be set to your correct domain (https or http)
   "env": {
-    "MONGO_URL" : "mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/demo?ssl=true",
+    "MONGO_URL" : "mongodb://calcolor:Icalcolor123!@aws-us-east-1-portal.13.dblayer.com:10587/calcolor-stag?ssl=true",
     "PORT" : 80,
     "ROOT_URL": "https://demo-admin.classforth.com"
   },
