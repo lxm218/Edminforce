@@ -1,7 +1,7 @@
 [
   {
     "programID": "art_exploration",
-    "sessionID": "spring_2016",
+    "sessionID": "fall_2016",
     "status": "Active",
     "length": "1 hr",
     "levels": [],
@@ -25,7 +25,63 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 7,
+    "_id": "art_exploration_fall_2016_rachel_wednesday_15_30"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "spring_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "03:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_wednesday_15_30"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "05:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_exploration_fall_2016_amanda_wednesday_17_15"
   },
   {
     "programID": "art_exploration",
@@ -52,8 +108,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_amanda_wednesday_17_15"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Tuesday",
+      "time": "03:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "art_exploration_fall_2016_rachel_tuesday_15_45"
   },
   {
     "programID": "art_exploration",
@@ -80,8 +164,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 3,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_tuesday_15_45"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Saturday",
+      "time": "09:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_exploration_fall_2016_cynthia_saturday_09_00"
   },
   {
     "programID": "art_exploration",
@@ -108,8 +220,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_cynthia_saturday_09_00"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Saturday",
+      "time": "10:15AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
+    "_id": "art_exploration_fall_2016_cynthia_saturday_10_15"
   },
   {
     "programID": "art_exploration",
@@ -136,8 +276,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_cynthia_saturday_10_15"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Saturday",
+      "time": "11:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_exploration_fall_2016_cynthia_saturday_11_30"
   },
   {
     "programID": "art_exploration",
@@ -164,8 +332,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_cynthia_saturday_11_30"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Saturday",
+      "time": "01:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
+    "_id": "art_exploration_fall_2016_rachel_saturday_13_30"
   },
   {
     "programID": "art_exploration",
@@ -192,8 +388,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 6,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_saturday_13_30"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Saturday",
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
+    "_id": "art_exploration_fall_2016_rachel_saturday_14_45"
   },
   {
     "programID": "art_exploration",
@@ -220,8 +444,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 6,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_saturday_14_45"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Saturday",
+      "time": "04:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
+    "_id": "art_exploration_fall_2016_rachel_saturday_16_00"
   },
   {
     "programID": "art_exploration",
@@ -248,8 +500,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 6,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_saturday_16_00"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Thursday",
+      "time": "03:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 4,
+    "_id": "art_exploration_fall_2016_rachel_thursday_15_45"
   },
   {
     "programID": "art_exploration",
@@ -276,8 +556,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 4,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_thursday_15_45"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Thursday",
+      "time": "05:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_exploration_fall_2016_robbie_thursday_17_30"
   },
   {
     "programID": "art_exploration",
@@ -304,8 +612,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_robbie_thursday_17_30"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Sunday",
+      "time": "09:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_exploration_fall_2016_amanda_sunday_09_00"
   },
   {
     "programID": "art_exploration",
@@ -332,8 +668,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_amanda_sunday_09_00"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sunday",
+      "time": "10:15AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
+    "_id": "art_exploration_fall_2016_rachel_sunday_10_15"
   },
   {
     "programID": "art_exploration",
@@ -360,8 +724,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_sunday_10_15"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sunday",
+      "time": "11:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 5,
+    "_id": "art_exploration_fall_2016_rachel_sunday_11_30"
   },
   {
     "programID": "art_exploration",
@@ -388,8 +780,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 5,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_sunday_11_30"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sunday",
+      "time": "01:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 6,
+    "_id": "art_exploration_fall_2016_rachel_sunday_13_30"
   },
   {
     "programID": "art_exploration",
@@ -416,8 +836,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 6,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_sunday_13_30"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Sunday",
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
+    "_id": "art_exploration_fall_2016_amanda_sunday_14_45"
   },
   {
     "programID": "art_exploration",
@@ -444,8 +892,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_amanda_sunday_14_45"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sunday",
+      "time": "04:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "25"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 3,
+    "_id": "art_exploration_fall_2016_rachel_sunday_16_30"
   },
   {
     "programID": "art_exploration",
@@ -472,12 +948,12 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 3,
+    "numberOfRegistered": 0,
     "_id": "art_exploration_spring_2016_rachel_sunday_16_30"
   },
   {
     "programID": "digital_art",
-    "sessionID": "spring_2016",
+    "sessionID": "fall_2016",
     "status": "Active",
     "length": "2 hr",
     "levels": [],
@@ -485,34 +961,6 @@
     "schedule": {
       "day": "Saturday",
       "time": "06:00PM"
-    },
-    "tuition": {
-      "type": "class",
-      "money": "25"
-    },
-    "maxStudent": 9,
-    "minStudent": 0,
-    "trialStudent": 2,
-    "minAgeRequire": 0,
-    "maxAgeRequire": 100,
-    "makeupStudent": 1,
-    "makeupClassFee": 5,
-    "genderRequire": "All",
-    "makeup": {},
-    "trial": {},
-    "numberOfRegistered": 8,
-    "_id": "digital_art_spring_2016_justin_ho_saturday_18_00"
-  },
-  {
-    "programID": "art_foundation",
-    "sessionID": "spring_2016",
-    "status": "Active",
-    "length": "1.5 hr",
-    "levels": [],
-    "teacher": "Eli",
-    "schedule": {
-      "day": "Wednesday",
-      "time": "03:00PM"
     },
     "tuition": {
       "type": "class",
@@ -528,8 +976,120 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "digital_art_fall_2016_justin_ho_saturday_18_00"
+  },
+  {
+    "programID": "digital_art",
+    "sessionID": "spring_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Justin Ho",
+    "schedule": {
+      "day": "Saturday",
+      "time": "06:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "40"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "digital_art_spring_2016_justin_ho_saturday_18_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "03:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
     "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_eli_wednesday_15_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "spring_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "03:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_eli_wednesday_15_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "03:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_foundation_fall_2016_amanda_wednesday_15_30"
   },
   {
     "programID": "art_foundation",
@@ -556,8 +1116,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_amanda_wednesday_15_30"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "04:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_foundation_fall_2016_rachel_wednesday_16_45"
   },
   {
     "programID": "art_foundation",
@@ -584,8 +1172,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_rachel_wednesday_16_45"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Tuesday",
+      "time": "05:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_rachel_tuesday_17_00"
   },
   {
     "programID": "art_foundation",
@@ -612,8 +1228,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_rachel_tuesday_17_00"
+  },
+  {
+    "programID": "art_exploration",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Friday",
+      "time": "05:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "23"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_exploration_fall_2016_robbie_friday_17_30"
   },
   {
     "programID": "art_exploration",
@@ -625,6 +1269,34 @@
     "schedule": {
       "day": "Friday",
       "time": "05:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "23"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "art_exploration_spring_2016_robbie_friday_17_30"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Friday",
+      "time": "03:45PM"
     },
     "tuition": {
       "type": "class",
@@ -641,7 +1313,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 9,
-    "_id": "art_exploration_spring_2016_robbie_friday_17_30"
+    "_id": "art_foundation_fall_2016_robbie_friday_15_45"
   },
   {
     "programID": "art_foundation",
@@ -668,12 +1340,12 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_robbie_friday_15_45"
   },
   {
     "programID": "art_foundation",
-    "sessionID": "spring_2016",
+    "sessionID": "fall_2016",
     "status": "Active",
     "length": "1.5 hr",
     "levels": [],
@@ -697,7 +1369,63 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 7,
+    "_id": "art_foundation_fall_2016_amanda_friday_15_45"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "spring_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Friday",
+      "time": "03:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_amanda_friday_15_45"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Friday",
+      "time": "05:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 10,
+    "_id": "art_foundation_fall_2016_amanda_friday_17_30"
   },
   {
     "programID": "art_foundation",
@@ -724,8 +1452,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 10,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_amanda_friday_17_30"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Saturday",
+      "time": "09:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_eli_saturday_09_00"
   },
   {
     "programID": "art_foundation",
@@ -752,8 +1508,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_eli_saturday_09_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Nora",
+    "schedule": {
+      "day": "Saturday",
+      "time": "09:00AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_nora_saturday_09_00"
   },
   {
     "programID": "art_foundation",
@@ -780,8 +1564,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_nora_saturday_09_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Saturday",
+      "time": "01:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_cynthia_saturday_13_30"
   },
   {
     "programID": "art_foundation",
@@ -808,8 +1620,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_cynthia_saturday_13_30"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Nora",
+    "schedule": {
+      "day": "Saturday",
+      "time": "01:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_nora_saturday_13_30"
   },
   {
     "programID": "art_foundation",
@@ -836,8 +1676,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_nora_saturday_13_30"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Nora",
+    "schedule": {
+      "day": "Saturday",
+      "time": "03:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_nora_saturday_15_15"
   },
   {
     "programID": "art_foundation",
@@ -864,8 +1732,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_nora_saturday_15_15"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Nora",
+    "schedule": {
+      "day": "Saturday",
+      "time": "05:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
+    "_id": "art_foundation_fall_2016_nora_saturday_17_00"
   },
   {
     "programID": "art_foundation",
@@ -892,8 +1788,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_nora_saturday_17_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Saturday",
+      "time": "05:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_foundation_fall_2016_rachel_saturday_17_15"
   },
   {
     "programID": "art_foundation",
@@ -920,8 +1844,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_rachel_saturday_17_15"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Nora",
+    "schedule": {
+      "day": "Saturday",
+      "time": "10:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "art_foundation_fall_2016_nora_saturday_10_45"
   },
   {
     "programID": "art_foundation",
@@ -948,8 +1900,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 2,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_nora_saturday_10_45"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Thursday",
+      "time": "05:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 5,
+    "_id": "art_foundation_fall_2016_rachel_thursday_17_00"
   },
   {
     "programID": "art_foundation",
@@ -976,8 +1956,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 5,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_rachel_thursday_17_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Robbie",
+    "schedule": {
+      "day": "Thursday",
+      "time": "03:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_foundation_fall_2016_robbie_thursday_15_45"
   },
   {
     "programID": "art_foundation",
@@ -1004,8 +2012,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_robbie_thursday_15_45"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sunday",
+      "time": "08:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
+    "_id": "art_foundation_fall_2016_eli_sunday_08_45"
   },
   {
     "programID": "art_foundation",
@@ -1032,8 +2068,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_eli_sunday_08_45"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Sunday",
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
+    "_id": "art_foundation_fall_2016_amanda_sunday_10_30"
   },
   {
     "programID": "art_foundation",
@@ -1060,8 +2124,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_amanda_sunday_10_30"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Sunday",
+      "time": "01:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_foundation_fall_2016_amanda_sunday_13_00"
   },
   {
     "programID": "art_foundation",
@@ -1088,8 +2180,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_amanda_sunday_13_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Justin P",
+    "schedule": {
+      "day": "Sunday",
+      "time": "01:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_foundation_fall_2016_justin_p_sunday_13_00"
   },
   {
     "programID": "art_foundation",
@@ -1116,8 +2236,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_justin_p_sunday_13_00"
+  },
+  {
+    "programID": "art_foundation",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Rachel",
+    "schedule": {
+      "day": "Sunday",
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_foundation_fall_2016_rachel_sunday_14_45"
   },
   {
     "programID": "art_foundation",
@@ -1144,8 +2292,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_foundation_spring_2016_rachel_sunday_14_45"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "04:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_advancement_fall_2016_eli_wednesday_16_45"
   },
   {
     "programID": "art_advancement",
@@ -1172,8 +2348,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_eli_wednesday_16_45"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Justin P",
+    "schedule": {
+      "day": "Friday",
+      "time": "03:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_advancement_fall_2016_justin_p_friday_15_45"
   },
   {
     "programID": "art_advancement",
@@ -1200,8 +2404,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_justin_p_friday_15_45"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Justin P",
+    "schedule": {
+      "day": "Friday",
+      "time": "05:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 5,
+    "_id": "art_advancement_fall_2016_justin_p_friday_17_30"
   },
   {
     "programID": "art_advancement",
@@ -1228,8 +2460,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 5,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_justin_p_friday_17_30"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Saturday",
+      "time": "10:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 11,
+    "_id": "art_advancement_fall_2016_eli_saturday_10_45"
   },
   {
     "programID": "art_advancement",
@@ -1256,8 +2516,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 11,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_eli_saturday_10_45"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Justin P",
+    "schedule": {
+      "day": "Saturday",
+      "time": "10:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 5,
+    "_id": "art_advancement_fall_2016_justin_p_saturday_10_45"
   },
   {
     "programID": "art_advancement",
@@ -1284,8 +2572,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 5,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_justin_p_saturday_10_45"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Cynthia",
+    "schedule": {
+      "day": "Saturday",
+      "time": "03:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_advancement_fall_2016_cynthia_saturday_15_15"
   },
   {
     "programID": "art_advancement",
@@ -1312,8 +2628,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_cynthia_saturday_15_15"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sunday",
+      "time": "10:30AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 8,
+    "_id": "art_advancement_fall_2016_eli_sunday_10_30"
   },
   {
     "programID": "art_advancement",
@@ -1340,8 +2684,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 8,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_eli_sunday_10_30"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Justin P",
+    "schedule": {
+      "day": "Sunday",
+      "time": "10:45AM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 2,
+    "_id": "art_advancement_fall_2016_justin_p_sunday_10_45"
   },
   {
     "programID": "art_advancement",
@@ -1368,8 +2740,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 2,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_justin_p_sunday_10_45"
+  },
+  {
+    "programID": "art_advancement",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "1.5 hr",
+    "levels": [],
+    "teacher": "Justin P",
+    "schedule": {
+      "day": "Sunday",
+      "time": "02:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "30"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "art_advancement_fall_2016_justin_p_sunday_14_45"
   },
   {
     "programID": "art_advancement",
@@ -1396,8 +2796,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "art_advancement_spring_2016_justin_p_sunday_14_45"
+  },
+  {
+    "programID": "ap_art",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Wednesday",
+      "time": "06:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "35"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 11,
+    "_id": "ap_art_fall_2016_eli_wednesday_18_30"
   },
   {
     "programID": "ap_art",
@@ -1412,7 +2840,7 @@
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": "35"
     },
     "maxStudent": 9,
     "minStudent": 0,
@@ -1424,8 +2852,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 11,
+    "numberOfRegistered": 0,
     "_id": "ap_art_spring_2016_eli_wednesday_18_30"
+  },
+  {
+    "programID": "ap_art",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Saturday",
+      "time": "01:30PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "35"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 9,
+    "_id": "ap_art_fall_2016_eli_saturday_13_30"
   },
   {
     "programID": "ap_art",
@@ -1440,7 +2896,35 @@
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": "35"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "ap_art_spring_2016_eli_saturday_13_30"
+  },
+  {
+    "programID": "ap_art",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Saturday",
+      "time": "03:45PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "35"
     },
     "maxStudent": 9,
     "minStudent": 0,
@@ -1453,7 +2937,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 9,
-    "_id": "ap_art_spring_2016_eli_saturday_13_30"
+    "_id": "ap_art_fall_2016_eli_saturday_15_45"
   },
   {
     "programID": "ap_art",
@@ -1468,7 +2952,35 @@
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": "35"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "ap_art_spring_2016_eli_saturday_15_45"
+  },
+  {
+    "programID": "ap_art",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sunday",
+      "time": "01:00PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "35"
     },
     "maxStudent": 9,
     "minStudent": 0,
@@ -1481,7 +2993,7 @@
     "makeup": {},
     "trial": {},
     "numberOfRegistered": 9,
-    "_id": "ap_art_spring_2016_eli_saturday_15_45"
+    "_id": "ap_art_fall_2016_eli_sunday_13_00"
   },
   {
     "programID": "ap_art",
@@ -1496,7 +3008,7 @@
     },
     "tuition": {
       "type": "class",
-      "money": "40"
+      "money": "35"
     },
     "maxStudent": 9,
     "minStudent": 0,
@@ -1508,8 +3020,36 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 9,
+    "numberOfRegistered": 0,
     "_id": "ap_art_spring_2016_eli_sunday_13_00"
+  },
+  {
+    "programID": "ap_art",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Eli",
+    "schedule": {
+      "day": "Sunday",
+      "time": "03:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "35"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 7,
+    "_id": "ap_art_fall_2016_eli_sunday_15_15"
   },
   {
     "programID": "ap_art",
@@ -1521,6 +3061,34 @@
     "schedule": {
       "day": "Sunday",
       "time": "03:15PM"
+    },
+    "tuition": {
+      "type": "class",
+      "money": "35"
+    },
+    "maxStudent": 9,
+    "minStudent": 0,
+    "trialStudent": 2,
+    "minAgeRequire": 0,
+    "maxAgeRequire": 100,
+    "makeupStudent": 1,
+    "makeupClassFee": 5,
+    "genderRequire": "All",
+    "makeup": {},
+    "trial": {},
+    "numberOfRegistered": 0,
+    "_id": "ap_art_spring_2016_eli_sunday_15_15"
+  },
+  {
+    "programID": "clay",
+    "sessionID": "fall_2016",
+    "status": "Active",
+    "length": "2 hr",
+    "levels": [],
+    "teacher": "Amanda",
+    "schedule": {
+      "day": "Sunday",
+      "time": "04:45PM"
     },
     "tuition": {
       "type": "class",
@@ -1536,8 +3104,8 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 7,
-    "_id": "ap_art_spring_2016_eli_sunday_15_15"
+    "numberOfRegistered": 4,
+    "_id": "clay_fall_2016_amanda_sunday_16_45"
   },
   {
     "programID": "clay",
@@ -1564,7 +3132,7 @@
     "genderRequire": "All",
     "makeup": {},
     "trial": {},
-    "numberOfRegistered": 4,
+    "numberOfRegistered": 0,
     "_id": "clay_spring_2016_amanda_sunday_16_45"
   }
 ]
