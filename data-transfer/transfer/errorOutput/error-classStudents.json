@@ -1,57 +1,101 @@
 [
   {
+    "accountID": "zhihual_aol_com",
+    "classID": "intense_intense_3_nicholas_mon_tue_wed_thu_11_00_sprinter_racer",
+    "programID": "intense",
+    "studentID": "zhihual_aol_com_justin_duval",
+    "status": "checkouted",
+    "type": "register",
+    "attendance": {},
+    "_id": "intense_intense_3_nicholas_mon_tue_wed_thu_11_00_sprinter_racer_zhihual_aol_com_justin_duval",
+    "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
+  },
+  {
     "accountID": "b_8801229_yahoo_com",
-    "classID": "intense_intense_3_stephanie_mon_tue_wed_thu_14_30",
+    "classID": "intense_intense_3_stephanie_mon_tue_wed_thu_14_30_bubbler_1",
     "programID": "intense",
     "studentID": "b_8801229_yahoo_com_yan_xi_huang",
     "status": "checkouted",
     "type": "register",
     "attendance": {},
-    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_14_30_b_8801229_yahoo_com_yan_xi_huang",
+    "_id": "intense_intense_3_stephanie_mon_tue_wed_thu_14_30_bubbler_1_b_8801229_yahoo_com_yan_xi_huang",
     "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
   },
   {
     "accountID": "b_8801229_yahoo_com",
-    "classID": "intense_intense_3_marcus_mon_tue_wed_thu_14_30",
+    "classID": "intense_intense_3_marcus_mon_tue_wed_thu_14_30_bubbler_2_3",
     "programID": "intense",
     "studentID": "b_8801229_yahoo_com_xi_ya_huang",
     "status": "checkouted",
     "type": "register",
     "attendance": {},
-    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_14_30_b_8801229_yahoo_com_xi_ya_huang",
+    "_id": "intense_intense_3_marcus_mon_tue_wed_thu_14_30_bubbler_2_3_b_8801229_yahoo_com_xi_ya_huang",
     "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
   },
   {
     "accountID": "yong_lu_gmail_com",
-    "classID": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30",
+    "classID": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_bubbler_1",
     "programID": "intense",
     "studentID": "yong_lu_gmail_com_ellie_mui",
     "status": "checkouted",
     "type": "register",
     "attendance": {},
-    "_id": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_yong_lu_gmail_com_ellie_mui",
+    "_id": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_bubbler_1_yong_lu_gmail_com_ellie_mui",
     "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
   },
   {
     "accountID": "nalinis_gmail_com",
-    "classID": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30",
+    "classID": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_bubbler_1",
     "programID": "intense",
     "studentID": "nalinis_gmail_com_nikhil_sharma",
     "status": "checkouted",
     "type": "register",
     "attendance": {},
-    "_id": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_nalinis_gmail_com_nikhil_sharma",
+    "_id": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_bubbler_1_nalinis_gmail_com_nikhil_sharma",
     "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
   },
   {
     "accountID": "solletisandhya_gmail_com",
-    "classID": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30",
+    "classID": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_bubbler_2_3",
     "programID": "intense",
     "studentID": "solletisandhya_gmail_com_nithya_bikumandla",
     "status": "checkouted",
     "type": "register",
     "attendance": {},
-    "_id": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_solletisandhya_gmail_com_nithya_bikumandla",
+    "_id": "intense_intense_3_charlie_o_mon_tue_wed_thu_16_30_bubbler_2_3_solletisandhya_gmail_com_nithya_bikumandla",
+    "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
+  },
+  {
+    "accountID": "yona_lu_gmail_com",
+    "classID": "intense_intense_3_aditi_mon_tue_wed_thu_16_15_glider_2_3",
+    "programID": "intense",
+    "studentID": "yona_lu_gmail_com_ethan_mui",
+    "status": "checkouted",
+    "type": "register",
+    "attendance": {},
+    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_16_15_glider_2_3_yona_lu_gmail_com_ethan_mui",
+    "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
+  },
+  {
+    "accountID": "dmediratta_yahoo_com",
+    "classID": "intense_intense_3_aditi_mon_tue_wed_thu_16_15_glider_2_3",
+    "programID": "intense",
+    "studentID": "dmediratta_yahoo_com_samir_sharma",
+    "status": "checkouted",
+    "type": "register",
+    "attendance": {},
+    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_16_15_glider_2_3_dmediratta_yahoo_com_samir_sharma",
+    "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
+  },
+  {
+    "accountID": "ireneyca_yahoo_com",
+    "classID": "intense_intense_3_aditi_mon_tue_wed_thu_16_15_glider_2_3",
+    "programID": "intense",
+    "studentID": "ireneyca_yahoo_com_terrence_fung",
+    "status": "checkouted",
+    "type": "register",
+    "attendance": {},
+    "_id": "intense_intense_3_aditi_mon_tue_wed_thu_16_15_glider_2_3_ireneyca_yahoo_com_terrence_fung",
     "ef_removed_reason": "programID(true), accountID(true), classID(false), studentID(true) doesn't exist"
   }
 ]

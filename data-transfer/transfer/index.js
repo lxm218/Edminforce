@@ -264,8 +264,8 @@ function getSessionID(name){
     return _.snakeCase(name);
 }
 
-function getClassID(programName, sessionName, teacher, days, startTime){
-    let id = programName+ "-"+sessionName+ "-"+teacher+ "-"+days.join()+ "-"+am_pm_to_hours(startTime);
+function getClassID(programName, sessionName, teacher, days, startTime, level){
+    let id = programName+ "-"+sessionName+ "-"+teacher+ "-"+days.join()+ "-"+am_pm_to_hours(startTime) + level;
     return _.snakeCase(id);
 }
 
@@ -813,7 +813,7 @@ function processClasses(rows) {
         nClass.schedule.time = hours_am_pm(data[5]);
         nClass.tuition.money = Number(data[9]);
 
-        nClass._id = getClassID(nClass.programID, nClass.sessionID, nClass.teacher, nClass.schedule.days, data[5]);
+        nClass._id = getClassID(nClass.programID, nClass.sessionID, data[3], nClass.schedule.days, data[5], data[2]);
         insertToArray(classes, nClass);
     }
 }
@@ -877,7 +877,7 @@ function processStudents(rows) {
 
         let nClassStudent = _.cloneDeep(classStudent);
         nClassStudent.accountID = nUser._id;
-        nClassStudent.classID = getClassID(data[11], data[12], data[13], data[14].split(','), data[16]);
+        nClassStudent.classID = getClassID(data[11], data[12], data[13], data[14].split(','), data[16], data[15]);
         nClassStudent.programID = getProgramID(data[11]);
         nClassStudent.studentID = nStudent._id;
         nClassStudent._id =  getClassStudentID(nClassStudent.classID,nClassStudent.studentID);//getRandomID();
