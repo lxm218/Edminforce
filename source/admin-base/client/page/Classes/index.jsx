@@ -310,6 +310,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                             }
                         </RB.Input>
                         <RB.Input type="select" {... p.level}>
+                            <option key={-1} value="all">All</option>
                             {
                                 _.map(option.level, (item, index)=>{
                                     return <option key={index} value={item._id}>{item.name}</option>;
@@ -387,6 +388,9 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         }
         if(query['schedule.day'] === 'all'){
             delete query['schedule.day'];
+        }
+        if(query.levels === 'all'){
+            delete query.levels
         }
 
         if(teacher.getValue() && teacher.getValue()!=='all'){
