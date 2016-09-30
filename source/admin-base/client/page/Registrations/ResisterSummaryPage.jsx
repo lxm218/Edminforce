@@ -467,6 +467,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			amount : this.C.actualPayment,
 			type : 'register class',
 			registrationFee : this.C.registrationFee,
+			surcharge : this.state.surcharge,
 			schoolCredit : this.C.schoolCredit,
 			discount : this.state.coupon ? (this.C.totalFee - this.C.couponResult.total) : 0
 		};
@@ -530,7 +531,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 							payment : 'Pay Later'
 						})
 					});
-					
+
 					FlowRouter.go('/student/'+self.studentID);
 				}
 				else{

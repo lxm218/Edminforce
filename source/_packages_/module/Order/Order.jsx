@@ -33,6 +33,7 @@ KG.define('EF-Order', class extends Base{
                 if(data.type === 'register class'){
 
                     _.each(data.details, function(csID){
+
                         //each dettails
                         let p = {
                             fee : classListObj[csID].fee,
@@ -41,6 +42,14 @@ KG.define('EF-Order', class extends Base{
                         if(way === 'holding'){
                             p.pendingFlag = true;
                             p.discounted = p.fee;
+                        }
+
+                        //if subcharge>0 && session.registrationStartDate
+                        let csObj = m.ClassStudent.getDB().findOne({_id:csID}),
+                            co = m.Class.getDB().findOne({_id : csObj.classID}),
+                            session = m.Session.getDB().findOne({_id : co.sessionID});
+                        if(moment(new Date()).isBefore(moment(session.registrationStartDate))){
+                            p.discounted -= (data.subcharge||0);
                         }
 
                         m.ClassStudent.getDB().update({
