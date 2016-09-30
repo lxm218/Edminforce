@@ -24,7 +24,6 @@ KUI.Family_add_comp = class extends RC.CSS{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'phone',
-                placeholder : 'xxx-xxx-xxxx',
                 label : 'Phone'
             },
             location : {
@@ -43,7 +42,6 @@ KUI.Family_add_comp = class extends RC.CSS{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'al_phone',
-                placeholder : 'xxx-xxx-xxxx',
                 label : 'Phone'
             },
             emergencyName : {
@@ -56,7 +54,6 @@ KUI.Family_add_comp = class extends RC.CSS{
                 labelClassName : 'col-xs-4',
                 wrapperClassName : 'col-xs-8',
                 ref : 'em_phone',
-                placeholder : 'xxx-xxx-xxxx',
                 label : 'Phone'
             },
             credit : {
@@ -117,7 +114,7 @@ KUI.Family_add_comp = class extends RC.CSS{
                     <RB.Col md={6} mdOffset={0}>
                         <RB.Input type="text" {... p.name} />
                         <RB.Input type="text" {... p.phone} />
-                        {type==='edit'?<RB.Input type="text" {... p.credit} />:null}
+                        {type===false?<RB.Input type="text" {... p.credit} />:null}
 
                         <p style={sy.rd}>Alternative Contact</p>
                         <RB.Input type="text" {... p.alternativeName} />
@@ -133,7 +130,7 @@ KUI.Family_add_comp = class extends RC.CSS{
                         <RB.Input type="text" {... p.email} />
                         <RB.Input type="text" {... p.location} />
 
-                        <p style={type==='edit'?sy.p:sy.rd}>Emergency Contact</p>
+                        <p style={false?sy.p:sy.rd}>Emergency Contact</p>
                         <RB.Input type="text" {... p.emergencyName} />
                         <RB.Input type="text" {... p.emergencyEmail} />
                         <RB.Input type="text" {... p.emergencyPhone} />
@@ -148,17 +145,6 @@ KUI.Family_add_comp = class extends RC.CSS{
 
     }
 
-    formatPhone(d_phone){
-        if(/^[0-9]{10}$/g.test(d_phone)){
-            d_phone = d_phone.split('');
-            d_phone.splice(3, 0, '-');
-            d_phone.splice(7, 0, '-');
-            d_phone = d_phone.join('');
-        }
-
-        return d_phone;
-    }
-
     getValue(){
         let {
             name, email, phone, location,
@@ -167,24 +153,21 @@ KUI.Family_add_comp = class extends RC.CSS{
             receive
             } = this.getRefs();
 
-        let d_phone = phone.getValue();
-        d_phone = this.formatPhone(d_phone);
-
         return {
             name : name.getValue(),
             email : email.getValue(),
-            phone : d_phone,
+            phone : phone.getValue(),
             location : location.getValue(),
             alternativeContact : {
                 name : al_name.getValue(),
-                phone : this.formatPhone(al_phone.getValue()),
+                phone : al_phone.getValue(),
                 email : al_email.getValue() || null,
                 relation : al_ship.getValue(),
                 receive : $(receive.getInputDOMNode()).prop('checked')
             },
             emergencyContact : {
                 name : em_name.getValue(),
-                phone : this.formatPhone(em_phone.getValue()),
+                phone : em_phone.getValue(),
                 email : em_email.getValue() || null,
                 relation : em_ship.getValue()
             }
@@ -219,55 +202,11 @@ KUI.Family_add_comp = class extends RC.CSS{
         $(receive.getInputDOMNode()).prop('checked', al.receive||false);
 
         //if(data.schoolCredit){
-            this.refs.credit.getInputDOMNode().value  = (data.schoolCredit||0);
+            //this.refs.credit.getInputDOMNode().value  = (data.schoolCredit||0);
         //}
     }
 
-    setSchoolCreditNumber(num){
 
-        this.refs.credit.getInputDOMNode().value = num||0;
-
-    }
-    getSchoolCreditNumber(){
-        let n = this.refs.credit.getValue()||0;
-        return  parseFloat(n);
-    }
-
-    initPhoneEvent(){
-        let jq = util.getReactJQueryObject(this.refs.phone.getInputDOMNode());
-        let jq1 = util.getReactJQueryObject(this.refs.al_phone.getInputDOMNode());
-        let jq2 = util.getReactJQueryObject(this.refs.em_phone.getInputDOMNode());
-
-        let loop = (jq)=>{
-            jq.keyup(function(e){
-                let val = jq.val();
-                let v = val.replace(/[^0-9\-]/g, '');
-                jq.val(v);
-
-                if(/^[0-9]{3}$/g.test(v)){
-                    v = v+'-';
-                    jq.val(v);
-                }
-                else if(/^[0-9]{3}-[0-9]{3}$/g.test(v)){
-                    v = v+'-';
-                    jq.val(v);
-                }
-
-                if(v.length > 12){
-                    jq.val(v.substring(0, 12));
-                }
-            });
-        };
-
-        loop(jq);
-        loop(jq1);
-        loop(jq2);
-    }
-    componentDidMount(){
-        super.componentDidMount();
-
-        this.initPhoneEvent();
-    }
 
 };
 
@@ -400,10 +339,10 @@ let BillingTable = class extends RC.CSS{
             {
                 title : 'Note',
                 reactDom : function(doc){
-                    if(doc.note && doc.note.note){
+                    if(doc.note){
                         return doc.note.note || '';
                     }
-                    return doc.note || '';
+                    return '';
                 }
             }
 
@@ -495,7 +434,7 @@ let BillingTable = class extends RC.CSS{
 
                     if(rs < 0) rs = 0;
                     return rs;
-                    
+
                 }
             }
         ];
@@ -531,7 +470,6 @@ KUI.Family_profile = class extends KUI.Page{
                 accountID : id
             }
         });
-        let y1 = Meteor.subscribe('EF-ClassLevel', {});
 
         let profile = KG.get('EF-Customer').getAll(
             {
@@ -548,7 +486,7 @@ KUI.Family_profile = class extends KUI.Page{
         return {
             id : id,
             ready : x.ready(),
-            listReady : y.ready() && y1.ready(),
+            listReady : y.ready(),
             profile : profile,
             list : list
         };
@@ -605,7 +543,7 @@ KUI.Family_profile = class extends KUI.Page{
                 return false;
             }
 
-            let old = self.refs.form.getSchoolCreditNumber();
+            let old = self.getSchoolCreditNumber();
             //if(num+old < 0){
             //    swal.showInputError('school credit change error');
             //    return false;
@@ -619,8 +557,7 @@ KUI.Family_profile = class extends KUI.Page{
                 status : 'success',
                 amount : 0,
                 paymentTotal : 0,
-                schoolCredit : num,
-                note : note
+                schoolCredit : num
             };
             let oid = self.m.Order.insert(orderData);
             if(oid.status){
@@ -633,7 +570,102 @@ KUI.Family_profile = class extends KUI.Page{
                 }, self.data.id], {
                     success : function(){
                         console.log(oid, arguments)
-                        self.refs.form.setSchoolCreditNumber(num+old);
+                        self.setSchoolCreditNumber(num+old);
+
+                        //add to log
+                        KG.RequestLog.addByType('change school credit', {
+                            data : {
+                                customer : self.data.profile,
+                                credit : num,
+                                note : note
+                            }
+                        });
+
+                        self.refs.billingTable.getStateData(self.data.id, 1);
+
+                        swal.close();
+                    },
+                    error : function(){
+                        console.log(arguments)
+                    }
+                });
+            }
+
+        });
+    }
+
+    refundSchoolCredit(){
+        let self = this;
+
+        //check permission
+        if(!util.user.checkPermission('schoolCreidt', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+        let old = self.getSchoolCreditNumber();
+        if(old <= 0){
+            swal('You have no school credit to refund.', '', 'info');
+            return false;
+        }
+
+        let param = {
+            title : 'Refund School Credit',
+            text : [
+                '<fieldset>',
+                '<input class="form-control js_n1" type="text" disabled value="-'+old+'" style="display:block;" tabindex="3" placeholder="School Credit">',
+                '<input class="form-control js_r1" type="text" disabled value="Refund School Credit" style="display:block;"' +
+                ' tabindex="3"' +
+                ' placeholder="Note">',
+                '</fieldset>'
+            ].join(''),
+            confirmButtonText : 'Confirm',
+            cancelButtonText : 'Cancel',
+            showCancelButton : true,
+            confirmButtonColor : '#1ab394',
+            html : true,
+            closeOnConfirm : false,
+            animation : 'slide-from-top'
+
+        };
+
+        swal(param, function(){
+            let num = $('.js_n1').val(),
+                note = $('.js_r1').val();
+
+            num = parseFloat(num);
+            if(!num){
+                swal.showInputError('school credit must be a number');
+                return false;
+            }
+
+
+            //if(num+old < 0){
+            //    swal.showInputError('school credit change error');
+            //    return false;
+            //}
+
+            let orderData = {
+                accountID : self.data.id,
+                details : [],
+                paymentType : 'school credit',
+                type : 'change school credit',
+                status : 'success',
+                amount : 0,
+                paymentTotal : 0,
+                schoolCredit : num
+            };
+            let oid = self.m.Order.insert(orderData);
+            if(oid.status){
+                oid = oid.data;
+                console.log(oid);
+                self.m.Customer.callMeteorMethod('changeSchoolCredit', [{
+                    schoolCredit : num,
+                    orderID : oid,
+                    note : note
+                }, self.data.id], {
+                    success : function(){
+                        console.log(oid, arguments)
+                        self.setSchoolCreditNumber(num+old);
 
                         //add to log
                         KG.RequestLog.addByType('change school credit', {
@@ -665,8 +697,13 @@ KUI.Family_profile = class extends KUI.Page{
             <RC.Div>
                 <KUI.Family_add_comp type="edit" ref="form" />
                 <RC.Div style={sy.rd}>
-                    <KUI.YesButton style={sy.ml} onClick={this.changeSchoolCredit.bind(this)} label="Change School Credit"></KUI.YesButton>
                     <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
+                </RC.Div>
+                <hr/>
+                {this.renderSchoolCreditBox()}
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.changeSchoolCredit.bind(this)} label="Change School Credit"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} onClick={this.refundSchoolCredit.bind(this)} label="Refund School Credit"></KUI.YesButton>
                 </RC.Div>
                 <hr/>
                 <h4>Students</h4>
@@ -677,6 +714,7 @@ KUI.Family_profile = class extends KUI.Page{
                 <hr/>
                 <h4>Billing</h4>
                 <BillingTable ref="billingTable"></BillingTable>
+
             </RC.Div>
         );
     }
@@ -707,6 +745,7 @@ KUI.Family_profile = class extends KUI.Page{
     runOnceAfterDataReady(){
         let data = this.data.profile;
         this.refs.form.setDefaultValue(data);
+        this.setSchoolCreditNumber(data.schoolCredit);
 
         this.refs.billingTable.getStateData(this.data.id);
     }
@@ -717,7 +756,6 @@ KUI.Family_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
-        let self = this;
         const titleArray = [
             {
                 title : 'Name',
@@ -740,14 +778,6 @@ KUI.Family_profile = class extends KUI.Page{
                 key : 'profile.gender'
             },
             {
-                title : 'Level',
-                reactDom : function(doc){
-                    if(!doc.level) return '';
-                    let clo = self.m.ClassLevel.getDB().findOne({_id : doc.level});
-                    return clo.name;
-                }
-            },
-            {
                 title : 'Status',
                 key : 'status'
             }
@@ -764,6 +794,36 @@ KUI.Family_profile = class extends KUI.Page{
             </KUI.Table>
         );
 
+    }
+
+    renderSchoolCreditBox(){
+        let p = {
+            credit : {
+                labelClassName : 'col-xs-2',
+                wrapperClassName : 'col-xs-6',
+                label : 'School Credit($)',
+                ref : 'credit',
+                disabled : true
+            }
+        };
+
+        return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Input type="text" {...p.credit} />
+                </RB.Row>
+
+            </form>
+        );
+    }
+
+    setSchoolCreditNumber(num){
+        this.refs.credit.getInputDOMNode().value = num||0;
+
+    }
+    getSchoolCreditNumber(){
+        let n = this.refs.credit.getValue()||0;
+        return  parseFloat(n);
     }
 
 
