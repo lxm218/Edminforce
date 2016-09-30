@@ -101,6 +101,15 @@ KG.define('EF-Order', class extends Base{
                     paymentSource : 'admin'
                 }});
 
+                //add log
+                _.each(order.details, (id)=>{
+                    let oo = m.ClassStudent.getDB().findOne({_id : id});
+                    KG.RequestLog.addByType('register class', {
+                        id : id,
+                        data : oo
+                    });
+                });
+
                 //send email
                 Meteor.setTimeout(function(){
                     m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : orderID}]);

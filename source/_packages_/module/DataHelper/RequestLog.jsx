@@ -15,7 +15,8 @@ KG.define('EF-Request', class extends Base{
 					'register class', 'change class', 'cancel class', 'trial class', 'makeup class',
 					'cancel makeup class',
 					'pay order',
-					'change school credit'
+					'change school credit',
+					'cancel pending class'
 				]
 			}),
 			client : KG.schema.default({
@@ -77,6 +78,7 @@ KG.define('EF-Request', class extends Base{
 			case 'cancel class':
 			case 'change class':
 			case 'cancel makeup class':
+			case 'cancel pending class':
 			case 'makeup class':
 				data.detail = {
 					id : param.id,
