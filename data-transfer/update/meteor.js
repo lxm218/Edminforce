@@ -83,7 +83,7 @@ if (Meteor.isServer) {
     function importDatas(){
       var F = {
         program : function(){
-          insertData('Program', programsData, program, null, F.classLevel);
+          insertData('Program', programsData, program, null, F.session);
         },
         classLevel: function(){
           insertData('ClassLevel', classLevelData, classLevel, null, F.session);
