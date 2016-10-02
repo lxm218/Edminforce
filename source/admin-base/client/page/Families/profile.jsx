@@ -481,12 +481,13 @@ KUI.Family_profile = class extends KUI.Page{
                 updateTime : -1
             }
         });
+        let cv = Meteor.subscribe(util.getModuleName('ClassLevel'))
 
 
         return {
             id : id,
             ready : x.ready(),
-            listReady : y.ready(),
+            listReady : y.ready() && cv.ready(),
             profile : profile,
             list : list
         };
@@ -756,6 +757,7 @@ KUI.Family_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
+        let self = this;
         const titleArray = [
             {
                 title : 'Name',
@@ -776,6 +778,14 @@ KUI.Family_profile = class extends KUI.Page{
             {
                 title : 'Gender',
                 key : 'profile.gender'
+            },
+            {
+                title : 'Level',
+                reactDom : function(doc){
+                    if(!doc.level) return '';
+                    let clo = self.m.ClassLevel.getDB().findOne({_id : doc.level});
+                    return clo.name;
+                }
             },
             {
                 title : 'Status',
