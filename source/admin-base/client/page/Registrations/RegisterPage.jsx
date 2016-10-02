@@ -476,7 +476,7 @@ let ClassFilter = class extends KUI.Page{
 				if(!rs){
 					swal({
 						type : 'warning',
-						title : 'Please select a student.'
+						title : 'Please select a class.'
 					});
 
 					return false;
