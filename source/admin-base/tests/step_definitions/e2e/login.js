@@ -4,25 +4,27 @@
 
 module.exports = function () {
 
+  this.When(/^I input my login info and submit$/, function () {
+    browser.saveScreenshot('./report/login-page.png');
 
-  this.Given(/^I have already created an account$/, function (callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback(null, 'pending');
+    browser.waitForExist('input[label="User ID"]')
+    browser.setValue('input[label="User ID"]', 'admin@classforth.com');
+    browser.setValue('input[label="Password"]', 'admin');
+
+    //browser.saveScreenshot('./report/login-page-2.png');
+
+    browser.click('//span[contains(.,"Login")]');
+
+
   });
 
-  this.Given(/^I have already in login page$/, function (callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback(null, 'pending');
-  });
 
-  this.When(/^I login with my username and password$/, function (callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback(null, 'pending');
-  });
+  this.Then(/^I am able to access admin page$/, function () {
 
-  this.Then(/^I am able to access admin page$/, function (callback) {
-    // Write code here that turns the phrase above into concrete actions
-    callback(null, 'pending');
+    browser.waitForExist('//button[contains(.,"Settings")]')
+    browser.waitForExist('//button[contains(.,"Logout")]')
+    //browser.saveScreenshot('./report/login-success.png');
+
   });
 }
 

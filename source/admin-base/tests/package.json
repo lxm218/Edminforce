@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "chimp",
+    "test": "chimp --ddp=http://localhost:8000",
     "test2":"npm install && node_modules/.bin/chimp"
 
   },
