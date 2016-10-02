@@ -67,12 +67,26 @@ KUI.Student_profile = class extends KUI.Page{
                 status : {$in:['checkouted']}
             }
         });
-        let s2 = Meteor.subscribe('EF-Class');
-        if(!s1.ready() || !s2.ready()){
+        if(!s1.ready()){
             return {ready : true, mainReady, profile};
         }
 
         let cs = this.m.ClassStudent.getDB().find({status:'checkouted'}, sort).fetch();
+        let csIDList = _.map(cs, (l)=>{
+            return l.classID;
+        })
+
+        let s2 = Meteor.subscribe('EF-Class', {
+            query : {
+                _id : {$in : csIDList}
+            }
+        });
+        if(!s1.ready() || !s2.ready()){
+
+            return {ready : true, mainReady, profile};
+        }
+
+
         let classData = {};
         _.each(cs, (item)=>{
             let clsId = item.classID;
