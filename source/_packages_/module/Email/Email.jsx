@@ -214,7 +214,11 @@ KG.define('EF-Email', class extends Base{
                 cs = m.ClassStudent.getDB().findOne({_id : newCsID});
                 let newLesson = m.Class.getAll({_id : cs.classID})[0];
                 let session = newLesson.session;
-console.log(oldLesson)
+                //if now is before than session.registrationStartDate, stop send email
+                if(moment(new Date()).isBefore(moment(session.registrationStartDate))){
+                    return true;
+                }
+
                 let html = template.compile(decodeURIComponent(tpl.html))({
                     customer : customer,
                     oldLesson : oldLesson,
