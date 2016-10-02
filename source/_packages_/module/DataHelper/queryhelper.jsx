@@ -41,6 +41,22 @@ KG.define('EF-DataHelper', class extends Base{
         return rs;
     }
 
+    sortClassByTime(classData){
+        let formatTime = function(time){
+            let a = parseInt(time.substr(0, 2), 10),
+                b = parseInt(time.substr(3, 2), 10),
+                c = time.substr(5,2);
+            if(c === 'PM'){
+                a+=12;
+            }
+            return a*60+b;
+        };
+
+        return classData.sort(function(a, b){
+            return formatTime(a.schedule.time) > formatTime(b.schedule.time);
+        });
+    }
+
     defineMeteorMethod(){
         return {
             getFinanceReport(opts){

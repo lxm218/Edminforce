@@ -722,7 +722,7 @@ let ClassFilter = class extends KUI.Page{
 				page={this.page}
 				pagesize={10}
 				onSelectPage={this.changePage.bind(this)}
-				list={cl.list}
+				list={KG.DataHelper.sortClassByTime(cl.list)}
 				title={titleArray}
 				ref="ss">
 			</KUI.PageTable>
