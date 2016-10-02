@@ -171,7 +171,7 @@ KUI.Report_Finance = class extends KUI.Page{
 
 	exportPeriod(){
 		let list = []
-		for (var i = 0; i != this.state.result.length; i++) {	
+		for (var i = 0; i != this.state.result.length; i++) {
 			var res = this.state.result[i]
 			var item = {}
 			item['Date'] = res['date']
@@ -385,6 +385,10 @@ KUI.Report_Finance = class extends KUI.Page{
 			{
 				title : 'Registration Fee ($)',
 				key : 'registrationFee'
+			},
+			{
+				title : 'Surcharge $',
+				key : 'surcharge'
 			},
 			{
 				title : 'School Credit ($)',

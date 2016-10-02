@@ -38,7 +38,7 @@ Schema.Order = {
         optional: true,
         defaultValue: 0
     },
-    subcharge:{
+    surcharge:{
         type : Number,
         optional : true,
         defaultValue : 0
