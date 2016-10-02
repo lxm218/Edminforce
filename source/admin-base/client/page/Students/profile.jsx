@@ -1,5 +1,15 @@
 
-
+const sy = {
+    td : {
+        textAlign : 'left'
+    },
+    ml : {
+        marginLeft : '20px'
+    },
+    rd : {
+        textAlign : 'right'
+    }
+};
 KUI.Student_profile = class extends KUI.Page{
     constructor(p){
         super(p);
@@ -48,6 +58,7 @@ KUI.Student_profile = class extends KUI.Page{
 
         }
         //return {ready : false};
+        let mainReady = false;
 
         //find from ClassStudent
         let s1 = Meteor.subscribe('EF-ClassStudent', {
@@ -58,7 +69,7 @@ KUI.Student_profile = class extends KUI.Page{
         });
         let s2 = Meteor.subscribe('EF-Class');
         if(!s1.ready() || !s2.ready()){
-            return {ready : false};
+            return {ready : true, mainReady, profile};
         }
 
         let cs = this.m.ClassStudent.getDB().find({status:'checkouted'}, sort).fetch();
@@ -75,7 +86,7 @@ KUI.Student_profile = class extends KUI.Page{
         });
 
         if(cs.length>0 && _.size(classData) < 1){
-            return {ready : false};
+            //return {ready : true, mainReady, profile};
         }
 
         let scx = Meteor.subscribe('EF-StudentComment', {
@@ -85,6 +96,7 @@ KUI.Student_profile = class extends KUI.Page{
         return {
             id,
             ready : sub.ready(),
+            mainReady : s1.ready() && s2.ready(),
             profile,
             classStudentData : cs,
             classData : classData,
@@ -111,17 +123,7 @@ KUI.Student_profile = class extends KUI.Page{
             return util.renderLoading();
         }
 
-        const sy = {
-            td : {
-                textAlign : 'left'
-            },
-            ml : {
-                marginLeft : '20px'
-            },
-            rd : {
-                textAlign : 'right'
-            }
-        };
+
 
 
         return (
@@ -134,6 +136,20 @@ KUI.Student_profile = class extends KUI.Page{
 
                 <hr/>
                 <h3>Current Class</h3>
+
+                {this.renderAllTable()}
+            </RC.Div>
+        );
+
+    }
+
+    renderAllTable(){
+        if(!this.data.mainReady){
+            return util.renderLoading()
+        }
+
+        return (
+            <div>
                 {this.renderClassTable()}
                 <RC.Div style={sy.rd}>
                     <KUI.YesButton style={sy.ml} href={`/registration/register?studentID=${this.data.id}`} label="Register New Class"></KUI.YesButton>
@@ -157,10 +173,8 @@ KUI.Student_profile = class extends KUI.Page{
                 {this.renderStudentCommentTable()}
                 <hr/>
                 {this.sendCommentBox()}
-
-            </RC.Div>
-        );
-
+            </div>
+        )
     }
 
     sendCommentBox(){
@@ -793,4 +807,3 @@ KUI.Student_profile = class extends KUI.Page{
     }
 
 };
-
