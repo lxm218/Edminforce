@@ -378,7 +378,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
             sessionID : session.getValue(),
             status : status.getValue(),
             levels : level.getValue(),
-            'schedule.day' : day.getValue()
+            'schedule.days' : day.getValue()
         };
         if(query.programID === 'all'){
             delete query.programID;
@@ -386,8 +386,8 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         if(query.sessionID === 'all'){
             delete query.sessionID;
         }
-        if(query['schedule.day'] === 'all'){
-            delete query['schedule.day'];
+        if(query['schedule.days'] === 'all'){
+            delete query['schedule.days'];
         }
         if(query.levels === 'all'){
             delete query.levels
