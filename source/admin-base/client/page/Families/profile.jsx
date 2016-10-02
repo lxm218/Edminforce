@@ -312,6 +312,10 @@ let BillingTable = class extends RC.CSS{
                 key : 'registrationFee'
             },
             {
+                title : 'Surcharge ($)',
+                key : 'surcharge'
+            },
+            {
                 title : 'School Credit',
                 key : 'schoolCredit'
             },
