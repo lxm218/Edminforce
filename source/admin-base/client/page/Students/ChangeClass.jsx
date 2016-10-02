@@ -370,9 +370,9 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		if (tuition > 0) {
 			h = (
 				<RC.Div>
-					<KUI.Comp.SelectPaymentWay ref="payway" />
+					<KUI.Comp.SelectPaymentWayNoPayLater ref="payway" />
 					<RB.Col xs={6}>
-						<RB.Input type="text" ref="input_sc" placeholder={`School Credit ($${this.data.customer.schoolCredit})`} />
+						<RB.Input type="text" ref="input_sc" placeholder={`Enter School Credit`} />
 					</RB.Col>
 
 					<RC.Div style={{textAlign:'right'}}>
@@ -433,22 +433,27 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 
 	payNow(){
 		let credit = 0;
+		let way = this.refs.payway.getValue();
 		if(this.state.changeResult.tuitionDifferent > 0){
 			credit = parseInt(this.refs.input_sc.getValue(), 10)||0;
-			if(credit > this.data.customer.schoolCredit){
+			if(credit > 0 && credit > this.data.customer.schoolCredit){
 				swal('You don\'t have enough school credit', '', 'error');
 				return false;
 			}
-			if(credit > this.state.changeResult.tuitionDifferent){
+			if(credit >= this.state.changeResult.tuitionDifferent){
 				credit = this.state.changeResult.tuitionDifferent;
+				if(!way){
+					way = 'cash';
+				}
 			}
+			
 		}
 
 
 
-		let way = this.refs.payway.getValue();
+
 		if(!way){
-			swal('Please select payment way', '', 'error');
+			swal('Please select payment type', '', 'error');
 			return false;
 		}
 

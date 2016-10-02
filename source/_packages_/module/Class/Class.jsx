@@ -984,7 +984,7 @@ let Class = class extends Base{
 
             if(!query.sessionID){
                 let session = KG.get('EF-Session').getDB().find({
-                    registrationStatus : 'Yes'
+                    //registrationStatus : 'Yes'
                 }).fetch();
                 session = _.map(session, (item)=>{
                     return item._id;

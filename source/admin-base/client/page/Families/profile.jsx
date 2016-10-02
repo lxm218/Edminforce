@@ -130,7 +130,7 @@ KUI.Family_add_comp = class extends RC.CSS{
                         <RB.Input type="text" {... p.email} />
                         <RB.Input type="text" {... p.location} />
 
-                        <p style={type==='edit'?sy.p:sy.rd}>Emergency Contact</p>
+                        <p style={false?sy.p:sy.rd}>Emergency Contact</p>
                         <RB.Input type="text" {... p.emergencyName} />
                         <RB.Input type="text" {... p.emergencyEmail} />
                         <RB.Input type="text" {... p.emergencyPhone} />
@@ -700,6 +700,12 @@ KUI.Family_profile = class extends KUI.Page{
                     <KUI.YesButton style={sy.ml} onClick={this.save.bind(this)} label="Save"></KUI.YesButton>
                 </RC.Div>
                 <hr/>
+                {this.renderSchoolCreditBox()}
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.changeSchoolCredit.bind(this)} label="Change School Credit"></KUI.YesButton>
+                    <KUI.YesButton style={sy.ml} onClick={this.refundSchoolCredit.bind(this)} label="Refund School Credit"></KUI.YesButton>
+                </RC.Div>
+                <hr/>
                 <h4>Students</h4>
                 {this.renderStudentTable()}
                 <RC.Div style={sy.rd}>
@@ -708,12 +714,7 @@ KUI.Family_profile = class extends KUI.Page{
                 <hr/>
                 <h4>Billing</h4>
                 <BillingTable ref="billingTable"></BillingTable>
-                <hr/>
-                {this.renderSchoolCreditBox()}
-                <RC.Div style={sy.rd}>
-                    <KUI.YesButton style={sy.ml} onClick={this.changeSchoolCredit.bind(this)} label="Change School Credit"></KUI.YesButton>
-                    <KUI.YesButton style={sy.ml} onClick={this.refundSchoolCredit.bind(this)} label="Refund School Credit"></KUI.YesButton>
-                </RC.Div>
+
             </RC.Div>
         );
     }

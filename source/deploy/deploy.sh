@@ -62,8 +62,8 @@ deployAdminDemo(){
     . ./ENV.inc
     echo ${ADMIN_ENV};
     cd admin-demo;
-    sudo mup setup;
-    sudo ${ADMIN_ENV} mup deploy;
+    sudo mupx setup;
+    sudo ${ADMIN_ENV} mupx deploy;
     cd ../;
     echo "link : https://demo-admin.classforth.com/home";
     echo "*************************************************";

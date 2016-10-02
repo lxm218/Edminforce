@@ -9,3 +9,4 @@ source/_packages_/ihealth-framework-ui
 .npm
 
 data-transfer/update/private
+.DS_Store

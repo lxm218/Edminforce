@@ -376,10 +376,29 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.NoButton onClick={this.toStep2.bind(this)} label="Back"></KUI.NoButton>
-					<KUI.YesButton onClick={this.submitPayment.bind(this)} style={sy.ml} label="Pay Now"></KUI.YesButton>
+					<KUI.YesButton onClick={this.showConfirmBox.bind(this)} style={sy.ml} label="Pay Now"></KUI.YesButton>
 				</RC.Div>
 			</RC.Div>
 		);
+	}
+
+	showConfirmBox(){
+		let self = this;
+		let way = 'cash';
+		if(this.C.actualPayment > 0){
+			way = this.refs.payway.getValue();
+		}
+		swal({
+			title : 'payment type : '+way,
+			text : 'Your payment is $'+this.C.actualPayment +'\nPlease confirm.',
+			type : 'info',
+			showCancelButton : true,
+			closeOnCancel : true,
+			closeOnConfirm : true
+		}, function(f){
+			if(!f) return false;
+			self.submitPayment();
+		});
 	}
 
 	submitPayment(){
@@ -448,8 +467,20 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 					});
 				}
 				else if(way === 'pay later'){
+					// add log
+					KG.RequestLog.addByType('register class', {
+						id : cid,
+						data : _.extend({}, list[0], {
+							order : orderData,
+							payment : 'Pay Later'
+						})
+					});
+
 					Meteor.setTimeout(function(){
-						self.m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{orderID : cid}], {
+						self.m.Email.callMeteorMethod('sendRegistrationClassConfirmEmail', [{
+							orderID : cid,
+							paylater : true
+						}], {
 							success : function(){}
 						});
 					}, 100);

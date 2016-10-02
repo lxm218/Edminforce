@@ -222,6 +222,21 @@ console.log(start.format(), end.format());
                 let classData = m.Class.getAll(query),
                     rs = {};
 
+
+                let formatTime = function(time){
+                    let a = parseInt(time.substr(0, 2), 10),
+                        b = parseInt(time.substr(3, 2), 10),
+                        c = time.substr(5,2);
+                    if(c === 'PM'){
+                        a+=12;
+                    }
+                    return a*60+b;
+                };
+
+                classData.sort(function(a, b){
+                    return formatTime(a.schedule.time) > formatTime(b.schedule.time);
+                });
+
                 let format = 'YYYYMMDD';
                 _.each(classData, (item)=>{
 

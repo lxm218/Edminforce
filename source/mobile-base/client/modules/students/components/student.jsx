@@ -71,13 +71,17 @@ EdminForce.Components.Student = class extends RC.CSS {
                     <RC.Input style={{paddingLeft:6}} id="note" name="note" label="Note" value={student.note} onChange={this.onChange}/>
                 </RC.Div>
                 <div style={{padding: "20px"}}>
-                    <RC.VerticalAlign center={true}><RC.URL style={{fontWeight:"bold"}} href="/students">Booking Records</RC.URL></RC.VerticalAlign>
                     <RaisedButton
                         label="Save"
                         primary={true}
                         fullWidth={true}
                         style={{marginTop:20}}
                         onTouchTap={this.onSave} />
+                    <RC.Div style={{"textAlign": "left"}}>
+                        <p/>
+                        <p/>
+                        <p className="font_9"><a href="/students" className="color_19">Go to Class Records</a>.</p>
+                    </RC.Div>
                 </div>
             </div>
         );

@@ -366,6 +366,27 @@ let ClassStudent = class extends Base{
                     list : rs,
                     total : total
                 };
+            },
+
+            removeById(id){
+                try{
+
+                    //add log
+                    KG.RequestLog.addByType('cancel pending class', {
+                        id : id,
+                        data : self._db.findOne({_id: id})
+                    });
+
+
+                    self._db.remove({_id : id});
+
+                    return true;
+                }
+                catch(e){
+                    console.log(e);
+                    return e;
+                }
+
             }
         };
     }

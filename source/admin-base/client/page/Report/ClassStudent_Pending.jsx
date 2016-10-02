@@ -70,7 +70,8 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 		self.setState({list : 'loading'});
 		let s = this.refs.filter.getValue() || '';
 		let query = {
-			status : 'pending'
+			status : 'pending',
+			pendingFlag : true
 		};
 		if(s){
 			query.student = {
@@ -240,12 +241,11 @@ KUI.Report_ClassStudent_Pending = class extends KUI.Page{
 	}
 
 	removeById(id){
-		let list = this.state.list;
+		let list = this.state.list||[];
 		this.m.ClassStudent.callMeteorMethod('removeById', [id], {
-			context : this,
 			success : function(){
 				let n = _.findIndex(list, {_id:id});
-				console.log(list.length);
+				console.log(arguments);
 
 				list.splice(n, 1);
 				console.log(list.length);
