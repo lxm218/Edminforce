@@ -308,15 +308,15 @@ let BillingTable = class extends RC.CSS{
                 key : 'totalAmount'
             },
             {
-                title : 'Registration Fee',
+                title : 'Registration Fee($)',
                 key : 'registrationFee'
             },
             {
-                title : 'Surcharge ($)',
+                title : 'Surcharge($)',
                 key : 'surcharge'
             },
             {
-                title : 'School Credit',
+                title : 'School Credit($)',
                 key : 'schoolCredit'
             },
             {
@@ -784,12 +784,16 @@ KUI.Family_profile = class extends KUI.Page{
                 key : 'profile.gender'
             },
             {
+
                 title : 'Level',
                 reactDom : function(doc){
                     if(!doc.level) return '';
                     let clo = self.m.ClassLevel.getDB().findOne({_id : doc.level});
                     return clo.name;
                 }
+
+
+
             },
             {
                 title : 'Status',
