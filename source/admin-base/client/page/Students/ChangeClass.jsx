@@ -168,7 +168,7 @@ let ResultTable = class extends KUI.Page{
 		return (
 			<KUI.Table
 				style={{}}
-				list={this.data.classList}
+				list={KG.DataHelper.sortClassByTime(this.data.classList)}
 				title={titleArray}
 				ref="table"></KUI.Table>
 		);
