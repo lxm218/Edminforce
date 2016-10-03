@@ -131,7 +131,7 @@ KG.define('EF-Email', class extends Base{
                 let customer = m.Customer.getDB().findOne({_id : order.accountID});
                 let ss = CSList[0].class.session;
                 //if now is before than session.registrationStartDate, stop send email
-                if(moment(new Date()).isBefore(moment(ss.registrationStartDate))){
+                if(moment(new Date()).isBefore(moment(ss.startDate))){
                     return true;
                 }
 
@@ -215,7 +215,7 @@ KG.define('EF-Email', class extends Base{
                 let newLesson = m.Class.getAll({_id : cs.classID})[0];
                 let session = newLesson.session;
                 //if now is before than session.registrationStartDate, stop send email
-                if(moment(new Date()).isBefore(moment(session.registrationStartDate))){
+                if(moment(new Date()).isBefore(moment(session.startDate))){
                     return true;
                 }
 
