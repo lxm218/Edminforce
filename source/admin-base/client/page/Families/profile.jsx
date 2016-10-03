@@ -784,12 +784,16 @@ KUI.Family_profile = class extends KUI.Page{
                 key : 'profile.gender'
             },
             {
+
                 title : 'Level',
                 reactDom : function(doc){
                     if(!doc.level) return '';
                     let clo = self.m.ClassLevel.getDB().findOne({_id : doc.level});
                     return clo.name;
                 }
+
+
+
             },
             {
                 title : 'Status',

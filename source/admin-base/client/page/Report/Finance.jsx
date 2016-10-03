@@ -387,7 +387,7 @@ KUI.Report_Finance = class extends KUI.Page{
 				key : 'registrationFee'
 			},
 			{
-				title : 'Surcharge $',
+				title : 'Surcharge （$）',
 				key : 'surcharge'
 			},
 			{
