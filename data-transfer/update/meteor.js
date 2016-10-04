@@ -13,138 +13,179 @@ if (Meteor.isServer) {
 
     let session = Collections.session;
     let student = Collections.student;
-    let adminUserCollection = new Mongo.Collection("EF-AdminUser");
+    // let adminUserCollection = new Mongo.Collection("EF-AdminUser");
+    //
+    // var accountsData = JSON.parse(Assets.getText('accounts.json'));
+    // let classesData = JSON.parse(Assets.getText('classes.json'));
 
-    var accountsData = JSON.parse(Assets.getText('accounts.json'));
-    let classesData = JSON.parse(Assets.getText('classes.json'));
-
-    // convert weekday name from full name to short
-    let weekDayMap = {
-      monday: 'Mon',
-      tuesday: 'Tue',
-      wednesday: 'Wed',
-      thursday: 'Thu',
-      friday: 'Fri',
-      saturday: 'Sat',
-      sunday: 'Sun'
-    }
-    classesData.forEach ( (cls) => {
-      if (cls.schedule && cls.schedule.days && cls.schedule.days.length > 0) {
-        for (let i = 0; i<cls.schedule.days.length; i++) {
-          if (weekDayMap[cls.schedule.days[i].toLowerCase()]) {
-            cls.schedule.days[i] = weekDayMap[cls.schedule.days[i].toLowerCase()];
-          }
-        }
-      }
-    });
-
-    let classStudentsData = JSON.parse(Assets.getText('classStudents.json'));
-    let customersData = JSON.parse(Assets.getText('customers.json'));
-    let programsData = JSON.parse(Assets.getText('programs.json'));
-    let sessionsData = JSON.parse(Assets.getText('sessions.json'));
-    let studentsData = JSON.parse(Assets.getText('students.json'));
-    let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
-    let classLevelData = JSON.parse(Assets.getText('classLevels.json'));
+    // // convert weekday name from full name to short
+    // let weekDayMap = {
+    //   monday: 'Mon',
+    //   tuesday: 'Tue',
+    //   wednesday: 'Wed',
+    //   thursday: 'Thu',
+    //   friday: 'Fri',
+    //   saturday: 'Sat',
+    //   sunday: 'Sun'
+    // }
+    // classesData.forEach ( (cls) => {
+    //   if (cls.schedule && cls.schedule.days && cls.schedule.days.length > 0) {
+    //     for (let i = 0; i<cls.schedule.days.length; i++) {
+    //       if (weekDayMap[cls.schedule.days[i].toLowerCase()]) {
+    //         cls.schedule.days[i] = weekDayMap[cls.schedule.days[i].toLowerCase()];
+    //       }
+    //     }
+    //   }
+    // });
+    //
+    // let classStudentsData = JSON.parse(Assets.getText('classStudents.json'));
+    // let customersData = JSON.parse(Assets.getText('customers.json'));
+    // let programsData = JSON.parse(Assets.getText('programs.json'));
+    // let sessionsData = JSON.parse(Assets.getText('sessions.json'));
+    // let studentsData = JSON.parse(Assets.getText('students.json'));
+    // let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
+    // let classLevelData = JSON.parse(Assets.getText('classLevels.json'));
 
     var delay = 0;
 
-    function insertData(name, data, db, check, callback){
-      console.log("[inserData], data: ", data);
-      check = check || function(d){
-            return d;
-          };
-      db.remove({});
-      //console.log('---- '+ name + ' is start ----');
-      var len = data.length;
+    // function insertData(name, data, db, check, callback){
+    //   console.log("[inserData], data: ", data);
+    //   check = check || function(d){
+    //         return d;
+    //       };
+    //   db.remove({});
+    //   //console.log('---- '+ name + ' is start ----');
+    //   var len = data.length;
+    //
+    //   var loop = function(x){
+    //     if(x<len){
+    //       var td = check(data[x]);
+    //
+    //       if(td){
+    //         console.log(td);
+    //         db.insert(td);
+    //       }
+    //
+    //       Meteor.setTimeout(function(){
+    //         var t = x+1;
+    //         loop(t);
+    //       }, delay);
+    //
+    //     }
+    //     else{
+    //       callback();
+    //     }
+    //   };
+    //
+    //   loop(0);
+    // }
 
-      var loop = function(x){
-        if(x<len){
-          var td = check(data[x]);
+    // function importDatas(){
+    //   var F = {
+    //     program : function(){
+    //       insertData('Program', programsData, program, null, F.session);
+    //     },
+    //     classLevel: function(){
+    //       insertData('ClassLevel', classLevelData, classLevel, null, F.session);
+    //     },
+    //     session : function(){
+    //       insertData('Session', sessionsData, session, null, F.account);
+    //       //insertData('Session', sessionsData, session, null, F.account);
+    //     },
+    //     account : function(){
+    //       insertData('Account', accountsData, Meteor.users, null, F.customer);
+    //       //insertData('Account', accountsData, Meteor.users, null, F.adminuser);
+    //     },
+    //     customer : function(){
+    //       insertData('Customer', customersData, customer, null, F.adminuser);
+    //       customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
+    //     },
+    //     adminuser : function(){
+    //       insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
+    //     },
+    //     classes : function(){
+    //       insertData('Class', classesData, classCollection, null, F.student);
+    //       //insertData('Class', classesData, classCollection, null, function(){});
+    //     },
+    //     student : function(){
+    //       insertData('Student', studentsData, student, function(item){
+    //         if(!item.profile){
+    //           item.profile = {};
+    //         }
+    //         if(!item.profile.birthday){
+    //           item.profile.birthday = new Date(1900);
+    //         }
+    //         if(!item.profile.gender){
+    //           item.profile.gender = 'Male';
+    //         }
+    //
+    //         if (!item || !item.profile || !item.profile.gender) {
+    //           return null;
+    //         }
+    //         return item;
+    //       }, F.classstudent);
+    //     },
+    //     classstudent : function(){
+    //       insertData('ClassStudent', classStudentsData, classStudent, function(item){
+    //         if (!item.accountID || !item.classID || !item.programID || !item.studentID) {
+    //           return null;
+    //         }
+    //         return item;
+    //       }, function(){
+    //         EdminForce.Registration.syncClassRegistrationCount();
+    //       });
+    //     }
+    //   };
+    //
+    //   // clean up some extra tables
+    //   Collections.orders.remove({});
+    //   Collections.customerCoupon.remove({});
+    //   Collections.studentComment.remove({});
+    //
+    //   F.program();
+    // }
+    //
 
-          if(td){
-            console.log(td);
-            db.insert(td);
-          }
-
-          Meteor.setTimeout(function(){
-            var t = x+1;
-            loop(t);
-          }, delay);
-
+    var user =   {
+      "emails": [
+        {
+          "address": "ryangshan@gmail.com",
+          "verified": false
         }
-        else{
-          callback();
+      ],
+      "username": "ryangshan@gmail.com",
+      "role": "user",
+      "services": {
+        "password": {
+          "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
         }
-      };
+      },
+      "_id": "ryangshan_gmail_com"
+    };
 
-      loop(0);
-    }
+    var customerData =   {
+      "name": "ryangshan@gmail.com",
+      "email": "ryangshan@gmail.com",
+      "phone": "5105791088",
+      "location": "Fremont",
+      "status": "Active",
+      "hasRegistrationFee": false,
+      "schoolCredit": 0,
+      "_id": "ryangshan_gmail_com"
+    };
 
-    function importDatas(){
-      var F = {
-        program : function(){
-          insertData('Program', programsData, program, null, F.session);
-        },
-        classLevel: function(){
-          insertData('ClassLevel', classLevelData, classLevel, null, F.session);
-        },
-        session : function(){
-          insertData('Session', sessionsData, session, null, F.account);
-          //insertData('Session', sessionsData, session, null, F.account);
-        },
-        account : function(){
-          insertData('Account', accountsData, Meteor.users, null, F.customer);
-          //insertData('Account', accountsData, Meteor.users, null, F.adminuser);
-        },
-        customer : function(){
-          insertData('Customer', customersData, customer, null, F.adminuser);
-          customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
-        },
-        adminuser : function(){
-          insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
-        },
-        classes : function(){
-          insertData('Class', classesData, classCollection, null, F.student);
-          //insertData('Class', classesData, classCollection, null, function(){});
-        },
-        student : function(){
-          insertData('Student', studentsData, student, function(item){
-            if(!item.profile){
-              item.profile = {};
-            }
-            if(!item.profile.birthday){
-              item.profile.birthday = new Date(1900);
-            }
-            if(!item.profile.gender){
-              item.profile.gender = 'Male';
-            }
-
-            if (!item || !item.profile || !item.profile.gender) {
-              return null;
-            }
-            return item;
-          }, F.classstudent);
-        },
-        classstudent : function(){
-          insertData('ClassStudent', classStudentsData, classStudent, function(item){
-            if (!item.accountID || !item.classID || !item.programID || !item.studentID) {
-              return null;
-            }
-            return item;
-          }, function(){
-            EdminForce.Registration.syncClassRegistrationCount();
-          });
-        }
-      };
-
-      // clean up some extra tables
-      Collections.orders.remove({});
-      Collections.customerCoupon.remove({});
-      Collections.studentComment.remove({});
-
-      F.program();
-    }
-
+    var studentData =   {
+      "name": "Aaron Hwang",
+      "accountID": "ryangshan_gmail_com",
+      "profile": {
+        "gender": "Male",
+        "birthday": "2003-02-12T00:00:00.000Z"
+      },
+      "status": "Active",
+      "_id": "ryangshan_gmail_com_aaron_hwang",
+      "level": "challenger_2",
+      "lastRegistrationDate": "2016-09-01T00:00:00.000Z"
+    };
 
     let url = process.env.MONGO_URL;
     console.log("mongo url: ", url);
@@ -155,7 +196,44 @@ if (Meteor.isServer) {
       }else{ // otherwise it is production mode
       }
       console.log('delay: ', delay);
-      importDatas();
+
+      var len = 3011;
+      var loop = function(x){
+        if(x<len){
+
+          console.log(x);
+
+          // add user
+          user.emails[0].address = 'fakeuser_' + x + '@gmail.com';
+          user.username = 'Fakeuser ' + x;
+          user._id = 'fakeuser_' + x + '_gmail_com';
+          // add customer
+          customerData.name = user.username;
+          customerData.email = user.emails[0].address;
+          customerData._id = user._id;
+          // add student
+          studentData.name = 'TestStudent ' + x;
+          studentData.accountID = user._id;
+          studentData._id = 'testStudent_' + x;
+
+          Meteor.users.insert(user);
+          customer.insert(customerData);
+          student.insert(studentData);
+
+          Meteor.setTimeout(function(){
+            var t = x+1;
+            loop(t);
+          }, delay);
+
+        }
+        else{
+          console.log('done');
+        }
+      };
+
+      loop(690);
+
+      //importDatas();
     }
 
   });
