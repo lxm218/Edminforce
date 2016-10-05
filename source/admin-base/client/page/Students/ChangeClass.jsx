@@ -5,7 +5,11 @@ let FilterBox = class extends KUI.Page{
 	getMeteorData(){
 		this.module = KG.DataHelper.getDepModule();
 
-		let x = Meteor.subscribe('EF-Session');
+		let x = Meteor.subscribe('EF-Session', {
+			query : {
+				registrationStatus : 'Yes'
+			}
+		});
 		let x1 = Meteor.subscribe(util.getModuleName('ClassLevel'));
 		return {
 			ready : x.ready() && x1.ready(),
