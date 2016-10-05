@@ -804,6 +804,15 @@ let Class = class extends Base{
 
                 option = KG.util.setDBOption(option);
                 query = KG.util.setDBQuery(query);
+                if(!query.sessionID){
+                    let session = m.Session.getDB().find({
+                        registrationStatus : 'Yes'
+                    }).fetch();
+                    session = _.map(session, (item)=>{
+                        return item._id;
+                    });
+                    query.sessionID = {'$in' : session};
+                }
                 let list = self._db.find(query, option).fetch(),
                     count = self._db.find(query).count();
                 list = _.map(list, (item)=>{

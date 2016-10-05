@@ -260,6 +260,7 @@ let ClassStudent = class extends Base{
                     };
                     delete query.student;
                 }
+                
 
                 if(_.size(option.sort) < 1){
                     option.sort = {
