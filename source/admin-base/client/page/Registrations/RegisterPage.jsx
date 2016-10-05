@@ -527,7 +527,7 @@ let ClassFilter = class extends KUI.Page{
 		let query = {
 			programID : program.getValue(),
 			sessionID : session.getValue(),
-			'schedule.day' : day.getValue(),
+			'schedule.days' : day.getValue(),
 			levels : level.getValue()
 		};
 		if(query.programID === 'all'){
@@ -536,8 +536,8 @@ let ClassFilter = class extends KUI.Page{
 		if(query.sessionID === 'all'){
 			delete query.sessionID;
 		}
-		if(query['schedule.day'] === 'all'){
-			delete query['schedule.day'];
+		if(query['schedule.days'] === 'all'){
+			delete query['schedule.days'];
 		}
 		if(query.levels === 'all'){
 			delete query['levels'];
