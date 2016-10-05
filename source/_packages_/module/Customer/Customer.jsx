@@ -440,6 +440,18 @@ console.log(od);
 
                 return rs;
 
+            },
+
+            checkCanBeDelete(id){
+                let m = KG.DataHelper.getDepModule();
+                let x = m.Student.getDB().find({
+                    accountID : id
+                }).count()
+                if(x > 0){
+                    return false;
+                }
+
+                return true;
             }
         };
     }

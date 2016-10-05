@@ -6,8 +6,12 @@ KUI.Family_index = class extends KUI.Page{
         super(p);
 
         this.state = {
-            query : {},
-            page : 1
+            query : {
+                status : 'Active'
+            },
+            page : 1,
+
+            refresh : true
         };
 
         this.m = KG.DataHelper.getDepModule();
@@ -114,6 +118,7 @@ KUI.Family_index = class extends KUI.Page{
     }
 
     renderListTable(style){
+        let self = this;
         if(!this.data.ready){
             return util.renderLoading();
         }
@@ -147,18 +152,18 @@ KUI.Family_index = class extends KUI.Page{
                         top : '2px'
                     };
                     const ml = {
-                        //marginLeft : '10px',
+                        marginLeft : '10px',
                         cursor : 'pointer'
                     };
 
                     var del = function(){
-
+                        self.deleteById(item._id)
                     };
 
                     return (
                         <RC.Div style={{textAlign:'center'}}>
                             <RC.URL href={`/family/profile/${item._id}`}><KUI.Icon icon="edit" font="18px" color="#1ab394" style={sy}></KUI.Icon></RC.URL>
-                            {/*<KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>*/}
+                            {<KUI.Icon onClick={del} icon="trash-o" font="18px" color="#cdcdcd" style={ml}></KUI.Icon>}
                         </RC.Div>
 
                     );
@@ -212,6 +217,42 @@ KUI.Family_index = class extends KUI.Page{
                 </RC.Div>
             </RC.Div>
         );
+    }
+
+    deleteById(id){
+        let self = this;
+        this.m.Customer.callMeteorMethod('checkCanBeDelete', [id], {
+            success : function(flag){
+                if(!flag){
+                    swal('This customer can\'t be deleted ', '', 'error');
+                }
+                else{
+                    swal({
+                        title : 'Delete this customer?',
+                        text : '',
+                        type : 'warning',
+                        showCancelButton : true,
+                        closeOnCancel : true,
+                        closeOnConfirm : false,
+                        confirmButtonText : 'Confirm',
+                        confirmButtonColor : '#1ab394'
+                    }, function(f){
+                        if(!f) return false;
+                        self.m.Customer.getDB().update({_id : id}, {
+                            $set : {
+                                status : 'Inactive'
+                            }
+                        })
+                        self.setState({
+                            refresh : !self.state.refresh
+                        })
+                        //self.m.Customer.getDB().remove({_id : id})
+                        swal.close();
+                    });
+                }
+            }
+
+        })
     }
 
 
