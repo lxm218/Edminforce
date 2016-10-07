@@ -52,9 +52,13 @@ KG.define('EF-DataHelper', class extends Base{
             return a*60+b;
         };
 
-        return classData.sort(function(a, b){
-            return formatTime(a.schedule.time) > formatTime(b.schedule.time);
-        });
+        return _.sortBy(classData, (item)=>{
+            return formatTime(item.schedule.time)
+        })
+
+        // return classData.sort(function(a, b){
+        //     return formatTime(a.schedule.time) > formatTime(b.schedule.time);
+        // });
     }
 
     defineMeteorMethod(){
