@@ -36173,13 +36173,13 @@
   },
   {
     "name": "Dorothy Chen",
-    "accountID": "jane_7_wong_yahoo_com_jjjauto_2002_yahoo_com",
+    "accountID": "jane_7_wong_yahoo_com",
     "profile": {
       "gender": "Female",
       "birthday": "2000-01-14T00:00:00.000Z"
     },
     "status": "Active",
-    "_id": "jane_7_wong_yahoo_com_jjjauto_2002_yahoo_com_dorothy_chen",
+    "_id": "jane_7_wong_yahoo_com_dorothy_chen",
     "level": null
   },
   {
@@ -43764,24 +43764,24 @@
   },
   {
     "name": "Ekta Karkala",
-    "accountID": "karkalag_yahoo_com_sathyakarkala_yahoo_com",
+    "accountID": "karkalag_yahoo_com",
     "profile": {
       "gender": "Female",
       "birthday": "2002-09-20T00:00:00.000Z"
     },
     "status": "Active",
-    "_id": "karkalag_yahoo_com_sathyakarkala_yahoo_com_ekta_karkala",
+    "_id": "karkalag_yahoo_com_ekta_karkala",
     "level": null
   },
   {
     "name": "Aditya Karkala",
-    "accountID": "karkalag_yahoo_com_sathyakarkala_yahoo_com",
+    "accountID": "karkalag_yahoo_com",
     "profile": {
       "gender": "Female",
       "birthday": "2007-06-23T00:00:00.000Z"
     },
     "status": "Active",
-    "_id": "karkalag_yahoo_com_sathyakarkala_yahoo_com_aditya_karkala",
+    "_id": "karkalag_yahoo_com_aditya_karkala",
     "level": null
   },
   {
@@ -86618,13 +86618,13 @@
   },
   {
     "name": "Humza Shah",
-    "accountID": "shaista_ishah_gmail_com_idrees_shah_gmail_com",
+    "accountID": "shaista_ishah_gmail_com",
     "profile": {
       "gender": "Female",
       "birthday": "2010-05-22T00:00:00.000Z"
     },
     "status": "Active",
-    "_id": "shaista_ishah_gmail_com_idrees_shah_gmail_com_humza_shah",
+    "_id": "shaista_ishah_gmail_com_humza_shah",
     "level": null
   },
   {
@@ -89241,13 +89241,13 @@
   },
   {
     "name": "Brandon Tang",
-    "accountID": "shuwli_cisco_com_ellenshuwei_gmail_com",
+    "accountID": "shuwli_cisco_com",
     "profile": {
       "gender": "Male",
       "birthday": "1999-01-04T00:00:00.000Z"
     },
     "status": "Active",
-    "_id": "shuwli_cisco_com_ellenshuwei_gmail_com_brandon_tang",
+    "_id": "shuwli_cisco_com_brandon_tang",
     "level": null
   },
   {

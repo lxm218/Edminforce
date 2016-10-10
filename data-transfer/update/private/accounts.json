@@ -33778,18 +33778,18 @@
   {
     "emails": [
       {
-        "address": "jane7wong@yahoo.com/jjjauto2002@yahoo.com",
+        "address": "jane7wong@yahoo.com",
         "verified": false
       }
     ],
-    "username": "jane7wong@yahoo.com/jjjauto2002@yahoo.com",
+    "username": "jane7wong@yahoo.com",
     "role": "user",
     "services": {
       "password": {
         "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
       }
     },
-    "_id": "jane_7_wong_yahoo_com_jjjauto_2002_yahoo_com"
+    "_id": "jane_7_wong_yahoo_com"
   },
   {
     "emails": [
@@ -40690,18 +40690,18 @@
   {
     "emails": [
       {
-        "address": "karkalag@yahoo.com; sathyakarkala@yahoo.com",
+        "address": "karkalag@yahoo.com",
         "verified": false
       }
     ],
-    "username": "karkalag@yahoo.com; sathyakarkala@yahoo.com",
+    "username": "karkalag@yahoo.com",
     "role": "user",
     "services": {
       "password": {
         "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
       }
     },
-    "_id": "karkalag_yahoo_com_sathyakarkala_yahoo_com"
+    "_id": "karkalag_yahoo_com"
   },
   {
     "emails": [
@@ -80242,18 +80242,18 @@
   {
     "emails": [
       {
-        "address": "shaista.ishah@gmail.com, idrees.shah@gmail.com",
+        "address": "shaista.ishah@gmail.com",
         "verified": false
       }
     ],
-    "username": "shaista.ishah@gmail.com, idrees.shah@gmail.com",
+    "username": "shaista.ishah@gmail.com",
     "role": "user",
     "services": {
       "password": {
         "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
       }
     },
-    "_id": "shaista_ishah_gmail_com_idrees_shah_gmail_com"
+    "_id": "shaista_ishah_gmail_com"
   },
   {
     "emails": [
@@ -82738,18 +82738,18 @@
   {
     "emails": [
       {
-        "address": "shuwli@cisco.com, ellenshuwei@gmail.com",
+        "address": "shuwli@cisco.com",
         "verified": false
       }
     ],
-    "username": "shuwli@cisco.com, ellenshuwei@gmail.com",
+    "username": "shuwli@cisco.com",
     "role": "user",
     "services": {
       "password": {
         "bcrypt": "$2a$10$k13k26qALFBBapCEcvvuwOgQyc61fnqxnK0.tllZ2WUeCp3JS7x3i"
       }
     },
-    "_id": "shuwli_cisco_com_ellenshuwei_gmail_com"
+    "_id": "shuwli_cisco_com"
   },
   {
     "emails": [
