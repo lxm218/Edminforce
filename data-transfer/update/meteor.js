@@ -46,10 +46,14 @@ if (Meteor.isServer) {
     let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
     let classLevelData = JSON.parse(Assets.getText('classLevels.json'));
 
+console.log('students:', studentsData.length);
+console.log('accounts:', accountsData.length);
+console.log('customers:', customersData.length);
+
     var delay = 0;
 
     function insertData(name, data, db, check, callback){
-      console.log("[inserData], data: ", data);
+      console.log("[inserData], data: ", name);
       check = check || function(d){
             return d;
           };
@@ -82,16 +86,16 @@ if (Meteor.isServer) {
 
     function importDatas(){
       var F = {
-        program : function(){
-          insertData('Program', programsData, program, null, F.classLevel);
-        },
-        classLevel: function(){
-          insertData('ClassLevel', classLevelData, classLevel, null, F.session);
-        },
-        session : function(){
-          insertData('Session', sessionsData, session, null, F.account);
-          //insertData('Session', sessionsData, session, null, F.account);
-        },
+        // program : function(){
+        //   insertData('Program', programsData, program, null, F.classLevel);
+        // },
+        // classLevel: function(){
+        //   insertData('ClassLevel', classLevelData, classLevel, null, F.session);
+        // },
+        // session : function(){
+        //   insertData('Session', sessionsData, session, null, F.account);
+        //   //insertData('Session', sessionsData, session, null, F.account);
+        // },
         account : function(){
           insertData('Account', accountsData, Meteor.users, null, F.customer);
           //insertData('Account', accountsData, Meteor.users, null, F.adminuser);
@@ -101,12 +105,12 @@ if (Meteor.isServer) {
           customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
         },
         adminuser : function(){
-          insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
+          insertData('AdminUser', adminUsers, adminUserCollection, null, F.student);
         },
-        classes : function(){
-          insertData('Class', classesData, classCollection, null, F.student);
-          //insertData('Class', classesData, classCollection, null, function(){});
-        },
+        // classes : function(){
+        //   insertData('Class', classesData, classCollection, null, F.student);
+        //   //insertData('Class', classesData, classCollection, null, function(){});
+        // },
         student : function(){
           insertData('Student', studentsData, student, function(item){
             if(!item.profile){
@@ -123,26 +127,27 @@ if (Meteor.isServer) {
               return null;
             }
             return item;
-          }, F.classstudent);
+          }, function(){console.log('done')});
         },
-        classstudent : function(){
-          insertData('ClassStudent', classStudentsData, classStudent, function(item){
-            if (!item.accountID || !item.classID || !item.programID || !item.studentID) {
-              return null;
-            }
-            return item;
-          }, function(){
-            EdminForce.Registration.syncClassRegistrationCount();
-          });
-        }
+        // classstudent : function(){
+        //   insertData('ClassStudent', classStudentsData, classStudent, function(item){
+        //     if (!item.accountID || !item.classID || !item.programID || !item.studentID) {
+        //       return null;
+        //     }
+        //     return item;
+        //   }, function(){
+        //     //EdminForce.Registration.syncClassRegistrationCount();
+        //     console.log('done');
+        //   });
+        // }
       };
 
       // clean up some extra tables
-      Collections.orders.remove({});
-      Collections.customerCoupon.remove({});
-      Collections.studentComment.remove({});
-
-      F.program();
+      //Collections.orders.remove({});
+      //Collections.customerCoupon.remove({});
+      //Collections.studentComment.remove({});
+console.log('start import')
+      F.account();
     }
 
 

@@ -768,8 +768,8 @@ function processClasses(rows) {
 
         let teacherID = getClassTeacherID(data[3]);
         if (!teacherID) {
-            //console.log('Row without teacher skipped: ', i);
-            //continue;
+            console.log('Row without teacher skipped: ', i);
+            continue;
         }
 
         // Generate programs
@@ -816,6 +816,8 @@ function processClasses(rows) {
         nClass._id = getClassID(nClass.programID, nClass.sessionID, nClass.teacher, nClass.schedule.days, data[5]);
         insertToArray(classes, nClass);
     }
+
+    console.log('done processing classes.')
 }
 
 function getStudentLevel(level) {
@@ -860,6 +862,11 @@ function processStudents(rows) {
         }else{// Add default value
             nStudent.profile.gender = "Male";
         }
+        if (nStudent.profile.gender.toLowerCase() == '(unknown)') {
+            console.log('unknown genger deleted')
+            delete nStudent.profile.gender;
+        }
+
         nStudent.level = getStudentLevel(data[3]);
 
         if(data[5]){
@@ -869,19 +876,19 @@ function processStudents(rows) {
             nStudent.profile.birthday = default_birthday;
         }
         // last registration date, used to calculate registration fee
-        if (data[20]) {
-            nStudent.lastRegistrationDate = new Date(data[20]);
+        if (data[2]) {
+            nStudent.lastRegistrationDate = new Date(data[2]);
         }
 
         insertToArray(students, nStudent);
 
-        let nClassStudent = _.cloneDeep(classStudent);
-        nClassStudent.accountID = nUser._id;
-        nClassStudent.classID = getClassID(data[11], data[12], data[13], data[14].split(','), data[16]);
-        nClassStudent.programID = getProgramID(data[11]);
-        nClassStudent.studentID = nStudent._id;
-        nClassStudent._id =  getClassStudentID(nClassStudent.classID,nClassStudent.studentID);//getRandomID();
-        insertToArray(classStudents, nClassStudent);
+        // let nClassStudent = _.cloneDeep(classStudent);
+        // nClassStudent.accountID = nUser._id;
+        // nClassStudent.classID = getClassID(data[11], data[12], data[13], data[14].split(','), data[16]);
+        // nClassStudent.programID = getProgramID(data[11]);
+        // nClassStudent.studentID = nStudent._id;
+        // nClassStudent._id =  getClassStudentID(nClassStudent.classID,nClassStudent.studentID);//getRandomID();
+        // insertToArray(classStudents, nClassStudent);
     }
 }
 
