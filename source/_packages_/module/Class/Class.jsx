@@ -983,14 +983,19 @@ let Class = class extends Base{
 
 
             if(!query.sessionID){
-                let session = KG.get('EF-Session').getDB().find({
-                    //registrationStatus : 'Yes'
-                }).fetch();
+                let tsq = {};
+                if(query.registrationStatus){
+                    tsq.registrationStatus = 'Yes';
+                }
+
+                let session = KG.get('EF-Session').getDB().find(tsq).fetch();
                 session = _.map(session, (item)=>{
                     return item._id;
                 });
                 query.sessionID = {'$in' : session};
             }
+            delete query.registrationStatus;
+            
 console.log(option)
             let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){

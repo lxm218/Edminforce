@@ -100,6 +100,7 @@ let ResultTable = class extends KUI.Page{
 		}
 
 		let query = _.clone(this.state.query);
+		query.registrationStatus = true;
 
 
 		let x2 = this.module.Class.subscribeClassByQuery(query, {
@@ -446,7 +447,7 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 					way = 'cash';
 				}
 			}
-			
+
 		}
 
 
