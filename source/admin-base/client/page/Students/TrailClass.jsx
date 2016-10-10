@@ -405,12 +405,21 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 				_id : classID
 			}
 		});
+		if(!x.ready()) return {ready : false}
+		let so = this.m.Student.getDB().findOne({_id : studentID});
+
+		let cox = Meteor.subscribe(util.getModuleName('Customer'), {
+			query : {
+				_id : so.accountID
+			}
+		});
 
 
 		return {
-			ready : x.ready() && x2.ready(),
-			student : this.module.Student.getAll()[0],
-			class : this.module.Class.getDB().findOne()
+			ready : x.ready() && x2.ready() && cox.ready(),
+			student : so,
+			class : this.module.Class.getDB().findOne(),
+			customer : this.m.Customer.getDB().findOne({_id : so.accountID})
 		};
 	}
 
@@ -520,6 +529,7 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			return false;
 		}
 
+
 		data.type = 'makeup';
 		data.status = 'pending';
 		data.lessonDate = data.date;
@@ -561,6 +571,23 @@ KUI.Student_MakeupClass = class extends KUI.Page{
 			way = this.refs.payway.getValue();
 		}
 		orderData.paymentType = way;
+
+		let credit = 0;
+		if(this.fee > 0){
+			credit = parseInt(this.refs.input_sc.getValue(), 10)||0;
+			if(credit > 0 && credit > this.data.customer.schoolCredit){
+				swal('You don\'t have enough school credit', '', 'error');
+				return false;
+			}
+			if(credit >= this.fee){
+				credit = this.fee;
+				if(!way){
+					way = 'cash';
+				}
+			}
+
+		}
+		orderData.schoolCredit = credit;
 
 		let total = this.fee;
 		let cash = false;
@@ -744,8 +771,13 @@ console.log(orderData);
 								<button type="button" onClick={this.applyCouponCode.bind(this)} className="btn btn-w-m btn-primary">Apply</button>
 							</RB.Col>
 						</RB.Row>
-
 					</RB.Input>
+					<RB.Row>
+						<RB.Col xs={6}>
+							<RB.Input type="text" ref="input_sc" placeholder={`Enter School Credit`} />
+						</RB.Col>
+					</RB.Row>
+
 					<RC.Div style={{textAlign:'right'}}>
 						<KUI.YesButton onClick={this.payNow.bind(this)} ref="paynow" label="Pay Now"></KUI.YesButton>
 					</RC.Div>
@@ -771,4 +803,3 @@ console.log(orderData);
 	}
 
 };
-
