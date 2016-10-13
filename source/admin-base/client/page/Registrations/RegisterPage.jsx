@@ -223,6 +223,7 @@ let StudentFilter = class extends KUI.Page{
 				}
 			};
 		}
+		query.status = 'Active';
 		let level = this.refs.search_level.getValue();
 		if(level !== 'all'){
 			query.level = level;
