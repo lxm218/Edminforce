@@ -176,6 +176,7 @@ let StudentFilter = class extends RC.CSS{
 				}
 			};
 		}
+		query.status = 'Active';
 
 		this.setState({
 			searchResult : 'loading'

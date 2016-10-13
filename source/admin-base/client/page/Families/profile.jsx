@@ -87,6 +87,12 @@ KUI.Family_add_comp = class extends RC.CSS{
                 wrapperClassName : 'col-xs-8',
                 ref : 'em_ship',
                 label : 'Relation'
+            },
+            status : {
+                labelClassName : 'col-xs-4',
+                wrapperClassName : 'col-xs-8',
+                ref : 'status',
+                label : 'Status'
             }
         };
 
@@ -107,6 +113,7 @@ KUI.Family_add_comp = class extends RC.CSS{
         };
 
         let type = this.props.type;
+        let op_status = KG.get(util.getModuleName('Customer')).getDBSchema().schema('status').allowedValues;
 
         return (
             <form className="form-horizontal">
@@ -125,6 +132,14 @@ KUI.Family_add_comp = class extends RC.CSS{
                         <div style={sy.checkout}>
                             <RB.Input onChange={this.changeCheckout} ref="receive" type="checkbox" label="Receive Communications" />
                         </div>
+
+                        <RB.Input type="select" {... p.status}>
+                            {
+                                _.map(op_status, (item, index)=>{
+                                    return <option key={index} value={item}>{item}</option>;
+                                })
+                            }
+                        </RB.Input>
                     </RB.Col>
                     <RB.Col md={6} mdOffset={0}>
                         <RB.Input type="text" {... p.email} />
@@ -150,13 +165,14 @@ KUI.Family_add_comp = class extends RC.CSS{
             name, email, phone, location,
             al_name, al_phone, al_email, al_ship,
             em_name, em_phone, em_email, em_ship,
-            receive
+            receive, status
             } = this.getRefs();
 
         return {
             name : name.getValue(),
             email : email.getValue(),
             phone : phone.getValue(),
+            status : status.getValue(),
             location : location.getValue(),
             alternativeContact : {
                 name : al_name.getValue(),
@@ -179,7 +195,7 @@ KUI.Family_add_comp = class extends RC.CSS{
             name, email, phone, location,
             al_name, al_phone, al_email, al_ship,
             em_name, em_phone, em_email, em_ship,
-            receive
+            receive, status
             } = this.getRefs();
 
         let al = data.alternativeContact || {},
@@ -200,6 +216,7 @@ KUI.Family_add_comp = class extends RC.CSS{
         em_ship.getInputDOMNode().value = em.relation || '';
 
         $(receive.getInputDOMNode()).prop('checked', al.receive||false);
+        status.getInputDOMNode().value = data.status;
 
         //if(data.schoolCredit){
             //this.refs.credit.getInputDOMNode().value  = (data.schoolCredit||0);
@@ -434,7 +451,7 @@ let BillingTable = class extends RC.CSS{
 
                     if(rs < 0) rs = 0;
                     return rs;
-                    
+
                 }
             }
         ];
