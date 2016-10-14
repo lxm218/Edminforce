@@ -82,7 +82,7 @@ let checkForCaseInsensitiveDuplicates = function (fieldName, displayName, fieldV
         // Otherwise, check to see if there are multiple matches or a match
         // that is not us
       (matchedUsers.length > 1 || matchedUsers[0]._id !== ownUserId))) {
-      throw new Meteor.Error(403, displayName + " already exists.");
+      throw new Meteor.Error(403, displayName + " already existed.");
     }
   }
 };

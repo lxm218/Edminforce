@@ -10,7 +10,7 @@ let ClassStudent = class extends Base{
         return _.extend(Validate.ClassStudent, {
             '601' : 'student age is more than class max require age',
             '602' : 'student age is less than class min require age',
-            '610' : 'the record is exist'
+            '610' : 'the record existed'
         });
     }
 
@@ -260,7 +260,7 @@ let ClassStudent = class extends Base{
                     };
                     delete query.student;
                 }
-                
+
 
                 if(_.size(option.sort) < 1){
                     option.sort = {

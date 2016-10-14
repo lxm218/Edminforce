@@ -6,7 +6,7 @@ var ALL_CLASS = {},
 
 var F = {
     define : function(name, opts, parent){
-        if(ALL_CLASS[name]) return (name +' component is exist');
+        if(ALL_CLASS[name]) return (name +' component existed');
 
         var base = {
 
@@ -25,7 +25,7 @@ var F = {
 
                 }
                 else{
-                    throw this._name + ' \' parent is not exist';
+                    throw this._name + ' \' parent does not exist';
                 }
 
             }

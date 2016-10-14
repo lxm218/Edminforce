@@ -50,7 +50,8 @@ KUI.Family_add = class extends RC.CSSMeteorData{
                 success : function(uid){
 console.log(arguments)
                     self.sendEmailToCustomer(param, function(){
-                        util.toast.alert('Insert Success, and send password to ['+param.email+']');
+                        util.toast.alert('Account created');
+                        //util.toast.alert('Account created, send password to ['+param.email+']');
                         self.refs.addBtn.loading(false);
                         util.goPath('/family/profile/'+uid);
                     });
