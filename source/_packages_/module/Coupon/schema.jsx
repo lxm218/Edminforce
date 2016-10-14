@@ -3,7 +3,7 @@ Schema = {};
 Validate = {};
 
 Validate.Coupon = {
-    '500' : 'Coupon code is exist.'
+    '500' : 'Coupon code existed'
 };
 Schema.Coupon = {
     _id : KG.schema.default({

@@ -850,7 +850,7 @@ let Class = class extends Base{
                         return KG.result.out(true, one._id);
                     }
                     if(one.status === 'checkouted'){
-                        return KG.result.out(false, new Meteor.Error('error', 'record is exist.'));
+                        return KG.result.out(false, new Meteor.Error('error', 'record existed.'));
                     }
                 }
 

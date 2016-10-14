@@ -3,7 +3,7 @@ let All = {},
 KG = {
     define : function(name, cls){
         if(All[name]){
-            throw new Error(name + 'is exist');
+            throw new Error(name + 'existed');
         }
 
 
@@ -16,7 +16,7 @@ KG = {
         var cls = KG.getClass(name);
 
         All[name] = new cls(name, opts);
-        console.log('['+name+'] class is create success');
+        console.log('['+name+'] class is created successfully');
 
         return All[name];
     },
@@ -32,7 +32,7 @@ KG = {
     getClass : function(name){
         let rs = AllClass[name];
         if(!rs){
-            throw new Error(name + 'class is not exist');
+            throw new Error(name + 'class does not exist');
         }
         return AllClass[name];
     }
