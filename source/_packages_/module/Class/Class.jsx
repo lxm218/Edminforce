@@ -1022,15 +1022,18 @@ let Class = class extends Base{
 
 
             if(!query.sessionID){
-                let session = KG.get('EF-Session').getDB().find({
-                    registrationStatus : 'Yes'
-                }).fetch();
+                let rp = {};
+                if(query.registrationStatus){
+                    rp.registrationStatus = 'Yes';
+                }
+                let session = KG.get('EF-Session').getDB().find(rp).fetch();
                 session = _.map(session, (item)=>{
                     return item._id;
                 });
                 query.sessionID = {'$in' : session};
             }
-console.log(option)
+            delete query.registrationStatus;
+console.log(query)
             let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){
                     refresher(id);
