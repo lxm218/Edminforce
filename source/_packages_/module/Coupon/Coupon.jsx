@@ -120,7 +120,8 @@ console.log(one);
                     total : 0
                 };
                 let total = opts.overRequire,
-                    coupon = null;
+                    coupon = null,
+                    errorText = [];
                 _.each(opts.classList, (cid, i)=>{
                     let co = m.Class.getDB().findOne({_id : cid});
                     let param = {
@@ -143,13 +144,14 @@ console.log(one);
                     }
                     else{
                         rs[cid].valid = false;
+                        errorText.push(tmp.statusText)
                     }
                 });
 
                 if(rs.discountClass.length < 1){
                     return {
                         flag : false,
-                        error : 'Coupon Code is not valid'
+                        error : errorText.join(' | ')
                     };
                 }
 
