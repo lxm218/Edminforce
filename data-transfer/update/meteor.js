@@ -46,9 +46,9 @@ if (Meteor.isServer) {
     let adminUsers = JSON.parse(Assets.getText('adminUsers.json'));
     let classLevelData = JSON.parse(Assets.getText('classLevels.json'));
 
-console.log('students:', studentsData.length);
-console.log('accounts:', accountsData.length);
-console.log('customers:', customersData.length);
+    console.log('students:', studentsData.length);
+    console.log('accounts:', accountsData.length);
+    console.log('customers:', customersData.length);
 
     var delay = 0;
 
@@ -86,16 +86,16 @@ console.log('customers:', customersData.length);
 
     function importDatas(){
       var F = {
-        // program : function(){
-        //   insertData('Program', programsData, program, null, F.classLevel);
-        // },
-        // classLevel: function(){
-        //   insertData('ClassLevel', classLevelData, classLevel, null, F.session);
-        // },
-        // session : function(){
-        //   insertData('Session', sessionsData, session, null, F.account);
-        //   //insertData('Session', sessionsData, session, null, F.account);
-        // },
+        program : function(){
+          insertData('Program', programsData, program, null, F.classLevel);
+        },
+        classLevel: function(){
+          insertData('ClassLevel', classLevelData, classLevel, null, F.session);
+        },
+        session : function(){
+          insertData('Session', sessionsData, session, null, F.account);
+          //insertData('Session', sessionsData, session, null, F.account);
+        },
         account : function(){
           insertData('Account', accountsData, Meteor.users, null, F.customer);
           //insertData('Account', accountsData, Meteor.users, null, F.adminuser);
@@ -105,12 +105,12 @@ console.log('customers:', customersData.length);
           customer.update({},{$set:{hasRegistrationFee:false}}, {multi:true});
         },
         adminuser : function(){
-          insertData('AdminUser', adminUsers, adminUserCollection, null, F.student);
+          insertData('AdminUser', adminUsers, adminUserCollection, null, F.classes);
         },
-        // classes : function(){
-        //   insertData('Class', classesData, classCollection, null, F.student);
-        //   //insertData('Class', classesData, classCollection, null, function(){});
-        // },
+        classes : function(){
+          insertData('Class', classesData, classCollection, null, F.student);
+          //insertData('Class', classesData, classCollection, null, function(){});
+        },
         student : function(){
           insertData('Student', studentsData, student, function(item){
             if(!item.profile){
@@ -146,7 +146,6 @@ console.log('customers:', customersData.length);
       //Collections.orders.remove({});
       //Collections.customerCoupon.remove({});
       //Collections.studentComment.remove({});
-console.log('start import')
       F.account();
     }
 

@@ -20,7 +20,10 @@ PORT=4000
 #export MONGO_URL=mongodb://admin.classforth.com:27017/EdminForce
 
 #stage DB
-export MONGO_URL=mongodb://calphin:Icalphin123!@aws-us-east-1-portal.12.dblayer.com:10048/calphin-stage?ssl=true
+#export MONGO_URL=mongodb://calphin:Icalphin123!@aws-us-east-1-portal.12.dblayer.com:10048/calphin-stage?ssl=true
+
+#calphi production
+export MONGO_URL=mongodb://calphin:Icalphin123!@aws-us-east-1-portal.13.dblayer.com:10587/calphin?ssl=true
 
 #=====================
 #Update MongoDB
