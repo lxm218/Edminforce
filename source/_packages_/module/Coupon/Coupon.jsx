@@ -69,7 +69,7 @@ console.log(one);
                     let ctp = m.ClassStudent.getDB().find({
                         accountID : opts.accountID,
                         type : 'register',
-                        status : {'$in' : ['checkouted', 'pending']}
+                        status : {'$in' : ['checkouted']}
                     }).count();
                     if(ctp > 0){
                         return KG.result.out(false, new Meteor.Error('-1', 'Coupon code can not used because Customer' +
