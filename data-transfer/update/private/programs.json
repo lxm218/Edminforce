@@ -4,5 +4,11 @@
     "description": "",
     "availableTrial": true,
     "_id": "intense"
+  },
+  {
+    "name": "Paced Program",
+    "description": "",
+    "availableTrial": true,
+    "_id": "paced_program"
   }
 ]
