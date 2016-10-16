@@ -170,7 +170,7 @@ console.log(list)
                 {this.getSearchBox()}
 
                 <hr />
-                <p>Search Resulte : {this.data.count} matches</p>
+                <p>Search Result : {this.data.count} matches</p>
                 {this.data.ready ?
                     <KUI.PageTable
                         style={style.table}
