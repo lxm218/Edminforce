@@ -135,7 +135,7 @@ let ResultTable = class extends KUI.Page{
 		console.log(x2);
 		return {
 			ready : x2.ready(),
-			classList : x2.data
+			classList : KG.DataHelper.sortClassByTime(x2.data)
 		};
 	}
 
@@ -173,7 +173,7 @@ let ResultTable = class extends KUI.Page{
 		return (
 			<KUI.Table
 				style={{}}
-				list={KG.DataHelper.sortClassByTime(this.data.classList)}
+				list={(this.data.classList)}
 				title={titleArray}
 				ref="table"></KUI.Table>
 		);
@@ -188,7 +188,7 @@ let ResultTable = class extends KUI.Page{
 				return false;
 			}
 		});
-
+console.log(i)
 		if(i){
 			return {
 				classID : this.data.classList[i]._id
