@@ -14,7 +14,7 @@ let AdminUserSchema = new SimpleSchema({
         defaultValue : 'Administrator'
     }),
     role : KG.schema.default({
-        allowedValues: ['admin', 'teacher'],
+        allowedValues: ['admin', 'teacher', 'front desk'],
         defaultValue : 'teacher'
     }),
     status : KG.schema.default({
