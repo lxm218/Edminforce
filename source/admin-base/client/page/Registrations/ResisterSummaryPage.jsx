@@ -291,7 +291,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 		}
 		let sc_charge_option = [0];
 		if(s.surcharge !== 0){
-			sc_charge_option.push(s.surcharge);
+			sc_charge_option.unshift(s.surcharge);
 		}
 		const PP = {
 			sc_fee  : {
