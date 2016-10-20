@@ -84,6 +84,17 @@ if(Meteor.isClient){
         }catch(e){}
     }]);
 
+    FlowRouter.wait();
+
+    Meteor.startup(function(){
+        KG.get('EF-AdminUser').callMeteorMethod('getCurrentUser', [], {
+            success : function(user){
+                App.user = user;
+                FlowRouter.initialize();
+            }
+        });
+    })
+
 
 
 }
