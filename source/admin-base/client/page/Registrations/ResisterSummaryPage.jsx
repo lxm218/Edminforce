@@ -14,8 +14,6 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 		this.m = KG.DataHelper.getDepModule();
 
-		let schoolInfo = this.m.School.getInfo();
-
 		this.state = {
 			summaryList : null,
 
@@ -24,7 +22,7 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 			coupon : null,
 			useSchoolCredit : false,
 			registrationFee : 0,
-			surcharge : schoolInfo.surcharge || 0,
+			surcharge : 0,
 		};
 
 		this.C = {
@@ -79,8 +77,10 @@ KUI.Registration_SummaryPage = class extends KUI.Page{
 
 	getStateData(){
 		let self = this;
-		this.setState({
-			summaryList : 'loading'
+        let schoolInfo = this.m.School.getInfo();
+        this.setState({
+			summaryList : 'loading',
+            surcharge : schoolInfo.surcharge || 0,
 		});
 
 		this.m.ClassStudent.callMeteorMethod('getPenddingTypeList', [{
