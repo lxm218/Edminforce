@@ -641,6 +641,12 @@ let Class = class extends Base{
                     });
                 }
 
+                if(opts.credit){
+                    m.Customer.getDB().update({_id : student.accountID}, {
+                        '$inc' : {schoolCredit : opts.credit*-1}
+                    });
+                }
+
                 //send email
                 Meteor.setTimeout(function(){
                     let tes = m.Email.callMeteorMethod('sendChangeClassConfirmEmail', [{
