@@ -1040,6 +1040,10 @@ let Class = class extends Base{
             }
             delete query.registrationStatus;
 console.log(query)
+            if(!option.sort){
+                option.sort = {}
+            }
+            option.sort['schedule.time'] = 1;
             let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){
                     refresher(id);
