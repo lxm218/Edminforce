@@ -42,6 +42,9 @@ KG.define('EF-Email', class extends Base{
             },
 
             sendClassRegistrationCReceiptAndSchedule(opts){
+
+
+
                 let accountID = opts.accountID,
                     studentName = opts.student.name,
                     className = opts.class.nickName,
@@ -60,6 +63,7 @@ KG.define('EF-Email', class extends Base{
                 ].join('');
 
                 console.log(html);
+                return false;
                 return self.callMeteorMethod('sendEmail', [{
                     html : html,
                     to : account.email,
@@ -185,6 +189,8 @@ KG.define('EF-Email', class extends Base{
                     refundAmount : Math.abs(order.amount),
                     refundType : order.paymentType
                 });
+
+                return false;
 
                 console.log(html);
                 return self.callMeteorMethod('sendEmail', [{

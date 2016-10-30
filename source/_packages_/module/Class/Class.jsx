@@ -1043,7 +1043,7 @@ console.log(query)
             if(!option.sort){
                 option.sort = {}
             }
-            option.sort['schedule.time'] = 1;
+            //option.sort['schedule.time'] = 1;
             let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){
                     refresher(id);
@@ -1088,7 +1088,7 @@ console.log(query)
                 let data = [];
                 if(x.ready()){
                     data = tmpDB.find({}).fetch();
-
+                    data = KG.DataHelper.sortClassByTime(data)
                 }
 
 
