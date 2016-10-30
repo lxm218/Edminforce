@@ -234,6 +234,7 @@ let StudentFilter = class extends KUI.Page{
 		this.setState({
 			searchResult : 'loading'
 		});
+
 		this.m.Student.callMeteorMethod('getStudentListByQuery', [query, {
 			pageNum : self.page,
 			sort : {
@@ -554,6 +555,7 @@ let ClassFilter = class extends KUI.Page{
 		self.setState({
 			searchResult : 'loading'
 		});
+		query['$where'] = 'this.numberOfRegistered < this.maxStudent';
 		this.m.Class.callMeteorMethod('getAllByQuery', [query, {
 			pageNum : self.page
 		}], {
