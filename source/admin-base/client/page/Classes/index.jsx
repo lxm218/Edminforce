@@ -45,7 +45,10 @@ KUI.Class_index = class extends RC.CSSMeteorData{
 
             x1 = KG.get('EF-Class').subscribeClassByQuery(query, {
                 pageSize : 10,
-                pageNum : this.state.page
+                pageNum : this.state.page,
+                sort : {
+                    
+                }
             });
         }
         let x2 = Meteor.subscribe('EF-Program', {});

@@ -25,7 +25,7 @@ KUI.Family_index = class extends KUI.Page{
             pageSize : 10,
             pageNum : this.state.page,
             sort : {
-                createTime : -1
+                name : 1
             }
         });
 
