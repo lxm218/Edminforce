@@ -278,7 +278,10 @@ let StudentFilter = class extends KUI.Page{
 			{
 				title : 'Student',
 				key : 'name',
-				style : {}
+				style : {},
+				reactDom(doc){
+					return <a href={`/student/${doc._id}`}>{doc.name}</a>
+				}
 			},
 			{
 				title : 'Email',
