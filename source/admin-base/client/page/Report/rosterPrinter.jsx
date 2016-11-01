@@ -170,6 +170,9 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
         if (!this.data.programs || !this.data.programs.length)
             return [];
 
+        // major levels to be excluded
+        let excludedMajorLevels = ['', 'elite', 'graduate'];
+
         // filter classes by program, teacher
         // group classes by program
         let classesByProgram = [];
@@ -230,6 +233,9 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
                             order: -1
                         })
                     }
+
+                    // exclude some major levels as required
+                    majorLevels = _.reject(majorLevels, m => excludedMajorLevels.indexOf(m.toLowerCase()) >= 0);
 
                     // add a class group for each level.
                     // add the class to its group, if the class has students from multiple major levels
