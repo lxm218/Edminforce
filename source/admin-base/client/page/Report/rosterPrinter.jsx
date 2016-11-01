@@ -445,12 +445,10 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
                         tdElements.push(<td {...attrs}>{text}</td>);
                         break;
                     case 'student':
-                        tdElements.push(<td {...attrs}><a href={"/student/" + rosterRow[iCol].studentID}>{text}</a></td>);
+                        tdElements.push(<td {...attrs}>{text}</td>);
                         break;
                     case 'teacher':
-                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length]}}>
-                            <a href={"/teachers?c=" + rosterRow[iCol].classID + "&d=" + strCurrentDate}>{text}</a>
-                        </th>);
+                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length]}}>{text}</th>);
                         break;
                     case 'rowspan':
                         tdElements.push(<td {...attrs}></td>);
