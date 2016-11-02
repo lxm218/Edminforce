@@ -235,7 +235,7 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
                     }
 
                     // exclude some major levels as required
-                    majorLevels = _.reject(majorLevels, m => excludedMajorLevels.indexOf(m.toLowerCase()) >= 0);
+                    majorLevels = _.reject(majorLevels, m => excludedMajorLevels.indexOf(m.name.toLowerCase()) >= 0);
 
                     // add a class group for each level.
                     // add the class to its group, if the class has students from multiple major levels
