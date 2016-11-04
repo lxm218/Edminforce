@@ -340,10 +340,19 @@ let Class = class extends Base{
                 x += (l.alias||l.name) + '/';
             }
         });
-        console.log(map)
+
         _.each(map, (v, k)=>{
             x += (k+' '+v.value+' ');
         });
+
+        if(x.indexOf('BUB')!==-1 && x.indexOf('CRL')!==-1 && x.indexOf('GLD')!==-1){
+            if(data.minAgeRequire > 18){
+                x = 'Adult'
+            }
+            else{
+                x = 'Teen'
+            }
+        }
 
         return `${data.session.name} ${x} ${data.schedule.days?data.schedule.days.join(' '):''} ${data.schedule.time}`;
     }
