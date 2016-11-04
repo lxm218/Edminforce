@@ -238,7 +238,7 @@ let StudentFilter = class extends KUI.Page{
 		this.m.Student.callMeteorMethod('getStudentListByQuery', [query, {
 			pageNum : self.page,
 			sort : {
-				createTime : -1
+				name : 1
 			}
 		}], {
 			success : function(rs){
@@ -292,6 +292,12 @@ let StudentFilter = class extends KUI.Page{
 				title : 'Gender',
 				key : 'profile.gender',
 				style : {
+				}
+			},
+			{
+				title : 'Birthday',
+				reactDom(doc){
+					return moment(doc.profile.birthday).format(KG.const.dateFormat)
 				}
 			},
 			{
