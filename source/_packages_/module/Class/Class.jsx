@@ -346,7 +346,7 @@ let Class = class extends Base{
         });
 
         if(x.indexOf('BUB')!==-1 && x.indexOf('CRL')!==-1 && x.indexOf('GLD')!==-1){
-            if(data.minAgeRequire > 18){
+            if(data.maxAgeRequire > 18){
                 x = 'Adult'
             }
             else{
