@@ -254,6 +254,14 @@ let RSTable = class extends KUI.Page{
 			list.push({item : 'Date', value : d.date});
 		}
 
+		if(d.oldLevel){
+			list.push({item : 'Old Level', value : d.oldLevel});
+		}
+		if(d.level){
+			list.push({item : 'Level', value : d.level});
+		}
+
+
 
 		return (
 			<KUI.Table

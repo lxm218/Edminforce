@@ -12,6 +12,7 @@ App.ClassStudent = KG.create('EF-ClassStudent');
 KG.create('EF-Coupon');
 KG.create('EF-CustomerCoupon');
 KG.create('EF-StudentComment');
+KG.create('EF-StudentLevel');
 
 KG.create('EF-Order', {
     DBName : 'EF-Orders'

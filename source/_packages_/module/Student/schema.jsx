@@ -64,7 +64,7 @@ Schema.Student = {
         type : Date,
         optional : true
     },
-    
+
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };
@@ -81,3 +81,13 @@ Schema.StudentComment = {
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()
 };
+
+Schema.StudentLevel = {
+    studentID : KG.schema.default(),
+    studentName : KG.schema.default(),
+    level : KG.schema.default(),
+    oldLevel : KG.schema.default(),
+
+    createTime : KG.schema.createTime(),
+    updateTime : KG.schema.updateTime()
+}

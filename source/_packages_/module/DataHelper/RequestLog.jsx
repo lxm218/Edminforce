@@ -16,7 +16,8 @@ KG.define('EF-Request', class extends Base{
 					'cancel makeup class',
 					'pay order',
 					'change school credit',
-					'cancel pending class'
+					'cancel pending class',
+					'change student level'
 				]
 			}),
 			client : KG.schema.default({
@@ -81,9 +82,14 @@ KG.define('EF-Request', class extends Base{
 			case 'cancel pending class':
 			case 'makeup class':
 				data.detail = {
-					id : param.id,
 					data : param.data
 				};
+				break;
+			case 'change student level':
+				data.detail = {
+					id : param.id,
+					data : param.data
+				}
 				break;
 
 			default :
@@ -127,6 +133,13 @@ KG.define('EF-Request', class extends Base{
 
 					if(d.credit){
 						rs.result.credit = d.credit>=0?('+'+d.credit):'-'+Math.abs(d.credit);
+					}
+
+					if(d.level){
+						rs.result.level = m.ClassLevel.getDB().findOne({_id : d.level}).name;
+					}
+					if(d.oldLevel){
+						rs.result.oldLevel = m.ClassLevel.getDB().findOne({_id : d.oldLevel}).name;
 					}
 
 				}

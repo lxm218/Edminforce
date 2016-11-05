@@ -880,6 +880,7 @@ let Class = class extends Base{
                 let data = {
                     accountID : student.accountID,
                     studentID : student._id,
+                    studentLevel : student.level,
                     programID : cls.programID,
                     classID : cls._id
                 };

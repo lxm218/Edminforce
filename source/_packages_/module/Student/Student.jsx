@@ -102,6 +102,38 @@ let Student = class extends Base{
     defineMeteorMethod(){
         let self = this;
         return {
+            updateData : function(selector, data){
+                const m = KG.DataHelper.getDepModule();
+
+                let so = m.Student.getDB().findOne(selector);
+                if(!so){
+                    return KG.result.out(false, new Meteor.Error('error', 'selector is error'))
+                }
+
+                if(so.level !== data.level){
+                    m.StudentLevel.getDB().insert({
+                        studentID : so._id,
+                        studentName : so.name,
+                        level : data.level,
+                        oldLevel : so.level
+                    })
+
+                    //add log
+                    KG.RequestLog.addByType('change student level', {
+                        data : {
+                            studentID : so._id,
+                            studentName : so.name,
+                            level : data.level,
+                            oldLevel : so.level
+                        }
+                    })
+                }
+
+                let rs = m.Student.getDB().update(selector, {'$set' : data});
+
+                return KG.result.out(!!rs, rs)
+            },
+
             getStudentListByQuery : function(query, option){
                 option = KG.util.setDBOption(option||{});
                 query = KG.util.setDBQuery(query||{});

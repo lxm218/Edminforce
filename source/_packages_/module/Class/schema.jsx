@@ -205,6 +205,9 @@ Validate.ClassStudent = {
 Schema.ClassStudent = {
     classID : KG.schema.default(),
     studentID : KG.schema.default(),
+    studentLevel : KG.schema.default({
+        optional : true
+    }),
     accountID : KG.schema.default({
         optional : true
     }),
@@ -272,7 +275,7 @@ Schema.ClassStudent = {
     dynamicKey : KG.schema.default({
         optional : true
     }),
-    
+
     // for trial & makeup class reminder
     reminded: {
         type : Boolean,

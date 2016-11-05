@@ -107,9 +107,11 @@ KUI.Student_profile = class extends KUI.Page{
             studentID : this.getProfileId()
         });
         console.log(profile)
+
+        let slx = Meteor.subscribe(util.getModuleName('ClassLevel'));
         return {
             id,
-            ready : sub.ready(),
+            ready : sub.ready() && slx.ready(),
             mainReady : s1.ready() && s2.ready(),
             profile,
             classStudentData : cs,
@@ -301,6 +303,15 @@ KUI.Student_profile = class extends KUI.Page{
                 title : 'Session',
                 key : 'session'
             },
+            {
+                title : 'Student Level',
+                reactDom(doc){
+                    console.log(doc.studentLevel)
+                    if(!doc.studentLevel) return '';
+
+                    return self.m.ClassLevel.getDB().findOne({_id : doc.studentLevel}).name;
+                }
+            },
             //{
             //    title : 'Type',
             //    key : 'type'
@@ -369,6 +380,7 @@ KUI.Student_profile = class extends KUI.Page{
             //    title : 'Type',
             //    key : 'type'
             //},
+
             {
                 title : 'Status',
                 //key : 'status'
@@ -476,12 +488,19 @@ KUI.Student_profile = class extends KUI.Page{
 
         console.log(sd);
 
-        //update data
-        let rs = this.getStudentModule().getDB().update({
-            _id : this.getProfileId()
-        }, {'$set' : sd});
-
-        alert('update success');
+        let self = this;
+        this.m.Student.callMeteorMethod('updateData', [{_id : this.getProfileId()}, sd], {
+            success : function(json){
+                KG.result.handle(json, {
+                    success : function(){
+                        swal('Update success', '', 'success');
+                    },
+                    error : function(error){
+                        util.toast.showError(error.reason)
+                    }
+                })
+            }
+        })
     }
 
     runOnceAfterDataReady(){
