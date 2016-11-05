@@ -454,7 +454,7 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
                         tdElements.push(<td {...attrs}>{text}</td>);
                         break;
                     case 'teacher':
-                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length]}}>{text}</th>);
+                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length] + ' !important'}}>{text}</th>);
                         break;
                     case 'rowspan':
                         tdElements.push(<td {...attrs}></td>);
@@ -471,7 +471,7 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
             },
             {
                 textAlign:"center",
-                background: programTitleColor
+                background: programTitleColor + ' !important'
             }
         ]
 
