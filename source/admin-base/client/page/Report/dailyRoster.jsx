@@ -236,6 +236,19 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                     // exclude some major levels as required
                     majorLevels = _.reject(majorLevels, m => excludedMajorLevels.indexOf(m.name.toLowerCase()) >= 0);
 
+                    // merge pre-bubbler with bubbler
+                    if (_.find(majorLevels, m=>m.name.toLowerCase() == 'pre-bubbler' )) {
+                        majorLevels = _.reject(majorLevels, m => m.name.toLowerCase() == 'pre-bubbler');
+                        if (!_.find(majorLevels, m=>m.name.toLowerCase() == 'bubbler')) {
+                            majorLevels.push({
+                                name: 'Bubbler',
+                                alias: 'BUB',
+                                subLevel: 1,
+                                order: 2
+                            })
+                        }
+                    }
+
                     // add a class group for each level.
                     // add the class to its group, if the class has students from multiple major levels
                     // merge all major level columns into one.
@@ -244,7 +257,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         if (!grp) {
                             grp={
                                 id: majorLevel.name.toLowerCase(),
-                                name: majorLevel.name == '' ? 'Level N/A' : majorLevel.name,
+                                name: majorLevel.name == '' ? 'Level N/A' : (majorLevel.name.toLowerCase()=='bubbler' ? 'Pre-Bubbler/Bubbler' : majorLevel.name ),
                                 order: majorLevel.order,
                                 classes: []
                             }
