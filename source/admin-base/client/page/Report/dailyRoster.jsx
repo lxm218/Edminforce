@@ -268,15 +268,20 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         // for the second and subsequent columns, add a place holder
                         if (index == 0) {
                             c.colSpan = majorLevels.length;
-                            c.students.forEach( (s) => { s.colSpan =  majorLevels.length })
+                            c.mergedCells = [];
+                            c.students.forEach( (s) => { s.colSpan =  majorLevels.length });
+                            c.pos = 0;
                             grp.classes.push(c);
                         }
                         else {
-                            grp.classes.push({
+                            let mergedCell = {
                                 merged: true,
                                 classTime: c.classTime,
-                                nStudents: c.students.length
-                            });
+                                nStudents: c.students.length,
+                                pos: 0,
+                            };
+                            grp.classes.push(mergedCell);
+                            c.mergedCells.push(mergedCell);
                         }
                     })
                 })
@@ -304,23 +309,69 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             // max number of rows in the current hour
             let maxRowCount = 0;
 
-            // iterate through all class groups(programs or levels)
-            // generate table columns for all classes in each group
+            // group and sort
+            let allOriginalClasses = [];
+            let currentHourClassGroups = new Array(classGroups.length);
             classGroups.forEach( (p, index) => {
-                // classes from each program, start in the current hour
-                let currentHourClasses = _.filter(p.classes, (c) => c.classTime.hours() == hour);
+                currentHourClassGroups[index] = _.filter(p.classes, (c) => c.classTime.hours() == hour);
+                allOriginalClasses = allOriginalClasses.concat(_.reject(currentHourClassGroups[index], "merged") );
+            });
+            allOriginalClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
+            allOriginalClasses.forEach( (c,index) => {
+                c.order = index;
+                c.mergedCells && c.mergedCells.forEach( mc => {mc.order = index});
+            })
 
-                // generate rows for all classes, and teachers
-                currentHour[index] = {rows:[]}
-                // sort classes by start time
-                if (currentHourClasses.length > 0) {
-                    // in the current hour, sort classes by time
-                    currentHourClasses.sort( (a,b) => (a.classTime.valueOf() - b.classTime.valueOf()));
-                    currentHourClasses.forEach( (c) => {
+            for (let iGrp = 0; iGrp < currentHourClassGroups.length; iGrp++) {
+                currentHourClassGroups[iGrp].sort((a,b) => (a.order - b.order));
+            }
+
+            let numAdjustedPos = 0;
+            do {
+                numAdjustedPos = 0;
+                currentHourClassGroups.forEach( grp => {
+                    let pos = 0;
+                    for (let iClass=0; iClass<grp.length; iClass++) {
+                        grp[iClass].pos = Math.max(grp[iClass].pos || 0, pos);
+                        pos = grp[iClass].pos + (grp[iClass].merged ? grp[iClass].nStudents : grp[iClass].students.length) + 1;
+                    }
+                })
+                allOriginalClasses.forEach( c => {
+                    let maxPos = c.pos;
+                    let minPos = c.pos;
+                    c.mergedCells && c.mergedCells.forEach( mc => {
+                        maxPos = Math.max(maxPos, mc.pos);
+                        minPos = Math.min(minPos, mc.pos);
+                    })
+                    if (maxPos != minPos) {
+                        numAdjustedPos++;
+                        c.pos = maxPos;
+                        c.mergedCells.forEach( mc => { mc.pos = maxPos });
+                    }
+                })
+            }
+            while (numAdjustedPos > 0);
+
+            currentHourClassGroups.forEach( (grp,index) => {
+                currentHour[index] = {rows:[]};
+                if (grp && grp.length > 0) {
+                    let pos = 0;
+                    grp.forEach( (c) => {
+
+                        if (c.pos > pos) {
+                            currentHour[index].rows.push({rowSpan:c.pos-pos});
+                            if (c.pos > pos + 1) {
+                                let placeHolders = new Array(c.pos-pos-1);
+                                currentHour[index].rows.push(...placeHolders)
+                            }
+                        }
+
                         if (c.merged) {
                             // add null place holders for merged class
                             let placeHolders = new Array(c.nStudents+1);
                             currentHour[index].rows.push(...placeHolders);
+
+                            pos = c.pos + c.nStudents+1;
                         }
                         else {
                             let classLevelName = App.getClassLevelName(c, this.data.levels);
@@ -332,10 +383,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                                     "classID": c._id
                                 });
                             currentHour[index].rows = [...currentHour[index].rows,...c.students];
+
+                            pos = c.pos + c.students.length +1;
                         }
+
+
                     })
                 }
-
                 if (maxRowCount < currentHour[index].rows.length)
                     maxRowCount = currentHour[index].rows.length;
             });
@@ -359,6 +413,13 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         if (!p.rows[iRow]) {
                             // null for merged cell
                             rosterRow.push(null);
+                        }
+                        else if (p.rows[iRow].rowSpan) {
+                            rosterRow.push({
+                                type: 'rowspan',
+                                text:'',
+                                rowSpan: p.rows[iRow].rowSpan
+                            });
                         }
                         else if (p.rows[iRow].teacher) {
                             // teacher cell
