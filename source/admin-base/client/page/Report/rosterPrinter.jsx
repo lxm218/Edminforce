@@ -514,7 +514,7 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
 
                 let text = rosterRow[iCol].text || '';
                 let attrs = {
-                    key:iRow + '_' + iCol
+                    key:iRow + '_' + iCol,
                 };
                 // colSpan or rowSpan
                 (rosterRow[iCol].rowSpan && rosterRow[iCol].rowSpan > 1) && (attrs.rowSpan = rosterRow[iCol].rowSpan);
@@ -522,16 +522,16 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
 
                 switch (rosterRow[iCol].type) {
                     case 'hour':
-                        tdElements.push(<td {...attrs}>{text}</td>);
+                        tdElements.push(<td {...attrs} style={{padding:0}}>{text}</td>);
                         break;
                     case 'student':
-                        tdElements.push(<td {...attrs}>{text}</td>);
+                        tdElements.push(<td {...attrs} style={{padding:0}}>{text}</td>);
                         break;
                     case 'teacher':
-                        tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length] + ' !important'}}>{text}</th>);
+                        tdElements.push(<th {...attrs} style={{padding:0,textAlign:"center",background:programPalette[(iCol-1) % programPalette.length] + ' !important'}}>{text}</th>);
                         break;
                     case 'rowspan':
-                        tdElements.push(<td {...attrs}></td>);
+                        tdElements.push(<td {...attrs} style={{padding:0}}></td>);
                         break;
                 }
             }
@@ -564,7 +564,7 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
         })
 
         return (
-            <table className="table table-bordered table-condensed2" style={{textAlign:"center", fontSize:12}}>
+            <table className="table table-bordered table-condensed2" style={{textAlign:"center", fontSize:12,padding:0}}>
                 <colgroup>
                     {colWidthElements}
                 </colgroup>
