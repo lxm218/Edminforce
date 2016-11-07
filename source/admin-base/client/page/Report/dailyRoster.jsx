@@ -375,6 +375,10 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         }
                         else {
                             let classLevelName = App.getClassLevelName(c, this.data.levels);
+                            // special logic for Teen and Adulst class
+                            if (classLevelName == 'BUB 1/2/3 CRL 1/2/3 GLD 1/2/3') {
+                                classLevelName = c.maxAgeRequire > 18 ? 'Adult' : 'Teen';
+                            }
                             classLevelName != '' && (classLevelName += ' ');
                             currentHour[index].rows.push(
                                 {
