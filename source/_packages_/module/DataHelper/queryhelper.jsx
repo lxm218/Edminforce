@@ -42,16 +42,18 @@ KG.define('EF-DataHelper', class extends Base{
         return rs;
     }
 
+    getClassSortNumber(time){
+        let a = parseInt(time.substr(0, 2), 10),
+            b = parseInt(time.substr(3, 2), 10),
+            c = time.substr(5,2);
+        if(c === 'PM'){
+            a+=12;
+        }
+        return a*60+b;
+    }
+
     sortClassByTime(classData){
-        let formatTime = function(time){
-            let a = parseInt(time.substr(0, 2), 10),
-                b = parseInt(time.substr(3, 2), 10),
-                c = time.substr(5,2);
-            if(c === 'PM'){
-                a+=12;
-            }
-            return a*60+b;
-        };
+        let formatTime = this.getClassSortNumber;
 
         return _.sortBy(classData, (item)=>{
             return formatTime(item.schedule.time)

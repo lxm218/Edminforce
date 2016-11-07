@@ -1028,11 +1028,15 @@ let Class = class extends Base{
                     //pubThis.removed(dbName, doc._id)
                 });
 
-                arr = self.getAll({_id : id});
+                let tmp = self.getAll({_id : id})[0];
+                tmp.sortNumber = KG.DataHelper.getClassSortNumber(tmp.schedule.time);
+                arr = [tmp];
                 console.log(id);
                 _.each(arr, (doc)=>{
 
+
                     pubThis.added(dbName, doc._id, doc);
+
                 });
             };
 
@@ -1049,9 +1053,10 @@ let Class = class extends Base{
                 query.sessionID = {'$in' : session};
             }
             delete query.registrationStatus;
-console.log(query)
             if(!option.sort){
-                option.sort = {}
+                option.sort = {
+                    updateTime : -1
+                }
             }
             //option.sort['schedule.time'] = 1;
             let handler = self._db.find(query, option).observeChanges({
@@ -1098,7 +1103,7 @@ console.log(query)
                 let data = [];
                 if(x.ready()){
                     data = tmpDB.find({}).fetch();
-                    data = KG.DataHelper.sortClassByTime(data)
+                    //data = KG.DataHelper.sortClassByTime(data)
                 }
 
 
