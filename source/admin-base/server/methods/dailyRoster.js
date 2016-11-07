@@ -72,7 +72,8 @@ Meteor.methods({
                 teacherID:1,
                 level:1,
                 levels:1,
-                schedule: 1
+                schedule: 1,
+                maxAgeRequire: 1
             }
         }).fetch();
 
