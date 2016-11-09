@@ -52,6 +52,12 @@ Schema.Student = {
         optional : true
     }),
 
+    isImport : KG.schema.default({
+        type : Boolean,
+        optional : true,
+        defaultValue : false
+    }),
+
     // the following two fields are merged from mobile schema, required by mobile
     school: KG.schema.default({
         optional:true

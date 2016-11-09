@@ -1,7 +1,7 @@
 
 
 Meteor.methods({
-	'DataHelper:SyncClassTeacherID' : function() {
+	'shell:SyncClassTeacherID' : function() {
 		let m = KG.DataHelper.getDepModule();
 		let classList = m.Class.getDB().find().fetch();
 
@@ -31,5 +31,24 @@ Meteor.methods({
 		});
 
 		return true;
+	},
+
+	'shell:AddTagToImportStudent' : function(){
+		let m = KG.DataHelper.getDepModule();
+		const date = new Date('10/12/2016')
+
+		let list = m.Student.getDB().update({
+			createTime : {
+				'$lt' : date
+			}
+		}, {
+			'$set' : {
+				isImport : true
+			}
+		}, {
+			multi : true
+		});
+
+		return list
 	}
 });

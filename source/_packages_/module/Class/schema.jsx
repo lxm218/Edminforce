@@ -245,6 +245,13 @@ Schema.ClassStudent = {
         optional : true,
         defaultValue : 'pending'
     }),
+
+    sessionStatus : KG.schema.default({
+        allowedValues : ['', 'new', 'return', 'repeat'],
+        optional : true,
+        defaultValue : ''
+    }),
+
     pendingFlag : KG.schema.default({
         optional : true,
         defaultValue : false,
