@@ -387,6 +387,73 @@ let ClassStudent = class extends Base{
                     return e;
                 }
 
+            },
+            getSessionStatusByData(param){
+                const m = KG.DataHelper.getDepModule();
+
+                let data = param;
+                if(_.isString(param)){
+                    data = m.ClassStudent.getDB().findOne({_id : param});
+                }
+
+                const studentID = data.studentID;
+                const so = m.Student.getDB().findOne({_id : studentID});
+                const co = m.Class.getDB().findOne({_id : data.classID});
+                const session = m.Session.getDB().findOne({_id : co.sessionID});
+
+                //find all data by studnetID
+                const csList = m.ClassStudent.getDB().find({
+                    studentID : studentID,
+                    type : 'register',
+                    status : 'checkouted'
+                }, {
+                    updateTime : -1
+                }).fetch()
+                if(csList.length < 1){
+                    if(so.isImport){
+                        return 'return';
+                    }
+                    else{
+                        return 'new';
+                    }
+                }
+
+                let tmp = {
+                    history : 0,
+                    up : 0,
+                    now : 0,
+                    nowStatus : ''
+                }
+                _.each(csList, (cs)=>{
+                    let C = {}
+                    C.co = m.Class.getDB().findOne({_id : cs.classID});
+                    C.session = m.Session.getDB().findOne({_id : C.co.sessionID});
+                    if(C.session.sortOrder === session.sortOrder-1){
+                        tmp.up++
+                    }
+                    else if(C.session._id === session._id){
+                        tmp.now++;
+                        tmp.nowStatus = cs.sessionStatus;
+                    }
+                    else if(C.session.sortOrder < session.sortOrder-1){
+                        tmp.history++;
+                    }
+                });
+console.log(tmp)
+                if(tmp.now > 0){
+                    return tmp.nowStatus || '';
+                }
+
+                if(tmp.up > 0){
+                    return 'repeat';
+                }
+
+                if(tmp.history > 0){
+                    return 'return';
+                }
+
+                return '';
+
             }
         };
     }

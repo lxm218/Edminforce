@@ -381,11 +381,20 @@ KUI.Student_profile = class extends KUI.Page{
             //    key : 'type'
             //},
 
+            // {
+            //     title : 'Status',
+            //     //key : 'status'
+            //     reactDom(doc){
+            //         return doc.status==='checkouted'?'success':doc.status;
+            //     }
+            // },
             {
-                title : 'Status',
-                //key : 'status'
+                title : 'Student Level',
                 reactDom(doc){
-                    return doc.status==='checkouted'?'success':doc.status;
+                    //console.log(doc.studentLevel)
+                    if(!doc.studentLevel) return '';
+
+                    return self.m.ClassLevel.getDB().findOne({_id : doc.studentLevel}).name;
                 }
             },
             {

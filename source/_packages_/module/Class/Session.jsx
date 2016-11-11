@@ -10,6 +10,10 @@ KG.define('EF-Session', class extends Base{
             endDate : KG.schema.default({
                 type : Date
             }),
+            sortOrder : {
+                type : Number,
+                optional : true
+            },
             blockOutDay : KG.schema.default({
                 type : [Date],
                 optional : true

@@ -92,7 +92,9 @@ Schema.StudentLevel = {
     studentID : KG.schema.default(),
     studentName : KG.schema.default(),
     level : KG.schema.default(),
-    oldLevel : KG.schema.default(),
+    oldLevel : KG.schema.default({
+        optional : true
+    }),
 
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()

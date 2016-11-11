@@ -52,6 +52,10 @@ KUI.Program_session = class extends RC.CSSMeteorData{
                 key : 'registrationStatus'
             },
             {
+                title : 'Order',
+                key : 'sortOrder'
+            },
+            {
                 title : 'Action',
                 style : {
                     textAlign : 'center'
