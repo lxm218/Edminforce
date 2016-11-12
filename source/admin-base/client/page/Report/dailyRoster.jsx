@@ -31,7 +31,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.showExportButton = this.showExportButton.bind(this);
         this.exportPeriod = this.exportPeriod.bind(this);
         this.serializeCSV = this.serializeCSV.bind(this);
-        
+
     }
 
     // set up bootstrap datepicker control
@@ -114,7 +114,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         this.updateQueryParams();
         Meteor.call('dailyRoster.getData', moment(this.state.selectedDate).format("YYYYMMDD"),(function(err,result){
             this.data = result;
-            
+
             // sort program by display order
             // sort student names alphabetically
             // move trial & makeup to the end
@@ -150,7 +150,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             }
 
             this.setState({
-                loading:false, 
+                loading:false,
                 error: err && err.reason
             });
         }).bind(this))
@@ -168,7 +168,6 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         // an empty array means empty data set returned from server
         if (!this.data.programs || !this.data.programs.length)
             return [];
-
         // major levels to be excluded
         let excludedMajorLevels = ['', 'elite', 'graduate'];
 
@@ -438,7 +437,6 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         else {
                             // student cell
                             let tdContent = p.rows[iRow].name;
-
                             let annotations = [];
                             // show student level
                             let studentLevel = _.find(this.data.levels, {_id:p.rows[iRow].level});
@@ -466,6 +464,7 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             rosterRow.push({
                                 type: 'student',
                                 text: tdContent,
+                                sessionStatus : p.rows[iRow].sessionStatus,
                                 studentID: p.rows[iRow].studentID,
                                 ...colSpan
                             });
@@ -500,7 +499,6 @@ KUI.Report_DailyRoster = class extends RC.CSS {
             return (<div>No data available for your selection</div>);
         if (this.state.error)
             return (<div>{this.state.error}</div>);
-
         // color palette for columns and class title
         let programTitleColor = "#1AB394";
         let programPalette = ["#99CC00", "#FF99CC", "#FFFF99", "#F4B084"];
@@ -528,7 +526,22 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                         tdElements.push(<td {...attrs}>{text}</td>);
                         break;
                     case 'student':
-                        tdElements.push(<td {...attrs}><a className="print-hidden" href={"/student/" + rosterRow[iCol].studentID}>{text}</a> <span className="print-show">{text}</span></td>);
+                        let color = '';
+                        switch(rosterRow[iCol].sessionStatus){
+                            case 'new':
+                                color = 'red';
+                                break;
+                            case 'return':
+                                color = 'blue';
+                                break;
+                            case 'repeat':
+                                color = 'green';
+                                break;
+                        }
+
+                        const ttt = <font style={{color:color}}>{text}</font>
+
+                        tdElements.push(<td {...attrs}><a className="print-hidden" href={"/student/" + rosterRow[iCol].studentID}>{ttt}</a> <span className="print-show">{text}</span></td>);
                         break;
                     case 'teacher':
                         tdElements.push(<th {...attrs} style={{textAlign:"center",background:programPalette[(iCol-1) % programPalette.length] + ' !important'}}>

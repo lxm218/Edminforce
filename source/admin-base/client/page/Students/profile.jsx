@@ -389,12 +389,9 @@ KUI.Student_profile = class extends KUI.Page{
             //     }
             // },
             {
-                title : 'Student Level',
+                title : 'Student Label',
                 reactDom(doc){
-                    //console.log(doc.studentLevel)
-                    if(!doc.studentLevel) return '';
-
-                    return self.m.ClassLevel.getDB().findOne({_id : doc.studentLevel}).name;
+                    return doc.sessionStatus||''
                 }
             },
             {

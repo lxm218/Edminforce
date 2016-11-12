@@ -5,13 +5,13 @@ Meteor.methods({
         result.programs = KG.get('EF-Program').getDB().find({}, {fields:{name:1}}).fetch();
         // all teachers
         result.teachers = KG.get('EF-AdminUser').getDB().find({
-            role : 'teacher', 
+            role : 'teacher',
             status: 'active'}, {
             fields: {
                 nickName:1
             }
         }).fetch();
-        
+
         return result;
     },
 
@@ -91,7 +91,8 @@ Meteor.methods({
                     status:1,
                     pendingFlag:1,
                     updateTime:1,
-                    orderID:1
+                    orderID:1,
+                    sessionStatus:1
                 }
             }).fetch();
 
@@ -139,6 +140,7 @@ Meteor.methods({
                     level: stdInfo ? stdInfo.level : '',
                     newStudent,
                     transferred,
+                    sessionStatus : s.sessionStatus || ''
                 })
             });
         })
@@ -149,7 +151,7 @@ Meteor.methods({
             p.classes = groupByPrograms[k];
             return p;
         })
-   
+
         return result;
     }
 });
