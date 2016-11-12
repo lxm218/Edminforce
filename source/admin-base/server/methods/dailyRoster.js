@@ -124,7 +124,7 @@ Meteor.methods({
 
                 // calculate the number of days from lastRegistrationDate to report date
                 // if the number of days <= 7, the student is "new" or "transferred"
-                let numDays = reportDate.diff(stdInfo.lastRegistrationDate || result.session.startDate, 'd');
+                let numDays = reportDate.diff((stdInfo?stdInfo.lastRegistrationDate:result.session.startDate), 'd');
                 // in the first week of class, student is marked as "new" or "transferred"
                 if (numDays <= 7) {
                     newStudent = true;
