@@ -431,6 +431,63 @@ console.log(start.format(), end.format());
                 return rs;
             },
 
+            getEmailListBySessionRegistration : function(sessionID){
+                const m = this.getDepModule()
+
+                // const session = m.Session.getDB().findOne({name : sessionName})
+                // if(!session){
+                //     return new Meteor.Error('error', 'session name is not valid')
+                // }
+
+                //get all class by this session
+                const cl = m.Class.getDB().find({
+                    sessionID : sessionID
+                }).fetch()
+                const classList = _.map(cl, (c)=>{
+                    return c._id
+                })
+
+                let pipeline = [
+                    {
+                        '$match' : {
+                            type : 'register',
+                            status : 'checkouted',
+                            classID : {$in : classList}
+                        }
+
+                    },
+                    {
+                        '$sort' : {
+                            updateTime : -1
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Customer.getDBName(),
+                            localField : 'accountID',
+                            foreignField : '_id',
+                            as : 'customer'
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Student.getDBName(),
+                            localField : 'studentID',
+                            foreignField : '_id',
+                            as : 'student'
+                        }
+                    }
+                ];
+
+                let csl = m.ClassStudent.getDB().aggregate(pipeline)
+
+                csl = _.uniq(csl, (item)=>item.studentID)
+
+
+
+                return csl;
+            },
+
 
             //edit wrong data for admin
             shellForGetClassStudentWrongDataForAdmin : function(){
