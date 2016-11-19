@@ -623,8 +623,12 @@ let Class = class extends Base{
                     console.log(tes);
                 }, 100);
 
+
+
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
+                m.Class.callMeteorMethod('syncNumberOfRegister', [cs.classID])
+                m.Class.callMeteorMethod('syncNumberOfRegister', [toClassID])
                 KG.RequestLog.addByType('change class', {
                     id : true,
                     data : {
@@ -687,6 +691,7 @@ let Class = class extends Base{
 
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
+                m.Class.callMeteorMethod('syncNumberOfRegister', [cs.classID])
                 KG.RequestLog.addByType('cancel class', {
                     id : ClassStudentID,
                     data : {
@@ -995,7 +1000,7 @@ let Class = class extends Base{
                 query.sessionID = {'$in' : session};
             }
             delete query.registrationStatus;
-            
+
 console.log(option)
             let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){
