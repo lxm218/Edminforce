@@ -1,4 +1,61 @@
 
+let EmailTable = class extends RC.CSS{
+    constructor(p){
+        super(p)
+
+        this.state = {
+            page : 1
+        }
+    }
+    render(){
+        let list = this.props.list
+
+        const titleArray = [
+            {
+                title : 'Name',
+                key : 'name'
+            },
+            {
+                title : 'Email',
+                key : 'email'
+            },
+            {
+                title : 'Select',
+                style : {
+                    textAlign : 'center'
+                },
+                reactDom(item){
+                    let sy = {
+                        textAlign : 'center',
+                        display : 'block'
+                    };
+
+                    return <label style={sy}><input key={item._id} type="checkbox" onChange={function(){}} defaultChecked="true" name="sml" data-email={item.email} /></label>
+                }
+            }
+        ];
+
+        let tList = list.slice((this.state.page-1)*10, this.state.page*10-1)
+
+        return (
+            <RC.Div>
+                <p>Search Result : {list.length} matches</p>
+                <KUI.PageTable
+                    style={{}}
+                    total={list.length}
+                    onSelectPage={(function(p){this.setState({page:p})}).bind(this)}
+                    pagesize={10}
+                    page={this.state.page}
+                    list={tList}
+                    title={titleArray}
+                    ref="table">
+                </KUI.PageTable>
+            </RC.Div>
+        );
+    }
+
+}
+
 KUI.Email_index = class extends KUI.Page{
 
     constructor(p){
@@ -37,8 +94,8 @@ KUI.Email_index = class extends KUI.Page{
         };
         if(this.state.filterQuery){
             cx = Customer.subscribeByClassQuery(this.state.filterQuery, {
-                pageSize : 10,
-                pageNum : this.state.page
+                pageSize : 10000,
+                pageNum : 1 //this.state.page
             });
 
         }
@@ -244,46 +301,7 @@ KUI.Email_index = class extends KUI.Page{
             return null;
         }
 
-        const titleArray = [
-            {
-                title : 'Name',
-                key : 'name'
-            },
-            {
-                title : 'Email',
-                key : 'email'
-            },
-            {
-                title : 'Select',
-                style : {
-                    textAlign : 'center'
-                },
-                reactDom(item){
-                    let sy = {
-                        textAlign : 'center',
-                        display : 'block'
-                    };
-
-                    return <label style={sy}><input key={item._id} type="checkbox" onChange={function(){}} defaultChecked="true" name="sml" data-email={item.email} /></label>
-                }
-            }
-        ];
-
-        return (
-            <RC.Div>
-                <p>Search Result : {this.data.filterCount} matches</p>
-                <KUI.PageTable
-                    style={{}}
-                    total={this.data.filterCount}
-                    onSelectPage={(function(p){this.setState({page:p})}).bind(this)}
-                    pagesize={10}
-                    page={this.state.page}
-                    list={this.data.filterList}
-                    title={titleArray}
-                    ref="table">
-                </KUI.PageTable>
-            </RC.Div>
-        );
+        return <EmailTable ref="etable" list={this.data.filterList} />
     }
 
     getRefs(){
@@ -399,7 +417,7 @@ KUI.Email_index = class extends KUI.Page{
 
 
         let address = [];
-        let o = util.getReactJQueryObject(this.refs.table).find('input[name="sml"]');
+        let o = util.getReactJQueryObject(this.refs.etable.refs.table).find('input[name="sml"]');
 
         o.each(function(){
             let oo = $(this);
