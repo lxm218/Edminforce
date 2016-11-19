@@ -36,9 +36,26 @@ let PendingBox = class extends RC.CSS{
         });
     }
 
+    removeById(id){
+		let list = this.state.list||[];
+        let self = this
+		this.m.ClassStudent.callMeteorMethod('removeById', [id], {
+			success : function(){
+				let n = _.findIndex(list.list, {_id:id});
+
+				list.list.splice(n, 1);
+				self.setState({
+					list : list
+				});
+			}
+		});
+	}
+
     render() {
         if (!this.state.list) return null;
         if ('loading' === this.state.list) return util.renderLoading();
+
+        let self = this;
 
         let titleArray = [
             {
