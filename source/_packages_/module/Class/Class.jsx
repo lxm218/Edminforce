@@ -873,9 +873,28 @@ let Class = class extends Base{
                     cls = m.Class.getDB().findOne({_id : opts.classID});
 
                 console.log(cls.levels, student.level);
-                if(!_.contains(cls.levels, student.level)){
-                    return KG.result.out(false, new Meteor.Error('error', 'student level doesn\'t match class level'));
+                if(student.level && !_.contains(cls.levels, student.level)){
+
+                    let sv = m.ClassLevel.getDB().findOne({name : student.level})
+                    let f = false
+                    if(sv){
+                        sv = sv.order+1
+
+                        sv = m.ClassLevel.getDB().find({order:sv}).fetch()
+
+                        _.each(sv, (item)=>{
+                            if(_.contains(cls.levels, item.name)){
+                                f = true
+                                return false
+                            }
+                        })
+                    }
+                    if(!f){
+                        return KG.result.out(false, new Meteor.Error('error', 'student level doesn\'t match class level'));
+                    }
+
                 }
+
 
                 let data = {
                     accountID : student.accountID,
