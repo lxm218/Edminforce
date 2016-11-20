@@ -102,14 +102,14 @@ if(Meteor.isClient){
 		}
 	});
 
-	// Route.route('/emaillist', {
-	// 	action : function(p){
-	// 		App.routeHandler(p, {
-	// 			pageTitle : 'Email List',
-	// 			bodyTmpl : <KUI.EmailList_Report />
-	// 		})
-	// 	}
-	// })
+	Route.route('/studentemail', {
+		action : function(p){
+			App.routeHandler(p, {
+				pageTitle : 'Email List',
+				bodyTmpl : <KUI.StudentEmail_Report />
+			})
+		}
+	})
 
 	Route.route('/emaillist/:sessionID', {
 		action : function(p){

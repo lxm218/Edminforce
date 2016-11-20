@@ -431,6 +431,72 @@ console.log(start.format(), end.format());
                 return rs;
             },
 
+            getStudentEmailList : function(opts){
+                const m = this.getDepModule()
+
+                const clq = {}
+                if(opts.session){
+                    clq.sessionID = opts.session
+                }
+                if(opts.day){
+                    clq['schedule.day'] = opts.day
+                }
+                if(opts.teacher){
+                    clq['teacherID'] = opts.teacher
+                }
+                if(opts.program){
+                    clq['programID'] = opts.program
+                }
+                if(opts.status){
+                    clq['status'] = opts.status
+                }
+                const cl = m.Class.getDB().find(clq).fetch()
+
+                const classList = _.map(cl, (c)=>{
+                    return c._id
+                })
+
+                let pipeline = [
+                    {
+                        '$match' : {
+                            type : 'register',
+                            status : 'checkouted',
+                            classID : {$in : classList}
+                        }
+
+                    },
+                    {
+                        '$sort' : {
+                            updateTime : -1
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Customer.getDBName(),
+                            localField : 'accountID',
+                            foreignField : '_id',
+                            as : 'customer'
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Student.getDBName(),
+                            localField : 'studentID',
+                            foreignField : '_id',
+                            as : 'student'
+                        }
+                    }
+                ];
+
+                let csl = m.ClassStudent.getDB().aggregate(pipeline)
+
+                csl = _.uniq(csl, (item)=>item.studentID)
+
+
+
+                return csl;
+            },
+
             getEmailListBySessionRegistration : function(sessionID){
                 const m = this.getDepModule()
 
