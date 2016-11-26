@@ -872,9 +872,11 @@ let Class = class extends Base{
                 let student = m.Student.getDB().findOne({_id : opts.studentID}),
                     cls = m.Class.getDB().findOne({_id : opts.classID});
 
-                console.log(cls.levels, student.level);
-                let f = false
-                if(student.level && !_.contains(cls.levels, student.level)){
+                let f = true
+                if(!student.level){
+                    f = false
+                }
+                else if(student.level && !_.contains(cls.levels, student.level)){
 
                     let sv = m.ClassLevel.getDB().findOne({_id : student.level})
 
