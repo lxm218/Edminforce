@@ -489,7 +489,7 @@ let Class = class extends Base{
                 let cd = this.getAll({_id : opts.classID})[0];
 
 
-                let tuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
+                let tuition = cd.tuition.type === 'class' ? (cd.leftOfClass||cd.numberOfClass)*cd.tuition.money : cd.tuition.money;
 
 
 
