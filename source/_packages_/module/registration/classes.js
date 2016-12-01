@@ -51,7 +51,7 @@ function getClasesForRegistration(userId, studentID, programID, sessionID) {
     let currentDate = new Date();
 
     result.students = Collections.student.find({accountID: userId},{fields:_studentFields}).fetch();
-    result.sessions = Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}).fetch();
+    result.sessions = Collections.session.find({registrationStartDate:{$lt:currentDate}, registrationEndDate:{$gt:currentDate}}, {sort:{startDate:-1}}).fetch();
     result.programs = Collections.program.find({}).fetch();
 
     if (!studentID || !_.find(result.students, {_id:studentID})) {
