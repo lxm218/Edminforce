@@ -612,6 +612,59 @@ KUI.Report_DailyRoster = class extends RC.CSS {
         saveAs(blob, "DailyRoster.csv");
         */
     }
+    exportExcel(){
+      const rows = this.getRosterDataTable()
+      alert(rows.length)
+      if(!rows.length) return
+      const colLength = rows[0].length
+
+      var _headers = ['Time', 'Teacher', 'Student']
+      var _data = rows.map((item)=>{
+          return {
+            Time:item[0] && item[0].text||'',
+            Teacher:item[1] && item[1].type=='teacher'? item[1].text:'',
+            Student:item[1] && item[1].type=='student'? item[1].text:'',
+          }
+
+      })
+      //console.log(_data)
+      var headers = _headers
+        .map((v, i) => Object.assign({}, {v: v, position: String.fromCharCode(65+i) + 1 }))
+        .reduce((prev, next) => Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+      var data = _data
+        .map((v, i) => _headers.map((k, j) => Object.assign({}, { v: v[k], position: String.fromCharCode(65+j) + (i+2) })))
+        .reduce((prev, next) => prev.concat(next))
+        .reduce((prev, next) => Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+
+      // 合并 headers 和 data
+      var output = Object.assign({}, headers, data);
+
+      //console.log(output)
+     // 获取所有单元格的位置
+      var outputPos = Object.keys(output);
+      // 计算出范围
+      var ref = outputPos[0] + ':' + outputPos[outputPos.length - 1];
+      // 构建 workbook 对象
+      var wb = {
+        SheetNames: ['mySheet'],
+        Sheets: {
+          'mySheet': Object.assign({}, output, { '!ref': ref })
+        }
+      };
+    // 导出 Excel
+    //XLSX.writeFile(wb, 'output.xlsx');
+      var wopts = { bookType:'xlsx', bookSST:false, type:'binary' };
+      var wbout = XLSX.write(wb,wopts);
+      function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+      }
+
+        /* the saveAs call downloads a file on the local machine */
+      saveAs(new Blob([s2ab(wbout)],{type:""}), "test.xlsx")
+    }
 
     serializeCSV(record){
         var res = ''
@@ -722,6 +775,12 @@ KUI.Report_DailyRoster = class extends RC.CSS {
                             <RB.Button bsStyle="link"><RB.Glyphicon glyph="print" /></RB.Button>
                         </a>
                     }
+                  {
+                    this.data && this.data.programs && this.data.programs.length &&
+                    <a className="print-hidden" onClick={this.exportExcel.bind(this)} title="export this page">
+                        <RB.Button bsStyle="link"><RB.Glyphicon glyph="save" /></RB.Button>
+                    </a>
+                  }
                     <div className="print-show" style={{textAlign:'center',fontSize:'14px',margin:5}}> Daily Roster {moment(this.state.selectedDate).format("MM/DD/YYYY")} </div>
                     {this.renderRoster(this.getRosterDataTable())}
                 </RC.Div>
