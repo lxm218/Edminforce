@@ -337,7 +337,7 @@ console.log(this.state.list.list)
             {
                 title : 'Registrations',
                 reactDom(doc){
-                    return `${doc.class[0].numberOfRegistered}/${doc.class[0].numberOfClass}`
+                    return `${doc.class[0].numberOfRegistered}/${doc.class[0].maxStudent}`
                 }
             },
             {
