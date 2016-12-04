@@ -872,7 +872,7 @@ let Class = class extends Base{
                 let student = m.Student.getDB().findOne({_id : opts.studentID}),
                     cls = m.Class.getDB().findOne({_id : opts.classID});
 
-                let f = true
+                let f = false
                 if(!student.level){
                     f = false
                 }
@@ -892,6 +892,9 @@ let Class = class extends Base{
                             }
                         })
                     }
+                }
+                else{
+                    f = true
                 }
                 if(!f){
                     return KG.result.out(false, new Meteor.Error('error', 'student level doesn\'t match class level'));
