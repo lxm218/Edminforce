@@ -51,13 +51,13 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         let x2 = Meteor.subscribe('EF-Program', {});
             x3 = Meteor.subscribe('EF-Session', {
                 query : {
-                    registrationStatus : 'Yes'
+                    //registrationStatus : 'Yes'
                 }
             });
         let x4 = Meteor.subscribe('EF-AdminUser', {
             query : {
                 role : 'teacher',
-                status : 'active'
+                status : {$in:['', 'active']}
             }
         });
 
@@ -277,14 +277,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                             }
                         </RB.Input>
 
-                        <RB.Input type="select" {... p.day}>
-                            <option key={-1} value="all">All</option>
-                            {
-                                _.map(option.day, (item, index)=>{
-                                    return <option key={index} value={item}>{item}</option>;
-                                })
-                            }
-                        </RB.Input>
+
                     </RB.Col>
 
                     <RB.Col md={6} mdOffset={0}>
@@ -296,13 +289,15 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                                 })
                             }
                         </RB.Input>
-                        <RB.Input type="select" {... p.status}>
+                        <RB.Input type="select" {... p.day}>
+                            <option key={-1} value="all">All</option>
                             {
-                                _.map(option.status, (item, index)=>{
+                                _.map(option.day, (item, index)=>{
                                     return <option key={index} value={item}>{item}</option>;
                                 })
                             }
                         </RB.Input>
+
 
                     </RB.Col>
                 </form>
@@ -349,12 +344,12 @@ KUI.Class_index = class extends RC.CSSMeteorData{
         let program = this.refs.program,
             session = this.refs.session,
             teacher = this.refs.teacher,
-            status = this.refs.status,
+            //status = this.refs.status,
             day = this.refs.day;
         let query = {
             programID : program.getValue(),
             sessionID : session.getValue(),
-            status : status.getValue(),
+            //status : status.getValue(),
             'schedule.day' : day.getValue()
         };
         if(query.programID === 'all'){

@@ -100,6 +100,7 @@ let ResultTable = class extends KUI.Page{
 		}
 
 		let query = _.clone(this.state.query);
+		query.registrationStatus = true;
 
 
 		let x2 = this.module.Class.subscribeClassByQuery(query, {
@@ -210,6 +211,8 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			}
 		});
 
+		let cux = Meteor.subscribe(util.getModuleName('Customer'), {query : {_id : csData.accountID}});
+
 		let cxData = this.module.Class.getAll({
 			_id : csData.classID
 		})[0];
@@ -219,10 +222,11 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		}
 
 		return {
-			ready : sx.ready() && cx.ready(),
+			ready : sx.ready() && cx.ready() && cux.ready(),
 			id : csID,
 			classData : cxData,
-			student : this.module.Student.getAll()[0]
+			student : this.module.Student.getAll()[0],
+			customer : this.m.Customer.getDB().findOne({_id : csData.accountID})
 		};
 	}
 
@@ -367,7 +371,11 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 		if (tuition > 0) {
 			h = (
 				<RC.Div>
-					<KUI.Comp.SelectPaymentWay ref="payway" />
+					<KUI.Comp.SelectPaymentWayNoPayLater ref="payway" />
+					<RB.Col xs={6}>
+						<RB.Input type="text" ref="input_sc" placeholder={`Enter School Credit`} />
+					</RB.Col>
+
 					<RC.Div style={{textAlign:'right'}}>
 						<KUI.YesButton onClick={this.payNow.bind(this)} label="Pay Now"></KUI.YesButton>
 					</RC.Div>
@@ -425,18 +433,43 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 	}
 
 	payNow(){
+		let credit = 0;
 		let way = this.refs.payway.getValue();
-		console.log(way);
+		if(this.state.changeResult.tuitionDifferent > 0){
+			credit = parseInt(this.refs.input_sc.getValue(), 10)||0;
+			if(credit > 0 && credit > this.data.customer.schoolCredit){
+				swal('You don\'t have enough school credit', '', 'error');
+				return false;
+			}
+			if(credit >= this.state.changeResult.tuitionDifferent){
+				credit = this.state.changeResult.tuitionDifferent;
+				if(!way){
+					way = 'cash';
+				}
+			}
+
+		}
+
+
+
+
+		if(!way){
+			swal('Please select payment type', '', 'error');
+			return false;
+		}
+
 		if(way === 'cash' || way === 'check'){
 			this.changeToNewClass({
-				paymentType : way
+				paymentType : way,
+				credit : credit
 			}, function(nid, json){
 				util.goPath('/student/'+json.studentID);
 			});
 		}
 		else{
 			this.changeToNewClass({
-				paymentType : way
+				paymentType : way,
+				credit : credit
 			}, function(nid, json){
 				//TODO go to payment page
 				util.goPath('/student/changeclasspay/'+nid);
@@ -451,7 +484,8 @@ KUI.Student_ChangeClass = class extends KUI.Page{
 			toClassID : this.state.changeResult.toClass._id,
 			studentID : this.data.student._id,
 			amount : this.state.changeResult.tuitionDifferent,
-			paymentType : opts.paymentType
+			paymentType : opts.paymentType,
+			credit : opts.credit
 		};
 		this.module.Class.callMeteorMethod('changeClass', [data], {
 			success : function(rs){

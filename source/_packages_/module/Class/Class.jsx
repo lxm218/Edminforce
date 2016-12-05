@@ -489,7 +489,7 @@ let Class = class extends Base{
                 let cd = this.getAll({_id : opts.classID})[0];
 
 
-                let tuition = cd.tuition.type === 'class' ? cd.numberOfClass*cd.tuition.money : cd.tuition.money;
+                let tuition = cd.tuition.type === 'class' ? (cd.leftOfClass||cd.numberOfClass)*cd.tuition.money : cd.tuition.money;
 
 
 
@@ -553,7 +553,12 @@ let Class = class extends Base{
                     studentID = opts.studentID;
 
                 let amount = opts.amount,
+                    schoolCredit = 0,
                     paymentType = opts.paymentType;
+                if(opts.credit){
+                    schoolCredit = opts.credit;
+                    amount = amount - opts.credit;
+                }
 
                 let student = m.Student.getDB().findOne({_id : studentID});
 
@@ -594,7 +599,8 @@ let Class = class extends Base{
                     status : orderStatus,
                     paymentSource : 'admin',
                     amount : amount,
-                    paymentTotal : amount.toString()
+                    schoolCredit : schoolCredit,
+                    paymentTotal : (amount).toString()
                 };
                 let orderID = m.Order.getDB().insert(orderData);
                 m.ClassStudent.updateOrderID(orderID, newClassStudentID);
@@ -605,6 +611,10 @@ let Class = class extends Base{
                     });
                 }
 
+                if(opts.credit){
+                    m.Customer.callMeteorMethod('useSchoolCreditById', [opts.credit, student.accountID]);
+                }
+
                 //send email
                 Meteor.setTimeout(function(){
                     let tes = m.Email.callMeteorMethod('sendChangeClassConfirmEmail', [{
@@ -613,8 +623,12 @@ let Class = class extends Base{
                     console.log(tes);
                 }, 100);
 
+
+
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
+                m.Class.callMeteorMethod('syncNumberOfRegister', [cs.classID])
+                m.Class.callMeteorMethod('syncNumberOfRegister', [toClassID])
                 KG.RequestLog.addByType('change class', {
                     id : true,
                     data : {
@@ -677,6 +691,7 @@ let Class = class extends Base{
 
                 //add log
                 let cs = m.ClassStudent.getDB().findOne({_id:ClassStudentID});
+                m.Class.callMeteorMethod('syncNumberOfRegister', [cs.classID])
                 KG.RequestLog.addByType('cancel class', {
                     id : ClassStudentID,
                     data : {
@@ -973,14 +988,19 @@ let Class = class extends Base{
 
 
             if(!query.sessionID){
-                let session = KG.get('EF-Session').getDB().find({
-                    registrationStatus : 'Yes'
-                }).fetch();
+                let tsq = {};
+                if(query.registrationStatus){
+                    tsq.registrationStatus = 'Yes';
+                }
+
+                let session = KG.get('EF-Session').getDB().find(tsq).fetch();
                 session = _.map(session, (item)=>{
                     return item._id;
                 });
                 query.sessionID = {'$in' : session};
             }
+            delete query.registrationStatus;
+
 console.log(option)
             let handler = self._db.find(query, option).observeChanges({
                 added(id, fields){

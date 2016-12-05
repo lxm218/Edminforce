@@ -5,7 +5,9 @@ KUI.Student_index = class extends RC.CSSMeteorData{
         super(p);
 
         this.state = {
-            query : {},
+            query : {
+                status : 'Active'
+            },
             page : 1
         };
 
@@ -274,4 +276,3 @@ console.log(list)
         });
     }
 };
-

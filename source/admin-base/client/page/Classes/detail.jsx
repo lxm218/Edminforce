@@ -35,7 +35,7 @@ KUI.Class_detail = class extends KUI.Page{
         if(x){
             data = x.data[0];
         }
-        console.log(x.ready());
+        console.log(x);
 
         return {
             ready : x.ready(),
@@ -155,6 +155,7 @@ KUI.Class_detail = class extends KUI.Page{
         let list = _.filter(this.state.classTableData, (item)=>{
             return _.contains(['checkouted', 'pending'], item.status) && item.type === 'register';
         });
+        console.log(list)
 
 
         return (

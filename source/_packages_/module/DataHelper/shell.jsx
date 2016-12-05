@@ -31,5 +31,62 @@ Meteor.methods({
 		});
 
 		return true;
+	},
+
+	'DataShell:GetGithubIssue636Result' : function(){
+		let m = KG.DataHelper.getDepModule();
+		let date = moment('05/21/2016', KG.const.dateFormat);
+		let rs = {};
+
+		let md = m.Order.getDB().find({
+			type : 'register class',
+			status : 'success',
+			paymentSource : 'mobile',
+			updateTime : {
+				'$gte' : date.clone().toDate()
+			}
+		});
+		rs.mobileCount = md.count();
+		rs.mobile = {
+			'credit card' : 0,
+			'echeck' : 0,
+			'cash' : 0,
+			'check' : 0
+		};
+		_.each(md.fetch(), (item)=>{
+			if(!_.isUndefined(rs.mobile[item.paymentType]))
+				rs.mobile[item.paymentType] += item.amount;
+		});
+
+		let ad = m.Order.getDB().find({
+			type : 'register class',
+			status : 'success',
+			paymentSource : 'admin',
+			updateTime : {
+				'$gte' : date.clone().toDate()
+			}
+		});
+		rs.adminCount = ad.count();
+		rs.admin = {
+			'credit card' : 0,
+			'echeck' : 0,
+			'cash' : 0,
+			'check' : 0
+		};
+		_.each(ad.fetch(), (item)=>{
+			if(!_.isUndefined(rs.admin[item.paymentType]))
+				rs.admin[item.paymentType] += item.amount;
+		});
+
+		return rs;
+	},
+
+	'DataShell:SyncNumberOfRegister' : function(){
+		let m = KG.DataHelper.getDepModule();
+
+		const cl = m.Class.getDB().find().fetch();
+		_.each(cl, (item)=>{
+			m.Class.callMeteorMethod('syncNumberOfRegister', [item._id]);
+		});
 	}
 });

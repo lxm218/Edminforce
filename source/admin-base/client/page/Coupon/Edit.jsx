@@ -1,7 +1,7 @@
 KUI.Coupon_Edit = class extends KUI.Page{
 
     getMeteorData(){
-        let id = FlowRouter.getParam('id');
+        let id = FlowRouter.getQueryParam('id');
 
         let x = Meteor.subscribe('EF-Coupon', {
             query : {_id : id}

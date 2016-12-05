@@ -77,6 +77,11 @@ EdminForce.Components.Student = class extends RC.CSS {
                         fullWidth={true}
                         style={{marginTop:20}}
                         onTouchTap={this.onSave} />
+                    <RC.Div style={{"textAlign": "left"}}>
+                        <p/>
+                        <p/>
+                        <p className="font_9"><a href="/students" className="color_19">Go to Class Records</a>.</p>
+                    </RC.Div>
                 </div>
             </div>
         );

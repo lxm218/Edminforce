@@ -176,6 +176,7 @@ let StudentFilter = class extends RC.CSS{
 				}
 			};
 		}
+		query.status = 'Active';
 
 		this.setState({
 			searchResult : 'loading'
@@ -479,6 +480,16 @@ let ClassFilter = class extends KUI.Page{
 
 		if(teacher.getValue() && teacher.getValue()!=='all'){
 			query.teacher = teacher.getValue();
+		}
+
+		if(!query.sessionID){
+			let session = this.m.Session.getDB().find({
+				registrationStatus : 'Yes'
+			}).fetch();
+			session = _.map(session, (item)=>{
+				return item._id;
+			});
+			query.sessionID = {'$in' : session};
 		}
 
 		self.setState({

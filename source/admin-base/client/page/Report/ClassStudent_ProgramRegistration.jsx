@@ -6,21 +6,45 @@ const sy = {
 
 let Filter = class extends KUI.Page{
 	getMeteorData(){
-		this.m = KG.DataHelper.getDepModule();
+
+		let sx = Meteor.subscribe(util.getModuleName('Session')),
+			tx = Meteor.subscribe(util.getModuleName('AdminUser'), {
+				query : {
+					role : 'teacher'
+				}
+			});
 
 		return {
-			ready : true,
+			ready : sx.ready() && tx.ready()
 		};
 	}
 
 	render(){
-		let p = {
+		if(!this.data.ready){
+			return util.renderLoading();
+		}
 
+		let p = {
+			session : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-8',
+				ref : 'session',
+				label : 'Select Session'
+			},
+			teacher : {
+				labelClassName : 'col-xs-2',
+				wrapperClassName : 'col-xs-8',
+				ref : 'teacher',
+				label : 'Select Teacher'
+			}
 		};
 
 
 
-		let option = {};
+		let option = {
+			session : this.m.Session.getDB().find().fetch(),
+			teacher : this.m.AdminUser.getDB().find({role : 'teacher'}).fetch()
+		};
 
 		return (
 			<form className="form-horizontal">
@@ -40,6 +64,24 @@ let Filter = class extends KUI.Page{
 
 						</div>
 
+						<RB.Input type="select" {... p.session}>
+							<option value="-1">All</option>
+							{
+								_.map(option.session, (item, index)=>{
+									return <option key={index} value={item._id}>{item.name}</option>;
+								})
+							}
+						</RB.Input>
+
+						<RB.Input type="select" {... p.teacher}>
+							<option value="-1">All</option>
+							{
+								_.map(option.teacher, (item, index)=>{
+									return <option key={index} value={item.nickName}>{item.nickName}</option>;
+								})
+							}
+						</RB.Input>
+
 
 					</RB.Col>
 				</RB.Row>
@@ -56,8 +98,7 @@ let Filter = class extends KUI.Page{
 		};
 	}
 
-	componentDidMount(){
-		super.componentDidMount();
+	runOnceAfterDataReady(){
 
 		let {date} = this.getRefs();
 		$(date).find('.input-daterange').datepicker({});
@@ -70,6 +111,13 @@ let Filter = class extends KUI.Page{
 			startDate : start.val(),
 			endDate : end.val()
 		};
+
+		if(this.refs.session.getValue() !== '-1'){
+			rs.session = this.refs.session.getValue();
+		}
+		if(this.refs.teacher.getValue() !== '-1'){
+			rs.teacher = this.refs.teacher.getValue();
+		}
 
 
 		return rs;
@@ -153,6 +201,8 @@ console.log(rs);
 		}
 		return (
 			<RC.Div>
+				<h3>Program Registration Report</h3>
+				<hr/>
 				<Filter ref="filter" />
 				<RC.Div style={{textAlign:'right'}}>
 					<KUI.YesButton onClick={this.search.bind(this)}

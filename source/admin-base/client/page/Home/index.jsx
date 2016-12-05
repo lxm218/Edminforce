@@ -36,9 +36,28 @@ let PendingBox = class extends RC.CSS{
         });
     }
 
+    removeById(id){
+		let list = this.state.list||[];
+        let self = this
+
+		this.m.ClassStudent.callMeteorMethod('removeById', [id], {
+			success : function(){
+				let n = _.findIndex(list.list, {_id:id});
+
+                list.list.splice(n, 1);
+                list.count = list.list.length;
+                self.setState({
+                    list : _.clone(list)
+                });
+			}
+		});
+	}
+
     render() {
         if (!this.state.list) return null;
         if ('loading' === this.state.list) return util.renderLoading();
+
+        let self = this;
 
         let titleArray = [
             {
@@ -301,7 +320,7 @@ let WaitingBox = class extends RC.CSS{
     render() {
         if (!this.state.list) return null;
         if ('loading' === this.state.list) return util.renderLoading();
-
+console.log(this.state.list.list)
         let titleArray = [
             {
                 title : 'Class',
@@ -313,6 +332,12 @@ let WaitingBox = class extends RC.CSS{
                 title : 'Student',
                 reactDom(doc){
                     return <RC.URL style={sy.a} href={`/student/${doc.student[0]._id}`}>{doc.student[0].name}</RC.URL>
+                }
+            },
+            {
+                title : 'Registrations',
+                reactDom(doc){
+                    return `${doc.class[0].numberOfRegistered}/${doc.class[0].maxStudent}`
                 }
             },
             {

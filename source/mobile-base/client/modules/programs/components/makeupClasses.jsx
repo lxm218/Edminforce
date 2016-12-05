@@ -6,13 +6,22 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
         };
 
         this.onSelectDay = this.onSelectDay.bind(this);
+        this.isDisable = this.isDisable.bind(this);
+
     }
 
-    onSelectDay(day) {
+    onSelectDay(e, day, { selected, disabled }) {
+        if(disabled) return;
+
         day = moment(day).startOf('d');
         if (!this.props.makeupDate || day.diff(this.props.makeupDate,'d') != 0) {
             this.props.context.LocalState.set('makeupDate', day.toDate());
         }
+    }
+    isDisable(day){
+        let availableDates = this.props.availableDates
+        let dayF = moment(day).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD')
+        return availableDates && availableDates.indexOf(dayF)===-1
     }
 
     onSelectLesson(classData) {
@@ -66,7 +75,18 @@ EdminForce.Components.MakeupClasses = class extends RC.CSS {
                     <div className="students-detail-make-up">
                         <div className="make-up-step-1" style={{display: "block"}}>
                             <div>
-                              <EdminForce.Components.DateSelector onSelectDate={this.onSelectDay} minDate={new Date()} initDate={this.props.makeupDate} />
+
+                                {
+                                    //<EdminForce.Components.DateSelector onSelectDate={this.onSelectDay} minDate={new Date()} initDate={this.props.makeupDate} />
+                                }
+
+                                <RC.DayPickerInput
+                                  date={this.props.makeupDate}
+                                  disabledDays={ this.isDisable }
+                                  selectedDays={ day => DayPicker.DateUtils.isSameDay(day, this.props.makeupDate) }
+                                  onDayClick={this.onSelectDay}
+                                />
+
                             </div>
                             { this.renderClasses() }
                         </div>

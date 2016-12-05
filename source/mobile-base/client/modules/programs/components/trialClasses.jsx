@@ -9,18 +9,28 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
         }
 
         this.onSelectDay = this.onSelectDay.bind(this);
+        this.isDisable = this.isDisable.bind(this);
+
     }
 
     getTrialStudents(classItem) {
         this.props.actions.showTrialEligibleStudents(classItem);
     }
 
-    onSelectDay(day) {
+    onSelectDay(e, day, { selected, disabled }) {
+        if(disabled) return;
+
         day = moment(day).startOf('d');
         if (!this.props.trialDate || day.diff(this.props.trialDate,'d') != 0) {
             this.props.context.LocalState.set('trialDate', day.toDate());
         }
     }
+    isDisable(day){
+      let availableDates = this.props.availableDates
+      let dayF = moment(day).tz(EdminForce.Settings.timeZone).format('YYYY-MM-DD')
+      return availableDates && availableDates.indexOf(dayF)===-1
+    }
+
 
     render() {
         let self = this;
@@ -60,9 +70,20 @@ EdminForce.Components.TrialClasses = class extends RC.CSS {
                     <p className="font_8">Only available classes are listed here. If you need to book trial class on a particular date which is not shown here, please call the school.</p>
                     <br></br>
                 </RC.VerticalAlign>
+              {
+                //<EdminForce.Components.DateSelector onSelectDate={this.onSelectDay}  minDate={new Date()} initDate={this.props.trialDate} />
+              }
 
-                <EdminForce.Components.DateSelector onSelectDate={this.onSelectDay}  minDate={new Date()} initDate={this.props.trialDate} />
-                <RC.List>
+              <RC.DayPickerInput
+                date={this.props.trialDate}
+                disabledDays={ this.isDisable }
+                selectedDays={ day => DayPicker.DateUtils.isSameDay(day, this.props.trialDate) }
+                onDayClick={this.onSelectDay}
+              />
+
+
+
+              <RC.List>
                     {
                       lessons.length ? lessonElements :lessonElementsEmpty
                     }

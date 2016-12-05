@@ -288,7 +288,7 @@ KUI.Student_profile = class extends KUI.Page{
 
         let json = [];
         _.each(this.data.classStudentData, (item)=>{
-            if(item.type !== 'register' && item.type !== 'wait'){
+            if(item.type !== 'register'){
                 return true;
             }
             if(item.status !== 'checkouted'){
@@ -594,9 +594,9 @@ KUI.Student_profile = class extends KUI.Page{
             if(item.type !== 'trial' && item.type !== 'makeup' && item.type !== 'wait'){
                 return true;
             }
-            if(item.type !== 'wait' && (!item.lessonDate || moment(moment(item.lessonDate)).isBefore(moment(), 'days'))){
-                return true;
-            }
+            // if(item.type !== 'wait' && (!item.lessonDate || moment(moment(item.lessonDate)).isBefore(moment(), 'days'))){
+            //     return true;
+            // }
             let cls = this.data.classData[item.classID] || {};
             item.class = cls.nickName;
             item.teacher = cls.teacher;
@@ -749,14 +749,18 @@ KUI.Student_profile = class extends KUI.Page{
                     let id = self.data.id;
 
                     let del = function(){
-                        self.m.ClassStudent.getDB().remove({_id:doc._id});
+                        self.m.ClassStudent.callMeteorMethod('removeById', [doc._id], {
+                            success : function(){
+                                self.state.waitForPayList.list.splice(index, 1);
 
-                        self.state.waitForPayList.list.splice(index, 1);
-
-                        self.setState({
-                            waitForPayList : self.state.waitForPayList,
-                            refresh : Meteor.uuid()
+                                self.setState({
+                                    waitForPayList : self.state.waitForPayList,
+                                    refresh : Meteor.uuid()
+                                });
+                            }
                         });
+
+
                     };
 
                     let goToPay = function(){
@@ -793,4 +797,3 @@ KUI.Student_profile = class extends KUI.Page{
     }
 
 };
-

@@ -208,6 +208,39 @@ function getAvailableTrialLessons(programId, startDt, endDt) {
 }
 
 /*
+* @return  ['2016-05-20','2016-05-20']  //days that has class
+* */
+function getAvailableTrialLessonsSchedule(programId){
+    const program = Collections.program.findOne({_id:programId});
+    if (!program) {
+        throw new Meteor.Error(500, 'program not found','Invalid class id: ' + programId);
+    }
+
+    //find all sessions not ended
+    const sessions = Collections.session.find({
+        endDate : {$gte:new Date()}
+    }, {
+        sort: {
+            startDate: 1
+        }
+    }).fetch();
+
+    const endDates= _.pluck(sessions, 'endDate')
+    const maxEndDate = _.max(endDates,(d)=>new Date(d).getTime())
+
+    const lessons = getAvailableTrialLessons(programId, new Date(), maxEndDate)
+
+    //according to EdminForce.utils.dateFormat = 'YYYY-MM-DDTHH:mm:ss';
+    let dates = _.map(lessons,(item)=>{
+        return item.lessonDate && item.lessonDate.split('T')[0]
+    })
+    dates = _.uniq(dates).sort()
+
+    return dates
+}
+
+
+/*
  * returns a list of students who are eligible for a specified trial class
  */
 function getTrialStudents(accountID, classID) {
@@ -410,6 +443,31 @@ function getAvailableMakeupLessons(userId, studentID, classID, startDt, endDt) {
 }
 
 
+function getAvailableMakeupLessonsSchedule(userId, studentID, classID){
+    //find all sessions not ended
+    const sessions = Collections.session.find({
+        endDate : {$gte:new Date()}
+    }, {
+        sort: {
+            startDate: 1
+        }
+    }).fetch();
+
+    const endDates= _.pluck(sessions, 'endDate')
+    const maxEndDate = _.max(endDates,(d)=>new Date(d).getTime())
+
+    const lessons = getAvailableMakeupLessons(userId, studentID, classID, new Date(), maxEndDate)
+
+    //according to EdminForce.utils.dateFormat = 'YYYY-MM-DDTHH:mm:ss';
+    let dates = _.map(lessons,(item)=>{
+        return item.lessonDate && item.lessonDate.split('T')[0]
+    })
+    dates = _.uniq(dates).sort()
+
+    return dates
+}
+
+
 
 EdminForce.Registration.getAvailableTrialLessons = getAvailableTrialLessons;
 EdminForce.Registration.getAvailableMakeupLessons = getAvailableMakeupLessons;
@@ -418,3 +476,6 @@ EdminForce.Registration.validateStudentForClass = validateStudentForClass;
 EdminForce.Registration.bookTrial = bookTrial;
 EdminForce.Registration.isAvailableForMakeup = isAvailableForMakeup;
 EdminForce.Registration.isAvailableForTrial = isAvailableForTrial;
+
+EdminForce.Registration.getAvailableTrialLessonsSchedule = getAvailableTrialLessonsSchedule;
+EdminForce.Registration.getAvailableMakeupLessonsSchedule = getAvailableMakeupLessonsSchedule;

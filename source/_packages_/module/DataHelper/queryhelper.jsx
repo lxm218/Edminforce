@@ -222,6 +222,21 @@ console.log(start.format(), end.format());
                 let classData = m.Class.getAll(query),
                     rs = {};
 
+
+                let formatTime = function(time){
+                    let a = parseInt(time.substr(0, 2), 10),
+                        b = parseInt(time.substr(3, 2), 10),
+                        c = time.substr(5,2);
+                    if(c === 'PM'){
+                        a+=12;
+                    }
+                    return a*60+b;
+                };
+
+                classData.sort(function(a, b){
+                    return formatTime(a.schedule.time) > formatTime(b.schedule.time);
+                });
+
                 let format = 'YYYYMMDD';
                 _.each(classData, (item)=>{
 
@@ -330,16 +345,33 @@ console.log(start.format(), end.format());
                     end = KG.util.getZoneDateByString(opts.endDate, zone).add(1, 'days');
 
                 let rs = [];
+
+                let query = {
+                    status : 'checkouted',
+                    type : 'register',
+                    createTime : {
+                        '$gte' : start.toDate(),
+                        '$lte' : end.toDate()
+                    }
+                };
+
+                if(opts.session || opts.teacher){
+                    let tq = {};
+                    if(opts.session){
+                        tq.sessionID = opts.session;
+                    }
+                    if(opts.teacher){
+                        tq.teacherID = opts.teacher;
+                    }
+                    let tl = m.Class.getDB().find(tq).fetch();
+                    query.classID = {
+                        '$in' : _.map(tl, (l)=>{ return l._id })
+                    };
+                }
+
                 let list = m.ClassStudent.getDB().aggregate([
                     {
-                        $match : {
-                            status : 'checkouted',
-                            type : 'register',
-                            createTime : {
-                                '$gte' : start.toDate(),
-                                '$lte' : end.toDate()
-                            }
-                        }
+                        $match : query
                     },
                     {
                         $sort : {
@@ -397,6 +429,129 @@ console.log(start.format(), end.format());
                 }while(end.isAfter(start, 'day'));
 
                 return rs;
+            },
+
+            getStudentEmailList : function(opts){
+                const m = this.getDepModule()
+
+                const clq = {}
+                if(opts.session){
+                    clq.sessionID = opts.session
+                }
+                if(opts.day){
+                    clq['schedule.day'] = opts.day
+                }
+                if(opts.teacher){
+                    clq['teacherID'] = opts.teacher
+                }
+                if(opts.program){
+                    clq['programID'] = opts.program
+                }
+                if(opts.status){
+                    clq['status'] = opts.status
+                }
+                const cl = m.Class.getDB().find(clq).fetch()
+
+                const classList = _.map(cl, (c)=>{
+                    return c._id
+                })
+
+                let pipeline = [
+                    {
+                        '$match' : {
+                            type : 'register',
+                            status : 'checkouted',
+                            classID : {$in : classList}
+                        }
+
+                    },
+                    {
+                        '$sort' : {
+                            updateTime : -1
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Customer.getDBName(),
+                            localField : 'accountID',
+                            foreignField : '_id',
+                            as : 'customer'
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Student.getDBName(),
+                            localField : 'studentID',
+                            foreignField : '_id',
+                            as : 'student'
+                        }
+                    }
+                ];
+
+                let csl = m.ClassStudent.getDB().aggregate(pipeline)
+
+                csl = _.uniq(csl, (item)=>item.studentID)
+
+
+
+                return csl;
+            },
+
+            getEmailListBySessionRegistration : function(sessionID){
+                const m = this.getDepModule()
+
+                // const session = m.Session.getDB().findOne({name : sessionName})
+                // if(!session){
+                //     return new Meteor.Error('error', 'session name is not valid')
+                // }
+
+                //get all class by this session
+                const cl = m.Class.getDB().find({
+                    sessionID : sessionID
+                }).fetch()
+                const classList = _.map(cl, (c)=>{
+                    return c._id
+                })
+
+                let pipeline = [
+                    {
+                        '$match' : {
+                            type : 'register',
+                            status : 'checkouted',
+                            classID : {$in : classList}
+                        }
+
+                    },
+                    {
+                        '$sort' : {
+                            updateTime : -1
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Customer.getDBName(),
+                            localField : 'accountID',
+                            foreignField : '_id',
+                            as : 'customer'
+                        }
+                    },
+                    {
+                        '$lookup' : {
+                            from : m.Student.getDBName(),
+                            localField : 'studentID',
+                            foreignField : '_id',
+                            as : 'student'
+                        }
+                    }
+                ];
+
+                let csl = m.ClassStudent.getDB().aggregate(pipeline)
+
+                csl = _.uniq(csl, (item)=>item.studentID)
+
+
+
+                return csl;
             },
 
 

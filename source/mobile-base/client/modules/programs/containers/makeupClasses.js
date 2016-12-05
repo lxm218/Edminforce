@@ -40,5 +40,42 @@ const reactiveFnMakeupClasses = ({context,actions,studentID,classID}, onData) =>
         actions.clearErrors(errorId);
     }
 };
-EdminForce.Containers.MakeupClasses = Composer.composeWithTracker(reactiveFnMakeupClasses)(EdminForce.Components.MakeupClasses);
+
+const availableDates = ({context,actions,studentID,classID}, onData)=>{
+    const errorId = 'ERROR_MAKEUPCLASSES_AVAIBLE_DATES';
+    const methodName = 'program.getMakeupClassesSchedule';
+
+    const error = context.LocalState.get(errorId);
+    if (error) {
+        onData(null, {
+            availableDates : [],
+            error
+        })
+    }
+    else {
+
+        Meteor.call(methodName, studentID, classID, function(methodError, result) {
+
+            console.log(result)
+            onData(null,{
+                availableDates : result || [],
+                error: methodError
+            });
+        });
+
+    }
+
+    return () => {
+        actions.clearErrors(errorId);
+    }
+}
+
+
+EdminForce.Containers.MakeupClasses = Composer.composeAll(
+  Composer.composeWithTracker(reactiveFnMakeupClasses),
+  Composer.composeWithTracker(availableDates)
+
+)(EdminForce.Components.MakeupClasses)
+
+//Composer.composeWithTracker(reactiveFnMakeupClasses)(EdminForce.Components.MakeupClasses);
 
