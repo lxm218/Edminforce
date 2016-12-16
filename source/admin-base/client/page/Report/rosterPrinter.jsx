@@ -250,15 +250,36 @@ KUI.Report_RosterPrinter = class extends RC.CSS {
                         }
                     }
 
+                    // merge challenger with master
+                    if (_.find(majorLevels, m=>m.name.toLowerCase() == 'challenger' )) {
+                        majorLevels = _.reject(majorLevels, m => m.name.toLowerCase() == 'challenger');
+                        if (!_.find(majorLevels, m=>m.name.toLowerCase() == 'master')) {
+                            majorLevels.push({
+                                name: 'Master',
+                                alias: 'MST',
+                                subLevel: 1,
+                                order: 20
+                            })
+                        }
+                    }
+
                     // add a class group for each level.
                     // add the class to its group, if the class has students from multiple major levels
                     // merge all major level columns into one.
                     majorLevels.forEach( (majorLevel, index) => {
                         let grp = _.find(classGroups, {id: majorLevel.name.toLowerCase()});
                         if (!grp) {
+                            let majorLevelName = majorLevel.name;
+                            if (majorLevelName == '')
+                                majorLevelName = 'Level N/A';
+                            else if (majorLevelName.toLowerCase()=='bubbler')
+                                majorLevelName = 'Pre-Bubbler/Bubbler';
+                            else if (majorLevelName.toLowerCase()=='master')
+                                majorLevelName = 'Challenger/Master';
+
                             grp={
                                 id: majorLevel.name.toLowerCase(),
-                                name: majorLevel.name == '' ? 'Level N/A' : (majorLevel.name.toLowerCase()=='bubbler' ? 'Pre-Bubbler/Bubbler' : majorLevel.name ),
+                                name: majorLevelName,
                                 order: majorLevel.order,
                                 classes: []
                             }
