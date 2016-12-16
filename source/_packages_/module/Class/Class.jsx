@@ -872,10 +872,34 @@ let Class = class extends Base{
                 let student = m.Student.getDB().findOne({_id : opts.studentID}),
                     cls = m.Class.getDB().findOne({_id : opts.classID});
 
-                console.log(cls.levels, student.level);
-                if(!_.contains(cls.levels, student.level)){
+                let f = false
+                if(!student.level){
+                    f = false
+                }
+                else if(student.level && !_.contains(cls.levels, student.level)){
+
+                    let sv = m.ClassLevel.getDB().findOne({_id : student.level})
+
+                    if(sv){
+                        sv = sv.order+1
+
+                        sv = m.ClassLevel.getDB().find({order:sv}).fetch()
+
+                        _.each(sv, (item)=>{
+                            if(_.contains(cls.levels, item._id)){
+                                f = true
+                                return false
+                            }
+                        })
+                    }
+                }
+                else{
+                    f = true
+                }
+                if(!f){
                     return KG.result.out(false, new Meteor.Error('error', 'student level doesn\'t match class level'));
                 }
+
 
                 let data = {
                     accountID : student.accountID,
@@ -1028,11 +1052,15 @@ let Class = class extends Base{
                     //pubThis.removed(dbName, doc._id)
                 });
 
-                arr = self.getAll({_id : id});
+                let tmp = self.getAll({_id : id})[0];
+                tmp.sortNumber = KG.DataHelper.getClassSortNumber(tmp.schedule.time);
+                arr = [tmp];
                 console.log(id);
                 _.each(arr, (doc)=>{
 
+
                     pubThis.added(dbName, doc._id, doc);
+
                 });
             };
 
@@ -1049,9 +1077,10 @@ let Class = class extends Base{
                 query.sessionID = {'$in' : session};
             }
             delete query.registrationStatus;
-console.log(query)
             if(!option.sort){
-                option.sort = {}
+                option.sort = {
+                    updateTime : -1
+                }
             }
             //option.sort['schedule.time'] = 1;
             let handler = self._db.find(query, option).observeChanges({
@@ -1098,7 +1127,7 @@ console.log(query)
                 let data = [];
                 if(x.ready()){
                     data = tmpDB.find({}).fetch();
-                    data = KG.DataHelper.sortClassByTime(data)
+                    //data = KG.DataHelper.sortClassByTime(data)
                 }
 
 

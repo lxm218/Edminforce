@@ -5,13 +5,13 @@ Meteor.methods({
         result.programs = KG.get('EF-Program').getDB().find({}, {fields:{name:1}}).fetch();
         // all teachers
         result.teachers = KG.get('EF-AdminUser').getDB().find({
-            role : 'teacher', 
+            role : 'teacher',
             status: 'active'}, {
             fields: {
                 nickName:1
             }
         }).fetch();
-        
+
         return result;
     },
 
@@ -91,7 +91,8 @@ Meteor.methods({
                     status:1,
                     pendingFlag:1,
                     updateTime:1,
-                    orderID:1
+                    orderID:1,
+                    sessionStatus:1
                 }
             }).fetch();
 
@@ -123,7 +124,7 @@ Meteor.methods({
 
                 // calculate the number of days from lastRegistrationDate to report date
                 // if the number of days <= 7, the student is "new" or "transferred"
-                let numDays = reportDate.diff(stdInfo.lastRegistrationDate || result.session.startDate, 'd');
+                let numDays = reportDate.diff((stdInfo?stdInfo.lastRegistrationDate:result.session.startDate), 'd');
                 // in the first week of class, student is marked as "new" or "transferred"
                 if (numDays <= 7) {
                     newStudent = true;
@@ -139,6 +140,7 @@ Meteor.methods({
                     level: stdInfo ? stdInfo.level : '',
                     newStudent,
                     transferred,
+                    sessionStatus : s.sessionStatus || ''
                 })
             });
         })
@@ -149,7 +151,7 @@ Meteor.methods({
             p.classes = groupByPrograms[k];
             return p;
         })
-   
+
         return result;
     }
 });

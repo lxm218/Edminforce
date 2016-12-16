@@ -47,7 +47,7 @@ KUI.Class_index = class extends RC.CSSMeteorData{
                 pageSize : 10,
                 pageNum : this.state.page,
                 sort : {
-                    
+                    sortNumber : 1
                 }
             });
         }

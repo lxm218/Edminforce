@@ -85,10 +85,17 @@ KG.define('EF-Order', class extends Base{
 
                 let order = m.Order.getDB().findOne({_id : orderID});
                 _.each(order.details, (csID)=>{
+
+                    //update session status
+                    const sessionStatus = m.ClassStudent.callMeteorMethod('getSessionStatusByData', [csID]);
+                    console.log(sessionStatus)
+
+
                     m.ClassStudent.getDB().update({
                         _id : csID
                     }, {$set : {
                         status : 'checkouted',
+                        sessionStatus : sessionStatus,
                         orderID : orderID
                     }});
                 });

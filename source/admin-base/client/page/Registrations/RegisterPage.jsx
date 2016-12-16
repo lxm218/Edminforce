@@ -48,7 +48,7 @@ let StudentFilter = class extends KUI.Page{
 				loading : true
 			});
 
-			this.m.Student.callMeteorMethod('getStudentListByQuery', [{_id:this.props.studentID}, {}], {
+			this.m.Student.callMeteorMethod('getStudentListByQuery', [{_id:self.props.studentID}, {}], {
 				success : function(rs){
 					console.log(rs);
 					if(rs.count>0){

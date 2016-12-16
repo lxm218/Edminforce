@@ -52,6 +52,12 @@ Schema.Student = {
         optional : true
     }),
 
+    isImport : KG.schema.default({
+        type : Boolean,
+        optional : true,
+        defaultValue : false
+    }),
+
     // the following two fields are merged from mobile schema, required by mobile
     school: KG.schema.default({
         optional:true
@@ -86,7 +92,9 @@ Schema.StudentLevel = {
     studentID : KG.schema.default(),
     studentName : KG.schema.default(),
     level : KG.schema.default(),
-    oldLevel : KG.schema.default(),
+    oldLevel : KG.schema.default({
+        optional : true
+    }),
 
     createTime : KG.schema.createTime(),
     updateTime : KG.schema.updateTime()

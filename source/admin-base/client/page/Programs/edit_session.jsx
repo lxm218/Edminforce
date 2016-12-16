@@ -88,6 +88,12 @@ KUI.Session_edit = class extends KUI.Page{
                 ref : 'ss',
                 label : 'Registration Status'
             },
+            order : {
+                labelClassName : 'col-xs-3',
+                wrapperClassName : 'col-xs-4',
+                ref : 'order',
+                label : 'Session Order'
+            },
             blockDay : {
                 labelClassName : 'col-xs-3',
                 wrapperClassName : 'col-xs-5',
@@ -157,6 +163,8 @@ KUI.Session_edit = class extends KUI.Page{
                                 }
                             </RB.Input>
 
+                            <RB.Input type="number" {... p.order} />
+
                             <RC.Div style={{textAlign:'right'}}>
                                 <KUI.NoButton onClick={this.goBack.bind(this)} label="Back"></KUI.NoButton>
                                 <KUI.NoButton style={sy.ml} href={`/program/session/copy_class/${this.data.id}`} label="Copy Class"></KUI.NoButton>
@@ -174,7 +182,7 @@ KUI.Session_edit = class extends KUI.Page{
     }
 
     getAddBoxRefs(){
-        let arr = ['sd1', 'sd2', 'sname', 'ss', 'blockDay'];
+        let arr = ['sd1', 'sd2', 'sname', 'ss', 'blockDay', 'order'];
         arr = _.map(arr, (item)=>{
             return this.refs[item];
         });
@@ -184,7 +192,8 @@ KUI.Session_edit = class extends KUI.Page{
             sd1 : arr[0],
             'sd2' : arr[1],
             ss : arr[3],
-            blockDay : arr[4]
+            blockDay : arr[4],
+            order : arr[5]
         };
 
     }
@@ -193,13 +202,15 @@ KUI.Session_edit = class extends KUI.Page{
         let data = this.data.data;
         if(!data) return;
         console.log(data);
-        let {sd1, sd2, sname, ss} = this.getAddBoxRefs();
+        let {sd1, sd2, sname, ss, order} = this.getAddBoxRefs();
 
         $(sd1.getInputDOMNode()).datepicker('setDate', data.registrationStartDate);
         sname.getInputDOMNode().value = data.name;
         $(sd2).find('input').eq(0).datepicker('setDate', data.startDate);
         $(sd2).find('input').eq(1).datepicker('setDate', data.endDate);
         ss.getInputDOMNode().value = data.registrationStatus;
+
+        order.getInputDOMNode().value = data.sortOrder;
 
         let day = data.blockOutDay || [];
         this.setState({
@@ -265,7 +276,7 @@ KUI.Session_edit = class extends KUI.Page{
 
     save(){
         let self = this;
-        let {sd1, sd2, sname, ss, blockDay} = this.getAddBoxRefs();
+        let {sd1, sd2, sname, ss, blockDay, order} = this.getAddBoxRefs();
 
         let format = util.const.dateFormat;
 
@@ -274,7 +285,8 @@ KUI.Session_edit = class extends KUI.Page{
             startDate : $(sd2).find('input').eq(0).val(),
             endDate : $(sd2).find('input').eq(1).val(),
             registrationStartDate : sd1.getValue(),
-            registrationStatus : ss.getValue()
+            registrationStatus : ss.getValue(),
+            sortOrder : order.getValue()
         };
 
         data.startDate = moment(data.startDate, format).toDate();
