@@ -419,20 +419,29 @@ KUI.Email_index = class extends KUI.Page{
         let address = [];
         let o = util.getReactJQueryObject(this.refs.etable.refs.table).find('input[name="sml"]');
 
-        o.each(function(){
-            let oo = $(this);
-            if(oo.prop('checked')){
+        let name = _.find(self.data.filterList, function(one){
+            return one.email === oo.data('email');
+        }).name;
 
-                let name = _.find(self.data.filterList, function(one){
-                    return one.email === oo.data('email');
-                }).name;
-
-                address.push({
-                    user : name,
-                    address : oo.data('email')
-                });
-            }
+        address.push({
+            user : name,
+            address : oo.data('email')
         });
+
+        // o.each(function(){
+        //     let oo = $(this);
+        //     if(oo.prop('checked')){
+        //
+        //         let name = _.find(self.data.filterList, function(one){
+        //             return one.email === oo.data('email');
+        //         }).name;
+        //
+        //         address.push({
+        //             user : name,
+        //             address : oo.data('email')
+        //         });
+        //     }
+        // });
         if(address.length < 1){
             util.toast.showError('Please select email you want send');
             return false;
