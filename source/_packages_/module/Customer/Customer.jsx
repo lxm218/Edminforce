@@ -376,7 +376,26 @@ console.log(option);
                     count : m.Order.getDB().find(query).count(),
                     data : result
                 };
+            },
+
+            updateTuitionReward(num, accountID){
+                let m = KG.DataHelper.getDepModule();
+                let cu = self._db.findOne({_id : accountID});
+                let b = cu.tuitionReward||0;
+
+                let nd = self._db.update({_id : accountID}, {$set : {
+                    tuitionReward : parseInt(b+num, 10)
+                }});
+
+                //insert note
+                if(nd){
+
+                    return true;
+                }
+
+                return false;
             }
+
         };
     }
 });

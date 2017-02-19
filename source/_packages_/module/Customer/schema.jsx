@@ -81,13 +81,19 @@ Schema.Customer = {
         decimal : true,
         defaultValue : 0
     }),
+    tuitionReward : KG.schema.default({
+      type : Number,
+      optional : true,
+      decimal : true,
+      defaultValue : 0
+    }),
     //for payment
     hasRegistrationFee : {
         type : Boolean,
         optional : true,
         defaultValue : true
     },
-    
+
     // the session id that this customer is sent a reminder email
     remindedSession: {
         type: String,

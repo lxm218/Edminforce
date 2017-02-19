@@ -16,7 +16,8 @@ KG.define('EF-Request', class extends Base{
 					'cancel makeup class',
 					'pay order',
 					'change school credit',
-					'cancel pending class'
+					'cancel pending class',
+					'change tuition reward'
 				]
 			}),
 			client : KG.schema.default({
@@ -63,14 +64,9 @@ KG.define('EF-Request', class extends Base{
 				};
 				break;
 			case 'change school credit':
+			case 'change tuition reward':
 				data.detail = {
 					id : true,
-
-					/*
-					* customer
-					* credit
-					* note
-					* */
 					data : param.data
 				};
 				break;
@@ -129,6 +125,10 @@ KG.define('EF-Request', class extends Base{
 
 					if(d.credit){
 						rs.result.credit = d.credit>=0?('+'+d.credit):'-'+Math.abs(d.credit);
+					}
+
+					if(d.reward){
+						rs.result.reward = d.reward>=0?('+'+d.reward):'-'+Math.abs(d.reward);
 					}
 
 				}
