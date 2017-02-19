@@ -96,6 +96,9 @@ KG.define('EF-Order', class extends Base{
                     m.Customer.callMeteorMethod('useSchoolCreditById', [order.schoolCredit, order.accountID]);
                 }
 
+
+                m.Customer.callMeteorMethod('updateTuitionReward', [parseInt(((order.amount)*0.05).toFixed(0), 10), order.accountID]);
+
                 m.Order.getDB().update({_id : orderID}, {$set : {
                     status : 'success',
                     paymentSource : 'admin'
