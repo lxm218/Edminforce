@@ -13,7 +13,7 @@ co (function *(){
         customers : db.collection('EF-Customer')
     }
 
-    let customers = yield collections.customers.find({status:'Active'}, {name:1, phone:1,email:1}).toArray();
+    let customers = yield collections.customers.find({}, {name:1, phone:1,email:1}).toArray();
 
     let writer = csvWriter();
     writer.pipe(fs.createWriteStream('families.csv'))
