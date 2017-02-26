@@ -239,6 +239,10 @@ let RSTable = class extends KUI.Page{
 			list.push({item : 'Credit', value : d.credit});
 		}
 
+		if(d.reward){
+			list.push({item : 'Credit', value : d.reward});
+		}
+
 		if(d.note){
 			list.push({item : 'Note', value : d.note});
 		}

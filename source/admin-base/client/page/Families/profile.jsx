@@ -723,6 +723,11 @@ KUI.Family_profile = class extends KUI.Page{
                     <KUI.YesButton style={sy.ml} onClick={this.refundSchoolCredit.bind(this)} label="Refund School Credit"></KUI.YesButton>
                 </RC.Div>
                 <hr/>
+                {this.renderTuitionReward()}
+                <RC.Div style={sy.rd}>
+                    <KUI.YesButton style={sy.ml} onClick={this.changeTuitionReward.bind(this)} label="Change Reward"></KUI.YesButton>
+                </RC.Div>
+                <hr/>
                 <h4>Students</h4>
                 {this.renderStudentTable()}
                 <RC.Div style={sy.rd}>
@@ -763,8 +768,67 @@ KUI.Family_profile = class extends KUI.Page{
         let data = this.data.profile;
         this.refs.form.setDefaultValue(data);
         this.setSchoolCreditNumber(data.schoolCredit);
+        this.setTuitionReward(data.tuitionReward);
 
         this.refs.billingTable.getStateData(this.data.id);
+    }
+
+    changeTuitionReward(){
+        let self = this;
+
+        if(!util.user.checkPermission('schoolCreidt', 'edit')){
+            swal(util.const.NoOperatorPermission, '', 'error');
+            return false;
+        }
+
+        let param = {
+            title : 'Change Reward',
+            text : [
+                '<fieldset>',
+                    '<input type="text" class="js_n" style="display:block;" tabindex="3" placeholder="Tuition Reward">',
+                '</fieldset>'
+            ].join(''),
+            confirmButtonText : 'Confirm',
+            cancelButtonText : 'Cancel',
+            showCancelButton : true,
+            confirmButtonColor : '#1ab394',
+            html : true,
+            closeOnConfirm : false,
+            animation : 'slide-from-top'
+
+        };
+
+        swal(param, function(){
+            let num = $('.js_n').val();
+
+            num = parseFloat(num);
+            if(!num){
+                swal.showInputError('tuition reward must be a number');
+                return false;
+            }
+
+            let old = self.getTuitionReward();
+
+            self.m.Customer.callMeteorMethod('updateTuitionReward', [num, self.data.id], {
+                success(){
+                    self.setTuitionReward(num);
+                    swal.close();
+                    KG.RequestLog.addByType('change tuition reward', {
+                        data : {
+                            customer : self.data.profile,
+                            old : old,
+                            reward : num
+                        }
+                    });
+
+                },
+                error(e){
+                    console.error(e)
+                }
+            });
+
+        });
+
     }
 
     renderStudentTable(){
@@ -834,12 +898,37 @@ KUI.Family_profile = class extends KUI.Page{
         );
     }
 
+    renderTuitionReward(){
+        let p = {
+            labelClassName : 'col-xs-2',
+            wrapperClassName : 'col-xs-6',
+            label : 'Tuition Reward',
+            ref : 'reward',
+            disabled : true
+        };
+        return (
+            <form className="form-horizontal">
+                <RB.Row>
+                    <RB.Input type="text" {...p} />
+                </RB.Row>
+
+            </form>
+        );
+    }
+
     setSchoolCreditNumber(num){
         this.refs.credit.getInputDOMNode().value = num||0;
 
     }
+    setTuitionReward(num){
+        this.refs.reward.getInputDOMNode().value = num||0;
+    }
     getSchoolCreditNumber(){
         let n = this.refs.credit.getValue()||0;
+        return  parseFloat(n);
+    }
+    getTuitionReward(){
+        const n = this.refs.reward.getValue()||0;
         return  parseFloat(n);
     }
 
